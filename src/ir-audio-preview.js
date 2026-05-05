@@ -4,8 +4,8 @@
   let ctx = null;
   const buffers = new Map();
   const stemCandidates = [
-    '../assets/audio/stems/Flute Solo_1(25).wav',
-    '../assets/audio/stems/Flute Solo_1(24).wav'
+    '../assets/audio/stems/Flute Solo_1(24).wav',
+    '../assets/audio/stems/Flute Solo_1(25).wav'
   ];
   let fallbackWarningShown = false;
 

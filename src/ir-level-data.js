@@ -96,7 +96,22 @@
     'GAM-IR-05': {env:'GAM', title:'Game IR 5', space:'Open Air', icon:'🌄', brief:'A wide outdoor environment should have almost no room reflections.'}
   };
 
-  Object.keys(IR_LEVELS).forEach(id => { IR_LEVELS[id].id = id; IR_LEVELS[id].imageCandidates = candidatesFor(IR_LEVELS[id].space); });
+  const LEVEL_IMAGE_CANDIDATES = {
+    'REC-IR-01': ['../assets/IR images/vocal booth.png'],
+    'REC-IR-02': ['../assets/IR images/Wood Room v2.png','../assets/IR images/Wood room.png'],
+    'LIV-IR-01': ['../assets/IR images/Club  Live Venue0.png'],
+    'LIV-IR-02': ['../assets/IR images/Gym.png'],
+    'BRD-IR-01': ['../assets/IR images/Tight Broadcast Studio0.png'],
+    'PST-IR-01': ['../assets/IR images/Living Room v2.png','../assets/IR images/Living Room.png'],
+    'PST-IR-02': ['../assets/IR images/Scoring Stage.png'],
+    'GAM-IR-01': ['../assets/IR images/Tunnel.png'],
+    'GAM-IR-02': ['../assets/IR images/Courtyard.png']
+  };
+
+  Object.keys(IR_LEVELS).forEach(id => {
+    IR_LEVELS[id].id = id;
+    IR_LEVELS[id].imageCandidates = (LEVEL_IMAGE_CANDIDATES[id] || candidatesFor(IR_LEVELS[id].space)).slice();
+  });
 
   global.SF_IR_DATA = { IR_LIST, IR_META, IR_LEVELS, candidatesFor };
 })(window);
