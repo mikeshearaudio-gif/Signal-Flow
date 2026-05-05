@@ -3,42 +3,48 @@
 
   let ctx = null;
   const buffers = new Map();
+  const impulseBuffers = new Map();
   const reverseBuffers = new WeakMap();
   const loadAttempts = [];
   let fallbackWarningShown = false;
   let lastStemUrl = null;
   let lastUsedFallback = false;
+  let lastProfileName = '';
 
   const stemCandidates = [
     '../assets/audio/stems/Flute Solo_1(24).wav',
     '../assets/audio/stems/Flute Solo_1(25).wav'
   ];
 
-  const PRESETS = {
-    'Vocal Booth': { dry:.93, wet:.06, decay:.10, predelay:.006, feedback:.03, highpass:90, lowpass:7200, taps:[.018], tapGain:.025 },
-    'Bedroom Studio': { dry:.82, wet:.15, decay:.22, predelay:.014, feedback:.08, highpass:80, lowpass:6400, taps:[.032,.071], tapGain:.035, modDepth:.001 },
-    'Podcast Studio': { dry:.91, wet:.08, decay:.14, predelay:.008, feedback:.04, highpass:110, lowpass:5600, taps:[.021], tapGain:.025 },
-    'Office': { dry:.77, wet:.21, decay:.32, predelay:.018, feedback:.13, highpass:95, lowpass:5100, taps:[.026,.064,.118], tapGain:.04 },
-    'Classroom': { dry:.66, wet:.33, decay:.55, predelay:.026, feedback:.24, highpass:85, lowpass:6200, taps:[.041,.093,.172], tapGain:.055 },
-    'Rehearsal Room': { dry:.62, wet:.38, decay:.70, predelay:.022, feedback:.31, highpass:70, lowpass:7600, taps:[.029,.077,.143,.219], tapGain:.06, modDepth:.002 },
-    'Living Room': { dry:.75, wet:.23, decay:.34, predelay:.016, feedback:.15, highpass:75, lowpass:4700, taps:[.027,.066,.121], tapGain:.045 },
-    'Wood Room': { dry:.65, wet:.34, decay:.48, predelay:.018, feedback:.24, highpass:100, lowpass:8200, taps:[.021,.049,.096,.151], tapGain:.055 },
-    'Scoring Stage': { dry:.54, wet:.43, decay:.88, predelay:.041, feedback:.34, highpass:65, lowpass:9400, taps:[.052,.119,.211,.344], tapGain:.065, modDepth:.002 },
-    'Soundstage': { dry:.49, wet:.48, decay:1.05, predelay:.056, feedback:.42, highpass:70, lowpass:8600, taps:[.064,.151,.278,.421], tapGain:.068, modDepth:.003 },
-    'Open Air': { dry:.96, wet:.025, decay:.04, predelay:.003, feedback:.01, highpass:55, lowpass:16000, taps:[.085], tapGain:.012 },
-    'Courtyard': { dry:.61, wet:.36, decay:.64, predelay:.038, feedback:.27, highpass:80, lowpass:8800, taps:[.059,.137,.241], tapGain:.06 },
-    'Alley': { dry:.58, wet:.39, decay:.58, predelay:.026, feedback:.34, highpass:120, lowpass:9000, taps:[.045,.091,.182,.296], tapGain:.07 },
-    'Parking Garage': { dry:.46, wet:.53, decay:1.08, predelay:.047, feedback:.50, highpass:140, lowpass:7200, taps:[.061,.128,.255,.386,.511], tapGain:.075, modDepth:.001 },
-    'Tunnel': { dry:.42, wet:.56, decay:1.15, predelay:.072, feedback:.55, highpass:120, lowpass:6800, taps:[.086,.173,.346,.612], tapGain:.08, panSweep:true },
-    'Broadcast Studio': { dry:.94, wet:.05, decay:.08, predelay:.005, feedback:.025, highpass:120, lowpass:5900, taps:[.017], tapGain:.02 },
-    'Attic Chamber': { dry:.68, wet:.30, decay:.42, predelay:.013, feedback:.22, highpass:160, lowpass:4300, taps:[.023,.057,.102], tapGain:.05 },
-    'Club / Live Venue': { dry:.55, wet:.43, decay:.82, predelay:.044, feedback:.38, highpass:85, lowpass:9300, taps:[.049,.112,.205,.331], tapGain:.07, modDepth:.003 },
-    'Gymnasium': { dry:.40, wet:.58, decay:1.45, predelay:.061, feedback:.58, highpass:90, lowpass:9800, taps:[.074,.163,.299,.484,.721], tapGain:.075, modDepth:.002 },
-    'Church Interior': { dry:.34, wet:.64, decay:1.85, predelay:.082, feedback:.62, highpass:70, lowpass:8200, taps:[.101,.226,.392,.641,.914], tapGain:.078, modDepth:.004 },
-    'Cathedral': { dry:.28, wet:.70, decay:2.35, predelay:.105, feedback:.69, highpass:65, lowpass:7600, taps:[.127,.282,.511,.838,1.17], tapGain:.082, modDepth:.006 },
-    'Concert Hall': { dry:.43, wet:.54, decay:1.32, predelay:.068, feedback:.47, highpass:60, lowpass:10200, taps:[.073,.169,.312,.517,.743], tapGain:.07, modDepth:.003 },
-    'Plate': { dry:.34, wet:.74, decay:1.15, predelay:.018, feedback:.68, highpass:420, lowpass:12500, taps:[.011,.019,.031,.047,.071,.113,.173], tapGain:.09, metallic:true, modDepth:.007 },
-    'Reverse': { dry:.28, wet:.70, decay:.92, predelay:.13, feedback:.23, highpass:180, lowpass:6900, taps:[.16,.26,.38,.52], tapGain:.08, reverse:true }
+  const PROFILES = {
+    'Open Air': { dry:.985, wet:.012, length:.10, decay:.045, predelay:.002, density:6, highpass:55, lowpass:17000, width:.18, early:[{t:.085,g:.012,p:.12}] },
+    'Vocal Booth': { dry:.95, wet:.045, length:.14, decay:.06, predelay:.004, density:16, highpass:125, lowpass:6100, width:.22, early:[{t:.012,g:.028,p:-.12},{t:.024,g:.018,p:.12}] },
+    'Broadcast Studio': { dry:.955, wet:.038, length:.12, decay:.055, predelay:.003, density:14, highpass:135, lowpass:5600, width:.18, early:[{t:.011,g:.022,p:0}] },
+    'Podcast Studio': { dry:.935, wet:.06, length:.17, decay:.075, predelay:.004, density:18, highpass:125, lowpass:5100, width:.20, early:[{t:.014,g:.029,p:-.1},{t:.029,g:.016,p:.12}] },
+
+    'Bedroom Studio': { dry:.84, wet:.16, length:.36, decay:.18, predelay:.010, density:36, highpass:85, lowpass:4200, width:.34, soft:true, early:[{t:.026,g:.046,p:-.22},{t:.058,g:.030,p:.20}] },
+    'Living Room': { dry:.79, wet:.22, length:.52, decay:.25, predelay:.012, density:40, highpass:75, lowpass:4700, width:.38, soft:true, early:[{t:.029,g:.054,p:-.2},{t:.071,g:.037,p:.24},{t:.128,g:.021,p:-.06}] },
+    'Office': { dry:.74, wet:.26, length:.52, decay:.24, predelay:.014, density:34, highpass:150, lowpass:5000, width:.28, boxy:true, flutter:true, flutterPeriod:.034, flutterGain:.055, early:[{t:.031,g:.074,p:-.1},{t:.064,g:.056,p:.14},{t:.098,g:.040,p:-.12},{t:.133,g:.028,p:.10}] },
+    'Classroom': { dry:.62, wet:.40, length:.82, decay:.36, predelay:.018, density:46, highpass:170, lowpass:5600, width:.42, boxy:true, flutter:true, flutterPeriod:.041, flutterGain:.082, early:[{t:.038,g:.095,p:-.22},{t:.082,g:.074,p:.20},{t:.151,g:.054,p:-.2},{t:.229,g:.038,p:.22}] },
+    'Wood Room': { dry:.65, wet:.34, length:.60, decay:.29, predelay:.012, density:48, highpass:75, lowpass:7600, width:.40, warm:true, early:[{t:.021,g:.066,p:-.2},{t:.047,g:.055,p:.18},{t:.091,g:.038,p:-.1},{t:.142,g:.026,p:.15}] },
+
+    'Rehearsal Room': { dry:.55, wet:.48, length:1.02, decay:.55, predelay:.018, density:78, highpass:80, lowpass:7600, width:.58, lively:true, early:[{t:.025,g:.078,p:-.32},{t:.063,g:.071,p:.28},{t:.118,g:.054,p:-.2},{t:.197,g:.041,p:.22}] },
+    'Club / Live Venue': { dry:.49, wet:.54, length:1.24, decay:.62, predelay:.034, density:74, highpass:95, lowpass:6200, width:.66, lively:true, stage:true, early:[{t:.043,g:.092,p:-.38},{t:.104,g:.073,p:.34},{t:.193,g:.052,p:-.25},{t:.318,g:.041,p:.28}] },
+    'Courtyard': { dry:.68, wet:.30, length:.78, decay:.35, predelay:.040, density:30, highpass:100, lowpass:9500, width:.82, outdoor:true, early:[{t:.061,g:.080,p:-.52},{t:.142,g:.058,p:.48},{t:.251,g:.034,p:-.32}] },
+    'Alley': { dry:.64, wet:.35, length:.68, decay:.31, predelay:.022, density:18, highpass:135, lowpass:9200, width:.84, outdoor:true, slap:true, echoTrain:[.047,.094,.188,.292], early:[{t:.047,g:.115,p:-.72},{t:.094,g:.086,p:.68},{t:.188,g:.060,p:-.6},{t:.292,g:.040,p:.56}] },
+
+    'Parking Garage': { dry:.40, wet:.65, length:1.48, decay:.66, predelay:.044, density:34, highpass:155, lowpass:7000, width:.76, metallic:true, concrete:true, echoTrain:[.066,.132,.264,.402,.536,.702], early:[{t:.066,g:.125,p:-.5},{t:.132,g:.108,p:.48},{t:.264,g:.082,p:-.42},{t:.402,g:.059,p:.38},{t:.536,g:.044,p:-.32}] },
+    'Tunnel': { dry:.34, wet:.68, length:2.05, decay:.88, predelay:.064, density:26, highpass:125, lowpass:6400, width:.98, tunnel:true, echoTrain:[.092,.184,.368,.646,.936,1.24], early:[{t:.092,g:.145,p:-.84},{t:.184,g:.122,p:.84},{t:.368,g:.092,p:-.76},{t:.646,g:.064,p:.74},{t:.936,g:.044,p:-.62}] },
+    'Gymnasium': { dry:.36, wet:.68, length:1.88, decay:.82, predelay:.054, density:50, highpass:105, lowpass:10400, width:.82, bright:true, slap:true, flutter:true, flutterPeriod:.086, flutterGain:.070, early:[{t:.084,g:.158,p:-.58},{t:.168,g:.122,p:.58},{t:.310,g:.092,p:-.48},{t:.498,g:.066,p:.48},{t:.742,g:.042,p:-.38}] },
+    'Soundstage': { dry:.62, wet:.34, length:1.12, decay:.44, predelay:.046, density:52, highpass:80, lowpass:5200, width:.56, soft:true, damped:true, early:[{t:.070,g:.041,p:-.28},{t:.156,g:.031,p:.30},{t:.281,g:.020,p:-.2}] },
+    'Scoring Stage': { dry:.52, wet:.46, length:1.34, decay:.64, predelay:.040, density:96, highpass:70, lowpass:9200, width:.70, smooth:true, clean:true, early:[{t:.052,g:.052,p:-.3},{t:.119,g:.044,p:.31},{t:.218,g:.028,p:-.22}] },
+    'Concert Hall': { dry:.41, wet:.59, length:1.95, decay:.96, predelay:.066, density:132, highpass:65, lowpass:9400, width:.88, smooth:true, musical:true, early:[{t:.074,g:.055,p:-.34},{t:.166,g:.041,p:.35},{t:.318,g:.027,p:-.24}] },
+    'Church Interior': { dry:.30, wet:.72, length:2.55, decay:1.30, predelay:.082, density:122, highpass:80, lowpass:6800, width:.88, warm:true, bloom:.34, diffuse:true, early:[{t:.132,g:.038,p:-.34},{t:.251,g:.026,p:.36},{t:.430,g:.018,p:-.22}] },
+    'Cathedral': { dry:.20, wet:.84, length:4.35, decay:2.45, predelay:.125, density:164, highpass:70, lowpass:5000, width:.98, warm:true, bloom:.92, dark:true, diffuse:true, airy:true, early:[{t:.225,g:.026,p:-.42},{t:.452,g:.018,p:.44},{t:.780,g:.012,p:-.28}] },
+    'Attic Chamber': { dry:.69, wet:.29, length:.45, decay:.22, predelay:.011, density:24, highpass:170, lowpass:4100, width:.26, boxy:true, early:[{t:.022,g:.071,p:-.12},{t:.055,g:.052,p:.1},{t:.103,g:.033,p:-.09}] },
+
+    'Plate': { dry:.32, wet:.78, length:1.55, decay:.82, predelay:.014, density:220, highpass:360, lowpass:13200, width:.9, plate:true, smooth:true, early:[] },
+    'Reverse': { dry:.46, wet:.86, length:1.55, decay:1.05, predelay:.030, density:96, highpass:150, lowpass:7200, width:.9, reverse:true, reverseTail:true, swellTime:1.05, forwardDelay:.92, early:[{t:.22,g:.040,p:-.35},{t:.38,g:.030,p:.35}] }
   };
 
   function getCtx(){
@@ -126,6 +132,116 @@
     doc.body.appendChild(warning);
   }
 
+  function seededRandom(seed){
+    let h = 2166136261;
+    for(let i = 0; i < seed.length; i++){
+      h ^= seed.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return function(){
+      h += 0x6D2B79F5;
+      let t = h;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function profileFor(name, meta){
+    if(PROFILES[name]) return PROFILES[name];
+    const m = (meta && meta[name]) || {};
+    const length = {none:.12, small:.32, medium:.75, large:1.35, massive:2.8, fx:1.1}[m.size] || .7;
+    return { dry:.7, wet:.28, length, decay:length * .5, predelay:.02, density:40, highpass:90, lowpass:7800, width:.5, early:[{t:.04,g:.04,p:-.2},{t:.09,g:.03,p:.22}] };
+  }
+
+  function impulseKey(name, profile, sampleRate){
+    return [
+      name, sampleRate, profile.length, profile.decay, profile.predelay, profile.density,
+      profile.lowpass, profile.highpass, profile.width, profile.plate, profile.dark,
+      profile.bloom, profile.flutterPeriod, profile.echoTrain && profile.echoTrain.join(',')
+    ].join('|');
+  }
+
+  function addImpulseTap(left, right, sample, amp, pan){
+    if(sample < 0 || sample >= left.length) return;
+    left[sample] += amp * (1 - Math.max(0, pan) * .55);
+    right[sample] += amp * (1 + Math.min(0, pan) * .55);
+  }
+
+  function createImpulse(name, profile, audio){
+    const sampleRate = audio.sampleRate;
+    const key = impulseKey(name, profile, sampleRate);
+    if(impulseBuffers.has(key)) return impulseBuffers.get(key);
+
+    const predelaySamples = Math.max(0, Math.floor((profile.predelay || 0) * sampleRate));
+    const tailSamples = Math.max(64, Math.floor((profile.length || .4) * sampleRate));
+    const buffer = audio.createBuffer(2, predelaySamples + tailSamples, sampleRate);
+    const left = buffer.getChannelData(0);
+    const right = buffer.getChannelData(1);
+    const rand = seededRandom(name + ':impulse');
+    const density = profile.density || 40;
+    const eventMultiplier = profile.plate ? 3.6 : (profile.diffuse || profile.smooth ? 1.65 : 1.15);
+    const events = Math.max(8, Math.floor(density * (profile.length || .4) * eventMultiplier));
+    const width = profile.width == null ? .55 : profile.width;
+    const decay = Math.max(.03, profile.decay || .4);
+    const bloom = profile.bloom || 0;
+
+    for(let i = 0; i < events; i++){
+      let t = profile.plate ? Math.pow(rand(), 1.6) : rand();
+      if(profile.bloom) t = Math.pow(t, 1 + bloom * 2.35);
+      if(profile.diffuse) t = Math.pow(t, 1.18);
+      if(profile.slap && i < 14) t = Math.min(1, (i + 1) / 16 + rand() * .015);
+      if(profile.tunnel && i < 12) t = Math.min(1, (i + 1) / 13 + rand() * .018);
+      const sample = predelaySamples + Math.min(tailSamples - 1, Math.floor(t * tailSamples));
+      const seconds = t * (profile.length || .4);
+      let envelope = Math.exp(-seconds / decay);
+      if(bloom) envelope *= Math.min(1, Math.pow(seconds / Math.max(.035, bloom), 1.35));
+      if(profile.dark) envelope *= 1 - t * .50;
+      if(profile.damped) envelope *= 1 - t * .38;
+      if(profile.soft) envelope *= 1 - t * .28;
+      if(profile.outdoor) envelope *= .62;
+      if(profile.plate) envelope *= .92 + rand() * .16;
+      if(profile.metallic || profile.concrete) envelope *= (i % 3 === 0) ? 1.28 : .70;
+      if(profile.clean || profile.musical) envelope *= .88 + .18 * Math.sin(i * 1.7);
+      const sign = rand() > .5 ? 1 : -1;
+      const amp = sign * envelope * (profile.plate ? .40 : .34) / Math.sqrt(events / 24);
+      const pan = (rand() * 2 - 1) * width;
+      addImpulseTap(left, right, sample, amp, pan);
+    }
+
+    if(profile.flutter){
+      const period = profile.flutterPeriod || .04;
+      const count = Math.min(12, Math.floor((profile.length || .5) / period));
+      for(let i = 1; i <= count; i++){
+        const t = i * period + (rand() - .5) * .006;
+        const env = Math.exp(-t / Math.max(.08, decay * .75));
+        const pan = i % 2 ? -.45 : .45;
+        addImpulseTap(left, right, predelaySamples + Math.floor(t * sampleRate), (profile.flutterGain || .05) * env, pan);
+      }
+    }
+
+    if(profile.echoTrain){
+      profile.echoTrain.forEach((time, index) => {
+        const env = Math.exp(-time / Math.max(.1, decay));
+        const pan = index % 2 ? .72 : -.72;
+        const amp = (profile.tunnel ? .16 : profile.concrete ? .13 : .10) * env;
+        addImpulseTap(left, right, predelaySamples + Math.floor(time * sampleRate), amp, pan);
+      });
+    }
+
+    if(profile.plate){
+      for(let i = predelaySamples; i < buffer.length; i++){
+        const t = (i - predelaySamples) / sampleRate;
+        const env = Math.exp(-t / decay);
+        left[i] += (rand() * 2 - 1) * env * .0055;
+        right[i] += (rand() * 2 - 1) * env * .0055;
+      }
+    }
+
+    impulseBuffers.set(key, buffer);
+    return buffer;
+  }
+
   function reverseBuffer(buffer){
     if(reverseBuffers.has(buffer)) return reverseBuffers.get(buffer);
     const audio = getCtx();
@@ -139,189 +255,186 @@
     return reversed;
   }
 
-  function profileFor(name, meta){
-    if(PRESETS[name]) return PRESETS[name];
-    const m = (meta && meta[name]) || {};
-    const sizeDecay = { none:.04, small:.24, medium:.58, large:1.08, massive:1.9, fx:1.0 }[m.size] || .5;
-    const kindTone = { dry:.05, treated:.14, soft:.22, reflective:.42, lively:.5, controlled:.34, wash:.7, directional:.55, metallic:.6, boxy:.28, effect:.65 }[m.kind] || .3;
-    return {
-      dry: Math.max(.32, .88 - sizeDecay * .24),
-      wet: Math.min(.66, .09 + sizeDecay * .26 + kindTone * .18),
-      decay: sizeDecay,
-      predelay: .012 + sizeDecay * .035,
-      feedback: Math.min(.62, .06 + sizeDecay * .25 + kindTone * .16),
-      highpass: 80,
-      lowpass: 9000 - kindTone * 2500,
-      taps: [.035,.085,.17],
-      tapGain: .045
-    };
-  }
-
-  function createOutput(audio){
-    const master = audio.createGain();
-    master.gain.value = .26;
-    master.connect(audio.destination);
-    return master;
-  }
-
-  function connectProfile(audio, sourceNode, profile, master, duration){
-    const dryGain = audio.createGain();
-    dryGain.gain.value = profile.dry;
-    sourceNode.connect(dryGain);
-    dryGain.connect(master);
-
-    const wetInput = audio.createGain();
-    wetInput.gain.value = profile.wet;
-    sourceNode.connect(wetInput);
-
+  function connectTone(audio, input, profile, master){
     const highpass = audio.createBiquadFilter();
     highpass.type = 'highpass';
-    highpass.frequency.value = profile.highpass || 70;
+    highpass.frequency.value = profile.highpass || 80;
+    highpass.Q.value = .7;
 
     const lowpass = audio.createBiquadFilter();
     lowpass.type = 'lowpass';
     lowpass.frequency.value = profile.lowpass || 8000;
-    lowpass.Q.value = profile.metallic ? 4.2 : .72;
+    lowpass.Q.value = profile.plate ? .45 : (profile.metallic || profile.concrete ? 3.2 : .7);
 
-    const predelay = audio.createDelay(1.5);
-    predelay.delayTime.value = profile.predelay || .02;
-
-    const feedbackDelay = audio.createDelay(2.8);
-    feedbackDelay.delayTime.value = Math.min(1.15, Math.max(.025, (profile.decay || .5) * .22));
-
-    const feedback = audio.createGain();
-    feedback.gain.value = Math.min(.78, profile.feedback || .2);
-
-    const wetOut = audio.createGain();
-    wetOut.gain.value = .88;
-
-    wetInput.connect(highpass);
+    input.connect(highpass);
     highpass.connect(lowpass);
-    lowpass.connect(predelay);
-    predelay.connect(feedbackDelay);
-    feedbackDelay.connect(feedback);
-    feedback.connect(feedbackDelay);
-    feedbackDelay.connect(wetOut);
-    predelay.connect(wetOut);
-    wetOut.connect(master);
+    lowpass.connect(master);
+    return { highpass, lowpass };
+  }
 
-    const taps = profile.taps || [];
-    taps.forEach((time, index) => {
-      const tapDelay = audio.createDelay(1.5);
-      tapDelay.delayTime.value = time;
-      const tapGain = audio.createGain();
-      tapGain.gain.value = (profile.tapGain || .04) * Math.max(.28, 1 - index * .11);
+  function connectEarlyReflections(audio, sourceNode, profile, master, gainScale){
+    const stops = [];
+    (profile.early || []).forEach((tap, index) => {
+      const delay = audio.createDelay(2);
+      delay.delayTime.value = tap.t;
+      const gain = audio.createGain();
+      gain.gain.value = tap.g * (gainScale == null ? 1 : gainScale);
+      const filter = audio.createBiquadFilter();
+      filter.type = profile.metallic || profile.concrete ? 'bandpass' : 'lowpass';
+      filter.frequency.value = (profile.metallic || profile.concrete) ? (520 + index * 330) : (profile.bright ? 10800 : (profile.lowpass || 7500));
+      filter.Q.value = (profile.metallic || profile.concrete) ? 6.5 : (profile.boxy ? 1.35 : .7);
       const panner = audio.createStereoPanner ? audio.createStereoPanner() : null;
-      predelay.connect(tapDelay);
-      tapDelay.connect(tapGain);
+      sourceNode.connect(delay);
+      delay.connect(filter);
+      filter.connect(gain);
       if(panner){
-        panner.pan.value = index % 2 ? .38 : -.38;
-        tapGain.connect(panner);
+        panner.pan.value = tap.p || 0;
+        gain.connect(panner);
         panner.connect(master);
       }else{
-        tapGain.connect(master);
+        gain.connect(master);
       }
     });
-
-    const stops = [];
-    if(profile.modDepth){
-      const mod = audio.createOscillator();
-      const modGain = audio.createGain();
-      mod.frequency.value = profile.metallic ? 5.8 : .42;
-      modGain.gain.value = profile.modDepth;
-      mod.connect(modGain);
-      modGain.connect(feedbackDelay.delayTime);
-      mod.start();
-      stops.push(() => mod.stop());
-    }
-    if(profile.metallic){
-      [640, 980, 1470].forEach((freq, index) => {
-        const resonator = audio.createBiquadFilter();
-        resonator.type = 'bandpass';
-        resonator.frequency.value = freq;
-        resonator.Q.value = 8 + index * 3;
-        const rg = audio.createGain();
-        rg.gain.value = .11;
-        wetInput.connect(resonator);
-        resonator.connect(rg);
-        rg.connect(master);
-      });
-    }
-    if(profile.panSweep && audio.createStereoPanner){
-      const pan = audio.createStereoPanner();
-      const panDelay = audio.createDelay(1.5);
-      panDelay.delayTime.value = .19;
-      const panGain = audio.createGain();
-      panGain.gain.value = .18;
-      predelay.connect(panDelay);
-      panDelay.connect(panGain);
-      panGain.connect(pan);
-      pan.connect(master);
-      const now = audio.currentTime;
-      pan.pan.setValueAtTime(-.65, now);
-      pan.pan.linearRampToValueAtTime(.65, now + Math.min(2.2, duration));
-    }
-
     return () => stops.forEach(stop => { try{ stop(); }catch(e){} });
   }
 
-  function playSynthetic(audio, profile, master){
+  function connectConvolver(audio, sourceNode, profile, name, master, wetScale){
+    const wetGain = audio.createGain();
+    wetGain.gain.value = profile.wet * (wetScale == null ? 1 : wetScale);
+    const convolver = audio.createConvolver();
+    convolver.normalize = true;
+    convolver.buffer = createImpulse(name, profile, audio);
+    sourceNode.connect(convolver);
+    convolver.connect(wetGain);
+    connectTone(audio, wetGain, profile, master);
+  }
+
+  function envelopeSource(audio, sourceNode, duration){
+    const env = audio.createGain();
+    const now = audio.currentTime;
+    env.gain.setValueAtTime(0, now);
+    env.gain.linearRampToValueAtTime(.95, now + .022);
+    env.gain.setValueAtTime(.95, now + Math.max(.05, duration - .18));
+    env.gain.linearRampToValueAtTime(.001, now + duration);
+    sourceNode.connect(env);
+    return env;
+  }
+
+  function createOutput(audio){
+    const master = audio.createGain();
+    master.gain.value = .28;
+    master.connect(audio.destination);
+    return master;
+  }
+
+  function playSynthetic(audio, profile, name, master){
     showFallbackWarning();
     lastUsedFallback = true;
     const now = audio.currentTime;
-    const env = audio.createGain();
-    connectProfile(audio, env, profile, master, 1.9);
+    const synthetic = audio.createGain();
+    const dry = audio.createGain();
+    dry.gain.value = profile.dry * .55;
+    synthetic.connect(dry);
+    dry.connect(master);
+    connectConvolver(audio, synthetic, profile, name, master);
+    connectEarlyReflections(audio, synthetic, profile, master);
+
     [523.25,659.25,783.99,659.25,587.33,523.25].forEach((freq, step) => {
       const o = audio.createOscillator();
       const g = audio.createGain();
-      o.type = profile.metallic ? 'triangle' : 'sine';
+      o.type = profile.plate ? 'triangle' : 'sine';
       o.frequency.value = profile.reverse ? freq * .5 : freq;
       const t = now + step * .18;
       g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(.32, t + (profile.reverse ? .13 : .012));
-      g.gain.exponentialRampToValueAtTime(.001, t + .16);
+      g.gain.linearRampToValueAtTime(.28, t + (profile.reverse ? .18 : .012));
+      g.gain.exponentialRampToValueAtTime(.001, t + .17);
       o.connect(g);
-      g.connect(env);
+      g.connect(synthetic);
       o.start(t);
       o.stop(t + .18);
     });
-    setTimeout(() => { try{ master.disconnect(); }catch(e){} }, 2200);
+    setTimeout(() => { try{ master.disconnect(); }catch(e){} }, 2700);
     return 1.9;
+  }
+
+  function playReverseIR(audio, stem, profile, name, master){
+    const now = audio.currentTime;
+    const reverseDuration = Math.min(1.85, stem.buffer.duration || 1.85);
+    const forwardDelay = profile.forwardDelay || .9;
+    const forwardDuration = Math.min(2.2, stem.buffer.duration || 2.2);
+
+    const reverseSrc = audio.createBufferSource();
+    reverseSrc.buffer = reverseBuffer(stem.buffer);
+    const swell = audio.createGain();
+    swell.gain.setValueAtTime(.001, now);
+    swell.gain.linearRampToValueAtTime(.08, now + .18);
+    swell.gain.linearRampToValueAtTime(.96, now + (profile.swellTime || 1.05));
+    swell.gain.exponentialRampToValueAtTime(.001, now + reverseDuration);
+    reverseSrc.connect(swell);
+    connectConvolver(audio, swell, profile, name, master, 1.05);
+    connectEarlyReflections(audio, swell, profile, master, 1.15);
+    const reverseAir = audio.createGain();
+    reverseAir.gain.value = .16;
+    swell.connect(reverseAir);
+    connectTone(audio, reverseAir, profile, master);
+
+    const forwardSrc = audio.createBufferSource();
+    forwardSrc.buffer = stem.buffer;
+    const forwardEnv = audio.createGain();
+    forwardEnv.gain.setValueAtTime(0, now);
+    forwardEnv.gain.setValueAtTime(0, now + forwardDelay);
+    forwardEnv.gain.linearRampToValueAtTime(.86, now + forwardDelay + .045);
+    forwardEnv.gain.setValueAtTime(.86, now + forwardDelay + Math.max(.08, forwardDuration - .18));
+    forwardEnv.gain.linearRampToValueAtTime(.001, now + forwardDelay + forwardDuration);
+    forwardSrc.connect(forwardEnv);
+    const dryGain = audio.createGain();
+    dryGain.gain.value = profile.dry;
+    forwardEnv.connect(dryGain);
+    dryGain.connect(master);
+    connectConvolver(audio, forwardEnv, profile, name, master, .24);
+
+    reverseSrc.start(now, 0, reverseDuration);
+    reverseSrc.stop(now + reverseDuration + .03);
+    forwardSrc.start(now + forwardDelay, 0, forwardDuration);
+    forwardSrc.stop(now + forwardDelay + forwardDuration + .03);
+
+    setTimeout(() => { try{ master.disconnect(); }catch(e){} }, (forwardDelay + forwardDuration + profile.length + .4) * 1000);
+    return forwardDelay + forwardDuration + .35;
   }
 
   async function playIR(name, meta){
     const audio = await unlock();
     const profile = profileFor(name, meta);
+    lastProfileName = name;
     const master = createOutput(audio);
     const stem = await loadStem();
-    const now = audio.currentTime;
 
-    if(!stem) return playSynthetic(audio, profile, master);
+    if(!stem) return playSynthetic(audio, profile, name, master);
 
     lastUsedFallback = false;
-    const buffer = profile.reverse ? reverseBuffer(stem.buffer) : stem.buffer;
+    if(profile.reverse) return playReverseIR(audio, stem, profile, name, master);
+
     const src = audio.createBufferSource();
-    src.buffer = buffer;
-    const trim = Math.min(2.35, buffer.duration || 2.35);
-    const env = audio.createGain();
-    env.gain.setValueAtTime(0, now);
-    if(profile.reverse){
-      env.gain.linearRampToValueAtTime(.92, now + Math.min(.72, trim * .68));
-      env.gain.linearRampToValueAtTime(.001, now + trim);
-    }else{
-      env.gain.linearRampToValueAtTime(.95, now + .025);
-      env.gain.setValueAtTime(.95, now + Math.max(.04, trim - .18));
-      env.gain.linearRampToValueAtTime(.001, now + trim);
-    }
-    src.connect(env);
-    const stopExtras = connectProfile(audio, env, profile, master, trim);
-    src.start(now, 0, trim);
-    src.stop(now + trim + .03);
+    src.buffer = stem.buffer;
+    const duration = Math.min(2.35, stem.buffer.duration || 2.35);
+    const shaped = envelopeSource(audio, src, duration);
+
+    const dryGain = audio.createGain();
+    dryGain.gain.value = profile.dry;
+    shaped.connect(dryGain);
+    dryGain.connect(master);
+
+    connectConvolver(audio, shaped, profile, name, master);
+    const stopEarly = connectEarlyReflections(audio, shaped, profile, master);
+
+    const now = audio.currentTime;
+    src.start(now, 0, duration);
+    src.stop(now + duration + .03);
     setTimeout(() => {
-      stopExtras();
+      stopEarly();
       try{ master.disconnect(); }catch(e){}
-    }, (trim + Math.max(1.3, profile.decay || .8)) * 1000);
-    return trim + .35;
+    }, (duration + Math.max(.8, profile.length || .8)) * 1000);
+    return duration + .35;
   }
 
   async function playCompare(selected, reference, meta){
@@ -331,6 +444,7 @@
 
   function getStatus(){
     return {
+      lastProfileName,
       lastStemUrl,
       lastUsedFallback,
       fallbackWarningShown,

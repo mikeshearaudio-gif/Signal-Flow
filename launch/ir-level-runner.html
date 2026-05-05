@@ -20,9 +20,9 @@
       <section class="card selector">
         <div class="selector-head"><div><div class="eyebrow">24 IR Selector</div><div class="selector-title">Choose a reverb space</div><div class="mini" id="selectedReadout">No IR selected.</div></div><div class="controls"><button class="btn secondary" id="previewBtn">Preview Selected</button><button class="btn" id="submitBtn">Submit IR</button><button class="btn secondary" id="resetBtn">Reset</button></div></div>
         <div class="ir-grid" id="irGrid"></div>
-        <div class="result" id="resultBox"><div class="stars">—</div><div class="score">Select an IR to begin.</div><div class="feedback">All 24 choices are available. Plate and Reverse are selectable effect choices, but they never score above one star.</div><div class="meter"><span id="scoreMeter"></span></div></div>
+        <div class="result" id="resultBox"><div class="stars">—</div><div class="score">Select an IR to begin.</div><div class="feedback">All 24 choices are available. Listen for room size, surface tone, reflection density, and decay shape.</div><div class="meter"><span id="scoreMeter"></span></div></div>
         <div class="complete-actions" id="completeActions"><button class="btn" id="nextBtn">Next Board</button><button class="btn secondary" id="chooseBtn">Choose Another Board</button></div>
-        <div class="legend"><span class="pill">⭐⭐⭐ = 100</span><span class="pill">⭐⭐ = 50</span><span class="pill">⭐ = 25</span><span class="pill">Plate / Reverse = 25</span></div>
+        <div class="legend"><span class="pill">⭐⭐⭐ = 100</span><span class="pill">⭐⭐ = 50</span><span class="pill">⭐ = 25</span></div>
       </section>
     </div>
   </div>
@@ -92,7 +92,7 @@
       selected = null;
       document.querySelectorAll('.ir-choice').forEach(x => x.classList.remove('active'));
       readout.textContent = 'No IR selected.';
-      resultBox.innerHTML = '<div class="stars">—</div><div class="score">Select an IR to begin.</div><div class="feedback">All 24 choices are available. Plate and Reverse are selectable effect choices, but they never score above one star.</div><div class="meter"><span></span></div>';
+      resultBox.innerHTML = '<div class="stars">—</div><div class="score">Select an IR to begin.</div><div class="feedback">All 24 choices are available. Listen for room size, surface tone, reflection density, and decay shape.</div><div class="meter"><span></span></div>';
     });
     document.getElementById('submitBtn').addEventListener('click', async () => {
       if(!selected || submitted) return;
