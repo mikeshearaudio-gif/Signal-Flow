@@ -1,8 +1,10 @@
 # Signal Flow
 
-Signal Flow is an audio-routing puzzle/training game about studio, live sound, broadcast, game-audio, and impulse-response workflows.
+Educational audio-routing game for learning signal flow, patching, live sound, broadcast, post-production, game audio, diagnosis workflows, and IR/reverb-space listening.
 
-## Current Import
+## Current Handoff Target
+
+Latest active build: **v1.41.16 - IR normal level flow fix**
 
 This repository import is based on the local v1.41.16 handoff package assembled on May 5, 2026.
 
@@ -13,7 +15,12 @@ This repository import is based on the local v1.41.16 handoff package assembled 
 - IR room images: `assets/IR images/`
 - Board art and icons: `assets/board-art/`, `assets/icons/`, `assets/ui-goals/`
 
-The original handoff zip archives are intentionally not committed because some exceed GitHub's 100 MB per-file limit. Their extracted contents are included instead.
+Key current milestone:
+
+- PST-103 is now a normal level flow, not a subgame.
+- PST-103 uses a subjective IR scoring system instead of binary correct/incorrect validation.
+- The IR level uses a target/example room image, 24 labeled IR selections, Flute Solo preview audio, educational feedback, and score values of 100 / 50 / 25.
+- Plate and Reverse remain selectable but always score 1 star / 25 points and are never best-fit target spaces.
 
 ## Running Locally
 
@@ -25,11 +32,46 @@ For a local server:
 python3 -m http.server 8000
 ```
 
-Then visit `http://127.0.0.1:8000/`.
+Then visit:
 
-## Notes For Future Builds
+```text
+http://127.0.0.1:8000/
+```
 
-- Keep source files, assets, and generated builds separate where possible.
-- Avoid committing large zip handoffs to git history.
-- If future single assets exceed 100 MB, use Git LFS or move them to a GitHub Release.
+## Repository Notes
+
+The original handoff zip archives are intentionally not committed because some exceed GitHub's 100 MB per-file limit. Their extracted contents are included instead.
+
+Avoid relying on a single huge embedded HTML forever. The embedded builds were useful as transfer workarounds, but the repo should move toward normal source + assets.
+
+Future preferred structure:
+
+```text
+Signal-Flow/
+  index.html
+  src/
+  assets/
+    audio/
+    ir-spaces/
+  docs/
+    build-notes/
+    handoff/
+    manifests/
+    rules/
+```
+
+## Large Assets
+
+This import does not require Git LFS, but future single assets over 100 MB should use Git LFS or GitHub Releases.
+
+```bash
+git lfs install
+git lfs track "*.mp3" "*.wav" "*.png" "*.jpg" "*.jpeg"
+git add .gitattributes
+```
+
+## Important Gameplay Rules
+
 - The v1.40.62 board build rules checklist is included in `docs/source_context/` and should remain part of future acceptance checks.
+- IR rules and asset manifests are included in `docs/`.
+- Build notes history is included in `docs/build_notes_history/`.
