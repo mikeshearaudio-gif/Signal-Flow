@@ -36,38 +36,34 @@
   };
 
   const imageMap = {
-    'Vocal Booth': ['vocal booth.png','Vocal Booth.png','01-vocal-booth.png'],
-    'Bedroom Studio': ['bedroom studio.png','Bedroom Studio.png','02-bedroom-studio.png'],
-    'Podcast Studio': ['podcast.png','Podcast Studio.png','03-podcast-studio.png'],
-    'Office': ['office.png','Office.png','04-office.png'],
-    'Classroom': ['Classroom.png','05-classroom.png'],
-    'Rehearsal Room': ['Rehersal Room.png','Rehearsal Room.png','06-rehearsal-room.png'],
-    'Living Room': ['Living Room v2.png','Living Room.png','07-living-room.png'],
-    'Wood Room': ['Wood Room v2.png','Wood Room.png','08-wood-room.png'],
-    'Scoring Stage': ['Scoring Stage.png','09-scoring-stage.png'],
-    'Soundstage': ['Soundstage.png','10-soundstage.png'],
-    'Open Air': ['Outdoor Open Air.png','Open Air.png','13-open-air.png'],
-    'Courtyard': ['Courtyard.png','14-courtyard.png'],
-    'Alley': ['Alley.png','15-alley.png'],
-    'Parking Garage': ['Parking Garage.png','16-parking-garage.png'],
-    'Tunnel': ['Tunnel.png','17-tunnel.png'],
-    'Broadcast Studio': ['Tight Broadcast Studio0.png','Broadcast Studio.png','18-broadcast-studio.png'],
-    'Attic Chamber': ['Chamber.png','Attic Chamber.png','19-attic-chamber.png'],
-    'Club / Live Venue': ['Club  Live Venue0.png','Club Live Venue.png','20-club-live-venue.png'],
-    'Gymnasium': ['Gym.png','Gymnasium.png','21-gymnasium.png'],
-    'Church Interior': ['Church Interior.png','22-church-interior.png'],
-    'Cathedral': ['Cathedral.png','23-cathedral.png'],
-    'Concert Hall': ['Concert Hall.png','24-concert-hall.png'],
-    'Plate': ['Plate.png','12-plate.png'],
-    'Reverse': ['Reverse.png','11-reverse.png']
+    'Vocal Booth': ['../assets/IR images/vocal booth.png'],
+    'Bedroom Studio': ['../assets/IR images/bedroom studio.png'],
+    'Podcast Studio': ['../assets/IR images/podcast.png'],
+    'Office': ['../assets/IR images/office.png'],
+    'Classroom': ['../assets/IR images/Classroom.png'],
+    'Rehearsal Room': ['../assets/IR images/Rehersal Room.png'],
+    'Living Room': ['../assets/IR images/Living Room v2.png','../assets/IR images/Living Room.png'],
+    'Wood Room': ['../assets/IR images/Wood Room v2.png','../assets/IR images/Wood room.png'],
+    'Scoring Stage': ['../assets/IR images/Scoring Stage.png'],
+    'Soundstage': ['../assets/IR images/Soundstage.png'],
+    'Open Air': ['../assets/IR images/Outdoor Open Air.png'],
+    'Courtyard': ['../assets/IR images/Courtyard.png'],
+    'Alley': ['../assets/IR images/Alley.png'],
+    'Parking Garage': ['../assets/IR images/Parking Garage.png'],
+    'Tunnel': ['../assets/IR images/Tunnel.png'],
+    'Broadcast Studio': ['../assets/IR images/Tight Broadcast Studio0.png'],
+    'Attic Chamber': ['../assets/IR images/Chamber.png'],
+    'Club / Live Venue': ['../assets/IR images/Club  Live Venue0.png'],
+    'Gymnasium': ['../assets/IR images/Gym.png'],
+    'Church Interior': ['../assets/IR images/Church Interior.png'],
+    'Cathedral': ['../assets/IR images/Cathedral.png'],
+    'Concert Hall': ['../assets/IR images/Concert Hall.png'],
+    'Plate': ['../assets/IR images/Plate.png'],
+    'Reverse': ['../assets/IR images/Reverse.png']
   };
 
   function candidatesFor(space){
-    const names = imageMap[space] || [];
-    const roots = ['../assets/ir-images/final/','../assets/ir-images/','../assets/images/ir/','../assets/'];
-    const out = [];
-    roots.forEach(root => names.forEach(name => out.push(root + name)));
-    return out;
+    return (imageMap[space] || []).slice();
   }
 
   const IR_LEVELS = {

@@ -1,0 +1,33 @@
+./assets/audio/music/after_party(93).mp3
+./assets/audio/music/after_party_2(93).mp3
+./assets/audio/music/bg_music_original_full(94).mp3
+./assets/audio/music/big_saw_bass_1(94).mp3
+./assets/audio/music/bright_synth_brass_1(89).mp3
+./assets/audio/music/cue_b_full(23).mp3
+./assets/audio/music/cue_c_full(23).mp3
+./assets/audio/music/dirty_planet(49).mp3
+./assets/audio/music/dirty_planet_2(49).mp3
+./assets/audio/music/evolving_fm_chords_1(50).mp3
+./assets/audio/sfx/SFcoin(81).wav
+./assets/audio/sfx/connection_click(51).mp3
+./assets/audio/sfx/feedback_warning(51).mp3
+./assets/audio/sfx/right_answer(48).wav
+./assets/audio/sfx/success_soft_hit(51).mp3
+./assets/audio/sfx/wrong_answer(49).wav
+./assets/audio/sfx/wrong_patch_blip(51).mp3
+./assets/audio/stems/Classic Suitcase Mk IV_1(25).wav
+./assets/audio/stems/Classic Suitcase Mk IV_1(26).wav
+./assets/audio/stems/Flute Solo_1(24).wav
+./assets/audio/stems/Flute Solo_1(25).wav
+./assets/audio/stems/Mellotron Flutes_1(24).wav
+./assets/audio/stems/Mellotron Flutes_1(25).wav
+./assets/audio/stems/Simple Foundation_1(25).wav
+./assets/audio/stems/Simple Foundation_1(26).wav
+./assets/audio/stems/Slow Jam(24).wav
+./assets/audio/stems/Slow Jam(25).wav
+./assets/audio/stems/Slow Jam_2(24).wav
+./assets/audio/stems/Slow Jam_2(25).wav
+./assets/audio/stems/Studio Grand_1(25).wav
+./assets/audio/stems/Studio Grand_1(26).wav
+./assets/audio/stems/Violins 1_1(25).wav
+./assets/audio/stems/Violins 1_1(26).wav

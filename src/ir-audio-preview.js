@@ -5,11 +5,9 @@
   const buffers = new Map();
   const stemCandidates = [
     '../assets/audio/stems/Flute Solo_1(25).wav',
-    '../assets/audio/stems/Flute Solo_1(24).wav',
-    '../assets/audio/stems/flute-solo-1.wav',
-    '../assets/audio/Flute Solo_1(25).wav',
-    '../assets/audio/Flute Solo_1(24).wav'
+    '../assets/audio/stems/Flute Solo_1(24).wav'
   ];
+  let fallbackWarningShown = false;
 
   function getCtx(){
     if(!ctx) ctx = new (global.AudioContext || global.webkitAudioContext)();
@@ -48,9 +46,35 @@
   async function loadStem(){
     for(const url of stemCandidates){
       const buf = await tryLoadBuffer(url);
-      if(buf) return buf;
+      if(buf) return { buffer: buf, url };
     }
     return null;
+  }
+
+  function showFallbackWarning(){
+    if(fallbackWarningShown) return;
+    fallbackWarningShown = true;
+    const doc = global.document;
+    if(!doc) return;
+    const warning = doc.createElement('div');
+    warning.id = 'sfIrAudioFallbackWarning';
+    warning.setAttribute('role', 'status');
+    warning.textContent = 'Audio warning: real Flute Solo 1 could not be loaded, so a synthetic emergency preview is playing.';
+    warning.style.cssText = [
+      'position:fixed',
+      'left:16px',
+      'right:16px',
+      'bottom:16px',
+      'z-index:9999',
+      'padding:12px 14px',
+      'border:1px solid rgba(255,215,106,.75)',
+      'border-radius:12px',
+      'background:rgba(20,13,2,.95)',
+      'color:#fff6d6',
+      'font:700 14px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif',
+      'box-shadow:0 16px 36px rgba(0,0,0,.38)'
+    ].join(';');
+    doc.body.appendChild(warning);
   }
 
   async function playIR(name, meta){
@@ -79,8 +103,8 @@
     const now = audio.currentTime;
     if(stem){
       const src = audio.createBufferSource();
-      src.buffer = stem;
-      const trim = Math.min(2.2, stem.duration || 2.2);
+      src.buffer = stem.buffer;
+      const trim = Math.min(2.2, stem.buffer.duration || 2.2);
       const env = audio.createGain();
       env.gain.setValueAtTime(0, now);
       env.gain.linearRampToValueAtTime(.95, now + .03);
@@ -92,10 +116,10 @@
       src.start(now, 0, trim);
       src.stop(now + trim + .03);
       setTimeout(() => { try{ master.disconnect(); }catch(e){} }, (trim + 1.2) * 1000);
-      return;
+      return trim + .35;
     }
 
-    // Fallback if Flute Solo file is not present in the repo yet.
+    showFallbackWarning();
     [523.25,659.25,783.99,659.25,587.33,523.25].forEach((freq, step) => {
       const o = audio.createOscillator();
       const g = audio.createGain();
@@ -112,11 +136,12 @@
       o.stop(t + .18);
     });
     setTimeout(() => { try{ master.disconnect(); }catch(e){} }, 1900);
+    return 1.9;
   }
 
   async function playCompare(selected, reference, meta){
-    await playIR(selected, meta);
-    setTimeout(() => playIR(reference, meta), 1500);
+    const selectedDuration = await playIR(selected, meta);
+    setTimeout(() => playIR(reference, meta), Math.max(1500, (selectedDuration || 1.9) * 1000 + 250));
   }
 
   global.SF_IR_AUDIO = { unlock, playIR, playCompare };

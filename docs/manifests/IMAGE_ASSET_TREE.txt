@@ -1,0 +1,194 @@
+./assets/IR images/Alley.png
+./assets/IR images/Cathedral.png
+./assets/IR images/Chamber.png
+./assets/IR images/Church Interior.png
+./assets/IR images/Classroom.png
+./assets/IR images/Club  Live Venue0.png
+./assets/IR images/Concert Hall.png
+./assets/IR images/Courtyard.png
+./assets/IR images/Gym.png
+./assets/IR images/Living Room v2.png
+./assets/IR images/Living Room.png
+./assets/IR images/Outdoor Open Air.png
+./assets/IR images/Parking Garage.png
+./assets/IR images/Plate.png
+./assets/IR images/Rehersal Room.png
+./assets/IR images/Reverse.png
+./assets/IR images/Scoring Stage.png
+./assets/IR images/Soundstage.png
+./assets/IR images/Tight Broadcast Studio0.png
+./assets/IR images/Tunnel.png
+./assets/IR images/Wood Room v2.png
+./assets/IR images/Wood room.png
+./assets/IR images/bedroom studio.png
+./assets/IR images/office.png
+./assets/IR images/podcast.png
+./assets/IR images/vocal booth.png
+./assets/__MACOSX/IR images/._Alley.png
+./assets/__MACOSX/IR images/._Chamber.png
+./assets/__MACOSX/IR images/._Classroom.png
+./assets/__MACOSX/IR images/._Courtyard.png
+./assets/__MACOSX/IR images/._Living Room v2.png
+./assets/__MACOSX/IR images/._Living Room.png
+./assets/__MACOSX/IR images/._Outdoor Open Air.png
+./assets/__MACOSX/IR images/._Parking Garage.png
+./assets/__MACOSX/IR images/._Plate.png
+./assets/__MACOSX/IR images/._Reverse.png
+./assets/__MACOSX/IR images/._Scoring Stage.png
+./assets/__MACOSX/IR images/._Tunnel.png
+./assets/__MACOSX/IR images/._Wood Room v2.png
+./assets/board-art/ChatGPT Image May 2, 2026, 09_28_39 PM (1).png
+./assets/board-art/ChatGPT Image May 2, 2026, 09_28_39 PM (2).png
+./assets/board-art/sheet1_accessory_di_box.png
+./assets/board-art/sheet1_accessory_headphones.png
+./assets/board-art/sheet1_accessory_mic_cable.png
+./assets/board-art/sheet1_accessory_pop_filter.png
+./assets/board-art/sheet1_accessory_trs_cable.png
+./assets/board-art/sheet1_accessory_xlr_cable.png
+./assets/board-art/sheet1_bottom_instruction_banner.png
+./assets/board-art/sheet1_boxed_family_broadcast_audio_interface.png
+./assets/board-art/sheet1_boxed_family_game_audio_monitor_speakers.png
+./assets/board-art/sheet1_boxed_family_live_sound_mixing_console.png
+./assets/board-art/sheet1_boxed_family_post_production_equalizer.png
+./assets/board-art/sheet1_boxed_family_recording_studio_microphone.png
+./assets/board-art/sheet1_example_legend.png
+./assets/board-art/sheet1_fixture_backroom_shelf_unit.png
+./assets/board-art/sheet1_fixture_corner_shelf.png
+./assets/board-art/sheet1_fixture_island_shelf_double_sided.png
+./assets/board-art/sheet1_fixture_pegboard_large.png
+./assets/board-art/sheet1_fixture_pegboard_small.png
+./assets/board-art/sheet1_fixture_rolling_cart.png
+./assets/board-art/sheet1_fixture_slatwall_panel.png
+./assets/board-art/sheet1_fixture_wall_shelf_narrow.png
+./assets/board-art/sheet1_fixture_wall_shelf_wide.png
+./assets/board-art/sheet1_gameplay_room_example_scene.png
+./assets/board-art/sheet1_icon_audio_interface.png
+./assets/board-art/sheet1_icon_compressor.png
+./assets/board-art/sheet1_icon_delay_reverb.png
+./assets/board-art/sheet1_icon_equalizer.png
+./assets/board-art/sheet1_icon_gate.png
+./assets/board-art/sheet1_icon_headphone_amp.png
+./assets/board-art/sheet1_icon_microphone.png
+./assets/board-art/sheet1_icon_mixer_console.png
+./assets/board-art/sheet1_icon_monitor_speakers.png
+./assets/board-art/sheet1_icon_playback_tape_machine.png
+./assets/board-art/sheet1_icon_preamp.png
+./assets/board-art/sheet1_icon_recorder.png
+./assets/board-art/sheet1_label_backroom_rt_a2_07.png
+./assets/board-art/sheet1_mood_broadcast.png
+./assets/board-art/sheet1_mood_game_audio.png
+./assets/board-art/sheet1_mood_live_sound.png
+./assets/board-art/sheet1_mood_post_production.png
+./assets/board-art/sheet1_mood_recording_studio.png
+./assets/board-art/sheet1_note_check_behind_island_shelf.png
+./assets/board-art/sheet1_open_box_audio_interface.png
+./assets/board-art/sheet1_open_box_compressor.png
+./assets/board-art/sheet1_open_box_microphone.png
+./assets/board-art/sheet1_open_box_monitor_speakers.png
+./assets/board-art/sheet1_sign_department_microphones_preamps.png
+./assets/board-art/sheet1_sign_in_stock.png
+./assets/board-art/sheet1_sign_neon_good_sound_good_times.png
+./assets/board-art/sheet1_sign_new_arrival_tag.png
+./assets/board-art/sheet1_sign_sale_20_percent_tag.png
+./assets/board-art/sheet1_sign_staff_picks_shelf_talker.png
+./assets/board-art/sheet1_tag_price_promo_149.png
+./assets/board-art/sheet1_tag_price_standard_199.png
+./assets/board-art/sheet2_box_large_audio_gear_shipping_box.png
+./assets/board-art/sheet2_box_small_cardboard.png
+./assets/board-art/sheet2_crate_flight_case.png
+./assets/board-art/sheet2_crate_wooden_shipping_crate.png
+./assets/board-art/sheet2_front_box_audio_interface.png
+./assets/board-art/sheet2_front_box_cables.png
+./assets/board-art/sheet2_front_box_compressor.png
+./assets/board-art/sheet2_front_box_delay_reverb.png
+./assets/board-art/sheet2_front_box_equalizer.png
+./assets/board-art/sheet2_front_box_headphone_amp.png
+./assets/board-art/sheet2_front_box_microphone.png
+./assets/board-art/sheet2_front_box_mixing_console.png
+./assets/board-art/sheet2_front_box_monitor_speakers.png
+./assets/board-art/sheet2_front_box_patchbay.png
+./assets/board-art/sheet2_front_box_recorder.png
+./assets/board-art/sheet2_front_box_tape_machine.png
+./assets/board-art/sheet2_hanging_item_adapter_or_battery.png
+./assets/board-art/sheet2_hanging_item_di_box.png
+./assets/board-art/sheet2_hanging_item_instrument_cable.png
+./assets/board-art/sheet2_hanging_item_mic_cable.png
+./assets/board-art/sheet2_hanging_item_patch_cables_purple.png
+./assets/board-art/sheet2_hanging_item_patch_cables_yellow.png
+./assets/board-art/sheet2_hanging_item_power_supply.png
+./assets/board-art/sheet2_hanging_item_studio_headphones_or_mic.png
+./assets/board-art/sheet2_hanging_item_trs_cable.png
+./assets/board-art/sheet2_hanging_item_usb_or_wireless_tool.png
+./assets/board-art/sheet2_hanging_item_xlr_cable.png
+./assets/board-art/sheet2_open_box_compressor.png
+./assets/board-art/sheet2_open_box_delay_reverb.png
+./assets/board-art/sheet2_open_box_equalizer.png
+./assets/board-art/sheet2_open_box_microphone.png
+./assets/board-art/sheet2_open_box_mixing_console.png
+./assets/board-art/sheet2_open_box_patchbay.png
+./assets/board-art/sheet2_shelf_module_endcap_short_blue.png
+./assets/board-art/sheet2_shelf_module_endcap_short_orange.png
+./assets/board-art/sheet2_shelf_module_endcap_tall_green_left.png
+./assets/board-art/sheet2_shelf_module_endcap_tall_green_right.png
+./assets/board-art/sheet2_shelf_module_wall_shelf_lower.png
+./assets/board-art/sheet2_shelf_module_wall_shelf_upper.png
+./assets/board-art/sheet2_shelf_module_wire_basket_shelf.png
+./assets/board-art/sheet2_sign_new_arrival.png
+./assets/board-art/sheet2_sign_sale_20_percent.png
+./assets/board-art/sheet2_sign_top_seller.png
+./assets/board-art/sheet2_tag_small_black_display.png
+./assets/board-art/sheet2_tag_small_blue.png
+./assets/board-art/sheet2_tag_small_green.png
+./assets/board-art/sheet2_tag_small_orange.png
+./assets/board-art/sheet2_tag_small_purple.png
+./assets/board-art/sheet2_variant_audio_interface_1.png
+./assets/board-art/sheet2_variant_audio_interface_2.png
+./assets/board-art/sheet2_variant_cables.png
+./assets/board-art/sheet2_variant_cables_set_2.png
+./assets/board-art/sheet2_variant_cables_set_3.png
+./assets/board-art/sheet2_variant_compressor.png
+./assets/board-art/sheet2_variant_delay_reverb.png
+./assets/board-art/sheet2_variant_equalizer_1.png
+./assets/board-art/sheet2_variant_equalizer_2.png
+./assets/board-art/sheet2_variant_headphone_amp_1.png
+./assets/board-art/sheet2_variant_microphone_1.png
+./assets/board-art/sheet2_variant_microphone_2.png
+./assets/board-art/sheet2_variant_microphone_3.png
+./assets/board-art/sheet2_variant_mixing_console_1.png
+./assets/board-art/sheet2_variant_mixing_console_2.png
+./assets/board-art/sheet2_variant_mixing_console_3.png
+./assets/board-art/sheet2_variant_monitor_speakers_1.png
+./assets/board-art/sheet2_variant_monitor_speakers_2.png
+./assets/board-art/sheet2_variant_monitor_speakers_3.png
+./assets/board-art/sheet2_variant_patchbay_1.png
+./assets/board-art/sheet2_variant_patchbay_2.png
+./assets/board-art/sheet2_variant_recorder_1.png
+./assets/board-art/sheet2_variant_recorder_2.png
+./assets/board-art/sheet2_variant_tape_machine.png
+./assets/icons/individual/signal_flow_icon_audio_interface_adac_io.png
+./assets/icons/individual/signal_flow_icon_broadcast_remote_patch.png
+./assets/icons/individual/signal_flow_icon_console_mixer.png
+./assets/icons/individual/signal_flow_icon_game_audio_routing_graph.png
+./assets/icons/individual/signal_flow_icon_microphone_source.png
+./assets/icons/individual/signal_flow_icon_monitor_speakers.png
+./assets/icons/individual/signal_flow_icon_outboard_processor_vu.png
+./assets/icons/individual/signal_flow_icon_retail_product_box.png
+./assets/icons/individual/signal_flow_icon_rotary_control_knob.png
+./assets/icons/individual/signal_flow_icon_xlr_connector.png
+./assets/icons/new/3d_speaker_icon_with_purple_glow.png
+./assets/icons/new/metallic_control_knob_with_glowing_accents.png
+./assets/icons/new/metallic_microphone_icon_with_teal_glow.png
+./assets/icons/new/neon_green_audio_equalizer_panel.png
+./assets/icons/new/neon_lit_audio_control_panel_icon.png
+./assets/icons/new/neon_lit_audio_mixing_console_icon.png
+./assets/icons/new/neon_lit_control_panel_icon.png
+./assets/icons/new/neon_purple_audio_control_interface.png
+./assets/icons/new/steampunk_audio_interface_icon.png
+./assets/icons/new/vintage_vu_meter_with_glowing_accents.png
+./assets/ui-goals/Broadcast.png
+./assets/ui-goals/Build A Room0.png
+./assets/ui-goals/Build a room advanced.png
+./assets/ui-goals/Diagnosis.png
+./assets/ui-goals/Film and broadcast.png
+./assets/ui-goals/Live Sound.png
+./assets/ui-goals/Studio ref.png
