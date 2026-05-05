@@ -1,0 +1,19 @@
+Signal Flow v1.41.03 IR Route Enforcement
+
+Base: v1.41.01 visual modes prototype rework.
+
+Added to PST-103 / Convolution IR Lab:
+- IR route validator panel.
+- Stereo L/R route enforcement.
+- Every signal path must pass through exactly one IR node.
+- L/R must use the same IR node.
+- L and R destination identity must be preserved.
+- Wrong IR selection is rejected.
+- Test buttons demonstrate bypass, split-pair, and channel-swap failures.
+
+Validator functions added:
+- validateIRRoute(routes)
+- groupRoutesBySignal(routes)
+- buildSignalPath(routes, channel)
+
+This remains on the v1.41.01 standalone prototype branch, not the full production game renderer.

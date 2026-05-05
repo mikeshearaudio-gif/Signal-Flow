@@ -1,0 +1,52 @@
+[
+  {
+    "file": "signal_flow_icon_microphone_source.png",
+    "role": "microphone source",
+    "source": "/mnt/data/ghostwriter_images/generated/a_close_up_highly_detailed_studio_like_icon_grap_1_batch_1.png"
+  },
+  {
+    "file": "signal_flow_icon_console_mixer.png",
+    "role": "console mixer",
+    "source": "/mnt/data/ghostwriter_images/generated/a_detailed_close_up_stylized_icon_illustration_of_2_batch_2.png"
+  },
+  {
+    "file": "signal_flow_icon_outboard_processor_vu.png",
+    "role": "outboard processor vu",
+    "source": "/mnt/data/ghostwriter_images/generated/a_clean_isolated_close_up_product_gui_style_rende_3_batch_3.png"
+  },
+  {
+    "file": "signal_flow_icon_monitor_speakers.png",
+    "role": "monitor speakers",
+    "source": "/mnt/data/ghostwriter_images/generated/a_close_up_centered_studio_style_icon_illustrati_4_batch_4.png"
+  },
+  {
+    "file": "signal_flow_icon_broadcast_remote_patch.png",
+    "role": "broadcast remote patch",
+    "source": "/mnt/data/ghostwriter_images/generated/a_clean_high_detail_3d_render_style_icon_on_a_dar_5_batch_5.png"
+  },
+  {
+    "file": "signal_flow_icon_audio_interface_adac_io.png",
+    "role": "audio interface adac io",
+    "source": "/mnt/data/ghostwriter_images/generated/a_close_up_stylized_product_icon_like_render_of_a_6_batch_6.png"
+  },
+  {
+    "file": "signal_flow_icon_game_audio_routing_graph.png",
+    "role": "game audio routing graph",
+    "source": "/mnt/data/ghostwriter_images/generated/a_close_up_centered_highly_detailed_3d_icon_illu_7_batch_7.png"
+  },
+  {
+    "file": "signal_flow_icon_xlr_connector.png",
+    "role": "xlr connector",
+    "source": "/mnt/data/ghostwriter_images/generated/a_close_up_centered_high_detail_icon_photorealis_8_batch_8.png"
+  },
+  {
+    "file": "signal_flow_icon_rotary_control_knob.png",
+    "role": "rotary control knob",
+    "source": "/mnt/data/ghostwriter_images/generated/a_close_up_centered_high_detail_photorealistic_c_9_batch_9.png"
+  },
+  {
+    "file": "signal_flow_icon_retail_product_box.png",
+    "role": "retail product box",
+    "source": "/mnt/data/ghostwriter_images/generated/a_highly_detailed_3d_rendered_product_box_on_a_dar_10_batch_10.png"
+  }
+]

@@ -1,0 +1,25 @@
+slot,ir_name,source_file,package_path
+1,Vocal Booth,vocal booth.png,assets/images/ir_spaces/final_24/IR01_Vocal_Booth.png
+2,Bedroom Studio,bedroom studio.png,assets/images/ir_spaces/final_24/IR02_Bedroom_Studio.png
+3,Podcast Studio,podcast.png,assets/images/ir_spaces/final_24/IR03_Podcast_Studio.png
+4,Office,office.png,assets/images/ir_spaces/final_24/IR04_Office.png
+5,Classroom,Classroom.png,assets/images/ir_spaces/final_24/IR05_Classroom.png
+6,Rehearsal Room,Rehersal Room.png,assets/images/ir_spaces/final_24/IR06_Rehearsal_Room.png
+7,Living Room,Living Room v2.png,assets/images/ir_spaces/final_24/IR07_Living_Room.png
+8,Wood Room,Wood Room v2.png,assets/images/ir_spaces/final_24/IR08_Wood_Room.png
+9,Scoring Stage,Scoring Stage.png,assets/images/ir_spaces/final_24/IR09_Scoring_Stage.png
+10,Soundstage,Soundstage.png,assets/images/ir_spaces/final_24/IR10_Soundstage.png
+11,Reverse,Reverse.png,assets/images/ir_spaces/final_24/IR11_Reverse.png
+12,Plate,Plate.png,assets/images/ir_spaces/final_24/IR12_Plate.png
+13,Open Air,Outdoor Open Air.png,assets/images/ir_spaces/final_24/IR13_Open_Air.png
+14,Courtyard,Courtyard.png,assets/images/ir_spaces/final_24/IR14_Courtyard.png
+15,Alley,Alley.png,assets/images/ir_spaces/final_24/IR15_Alley.png
+16,Parking Garage,Parking Garage.png,assets/images/ir_spaces/final_24/IR16_Parking_Garage.png
+17,Tunnel,Tunnel.png,assets/images/ir_spaces/final_24/IR17_Tunnel.png
+18,Broadcast Studio,Tight Broadcast Studio0.png,assets/images/ir_spaces/final_24/IR18_Broadcast_Studio.png
+19,Attic Chamber,Chamber.png,assets/images/ir_spaces/final_24/IR19_Attic_Chamber.png
+20,Club / Live Venue,Club  Live Venue0.png,assets/images/ir_spaces/final_24/IR20_Club_Live_Venue.png
+21,Gymnasium,Gym.png,assets/images/ir_spaces/final_24/IR21_Gymnasium.png
+22,Church Interior,Church Interior.png,assets/images/ir_spaces/final_24/IR22_Church_Interior.png
+23,Cathedral,Cathedral.png,assets/images/ir_spaces/final_24/IR23_Cathedral.png
+24,Concert Hall,Concert Hall.png,assets/images/ir_spaces/final_24/IR24_Concert_Hall.png

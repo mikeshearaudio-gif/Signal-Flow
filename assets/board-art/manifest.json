@@ -1,0 +1,1262 @@
+[
+  {
+    "file": "sheet1_icon_microphone.png",
+    "sheet": 1,
+    "box": [
+      18,
+      138,
+      120,
+      244
+    ]
+  },
+  {
+    "file": "sheet1_icon_preamp.png",
+    "sheet": 1,
+    "box": [
+      126,
+      138,
+      229,
+      244
+    ]
+  },
+  {
+    "file": "sheet1_icon_compressor.png",
+    "sheet": 1,
+    "box": [
+      234,
+      138,
+      337,
+      244
+    ]
+  },
+  {
+    "file": "sheet1_icon_equalizer.png",
+    "sheet": 1,
+    "box": [
+      342,
+      138,
+      446,
+      244
+    ]
+  },
+  {
+    "file": "sheet1_icon_gate.png",
+    "sheet": 1,
+    "box": [
+      451,
+      138,
+      556,
+      244
+    ]
+  },
+  {
+    "file": "sheet1_icon_delay_reverb.png",
+    "sheet": 1,
+    "box": [
+      559,
+      138,
+      661,
+      244
+    ]
+  },
+  {
+    "file": "sheet1_icon_mixer_console.png",
+    "sheet": 1,
+    "box": [
+      18,
+      277,
+      121,
+      381
+    ]
+  },
+  {
+    "file": "sheet1_icon_audio_interface.png",
+    "sheet": 1,
+    "box": [
+      126,
+      277,
+      229,
+      381
+    ]
+  },
+  {
+    "file": "sheet1_icon_monitor_speakers.png",
+    "sheet": 1,
+    "box": [
+      234,
+      277,
+      337,
+      381
+    ]
+  },
+  {
+    "file": "sheet1_icon_headphone_amp.png",
+    "sheet": 1,
+    "box": [
+      342,
+      277,
+      446,
+      381
+    ]
+  },
+  {
+    "file": "sheet1_icon_recorder.png",
+    "sheet": 1,
+    "box": [
+      450,
+      277,
+      556,
+      381
+    ]
+  },
+  {
+    "file": "sheet1_icon_playback_tape_machine.png",
+    "sheet": 1,
+    "box": [
+      558,
+      277,
+      662,
+      381
+    ]
+  },
+  {
+    "file": "sheet1_fixture_wall_shelf_narrow.png",
+    "sheet": 1,
+    "box": [
+      700,
+      132,
+      812,
+      198
+    ]
+  },
+  {
+    "file": "sheet1_fixture_wall_shelf_wide.png",
+    "sheet": 1,
+    "box": [
+      820,
+      128,
+      976,
+      198
+    ]
+  },
+  {
+    "file": "sheet1_fixture_corner_shelf.png",
+    "sheet": 1,
+    "box": [
+      986,
+      128,
+      1080,
+      198
+    ]
+  },
+  {
+    "file": "sheet1_fixture_island_shelf_double_sided.png",
+    "sheet": 1,
+    "box": [
+      1094,
+      128,
+      1228,
+      205
+    ]
+  },
+  {
+    "file": "sheet1_fixture_pegboard_small.png",
+    "sheet": 1,
+    "box": [
+      698,
+      246,
+      790,
+      312
+    ]
+  },
+  {
+    "file": "sheet1_fixture_pegboard_large.png",
+    "sheet": 1,
+    "box": [
+      794,
+      242,
+      894,
+      324
+    ]
+  },
+  {
+    "file": "sheet1_fixture_slatwall_panel.png",
+    "sheet": 1,
+    "box": [
+      910,
+      242,
+      1038,
+      324
+    ]
+  },
+  {
+    "file": "sheet1_fixture_backroom_shelf_unit.png",
+    "sheet": 1,
+    "box": [
+      1036,
+      242,
+      1132,
+      324
+    ]
+  },
+  {
+    "file": "sheet1_fixture_rolling_cart.png",
+    "sheet": 1,
+    "box": [
+      1140,
+      248,
+      1218,
+      326
+    ]
+  },
+  {
+    "file": "sheet1_boxed_family_recording_studio_microphone.png",
+    "sheet": 1,
+    "box": [
+      1262,
+      160,
+      1405,
+      362
+    ]
+  },
+  {
+    "file": "sheet1_boxed_family_live_sound_mixing_console.png",
+    "sheet": 1,
+    "box": [
+      1412,
+      160,
+      1560,
+      362
+    ]
+  },
+  {
+    "file": "sheet1_boxed_family_post_production_equalizer.png",
+    "sheet": 1,
+    "box": [
+      1566,
+      160,
+      1715,
+      362
+    ]
+  },
+  {
+    "file": "sheet1_boxed_family_broadcast_audio_interface.png",
+    "sheet": 1,
+    "box": [
+      1722,
+      160,
+      1872,
+      362
+    ]
+  },
+  {
+    "file": "sheet1_boxed_family_game_audio_monitor_speakers.png",
+    "sheet": 1,
+    "box": [
+      1882,
+      160,
+      2034,
+      362
+    ]
+  },
+  {
+    "file": "sheet1_open_box_microphone.png",
+    "sheet": 1,
+    "box": [
+      16,
+      436,
+      156,
+      610
+    ]
+  },
+  {
+    "file": "sheet1_open_box_compressor.png",
+    "sheet": 1,
+    "box": [
+      162,
+      436,
+      304,
+      610
+    ]
+  },
+  {
+    "file": "sheet1_open_box_audio_interface.png",
+    "sheet": 1,
+    "box": [
+      308,
+      436,
+      454,
+      610
+    ]
+  },
+  {
+    "file": "sheet1_open_box_monitor_speakers.png",
+    "sheet": 1,
+    "box": [
+      458,
+      436,
+      606,
+      610
+    ]
+  },
+  {
+    "file": "sheet1_accessory_xlr_cable.png",
+    "sheet": 1,
+    "box": [
+      700,
+      430,
+      782,
+      582
+    ]
+  },
+  {
+    "file": "sheet1_accessory_trs_cable.png",
+    "sheet": 1,
+    "box": [
+      792,
+      430,
+      874,
+      582
+    ]
+  },
+  {
+    "file": "sheet1_accessory_mic_cable.png",
+    "sheet": 1,
+    "box": [
+      884,
+      430,
+      966,
+      582
+    ]
+  },
+  {
+    "file": "sheet1_accessory_di_box.png",
+    "sheet": 1,
+    "box": [
+      972,
+      430,
+      1052,
+      582
+    ]
+  },
+  {
+    "file": "sheet1_accessory_pop_filter.png",
+    "sheet": 1,
+    "box": [
+      1060,
+      430,
+      1144,
+      582
+    ]
+  },
+  {
+    "file": "sheet1_accessory_headphones.png",
+    "sheet": 1,
+    "box": [
+      1150,
+      430,
+      1234,
+      582
+    ]
+  },
+  {
+    "file": "sheet1_sign_neon_good_sound_good_times.png",
+    "sheet": 1,
+    "box": [
+      1278,
+      430,
+      1448,
+      514
+    ]
+  },
+  {
+    "file": "sheet1_sign_department_microphones_preamps.png",
+    "sheet": 1,
+    "box": [
+      1450,
+      430,
+      1616,
+      514
+    ]
+  },
+  {
+    "file": "sheet1_sign_staff_picks_shelf_talker.png",
+    "sheet": 1,
+    "box": [
+      1618,
+      430,
+      1778,
+      514
+    ]
+  },
+  {
+    "file": "sheet1_sign_sale_20_percent_tag.png",
+    "sheet": 1,
+    "box": [
+      1778,
+      426,
+      1862,
+      510
+    ]
+  },
+  {
+    "file": "sheet1_sign_new_arrival_tag.png",
+    "sheet": 1,
+    "box": [
+      1866,
+      426,
+      1970,
+      510
+    ]
+  },
+  {
+    "file": "sheet1_tag_price_standard_199.png",
+    "sheet": 1,
+    "box": [
+      1278,
+      516,
+      1392,
+      578
+    ]
+  },
+  {
+    "file": "sheet1_tag_price_promo_149.png",
+    "sheet": 1,
+    "box": [
+      1396,
+      516,
+      1508,
+      578
+    ]
+  },
+  {
+    "file": "sheet1_note_check_behind_island_shelf.png",
+    "sheet": 1,
+    "box": [
+      1516,
+      514,
+      1628,
+      578
+    ]
+  },
+  {
+    "file": "sheet1_label_backroom_rt_a2_07.png",
+    "sheet": 1,
+    "box": [
+      1634,
+      514,
+      1788,
+      578
+    ]
+  },
+  {
+    "file": "sheet1_sign_in_stock.png",
+    "sheet": 1,
+    "box": [
+      1816,
+      510,
+      1978,
+      578
+    ]
+  },
+  {
+    "file": "sheet1_mood_recording_studio.png",
+    "sheet": 1,
+    "box": [
+      14,
+      648,
+      138,
+      846
+    ]
+  },
+  {
+    "file": "sheet1_mood_live_sound.png",
+    "sheet": 1,
+    "box": [
+      139,
+      648,
+      264,
+      846
+    ]
+  },
+  {
+    "file": "sheet1_mood_post_production.png",
+    "sheet": 1,
+    "box": [
+      265,
+      648,
+      389,
+      846
+    ]
+  },
+  {
+    "file": "sheet1_mood_broadcast.png",
+    "sheet": 1,
+    "box": [
+      390,
+      648,
+      514,
+      846
+    ]
+  },
+  {
+    "file": "sheet1_mood_game_audio.png",
+    "sheet": 1,
+    "box": [
+      515,
+      648,
+      639,
+      846
+    ]
+  },
+  {
+    "file": "sheet1_gameplay_room_example_scene.png",
+    "sheet": 1,
+    "box": [
+      774,
+      650,
+      2034,
+      1060
+    ]
+  },
+  {
+    "file": "sheet1_bottom_instruction_banner.png",
+    "sheet": 1,
+    "box": [
+      32,
+      1080,
+      1638,
+      1148
+    ]
+  },
+  {
+    "file": "sheet1_example_legend.png",
+    "sheet": 1,
+    "box": [
+      1640,
+      1080,
+      2028,
+      1148
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_wall_shelf_upper.png",
+    "sheet": 2,
+    "box": [
+      12,
+      52,
+      566,
+      176
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_wall_shelf_lower.png",
+    "sheet": 2,
+    "box": [
+      12,
+      196,
+      566,
+      306
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_wire_basket_shelf.png",
+    "sheet": 2,
+    "box": [
+      12,
+      324,
+      566,
+      424
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_endcap_tall_green_left.png",
+    "sheet": 2,
+    "box": [
+      580,
+      38,
+      710,
+      258
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_endcap_tall_green_right.png",
+    "sheet": 2,
+    "box": [
+      732,
+      38,
+      860,
+      258
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_endcap_short_blue.png",
+    "sheet": 2,
+    "box": [
+      580,
+      284,
+      710,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_shelf_module_endcap_short_orange.png",
+    "sheet": 2,
+    "box": [
+      732,
+      284,
+      860,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_front_box_microphone.png",
+    "sheet": 2,
+    "box": [
+      736,
+      34,
+      862,
+      258
+    ]
+  },
+  {
+    "file": "sheet2_front_box_patchbay.png",
+    "sheet": 2,
+    "box": [
+      910,
+      42,
+      1042,
+      244
+    ]
+  },
+  {
+    "file": "sheet2_front_box_mixing_console.png",
+    "sheet": 2,
+    "box": [
+      1058,
+      42,
+      1238,
+      248
+    ]
+  },
+  {
+    "file": "sheet2_front_box_compressor.png",
+    "sheet": 2,
+    "box": [
+      1260,
+      44,
+      1458,
+      255
+    ]
+  },
+  {
+    "file": "sheet2_front_box_equalizer.png",
+    "sheet": 2,
+    "box": [
+      1480,
+      44,
+      1654,
+      255
+    ]
+  },
+  {
+    "file": "sheet2_front_box_delay_reverb.png",
+    "sheet": 2,
+    "box": [
+      1674,
+      44,
+      1842,
+      255
+    ]
+  },
+  {
+    "file": "sheet2_front_box_monitor_speakers.png",
+    "sheet": 2,
+    "box": [
+      736,
+      258,
+      894,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_front_box_headphone_amp.png",
+    "sheet": 2,
+    "box": [
+      900,
+      258,
+      1074,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_front_box_recorder.png",
+    "sheet": 2,
+    "box": [
+      1086,
+      258,
+      1250,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_front_box_audio_interface.png",
+    "sheet": 2,
+    "box": [
+      1260,
+      268,
+      1446,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_front_box_tape_machine.png",
+    "sheet": 2,
+    "box": [
+      1454,
+      262,
+      1634,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_front_box_cables.png",
+    "sheet": 2,
+    "box": [
+      1650,
+      262,
+      1844,
+      392
+    ]
+  },
+  {
+    "file": "sheet2_variant_microphone_1.png",
+    "sheet": 2,
+    "box": [
+      12,
+      432,
+      94,
+      520
+    ]
+  },
+  {
+    "file": "sheet2_variant_microphone_2.png",
+    "sheet": 2,
+    "box": [
+      102,
+      432,
+      186,
+      520
+    ]
+  },
+  {
+    "file": "sheet2_variant_microphone_3.png",
+    "sheet": 2,
+    "box": [
+      194,
+      432,
+      282,
+      520
+    ]
+  },
+  {
+    "file": "sheet2_variant_patchbay_1.png",
+    "sheet": 2,
+    "box": [
+      290,
+      432,
+      422,
+      520
+    ]
+  },
+  {
+    "file": "sheet2_variant_patchbay_2.png",
+    "sheet": 2,
+    "box": [
+      430,
+      432,
+      562,
+      520
+    ]
+  },
+  {
+    "file": "sheet2_variant_mixing_console_1.png",
+    "sheet": 2,
+    "box": [
+      706,
+      414,
+      862,
+      522
+    ]
+  },
+  {
+    "file": "sheet2_variant_mixing_console_2.png",
+    "sheet": 2,
+    "box": [
+      878,
+      414,
+      1048,
+      522
+    ]
+  },
+  {
+    "file": "sheet2_variant_mixing_console_3.png",
+    "sheet": 2,
+    "box": [
+      1068,
+      414,
+      1238,
+      522
+    ]
+  },
+  {
+    "file": "sheet2_variant_compressor.png",
+    "sheet": 2,
+    "box": [
+      1260,
+      414,
+      1460,
+      526
+    ]
+  },
+  {
+    "file": "sheet2_variant_equalizer_1.png",
+    "sheet": 2,
+    "box": [
+      1478,
+      414,
+      1658,
+      526
+    ]
+  },
+  {
+    "file": "sheet2_variant_equalizer_2.png",
+    "sheet": 2,
+    "box": [
+      1668,
+      414,
+      1848,
+      526
+    ]
+  },
+  {
+    "file": "sheet2_variant_delay_reverb.png",
+    "sheet": 2,
+    "box": [
+      1860,
+      414,
+      2038,
+      526
+    ]
+  },
+  {
+    "file": "sheet2_variant_monitor_speakers_1.png",
+    "sheet": 2,
+    "box": [
+      12,
+      530,
+      178,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_monitor_speakers_2.png",
+    "sheet": 2,
+    "box": [
+      194,
+      530,
+      330,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_monitor_speakers_3.png",
+    "sheet": 2,
+    "box": [
+      350,
+      530,
+      506,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_recorder_1.png",
+    "sheet": 2,
+    "box": [
+      518,
+      530,
+      634,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_headphone_amp_1.png",
+    "sheet": 2,
+    "box": [
+      650,
+      530,
+      782,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_recorder_2.png",
+    "sheet": 2,
+    "box": [
+      796,
+      530,
+      960,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_audio_interface_1.png",
+    "sheet": 2,
+    "box": [
+      972,
+      530,
+      1154,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_audio_interface_2.png",
+    "sheet": 2,
+    "box": [
+      1168,
+      530,
+      1334,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_tape_machine.png",
+    "sheet": 2,
+    "box": [
+      1344,
+      530,
+      1460,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_cables.png",
+    "sheet": 2,
+    "box": [
+      1472,
+      530,
+      1658,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_cables_set_2.png",
+    "sheet": 2,
+    "box": [
+      1668,
+      530,
+      1848,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_variant_cables_set_3.png",
+    "sheet": 2,
+    "box": [
+      1860,
+      530,
+      2040,
+      646
+    ]
+  },
+  {
+    "file": "sheet2_open_box_microphone.png",
+    "sheet": 2,
+    "box": [
+      12,
+      798,
+      236,
+      956
+    ]
+  },
+  {
+    "file": "sheet2_open_box_patchbay.png",
+    "sheet": 2,
+    "box": [
+      240,
+      796,
+      474,
+      956
+    ]
+  },
+  {
+    "file": "sheet2_open_box_mixing_console.png",
+    "sheet": 2,
+    "box": [
+      478,
+      792,
+      686,
+      956
+    ]
+  },
+  {
+    "file": "sheet2_open_box_compressor.png",
+    "sheet": 2,
+    "box": [
+      692,
+      792,
+      902,
+      956
+    ]
+  },
+  {
+    "file": "sheet2_open_box_equalizer.png",
+    "sheet": 2,
+    "box": [
+      906,
+      792,
+      1106,
+      956
+    ]
+  },
+  {
+    "file": "sheet2_open_box_delay_reverb.png",
+    "sheet": 2,
+    "box": [
+      1110,
+      792,
+      1348,
+      956
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_xlr_cable.png",
+    "sheet": 2,
+    "box": [
+      12,
+      972,
+      86,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_trs_cable.png",
+    "sheet": 2,
+    "box": [
+      92,
+      972,
+      166,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_mic_cable.png",
+    "sheet": 2,
+    "box": [
+      172,
+      972,
+      246,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_instrument_cable.png",
+    "sheet": 2,
+    "box": [
+      252,
+      972,
+      326,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_patch_cables_yellow.png",
+    "sheet": 2,
+    "box": [
+      332,
+      972,
+      406,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_patch_cables_purple.png",
+    "sheet": 2,
+    "box": [
+      412,
+      972,
+      486,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_adapter_or_battery.png",
+    "sheet": 2,
+    "box": [
+      492,
+      972,
+      568,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_di_box.png",
+    "sheet": 2,
+    "box": [
+      578,
+      972,
+      652,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_power_supply.png",
+    "sheet": 2,
+    "box": [
+      658,
+      972,
+      732,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_usb_or_wireless_tool.png",
+    "sheet": 2,
+    "box": [
+      738,
+      972,
+      812,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_hanging_item_studio_headphones_or_mic.png",
+    "sheet": 2,
+    "box": [
+      818,
+      972,
+      894,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_crate_wooden_shipping_crate.png",
+    "sheet": 2,
+    "box": [
+      1170,
+      994,
+      1328,
+      1146
+    ]
+  },
+  {
+    "file": "sheet2_crate_flight_case.png",
+    "sheet": 2,
+    "box": [
+      1340,
+      994,
+      1522,
+      1146
+    ]
+  },
+  {
+    "file": "sheet2_box_small_cardboard.png",
+    "sheet": 2,
+    "box": [
+      1530,
+      994,
+      1602,
+      1146
+    ]
+  },
+  {
+    "file": "sheet2_box_large_audio_gear_shipping_box.png",
+    "sheet": 2,
+    "box": [
+      1608,
+      990,
+      1828,
+      1146
+    ]
+  },
+  {
+    "file": "sheet2_sign_top_seller.png",
+    "sheet": 2,
+    "box": [
+      1844,
+      980,
+      1916,
+      1066
+    ]
+  },
+  {
+    "file": "sheet2_sign_sale_20_percent.png",
+    "sheet": 2,
+    "box": [
+      1920,
+      978,
+      2000,
+      1068
+    ]
+  },
+  {
+    "file": "sheet2_sign_new_arrival.png",
+    "sheet": 2,
+    "box": [
+      2000,
+      978,
+      2046,
+      1068
+    ]
+  },
+  {
+    "file": "sheet2_tag_small_green.png",
+    "sheet": 2,
+    "box": [
+      1828,
+      1080,
+      1878,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_tag_small_blue.png",
+    "sheet": 2,
+    "box": [
+      1886,
+      1080,
+      1938,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_tag_small_purple.png",
+    "sheet": 2,
+    "box": [
+      1944,
+      1080,
+      1996,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_tag_small_orange.png",
+    "sheet": 2,
+    "box": [
+      2000,
+      1080,
+      2046,
+      1140
+    ]
+  },
+  {
+    "file": "sheet2_tag_small_black_display.png",
+    "sheet": 2,
+    "box": [
+      1760,
+      1004,
+      1828,
+      1094
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+Signal Flow v1.40.96 - Visual Modes Rework
+
+Based on user notes from v1.40.95.
+
+Changed:
+- LIV-213 Visual Build now uses novice-friendly real-world names and a custom shelf/placement UI.
+- Removed vague concepts such as Signal Utility Box.
+- Renamed the stagebox concept to Stage Snake for beginner clarity, described as stage box plus multicore path.
+- Icons are simplified toward real-world roles; snake is no longer represented by a dial-style utility icon.
+- LIV-214 is now Flow Assembly: draggable gear icons move into signal-flow boxes instead of presenting another text-heavy patch list.
+- LIV-215 is narrowed to a lightweight visual bad-cable review so it is not trying to duplicate Diagnose.
+- LIV-216 now uses the established diagnosis/clinic board style because the existing diagnosis levels were stronger.
+- LIV-217 Show Mode now shows a patched system with one bad route, tells the player where sound is not arriving, and asks for the correct repatch.
+- Added explicit PST-102 and PST-103 level IDs in addition to legacy LIV-218/LIV-219 aliases.
+- PST-102 implements infrastructure-based 5.1 routing: interface -> speaker processor -> physical speakers.
+- PST-103 implements a visual convolution reverb / IR send-return lab.
+
+Preserved:
+- No core route data rewrites outside prototype levels.
+- Stereo pair completeness.
+- Live sound monitor vs PA separation.
+- Existing v1.40.95 levels remain overridden by the v1.40.96 patch layer.

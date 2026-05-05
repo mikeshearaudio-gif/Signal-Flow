@@ -1,0 +1,22 @@
+Signal Flow v1.41.14 - Global Audio Embed Fix
+
+Base: v1.41.13 IR Level Nav/Score Fix.
+
+Fixes:
+- Embedded the regular gameplay music and SFX assets directly into the HTML.
+- Overrode assetUrl() so old assets/audio/... paths resolve to embedded data URLs.
+- Added extension aliases for SFX that were referenced as .wav but uploaded as .mp3.
+- Cleared runtime SFX cache so sounds reload from embedded data URLs.
+- Added first-pointerdown audio priming as a backup to Start Level audio unlock.
+
+Included audio:
+- bg_music_original_full, after_party, after_party_2, big_saw_bass_1
+- cue_b/cue_c/dirty_planet/evolving_fm/bright_synth_brass as future-safe aliases
+- connection click, wrong patch, warning, success, right/wrong answer, SF coin
+
+Expected verification:
+1. Open the file.
+2. Start any normal non-PST-103 level.
+3. Press Start Level or click once inside the game.
+4. Background music should play; patch actions should trigger SFX.
+5. PST-103 should still use the IR subjective scoring board.

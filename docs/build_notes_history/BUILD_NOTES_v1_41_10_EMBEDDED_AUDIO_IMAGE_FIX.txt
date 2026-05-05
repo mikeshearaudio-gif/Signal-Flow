@@ -1,0 +1,22 @@
+Signal Flow v1.41.10 — Embedded Audio + PST-103 Image Fix
+
+Purpose:
+- Fix the v1.41.09 direct HTML issue where PST-103's target image did not appear and audio did not play because the sandbox link did not reliably serve the adjacent assets/ folder.
+
+Changes:
+- Converted the playable HTML into a self-contained build for the core audio system.
+- Embedded the music files used by the game audio rotation as data URLs.
+- Embedded the uploaded SFX used by patch feedback, answers, completion, and coin/reward feedback.
+- Embedded Flute Solo 1 directly for PST-103 IR preview playback.
+- Embedded the PST-103 target Wood Room image directly in the level UI.
+- Added an embedded asset resolver so existing game calls to assets/audio/... resolve to the embedded data instead of missing local files.
+
+PST-103:
+- Keeps the 24 labeled IR selector.
+- Keeps subjective scoring: 100 / 50 / 25 points.
+- Keeps Plate and Reverse selectable but always 1 star.
+- Uses embedded Flute Solo 1 for the preview and A/B comparison placeholder.
+
+Notes:
+- Browser audio still requires a user gesture. Click Sound and/or an IR option before expecting playback.
+- This still uses the current generated convolution-like preview behavior for IRs; it does not yet use rendered per-IR audio files.

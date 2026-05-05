@@ -1,0 +1,13 @@
+Signal Flow v1.41.06 - IR Label Selector Correction
+
+Base: Signal_Flow_v1_41_05_FULL_GAME_IR_VISUAL_CORRECTED.html
+
+PST-103 changes:
+- Target/example space keeps the room image.
+- IR selection no longer shows thumbnail images.
+- All 24 IRs are present and labeled.
+- Removed the confusing routing/fault add-on UI from the visible level.
+- Submit checks the selected IR label against the target space for this prototype.
+- This build does not claim audio playback; audio IR auditioning still needs a sound engine/assets pass.
+
+Required IR for this prototype target: IR 8 - Wood Room.

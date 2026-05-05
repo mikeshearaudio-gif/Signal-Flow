@@ -1,0 +1,10 @@
+Signal Flow v1.41.01 Visual Modes Prototype Rework
+
+Corrective changes from user feedback:
+- 213: Added a requirement roadmap: identify sources, carry stage to FOH through the Snake, feed stereo IEMs. Drop zones remain numbered only. Gear naming uses novice-friendly real-world names; Stage Box is now Snake.
+- 214: Kept the playable drag-and-drop structure, added a brief and visual stage/FOH context, kept numbered-only drop zones, and kept pieces movable after placement.
+- 217: Rebuilt as a more visual patched-system repair: performer meter state, rack jacks, cable drawing, and one bad route to repair.
+- 102: Rebuilt as an interface -> speaker processor -> physical speaker calibration exercise with test tones and a visible C/LFE mispatch to fix.
+- 103: Removed the printed correct target from the selector. The room is shown visually and the player uses a 24-position Bricasti-style IR selector with only IR number + descriptive sonic clues before submitting.
+
+This is still a standalone prototype, not integrated into the full game renderer.

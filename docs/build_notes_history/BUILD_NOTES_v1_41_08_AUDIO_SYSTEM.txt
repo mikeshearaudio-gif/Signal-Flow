@@ -1,0 +1,37 @@
+Signal Flow v1.41.08 Audio System Build
+
+Base:
+- Signal_Flow_v1_41_07_FULL_GAME_IR_SELECTOR_DEFAULT_FIX.html
+
+What changed:
+- Added a real packaged assets/audio folder with uploaded music, SFX, and stem files.
+- Fixed the standalone asset resolver so assets load relative to the HTML file/package, not a parent folder.
+- Replaced the prior partial audio manifest with a full v1.41.08 manifest.
+- Corrected SFX paths/extensions to match uploaded files:
+  - connection_click.mp3
+  - wrong_patch_blip.mp3
+  - feedback_warning.mp3
+  - success_soft_hit.mp3
+  - SFcoin.wav
+  - right_answer.wav
+  - wrong_answer.wav
+- Restored music rotation across environments using the uploaded music files.
+- Added uploaded gameplay stems to the manifest for future IR/stem preview work.
+- Added completion reward chaining: right_answer -> success_soft_hit -> SFcoin.
+- Added wrong-answer sound on failed signal test.
+
+Important limitations:
+- This build restores music and SFX playback.
+- It does not yet perform real-time convolution.
+- It does not yet include pre-rendered IR-processed versions of stems.
+- During future IR listening levels, background music should be muted or disabled so the player can hear the IR comparison clearly.
+
+Verification performed:
+- Confirmed the build contains the v1.41.08 audio integration patch.
+- Confirmed 25 audio assets are packaged under assets/audio.
+- Extracted inline scripts and ran node --check successfully.
+
+Install/test:
+- Use the packaged folder or archive, not the HTML alone.
+- Open Signal_Flow_v1_41_08_FULL_GAME_AUDIO_SYSTEM.html from inside the extracted package.
+- Click Sound after the game loads to unlock browser audio.

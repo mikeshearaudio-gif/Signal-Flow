@@ -1,0 +1,29 @@
+Signal Flow v1.40.99 Direct Visual Routes
+
+This build addresses the issue where v1.40.97 and v1.40.98 appeared unchanged because the prototype UI was still not taking over the active training renderer.
+
+What changed:
+- Added a direct hash-route interceptor for these prototype IDs:
+  - LIV-213
+  - LIV-214
+  - LIV-215
+  - LIV-217
+  - PST-102
+  - PST-103
+  - LIV-218 alias to PST-102
+  - LIV-219 alias to PST-103
+- These routes now render standalone visual prototype screens directly into the app root, bypassing the old training panel renderer.
+- Added visible v1.40.99 header/navigation on these prototype pages so it is obvious when the direct visual renderer is active.
+
+Implemented prototype behavior:
+- LIV-213: real-world gear naming, numbered drop boxes, sticky Submit.
+- LIV-214: numbered-only drag-and-drop signal-flow assembly; placed icons can be moved again.
+- LIV-215: visible cable inspection prototype with one bad cable to click.
+- LIV-217: visual show-mode repair screen with performer state, meters, patched routes, and repatch action.
+- PST-102: infrastructure-based 5.1 interface -> speaker processor -> speaker tone check.
+- PST-103: 24-position IR selector / Bricasti-style convolution reverb match lab.
+
+Verification:
+- patch_v14099.js passes node --check.
+- Output HTML contains script id sfv199-direct-routes.
+- Opening #/level/LIV-213 etc should show the v1.40.99 direct visual prototype route header.

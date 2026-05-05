@@ -1,0 +1,28 @@
+Signal Flow v1.41.04 - Full Game IR Route Integrated
+
+Base: Signal_Flow_v1_40_94_STANDALONE_FULL_VARIETY_SYSTEMS.html, the full standalone game build.
+
+What changed:
+- Integrated the IR route validator into the actual full-game PST-103 training renderer, not the standalone prototype page.
+- Replaced the PST-103 ir-room training panel with an active in-game IR/convolution lab panel.
+- Added route state tests for:
+  - valid route
+  - IR bypass
+  - split L/R IR selection
+  - L/R destination swap
+  - wrong IR selection
+- Submit Route now calls the validator from inside the in-game training panel.
+- Correct route requires ADR L/R to pass through exactly one matching IR before FX Return L/R.
+- L/R must stay paired, use the same IR, and land on matching L/R destination inputs.
+
+Validation performed:
+- Confirmed output is based on the 40MB full standalone game build, not the small visual prototype.
+- Confirmed v1.41.04 patch marker exists in the output file.
+- Confirmed validateIRRoute exists in the output file.
+- Confirmed the integrated ir-room training panel override exists in the output file.
+
+Test path:
+- Open the file.
+- Go to #/level/PST-103.
+- The board should show "PST-103 · IR / Convolution Lab · v1.41.04".
+- Try Submit Route, Test bypass, Test split L/R IR, and Test L/R swap.

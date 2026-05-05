@@ -1,0 +1,16 @@
+Signal Flow v1.40.97 Standalone - Visual Modes Corrective Pass
+
+Base: v1.40.96 standalone.
+
+User-note corrections applied:
+- LIV-213: corrected to a novice-friendly real-world naming convention. Removed vague/non-real gear language such as Signal Utility Box. Stage box concept is now presented as Stage Snake for beginner clarity. Target drop boxes are numbered only, with no hidden answer text. Submit control is sticky/visible instead of trapped below the scroll area.
+- LIV-214: rebuilt as a numbered visual flow assembly. Boxes are numbered only; the player must decide what goes where. Gear remains draggable/click-placeable after being placed so mistakes can be corrected.
+- LIV-215: added a working Cable Inspection / Find the Bad Patch prototype. This is intentionally simpler than Diagnose: a visible cable is wrong and a silent meter indicates the affected destination.
+- LIV-216: reverted to the existing/current diagnosis board style rather than the experimental visual diagnosis panel.
+- LIV-217: rebuilt as a more visual Show Mode. It shows a patched live system with one visible wrong route: Aux 5 R is patched to PA Right instead of IEM TX R. The player is told only the symptom visually: right ear silent / IEM R meter dead.
+- PST-102 / LIV-218: revised 5.1 prototype around real-world infrastructure: audio interface outputs feed a speaker processor, which maps to physical speakers. The lesson is preserving channel identity, not routing by content type.
+- PST-103 / LIV-219: replaced prior IR workflow with a Space Match Lab. It shows a physical room preview and a Bricasti M7-style convolution IR selector with 24 impulse-response positions. Correct target is IR 24 / Production Room.
+
+Validation:
+- patch_v14097.js passed node --check.
+- No core route engine changes intended; this is an overlay/prototype training-mode pass.

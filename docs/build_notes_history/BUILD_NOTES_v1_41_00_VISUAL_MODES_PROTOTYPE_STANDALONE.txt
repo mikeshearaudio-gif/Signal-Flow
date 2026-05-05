@@ -1,0 +1,17 @@
+Signal Flow v1.41.00 Visual Modes Prototype Standalone
+
+Purpose:
+- This is a guaranteed-visible standalone prototype page, not another overlay patch inside the large app.
+- Created because v1.40.97-v1.40.99 route/renderer overrides did not visibly affect the running standalone build.
+
+Included prototype screens:
+- LIV-213: Build the Room with same core UI concept, real-world gear names, numbered-only boxes, sticky submit.
+- LIV-214: Drag-and-drop visual patch lab with numbered-only boxes; items can be moved after placement.
+- LIV-215: Parked/placeholder because current Find the Mistake concept was not better than Diagnose.
+- LIV-217: Visual Show Mode with patched system, bad route, meters, and repatch action.
+- PST-102: 5.1 interface -> speaker processor -> speaker calibration with test tones.
+- PST-103: Bricasti-style 24-position convolution IR selector matched to a physical space.
+
+Important:
+- This does not replace the main game build.
+- It is intended to validate the visual/interaction direction before reintegrating into the app's actual renderer.

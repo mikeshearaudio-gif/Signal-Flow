@@ -1,0 +1,32 @@
+Signal Flow v1.41.16 - IR Normal Level Flow Fix
+
+Built from: Signal_Flow_v1_41_15_GLOBAL_AUDIO_TOGGLE_PATH_FIX.html
+
+Changes:
+- PST-103 now behaves more like a normal game level instead of a separate subgame.
+- Removed the nonfunctional Enable Audio button.
+- Removed Back to Game from the IR board header.
+- Added normal-style navigation controls to PST-103:
+  - Environment selector
+  - Level selector
+  - Sound
+  - Preview Selected
+  - Submit IR
+  - Reset
+  - Splash
+- Submit IR now scores once and completes the level, bringing up the normal Stage Complete overlay.
+- Submit IR is disabled after submission, preventing point farming.
+- IR choices are disabled after submission.
+- Reset only works before submission and no longer creates score-farming paths.
+- Added a completion overlay inside the PST-103 custom renderer so Next Level / Stay Here / Splash navigation works.
+- Retained subjective scoring:
+  - 3 stars = 100 points
+  - 2 stars = 50 points
+  - 1 star = 25 points
+- Retained Plate / Reverse override: selectable but always 1 star.
+- Retained Flute Solo 1 preview and A/B feedback for non-100 submissions.
+
+Verification:
+- Extracted the PST-103 v1.41.16 injected JavaScript and ran node --check successfully.
+- Confirmed no Back to Game text remains in the HTML.
+- Confirmed Enable Audio no longer appears as a button; remaining user-facing blocked-audio guidance now says Sound.

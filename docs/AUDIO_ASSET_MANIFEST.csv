@@ -1,0 +1,34 @@
+category,file,package_path,bytes
+music,after_party_2(93).mp3,assets/audio/music/after_party_2(93).mp3,1843204
+music,after_party(93).mp3,assets/audio/music/after_party(93).mp3,1843204
+music,bg_music_original_full(94).mp3,assets/audio/music/bg_music_original_full(94).mp3,2117335
+music,big_saw_bass_1(94).mp3,assets/audio/music/big_saw_bass_1(94).mp3,1832599
+music,bright_synth_brass_1(89).mp3,assets/audio/music/bright_synth_brass_1(89).mp3,697056
+music,cue_b_full(23).mp3,assets/audio/music/cue_b_full(23).mp3,244248
+music,cue_c_full(23).mp3,assets/audio/music/cue_c_full(23).mp3,413522
+music,dirty_planet_2(49).mp3,assets/audio/music/dirty_planet_2(49).mp3,1884530
+music,dirty_planet(49).mp3,assets/audio/music/dirty_planet(49).mp3,1843204
+music,evolving_fm_chords_1(50).mp3,assets/audio/music/evolving_fm_chords_1(50).mp3,1832599
+stems,Classic Suitcase Mk IV_1(25).wav,assets/audio/stems/Classic Suitcase Mk IV_1(25).wav,3569896
+stems,Classic Suitcase Mk IV_1(26).wav,assets/audio/stems/Classic Suitcase Mk IV_1(26).wav,3569896
+stems,Flute Solo_1(24).wav,assets/audio/stems/Flute Solo_1(24).wav,3569896
+stems,Flute Solo_1(25).wav,assets/audio/stems/Flute Solo_1(25).wav,3569896
+stems,Slow Jam(24).wav,assets/audio/stems/Slow Jam(24).wav,3569896
+stems,Slow Jam(25).wav,assets/audio/stems/Slow Jam(25).wav,3569896
+stems,Mellotron Flutes_1(24).wav,assets/audio/stems/Mellotron Flutes_1(24).wav,1787328
+stems,Mellotron Flutes_1(25).wav,assets/audio/stems/Mellotron Flutes_1(25).wav,1787328
+stems,Slow Jam_2(24).wav,assets/audio/stems/Slow Jam_2(24).wav,3569896
+stems,Slow Jam_2(25).wav,assets/audio/stems/Slow Jam_2(25).wav,3569896
+stems,Studio Grand_1(25).wav,assets/audio/stems/Studio Grand_1(25).wav,3569896
+stems,Studio Grand_1(26).wav,assets/audio/stems/Studio Grand_1(26).wav,3569896
+stems,Simple Foundation_1(25).wav,assets/audio/stems/Simple Foundation_1(25).wav,3569896
+stems,Simple Foundation_1(26).wav,assets/audio/stems/Simple Foundation_1(26).wav,3569896
+stems,Violins 1_1(25).wav,assets/audio/stems/Violins 1_1(25).wav,3569896
+stems,Violins 1_1(26).wav,assets/audio/stems/Violins 1_1(26).wav,3569896
+sfx,SFcoin(81).wav,assets/audio/sfx/SFcoin(81).wav,643268
+sfx,wrong_answer(49).wav,assets/audio/sfx/wrong_answer(49).wav,422864
+sfx,success_soft_hit(51).mp3,assets/audio/sfx/success_soft_hit(51).mp3,7686
+sfx,wrong_patch_blip(51).mp3,assets/audio/sfx/wrong_patch_blip(51).mp3,7880
+sfx,connection_click(51).mp3,assets/audio/sfx/connection_click(51).mp3,4746
+sfx,feedback_warning(51).mp3,assets/audio/sfx/feedback_warning(51).mp3,21254
+sfx,right_answer(48).wav,assets/audio/sfx/right_answer(48).wav,474140

@@ -1,0 +1,14 @@
+Signal Flow v1.41.13 - IR navigation and scoring fix
+
+Based on v1.41.12.
+
+Fixes:
+- PST-103 now includes a Back to Game button that exits the custom IR board and reloads the normal game shell.
+- If the route changes away from PST-103 while the custom IR board is active, the normal game renderer is restored by reloading into the new hash/root route.
+- Submit IR no longer adds points repeatedly. The level stores a best score; repeated submissions of the same or lower-scoring IR award 0 additional points.
+- Players can still reset and explore other IRs; score only increases by the improvement delta up to the best possible 100.
+- Reset clears the current IR selection without farming points.
+
+Testing notes:
+- Syntax check run against the injected v1.41.13 script.
+- PST-103 should still show all 24 labeled IRs, Flute Solo preview, subjective stars/points, and Plate/Reverse as 1-star selections.

@@ -1,0 +1,14 @@
+Signal Flow v1.41.07 IR Selector Default Fix
+
+Base: v1.41.06 full game IR label selector.
+
+Change:
+- PST-103 no longer initializes the IR selector on the correct answer.
+- Initial state now shows no selected IR and the rack display reads 'Select an IR program'.
+- Reset returns to the neutral unselected state instead of the correct IR.
+- All 24 labeled IR choices remain visible.
+- Target/example space image remains the only image on the level.
+
+Validation notes:
+- Verified output contains VERSION v1.41.07.
+- Verified selectedIr initializes to null in the PST-103 selector override.

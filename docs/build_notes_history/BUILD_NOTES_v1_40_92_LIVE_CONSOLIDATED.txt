@@ -1,0 +1,15 @@
+Signal Flow v1.40.92 Live Sound Consolidation
+
+Changed:
+- Added a Live Sound layout-only consolidation pass.
+- Centers the Live Sound board in a max-width active zone.
+- Reflows Live Sound gear into signal-path columns: Sources/Stagebox -> Console -> Utility Rack.
+- Pulls edge gear inward and reduces negative space without removing required gear, channels, stereo mates, or logical ranges.
+- Keeps approved Live Sound console/rack/stagebox language.
+- Preserves jack click targets, labels, XLR/TRS styling, and cable stacking behavior.
+
+Not changed:
+- Route data.
+- Required connections.
+- Stereo pair validation.
+- Level briefs, hints, to-do data, scoring, or quiz behavior.

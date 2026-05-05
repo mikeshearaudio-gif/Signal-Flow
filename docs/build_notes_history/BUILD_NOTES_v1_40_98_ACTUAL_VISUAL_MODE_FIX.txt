@@ -1,0 +1,17 @@
+Signal Flow v1.40.98 Actual Visual Mode Fix
+
+This build corrects the v1.40.97 issue where the new prototype renderer did not take effect.
+
+Changes:
+- Reassigned the actual global trainingLanePanel and bindTrainingLanePanel functions instead of only setting window properties.
+- LIV-213: numbered drop boxes only; real-world novice-friendly names; Stage Snake naming; sticky submit.
+- LIV-214: numbered-only drag/drop flow assembly; items remain movable after placement.
+- LIV-215: visible cable-inspection prototype now rendered.
+- LIV-216: restored to the existing diagnosis-board style.
+- LIV-217: visual patched-system repair with meters and clickable bad cable.
+- PST-102/LIV-218: 5.1 interface to speaker processor calibration prototype.
+- PST-103/LIV-219: 24-position M7-style IR dial / physical-space match lab.
+
+Verification:
+- patch_v14098.js passes node --check.
+- HTML includes sfv198-actual-js and sfv198-actual-css.

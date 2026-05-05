@@ -1,0 +1,18 @@
+Signal Flow v1.41.11 Runtime-Safe IR Audio Rebuild
+
+Base: v1.41.07 full-game HTML, to avoid the malformed v1.41.10 nested-script issue.
+
+Changes:
+- Added a runtime-safe PST-103 renderer that bypasses the broken template/render path for the IR lab only.
+- PST-103 now shows the target/example image only; selector has all 24 labeled IRs and no IR thumbnails.
+- Selector starts with no IR selected.
+- Added Flute Solo 1 preview using Web Audio synthetic convolution-style profiles for the 24 IR choices.
+- Added subjective scoring: 3 stars / 100 points, 2 stars / 50 points, 1 star / 25 points.
+- Plate and Reverse remain selectable but always score 1 star.
+- Added educational feedback text for each score tier.
+- Embedded key music/SFX asset URLs and patched assetUrl() for the existing full-game audio system.
+- No nested <script> tags were injected inside the game runtime script.
+
+Test route:
+- Open the file and go to #/level/PST-103.
+- Click any IR to unlock/preview audio.

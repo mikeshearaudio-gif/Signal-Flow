@@ -1,0 +1,31 @@
+Signal Flow v1.40.94 - Full Variety Systems prototype
+
+Built on top of v1.40.93 Build-the-Room gear fix.
+
+Added/updated prototype systems:
+- Find the Mistake mode: visible pre-patched errors focused on category/channel/stereo/destination mistakes.
+- Diagnose mode: symptom-first troubleshooting with hospital/cart-inspired visual treatment.
+- Show Mode: live-pressure repair stage with animated show-status/meter treatment.
+- IR / Convolution Lab: post-production send -> convolution reverb / IR loader -> stereo FX return workflow.
+- Immersive Routing: infrastructure-based 5.1 routing: audio interface outputs -> speaker processor inputs -> speaker processor outputs -> physical speakers.
+- Build-the-Room gear vocabulary expansion for speaker processors, convolution reverbs / IR loaders, and FX return sections.
+
+New prototype levels:
+- BRD-103 Find the Mistake: Cue Feed Interrupt
+- BRD-104 Diagnose: Remote Mix-Minus
+- LIV-113 Show Mode: IEM Right Side Gone
+- PST-102 Immersive 5.1 Speaker Processor Order
+- PST-103 Convolution Reverb IR Return
+
+Important design notes:
+- Immersive audio is now based on real-world infrastructure and channel identity, not simplified content rules.
+- Music/effects are not restricted to L/R; surround and LFE usage is program-dependent.
+- Stereo pair completeness remains enforced conceptually in the new IR and immersive examples.
+- This is a broad prototype integration pass, not a final balancing pass.
+
+Suggested smoke tests:
+- Open BRD-103 and confirm Find-the-Mistake stage appears and completes by selecting the bad route.
+- Open BRD-104 and confirm Diagnosis stage appears and completes by selecting the program-to-hybrid send error.
+- Open LIV-113 and confirm Show Mode appears and completes by selecting the bad mains-to-IEM route.
+- Open PST-102 and confirm the immersive infrastructure stage appears.
+- Open PST-103 and confirm the IR / Convolution Lab appears.

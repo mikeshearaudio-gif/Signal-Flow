@@ -1,0 +1,35 @@
+Signal Flow v1.41.09 — Full Game IR Subjective Scoring + Preview
+
+Base:
+- Started from v1.41.08 full-game audio-system package.
+- This is a packaged build; use the extracted folder so assets/audio and assets/images are available.
+
+PST-103 changes:
+- Replaced binary correct/incorrect IR validation with subjective scoring:
+  - 3 stars = 100 points
+  - 2 stars = 50 points
+  - 1 star = 25 points
+- Locked feedback text:
+  - 3 stars: "This space matches well. The size and reflections feel natural."
+  - 2 stars: "This works, but the space feels slightly different in size or material."
+  - 1 star: "This feels mismatched. The space is too dry or too reflective."
+- Plate and Reverse remain selectable, but are never best-fit targets and always score 1 star / 25 points.
+- The selector starts with no selected IR, so the answer is not given away.
+- All 24 IR labels remain present.
+- Target/example space image appears on the left; selector choices do not show thumbnails.
+- Uses Flute Solo 1 as the reference stem.
+- Added Preview Selected IR button.
+- Selecting an IR also previews it immediately.
+- Added A/B comparison playback for 1-star and 2-star submissions: selected IR, then best-fit IR.
+
+Audio implementation note:
+- Because rendered per-IR audio files have not been supplied yet, v1.41.09 uses Web Audio generated impulse responses based on each IR's size/environment/tone metadata. This makes the preview playable now, but it is not a final substitute for production-rendered IR audio.
+
+Asset additions:
+- Added assets/images/ir/ with the 24 supplied IR space images.
+- Reuses assets/audio/stems/flute_solo.wav from v1.41.08.
+- Reuses packaged SFX from v1.41.08.
+
+Verification:
+- v1.41.09 script syntax checked with node --check.
+- Output HTML contains sfv14109IR, scoreIr, playIr, 24 IR metadata entries, Plate/Reverse override, and the Preview Selected IR button.

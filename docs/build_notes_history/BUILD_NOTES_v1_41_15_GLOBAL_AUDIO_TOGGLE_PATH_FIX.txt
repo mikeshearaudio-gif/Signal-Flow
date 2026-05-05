@@ -1,0 +1,17 @@
+Signal Flow v1.41.15 Global Audio Toggle + Path Fix
+
+Purpose
+- Fix global sound still not playing in v1.41.14.
+
+Root causes fixed
+1. The embedded audio map used keys beginning with ./assets/audio/ while the asset resolver stripped the ./ prefix, so normal level music/SFX requests missed the embedded data URLs.
+2. The Sound button treated the initial state (audio enabled but browser-locked) as a request to turn sound off. First click now unlocks and starts audio.
+3. First patch/SFX interactions now unlock audio if needed before playing.
+
+Testing notes
+- Open a normal level, press Start Level, then click Sound once or click inside the board.
+- Music should begin and patch SFX should trigger on cable interactions.
+- In the browser console, SFV_AUDIO_DEBUG() reports audio state and currently loaded music elements.
+
+Preserved
+- PST-103 subjective IR scoring and navigation fixes from v1.41.13/v1.41.14.

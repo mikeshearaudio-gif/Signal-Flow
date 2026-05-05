@@ -1,0 +1,18 @@
+Signal Flow v1.40.93 Build-the-Room Gear Fix
+
+Changed:
+- Fixed Build-the-Room shelf naming so vague labels like Audio Gear and Communication Interface no longer appear.
+- Live Sound Build-the-Room shelves now derive needed equipment from the actual required routes, not only the training.needed list.
+- Stage Box / Stagebox route endpoints now produce an Audio Snake shelf item for Live Sound.
+- IEM TX endpoints now produce IEM Transmitter, not Headphones.
+- Phone Hybrid, Comms Router, Intercom Beltpack, IEM Beltpack Receiver, System Processor, DI Box, Mixing Console, Microphone, and Audio Snake are specific named shelf items.
+
+Verification targets:
+- LIV-001 Build Room should require Microphone, Audio Snake, Mixing Console, and System Processor.
+- LIV-013 Build Room should require Microphone, DI Box, Audio Snake, Mixing Console, and IEM Transmitter.
+- No shelf item should display Audio Gear or Communication Interface.
+
+Preserved:
+- Route data and validation logic.
+- v1.40.92 Live Sound consolidation layout pass.
+- Stereo-pair completeness behavior.

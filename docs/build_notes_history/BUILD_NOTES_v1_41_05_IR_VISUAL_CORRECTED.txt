@@ -1,0 +1,15 @@
+Signal Flow v1.41.05 IR Visual Corrected
+
+Base: v1.41.04 full game IR route integration.
+
+Changes:
+- Replaced the incorrect generic/debug PST-103 visual with a room-image-first IR matching board.
+- Uses actual uploaded room assets, resized and embedded into the standalone HTML.
+- Target space now shows Wood Room v2 as the physical space to match.
+- Convolution reverb rack now uses a Bricasti M7-style 24-position IR dial and numbered IR thumbnails.
+- Keeps the IR route enforcement rules: no bypass, no split L/R IR, no L/R swap, exactly one matching IR.
+- Preserves the v1.41.04 full-game integration approach and overrides the active ir-room training renderer.
+
+QA:
+- Open #/level/PST-103.
+- Expected: visible target room image, convolution reverb rack/dial, three numbered IR thumbnails, visual signal path, and Submit button.

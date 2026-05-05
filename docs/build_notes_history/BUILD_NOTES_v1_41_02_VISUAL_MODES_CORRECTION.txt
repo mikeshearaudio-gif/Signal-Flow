@@ -1,0 +1,11 @@
+Signal Flow v1.41.02 Visual Modes Correction Prototype
+
+Updated from user notes:
+- LIV-213: Sources 1 and 2 are interchangeable. Roadmap no longer gives exact device order. Scenario is now: send two stage sources to front of house and feed monitors. Stage monitor option removed. Snake naming is used for novice clarity.
+- LIV-214: Numbered boxes only. Gear tokens can be dragged after placement. Dropping onto an occupied box swaps items instead of hiding/overwriting the icon. Roadmap icons removed.
+- LIV-217: Rebuilt as a visual patched-system repair board: mostly normal playing-board language, green working patches, red broken patch, and a dead IEM-right symptom.
+- PST-102: Rebuilt as a 5.1 speaker processor calibration task with test tone, visible wrong speaker response, draggable/swappable processor assignments, and explicit Submit Calibration button.
+- PST-103: Uses the uploaded IR example image as the visual target and a Bricasti-style 24-position IR selector. The correct answer is not printed.
+
+IR asset note:
+For production quality, yes: render/install the IR space images as a separate asset set, then have Codex wire them into the level. This prototype embeds the uploaded example as a proof of interaction only.

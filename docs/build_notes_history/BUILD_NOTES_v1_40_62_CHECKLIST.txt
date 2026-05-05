@@ -1,0 +1,11 @@
+Signal Flow v1.40.62 Checklist Update
+
+This package updates the board build rules checklist only.
+
+Added:
+- Universal Stereo Pair Completeness Addendum.
+- If the left side of a stereo route is patched, the right side must also be patched.
+- If the right side of a stereo route is patched, the left side must also be patched.
+- Applies to all environments, route data, to-do lists, labels, hints, validation, and acceptance testing.
+
+No gameplay build files were changed in this checklist-only package.

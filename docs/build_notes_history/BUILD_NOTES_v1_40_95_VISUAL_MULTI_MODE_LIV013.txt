@@ -1,0 +1,31 @@
+Signal Flow v1.40.95 - Visual Multi-Mode LIV-013 Prototype
+
+Base: v1.40.94 standalone full variety systems.
+
+Added a visual-first multi-mode prototype based on the LIV-013 IEM system concept.
+
+New prototype levels:
+- LIV-213 Visual Build: Assemble the IEM System
+- LIV-214 Visual Patch Lab
+- LIV-215 Signal Inspection: Find the Mistake
+- LIV-216 Diagnose: Performer Hears Left Only
+- LIV-217 Show Mode: Restore the IEM Right Side
+- LIV-218 Visual 5.1 Speaker Calibration: Interface to Processor
+- LIV-219 Visual IR Lab: Convolution Reverb Return
+
+Interaction/UI additions:
+- Visual signal-flow cards for source -> stagebox -> snake -> console -> IEM transmitter.
+- Signal pulse / stereo mate assist visual controls for patch mode.
+- Probe tool + trace cable panel for Find-the-Mistake.
+- Diagnosis layout with routing monitor, inject signal button, IEM vitals, and trace action.
+- Show Mode crisis layout with performer status, protected PA mains note, and show clock.
+- Speaker calibration room layout for infrastructure-based 5.1 routing.
+- Convolution reverb / IR loader lab with waveform, room preview, and stereo return choices.
+
+Kept route logic consistent with the existing rule set:
+- Stagebox signal path requires an audio snake in Build mode.
+- IEM uses IEM Transmitter, not headphones.
+- Stereo monitor and FX returns require both L and R.
+- Immersive routing is interface -> speaker processor -> speakers, not content-type stereotypes.
+
+This is a UI/interaction prototype layer, not a final balance pass.

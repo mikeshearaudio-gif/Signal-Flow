@@ -1,0 +1,18 @@
+Signal Flow v1.41.12 IR Level Function + Scroll Fix
+
+Base: v1.41.07 full-game standalone branch.
+
+Fixes:
+- Replaces PST-103 with a functional subjective IR scoring board.
+- Removes the double-scroll problem on PST-103 by forcing a single viewport-safe layout.
+- Uses all 24 labeled IR options.
+- Uses Flute Solo 1 as the preview stem.
+- Adds Enable Audio, Preview Selected, Submit IR, and Reset.
+- Click any IR to select and preview it.
+- Submit awards 100 / 50 / 25 points with educational feedback.
+- Plate and Reverse remain selectable but always score 1 star / 25 points.
+- Non-100 submissions play an A/B comparison: selected IR, then Living Room reference.
+
+Notes:
+- This build embeds the PST-103 target image, Flute Solo 1, and required SFX directly in the HTML.
+- PST-103 is a dedicated runtime-safe replacement view; other levels still use the existing game renderer.
