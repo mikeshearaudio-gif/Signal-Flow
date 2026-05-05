@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Flow v1.41.18 Navigation Wrapper</title>
+  <style>
+    :root{--sf-bg:#07101f;--sf-panel:#0f1d34;--sf-ink:#f8fbff;--sf-muted:#9fb4d8;--sf-cyan:#00f5ff;--sf-yellow:#ffd76a;--sf-line:rgba(255,255,255,.16)}
+    *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--sf-bg);color:var(--sf-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}.sf-shell{height:100%;display:grid;grid-template-rows:auto 1fr;min-height:0}.sf-topnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;background:linear-gradient(180deg,rgba(15,29,52,.98),rgba(7,16,31,.98));border-bottom:1px solid var(--sf-line);box-shadow:0 8px 24px rgba(0,0,0,.32);z-index:10}.sf-brand{font-weight:900;letter-spacing:.05em;color:var(--sf-yellow);margin-right:8px;white-space:nowrap}.sf-topnav label{font-size:12px;color:var(--sf-muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}.sf-topnav select,.sf-topnav input{background:#0a1528;color:var(--sf-ink);border:1px solid rgba(0,245,255,.28);border-radius:10px;padding:8px 10px;font-weight:700;min-height:38px}.sf-topnav input{width:128px;text-transform:uppercase}.sf-topnav button,.sf-topnav a{appearance:none;text-decoration:none;cursor:pointer;border:1px solid rgba(255,215,106,.36);border-radius:10px;background:linear-gradient(180deg,rgba(255,215,106,.22),rgba(255,215,106,.08));color:var(--sf-ink);font-weight:900;padding:9px 12px;min-height:38px}.sf-topnav button.secondary,.sf-topnav a.secondary{border-color:rgba(0,245,255,.28);background:linear-gradient(180deg,rgba(0,245,255,.18),rgba(0,245,255,.06))}.sf-frame-wrap{min-height:0;position:relative;background:#020713}#gameFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#020713}.sf-hint{font-size:12px;color:var(--sf-muted);margin-left:auto;white-space:nowrap}.sf-score{font-size:13px;font-weight:900;color:var(--sf-yellow);border:1px solid var(--sf-line);padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.04)}@media(max-width:980px){.sf-hint{display:none}.sf-topnav{gap:7px}.sf-brand{width:100%}.sf-topnav label{font-size:11px}.sf-topnav select{max-width:155px}.sf-topnav input{width:110px}}
+  </style>
+</head>
+<body>
+  <div class="sf-shell">
+    <nav class="sf-topnav" aria-label="Signal Flow navigation">
+      <div class="sf-brand">SIGNAL FLOW</div>
+      <label>Environment
+        <select id="envSelect">
+          <option value="REC">Recording</option><option value="LIV">Live Sound</option><option value="BRD">Broadcast</option><option value="PST" selected>Post</option><option value="GAM">Game Audio</option>
+        </select>
+      </label>
+      <label>Board <select id="levelSelect"></select></label>
+      <label>Go to ID <input id="manualLevel" value="PST-IR-01" aria-label="Manual level ID" /></label>
+      <button id="loadBtn" type="button">Load Board</button>
+      <button id="homeBtn" type="button" class="secondary">Splash</button>
+      <span class="sf-score" id="scoreReadout">IR Score: 0</span>
+      <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
+      <div class="sf-hint">v1.41.18 distributed IR wrapper</div>
+    </nav>
+    <main class="sf-frame-wrap"><iframe id="gameFrame" title="Signal Flow Game"></iframe></main>
+  </div>
+  <script>
+  (function(){
+    const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
+    const IR_RUNNER = 'ir-level-runner.html';
+    const LEVELS = {
+      REC:['REC-001','REC-IR-01','REC-002','REC-IR-02','REC-003','REC-004','REC-IR-03','REC-005','REC-IR-04','REC-006'],
+      LIV:['LIV-001','LIV-IR-01','LIV-002','LIV-003','LIV-IR-02','LIV-004','LIV-IR-03','LIV-005','LIV-IR-04','LIV-006','LIV-IR-05','LIV-013','LIV-113','LIV-213','LIV-214','LIV-215','LIV-216','LIV-217'],
+      BRD:['BRD-001','BRD-IR-01','BRD-002','BRD-003','BRD-IR-02','BRD-004','BRD-IR-03','BRD-005','BRD-IR-04','BRD-006','BRD-103','BRD-104'],
+      PST:['PST-001','PST-IR-01','PST-002','PST-IR-02','PST-003','PST-IR-03','PST-004','PST-IR-04','PST-005','PST-IR-05','PST-006','PST-102'],
+      GAM:['GAM-001','GAM-IR-01','GAM-002','GAM-IR-02','GAM-003','GAM-IR-03','GAM-004','GAM-IR-04','GAM-005','GAM-IR-05','GAM-006']
+    };
+    const IR_IDS = new Set(Object.values(LEVELS).flat().filter(id => id.includes('-IR-')));
+    const frame = document.getElementById('gameFrame'); const envSelect = document.getElementById('envSelect'); const levelSelect = document.getElementById('levelSelect'); const manualLevel = document.getElementById('manualLevel'); const scoreReadout = document.getElementById('scoreReadout');
+    let irScore = Number(localStorage.getItem('sf-ir-score') || 0);
+    scoreReadout.textContent = 'IR Score: ' + irScore;
+    function populate(env){ const ids=LEVELS[env]||LEVELS.PST; levelSelect.innerHTML=''; ids.forEach(id=>{const opt=document.createElement('option'); opt.value=id; opt.textContent=id; levelSelect.appendChild(opt);}); if(!ids.includes(levelSelect.value)) levelSelect.value=ids[0]; }
+    function routeFor(id){ return IR_IDS.has(id) ? IR_RUNNER + '?level=' + encodeURIComponent(id) : GAME + '#/level/' + encodeURIComponent(id); }
+    function loadLevel(id){ const clean=String(id||'').trim().toUpperCase(); if(!clean) return; manualLevel.value=clean; const prefix=clean.split('-')[0]; if(LEVELS[prefix]){ envSelect.value=prefix; populate(prefix); if(Array.from(levelSelect.options).some(o=>o.value===clean)) levelSelect.value=clean; } frame.src=routeFor(clean); }
+    function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=manualLevel.value.trim().toUpperCase(); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
+    envSelect.addEventListener('change',()=>{ populate(envSelect.value); manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
+    levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
+    document.getElementById('loadBtn').addEventListener('click',()=>loadLevel(manualLevel.value));
+    manualLevel.addEventListener('keydown',ev=>{ if(ev.key==='Enter') loadLevel(manualLevel.value); });
+    document.getElementById('homeBtn').addEventListener('click',()=>{ frame.src=GAME; });
+    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-ir-complete'){ irScore += Number(msg.points||0); localStorage.setItem('sf-ir-score', String(irScore)); scoreReadout.textContent='IR Score: '+irScore; } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
+    populate('PST'); loadLevel('PST-IR-01');
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Flow IR Level Runner</title>
+  <style>
+    :root{--bg:#07101f;--panel:#0e1b31;--ink:#f8fbff;--muted:#9eb4d6;--cyan:#00f5ff;--yellow:#ffd76a;--good:#64ff9e;--line:rgba(255,255,255,.15)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,rgba(0,245,255,.08),transparent 34%),linear-gradient(180deg,#07101f,#030713);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}body{overflow:auto}.ir-board{width:min(1180px,calc(100vw - 28px));margin:0 auto;padding:18px 0 28px}.hero{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:18px;align-items:stretch}.card{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(14,27,49,.94),rgba(7,16,31,.98));box-shadow:0 18px 44px rgba(0,0,0,.35);overflow:hidden}.target{min-height:360px;display:grid;grid-template-rows:auto 1fr auto}.target-head{padding:15px 16px;border-bottom:1px solid var(--line)}.eyebrow{font-size:12px;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;font-weight:900}.title{font-size:28px;font-weight:950;margin-top:4px}.brief{color:var(--muted);line-height:1.35;margin-top:7px}.space-art{position:relative;min-height:250px;display:grid;place-items:center;isolation:isolate;background:linear-gradient(135deg,rgba(255,215,106,.12),rgba(0,245,255,.08))}.space-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.space-fallback{font-size:90px;filter:drop-shadow(0 18px 18px rgba(0,0,0,.45));z-index:1}.space-caption{position:absolute;left:12px;right:12px;bottom:12px;padding:10px 12px;border-radius:14px;background:rgba(2,7,19,.72);font-weight:850;z-index:2}.target-foot{padding:12px 16px;color:var(--muted);font-size:13px}.selector{padding:15px}.selector-head{display:flex;gap:12px;align-items:start;justify-content:space-between;margin-bottom:12px}.selector-title{font-size:22px;font-weight:950}.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:1px solid rgba(255,215,106,.38);border-radius:13px;background:linear-gradient(180deg,rgba(255,215,106,.24),rgba(255,215,106,.08));color:var(--ink);font-weight:950;padding:10px 12px;cursor:pointer}.btn.secondary{border-color:rgba(0,245,255,.3);background:linear-gradient(180deg,rgba(0,245,255,.18),rgba(0,245,255,.06))}.btn:disabled{opacity:.45;cursor:not-allowed}.ir-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.ir-choice{border:1px solid rgba(255,255,255,.14);border-radius:13px;background:rgba(255,255,255,.055);padding:10px;text-align:left;color:var(--ink);cursor:pointer;min-height:58px}.ir-choice:hover{border-color:rgba(0,245,255,.48);transform:translateY(-1px)}.ir-choice.active{border-color:var(--yellow);box-shadow:0 0 0 2px rgba(255,215,106,.18),0 0 20px rgba(255,215,106,.12)}.ir-num{display:block;font-size:11px;color:var(--muted);font-weight:950}.ir-name{font-size:14px;font-weight:900;line-height:1.1}.result{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.045);padding:13px 14px;min-height:82px}.stars{font-size:26px;letter-spacing:.08em;color:var(--yellow)}.score{font-size:20px;font-weight:950}.feedback{color:var(--muted);margin-top:5px;line-height:1.35}.mini{font-size:12px;color:var(--muted);margin-top:8px}.meter{height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:10px}.meter>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--yellow));transition:width .25s ease}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.pill{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:5px 8px;background:rgba(255,255,255,.04)}.complete-actions{display:none;gap:8px;flex-wrap:wrap;margin-top:12px}.complete-actions.show{display:flex}@media(max-width:960px){.hero{grid-template-columns:1fr}.ir-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.title{font-size:24px}}
+  </style>
+</head>
+<body>
+  <div class="ir-board">
+    <div class="hero">
+      <section class="card target">
+        <div class="target-head"><div class="eyebrow">IR Listening Level</div><div class="title" id="levelTitle">IR Level</div><div class="brief" id="levelBrief"></div></div>
+        <div class="space-art"><img id="targetImage" alt="Target acoustic space" hidden><div class="space-fallback" id="fallbackIcon">🏠</div><div class="space-caption" id="spaceCaption"></div></div>
+        <div class="target-foot">Listen with Flute Solo 1, then choose the IR that best fits the shown space. Scoring is forgiving: close choices still earn points.</div>
+      </section>
+      <section class="card selector">
+        <div class="selector-head"><div><div class="eyebrow">24 IR Selector</div><div class="selector-title">Choose a reverb space</div><div class="mini" id="selectedReadout">No IR selected.</div></div><div class="controls"><button class="btn secondary" id="previewBtn">Preview Selected</button><button class="btn" id="submitBtn">Submit IR</button><button class="btn secondary" id="resetBtn">Reset</button></div></div>
+        <div class="ir-grid" id="irGrid"></div>
+        <div class="result" id="resultBox"><div class="stars">—</div><div class="score">Select an IR to begin.</div><div class="feedback">All 24 choices are available. Plate and Reverse are selectable effect choices, but they never score above one star.</div><div class="meter"><span id="scoreMeter"></span></div></div>
+        <div class="complete-actions" id="completeActions"><button class="btn" id="nextBtn">Next Board</button><button class="btn secondary" id="chooseBtn">Choose Another Board</button></div>
+        <div class="legend"><span class="pill">⭐⭐⭐ = 100</span><span class="pill">⭐⭐ = 50</span><span class="pill">⭐ = 25</span><span class="pill">Plate / Reverse = 25</span></div>
+      </section>
+    </div>
+  </div>
+  <script src="../src/ir-level-data.js"></script>
+  <script src="../src/ir-scoring.js"></script>
+  <script src="../src/ir-audio-preview.js"></script>
+  <script>
+  (function(){
+    const data = window.SF_IR_DATA;
+    const scoring = window.SF_IR_SCORING;
+    const audio = window.SF_IR_AUDIO;
+    const params = new URLSearchParams(location.search);
+    const id = (params.get('level') || 'PST-IR-01').toUpperCase();
+    const level = data.IR_LEVELS[id] || data.IR_LEVELS['PST-IR-01'];
+    let selected = null;
+    let submitted = false;
+    let bestAwarded = 0;
+    const grid = document.getElementById('irGrid');
+    const readout = document.getElementById('selectedReadout');
+    const resultBox = document.getElementById('resultBox');
+    const actions = document.getElementById('completeActions');
+
+    document.getElementById('levelTitle').textContent = level.title;
+    document.getElementById('levelBrief').textContent = level.brief;
+    document.getElementById('spaceCaption').textContent = level.space;
+    document.getElementById('fallbackIcon').textContent = level.icon || '🏠';
+    loadImage(level.imageCandidates || []);
+
+    data.IR_LIST.forEach((name,i) => {
+      const b = document.createElement('button');
+      b.className = 'ir-choice';
+      b.innerHTML = '<span class="ir-num">IR '+String(i+1).padStart(2,'0')+'</span><span class="ir-name"></span>';
+      b.querySelector('.ir-name').textContent = name;
+      b.addEventListener('click', () => selectIR(name,b));
+      grid.appendChild(b);
+    });
+
+    function loadImage(paths){
+      const img = document.getElementById('targetImage');
+      let idx = 0;
+      function next(){
+        if(idx >= paths.length){ img.hidden = true; return; }
+        img.src = paths[idx++];
+        img.hidden = false;
+      }
+      img.onerror = next;
+      img.onload = () => { img.hidden = false; };
+      next();
+    }
+    function selectIR(name, button){
+      if(submitted) return;
+      selected = name;
+      document.querySelectorAll('.ir-choice').forEach(x => x.classList.remove('active'));
+      button.classList.add('active');
+      readout.textContent = 'Selected: ' + name;
+      audio.playIR(name, data.IR_META);
+    }
+    function renderResult(r, delta){
+      resultBox.innerHTML = '<div class="stars">'+'⭐'.repeat(r.stars)+'</div><div class="score">+'+delta+' points · Best: '+bestAwarded+'</div><div class="feedback"></div><div class="meter"><span style="width:'+r.points+'%"></span></div>';
+      resultBox.querySelector('.feedback').textContent = r.feedback;
+    }
+    document.getElementById('previewBtn').addEventListener('click', () => { if(selected) audio.playIR(selected, data.IR_META); });
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if(submitted) return;
+      selected = null;
+      document.querySelectorAll('.ir-choice').forEach(x => x.classList.remove('active'));
+      readout.textContent = 'No IR selected.';
+      resultBox.innerHTML = '<div class="stars">—</div><div class="score">Select an IR to begin.</div><div class="feedback">All 24 choices are available. Plate and Reverse are selectable effect choices, but they never score above one star.</div><div class="meter"><span></span></div>';
+    });
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      if(!selected || submitted) return;
+      const r = scoring.evaluateIRFit(selected, level.space, data.IR_META);
+      submitted = true;
+      const delta = Math.max(0, r.points - bestAwarded);
+      bestAwarded = Math.max(bestAwarded, r.points);
+      renderResult(r, delta);
+      document.getElementById('submitBtn').disabled = true;
+      document.getElementById('resetBtn').disabled = true;
+      actions.classList.add('show');
+      window.parent.postMessage({ type:'sf-ir-complete', levelId:id, points:r.points, stars:r.stars, selected, target:level.space }, '*');
+      if(r.points < 100) audio.playCompare(selected, level.space, data.IR_META); else audio.playIR(selected, data.IR_META);
+    });
+    document.getElementById('nextBtn').addEventListener('click', () => window.parent.postMessage({ type:'sf-ir-next', levelId:id }, '*'));
+    document.getElementById('chooseBtn').addEventListener('click', () => window.parent.postMessage({ type:'sf-ir-choose', levelId:id }, '*'));
+  })();
+  </script>
+</body>
+</html>
