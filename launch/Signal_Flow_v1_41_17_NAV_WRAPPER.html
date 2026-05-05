@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Flow v1.41.17 Navigation Wrapper</title>
+  <style>
+    :root{
+      --sf-bg:#07101f;
+      --sf-panel:#0f1d34;
+      --sf-ink:#f8fbff;
+      --sf-muted:#9fb4d8;
+      --sf-cyan:#00f5ff;
+      --sf-yellow:#ffd76a;
+      --sf-line:rgba(255,255,255,.16);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--sf-bg);color:var(--sf-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}
+    .sf-shell{height:100%;display:grid;grid-template-rows:auto 1fr;min-height:0}
+    .sf-topnav{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      padding:10px 12px;
+      background:linear-gradient(180deg,rgba(15,29,52,.98),rgba(7,16,31,.98));
+      border-bottom:1px solid var(--sf-line);
+      box-shadow:0 8px 24px rgba(0,0,0,.32);
+      z-index:10;
+    }
+    .sf-brand{font-weight:900;letter-spacing:.05em;color:var(--sf-yellow);margin-right:8px;white-space:nowrap}
+    .sf-topnav label{font-size:12px;color:var(--sf-muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}
+    .sf-topnav select,.sf-topnav input{
+      background:#0a1528;color:var(--sf-ink);border:1px solid rgba(0,245,255,.28);border-radius:10px;
+      padding:8px 10px;font-weight:700;min-height:38px;
+    }
+    .sf-topnav input{width:120px;text-transform:uppercase}
+    .sf-topnav button,.sf-topnav a{
+      appearance:none;text-decoration:none;cursor:pointer;
+      border:1px solid rgba(255,215,106,.36);border-radius:10px;
+      background:linear-gradient(180deg,rgba(255,215,106,.22),rgba(255,215,106,.08));
+      color:var(--sf-ink);font-weight:900;padding:9px 12px;min-height:38px;
+    }
+    .sf-topnav button.secondary,.sf-topnav a.secondary{border-color:rgba(0,245,255,.28);background:linear-gradient(180deg,rgba(0,245,255,.18),rgba(0,245,255,.06))}
+    .sf-frame-wrap{min-height:0;position:relative;background:#020713}
+    #gameFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#020713}
+    .sf-hint{font-size:12px;color:var(--sf-muted);margin-left:auto;white-space:nowrap}
+    @media (max-width:900px){.sf-hint{display:none}.sf-topnav{gap:7px}.sf-brand{width:100%}.sf-topnav label{font-size:11px}.sf-topnav select{max-width:155px}.sf-topnav input{width:105px}}
+  </style>
+</head>
+<body>
+  <div class="sf-shell">
+    <nav class="sf-topnav" aria-label="Signal Flow navigation">
+      <div class="sf-brand">SIGNAL FLOW</div>
+      <label>Environment
+        <select id="envSelect">
+          <option value="REC">Recording</option>
+          <option value="LIV">Live Sound</option>
+          <option value="BRD">Broadcast</option>
+          <option value="PST" selected>Post / IR</option>
+          <option value="GAM">Game Audio</option>
+        </select>
+      </label>
+      <label>Board
+        <select id="levelSelect"></select>
+      </label>
+      <label>Go to ID
+        <input id="manualLevel" value="PST-103" aria-label="Manual level ID" />
+      </label>
+      <button id="loadBtn" type="button">Load Board</button>
+      <button id="homeBtn" type="button" class="secondary">Splash</button>
+      <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
+      <div class="sf-hint">Persistent nav wrapper · v1.41.17</div>
+    </nav>
+    <main class="sf-frame-wrap">
+      <iframe id="gameFrame" title="Signal Flow Game" src="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html#/level/PST-103"></iframe>
+    </main>
+  </div>
+  <script>
+  (function(){
+    const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
+    const LEVELS = {
+      REC:['REC-001','REC-002','REC-003','REC-004','REC-005','REC-006'],
+      LIV:['LIV-001','LIV-002','LIV-003','LIV-004','LIV-005','LIV-006','LIV-013','LIV-113','LIV-213','LIV-214','LIV-215','LIV-216','LIV-217'],
+      BRD:['BRD-001','BRD-002','BRD-003','BRD-004','BRD-005','BRD-006','BRD-103','BRD-104'],
+      PST:['PST-001','PST-002','PST-003','PST-004','PST-005','PST-006','PST-102','PST-103'],
+      GAM:['GAM-001','GAM-002','GAM-003','GAM-004','GAM-005','GAM-006']
+    };
+    const frame = document.getElementById('gameFrame');
+    const envSelect = document.getElementById('envSelect');
+    const levelSelect = document.getElementById('levelSelect');
+    const manualLevel = document.getElementById('manualLevel');
+    const loadBtn = document.getElementById('loadBtn');
+    const homeBtn = document.getElementById('homeBtn');
+
+    function populate(env){
+      const ids = LEVELS[env] || LEVELS.PST;
+      levelSelect.innerHTML = '';
+      ids.forEach(id => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = id;
+        levelSelect.appendChild(opt);
+      });
+      levelSelect.value = ids.includes(manualLevel.value.trim().toUpperCase()) ? manualLevel.value.trim().toUpperCase() : ids[0];
+    }
+    function loadLevel(id){
+      const clean = String(id || '').trim().toUpperCase();
+      if(!clean) return;
+      manualLevel.value = clean;
+      const prefix = clean.split('-')[0];
+      if(LEVELS[prefix]){
+        envSelect.value = prefix;
+        populate(prefix);
+        if(Array.from(levelSelect.options).some(o => o.value === clean)) levelSelect.value = clean;
+      }
+      frame.src = GAME + '#/level/' + encodeURIComponent(clean);
+    }
+    envSelect.addEventListener('change', () => {
+      populate(envSelect.value);
+      manualLevel.value = levelSelect.value;
+      loadLevel(levelSelect.value);
+    });
+    levelSelect.addEventListener('change', () => {
+      manualLevel.value = levelSelect.value;
+      loadLevel(levelSelect.value);
+    });
+    loadBtn.addEventListener('click', () => loadLevel(manualLevel.value));
+    manualLevel.addEventListener('keydown', ev => { if(ev.key === 'Enter') loadLevel(manualLevel.value); });
+    homeBtn.addEventListener('click', () => { frame.src = GAME; });
+    populate('PST');
+    levelSelect.value = 'PST-103';
+  })();
+  </script>
+</body>
+</html>
