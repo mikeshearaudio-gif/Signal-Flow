@@ -64,7 +64,7 @@
 
   function candidatesFor(space){
     const names = imageMap[space] || [];
-    const roots = ['../assets/ir-spaces/final/','../assets/ir-spaces/','../assets/images/ir/','../assets/'];
+    const roots = ['../assets/ir-images/final/','../assets/ir-images/','../assets/images/ir/','../assets/'];
     const out = [];
     roots.forEach(root => names.forEach(name => out.push(root + name)));
     return out;
