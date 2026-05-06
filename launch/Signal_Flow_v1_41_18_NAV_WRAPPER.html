@@ -22,7 +22,7 @@
       <label>Go to Board <input id="manualLevel" value="PST-004" aria-label="Manual board ID" /></label>
       <button id="loadBtn" type="button">Load Board</button>
       <button id="homeBtn" type="button" class="secondary">Splash</button>
-      <span class="sf-score" id="scoreReadout">IR Score: 0</span>
+      <span class="sf-score" id="scoreReadout">Score: 0</span>
       <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
       <div class="sf-hint">v1.41.18 distributed IR wrapper</div>
     </nav>
@@ -120,9 +120,36 @@
       const clean = String(input || '').trim().toUpperCase();
       return INTERNAL_BY_PUBLIC[clean] || clean;
     }
+    const PROGRESS_KEY = 'signal_flow_progress_v36';
     const frame = document.getElementById('gameFrame'); const envSelect = document.getElementById('envSelect'); const levelSelect = document.getElementById('levelSelect'); const manualLevel = document.getElementById('manualLevel'); const scoreReadout = document.getElementById('scoreReadout');
-    let irScore = Number(localStorage.getItem('sf-ir-score') || 0);
-    scoreReadout.textContent = 'IR Score: ' + irScore;
+    let currentScore = 0;
+    function updateScore(points){
+      currentScore = Number(points || 0);
+      scoreReadout.textContent = 'Score: ' + currentScore;
+    }
+    function defaultProgress(){ return { completedLevels: [], unlockedRewards: [], unlockedMics: [] }; }
+    function loadProgress(){
+      try{
+        const raw = localStorage.getItem(PROGRESS_KEY);
+        const parsed = raw ? JSON.parse(raw) : defaultProgress();
+        return {
+          completedLevels: Array.isArray(parsed.completedLevels) ? parsed.completedLevels : [],
+          unlockedRewards: Array.isArray(parsed.unlockedRewards) ? parsed.unlockedRewards : [],
+          unlockedMics: Array.isArray(parsed.unlockedMics) ? parsed.unlockedMics : []
+        };
+      }catch{ return defaultProgress(); }
+    }
+    function saveProgress(progress){
+      try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress || defaultProgress())); }catch{}
+    }
+    function recordCompletion(id){
+      const progress = loadProgress();
+      if(id && !progress.completedLevels.includes(id)){
+        progress.completedLevels.push(id);
+        saveProgress(progress);
+      }
+    }
+    updateScore(0);
     function populate(env){
       const ids = LEVELS[env] || LEVELS.PST;
       levelSelect.innerHTML = '';
@@ -151,15 +178,16 @@
         populate(prefix);
         if(Array.from(levelSelect.options).some(o => o.value === clean)) levelSelect.value = clean;
       }
+      updateScore(0);
       frame.src = routeFor(clean);
     }
-    function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=manualLevel.value.trim().toUpperCase(); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
+    function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=internalId(manualLevel.value); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
     envSelect.addEventListener('change',()=>{ populate(envSelect.value); manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
     levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
     document.getElementById('loadBtn').addEventListener('click',()=>loadLevel(manualLevel.value));
     manualLevel.addEventListener('keydown',ev=>{ if(ev.key==='Enter') loadLevel(manualLevel.value); });
     document.getElementById('homeBtn').addEventListener('click',()=>{ frame.src=GAME; });
-    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-ir-complete'){ irScore += Number(msg.points||0); localStorage.setItem('sf-ir-score', String(irScore)); scoreReadout.textContent='IR Score: '+irScore; } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
+    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
     populate('PST'); loadLevel('PST-IR-01');
   })();
   </script>
