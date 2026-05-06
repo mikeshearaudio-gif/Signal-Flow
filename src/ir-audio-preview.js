@@ -16,37 +16,55 @@
     '../assets/audio/stems/Flute Solo_1(25).wav'
   ];
 
-  const PROFILES = {
-    'Open Air': { dry:.985, wet:.012, length:.10, decay:.045, predelay:.002, density:6, highpass:55, lowpass:17000, width:.18, early:[{t:.085,g:.012,p:.12}] },
-    'Vocal Booth': { dry:.95, wet:.045, length:.14, decay:.06, predelay:.004, density:16, highpass:125, lowpass:6100, width:.22, early:[{t:.012,g:.028,p:-.12},{t:.024,g:.018,p:.12}] },
-    'Broadcast Studio': { dry:.955, wet:.038, length:.12, decay:.055, predelay:.003, density:14, highpass:135, lowpass:5600, width:.18, early:[{t:.011,g:.022,p:0}] },
-    'Podcast Studio': { dry:.935, wet:.06, length:.17, decay:.075, predelay:.004, density:18, highpass:125, lowpass:5100, width:.20, early:[{t:.014,g:.029,p:-.1},{t:.029,g:.016,p:.12}] },
+    const PROFILES = {
+      'Open Air': { dry:.15, wet:.46, length:1.85, decay:.72, predelay:.16, density:12, highpass:135, lowpass:14000, width:.98, outdoor:true, echoTrain:[.28,.62,1.05,1.52], early:[{t:.28,g:.135,p:-.78},{t:.62,g:.095,p:.72},{t:1.05,g:.060,p:-.56},{t:1.52,g:.036,p:.48}] },
 
-    'Bedroom Studio': { dry:.84, wet:.16, length:.36, decay:.18, predelay:.010, density:36, highpass:85, lowpass:4200, width:.34, soft:true, early:[{t:.026,g:.046,p:-.22},{t:.058,g:.030,p:.20}] },
-    'Living Room': { dry:.79, wet:.22, length:.52, decay:.25, predelay:.012, density:40, highpass:75, lowpass:4700, width:.38, soft:true, early:[{t:.029,g:.054,p:-.2},{t:.071,g:.037,p:.24},{t:.128,g:.021,p:-.06}] },
-    'Office': { dry:.74, wet:.26, length:.52, decay:.24, predelay:.014, density:34, highpass:150, lowpass:5000, width:.28, boxy:true, flutter:true, flutterPeriod:.034, flutterGain:.055, early:[{t:.031,g:.074,p:-.1},{t:.064,g:.056,p:.14},{t:.098,g:.040,p:-.12},{t:.133,g:.028,p:.10}] },
-    'Classroom': { dry:.62, wet:.40, length:.82, decay:.36, predelay:.018, density:46, highpass:170, lowpass:5600, width:.42, boxy:true, flutter:true, flutterPeriod:.041, flutterGain:.082, early:[{t:.038,g:.095,p:-.22},{t:.082,g:.074,p:.20},{t:.151,g:.054,p:-.2},{t:.229,g:.038,p:.22}] },
-    'Wood Room': { dry:.65, wet:.34, length:.60, decay:.29, predelay:.012, density:48, highpass:75, lowpass:7600, width:.40, warm:true, early:[{t:.021,g:.066,p:-.2},{t:.047,g:.055,p:.18},{t:.091,g:.038,p:-.1},{t:.142,g:.026,p:.15}] },
+      'Vocal Booth': { dry:.15, wet:.010, length:.035, decay:0, predelay:.001, density:4, highpass:180, lowpass:2600, width:.04, soft:true, damped:true, early:[{t:.008,g:.004,p:0}] },
 
-    'Rehearsal Room': { dry:.55, wet:.48, length:1.02, decay:.55, predelay:.018, density:78, highpass:80, lowpass:7600, width:.58, lively:true, early:[{t:.025,g:.078,p:-.32},{t:.063,g:.071,p:.28},{t:.118,g:.054,p:-.2},{t:.197,g:.041,p:.22}] },
-    'Club / Live Venue': { dry:.49, wet:.54, length:1.24, decay:.62, predelay:.034, density:74, highpass:95, lowpass:6200, width:.66, lively:true, stage:true, early:[{t:.043,g:.092,p:-.38},{t:.104,g:.073,p:.34},{t:.193,g:.052,p:-.25},{t:.318,g:.041,p:.28}] },
-    'Courtyard': { dry:.68, wet:.30, length:.78, decay:.35, predelay:.040, density:30, highpass:100, lowpass:9500, width:.82, outdoor:true, early:[{t:.061,g:.080,p:-.52},{t:.142,g:.058,p:.48},{t:.251,g:.034,p:-.32}] },
-    'Alley': { dry:.64, wet:.35, length:.68, decay:.31, predelay:.022, density:18, highpass:135, lowpass:9200, width:.84, outdoor:true, slap:true, echoTrain:[.047,.094,.188,.292], early:[{t:.047,g:.115,p:-.72},{t:.094,g:.086,p:.68},{t:.188,g:.060,p:-.6},{t:.292,g:.040,p:.56}] },
+      'Broadcast Studio': { dry:.15, wet:.038, length:.12, decay:.055, predelay:.003, density:14, highpass:135, lowpass:5600, width:.18, early:[{t:.011,g:.022,p:0}] },
 
-    'Parking Garage': { dry:.40, wet:.65, length:1.48, decay:.66, predelay:.044, density:34, highpass:155, lowpass:7000, width:.76, metallic:true, concrete:true, echoTrain:[.066,.132,.264,.402,.536,.702], early:[{t:.066,g:.125,p:-.5},{t:.132,g:.108,p:.48},{t:.264,g:.082,p:-.42},{t:.402,g:.059,p:.38},{t:.536,g:.044,p:-.32}] },
-    'Tunnel': { dry:.34, wet:.68, length:2.05, decay:.88, predelay:.064, density:26, highpass:125, lowpass:6400, width:.98, tunnel:true, echoTrain:[.092,.184,.368,.646,.936,1.24], early:[{t:.092,g:.145,p:-.84},{t:.184,g:.122,p:.84},{t:.368,g:.092,p:-.76},{t:.646,g:.064,p:.74},{t:.936,g:.044,p:-.62}] },
-    'Gymnasium': { dry:.36, wet:.68, length:1.88, decay:.82, predelay:.054, density:50, highpass:105, lowpass:10400, width:.82, bright:true, slap:true, flutter:true, flutterPeriod:.086, flutterGain:.070, early:[{t:.084,g:.158,p:-.58},{t:.168,g:.122,p:.58},{t:.310,g:.092,p:-.48},{t:.498,g:.066,p:.48},{t:.742,g:.042,p:-.38}] },
-    'Soundstage': { dry:.62, wet:.34, length:1.12, decay:.44, predelay:.046, density:52, highpass:80, lowpass:5200, width:.56, soft:true, damped:true, early:[{t:.070,g:.041,p:-.28},{t:.156,g:.031,p:.30},{t:.281,g:.020,p:-.2}] },
-    'Scoring Stage': { dry:.52, wet:.46, length:1.34, decay:.64, predelay:.040, density:96, highpass:70, lowpass:9200, width:.70, smooth:true, clean:true, early:[{t:.052,g:.052,p:-.3},{t:.119,g:.044,p:.31},{t:.218,g:.028,p:-.22}] },
-    'Concert Hall': { dry:.41, wet:.59, length:1.95, decay:.96, predelay:.066, density:132, highpass:65, lowpass:9400, width:.88, smooth:true, musical:true, early:[{t:.074,g:.055,p:-.34},{t:.166,g:.041,p:.35},{t:.318,g:.027,p:-.24}] },
-    'Church Interior': { dry:.30, wet:.72, length:2.55, decay:1.30, predelay:.082, density:122, highpass:80, lowpass:6800, width:.88, warm:true, bloom:.34, diffuse:true, early:[{t:.132,g:.038,p:-.34},{t:.251,g:.026,p:.36},{t:.430,g:.018,p:-.22}] },
-    'Cathedral': { dry:.20, wet:.84, length:4.35, decay:2.45, predelay:.125, density:164, highpass:70, lowpass:5000, width:.98, warm:true, bloom:.92, dark:true, diffuse:true, airy:true, early:[{t:.225,g:.026,p:-.42},{t:.452,g:.018,p:.44},{t:.780,g:.012,p:-.28}] },
-    'Attic Chamber': { dry:.69, wet:.29, length:.45, decay:.22, predelay:.011, density:24, highpass:170, lowpass:4100, width:.26, boxy:true, early:[{t:.022,g:.071,p:-.12},{t:.055,g:.052,p:.1},{t:.103,g:.033,p:-.09}] },
+      'Podcast Studio': { dry:.15, wet:.014, length:.065, decay:.026, predelay:.002, density:8, highpass:170, lowpass:3300, width:.08, soft:true, damped:true, early:[{t:.011,g:.009,p:-.04},{t:.021,g:.005,p:.04}] },
 
-    'Plate': { dry:.32, wet:.78, length:1.55, decay:.82, predelay:.014, density:220, highpass:360, lowpass:13200, width:.9, plate:true, smooth:true, early:[] },
-    'Reverse': { dry:.46, wet:.86, length:1.55, decay:1.05, predelay:.030, density:96, highpass:150, lowpass:7200, width:.9, reverse:true, reverseTail:true, swellTime:1.05, forwardDelay:.92, early:[{t:.22,g:.040,p:-.35},{t:.38,g:.030,p:.35}] }
-  };
+      'Bedroom Studio': { dry:.15, wet:.14, length:.38, decay:.18, predelay:.012, density:55, highpass:80, lowpass:6020, width:.36, soft:true, damped:true, diffuse:true, early:[{t:.026,g:.035,p:-.18},{t:.057,g:.026,p:.16},{t:.112,g:.014,p:-.08},{t:.185,g:.010,p:.10}] },
 
+      'Living Room': { dry:.15, wet:.22, length:.58, decay:.30, predelay:.012, density:44, highpass:75, lowpass:4700, width:.38, soft:true, early:[{t:.029,g:.054,p:-.2},{t:.071,g:.037,p:.24},{t:.128,g:.021,p:-.06}] },
+
+      'Office': { dry:.15, wet:.29, length:.42, decay:.19, predelay:.013, density:28, highpass:190, lowpass:6500, width:.24, boxy:true, flutter:true, flutterPeriod:.032, flutterGain:.070, early:[{t:.028,g:.085,p:-.10},{t:.058,g:.064,p:.12},{t:.091,g:.047,p:-.10},{t:.126,g:.030,p:.08}] },
+
+      'Classroom': { dry:.15, wet:.30, length:.32, decay:.17, predelay:.016, density:34, highpass:175, lowpass:6000, width:.36, boxy:true, flutter:true, flutterPeriod:.037, flutterGain:.060, early:[{t:.032,g:.080,p:-.20},{t:.068,g:.060,p:.18},{t:.118,g:.040,p:-.16},{t:.176,g:.024,p:.16}] },
+
+      'Wood Room': { dry:.15, wet:.38, length:.90, decay:.42, predelay:.014, density:76, highpass:75, lowpass:7800, width:.46, warm:true, diffuse:true, early:[{t:.021,g:.064,p:-.22},{t:.049,g:.052,p:.20},{t:.094,g:.038,p:-.12},{t:.152,g:.026,p:.16},{t:.255,g:.016,p:-.08}] },
+
+      'Rehearsal Room': { dry:.15, wet:.30, length:.62, decay:.30, predelay:.017, density:48, highpass:125, lowpass:8300, width:.46, lively:true, early:[{t:.026,g:.062,p:-.26},{t:.061,g:.052,p:.24},{t:.112,g:.037,p:-.18},{t:.178,g:.026,p:.18}] },
+
+      'Club / Live Venue': { dry:.15, wet:.48, length:.95, decay:.46, predelay:.034, density:64, highpass:145, lowpass:8200, width:.66, lively:true, stage:true, early:[{t:.039,g:.105,p:-.42},{t:.092,g:.084,p:.38},{t:.168,g:.062,p:-.30},{t:.264,g:.045,p:.30},{t:.405,g:.028,p:-.22}] },
+
+      'Courtyard': { dry:.15, wet:.48, length:.88, decay:.38, predelay:.055, density:26, highpass:115, lowpass:10500, width:.88, outdoor:true, early:[{t:.068,g:.110,p:-.56},{t:.155,g:.084,p:.52},{t:.278,g:.056,p:-.36},{t:.455,g:.034,p:.32}] },
+
+      'Alley': { dry:.15, wet:.44, length:.82, decay:.34, predelay:.020, density:22, highpass:280, lowpass:12500, width:.90, outdoor:true, slap:true, bright:true, echoTrain:[.052,.104,.206,.318,.455], early:[{t:.052,g:.150,p:-.80},{t:.104,g:.115,p:.76},{t:.206,g:.082,p:-.66},{t:.318,g:.056,p:.60},{t:.455,g:.034,p:-.46}] },
+
+      'Parking Garage': { dry:.15, wet:.80, length:2.05, decay:.92, predelay:.045, density:62, highpass:360, lowpass:13500, width:.88, metallic:true, concrete:true, bright:true, echoTrain:[.072,.144,.288,.432,.576,.790,1.05,1.34], early:[{t:.072,g:.175,p:-.56},{t:.144,g:.145,p:.54},{t:.288,g:.112,p:-.48},{t:.432,g:.086,p:.44},{t:.576,g:.064,p:-.36},{t:.790,g:.046,p:.34},{t:1.05,g:.032,p:-.28},{t:1.34,g:.020,p:.22}] },
+
+      'Tunnel': { dry:.15, wet:.64, length:4.10, decay:2.35, predelay:.135, density:190, highpass:85, lowpass:4600, width:.98, warm:true, bloom:1.05, dark:true, diffuse:true, airy:true, echoTrain:[.18,.36,.72,1.18,1.72,2.35], early:[{t:.265,g:.020,p:-.38},{t:.545,g:.013,p:.40},{t:.920,g:.008,p:-.24},{t:1.35,g:.006,p:.22}] },
+
+      'Gymnasium': { dry:.15, wet:.42, length:1.05, decay:.42, predelay:.038, density:30, highpass:220, lowpass:12500, width:.74, bright:true, slap:true, flutter:true, flutterPeriod:.072, flutterGain:.080, early:[{t:.064,g:.150,p:-.52},{t:.128,g:.112,p:.52},{t:.238,g:.076,p:-.44},{t:.390,g:.046,p:.42}] },
+
+      'Soundstage': { dry:.15, wet:.30, length:.86, decay:.28, predelay:.038, density:48, highpass:110, lowpass:9200, width:.58, soft:true, damped:true, early:[{t:.058,g:.042,p:-.28},{t:.128,g:.030,p:.30},{t:.226,g:.018,p:-.2}] },
+
+      'Scoring Stage': { dry:.15, wet:.34, length:.92, decay:.42, predelay:.044, density:82, highpass:95, lowpass:9000, width:.62, smooth:true, clean:true, early:[{t:.054,g:.044,p:-.28},{t:.121,g:.034,p:.30},{t:.218,g:.020,p:-.20}] },
+
+      'Concert Hall': { dry:.15, wet:.64, length:3.00, decay:1.35, predelay:.030, density:165, highpass:35, lowpass:7600, width:.92, smooth:true, musical:true, diffuse:true, warm:true, bloom:.28, early:[{t:.030,g:.095,p:-.34},{t:.064,g:.078,p:.35},{t:.118,g:.056,p:-.24},{t:.205,g:.040,p:.22},{t:.360,g:.026,p:-.16},{t:.540,g:.016,p:.12}] },
+
+      'Church Interior': { dry:.15, wet:.58, length:2.20, decay:1.18, predelay:.088, density:138, highpass:95, lowpass:6100, width:.86, warm:true, bloom:.42, diffuse:true, early:[{t:.145,g:.022,p:-.30},{t:.285,g:.014,p:.32},{t:.510,g:.008,p:-.20}] },
+
+      'Cathedral': { dry:.15, wet:.68, length:2.05, decay:.88, predelay:.064, density:26, highpass:125, lowpass:6400, width:.98, tunnel:true, echoTrain:[.092,.184,.368,.646,.936,1.24], early:[{t:.092,g:.145,p:-.84},{t:.184,g:.122,p:.84},{t:.368,g:.092,p:-.76},{t:.646,g:.064,p:.74},{t:.936,g:.044,p:-.62}] },
+
+      'Attic Chamber': { dry:.15, wet:.29, length:.45, decay:.22, predelay:.011, density:24, highpass:170, lowpass:4100, width:.26, boxy:true, early:[{t:.022,g:.071,p:-.12},{t:.055,g:.052,p:.1},{t:.103,g:.033,p:-.09}] },
+
+      'Plate': { dry:.15, wet:.35, length:.42, decay:.20, predelay:.018, density:170, highpass:1200, lowpass:15000, width:.72, plate:true, bright:true, early:[{t:.045,g:.135,p:-.38},{t:.071,g:.105,p:.34},{t:.118,g:.072,p:-.22},{t:.165,g:.045,p:.20}] },
+
+      'Reverse': { dry:.15, wet:.96, length:2.15, decay:1.18, predelay:.055, density:170, highpass:220, lowpass:7600, width:.98, reverse:true, reverseTail:true, swellTime:1.55, forwardDelay:1.05, early:[{t:.30,g:.080,p:-.52},{t:.52,g:.060,p:.50},{t:.78,g:.040,p:-.36},{t:1.05,g:.025,p:.32}] }
+    };
   function getCtx(){
     if(!ctx) ctx = new (global.AudioContext || global.webkitAudioContext)();
     return ctx;
@@ -322,7 +340,7 @@
 
   function createOutput(audio){
     const master = audio.createGain();
-    master.gain.value = .28;
+    master.gain.value = .8;
     master.connect(audio.destination);
     return master;
   }

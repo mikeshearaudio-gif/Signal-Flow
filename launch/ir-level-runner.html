@@ -13,7 +13,7 @@
   <div class="ir-board">
     <div class="hero">
       <section class="card target">
-        <div class="target-head"><div class="eyebrow">IR Listening Level</div><div class="title" id="levelTitle">IR Level</div><div class="brief" id="levelBrief"></div></div>
+        <div class="target-head"><div class="eyebrow">Listening Level</div><div class="title" id="levelTitle">IR Level</div><div class="brief" id="levelBrief"></div></div>
         <div class="space-art"><img id="targetImage" alt="Target acoustic space" hidden><div class="space-fallback" id="fallbackIcon">🏠</div><div class="space-caption" id="spaceCaption"></div></div>
         <div class="target-foot">Listen with Flute Solo 1, then choose the IR that best fits the shown space. Scoring is forgiving: close choices still earn points.</div>
       </section>
@@ -36,6 +36,7 @@
     const audio = window.SF_IR_AUDIO;
     const params = new URLSearchParams(location.search);
     const id = (params.get('level') || 'PST-IR-01').toUpperCase();
+    const publicDisplay = (params.get('display') || '').trim().toUpperCase();
     const level = data.IR_LEVELS[id] || data.IR_LEVELS['PST-IR-01'];
     let selected = null;
     let submitted = false;
@@ -45,7 +46,7 @@
     const resultBox = document.getElementById('resultBox');
     const actions = document.getElementById('completeActions');
 
-    document.getElementById('levelTitle').textContent = level.title;
+    document.getElementById('levelTitle').textContent = publicDisplay || level.title;
     document.getElementById('levelBrief').textContent = level.brief;
     document.getElementById('spaceCaption').textContent = level.space;
     document.getElementById('fallbackIcon').textContent = level.icon || '🏠';

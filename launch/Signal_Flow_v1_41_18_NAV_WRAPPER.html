@@ -19,7 +19,7 @@
         </select>
       </label>
       <label>Board <select id="levelSelect"></select></label>
-      <label>Go to ID <input id="manualLevel" value="PST-IR-01" aria-label="Manual level ID" /></label>
+      <label>Go to Board <input id="manualLevel" value="PST-004" aria-label="Manual board ID" /></label>
       <button id="loadBtn" type="button">Load Board</button>
       <button id="homeBtn" type="button" class="secondary">Splash</button>
       <span class="sf-score" id="scoreReadout">IR Score: 0</span>
@@ -33,19 +33,126 @@
     const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
     const IR_RUNNER = 'ir-level-runner.html';
     const LEVELS = {
-      REC:['REC-001','REC-IR-01','REC-002','REC-IR-02','REC-003','REC-004','REC-IR-03','REC-005','REC-IR-04','REC-006'],
-      LIV:['LIV-001','LIV-IR-01','LIV-002','LIV-003','LIV-IR-02','LIV-004','LIV-IR-03','LIV-005','LIV-IR-04','LIV-006','LIV-IR-05','LIV-013','LIV-113','LIV-213','LIV-214','LIV-215','LIV-216','LIV-217'],
-      BRD:['BRD-001','BRD-IR-01','BRD-002','BRD-003','BRD-IR-02','BRD-004','BRD-IR-03','BRD-005','BRD-IR-04','BRD-006','BRD-103','BRD-104'],
-      PST:['PST-001','PST-IR-01','PST-002','PST-IR-02','PST-003','PST-IR-03','PST-004','PST-IR-04','PST-005','PST-IR-05','PST-006','PST-102'],
-      GAM:['GAM-001','GAM-IR-01','GAM-002','GAM-IR-02','GAM-003','GAM-IR-03','GAM-004','GAM-IR-04','GAM-005','GAM-IR-05','GAM-006']
+      REC:[
+        'REC-001','REC-002','REC-003','REC-IR-01','REC-005',
+        'REC-006','REC-007','REC-008','REC-009','REC-010',
+        'REC-011','REC-012','REC-IR-02','REC-014','REC-015',
+        'REC-016','REC-017','REC-018','REC-019','REC-020',
+        'REC-021','REC-IR-03','REC-023','REC-024','REC-025',
+        'REC-026','REC-027','REC-028','REC-029','REC-030',
+        'REC-031','REC-032','REC-033','REC-IR-04','REC-035',
+        'REC-036','REC-037','REC-038','REC-039','REC-040',
+        'REC-041','REC-042','REC-043','REC-044','REC-045',
+        'REC-046','REC-047','REC-048','REC-049','REC-050'
+      ],
+
+      LIV:[
+        'LIV-001','LIV-002','LIV-003','LIV-004','LIV-IR-01',
+        'LIV-006','LIV-007','LIV-008','LIV-009','LIV-010',
+        'LIV-011','LIV-012','LIV-013','LIV-IR-02','LIV-015',
+        'LIV-016','LIV-017','LIV-018','LIV-019','LIV-020',
+        'LIV-021','LIV-022','LIV-023','LIV-IR-03','LIV-025',
+        'LIV-026','LIV-027','LIV-028','LIV-029','LIV-030',
+        'LIV-031','LIV-032','LIV-033','LIV-034','LIV-IR-04',
+        'LIV-036','LIV-037','LIV-038','LIV-039','LIV-040',
+        'LIV-041','LIV-042','LIV-043','LIV-044','LIV-045',
+        'LIV-IR-05','LIV-047','LIV-048','LIV-049','LIV-050'
+      ],
+
+      BRD:[
+        'BRD-001','BRD-002','BRD-003','BRD-IR-01','BRD-005',
+        'BRD-006','BRD-007','BRD-008','BRD-009','BRD-010',
+        'BRD-011','BRD-IR-02','BRD-013','BRD-014','BRD-015',
+        'BRD-016','BRD-017','BRD-018','BRD-019','BRD-020',
+        'BRD-021','BRD-022','BRD-023','BRD-IR-03','BRD-025',
+        'BRD-026','BRD-027','BRD-028','BRD-029','BRD-030',
+        'BRD-031','BRD-032','BRD-033','BRD-034','BRD-035',
+        'BRD-036','BRD-IR-04','BRD-038','BRD-039','BRD-040',
+        'BRD-041','BRD-042','BRD-043','BRD-044','BRD-045',
+        'BRD-046','BRD-047','BRD-048','BRD-049','BRD-050'
+      ],
+
+      PST:[
+        'PST-001','PST-002','PST-003','PST-IR-01','PST-005',
+        'PST-006','PST-007','PST-008','PST-009','PST-010',
+        'PST-011','PST-012','PST-IR-02','PST-014','PST-015',
+        'PST-016','PST-017','PST-018','PST-019','PST-020',
+        'PST-021','PST-022','PST-023','PST-IR-03','PST-025',
+        'PST-026','PST-027','PST-028','PST-029','PST-030',
+        'PST-031','PST-032','PST-033','PST-034','PST-IR-04',
+        'PST-036','PST-037','PST-038','PST-039','PST-040',
+        'PST-041','PST-042','PST-043','PST-044','PST-045',
+        'PST-IR-05','PST-047','PST-048','PST-049','PST-050'
+      ],
+
+      GAM:[
+        'GAM-001','GAM-002','GAM-003','GAM-004','GAM-IR-01',
+        'GAM-006','GAM-007','GAM-008','GAM-009','GAM-010',
+        'GAM-011','GAM-012','GAM-013','GAM-IR-02','GAM-015',
+        'GAM-016','GAM-017','GAM-018','GAM-019','GAM-020',
+        'GAM-021','GAM-022','GAM-023','GAM-024','GAM-IR-03',
+        'GAM-026','GAM-027','GAM-028','GAM-029','GAM-030',
+        'GAM-031','GAM-032','GAM-033','GAM-034','GAM-035',
+        'GAM-036','GAM-IR-04','GAM-038','GAM-039','GAM-040',
+        'GAM-041','GAM-042','GAM-043','GAM-044','GAM-045',
+        'GAM-046','GAM-047','GAM-IR-05','GAM-049','GAM-050'
+      ]
     };
     const IR_IDS = new Set(Object.values(LEVELS).flat().filter(id => id.includes('-IR-')));
+
+    const PUBLIC_LABELS = {};
+    const INTERNAL_BY_PUBLIC = {};
+
+    Object.keys(LEVELS).forEach(env => {
+      LEVELS[env].forEach((id, index) => {
+        const publicId = env + '-' + String(index + 1).padStart(3, '0');
+        PUBLIC_LABELS[id] = id.includes('-IR-') ? publicId : id;
+        INTERNAL_BY_PUBLIC[publicId] = id;
+        INTERNAL_BY_PUBLIC[id] = id;
+      });
+    });
+
+    function displayLabel(id){
+      return PUBLIC_LABELS[id] || id;
+    }
+
+    function internalId(input){
+      const clean = String(input || '').trim().toUpperCase();
+      return INTERNAL_BY_PUBLIC[clean] || clean;
+    }
     const frame = document.getElementById('gameFrame'); const envSelect = document.getElementById('envSelect'); const levelSelect = document.getElementById('levelSelect'); const manualLevel = document.getElementById('manualLevel'); const scoreReadout = document.getElementById('scoreReadout');
     let irScore = Number(localStorage.getItem('sf-ir-score') || 0);
     scoreReadout.textContent = 'IR Score: ' + irScore;
-    function populate(env){ const ids=LEVELS[env]||LEVELS.PST; levelSelect.innerHTML=''; ids.forEach(id=>{const opt=document.createElement('option'); opt.value=id; opt.textContent=id; levelSelect.appendChild(opt);}); if(!ids.includes(levelSelect.value)) levelSelect.value=ids[0]; }
-    function routeFor(id){ return IR_IDS.has(id) ? IR_RUNNER + '?level=' + encodeURIComponent(id) : GAME + '#/level/' + encodeURIComponent(id); }
-    function loadLevel(id){ const clean=String(id||'').trim().toUpperCase(); if(!clean) return; manualLevel.value=clean; const prefix=clean.split('-')[0]; if(LEVELS[prefix]){ envSelect.value=prefix; populate(prefix); if(Array.from(levelSelect.options).some(o=>o.value===clean)) levelSelect.value=clean; } frame.src=routeFor(clean); }
+    function populate(env){
+      const ids = LEVELS[env] || LEVELS.PST;
+      levelSelect.innerHTML = '';
+      ids.forEach(id => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = displayLabel(id);
+        levelSelect.appendChild(opt);
+      });
+      if(!ids.includes(levelSelect.value)) levelSelect.value = ids[0];
+    }
+
+    function routeFor(id){
+      return IR_IDS.has(id)
+        ? IR_RUNNER + '?level=' + encodeURIComponent(id) + '&display=' + encodeURIComponent(displayLabel(id))
+        : GAME + '#/level/' + encodeURIComponent(id);
+    }
+
+    function loadLevel(id){
+      const clean = internalId(id);
+      if(!clean) return;
+      manualLevel.value = displayLabel(clean);
+      const prefix = clean.split('-')[0];
+      if(LEVELS[prefix]){
+        envSelect.value = prefix;
+        populate(prefix);
+        if(Array.from(levelSelect.options).some(o => o.value === clean)) levelSelect.value = clean;
+      }
+      frame.src = routeFor(clean);
+    }
     function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=manualLevel.value.trim().toUpperCase(); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
     envSelect.addEventListener('change',()=>{ populate(envSelect.value); manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
     levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
