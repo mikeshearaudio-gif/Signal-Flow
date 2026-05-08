@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="260" viewBox="0 0 1120 260" role="img" aria-label="FOH console I/O hardware spacing fixed">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#343535"/><stop offset="0.48" stop-color="#222323"/><stop offset="1" stop-color="#111214"/></linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#777"/><stop offset="0.18" stop-color="#272727"/><stop offset="1" stop-color="#060606"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0ddd0"/><stop offset="0.22" stop-color="#71706a"/><stop offset="0.52" stop-color="#202122"/><stop offset="0.83" stop-color="#0b0c0d"/><stop offset="1" stop-color="#7e7a70"/></linearGradient>
+  <linearGradient id="blueMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa2ff"/><stop offset="0.4" stop-color="#1763c7"/><stop offset="1" stop-color="#07306d"/></linearGradient>
+  <linearGradient id="goldPin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7a6"/><stop offset="0.45" stop-color="#c88c2a"/><stop offset="1" stop-color="#5f3b0d"/></linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2021"/><stop offset="0.45" stop-color="#060708"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <linearGradient id="amberLens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe5a6"/><stop offset="0.38" stop-color="#d99619"/><stop offset="0.72" stop-color="#5d3200"/><stop offset="1" stop-color="#ffbd2d"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/></filter>
+  <filter id="softGlow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="4" y="6" width="1112" height="248" rx="8" fill="url(#rackEdge)" filter="url(#shadow)"/>
+<rect x="18" y="14" width="1084" height="232" rx="5" fill="url(#rackFace)" stroke="#5e5e58" stroke-width="1.2"/>
+<path d="M22 18H1098" stroke="#7d7a70" stroke-opacity="0.5"/>
+<path d="M22 242H1098" stroke="#000" stroke-opacity="0.8"/>
+<rect x="3" y="18" width="12" height="224" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="6" y="28" width="6" height="204" rx="3" fill="url(#metal)" opacity="0.78"/>
+<circle cx="9" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="9" cy="240" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<rect x="1105" y="18" width="12" height="224" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="1108" y="28" width="6" height="204" rx="3" fill="url(#metal)" opacity="0.78"/>
+<circle cx="1111" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="1111" cy="240" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<text x="20" y="-6" text-anchor="start" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="800" fill="#e7e7de" >2. FOH CONSOLE I/O PANEL</text>
+<text x="190" y="52" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >MIC / LINE INPUTS</text>
+<text x="510" y="52" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >LINE INPUTS (TRS)</text>
+<text x="785" y="52" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >LINE OUTPUTS</text>
+<text x="1005" y="52" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >MAIN OUTPUTS</text>
+<path d="M355 56V214" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M650 56V214" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M930 56V214" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<text x="100" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >1</text>
+<g transform="translate(100 134) scale(1.12) translate(-100 -134)" data-v18-reference-scale="1.12" class="xlr female" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="82.98" cy="119.28" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="117.02" cy="148.72" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="100" cy="134" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.196"/>
+<circle cx="100" cy="134" r="19.78" fill="#121314" stroke="#817d72" stroke-width="0.805" opacity="0.9"/>
+<circle cx="100" cy="134" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="100" cy="134" r="10.35" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M89.88 125.95C96.32 122.5 105.29 122.73 110.35 127.1" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.196"/>
+<rect x="93.675" y="112.61" width="12.65" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="100" y="115.466" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="94.365" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="93.836" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="105.635" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="105.106" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="100" cy="141.475" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="99.471" cy="140.946" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="83.9" cy="119.74" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M82.492 121.148L85.308 118.332" stroke="#777" stroke-width="0.5"/>
+<circle cx="116.1" cy="148.26" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M114.692 149.668L117.508 146.852" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="160" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >2</text>
+<g transform="translate(160 134) scale(1.12) translate(-160 -134)" data-v18-reference-scale="1.12" class="xlr female" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="142.98" cy="119.28" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="177.02" cy="148.72" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="160" cy="134" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.196"/>
+<circle cx="160" cy="134" r="19.78" fill="#121314" stroke="#817d72" stroke-width="0.805" opacity="0.9"/>
+<circle cx="160" cy="134" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="160" cy="134" r="10.35" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M149.88 125.95C156.32 122.5 165.29 122.73 170.35 127.1" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.196"/>
+<rect x="153.675" y="112.61" width="12.65" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="160" y="115.466" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="154.365" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="153.836" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="165.635" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="165.106" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="160" cy="141.475" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="159.471" cy="140.946" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="143.9" cy="119.74" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M142.492 121.148L145.308 118.332" stroke="#777" stroke-width="0.5"/>
+<circle cx="176.1" cy="148.26" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M174.692 149.668L177.508 146.852" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="220" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >3</text>
+<g transform="translate(220 134) scale(1.12) translate(-220 -134)" data-v18-reference-scale="1.12" class="xlr female" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="202.98" cy="119.28" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="237.02" cy="148.72" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="220" cy="134" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.196"/>
+<circle cx="220" cy="134" r="19.78" fill="#121314" stroke="#817d72" stroke-width="0.805" opacity="0.9"/>
+<circle cx="220" cy="134" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="220" cy="134" r="10.35" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M209.88 125.95C216.32 122.5 225.29 122.73 230.35 127.1" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.196"/>
+<rect x="213.675" y="112.61" width="12.65" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="220" y="115.466" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="214.365" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="213.836" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="225.635" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="225.106" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="220" cy="141.475" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="219.471" cy="140.946" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="203.9" cy="119.74" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M202.492 121.148L205.308 118.332" stroke="#777" stroke-width="0.5"/>
+<circle cx="236.1" cy="148.26" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M234.692 149.668L237.508 146.852" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="280" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >4</text>
+<g transform="translate(280 134) scale(1.12) translate(-280 -134)" data-v18-reference-scale="1.12" class="xlr female" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="262.98" cy="119.28" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="297.02" cy="148.72" r="3.68" fill="#111" stroke="#5e5b54" stroke-width="0.805"/>
+<circle cx="280" cy="134" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.196"/>
+<circle cx="280" cy="134" r="19.78" fill="#121314" stroke="#817d72" stroke-width="0.805" opacity="0.9"/>
+<circle cx="280" cy="134" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="280" cy="134" r="10.35" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M269.88 125.95C276.32 122.5 285.29 122.73 290.35 127.1" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.196"/>
+<rect x="273.675" y="112.61" width="12.65" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="280" y="115.466" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="274.365" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="273.836" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="285.635" cy="130.665" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="285.106" cy="130.136" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="280" cy="141.475" r="2.708" fill="#050505" stroke="#5d5a52" stroke-width="0.7"/>
+<circle cx="279.471" cy="140.946" r="0.762" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="263.9" cy="119.74" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M262.492 121.148L265.308 118.332" stroke="#777" stroke-width="0.5"/>
+<circle cx="296.1" cy="148.26" r="1.955" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M294.692 149.668L297.508 146.852" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="425" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >5</text>
+<g class="trs" data-scale="trs-medium" filter="url(#shadow)">
+<circle cx="425" cy="134" r="17.0" fill="url(#metal)" stroke="#050505" stroke-width="1.3"/>
+<circle cx="425" cy="134" r="11.56" fill="#090909" stroke="#c9c3b3" stroke-width="1.3"/>
+<circle cx="425" cy="134" r="5.78" fill="#1d1d1c" stroke="#050505"/>
+<path d="M417.35 127.2C421.94 124.14,428.4 124.65,432.65 129.24" stroke="#fff" opacity="0.18" fill="none"/>
+</g>
+<text x="485" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >6</text>
+<g class="trs" data-scale="trs-medium" filter="url(#shadow)">
+<circle cx="485" cy="134" r="17.0" fill="url(#metal)" stroke="#050505" stroke-width="1.3"/>
+<circle cx="485" cy="134" r="11.56" fill="#090909" stroke="#c9c3b3" stroke-width="1.3"/>
+<circle cx="485" cy="134" r="5.78" fill="#1d1d1c" stroke="#050505"/>
+<path d="M477.35 127.2C481.94 124.14,488.4 124.65,492.65 129.24" stroke="#fff" opacity="0.18" fill="none"/>
+</g>
+<text x="545" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >7</text>
+<g class="trs" data-scale="trs-medium" filter="url(#shadow)">
+<circle cx="545" cy="134" r="17.0" fill="url(#metal)" stroke="#050505" stroke-width="1.3"/>
+<circle cx="545" cy="134" r="11.56" fill="#090909" stroke="#c9c3b3" stroke-width="1.3"/>
+<circle cx="545" cy="134" r="5.78" fill="#1d1d1c" stroke="#050505"/>
+<path d="M537.35 127.2C541.94 124.14,548.4 124.65,552.65 129.24" stroke="#fff" opacity="0.18" fill="none"/>
+</g>
+<text x="605" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >8</text>
+<g class="trs" data-scale="trs-medium" filter="url(#shadow)">
+<circle cx="605" cy="134" r="17.0" fill="url(#metal)" stroke="#050505" stroke-width="1.3"/>
+<circle cx="605" cy="134" r="11.56" fill="#090909" stroke="#c9c3b3" stroke-width="1.3"/>
+<circle cx="605" cy="134" r="5.78" fill="#1d1d1c" stroke="#050505"/>
+<path d="M597.35 127.2C601.94 124.14,608.4 124.65,612.65 129.24" stroke="#fff" opacity="0.18" fill="none"/>
+</g>
+<text x="715" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >1</text>
+<g transform="translate(715 134) scale(1.12) translate(-715 -134)" data-v18-reference-scale="1.12" class="xlr male" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="699.46" cy="120.56" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="730.54" cy="147.44" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="715" cy="134" r="21" fill="url(#metal)" stroke="#050505" stroke-width="1.092"/>
+<circle cx="715" cy="134" r="18.06" fill="#121314" stroke="#817d72" stroke-width="0.8" opacity="0.9"/>
+<circle cx="715" cy="134" r="14.7" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="715" cy="134" r="9.45" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M705.76 126.65C711.64 123.5 719.83 123.71 724.45 127.7" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.092"/>
+<rect x="709.225" y="114.47" width="11.55" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="715" y="117.326" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="709.855" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="709.411" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="720.145" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="719.701" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="715" cy="140.825" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="714.556" cy="140.342" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="700.3" cy="120.98" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M699.004 122.276L701.596 119.684" stroke="#777" stroke-width="0.5"/>
+<circle cx="729.7" cy="147.02" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M728.404 148.316L730.996 145.724" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="770" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >2</text>
+<g transform="translate(770 134) scale(1.12) translate(-770 -134)" data-v18-reference-scale="1.12" class="xlr male" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="754.46" cy="120.56" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="785.54" cy="147.44" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="770" cy="134" r="21" fill="url(#metal)" stroke="#050505" stroke-width="1.092"/>
+<circle cx="770" cy="134" r="18.06" fill="#121314" stroke="#817d72" stroke-width="0.8" opacity="0.9"/>
+<circle cx="770" cy="134" r="14.7" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="770" cy="134" r="9.45" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M760.76 126.65C766.64 123.5 774.83 123.71 779.45 127.7" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.092"/>
+<rect x="764.225" y="114.47" width="11.55" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="770" y="117.326" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="764.855" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="764.411" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="775.145" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="774.701" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="770" cy="140.825" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="769.556" cy="140.342" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="755.3" cy="120.98" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M754.004 122.276L756.596 119.684" stroke="#777" stroke-width="0.5"/>
+<circle cx="784.7" cy="147.02" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M783.404 148.316L785.996 145.724" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="825" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >3</text>
+<g transform="translate(825 134) scale(1.12) translate(-825 -134)" data-v18-reference-scale="1.12" class="xlr male" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="809.46" cy="120.56" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="840.54" cy="147.44" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="825" cy="134" r="21" fill="url(#metal)" stroke="#050505" stroke-width="1.092"/>
+<circle cx="825" cy="134" r="18.06" fill="#121314" stroke="#817d72" stroke-width="0.8" opacity="0.9"/>
+<circle cx="825" cy="134" r="14.7" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="825" cy="134" r="9.45" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M815.76 126.65C821.64 123.5 829.83 123.71 834.45 127.7" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.092"/>
+<rect x="819.225" y="114.47" width="11.55" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="825" y="117.326" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="819.855" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="819.411" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="830.145" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="829.701" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="825" cy="140.825" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="824.556" cy="140.342" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="810.3" cy="120.98" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M809.004 122.276L811.596 119.684" stroke="#777" stroke-width="0.5"/>
+<circle cx="839.7" cy="147.02" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M838.404 148.316L840.996 145.724" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="880" y="91" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="700" fill="#e8e5da" >4</text>
+<g transform="translate(880 134) scale(1.12) translate(-880 -134)" data-v18-reference-scale="1.12" class="xlr male" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="864.46" cy="120.56" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="895.54" cy="147.44" r="3.36" fill="#111" stroke="#5e5b54" stroke-width="0.735"/>
+<circle cx="880" cy="134" r="21" fill="url(#metal)" stroke="#050505" stroke-width="1.092"/>
+<circle cx="880" cy="134" r="18.06" fill="#121314" stroke="#817d72" stroke-width="0.8" opacity="0.9"/>
+<circle cx="880" cy="134" r="14.7" fill="url(#jackCup)" stroke="#68645b" stroke-width="0.9"/>
+<circle cx="880" cy="134" r="9.45" fill="#070808" stroke="#2f3030" stroke-width="0.7"/>
+<path d="M870.76 126.65C876.64 123.5 884.83 123.71 889.45 127.7" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.092"/>
+<rect x="874.225" y="114.47" width="11.55" height="4.2" rx="2.1" fill="#c7c0ae" stroke="#302b24" stroke-width="0.55"/>
+<text x="880" y="117.326" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="3.8" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="874.855" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="874.411" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="885.145" cy="130.955" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="884.701" cy="130.472" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="880" cy="140.825" r="2.048" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.55"/>
+<circle cx="879.556" cy="140.342" r="0.58" fill="#fff0b4" opacity="0.65"/>
+<circle cx="865.3" cy="120.98" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M864.004 122.276L866.596 119.684" stroke="#777" stroke-width="0.5"/>
+<circle cx="894.7" cy="147.02" r="1.8" fill="#050505" stroke="#9b988d" stroke-width="0.7"/>
+<path d="M893.404 148.316L895.996 145.724" stroke="#777" stroke-width="0.5"/>
+</g>
+<text x="975" y="82" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="800" fill="#e8e5da" >LEFT</text>
+<text x="1045" y="82" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="12" font-weight="800" fill="#e8e5da" >RIGHT</text>
+<g class="speakon" data-scale="speakon-large" filter="url(#shadow)">
+<rect x="947.0" y="106.0" width="56" height="56" rx="7" fill="url(#blueMetal)" stroke="#051128" stroke-width="1.5"/>
+<circle cx="975" cy="134" r="19.040000000000003" fill="#071025" stroke="#2e81ff" stroke-width="2"/>
+<path d="M975 120.0a14.0 14.0 0 1 0 0 28.0" fill="none" stroke="#050812" stroke-width="7.28" stroke-linecap="round"/>
+<rect x="971.08" y="121.68" width="7.840000000000001" height="12.32" rx="2" fill="#2e81ff" opacity="0.65"/>
+<circle cx="955.4" cy="114.4" r="2.2" fill="#050505" stroke="#9b988d" stroke-width="1"/><path d="M954.1999999999999 115.60000000000001L956.6 113.2" stroke="#777" stroke-width="0.8"/>
+<circle cx="994.6" cy="153.6" r="2.2" fill="#050505" stroke="#9b988d" stroke-width="1"/><path d="M993.4 154.79999999999998L995.8000000000001 152.4" stroke="#777" stroke-width="0.8"/>
+</g>
+
+<g class="speakon" data-scale="speakon-large" filter="url(#shadow)">
+<rect x="1017.0" y="106.0" width="56" height="56" rx="7" fill="url(#blueMetal)" stroke="#051128" stroke-width="1.5"/>
+<circle cx="1045" cy="134" r="19.040000000000003" fill="#071025" stroke="#2e81ff" stroke-width="2"/>
+<path d="M1045 120.0a14.0 14.0 0 1 0 0 28.0" fill="none" stroke="#050812" stroke-width="7.28" stroke-linecap="round"/>
+<rect x="1041.08" y="121.68" width="7.840000000000001" height="12.32" rx="2" fill="#2e81ff" opacity="0.65"/>
+<circle cx="1025.4" cy="114.4" r="2.2" fill="#050505" stroke="#9b988d" stroke-width="1"/><path d="M1024.2 115.60000000000001L1026.6000000000001 113.2" stroke="#777" stroke-width="0.8"/>
+<circle cx="1064.6" cy="153.6" r="2.2" fill="#050505" stroke="#9b988d" stroke-width="1"/><path d="M1063.3999999999999 154.79999999999998L1065.8 152.4" stroke="#777" stroke-width="0.8"/>
+</g>
+
+<text x="1010" y="194" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#e8e5da" >SPEAKON NL4</text>
+<text x="1010" y="210" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#e8e5da" >CLASS 2 WIRING ⚡</text>
+</svg>

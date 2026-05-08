@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="380" height="110" viewBox="0 0 380 110" role="img">
+
+  <defs>
+    <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3d3c"/><stop offset="0.16" stop-color="#242827"/><stop offset="0.55" stop-color="#111414"/><stop offset="1" stop-color="#070909"/>
+    </linearGradient>
+    <linearGradient id="rackBevel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7a7c78" stop-opacity=".72"/><stop offset="0.08" stop-color="#2a2d2c"/><stop offset="0.88" stop-color="#080908"/><stop offset="1" stop-color="#303330"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0efe5"/><stop offset="0.22" stop-color="#aaa99d"/><stop offset="0.5" stop-color="#44443e"/><stop offset="0.74" stop-color="#c7c4b4"/><stop offset="1" stop-color="#171714"/>
+    </linearGradient>
+    <linearGradient id="blueMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4ba0ff"/><stop offset="0.28" stop-color="#215cc5"/><stop offset="0.62" stop-color="#0b2b72"/><stop offset="1" stop-color="#06133a"/>
+    </linearGradient>
+    <linearGradient id="amberLens" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd679"/><stop offset="0.52" stop-color="#ba7111"/><stop offset="1" stop-color="#4b2507"/>
+    </linearGradient>
+    <linearGradient id="screenAmber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16130a"/><stop offset="1" stop-color="#020202"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000000" flood-opacity="0.72"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+    <filter id="blueGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#2e7cff" flood-opacity=".82"/>
+    </filter>
+    <filter id="greenGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#b9f45a" flood-opacity=".7"/>
+    </filter>
+    <filter id="amberGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ffb21f" flood-opacity=".78"/>
+    </filter>
+    <pattern id="grain" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" x="1" y="3" fill="#fff" opacity=".05"/>
+      <rect width="1" height="1" x="7" y="11" fill="#000" opacity=".12"/>
+      <rect width="1" height="1" x="14" y="6" fill="#fff" opacity=".035"/>
+    </pattern>
+    <style>
+      .label{font-family:'Arial Narrow','Inter',system-ui,sans-serif;font-weight:700;letter-spacing:.08em;fill:#e5e2d8}
+      .small{font-size:11px;fill:#d2cec2}.tiny{font-size:8px;fill:#c7c1b5}.num{font-size:13px;fill:#f1eee4}
+      .cut{fill:#050606;stroke:#3c3e3c;stroke-width:1}.divider{stroke:#93958e;stroke-width:1;opacity:.65}
+      .sf-led{transition:opacity .2s ease}.sf-led-standby{opacity:.36}.sf-led-active{opacity:1}
+      .sf-meter-bar{rx:1.5}.sf-meter-off{fill:#181d18}.sf-meter-green{fill:#93df42}.sf-meter-amber{fill:#ffb32e}.sf-meter-red{fill:#f44737}
+    </style>
+  </defs>
+
+<path d="M20 52 C120 4 240 100 360 52" fill="none" stroke="#000" stroke-width="16" opacity=".55" stroke-linecap="round"/><path class="sf-live-signal-path" d="M20 52 C120 4 240 100 360 52" fill="none" stroke="#d6d1c5" stroke-width="7" stroke-linecap="round"/><path d="M20 46 C120 -2 240 94 360 46" fill="none" stroke="#fff" stroke-width="2" opacity=".23" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,132 @@
+{
+  "version": "1.8-reference-scale-lock",
+  "purpose": "Live Sound environment SVG kit for Signal Flow normal patching boards",
+  "root": "assets/live-sound/svg",
+  "style_reference": "Live Sound Gear concept sheet: dark front-view rack hardware, realistic connectors, blue PowerCON/SpeakON accents, amber displays, gunmetal panels.",
+  "categories": {
+    "backgrounds": [
+      "live-board-shell.svg",
+      "live-sidebar-skin.svg",
+      "live-topbar-skin.svg"
+    ],
+    "panels": [
+      "row-well-amber.svg",
+      "row-well-blue.svg",
+      "row-well-green.svg",
+      "row-well-neutral.svg",
+      "row-well-red.svg",
+      "section-foh-console.svg",
+      "section-iem-wireless.svg",
+      "section-monitor-wedge.svg",
+      "section-power-amplifier.svg",
+      "section-stagebox.svg",
+      "section-utility-rack.svg"
+    ],
+    "connectors": [
+      "amber-lamp.svg",
+      "antenna-port.svg",
+      "bnc-antenna.svg",
+      "level-knob.svg",
+      "mode-switch.svg",
+      "powercon-true1.svg",
+      "rj45-network.svg",
+      "speakon-nl4.svg",
+      "trs-quarter-inch.svg",
+      "xlr-female.svg",
+      "xlr-male.svg"
+    ],
+    "meters": [
+      "live-amp-status-active.svg",
+      "live-amp-status-standby.svg",
+      "live-rf-af-meter-active.svg",
+      "live-rf-af-meter-standby.svg"
+    ],
+    "cards": [
+      "live-active-preset-card.svg",
+      "live-material-color-guide.svg",
+      "live-signal-status-card.svg"
+    ],
+    "hardware": [
+      "connector-legend.svg",
+      "foh-console-io-panel.svg",
+      "iem-wireless-rack-front.svg",
+      "monitor-wedge-input-panel.svg",
+      "power-amplifier.svg",
+      "stagebox-snake-head.svg",
+      "system-utility-rack.svg"
+    ],
+    "overlays": [
+      "live-cable-amber.svg",
+      "live-cable-blue.svg",
+      "live-cable-gray.svg",
+      "live-cable-green.svg",
+      "live-plug-cap-amber.svg",
+      "live-plug-cap-blue.svg",
+      "live-plug-cap-gray.svg",
+      "live-plug-cap-green.svg"
+    ]
+  },
+  "integration_notes": [
+    "Apply to all normal LIV patching levels, not only one level.",
+    "Keep existing DOM jack buttons, labels, cable layer, scoring, undo, clear, hints and route validation intact.",
+    "Use these SVGs as decorative/hardware layers with pointer-events:none unless explicitly interactive.",
+    "Meters/LEDs should be activated from valid route state, recomputed after route add, undo, clear and level load."
+  ],
+  "updated": "connector fixes: xlr male/female and stagebox link out spacing",
+  "notes": "Replaced amber lamp asterisk with glass pilot-light lens; realigned FOH, IEM/wireless, and system utility rack panels.",
+  "scalePolicy": "v1.8 locks connector scale to the Live Sound concept art; XLRs are large panel hardware and should not be normalized to generic icon size.",
+  "connectorNaturalSizes": {
+    "xlr-female.svg": [
+      96,
+      96
+    ],
+    "xlr-male.svg": [
+      96,
+      96
+    ],
+    "speakon-nl4.svg": [
+      92,
+      92
+    ],
+    "powercon-true1.svg": [
+      92,
+      92
+    ],
+    "level-knob.svg": [
+      80,
+      80
+    ],
+    "amber-lamp.svg": [
+      72,
+      72
+    ],
+    "rj45-network.svg": [
+      72,
+      58
+    ],
+    "trs-quarter-inch.svg": [
+      64,
+      64
+    ],
+    "bnc-antenna.svg": [
+      58,
+      58
+    ],
+    "antenna-port.svg": [
+      58,
+      58
+    ]
+  },
+  "xlr_geometry": {
+    "orientation": "PUSH latch at 12 oclock; two upper contacts horizontal beneath latch; one lower contact centered at 6 oclock",
+    "spacing": "compact equilateral-style contact triangle based on stagebox concept art, not the previous wide/low layout",
+    "integration_note": "Do not rotate or flip XLR assets in CSS. Preserve the natural upright SVG orientation."
+  },
+  "embeddedHardwareScaleFactors": {
+    "stagebox-snake-head.svg": 1.18,
+    "foh-console-io-panel.svg": 1.12,
+    "monitor-wedge-input-panel.svg": 1.03,
+    "power-amplifier.svg": 1.1,
+    "connector-legend.svg": 1.0
+  }
+}

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="215" viewBox="0 0 820 215" role="img">
+
+  <defs>
+    <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a3d3c"/><stop offset="0.16" stop-color="#242827"/><stop offset="0.55" stop-color="#111414"/><stop offset="1" stop-color="#070909"/>
+    </linearGradient>
+    <linearGradient id="rackBevel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7a7c78" stop-opacity=".72"/><stop offset="0.08" stop-color="#2a2d2c"/><stop offset="0.88" stop-color="#080908"/><stop offset="1" stop-color="#303330"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0efe5"/><stop offset="0.22" stop-color="#aaa99d"/><stop offset="0.5" stop-color="#44443e"/><stop offset="0.74" stop-color="#c7c4b4"/><stop offset="1" stop-color="#171714"/>
+    </linearGradient>
+    <linearGradient id="blueMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4ba0ff"/><stop offset="0.28" stop-color="#215cc5"/><stop offset="0.62" stop-color="#0b2b72"/><stop offset="1" stop-color="#06133a"/>
+    </linearGradient>
+    <linearGradient id="amberLens" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd679"/><stop offset="0.52" stop-color="#ba7111"/><stop offset="1" stop-color="#4b2507"/>
+    </linearGradient>
+    <linearGradient id="screenAmber" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16130a"/><stop offset="1" stop-color="#020202"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="150%" height="170%">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000000" flood-opacity="0.72"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+    <filter id="blueGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#2e7cff" flood-opacity=".82"/>
+    </filter>
+    <filter id="greenGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#b9f45a" flood-opacity=".7"/>
+    </filter>
+    <filter id="amberGlow" x="-70%" y="-70%" width="240%" height="240%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ffb21f" flood-opacity=".78"/>
+    </filter>
+    <pattern id="grain" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" x="1" y="3" fill="#fff" opacity=".05"/>
+      <rect width="1" height="1" x="7" y="11" fill="#000" opacity=".12"/>
+      <rect width="1" height="1" x="14" y="6" fill="#fff" opacity=".035"/>
+    </pattern>
+    <style>
+      .label{font-family:'Arial Narrow','Inter',system-ui,sans-serif;font-weight:700;letter-spacing:.08em;fill:#e5e2d8}
+      .small{font-size:11px;fill:#d2cec2}.tiny{font-size:8px;fill:#c7c1b5}.num{font-size:13px;fill:#f1eee4}
+      .cut{fill:#050606;stroke:#3c3e3c;stroke-width:1}.divider{stroke:#93958e;stroke-width:1;opacity:.65}
+      .sf-led{transition:opacity .2s ease}.sf-led-standby{opacity:.36}.sf-led-active{opacity:1}
+      .sf-meter-bar{rx:1.5}.sf-meter-off{fill:#181d18}.sf-meter-green{fill:#93df42}.sf-meter-amber{fill:#ffb32e}.sf-meter-red{fill:#f44737}
+    </style>
+  </defs>
+
+
+    <rect x="8" y="12" width="810" height="209" rx="9" fill="#000" opacity=".52" filter="url(#shadow)"/>
+    <rect x="1" y="1" width="818" height="213" rx="8" fill="url(#rackBevel)" stroke="#494c49"/>
+    <rect x="18" y="8" width="784" height="199" rx="4" fill="url(#rackFace)" stroke="#151817"/>
+    <rect x="22" y="12" width="776" height="20" rx="3" fill="#fff" opacity=".055"/>
+    <rect x="22" y="190" width="776" height="13" rx="4" fill="#000" opacity=".25"/>
+    <rect x="18" y="8" width="784" height="199" rx="4" fill="url(#grain)" opacity=".65"/>
+    <g class="sf-screw" transform="translate(14,16)">
+      <circle cx="0" cy="0" r="7" fill="url(#steel)" stroke="#050505" stroke-width="1"/>
+      <circle cx="-2" cy="-2" r="2" fill="#fff" opacity=".22"/>
+      <rect x="-5" y="-1" width="10" height="2" rx="1" fill="#090909" opacity=".9"/>
+    </g><g class="sf-screw" transform="translate(806,16)">
+      <circle cx="0" cy="0" r="7" fill="url(#steel)" stroke="#050505" stroke-width="1"/>
+      <circle cx="-2" cy="-2" r="2" fill="#fff" opacity=".22"/>
+      <rect x="-5" y="-1" width="10" height="2" rx="1" fill="#090909" opacity=".9"/>
+    </g><g class="sf-screw" transform="translate(14,199)">
+      <circle cx="0" cy="0" r="7" fill="url(#steel)" stroke="#050505" stroke-width="1"/>
+      <circle cx="-2" cy="-2" r="2" fill="#fff" opacity=".22"/>
+      <rect x="-5" y="-1" width="10" height="2" rx="1" fill="#090909" opacity=".9"/>
+    </g><g class="sf-screw" transform="translate(806,199)">
+      <circle cx="0" cy="0" r="7" fill="url(#steel)" stroke="#050505" stroke-width="1"/>
+      <circle cx="-2" cy="-2" r="2" fill="#fff" opacity=".22"/>
+      <rect x="-5" y="-1" width="10" height="2" rx="1" fill="#090909" opacity=".9"/>
+    </g>
+    <text x="42" y="28" class="label" font-size="16">IEM / WIRELESS RACK</text>
+    <rect x="58" y="62" width="704" height="113" rx="8" fill="#070909" opacity=".38" stroke="#343838" stroke-dasharray="7 5"/><text x="410.0" y="113.5" class="small" text-anchor="middle" opacity=".45">DOM JACKS / LABELS OVERLAY HERE</text>
+</svg>

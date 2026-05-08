@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="level knob medium-large">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#343535"/><stop offset="0.48" stop-color="#222323"/><stop offset="1" stop-color="#111214"/></linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#777"/><stop offset="0.18" stop-color="#272727"/><stop offset="1" stop-color="#060606"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0ddd0"/><stop offset="0.22" stop-color="#71706a"/><stop offset="0.52" stop-color="#202122"/><stop offset="0.83" stop-color="#0b0c0d"/><stop offset="1" stop-color="#7e7a70"/></linearGradient>
+  <linearGradient id="blueMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa2ff"/><stop offset="0.4" stop-color="#1763c7"/><stop offset="1" stop-color="#07306d"/></linearGradient>
+  <linearGradient id="goldPin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7a6"/><stop offset="0.45" stop-color="#c88c2a"/><stop offset="1" stop-color="#5f3b0d"/></linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2021"/><stop offset="0.45" stop-color="#060708"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <linearGradient id="amberLens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe5a6"/><stop offset="0.38" stop-color="#d99619"/><stop offset="0.72" stop-color="#5d3200"/><stop offset="1" stop-color="#ffbd2d"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/></filter>
+  <filter id="softGlow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<g class="knob" data-scale="knob-medium" filter="url(#shadow)">
+<path d="M20.5 26.4L15.8 23.0" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M22.3 24.1L18.0 20.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M24.3 22.1L20.5 17.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M26.6 20.4L23.3 15.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M29.0 18.9L26.3 13.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M31.6 17.7L29.6 12.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M34.3 16.9L33.0 11.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M37.2 16.4L36.5 10.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M40.0 16.2L40.0 10.4" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M42.8 16.4L43.5 10.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M45.7 16.9L47.0 11.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M48.4 17.7L50.4 12.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M51.0 18.9L53.7 13.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M53.4 20.4L56.7 15.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M55.7 22.1L59.5 17.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M57.7 24.1L62.0 20.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M59.5 26.4L64.2 23.0" stroke="#d5d0c0" stroke-width="1"/>
+<circle cx="40" cy="40" r="23.779999999999998" fill="url(#metal)" stroke="#050505"/>
+<circle cx="40" cy="40" r="16.82" fill="#242424" stroke="#858075"/>
+<path d="M40 40L40 24.92" stroke="#f5f0df" stroke-width="2" stroke-linecap="round"/>
+</g>
+
+</svg>

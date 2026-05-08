@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="240" viewBox="0 0 850 240" role="img" aria-label="Monitor wedge input scale preserved">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#343535"/><stop offset="0.48" stop-color="#222323"/><stop offset="1" stop-color="#111214"/></linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#777"/><stop offset="0.18" stop-color="#272727"/><stop offset="1" stop-color="#060606"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0ddd0"/><stop offset="0.22" stop-color="#71706a"/><stop offset="0.52" stop-color="#202122"/><stop offset="0.83" stop-color="#0b0c0d"/><stop offset="1" stop-color="#7e7a70"/></linearGradient>
+  <linearGradient id="blueMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa2ff"/><stop offset="0.4" stop-color="#1763c7"/><stop offset="1" stop-color="#07306d"/></linearGradient>
+  <linearGradient id="goldPin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe7a6"/><stop offset="0.45" stop-color="#c88c2a"/><stop offset="1" stop-color="#5f3b0d"/></linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2021"/><stop offset="0.45" stop-color="#060708"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <linearGradient id="amberLens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe5a6"/><stop offset="0.38" stop-color="#d99619"/><stop offset="0.72" stop-color="#5d3200"/><stop offset="1" stop-color="#ffbd2d"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/></filter>
+  <filter id="softGlow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="4" y="6" width="842" height="228" rx="8" fill="url(#rackEdge)" filter="url(#shadow)"/>
+<rect x="18" y="14" width="814" height="212" rx="5" fill="url(#rackFace)" stroke="#5e5e58" stroke-width="1.2"/>
+<path d="M22 18H828" stroke="#7d7a70" stroke-opacity="0.5"/>
+<path d="M22 222H828" stroke="#000" stroke-opacity="0.8"/>
+<rect x="3" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="6" y="28" width="6" height="184" rx="3" fill="url(#metal)" opacity="0.78"/>
+<circle cx="9" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="9" cy="220" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<rect x="835" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="838" y="28" width="6" height="184" rx="3" fill="url(#metal)" opacity="0.78"/>
+<circle cx="841" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="841" cy="220" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<text x="20" y="-6" text-anchor="start" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="16" font-weight="800" fill="#e7e7de" >3. MONITOR WEDGE INPUT PANEL</text>
+<path d="M240 61V192" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M395 61V192" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M550 61V192" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M700 61V192" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<text x="150" y="55" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >INPUT</text>
+<text x="315" y="55" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >THRU / LINK</text>
+<text x="470" y="55" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >AUX IN</text>
+<text x="625" y="55" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >LEVEL</text>
+<text x="770" y="55" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da" >MODE</text>
+<g transform="translate(150 130) scale(1.03) translate(-150 -130)" data-v18-reference-scale="1.03" class="xlr female" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="127.06" cy="110.16" r="4.96" fill="#111" stroke="#5e5b54" stroke-width="1.085"/>
+<circle cx="172.94" cy="149.84" r="4.96" fill="#111" stroke="#5e5b54" stroke-width="1.085"/>
+<circle cx="150" cy="130" r="31" fill="url(#metal)" stroke="#050505" stroke-width="1.612"/>
+<circle cx="150" cy="130" r="26.66" fill="#121314" stroke="#817d72" stroke-width="1.085" opacity="0.9"/>
+<circle cx="150" cy="130" r="21.7" fill="url(#jackCup)" stroke="#68645b" stroke-width="1.085"/>
+<circle cx="150" cy="130" r="13.95" fill="#070808" stroke="#2f3030" stroke-width="0.806"/>
+<path d="M136.36 119.15C145.04 114.5 157.13 114.81 163.95 120.7" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.612"/>
+<rect x="141.475" y="101.17" width="17.05" height="5.58" rx="2.79" fill="#c7c0ae" stroke="#302b24" stroke-width="0.62"/>
+<text x="150" y="104.964" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="4.96" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="142.405" cy="125.505" r="3.651" fill="#050505" stroke="#5d5a52" stroke-width="0.775"/>
+<circle cx="141.692" cy="124.792" r="1.027" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="157.595" cy="125.505" r="3.651" fill="#050505" stroke="#5d5a52" stroke-width="0.775"/>
+<circle cx="156.882" cy="124.792" r="1.027" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="150" cy="140.075" r="3.651" fill="#050505" stroke="#5d5a52" stroke-width="0.775"/>
+<circle cx="149.287" cy="139.362" r="1.027" fill="#1c1d1d" opacity="0.75"/>
+<circle cx="128.3" cy="110.78" r="2.635" fill="#050505" stroke="#9b988d" stroke-width="0.868"/>
+<path d="M126.403 112.677L130.197 108.883" stroke="#777" stroke-width="0.558"/>
+<circle cx="171.7" cy="149.22" r="2.635" fill="#050505" stroke="#9b988d" stroke-width="0.868"/>
+<path d="M169.803 151.117L173.597 147.323" stroke="#777" stroke-width="0.558"/>
+</g>
+<g transform="translate(315 130) scale(1.03) translate(-315 -130)" data-v18-reference-scale="1.03" class="xlr male" data-scale="xlr-large" filter="url(#shadow)">
+<circle cx="292.06" cy="110.16" r="4.96" fill="#111" stroke="#5e5b54" stroke-width="1.085"/>
+<circle cx="337.94" cy="149.84" r="4.96" fill="#111" stroke="#5e5b54" stroke-width="1.085"/>
+<circle cx="315" cy="130" r="31" fill="url(#metal)" stroke="#050505" stroke-width="1.612"/>
+<circle cx="315" cy="130" r="26.66" fill="#121314" stroke="#817d72" stroke-width="1.085" opacity="0.9"/>
+<circle cx="315" cy="130" r="21.7" fill="url(#jackCup)" stroke="#68645b" stroke-width="1.085"/>
+<circle cx="315" cy="130" r="13.95" fill="#070808" stroke="#2f3030" stroke-width="0.806"/>
+<path d="M301.36 119.15C310.04 114.5 322.13 114.81 328.95 120.7" stroke="#fff" opacity="0.14" fill="none" stroke-width="1.612"/>
+<rect x="306.475" y="101.17" width="17.05" height="5.58" rx="2.79" fill="#c7c0ae" stroke="#302b24" stroke-width="0.62"/>
+<text x="315" y="104.964" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="4.96" font-weight="800" fill="#24221e">PUSH</text>
+<circle cx="307.405" cy="125.505" r="3.023" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.651"/>
+<circle cx="306.749" cy="124.792" r="0.856" fill="#fff0b4" opacity="0.65"/>
+<circle cx="322.595" cy="125.505" r="3.023" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.651"/>
+<circle cx="321.939" cy="124.792" r="0.856" fill="#fff0b4" opacity="0.65"/>
+<circle cx="315" cy="140.075" r="3.023" fill="url(#goldPin)" stroke="#1a1000" stroke-width="0.651"/>
+<circle cx="314.344" cy="139.362" r="0.856" fill="#fff0b4" opacity="0.65"/>
+<circle cx="293.3" cy="110.78" r="2.635" fill="#050505" stroke="#9b988d" stroke-width="0.868"/>
+<path d="M291.403 112.677L295.197 108.883" stroke="#777" stroke-width="0.558"/>
+<circle cx="336.7" cy="149.22" r="2.635" fill="#050505" stroke="#9b988d" stroke-width="0.868"/>
+<path d="M334.803 151.117L338.597 147.323" stroke="#777" stroke-width="0.558"/>
+</g>
+<g class="trs" data-scale="trs-medium" filter="url(#shadow)">
+<circle cx="470" cy="130" r="21.0" fill="url(#metal)" stroke="#050505" stroke-width="1.3"/>
+<circle cx="470" cy="130" r="14.280000000000001" fill="#090909" stroke="#c9c3b3" stroke-width="1.3"/>
+<circle cx="470" cy="130" r="7.140000000000001" fill="#1d1d1c" stroke="#050505"/>
+<path d="M460.55 121.6C466.22 117.82,474.2 118.45,479.45 124.12" stroke="#fff" opacity="0.18" fill="none"/>
+</g>
+<g class="knob" data-scale="knob-medium" filter="url(#shadow)">
+<path d="M605.5 116.4L600.8 113.0" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M607.3 114.1L603.0 110.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M609.3 112.1L605.5 107.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M611.6 110.4L608.3 105.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M614.0 108.9L611.3 103.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M616.6 107.7L614.6 102.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M619.3 106.9L618.0 101.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M622.2 106.4L621.5 100.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M625.0 106.2L625.0 100.4" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M627.8 106.4L628.5 100.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M630.7 106.9L632.0 101.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M633.4 107.7L635.4 102.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M636.0 108.9L638.7 103.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M638.4 110.4L641.7 105.6" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M640.7 112.1L644.5 107.8" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M642.7 114.1L647.0 110.3" stroke="#d5d0c0" stroke-width="1"/>
+<path d="M644.5 116.4L649.2 113.0" stroke="#d5d0c0" stroke-width="1"/>
+<circle cx="625" cy="130" r="23.779999999999998" fill="url(#metal)" stroke="#050505"/>
+<circle cx="625" cy="130" r="16.82" fill="#242424" stroke="#858075"/>
+<path d="M625 130L625 114.92" stroke="#f5f0df" stroke-width="2" stroke-linecap="round"/>
+</g>
+
+<g class="mode-switch" data-scale="switch-small" filter="url(#shadow)">
+  <rect x="752.0" y="86.0" width="36" height="48.6" rx="3" fill="#0b0b0b" stroke="#777"/>
+  <rect x="758.48" y="91.04" width="23.04" height="11.52" fill="#e8e8e2" stroke="#777"/>
+  <rect x="758.48" y="106.88" width="23.04" height="19.8" rx="2" fill="#111" stroke="#333"/>
+</g>
+<text x="800" y="110" text-anchor="start" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#e6e1d4" >MONO</text>
+<text x="800" y="147" text-anchor="start" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="700" fill="#e6e1d4" >STEREO</text>
+</svg>
