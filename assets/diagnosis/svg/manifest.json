@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "kit": "Signal Flow Diagnosis Mode SVG Kit",
+  "intended_scope": "Reusable diagnosis-mode board assets for all environments; not BRD-002-specific.",
+  "basePath": "assets/diagnosis/svg/",
+  "groups": {
+    "backgrounds": [
+      "diagnosis-board-shell.svg",
+      "diagnosis-sidebar-skin.svg",
+      "diagnosis-topbar-skin.svg"
+    ],
+    "clipboard": [
+      "answer-choice-card-correct.svg",
+      "answer-choice-card-default.svg",
+      "answer-choice-card-selected.svg",
+      "answer-choice-card-wrong.svg",
+      "answer-letter-a.svg",
+      "answer-letter-b.svg",
+      "answer-letter-c.svg",
+      "answer-letter-d.svg",
+      "answer-letter-e.svg",
+      "diagnosis-clipboard-blank.svg",
+      "diagnosis-paper-stack.svg"
+    ],
+    "cards": [
+      "caller-vitals-card.svg",
+      "neon-diagnose-sign.svg",
+      "patient-status-card.svg"
+    ],
+    "monitors": [
+      "audio-analyzer.svg",
+      "insert-path-monitor.svg",
+      "overall-level-meter.svg",
+      "signal-flow-patch-tester.svg",
+      "spectrum-view.svg"
+    ],
+    "props": [
+      "bad-routes-trash-can.svg",
+      "desk-lamp.svg",
+      "diagnosis-cart.svg",
+      "good-route-mug.svg",
+      "on-air-box.svg",
+      "sticky-note-reminder.svg"
+    ],
+    "hardware": [
+      "left-medical-rack-shell.svg",
+      "question-board-frame.svg",
+      "right-medical-rack-shell.svg",
+      "side-monitor-frame.svg"
+    ],
+    "navigation": [
+      "diagnosis-workflow-rail.svg",
+      "view-routing-matrix-button.svg"
+    ],
+    "overlays": [
+      "diagnosis-active-glow.svg",
+      "ecg-pulse-green.svg",
+      "paper-coffee-ring.svg",
+      "red-medical-cross.svg",
+      "stethoscope-neon-icon.svg"
+    ]
+  }
+}

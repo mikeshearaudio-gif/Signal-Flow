@@ -1,0 +1,8 @@
+/* Signal Flow Recording Studio render-style reusable skin v3 */
+.sf-rec-renderstyle-art,
+.sf-rec-renderstyle-art img,
+.sf-rec-renderstyle-art svg { pointer-events: none; user-select: none; }
+.sf-rec-renderstyle-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.sf-rec-live-layer { position: relative; z-index: 2; }
+.sf-rec-clean-jack { background-size: contain; background-repeat: no-repeat; background-position: center; }
+.sf-rec-header-text { position: relative; z-index: 3; }

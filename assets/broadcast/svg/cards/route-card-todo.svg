@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="324" height="80" viewBox="0 0 324 80" role="img" aria-hidden="true" focusable="false" class="sf-broadcast-svg" data-sf-asset="route-card-todo">
+
+  <defs>
+    <linearGradient id="sfMetalDark" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b1d10"/>
+      <stop offset="0.16" stop-color="#17120c"/>
+      <stop offset="0.58" stop-color="#07090b"/>
+      <stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <linearGradient id="sfBlueGlass" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#123348"/>
+      <stop offset="0.14" stop-color="#0d2433"/>
+      <stop offset="0.64" stop-color="#071016"/>
+      <stop offset="1" stop-color="#030506"/>
+    </linearGradient>
+    <linearGradient id="sfGloss" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sfLabelPlate" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#15110c"/>
+      <stop offset="0.52" stop-color="#08090a"/>
+      <stop offset="1" stop-color="#030303"/>
+    </linearGradient>
+    <linearGradient id="sfSafeTextRail" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.58"/>
+      <stop offset="0.62" stop-color="#000000" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="sfAccentGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#ffd979" stop-opacity="0.72"/>
+      <stop offset="0.55" stop-color="#ffd979" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sfDrop" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#000000" flood-opacity="0.58"/>
+    </filter>
+    <filter id="sfSoftGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .75 0" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="sfGrain" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" x="1" y="1" fill="#fff" opacity="0.035"/>
+      <rect width="1" height="1" x="7" y="3" fill="#000" opacity="0.06"/>
+      <rect width="1" height="1" x="4" y="9" fill="#fff" opacity="0.025"/>
+      <rect width="1" height="1" x="10" y="10" fill="#000" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <g class="sf-route-card sf-route-card-todo sf-route-card-label-safe" pointer-events="none">
+    <rect x="4" y="6" width="312" height="70" rx="12" fill="#000" opacity=".36" filter="url(#sfDrop)"/>
+    <rect x="0" y="0" width="320" height="72" rx="12" fill="url(#sfMetalDark)" stroke="#ffd979" stroke-opacity=".58"/>
+    <rect x="8" y="7" width="304" height="14" rx="7" fill="#fff" opacity=".045"/>
+    <rect x="12" y="18" width="296" height="40" rx="10" fill="#050708" stroke="#2b3335" stroke-opacity=".82"/>
+    <rect x="21" y="25" width="36" height="26" rx="8" fill="#11100d" stroke="#ffd979" stroke-opacity=".45"/>
+    <text x="39" y="43" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="900" fill="#ffd979">RT</text>
+    <rect x="69" y="25" width="146" height="26" rx="8" fill="url(#sfSafeTextRail)" opacity=".9"/>
+    <text x="82" y="41" font-family="Inter, Arial, sans-serif" font-size="8" font-weight="900" letter-spacing="1.1" fill="#8f9aa0">DOM ROUTE LABEL AREA</text>
+    <rect x="230" y="24" width="68" height="28" rx="14" fill="#ffd979" opacity=".90"/>
+    <text x="264" y="42" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="8.5" font-weight="900" fill="#1a0e03">TO DO</text>
+    <rect x="20" y="61" width="164" height="5" rx="2.5" fill="#ffd979" opacity=".24"/>
+    <rect x="190" y="61" width="96" height="5" rx="2.5" fill="#fff" opacity=".045"/>
+  </g>
+</svg>

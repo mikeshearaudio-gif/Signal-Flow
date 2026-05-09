@@ -1,0 +1,215 @@
+/* Signal Flow Broadcast Environment SVG Kit v1.2
+   Decorative art only. Playable jacks and cable SVG stay owned by the game. */
+
+:root {
+  --sf-broadcast-art-z: 0;
+  --sf-broadcast-section-z: 1;
+  --sf-broadcast-hotspot-z: 5;
+  --sf-broadcast-cable-z: 6;
+  --sf-broadcast-label-z: 8;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-art-layer,
+#patchbayWrap.env-broadcast .sf-broadcast-svg-deco,
+#patchbayWrap.env-broadcast .sf-broadcast-jack-art,
+#patchbayWrap.env-broadcast .sf-broadcast-active-ring,
+#patchbayWrap.env-broadcast .sf-broadcast-meter-rail,
+#patchbayWrap.env-broadcast img[src*="assets/broadcast/svg/"] {
+  pointer-events: none;
+  user-select: none;
+}
+
+#patchbayWrap.env-broadcast .patchbay,
+#patchbayWrap.env-broadcast .hybrid-board,
+#patchbayWrap.env-broadcast .sfv171-wire-board {
+  position: relative;
+  isolation: isolate;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-skinned {
+  overflow: visible;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-art-layer {
+  position: absolute;
+  inset: -12px;
+  z-index: var(--sf-broadcast-art-z);
+  overflow: visible;
+}
+
+#patchbayWrap.env-broadcast .sfv171-wire-section.sf-broadcast-section {
+  position: relative;
+  overflow: visible;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-section-shell {
+  position: absolute;
+  inset: 5px 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 10px);
+  object-fit: fill;
+  z-index: var(--sf-broadcast-section-z);
+  opacity: .42;
+}
+
+#patchbayWrap.env-broadcast .sfv171-section-title,
+#patchbayWrap.env-broadcast .sfv171-node-list,
+#patchbayWrap.env-broadcast .sfv171-channel-bank,
+#patchbayWrap.env-broadcast .feed-list {
+  position: relative;
+  z-index: var(--sf-broadcast-label-z);
+}
+
+#patchbayWrap.env-broadcast .jack,
+#patchbayWrap.env-broadcast .sfv171-wire-node {
+  position: relative;
+  z-index: var(--sf-broadcast-hotspot-z);
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-jack-host {
+  overflow: visible;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-socket-art-host {
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-jack-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  z-index: 0;
+  opacity: .82;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-active-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 42px;
+  height: 42px;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+
+#patchbayWrap.env-broadcast .jack.correct .sf-broadcast-active-ring,
+#patchbayWrap.env-broadcast .jack.selected .sf-broadcast-active-ring {
+  opacity: .95;
+}
+
+#patchbayWrap.env-broadcast #cableLayer,
+#patchbayWrap.env-broadcast .cable-layer {
+  position: absolute;
+  z-index: var(--sf-broadcast-cable-z);
+  pointer-events: none;
+}
+
+#patchbayWrap.env-broadcast #hintTooltip,
+#patchbayWrap.env-broadcast .hint-tooltip,
+#patchbayWrap.env-broadcast .jack-label,
+#patchbayWrap.env-broadcast .port-label,
+#patchbayWrap.env-broadcast .hybrid-node-label,
+#patchbayWrap.env-broadcast .sfv171-wire-node strong {
+  position: relative;
+  z-index: var(--sf-broadcast-label-z);
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-rail {
+  position: relative;
+  z-index: var(--sf-broadcast-label-z);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(54px, 76px));
+  gap: 7px;
+  width: auto;
+  margin-left: auto;
+  align-items: center;
+  justify-content: end;
+  pointer-events: none;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 190 / 98;
+  filter: drop-shadow(0 5px 8px rgba(0,0,0,.32));
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot[data-sf-active="false"] .sf-meter-active,
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot[data-sf-active="true"] .sf-meter-standby {
+  display: none;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot[data-sf-active="true"] .sf-meter-active,
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot[data-sf-active="false"] .sf-meter-standby {
+  display: block;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot[data-sf-active="true"] .sf-meter-active {
+  animation: sfBroadcastMeterGlow .62s ease-in-out infinite alternate;
+}
+
+#patchbayWrap.env-broadcast .sf-broadcast-meter-slot[data-sf-active="true"]::after {
+  content: "";
+  position: absolute;
+  left: 61%;
+  top: 23%;
+  width: 20%;
+  height: 51%;
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(255,66,66,.85) 0 20%, transparent 20% 27%, rgba(255,220,78,.9) 27% 55%, transparent 55% 62%, rgba(102,255,137,.92) 62% 100%);
+  opacity: .78;
+  transform-origin: bottom;
+  animation: sfBroadcastMeterBars .42s steps(4, end) infinite alternate;
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 1100px) {
+  #patchbayWrap.env-broadcast .sf-broadcast-meter-rail {
+    grid-template-columns: repeat(5, minmax(46px, 60px));
+    gap: 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #patchbayWrap.env-broadcast .sf-patch-signal,
+  #patchbayWrap.env-broadcast .sf-meter-bar,
+  #patchbayWrap.env-broadcast .sf-signal-pulse {
+    animation: none !important;
+  }
+}
+
+#patchbayWrap.env-broadcast .sf-patch-signal {
+  animation: sfBroadcastSignalDash .8s linear infinite;
+}
+
+@keyframes sfBroadcastSignalDash {
+  to { stroke-dashoffset: -32; }
+}
+
+@keyframes sfBroadcastMeterGlow {
+  from { filter: brightness(1) saturate(1.05); }
+  to { filter: brightness(1.28) saturate(1.45); }
+}
+
+@keyframes sfBroadcastMeterBars {
+  from { transform: scaleY(.36); opacity: .45; }
+  to { transform: scaleY(1); opacity: .92; }
+}

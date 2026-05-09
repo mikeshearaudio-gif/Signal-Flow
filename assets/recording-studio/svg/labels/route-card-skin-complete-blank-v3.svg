@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="82" viewBox="0 0 320 82" data-sf-asset="recording-studio-label" data-no-baked-text="true">
+ <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1b16"/><stop offset="1" stop-color="#0b0b0a"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="2" stdDeviation="1.8" flood-opacity=".45"/></filter></defs>
+ <rect x="3" y="3" width="314" height="76" rx="8" fill="url(#g)" stroke="#58d77a" stroke-width="2" filter="url(#s)"/>
+ <rect x="7" y="7" width="306" height="68" rx="6" fill="none" stroke="#fff6cf" stroke-opacity=".22"/>
+</svg>

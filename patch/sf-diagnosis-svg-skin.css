@@ -1,0 +1,52 @@
+/* Signal Flow Diagnosis Mode SVG Skin helper
+   Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.css
+   Decorative assets only: keep actual question text, answers, buttons, hotspots, scoring, and game state in DOM/JS. */
+#patchbayWrap.sf-diagnosis-mode,
+#patchbayWrap[data-mode="diagnose"] {
+  --sf-diagnosis-asset-root: "../assets/diagnosis/svg";
+}
+.sf-diagnosis-art-layer,
+.sf-diagnosis-art-layer * {
+  pointer-events: none;
+  user-select: none;
+}
+.sf-diagnosis-art-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+}
+.sf-diagnosis-dom-layer {
+  position: relative;
+  z-index: 2;
+}
+.sf-diagnosis-card {
+  background: rgba(6, 6, 5, 0.84);
+  border: 1px solid rgba(151, 111, 57, 0.75);
+  box-shadow: 0 8px 16px rgba(0,0,0,.55), inset 0 1px rgba(255,236,190,.12);
+  border-radius: 10px;
+}
+.sf-diagnosis-question-shell {
+  position: relative;
+  background-image: url('../assets/diagnosis/svg/clipboard/diagnosis-clipboard-blank.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.sf-diagnosis-choice-card {
+  background-image: url('../assets/diagnosis/svg/clipboard/answer-choice-card-default.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.sf-diagnosis-choice-card.is-selected {
+  background-image: url('../assets/diagnosis/svg/clipboard/answer-choice-card-selected.svg');
+}
+.sf-diagnosis-choice-card.is-correct {
+  background-image: url('../assets/diagnosis/svg/clipboard/answer-choice-card-correct.svg');
+}
+.sf-diagnosis-choice-card.is-wrong {
+  background-image: url('../assets/diagnosis/svg/clipboard/answer-choice-card-wrong.svg');
+}
+.sf-diagnosis-meter.is-active {
+  filter: drop-shadow(0 0 8px rgba(132, 235, 65, .75));
+}

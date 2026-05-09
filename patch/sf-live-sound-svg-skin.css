@@ -1,0 +1,213 @@
+/* Signal Flow Live Sound SVG Skin v1.8 */
+#patchbayWrap.env-live .sf-live-svg-art,
+#patchbayWrap.env-liv .sf-live-svg-art,
+.env-live .sf-live-svg-art,
+.env-liv .sf-live-svg-art{
+  pointer-events:none !important;
+  user-select:none !important;
+}
+
+#patchbayWrap.env-live .sf-live-skinned-board,
+#patchbayWrap.env-liv .sf-live-skinned-board{
+  position:relative;
+  isolation:isolate;
+}
+
+#patchbayWrap.env-live .sf-live-skinned-card,
+#patchbayWrap.env-liv .sf-live-skinned-card{
+  position:relative !important;
+  isolation:isolate;
+  overflow:visible;
+}
+
+#patchbayWrap.env-live .sf-live-card-art,
+#patchbayWrap.env-liv .sf-live-card-art{
+  position:absolute;
+  inset:8px;
+  width:calc(100% - 16px);
+  height:calc(100% - 16px);
+  object-fit:fill;
+  opacity:.18;
+  filter:saturate(1.1) contrast(1.08);
+  z-index:0;
+}
+
+#patchbayWrap.env-live .sf-live-card-stagebox .sf-live-card-art,
+#patchbayWrap.env-liv .sf-live-card-stagebox .sf-live-card-art{
+  opacity:.2;
+}
+
+#patchbayWrap.env-live .sf-live-card-foh-console .sf-live-card-art,
+#patchbayWrap.env-liv .sf-live-card-foh-console .sf-live-card-art{
+  opacity:.16;
+}
+
+#patchbayWrap.env-live .sf-live-card-amplifier .sf-live-card-art,
+#patchbayWrap.env-liv .sf-live-card-amplifier .sf-live-card-art{
+  opacity:.22;
+}
+
+#patchbayWrap.env-live .sf-live-skinned-card > :not(.sf-live-card-art),
+#patchbayWrap.env-liv .sf-live-skinned-card > :not(.sf-live-card-art){
+  position:relative;
+  z-index:2;
+}
+
+#patchbayWrap.env-live .sf-live-skinned-section,
+#patchbayWrap.env-liv .sf-live-skinned-section{
+  position:relative !important;
+  isolation:isolate;
+  overflow:visible;
+}
+
+#patchbayWrap.env-live .sf-live-section-bg,
+#patchbayWrap.env-liv .sf-live-section-bg{
+  position:absolute;
+  inset:3px;
+  width:calc(100% - 6px);
+  height:calc(100% - 6px);
+  object-fit:fill;
+  opacity:.28;
+  z-index:0;
+}
+
+#patchbayWrap.env-live .sf-live-section-green .sf-live-section-bg,
+#patchbayWrap.env-liv .sf-live-section-green .sf-live-section-bg{
+  opacity:.34;
+}
+
+#patchbayWrap.env-live .sf-live-skinned-section > :not(.sf-live-section-bg),
+#patchbayWrap.env-liv .sf-live-skinned-section > :not(.sf-live-section-bg){
+  position:relative;
+  z-index:2;
+}
+
+html body .game #patchbayWrap.env-live .live-ui-jack-hole.sf-live-connector-host,
+html body .game #patchbayWrap.env-liv .live-ui-jack-hole.sf-live-connector-host{
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  display:grid !important;
+  place-items:center !important;
+  overflow:visible !important;
+  position:relative !important;
+  width:calc(var(--sf-live-connector-w, 64px) * var(--sf-live-connector-scale, .48)) !important;
+  min-width:calc(var(--sf-live-connector-w, 64px) * var(--sf-live-connector-scale, .48)) !important;
+  height:calc(var(--sf-live-connector-h, 64px) * var(--sf-live-connector-scale, .48)) !important;
+  min-height:calc(var(--sf-live-connector-h, 64px) * var(--sf-live-connector-scale, .48)) !important;
+  z-index:1 !important;
+}
+
+html body .game #patchbayWrap.env-live .live-ui-jack-hole.sf-live-connector-host::before,
+html body .game #patchbayWrap.env-live .live-ui-jack-hole.sf-live-connector-host::after,
+html body .game #patchbayWrap.env-liv .live-ui-jack-hole.sf-live-connector-host::before,
+html body .game #patchbayWrap.env-liv .live-ui-jack-hole.sf-live-connector-host::after{
+  display:none !important;
+  content:none !important;
+}
+
+html body .game #patchbayWrap.env-live .live-ui-jack-hole.sf-live-connector-host > :not(.sf-live-connector-art),
+html body .game #patchbayWrap.env-liv .live-ui-jack-hole.sf-live-connector-host > :not(.sf-live-connector-art){
+  display:none !important;
+}
+
+#patchbayWrap.env-live .sf-live-connector-art,
+#patchbayWrap.env-liv .sf-live-connector-art{
+  display:block !important;
+  position:absolute !important;
+  left:50%;
+  top:50%;
+  width:calc(var(--sf-live-connector-w, 64px) * var(--sf-live-connector-scale, .48)) !important;
+  height:calc(var(--sf-live-connector-h, 64px) * var(--sf-live-connector-scale, .48)) !important;
+  max-width:none !important;
+  max-height:none !important;
+  object-fit:contain;
+  transform:translate(-50%, -50%);
+  transform-origin:center center;
+  z-index:0;
+}
+
+#patchbayWrap.env-live .sf-live-connector-art-xlr-female,
+#patchbayWrap.env-live .sf-live-connector-art-xlr-male,
+#patchbayWrap.env-liv .sf-live-connector-art-xlr-female,
+#patchbayWrap.env-liv .sf-live-connector-art-xlr-male{
+  transform:translate(-50%, -50%);
+}
+
+#patchbayWrap.env-live .live-ui-jack-label,
+#patchbayWrap.env-liv .live-ui-jack-label{
+  position:relative;
+  z-index:3;
+  text-shadow:0 1px 2px rgba(0,0,0,.85);
+}
+
+#patchbayWrap.env-live .sf-live-meter-rail,
+#patchbayWrap.env-liv .sf-live-meter-rail{
+  align-items:center;
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  margin-left:auto;
+  min-width:210px;
+  pointer-events:none;
+  position:relative;
+  z-index:4;
+}
+
+#patchbayWrap.env-live .sf-live-meter-slot,
+#patchbayWrap.env-liv .sf-live-meter-slot{
+  border:1px solid rgba(126,180,215,.24);
+  border-radius:8px;
+  box-shadow:inset 0 0 18px rgba(43,111,156,.15), 0 8px 18px rgba(0,0,0,.22);
+  height:54px;
+  overflow:hidden;
+  position:relative;
+  width:96px;
+}
+
+#patchbayWrap.env-live .sf-live-meter-slot img,
+#patchbayWrap.env-liv .sf-live-meter-slot img{
+  display:block;
+  height:100%;
+  object-fit:cover;
+  width:100%;
+}
+
+#patchbayWrap.env-live .sf-live-meter-slot[data-sf-active="true"],
+#patchbayWrap.env-liv .sf-live-meter-slot[data-sf-active="true"]{
+  animation:sfLiveMeterPulse .95s ease-in-out infinite alternate;
+  border-color:rgba(128,238,164,.68);
+}
+
+#patchbayWrap.env-live .sf-live-meter-slot[data-sf-active="true"]::after,
+#patchbayWrap.env-liv .sf-live-meter-slot[data-sf-active="true"]::after{
+  animation:sfLiveMeterSweep .8s linear infinite;
+  background:linear-gradient(90deg, transparent, rgba(143,255,180,.22), transparent);
+  content:"";
+  inset:0;
+  position:absolute;
+}
+
+#patchbayWrap.env-live .live-ui-jack,
+#patchbayWrap.env-liv .live-ui-jack{
+  overflow:visible !important;
+}
+
+@keyframes sfLiveMeterPulse{
+  from{ box-shadow:inset 0 0 18px rgba(43,111,156,.2), 0 8px 18px rgba(0,0,0,.22); }
+  to{ box-shadow:inset 0 0 22px rgba(112,255,156,.35), 0 0 22px rgba(112,255,156,.22); }
+}
+
+@keyframes sfLiveMeterSweep{
+  from{ transform:translateX(-100%); }
+  to{ transform:translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #patchbayWrap.env-live .sf-live-meter-slot,
+  #patchbayWrap.env-live .sf-live-meter-slot::after,
+  #patchbayWrap.env-liv .sf-live-meter-slot,
+  #patchbayWrap.env-liv .sf-live-meter-slot::after{
+    animation:none !important;
+  }
+}

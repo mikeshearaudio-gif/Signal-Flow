@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none" >
+<defs>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000" flood-opacity="0.55"/></filter>
+<filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.50"/></filter>
+<filter id="glowGreen" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#8be83b" flood-opacity="0.85"/></filter>
+<filter id="glowBlue" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#57c7ff" flood-opacity="0.8"/></filter>
+<filter id="glowRed" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#ff3b35" flood-opacity="0.75"/></filter>
+<linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2520"/><stop offset="0.45" stop-color="#111110"/><stop offset="1" stop-color="#060606"/></linearGradient>
+<linearGradient id="rackBevel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6d5b45"/><stop offset="0.12" stop-color="#1f1a15"/><stop offset="0.88" stop-color="#070707"/><stop offset="1" stop-color="#403522"/></linearGradient>
+<linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7ecd7"/><stop offset="0.55" stop-color="#eadabf"/><stop offset="1" stop-color="#c9aa7b"/></linearGradient>
+<linearGradient id="paperEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff8e8"/><stop offset="1" stop-color="#c6a06f"/></linearGradient>
+<linearGradient id="goldCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fae5aa"/><stop offset="1" stop-color="#caa65d"/></linearGradient>
+<linearGradient id="blueButton" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d6b93"/><stop offset="1" stop-color="#0a2638"/></linearGradient>
+<radialGradient id="glassAmber" cx="35%" cy="28%" r="70%"><stop offset="0" stop-color="#fff5c7"/><stop offset="0.35" stop-color="#f6b337"/><stop offset="1" stop-color="#4d1f04"/></radialGradient>
+<radialGradient id="lampGlow" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#fff5c7" stop-opacity="0.95"/><stop offset="0.6" stop-color="#ffb546" stop-opacity="0.25"/><stop offset="1" stop-color="#ffb546" stop-opacity="0"/></radialGradient>
+
+</defs>
+<rect x="0" y="0" width="1280" height="720" rx="18" fill="#050404" opacity="1" stroke="#2c1b0d" stroke-width="1"/><rect x="0" y="0" width="1280" height="60" rx="0" fill="url(#rackFace)" opacity="1" stroke="#4a2b10" stroke-width="1"/><rect x="270" y="70" width="665" height="620" rx="16" fill="#1a130c" opacity="0.98" stroke="#76502b" stroke-width="2" filter="url(#shadow)"/><rect x="286" y="86" width="632" height="588" rx="12" fill="#22170d" opacity="0.88" stroke="#a87945" stroke-width="1"/><rect x="8" y="70" width="260" height="620" rx="14" fill="#050504" opacity="1" stroke="#433019" stroke-width="1.2"/><rect x="940" y="70" width="330" height="620" rx="14" fill="#080807" opacity="1" stroke="#25170c" stroke-width="1.2"/><rect x="278" y="692" width="996" height="24" rx="6" fill="#070605" opacity="0.7" stroke="#392813" stroke-width="1"/><path d="M0 62H1280" stroke="#162a38" stroke-width="1" opacity="0.8"/><text x="40" y="38" fill="#eedaad" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" text-anchor="start" opacity="1">SF DIAGNOSIS BOARD SHELL</text>
+</svg>

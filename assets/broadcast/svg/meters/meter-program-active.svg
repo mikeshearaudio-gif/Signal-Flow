@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="204" viewBox="0 0 390 204" role="img" aria-hidden="true" focusable="false" class="sf-broadcast-svg" data-sf-asset="meter-program-active">
+
+  <defs>
+    <linearGradient id="sfMetalDark" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b1d10"/>
+      <stop offset="0.16" stop-color="#17120c"/>
+      <stop offset="0.58" stop-color="#07090b"/>
+      <stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <linearGradient id="sfBlueGlass" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#123348"/>
+      <stop offset="0.14" stop-color="#0d2433"/>
+      <stop offset="0.64" stop-color="#071016"/>
+      <stop offset="1" stop-color="#030506"/>
+    </linearGradient>
+    <linearGradient id="sfGloss" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sfLabelPlate" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#15110c"/>
+      <stop offset="0.52" stop-color="#08090a"/>
+      <stop offset="1" stop-color="#030303"/>
+    </linearGradient>
+    <linearGradient id="sfSafeTextRail" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.72"/>
+      <stop offset="0.66" stop-color="#000000" stop-opacity="0.40"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.12"/>
+    </linearGradient>
+    <radialGradient id="sfAccentGlow" cx="50%" cy="50%" r="55%">
+      <stop offset="0" stop-color="#ff4638" stop-opacity="0.72"/>
+      <stop offset="0.55" stop-color="#ff4638" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sfDrop" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#000000" flood-opacity="0.58"/>
+    </filter>
+    <filter id="sfSoftGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .75 0" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="sfGrain" width="12" height="12" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" x="1" y="1" fill="#fff" opacity="0.035"/>
+      <rect width="1" height="1" x="7" y="3" fill="#000" opacity="0.06"/>
+      <rect width="1" height="1" x="4" y="9" fill="#fff" opacity="0.025"/>
+      <rect width="1" height="1" x="10" y="10" fill="#000" opacity="0.05"/>
+    </pattern>
+  </defs>
+
+  <g class="sf-meter-module sf-meter-program sf-meter-active sf-meter-inline-label" data-sf-meter-id="program" data-sf-active="true" pointer-events="none">
+    <rect x="10" y="15" width="370" height="194" rx="18" fill="#000" opacity=".44" filter="url(#sfDrop)"/>
+    <rect x="0" y="0" width="390" height="204" rx="18" fill="url(#sfMetalDark)" stroke="#9b6f32" stroke-opacity=".78" stroke-width="1.6"/>
+    <rect x="15" y="16" width="360" height="172" rx="13" fill="url(#sfBlueGlass)" stroke="#31566d" stroke-opacity=".72"/>
+    <rect x="22" y="23" width="344" height="42" rx="11" fill="url(#sfGloss)"/>
+
+    <!-- Top visual field intentionally clear: title/status text moved to the lower-left inline rail. -->
+    <rect x="24" y="22" width="190" height="34" rx="9" fill="url(#sfLabelPlate)" stroke="#9b6f32" stroke-opacity=".18" opacity=".32"/>
+
+    <g transform="translate(28 78)">
+      <circle cx="31" cy="31" r="30" fill="url(#sfAccentGlow)" opacity=".58"/>
+      <circle cx="31" cy="31" r="25" fill="#070707" stroke="#ff4638" stroke-width="3" stroke-opacity=".9"/>
+      <circle cx="31" cy="31" r="16" fill="#cfc4ad" opacity=".82"/>
+      <circle cx="31" cy="31" r="9" fill="#000"/>
+    </g>
+
+    <g class="sf-signal-trace" transform="translate(105 87)">
+      <rect width="116" height="42" rx="8" fill="#050708" stroke="#29383a" stroke-opacity=".8"/>
+      <rect class="sf-signal-pulse" x="14" y="18" width="9" height="5" rx="2" fill="#ff4638" opacity="0.95"/><rect class="sf-signal-pulse" x="27" y="18" width="9" height="5" rx="2" fill="#ff4638" opacity="0.95"/><rect class="sf-signal-pulse" x="40" y="18" width="9" height="5" rx="2" fill="#ff4638" opacity="0.95"/><rect class="sf-signal-pulse" x="53" y="18" width="9" height="5" rx="2" fill="#ff4638" opacity="0.95"/><rect class="sf-signal-pulse" x="66" y="18" width="9" height="5" rx="2" fill="#ff4638" opacity="0.95"/><rect class="sf-signal-pulse" x="79" y="18" width="9" height="5" rx="2" fill="#ff4638" opacity="0.95"/><rect class="sf-signal-pulse" x="92" y="18" width="9" height="5" rx="2" fill="#142022" opacity="0.5"/><rect class="sf-signal-pulse" x="105" y="18" width="9" height="5" rx="2" fill="#142022" opacity="0.5"/>
+      <rect x="8" y="6" width="100" height="6" rx="3" fill="#fff" opacity=".04"/>
+    </g>
+
+    <g class="sf-meter-well">
+      <rect x="244" y="50" width="96" height="124" rx="9" fill="#000" opacity=".42"/>
+      <rect x="250" y="48" width="83" height="126" rx="8" fill="#060808" stroke="#2d333a" stroke-opacity=".8"/>
+      <rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-0" x="260" y="144" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-1" x="260" y="137" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-2" x="260" y="130" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-3" x="260" y="123" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-4" x="260" y="116" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-5" x="260" y="109" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-6" x="260" y="102" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-7" x="260" y="95" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-8" x="260" y="88" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-9" x="260" y="81" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-10" x="260" y="74" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-11" x="260" y="67" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-12" x="260" y="60" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-13" x="260" y="53" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-14" x="260" y="46" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-15" x="260" y="39" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-16" x="260" y="32" width="12" height="4.5" rx="1.5" fill="#ff4938" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-17" x="260" y="25" width="12" height="4.5" rx="1.5" fill="#ff4938" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-18" x="260" y="18" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/><rect class="sf-meter-bar sf-meter-L" data-sf-meter-bar="L-19" x="260" y="11" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-0" x="286" y="144" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-1" x="286" y="137" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-2" x="286" y="130" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-3" x="286" y="123" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-4" x="286" y="116" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-5" x="286" y="109" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-6" x="286" y="102" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-7" x="286" y="95" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-8" x="286" y="88" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-9" x="286" y="81" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-10" x="286" y="74" width="12" height="4.5" rx="1.5" fill="#6ee34f" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-11" x="286" y="67" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-12" x="286" y="60" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-13" x="286" y="53" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-14" x="286" y="46" width="12" height="4.5" rx="1.5" fill="#ffd64a" opacity="1" filter="url(#sfSoftGlow)"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-15" x="286" y="39" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-16" x="286" y="32" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-17" x="286" y="25" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-18" x="286" y="18" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/><rect class="sf-meter-bar sf-meter-R" data-sf-meter-bar="R-19" x="286" y="11" width="12" height="4.5" rx="1.5" fill="#15201a" opacity=".58"/>
+      <rect x="256" y="55" width="20" height="108" rx="7" fill="#fff" opacity=".06"/>
+      <text x="261" y="188" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" fill="#b8ad9e">L</text>
+      <text x="287" y="188" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="800" fill="#b8ad9e">R</text>
+    </g>
+
+    <!-- Inline identifier rail: label on bottom-left, state badge inline to its right. -->
+    <g class="sf-meter-identifier-rail" transform="translate(29 151)">
+      <rect width="205" height="28" rx="10" fill="url(#sfSafeTextRail)" stroke="#29383a" stroke-opacity=".65"/>
+      <circle class="sf-meter-id-dot" cx="12" cy="14" r="4" fill="#ff4638" opacity=".95"/>
+      <text class="sf-meter-label" x="23" y="18" font-family="Inter, Arial, sans-serif" font-size="9.3" font-weight="900" fill="#d8cfc1">PROGRAM / main bus</text>
+      <rect class="sf-meter-state-badge" x="168" y="5" width="31" height="18" rx="9" fill="#ff4638" opacity=".90" stroke="#ff4638" stroke-opacity=".55"/>
+      <text class="sf-meter-state-text" x="183.5" y="17" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="6.7" font-weight="900" fill="#071106">ACTIVE</text>
+    </g>
+    <rect width="390" height="204" rx="18" fill="url(#sfGrain)" opacity=".35"/>
+  </g>
+</svg>

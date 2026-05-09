@@ -1,0 +1,321 @@
+{
+  "name": "Signal Flow Broadcast Environment SVG Kit v1",
+  "assetCount": 62,
+  "assets": [
+    {
+      "path": "assets/broadcast/svg/backgrounds/broadcast-board-shell.svg",
+      "category": "backgrounds",
+      "file": "broadcast-board-shell.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/backgrounds/broadcast-sidebar-skin.svg",
+      "category": "backgrounds",
+      "file": "broadcast-sidebar-skin.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/backgrounds/broadcast-topbar-skin.svg",
+      "category": "backgrounds",
+      "file": "broadcast-topbar-skin.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/active-preset-card.svg",
+      "category": "cards",
+      "file": "active-preset-card.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/checklist-clipboard.svg",
+      "category": "cards",
+      "file": "checklist-clipboard.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/current-level-card.svg",
+      "category": "cards",
+      "file": "current-level-card.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/on-air-badge.svg",
+      "category": "cards",
+      "file": "on-air-badge.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/route-card-complete.svg",
+      "category": "cards",
+      "file": "route-card-complete.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/route-card-todo.svg",
+      "category": "cards",
+      "file": "route-card-todo.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/cards/signal-status-card.svg",
+      "category": "cards",
+      "file": "signal-status-card.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/screw-head.svg",
+      "category": "hardware",
+      "file": "screw-head.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/section-badge-1.svg",
+      "category": "hardware",
+      "file": "section-badge-1.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/section-badge-2.svg",
+      "category": "hardware",
+      "file": "section-badge-2.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/section-badge-3.svg",
+      "category": "hardware",
+      "file": "section-badge-3.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/section-badge-4.svg",
+      "category": "hardware",
+      "file": "section-badge-4.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/section-badge-5.svg",
+      "category": "hardware",
+      "file": "section-badge-5.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/section-badge-6.svg",
+      "category": "hardware",
+      "file": "section-badge-6.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/hardware/source-device-icon.svg",
+      "category": "hardware",
+      "file": "source-device-icon.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-blue-active.svg",
+      "category": "jacks",
+      "file": "jack-blue-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-blue-standby.svg",
+      "category": "jacks",
+      "file": "jack-blue-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-gray-active.svg",
+      "category": "jacks",
+      "file": "jack-gray-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-gray-standby.svg",
+      "category": "jacks",
+      "file": "jack-gray-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-green-active.svg",
+      "category": "jacks",
+      "file": "jack-green-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-green-standby.svg",
+      "category": "jacks",
+      "file": "jack-green-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-orange-active.svg",
+      "category": "jacks",
+      "file": "jack-orange-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-orange-standby.svg",
+      "category": "jacks",
+      "file": "jack-orange-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-red-active.svg",
+      "category": "jacks",
+      "file": "jack-red-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/jacks/jack-red-standby.svg",
+      "category": "jacks",
+      "file": "jack-red-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-cue-monitor-active.svg",
+      "category": "meters",
+      "file": "meter-cue-monitor-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-cue-monitor-standby.svg",
+      "category": "meters",
+      "file": "meter-cue-monitor-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-output-active.svg",
+      "category": "meters",
+      "file": "meter-output-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-output-standby.svg",
+      "category": "meters",
+      "file": "meter-output-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-program-active.svg",
+      "category": "meters",
+      "file": "meter-program-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-program-standby.svg",
+      "category": "meters",
+      "file": "meter-program-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-stereo-active.svg",
+      "category": "meters",
+      "file": "meter-stereo-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-stereo-standby.svg",
+      "category": "meters",
+      "file": "meter-stereo-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-talent-phone-active.svg",
+      "category": "meters",
+      "file": "meter-talent-phone-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-talent-phone-standby.svg",
+      "category": "meters",
+      "file": "meter-talent-phone-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-talkback-active.svg",
+      "category": "meters",
+      "file": "meter-talkback-active.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/meters/meter-talkback-standby.svg",
+      "category": "meters",
+      "file": "meter-talkback-standby.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/cable-plug-cap-blue.svg",
+      "category": "overlays",
+      "file": "cable-plug-cap-blue.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/cable-plug-cap-gray.svg",
+      "category": "overlays",
+      "file": "cable-plug-cap-gray.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/cable-plug-cap-green.svg",
+      "category": "overlays",
+      "file": "cable-plug-cap-green.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/cable-plug-cap-orange.svg",
+      "category": "overlays",
+      "file": "cable-plug-cap-orange.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/cable-plug-cap-red.svg",
+      "category": "overlays",
+      "file": "cable-plug-cap-red.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/jack-active-ring.svg",
+      "category": "overlays",
+      "file": "jack-active-ring.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/signal-pulse-blue.svg",
+      "category": "overlays",
+      "file": "signal-pulse-blue.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/signal-pulse-gray.svg",
+      "category": "overlays",
+      "file": "signal-pulse-gray.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/signal-pulse-green.svg",
+      "category": "overlays",
+      "file": "signal-pulse-green.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/signal-pulse-orange.svg",
+      "category": "overlays",
+      "file": "signal-pulse-orange.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/overlays/signal-pulse-red.svg",
+      "category": "overlays",
+      "file": "signal-pulse-red.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/row-well-blue.svg",
+      "category": "panels",
+      "file": "row-well-blue.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/row-well-green.svg",
+      "category": "panels",
+      "file": "row-well-green.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/row-well-neutral.svg",
+      "category": "panels",
+      "file": "row-well-neutral.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/row-well-orange.svg",
+      "category": "panels",
+      "file": "row-well-orange.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/row-well-red.svg",
+      "category": "panels",
+      "file": "row-well-red.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/section-console.svg",
+      "category": "panels",
+      "file": "section-console.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/section-cue-monitoring.svg",
+      "category": "panels",
+      "file": "section-cue-monitoring.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/section-destinations.svg",
+      "category": "panels",
+      "file": "section-destinations.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/section-misc.svg",
+      "category": "panels",
+      "file": "section-misc.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/section-phone-ifb.svg",
+      "category": "panels",
+      "file": "section-phone-ifb.svg"
+    },
+    {
+      "path": "assets/broadcast/svg/panels/section-sources.svg",
+      "category": "panels",
+      "file": "section-sources.svg"
+    }
+  ],
+  "version": "1.2-meter-inline-labels",
+  "notes": [
+    "v1.1 moves meter and route-card text into safe rails/nameplates so important visual details remain unobscured.",
+    "v1.2 moves meter labels and state badges into one bottom-left inline rail; route cards remain from v1.1."
+  ]
+}

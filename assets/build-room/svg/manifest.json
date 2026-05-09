@@ -1,0 +1,266 @@
+{
+  "name": "Signal Flow Build Room UI SVG Kit v6 - Photoshop Direction",
+  "version": "v6-photoshop-direction",
+  "format": "hybrid SVG wrappers with embedded PNG art for painterly assets, pure SVG for overlays/cards",
+  "sourceDirection": "Accepted Photoshop result / GOOD-style painterly product and gear rendering. Clean studio inventory, not distressed used gear.",
+  "assets": [
+    {
+      "id": "microphone-condenser-green-box-goodstyle",
+      "svg": "assets/build-room/svg/boxes/microphone-condenser-green-box-goodstyle.svg",
+      "png": "assets/build-room/png-source/boxes/microphone-condenser-green-box-goodstyle.png",
+      "width": 152,
+      "height": 222,
+      "category": "boxes"
+    },
+    {
+      "id": "microphone-dynamic-orange-box-goodstyle",
+      "svg": "assets/build-room/svg/boxes/microphone-dynamic-orange-box-goodstyle.svg",
+      "png": "assets/build-room/png-source/boxes/microphone-dynamic-orange-box-goodstyle.png",
+      "width": 186,
+      "height": 214,
+      "category": "boxes"
+    },
+    {
+      "id": "monitor-speakers-teal-box-goodstyle",
+      "svg": "assets/build-room/svg/boxes/monitor-speakers-teal-box-goodstyle.svg",
+      "png": "assets/build-room/png-source/boxes/monitor-speakers-teal-box-goodstyle.png",
+      "width": 210,
+      "height": 220,
+      "category": "boxes"
+    },
+    {
+      "id": "audio-interface-blue-box-goodstyle",
+      "svg": "assets/build-room/svg/boxes/audio-interface-blue-box-goodstyle.svg",
+      "png": "assets/build-room/png-source/boxes/audio-interface-blue-box-goodstyle.png",
+      "width": 195,
+      "height": 187,
+      "category": "boxes"
+    },
+    {
+      "id": "mixing-console-open-case-goodstyle",
+      "svg": "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/mixing-console-open-case-goodstyle.png",
+      "width": 202,
+      "height": 198,
+      "category": "gear"
+    },
+    {
+      "id": "mixing-console-open-case-alt-goodstyle",
+      "svg": "assets/build-room/svg/gear/mixing-console-open-case-alt-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/mixing-console-open-case-alt-goodstyle.png",
+      "width": 192,
+      "height": 180,
+      "category": "gear"
+    },
+    {
+      "id": "delay-reverb-open-case-goodstyle",
+      "svg": "assets/build-room/svg/gear/delay-reverb-open-case-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/delay-reverb-open-case-goodstyle.png",
+      "width": 196,
+      "height": 179,
+      "category": "gear"
+    },
+    {
+      "id": "delay-reverb-open-case-purple-goodstyle",
+      "svg": "assets/build-room/svg/gear/delay-reverb-open-case-purple-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/delay-reverb-open-case-purple-goodstyle.png",
+      "width": 240,
+      "height": 180,
+      "category": "gear"
+    },
+    {
+      "id": "xlr-adapter-hanging-card-goodstyle",
+      "svg": "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/xlr-adapter-hanging-card-goodstyle.png",
+      "width": 187,
+      "height": 216,
+      "category": "gear"
+    },
+    {
+      "id": "two-tier-empty-shelf-goodstyle",
+      "svg": "assets/build-room/svg/shelves/two-tier-empty-shelf-goodstyle.svg",
+      "png": "assets/build-room/png-source/shelves/two-tier-empty-shelf-goodstyle.png",
+      "width": 202,
+      "height": 155,
+      "category": "shelves"
+    },
+    {
+      "id": "tube-preamp-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/tube-preamp-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/tube-preamp-rack-unit-goodstyle.png",
+      "width": 221,
+      "height": 106,
+      "category": "gear"
+    },
+    {
+      "id": "preamp-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/preamp-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/preamp-rack-unit-goodstyle.png",
+      "width": 325,
+      "height": 95,
+      "category": "gear"
+    },
+    {
+      "id": "desktop-tube-preamp-goodstyle",
+      "svg": "assets/build-room/svg/gear/desktop-tube-preamp-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/desktop-tube-preamp-goodstyle.png",
+      "width": 180,
+      "height": 98,
+      "category": "gear"
+    },
+    {
+      "id": "desktop-processor-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/desktop-processor-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/desktop-processor-unit-goodstyle.png",
+      "width": 243,
+      "height": 94,
+      "category": "gear"
+    },
+    {
+      "id": "optical-compressor-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/optical-compressor-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/optical-compressor-rack-unit-goodstyle.png",
+      "width": 233,
+      "height": 102,
+      "category": "gear"
+    },
+    {
+      "id": "optical-compressor-rack-unit-alt-goodstyle",
+      "svg": "assets/build-room/svg/gear/optical-compressor-rack-unit-alt-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/optical-compressor-rack-unit-alt-goodstyle.png",
+      "width": 212,
+      "height": 106,
+      "category": "gear"
+    },
+    {
+      "id": "vca-compressor-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/vca-compressor-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/vca-compressor-rack-unit-goodstyle.png",
+      "width": 280,
+      "height": 104,
+      "category": "gear"
+    },
+    {
+      "id": "fet-compressor-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/fet-compressor-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/fet-compressor-rack-unit-goodstyle.png",
+      "width": 219,
+      "height": 107,
+      "category": "gear"
+    },
+    {
+      "id": "parametric-eq-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/parametric-eq-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/parametric-eq-rack-unit-goodstyle.png",
+      "width": 264,
+      "height": 104,
+      "category": "gear"
+    },
+    {
+      "id": "graphic-eq-rack-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/graphic-eq-rack-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/graphic-eq-rack-unit-goodstyle.png",
+      "width": 228,
+      "height": 104,
+      "category": "gear"
+    },
+    {
+      "id": "rack-interface-unit-goodstyle",
+      "svg": "assets/build-room/svg/gear/rack-interface-unit-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/rack-interface-unit-goodstyle.png",
+      "width": 378,
+      "height": 109,
+      "category": "gear"
+    },
+    {
+      "id": "desktop-2x2-interface-goodstyle",
+      "svg": "assets/build-room/svg/gear/desktop-2x2-interface-goodstyle.svg",
+      "png": "assets/build-room/png-source/gear/desktop-2x2-interface-goodstyle.png",
+      "width": 332,
+      "height": 107,
+      "category": "gear"
+    },
+    {
+      "id": "dimensional-empty-cubby-goodstyle",
+      "svg": "assets/build-room/svg/shelves/dimensional-empty-cubby-goodstyle.svg",
+      "png": "assets/build-room/png-source/shelves/dimensional-empty-cubby-goodstyle.png",
+      "width": 152,
+      "height": 134,
+      "category": "shelves"
+    },
+    {
+      "id": "build-the-room-badge-goodstyle",
+      "svg": "assets/build-room/svg/badges/build-the-room-badge-goodstyle.svg",
+      "png": "assets/build-room/png-source/badges/build-the-room-badge-goodstyle.png",
+      "width": 131,
+      "height": 148,
+      "category": "badges"
+    },
+    {
+      "id": "complete-badge-goodstyle",
+      "svg": "assets/build-room/svg/badges/complete-badge-goodstyle.svg",
+      "png": "assets/build-room/png-source/badges/complete-badge-goodstyle.png",
+      "width": 155,
+      "height": 157,
+      "category": "badges"
+    },
+    {
+      "id": "build-room-empty-shop-board-goodstyle",
+      "svg": "assets/build-room/svg/backgrounds/build-room-empty-shop-board-goodstyle.svg",
+      "png": "assets/build-room/png-source/backgrounds/build-room-empty-shop-board-goodstyle.png",
+      "width": 1238,
+      "height": 698,
+      "category": "backgrounds"
+    },
+    {
+      "id": "left-pegboard-shelf-bay-goodstyle",
+      "svg": "assets/build-room/svg/shelves/left-pegboard-shelf-bay-goodstyle.svg",
+      "png": "assets/build-room/png-source/shelves/left-pegboard-shelf-bay-goodstyle.png",
+      "width": 430,
+      "height": 320,
+      "category": "shelves"
+    },
+    {
+      "id": "right-pegboard-shelf-bay-goodstyle",
+      "svg": "assets/build-room/svg/shelves/right-pegboard-shelf-bay-goodstyle.svg",
+      "png": "assets/build-room/png-source/shelves/right-pegboard-shelf-bay-goodstyle.png",
+      "width": 590,
+      "height": 320,
+      "category": "shelves"
+    },
+    {
+      "id": "wood-bench-wide-goodstyle",
+      "svg": "assets/build-room/svg/shelves/wood-bench-wide-goodstyle.svg",
+      "png": "assets/build-room/png-source/shelves/wood-bench-wide-goodstyle.png",
+      "width": 585,
+      "height": 103,
+      "category": "shelves"
+    },
+    {
+      "id": "header-blank-signboard-goodstyle",
+      "svg": "assets/build-room/svg/shelves/header-blank-signboard-goodstyle.svg",
+      "png": "assets/build-room/png-source/shelves/header-blank-signboard-goodstyle.png",
+      "width": 1202,
+      "height": 122,
+      "category": "shelves"
+    },
+    {
+      "id": "drop-zone-highlight-goodstyle",
+      "svg": "assets/build-room/svg/overlays/drop-zone-highlight-goodstyle.svg",
+      "category": "overlays",
+      "pureSvg": true
+    },
+    {
+      "id": "price-tag-goodstyle",
+      "svg": "assets/build-room/svg/labels/price-tag-goodstyle.svg",
+      "category": "labels",
+      "pureSvg": true
+    },
+    {
+      "id": "build-room-header-card-goodstyle",
+      "svg": "assets/build-room/svg/cards/build-room-header-card-goodstyle.svg",
+      "category": "cards",
+      "pureSvg": true
+    }
+  ]
+}

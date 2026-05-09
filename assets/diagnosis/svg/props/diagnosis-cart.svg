@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="270" viewBox="0 0 390 270" fill="none">
+<defs>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.58"/></filter>
+  <filter id="softShadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.42"/></filter>
+  <filter id="greenGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#7cff5d" flood-opacity="0.75"/></filter>
+  <filter id="redGlow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ff322c" flood-opacity="0.62"/></filter>
+  <linearGradient id="teal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#72aeb8"/><stop offset="0.20" stop-color="#3f8792"/><stop offset="0.67" stop-color="#245d68"/><stop offset="1" stop-color="#173940"/></linearGradient>
+  <linearGradient id="tealDark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a828d"/><stop offset="1" stop-color="#112f36"/></linearGradient>
+  <linearGradient id="metalPanel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9ba5a5"/><stop offset="0.13" stop-color="#d9d8cf"/><stop offset="0.5" stop-color="#b8b8ae"/><stop offset="0.84" stop-color="#e1dfd3"/><stop offset="1" stop-color="#767d7d"/></linearGradient>
+  <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#242a2a"/><stop offset="0.55" stop-color="#080b0c"/><stop offset="1" stop-color="#020303"/></linearGradient>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff8e9"/><stop offset="1" stop-color="#c8ae80"/></linearGradient>
+  <radialGradient id="greenLamp" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#dcffd5"/><stop offset="0.42" stop-color="#6eff48"/><stop offset="1" stop-color="#16480d"/></radialGradient>
+  <radialGradient id="redLamp" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ffd6cf"/><stop offset="0.44" stop-color="#e43125"/><stop offset="1" stop-color="#4f0a06"/></radialGradient>
+</defs>
+
+<ellipse cx="195" cy="258" rx="154" ry="8" fill="#000" opacity="0.38"/>
+
+<!-- straight cart body -->
+<rect x="28" y="72" width="334" height="168" rx="22" fill="url(#teal)" stroke="#9bc8cf" stroke-width="2" filter="url(#shadow)"/>
+<rect x="36" y="82" width="318" height="28" rx="14" fill="#75aeb6" opacity="0.66" stroke="#b8d5d8"/>
+<rect x="42" y="126" width="306" height="58" rx="10" fill="#d7ddd8" opacity="0.18" stroke="#eef3ec" stroke-opacity="0.45"/>
+<rect x="42" y="128" width="306" height="52" rx="8" fill="url(#metalPanel)" stroke="#606f6f" stroke-width="1.2"/>
+<circle cx="72" cy="154" r="14" fill="#8ec6d0" stroke="#346b75" stroke-width="2"/>
+<path d="M72 144 V164 M62 154 H82" stroke="#2e6875" stroke-width="5" stroke-linecap="round"/>
+<text x="226" y="163" fill="#242625" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="500" text-anchor="middle" letter-spacing="1.0">DIAGNOSIS CART</text>
+
+<!-- top rail handles and side details -->
+<path d="M28 102 C10 102 9 134 28 134" stroke="#c3d6d9" stroke-width="8" stroke-linecap="round"/>
+<path d="M362 102 C381 102 382 134 362 134" stroke="#c3d6d9" stroke-width="8" stroke-linecap="round"/>
+<path d="M18 102 C8 108 8 128 18 134" stroke="#557e84" stroke-width="4" stroke-linecap="round"/>
+<path d="M372 102 C382 108 382 128 372 134" stroke="#557e84" stroke-width="4" stroke-linecap="round"/>
+
+<!-- top-left checklist, with realistic clip and paper -->
+<g transform="translate(58 11) rotate(-5 54 45)" filter="url(#softShadow)">
+  <rect x="0" y="8" width="112" height="86" rx="6" fill="url(#paper)" stroke="#777d78"/>
+  <rect x="26" y="0" width="58" height="13" rx="4" fill="#6d7370" stroke="#1c2020"/>
+  <text x="56" y="30" fill="#171414" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" text-anchor="middle">CHECKLIST</text>
+  <path d="M29 35 H82" stroke="#171414" stroke-width="1.4"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="12" fill="#171414" font-weight="800">
+    <text x="22" y="51">☑ LISTEN</text>
+    <text x="22" y="66">☐ THINK</text>
+    <text x="22" y="81">☐ TRACE</text>
+  </g>
+</g>
+
+<!-- top-right ON AIR device -->
+<g transform="translate(209 25)" filter="url(#softShadow)">
+  <rect x="0" y="0" width="128" height="76" rx="10" fill="#0a0b0b" stroke="#343b39" stroke-width="2"/>
+  <rect x="30" y="15" width="69" height="28" rx="5" fill="#0a2a11" stroke="#183c1b"/>
+  <text x="65" y="36" fill="#92ff75" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="900" text-anchor="middle" filter="url(#greenGlow)">ON AIR</text>
+  <circle cx="26" cy="58" r="12" fill="url(#greenLamp)" stroke="#74cf63" stroke-width="2" filter="url(#greenGlow)"/>
+  <circle cx="106" cy="58" r="12" fill="url(#redLamp)" stroke="#ee6a58" stroke-width="2" filter="url(#redGlow)"/>
+  <text x="44" y="63" fill="#90e181" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="900">OK</text>
+  <text x="74" y="63" fill="#e26b60" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="900">ALERT</text>
+</g>
+
+<!-- lower analysis bay -->
+<rect x="44" y="188" width="304" height="44" rx="10" fill="url(#tealDark)" stroke="#83b6bd" stroke-opacity="0.6"/>
+<g transform="translate(56 194)" filter="url(#softShadow)">
+  <rect x="0" y="0" width="88" height="34" rx="5" fill="url(#screen)" stroke="#455458"/>
+  <rect x="7" y="6" width="74" height="18" rx="2" fill="#2b0808" stroke="#662626"/>
+  <path d="M8 15 C16 9 22 23 28 15 C36 7 42 25 50 15 C59 8 63 22 72 15" stroke="#e85353" stroke-width="1.5" fill="none"/>
+  <text x="44" y="31" fill="#e1d8c9" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SPECTRUM</text>
+</g>
+<g transform="translate(151 194)" filter="url(#softShadow)">
+  <rect x="0" y="0" width="88" height="34" rx="5" fill="url(#screen)" stroke="#455458"/>
+  <rect x="7" y="6" width="74" height="18" rx="2" fill="#031021" stroke="#17466a"/>
+  <path d="M8 16 C24 5 30 27 44 15 C58 3 63 26 80 12" stroke="#56bcff" stroke-width="1.4" fill="none"/>
+  <path d="M12 14 H76" stroke="#2d80bb" opacity="0.35"/>
+  <text x="44" y="31" fill="#e1d8c9" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="800" text-anchor="middle">SIGNAL</text>
+</g>
+<g transform="translate(246 194)" filter="url(#softShadow)">
+  <rect x="0" y="0" width="88" height="34" rx="5" fill="url(#screen)" stroke="#455458"/>
+  <rect x="7" y="6" width="74" height="18" rx="2" fill="#3c2a03" stroke="#80691d"/>
+  <ellipse cx="44" cy="15" rx="28" ry="9" fill="#f2c83f" opacity="0.5"/>
+  <circle cx="25" cy="15" r="3" fill="#ff4536" filter="url(#redGlow)"/>
+  <circle cx="44" cy="15" r="3" fill="#ff4536" filter="url(#redGlow)"/>
+  <circle cx="63" cy="15" r="3" fill="#ff4536" filter="url(#redGlow)"/>
+  <text x="44" y="31" fill="#e1d8c9" font-family="Inter, Arial, sans-serif" font-size="9" font-weight="800" text-anchor="middle">PHASE</text>
+</g>
+
+<!-- wheels -->
+<g filter="url(#softShadow)">
+  <rect x="70" y="232" width="22" height="12" rx="4" fill="#c4c7bf" stroke="#5e6665"/>
+  <circle cx="81" cy="248" r="11" fill="#d6d8d1" stroke="#596060" stroke-width="2"/>
+  <circle cx="81" cy="248" r="5" fill="#8a918f"/>
+  <rect x="298" y="232" width="22" height="12" rx="4" fill="#c4c7bf" stroke="#5e6665"/>
+  <circle cx="309" cy="248" r="11" fill="#d6d8d1" stroke="#596060" stroke-width="2"/>
+  <circle cx="309" cy="248" r="5" fill="#8a918f"/>
+</g>
+</svg>

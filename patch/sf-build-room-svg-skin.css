@@ -1,0 +1,16 @@
+/* Signal Flow Build Room v6 Photoshop-direction asset helpers */
+.sf-buildroom-asset {
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  image-rendering: auto;
+}
+.sf-buildroom-item {
+  position: absolute;
+  transform-origin: center bottom;
+}
+.sf-buildroom-item.is-selectable { pointer-events: auto; cursor: pointer; }
+.sf-buildroom-dropzone { pointer-events: none; opacity: 0; transition: opacity 160ms ease; }
+.sf-buildroom-dropzone.is-active { opacity: 1; }
+.sf-buildroom-art-layer { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.sf-buildroom-hotspot-layer { position: absolute; inset: 0; z-index: 3; }

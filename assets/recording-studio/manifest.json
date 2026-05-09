@@ -1,0 +1,241 @@
+{
+  "version": "v3-no-baked-text-clean-jacks",
+  "format": "hybrid svg wrappers + clean pure svg interactive parts",
+  "rules": [
+    "Do not use board-specific rendered slices as live gameplay elements.",
+    "Keep DOM text and jack hit targets from the game.",
+    "Use clean jack SVGs for decoration; never crop jacks from the sample render.",
+    "Header strips and panels are blank; place section text in DOM above them.",
+    "Equipment cards are decorative render-style assets and should not replace functional controls."
+  ],
+  "assets": [
+    {
+      "id": "rec-main-board-renderstyle-blank-v3",
+      "type": "backgrounds",
+      "path": "assets/recording-studio/svg/backgrounds/rec-main-board-renderstyle-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "rec-top-equipment-shelf-renderstyle-blank-v3",
+      "type": "backgrounds",
+      "path": "assets/recording-studio/svg/backgrounds/rec-top-equipment-shelf-renderstyle-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "rec-console-card-renderstyle",
+      "type": "equipment",
+      "path": "assets/recording-studio/svg/equipment/rec-console-card-renderstyle.svg",
+      "notes": "Rendered equipment card; decorative, do not use for gameplay labels"
+    },
+    {
+      "id": "rec-microphone-card-renderstyle",
+      "type": "equipment",
+      "path": "assets/recording-studio/svg/equipment/rec-microphone-card-renderstyle.svg",
+      "notes": "Rendered equipment card; decorative, do not use for gameplay labels"
+    },
+    {
+      "id": "rec-monitor-speaker-card-renderstyle",
+      "type": "equipment",
+      "path": "assets/recording-studio/svg/equipment/rec-monitor-speaker-card-renderstyle.svg",
+      "notes": "Rendered equipment card; decorative, do not use for gameplay labels"
+    },
+    {
+      "id": "rec-vu-meter-card-renderstyle",
+      "type": "equipment",
+      "path": "assets/recording-studio/svg/equipment/rec-vu-meter-card-renderstyle.svg",
+      "notes": "Rendered equipment card; decorative, do not use for gameplay labels"
+    },
+    {
+      "id": "equipment-card-shell-speaker-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/equipment-card-shell-speaker-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "equipment-card-shell-square-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/equipment-card-shell-square-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "equipment-card-shell-vu-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/equipment-card-shell-vu-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "equipment-card-shell-wide-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/equipment-card-shell-wide-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "header-strip-blue-blank-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/header-strip-blue-blank-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "header-strip-cream-blank-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/header-strip-cream-blank-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "header-strip-gold-blank-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/header-strip-gold-blank-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "header-strip-green-blank-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/header-strip-green-blank-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "header-strip-red-blank-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/header-strip-red-blank-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "rec-patchbay-shell-blank-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/rec-patchbay-shell-blank-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "row-well-blue-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/row-well-blue-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "row-well-gold-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/row-well-gold-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "row-well-green-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/row-well-green-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "row-well-neutral-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/row-well-neutral-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "row-well-red-renderstyle-v3",
+      "type": "panels",
+      "path": "assets/recording-studio/svg/panels/row-well-red-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-active-blue-clean-renderstyle-v3",
+      "type": "jacks",
+      "path": "assets/recording-studio/svg/jacks/jack-active-blue-clean-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-active-green-clean-renderstyle-v3",
+      "type": "jacks",
+      "path": "assets/recording-studio/svg/jacks/jack-active-green-clean-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-active-orange-clean-renderstyle-v3",
+      "type": "jacks",
+      "path": "assets/recording-studio/svg/jacks/jack-active-orange-clean-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-active-red-clean-renderstyle-v3",
+      "type": "jacks",
+      "path": "assets/recording-studio/svg/jacks/jack-active-red-clean-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-hit-target-guide-clean-v3",
+      "type": "jacks",
+      "path": "assets/recording-studio/svg/jacks/jack-hit-target-guide-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-standby-clean-renderstyle-v3",
+      "type": "jacks",
+      "path": "assets/recording-studio/svg/jacks/jack-standby-clean-renderstyle-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "node-label-small-cream-blank-v3",
+      "type": "labels",
+      "path": "assets/recording-studio/svg/labels/node-label-small-cream-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "node-label-wide-cream-blank-v3",
+      "type": "labels",
+      "path": "assets/recording-studio/svg/labels/node-label-wide-cream-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "number-badge-cream-blank-v3",
+      "type": "labels",
+      "path": "assets/recording-studio/svg/labels/number-badge-cream-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "route-card-skin-complete-blank-v3",
+      "type": "labels",
+      "path": "assets/recording-studio/svg/labels/route-card-skin-complete-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "route-card-skin-todo-blank-v3",
+      "type": "labels",
+      "path": "assets/recording-studio/svg/labels/route-card-skin-todo-blank-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "cable-shadow-soft-clean-v3",
+      "type": "overlays",
+      "path": "assets/recording-studio/svg/overlays/cable-shadow-soft-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-glow-blue-clean-v3",
+      "type": "overlays",
+      "path": "assets/recording-studio/svg/overlays/jack-glow-blue-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-glow-green-clean-v3",
+      "type": "overlays",
+      "path": "assets/recording-studio/svg/overlays/jack-glow-green-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-glow-orange-clean-v3",
+      "type": "overlays",
+      "path": "assets/recording-studio/svg/overlays/jack-glow-orange-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "jack-glow-red-clean-v3",
+      "type": "overlays",
+      "path": "assets/recording-studio/svg/overlays/jack-glow-red-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    },
+    {
+      "id": "row-focus-highlight-clean-v3",
+      "type": "overlays",
+      "path": "assets/recording-studio/svg/overlays/row-focus-highlight-clean-v3.svg",
+      "notes": "No baked gameplay text"
+    }
+  ]
+}
