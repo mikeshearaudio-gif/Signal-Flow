@@ -604,7 +604,7 @@
       "left:" + point.x + "px",
       "top:" + point.y + "px",
       "width:30px",
-      "height:30px",
+      "height:46px",
       "transform:translate(-50%,-50%)",
       "border-radius:50%",
       "border:2px solid rgba(255,255,255,.82)",
@@ -1423,7 +1423,7 @@
       "left:" + x + "px",
       "top:" + y + "px",
       "width:170px",
-      "height:38px",
+      "height:46px",
       "border-radius:14px",
       "border:1px solid rgba(255,210,95,.35)",
       "background:linear-gradient(180deg,rgba(34,66,105,.96),rgba(13,28,48,.96))",
@@ -1630,45 +1630,85 @@
   }
 
   function createNativePrewireIcons(layer, adapter, level) {
-    const svg = getCableSvg(layer);
-    const foh = level.panels && level.panels.find && level.panels.find(p => p.id === "foh");
+    // Passive grey normalled/prewired cables:
+    // Draw these already-cropped so they cannot cover the Sources / Keys DI labels.
+    // Visual-only; not interactive route logic.
+    let svg = layer.querySelector(".sf-native-normalled-cables-svg");
 
-    function manualPoint(index) {
-      if (!foh) return null;
-
-      // Approximate the 8 visible FOH console input jacks:
-      // 1-4 are mic/line inputs, 5-8 are TRS line inputs.
-      const xRatios = [0.085, 0.135, 0.185, 0.235, 0.375, 0.425, 0.475, 0.525];
-      return {
-        x: foh.x + foh.width * xRatios[index],
-        y: foh.y + 72
-      };
+    if (!svg) {
+      svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.classList.add("sf-native-normalled-cables-svg");
+      svg.setAttribute("aria-hidden", "true");
+      svg.style.cssText = [
+        "position:absolute",
+        "inset:0",
+        "width:100%",
+        "height:100%",
+        "overflow:visible",
+        "pointer-events:none",
+        "z-index:235"
+      ].join(";");
+      layer.appendChild(svg);
     }
 
-    for (let i = 0; i < 8; i++) {
-      const pt = manualPoint(i);
-      if (!pt) continue;
+    svg.innerHTML = "";
 
-      // Small grey normalled/prewired U icon sitting over each input jack.
-      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      const w = 10;
-      const h = 12;
-      const yLift = 8;
+    function safePoint(panelJackId, fallback) {
+      try {
+        const pt = pointFromPanel(adapter, level, panelJackId);
+        if (pt && Number.isFinite(pt.x) && Number.isFinite(pt.y)) return pt;
+      } catch (err) {}
+      return fallback;
+    }
 
-      path.setAttribute("d",
-        "M " + (pt.x - w) + " " + (pt.y - yLift) +
-        " C " + (pt.x - w) + " " + (pt.y - yLift - h) + ", " +
-                 (pt.x + w) + " " + (pt.y - yLift - h) + ", " +
-                 (pt.x + w) + " " + (pt.y - yLift)
-      );
-      path.setAttribute("fill", "none");
-      path.setAttribute("stroke", "rgba(165,170,168,.62)");
-      path.setAttribute("stroke-width", "2.5");
-      path.setAttribute("stroke-linecap", "round");
-      path.setAttribute("opacity", "0.70");
-      path.classList.add("sf-native-prewire-icon");
-      path.style.pointerEvents = "none";
-      svg.appendChild(path);
+    const foh = level.panels.find(p => p.id === "foh");
+    if (!foh) return;
+
+    const fohFallbackX = [0.085, 0.135, 0.185, 0.235, 0.375, 0.425, 0.475, 0.525];
+
+    for (let i = 1; i <= 8; i++) {
+      const to = safePoint("foh.input" + i, {
+        x: foh.x + foh.width * fohFallbackX[i - 1],
+        y: foh.y + 72
+      });
+
+      // HARD CROP: start the visible cable just left of the FOH console input bank.
+      // This intentionally removes the stagebox-side span that was covering source labels.
+      const sx = foh.x - 14;
+      const sy = foh.y + 118 + (i - 4.5) * 3.2;
+      const tx = to.x;
+      const ty = to.y;
+
+      const c1x = sx + (tx - sx) * 0.22;
+      const c1y = sy - 18 - i * 0.7;
+      const c2x = sx + (tx - sx) * 0.72;
+      const c2y = ty + 20 + i * 0.7;
+
+      const d = [
+        "M", sx, sy,
+        "C", c1x, c1y, c2x, c2y, tx, ty
+      ].join(" ");
+
+      const shadow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      shadow.setAttribute("d", d);
+      shadow.setAttribute("fill", "none");
+      shadow.setAttribute("stroke", "rgba(10,11,11,.45)");
+      shadow.setAttribute("stroke-width", "4.8");
+      shadow.setAttribute("stroke-linecap", "round");
+      shadow.setAttribute("opacity", ".38");
+      shadow.classList.add("sf-native-normalled-cable-shadow");
+      svg.appendChild(shadow);
+
+      const cable = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      cable.setAttribute("d", d);
+      cable.setAttribute("fill", "none");
+      cable.setAttribute("stroke", "rgba(135,140,136,.52)");
+      cable.setAttribute("stroke-width", "2.8");
+      cable.setAttribute("stroke-linecap", "round");
+      cable.setAttribute("opacity", ".58");
+      cable.classList.add("sf-native-normalled-cable");
+      cable.style.filter = "drop-shadow(0 1px 1px rgba(0,0,0,.24))";
+      svg.appendChild(cable);
     }
   }
 
