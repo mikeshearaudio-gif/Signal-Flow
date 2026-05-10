@@ -16,7 +16,9 @@
 (function () {
   "use strict";
 
-  const LEVEL_ID = "LIV-025";
+  let LEVEL_ID = "LIV-025";
+  let activeNativeLevelId = null;
+  let nativeLevelCompleteShown = false;
 
   let selectedNode = null;
   let patchDrag = null;
@@ -35,10 +37,10 @@
     title: "Sub Matrix Feed",
     validRoutes: [
       {
-        key: "matrix-2-to-sub",
-        from: "matrix-2-output",
+        key: "aux-2-to-sub",
+        from: "aux-2-output",
         to: "sub-processor-input",
-        checklist: "Matrix 2 Output → Sub Processor Input"
+        checklist: "Aux 2 Output → Sub Input"
       },
       {
         key: "main-left-to-system-left",
@@ -73,6 +75,151 @@
     ]
   };
 
+  const LIVE_NATIVE_PATCH_SPECS = {
+    "LIV-025": {
+      id: "LIV-025",
+      title: "Sub Matrix Feed",
+      processorLabel: "CROSSOVER",
+      validRoutes: [
+        {
+          key: "aux-2-to-sub",
+          from: "matrix-2-output",
+          to: "sub-processor-input",
+          checklist: "Aux 2 Output → Sub Input"
+        },
+        {
+          key: "main-left-to-system-left",
+          from: "main-left-output",
+          to: "system-processor-left-in",
+          checklist: "Main Left Output → System Processor Left In"
+        },
+        {
+          key: "main-right-to-system-right",
+          from: "main-right-output",
+          to: "system-processor-right-in",
+          checklist: "Main Right Output → System Processor Right In"
+        },
+        {
+          key: "lead-vocal-to-stagebox-1",
+          from: "lead-vocal-mic",
+          to: "stagebox-input-1",
+          checklist: "Lead Vocal Microphone → Stage Box Input 1"
+        },
+        {
+          key: "keys-left-to-stagebox-7",
+          from: "keys-left-di",
+          to: "stagebox-input-7",
+          checklist: "Keys Left DI → Stage Box Input 7"
+        },
+        {
+          key: "keys-right-to-stagebox-8",
+          from: "keys-right-di",
+          to: "stagebox-input-8",
+          checklist: "Keys Right DI → Stage Box Input 8"
+        }
+      ]
+    },
+    "LIV-026": {
+      id: "LIV-026",
+      title: "Delay Tower Route",
+      processorLabel: "DELAY TOWER PROCESSING",
+      validRoutes: [
+        {
+          key: "aux-3-to-delay-processing",
+    "aux-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
+          from: "aux-3-output",
+          to: "delay-tower-processing-input",
+          checklist: "Aux 3 Output → Delay"
+        },
+        {
+          key: "main-left-to-system-left",
+          from: "main-left-output",
+          to: "system-processor-left-in",
+          checklist: "Main Left Output → System Processor Left In"
+        },
+        {
+          key: "main-right-to-system-right",
+          from: "main-right-output",
+          to: "system-processor-right-in",
+          checklist: "Main Right Output → System Processor Right In"
+        },
+        {
+          key: "lead-vocal-to-stagebox-1",
+          from: "lead-vocal-mic",
+          to: "stagebox-input-1",
+          checklist: "Lead Vocal Microphone → Stage Box Input 1"
+        },
+        {
+          key: "keys-left-to-stagebox-7",
+          from: "keys-left-di",
+          to: "stagebox-input-7",
+          checklist: "Keys Left DI → Stage Box Input 7"
+        },
+        {
+          key: "keys-right-to-stagebox-8",
+          from: "keys-right-di",
+          to: "stagebox-input-8",
+          checklist: "Keys Right DI → Stage Box Input 8"
+        }
+      ]
+    }
+  };
+
+  function resetNativeStateForLevelChange(nextLevelId) {
+    if (activeNativeLevelId === nextLevelId) return;
+
+    console.log("[Signal Flow] Native level changed, clearing state:", activeNativeLevelId, "→", nextLevelId);
+
+    activeNativeLevelId = nextLevelId;
+    resetNativeLevelComplete();
+
+    try {
+      if (patchDrag) {
+        patchDrag = null;
+      }
+    } catch (err) {}
+
+    try {
+      selectedNode = null;
+    } catch (err) {}
+
+    try {
+      nativeHintsVisible = false;
+    } catch (err) {}
+
+    try {
+      state.routes = [];
+      if (state.completedValidKeys && state.completedValidKeys.clear) {
+        state.completedValidKeys.clear();
+      }
+    } catch (err) {}
+
+    // Remove any old native layers/cables so a previous board cannot visually
+    // carry routes into the next board.
+    document.querySelectorAll(".sf-live-native-layer").forEach(layer => layer.remove());
+
+    try {
+      updateNativeScore();
+    } catch (err) {}
+  }
+
+  function syncActiveLevelSpec() {
+    const id = getLevelId();
+    const spec = LIVE_NATIVE_PATCH_SPECS[id];
+
+    if (!spec) return null;
+
+    resetNativeStateForLevelChange(spec.id);
+
+    LEVEL_ID = spec.id;
+    LEVEL.id = spec.id;
+    LEVEL.title = spec.title;
+    LEVEL.processorLabel = spec.processorLabel;
+    LEVEL.validRoutes = spec.validRoutes;
+
+    return spec;
+  }
+
   const NODE_DEFS = {
     "lead-vocal-mic": { label: "Lead Vocal Microphone", kind: "source" },
     "keys-left-di": { label: "Keys Left DI", kind: "source" },
@@ -92,7 +239,7 @@
     "foh-main-right": { label: "FOH Main Right", kind: "jack", panelJack: "foh.mainRight", ghost: true },
     "main-left-output": { label: "Main Left Output", kind: "jack", panelJack: "foh.mainLeft" },
     "main-right-output": { label: "Main Right Output", kind: "jack", panelJack: "foh.mainRight" },
-    "matrix-2-output": { label: "Matrix 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
+    "matrix-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
 
     "foh-mic-1": { label: "FOH Mic 1", kind: "jack", panelJack: "foh.mic1", ghost: true },
     "foh-mic-2": { label: "FOH Mic 2", kind: "jack", panelJack: "foh.mic2", ghost: true },
@@ -103,12 +250,14 @@
     "foh-line-in-7": { label: "FOH Line In 7", kind: "jack", panelJack: "foh.lineIn7", ghost: true },
     "foh-line-in-8": { label: "FOH Line In 8", kind: "jack", panelJack: "foh.lineIn8", ghost: true },
     "foh-line-out-1": { label: "FOH Line Out 1", kind: "jack", panelJack: "foh.lineOut1", ghost: true },
-    "foh-line-out-3": { label: "FOH Line Out 3", kind: "jack", panelJack: "foh.lineOut3", ghost: true },
+    "foh-line-out-3": { label: "Aux 3 Output", kind: "jack", panelJack: "foh.lineOut3", ghost: true },
+    "aux-3-output": { label: "Aux 3 Output", kind: "jack", panelJack: "foh.lineOut3" },
     "foh-line-out-4": { label: "FOH Line Out 4", kind: "jack", panelJack: "foh.lineOut4", ghost: true },
 
     "system-processor-left-in": { label: "System Processor Left In", kind: "jack", panelJack: "amp.inputA" },
     "system-processor-right-in": { label: "System Processor Right In", kind: "jack", panelJack: "amp.inputB" },
-    "sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelJack: "amp.link" },
+    "sub-processor-input": { label: "Sub Input", kind: "jack", panelJack: "amp.link" },
+    "delay-tower-processing-input": { label: "Delay", kind: "jack", panelJack: "amp.link" },
     "processor-output-a": { label: "Processor Output A", kind: "jack", panelJack: "amp.outputA", ghost: true },
     "processor-output-b": { label: "Processor Output B", kind: "jack", panelJack: "amp.outputB", ghost: true }
   };
@@ -836,6 +985,154 @@
     }, 260);
   }
 
+  function closeNativeCompletionPopup() {
+    document.querySelectorAll(".sf-native-complete-modal").forEach(el => el.remove());
+  }
+
+  function resetNativeLevelComplete() {
+    nativeLevelCompleteShown = false;
+    closeNativeCompletionPopup();
+  }
+
+  function nextNativeLevelId() {
+    const sequence = ["LIV-025", "LIV-026", "LIV-027"];
+    const index = sequence.indexOf(LEVEL_ID);
+    return index >= 0 ? sequence[index + 1] || null : null;
+  }
+
+  function goToNativeLevel(levelId) {
+    if (!levelId) {
+      closeNativeCompletionPopup();
+      return;
+    }
+
+    closeNativeCompletionPopup();
+    resetNativeLevelComplete();
+
+    const url = "/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html?htmlcache=6r38#/level/" + levelId;
+
+    try {
+      if (window.parent && window.parent !== window && window.parent.document) {
+        const frame = Array.from(window.parent.document.querySelectorAll("iframe"))
+          .find(f => {
+            try {
+              return f.contentWindow === window ||
+                String(f.getAttribute("src") || f.src || "").includes("Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html");
+            } catch (err) {
+              return false;
+            }
+          });
+
+        if (frame) {
+          frame.src = url;
+          return;
+        }
+      }
+    } catch (err) {}
+
+    window.location.href = url;
+  }
+
+  function showNativeCompletionPopup() {
+    closeNativeCompletionPopup();
+
+    const modal = document.createElement("div");
+    modal.className = "sf-native-complete-modal";
+    modal.style.cssText = [
+      "position:fixed",
+      "inset:0",
+      "display:flex",
+      "align-items:center",
+      "justify-content:center",
+      "background:rgba(0,0,0,.42)",
+      "z-index:2147483000",
+      "pointer-events:auto"
+    ].join(";");
+
+    const card = document.createElement("div");
+    card.style.cssText = [
+      "width:min(420px, calc(100vw - 40px))",
+      "padding:24px 26px",
+      "border-radius:18px",
+      "background:linear-gradient(180deg, #20170d, #0e0b08)",
+      "border:1px solid rgba(255,215,106,.42)",
+      "box-shadow:0 24px 70px rgba(0,0,0,.62), 0 0 28px rgba(255,215,106,.18)",
+      "color:#fff7d1",
+      "font-family:inherit",
+      "text-align:center"
+    ].join(";");
+
+    const title = document.createElement("div");
+    title.textContent = "Level Complete";
+    title.style.cssText = [
+      "font-size:28px",
+      "font-weight:900",
+      "letter-spacing:.04em",
+      "margin-bottom:10px",
+      "color:#ffe66c",
+      "text-transform:uppercase"
+    ].join(";");
+
+    const body = document.createElement("div");
+    const nextId = nextNativeLevelId();
+
+    body.textContent = nextId
+      ? "All required routes are patched correctly. Continue to " + nextId + "."
+      : "All required routes are patched correctly.";
+    body.style.cssText = [
+      "font-size:16px",
+      "line-height:1.35",
+      "margin-bottom:20px",
+      "color:#f7ead0"
+    ].join(";");
+
+    const button = document.createElement("button");
+    button.textContent = nextId ? "Next Level" : "Continue";
+    button.style.cssText = [
+      "appearance:none",
+      "border:0",
+      "border-radius:12px",
+      "padding:11px 18px",
+      "font-size:15px",
+      "font-weight:900",
+      "background:#ffd76a",
+      "color:#15100a",
+      "cursor:pointer",
+      "box-shadow:0 6px 18px rgba(0,0,0,.35)"
+    ].join(";");
+
+    button.addEventListener("click", () => {
+      if (nextId) {
+        goToNativeLevel(nextId);
+      } else {
+        closeNativeCompletionPopup();
+      }
+    });
+
+    card.appendChild(title);
+    card.appendChild(body);
+    card.appendChild(button);
+    modal.appendChild(card);
+    document.body.appendChild(modal);
+  }
+
+  function checkNativeLevelComplete() {
+    const complete =
+      LEVEL.validRoutes.length > 0 &&
+      LEVEL.validRoutes.every(route => state.completedValidKeys.has(route.key));
+
+    if (!complete) {
+      nativeLevelCompleteShown = false;
+      closeNativeCompletionPopup();
+      return;
+    }
+
+    if (nativeLevelCompleteShown) return;
+
+    nativeLevelCompleteShown = true;
+    setTimeout(showNativeCompletionPopup, 180);
+  }
+
   function updateNativeScore() {
     const score = state.completedValidKeys.size * 100;
 
@@ -927,6 +1224,7 @@
     }
 
     updateNativeScore();
+    checkNativeLevelComplete();
     redrawCables(layer);
   }
 
@@ -1299,6 +1597,132 @@
     layer.appendChild(btn);
   }
 
+  function createNativeOverlayLabel(layer, text, x, y, options) {
+    const opts = options || {};
+    const label = document.createElement("div");
+
+    label.textContent = text;
+    label.className = "sf-native-overlay-label";
+    label.style.cssText = [
+      "position:absolute",
+      "left:" + x + "px",
+      "top:" + y + "px",
+      "transform:translate(-50%,-50%)",
+      "min-width:" + (opts.width || 64) + "px",
+      "padding:1px 4px",
+      "border-radius:4px",
+      "background:transparent",
+      "border:0",
+      "box-shadow:none",
+      "color:" + (opts.color || "#f4f1dc"),
+      "font-size:" + (opts.size || 7) + "px",
+      "font-weight:800",
+      "letter-spacing:.06em",
+      "line-height:1.05",
+      "text-align:center",
+      "text-transform:uppercase",
+      "pointer-events:none",
+      "z-index:" + (opts.zIndex || 999)
+    ].join(";");
+
+    layer.appendChild(label);
+    return label;
+  }
+
+  function createNativePrewireIcons(layer, adapter, level) {
+    const svg = getCableSvg(layer);
+    const foh = level.panels && level.panels.find && level.panels.find(p => p.id === "foh");
+
+    function manualPoint(index) {
+      if (!foh) return null;
+
+      // Approximate the 8 visible FOH console input jacks:
+      // 1-4 are mic/line inputs, 5-8 are TRS line inputs.
+      const xRatios = [0.085, 0.135, 0.185, 0.235, 0.375, 0.425, 0.475, 0.525];
+      return {
+        x: foh.x + foh.width * xRatios[index],
+        y: foh.y + 72
+      };
+    }
+
+    for (let i = 0; i < 8; i++) {
+      const pt = manualPoint(i);
+      if (!pt) continue;
+
+      // Small grey normalled/prewired U icon sitting over each input jack.
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const w = 10;
+      const h = 12;
+      const yLift = 8;
+
+      path.setAttribute("d",
+        "M " + (pt.x - w) + " " + (pt.y - yLift) +
+        " C " + (pt.x - w) + " " + (pt.y - yLift - h) + ", " +
+                 (pt.x + w) + " " + (pt.y - yLift - h) + ", " +
+                 (pt.x + w) + " " + (pt.y - yLift)
+      );
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "rgba(165,170,168,.62)");
+      path.setAttribute("stroke-width", "2.5");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("opacity", "0.70");
+      path.classList.add("sf-native-prewire-icon");
+      path.style.pointerEvents = "none";
+      svg.appendChild(path);
+    }
+  }
+
+  function createNativeBoardTerminologyOverlays(layer, adapter, level) {
+    function mask(x, y, w, h) {
+      const el = document.createElement("div");
+      el.className = "sf-native-overlay-mask";
+      el.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + w + "px",
+        "height:" + h + "px",
+        "transform:translate(-50%,-50%)",
+        "border-radius:4px",
+        "background:rgba(50,52,50,.98)",
+        "box-shadow:none",
+        "pointer-events:none",
+        "z-index:990"
+      ].join(";");
+      layer.appendChild(el);
+    }
+
+    function plaque(text, x, y, w) {
+      createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
+    }
+
+    createNativePrewireIcons(layer, adapter, level);
+
+    if (LEVEL_ID === "LIV-025") {
+      const aux = pointFromPanel(adapter, level, "foh.lineOut2");
+      const sub = pointFromPanel(adapter, level, "amp.link");
+
+      // Only relabel the section. Do not cover the jack numbers.
+      mask(aux.x + 4, aux.y - 48, 112, 16);
+      plaque("AUX OUTS", aux.x + 4, aux.y - 48, 92);
+
+      mask(sub.x, sub.y - 29, 86, 16);
+      plaque("SUB INPUT", sub.x, sub.y - 29, 78);
+    }
+
+    if (LEVEL_ID === "LIV-026") {
+      const aux = pointFromPanel(adapter, level, "foh.lineOut3");
+      const delay = pointFromPanel(adapter, level, "amp.link");
+
+      // Only relabel the section. Do not cover the jack numbers.
+      mask(aux.x + 2, aux.y - 48, 112, 16);
+      plaque("AUX OUTS", aux.x + 2, aux.y - 48, 92);
+
+      mask(delay.x, delay.y - 35, 86, 16);
+      plaque("DELAY", delay.x, delay.y - 35, 66);
+    }
+  }
+
   function renderNative(surface, adapter) {
     const level = buildLevelGeometry(surface);
 
@@ -1317,11 +1741,11 @@
       "background:radial-gradient(circle at top, rgba(18,36,28,.32), rgba(0,0,0,0) 62%)"
     ].join(";");
 
-    createLabel(layer, "SUB MATRIX FEED - NATIVE CONCEPT MODE", 18, 14, 12);
+    createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + " - NATIVE CONCEPT MODE", 18, 14, 12);
     createLabel(layer, "SOURCES", level.rect.width * 0.06, level.rect.height * 0.08, 12);
     createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, level.rect.height * 0.31, 11);
-    createLabel(layer, "FOH OUTPUTS", level.rect.width * 0.40, level.rect.height * 0.10, 11);
-    createLabel(layer, "SYSTEM PROCESSOR / SUB", level.rect.width * 0.46, level.rect.height * 0.47, 11);
+    createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
+    createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", level.rect.width * 0.46, level.rect.height * 0.47, 11);
 
     level.panels.forEach(panel => {
       const img = document.createElement("img");
@@ -1345,14 +1769,35 @@
     createSourceNode(layer, "keys-left-di", "Keys Left DI", level.rect.width * 0.06, level.rect.height * 0.18);
     createSourceNode(layer, "keys-right-di", "Keys Right DI", level.rect.width * 0.06, level.rect.height * 0.24);
 
-    Object.keys(NODE_DEFS).forEach(key => {
-      const def = NODE_DEFS[key];
-      if (def.kind !== "jack") return;
-      const point = getNodePoint(adapter, level, key);
-      createJackNode(layer, key, point, def.label, !!def.ghost);
+    const activeEndpointKeys = new Set();
+    LEVEL.validRoutes.forEach(route => {
+      activeEndpointKeys.add(route.from);
+      activeEndpointKeys.add(route.to);
     });
 
+    const renderedPanelJacks = new Set();
+
+    Object.keys(NODE_DEFS)
+      .filter(key => NODE_DEFS[key].kind === "jack")
+      .sort((a, b) => {
+        const aa = activeEndpointKeys.has(a) ? 1 : 0;
+        const bb = activeEndpointKeys.has(b) ? 1 : 0;
+        return bb - aa;
+      })
+      .forEach(key => {
+        const def = NODE_DEFS[key];
+        const panelJack = def.panelJack || key;
+
+        if (renderedPanelJacks.has(panelJack)) return;
+        renderedPanelJacks.add(panelJack);
+
+        const point = getNodePoint(adapter, level, key);
+        const activeEndpoint = activeEndpointKeys.has(key);
+        createJackNode(layer, key, point, def.label, !activeEndpoint);
+      });
+
     surface.appendChild(layer);
+    createNativeBoardTerminologyOverlays(layer, adapter, level);
     redrawCables(layer);
     installCableDrag(layer);
   }
@@ -1417,7 +1862,7 @@
       return;
     }
 
-    if (getLevelId() !== LEVEL_ID || !nativeVisible) return;
+    if (!syncActiveLevelSpec() || !nativeVisible) return;
 
     const surface = findSurface();
     if (!surface) {
@@ -1439,7 +1884,7 @@
     raiseHintOverlays();
     updateNativeHintHighlights();
 
-    console.log("[Signal Flow] LIV-025 native renderer v6 mounted.");
+    console.log("[Signal Flow] " + LEVEL_ID + " native renderer v6 mounted.");
   }
 
   function unmountNative() {
@@ -1452,6 +1897,7 @@
   }
 
   function clearNative() {
+    resetNativeLevelComplete();
     state.routes = [];
     state.completedValidKeys.clear();
     clearSelection();
@@ -1592,7 +2038,7 @@
 
 
   const observer = new MutationObserver(() => {
-    if (getLevelId() !== LEVEL_ID) return;
+    if (!syncActiveLevelSpec()) return;
 
     hidePanelToggleControls();
 
