@@ -101,6 +101,55 @@
   };
 
   const LIVE_NATIVE_PATCH_SPECS = {
+    "LIV-002": {
+      id: "LIV-002",
+      title: "Vocal Wedge Mix 2",
+      processorLabel: "VOCAL WEDGE",
+      panelKinds: ["stagebox", "foh", "monitor"],
+      sourceOrder: ["lead-vocal-mic"],
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "stagebox-link-out",
+        "foh-aux-1-output",
+        "aux-2-output",
+        "aux-3-output",
+        "talkback-output",
+        "main-left-output",
+        "main-right-output",
+        "vocal-wedge-input",
+        "vocal-wedge-thru",
+        "vocal-wedge-aux-in"
+      ],
+      validRoutes: [
+        {
+          key: "lead-vocal-mic-to-stagebox-input-1",
+          from: "lead-vocal-mic",
+          to: "stagebox-input-1",
+          checklist: "Lead Vocal Mic → Stage Box Input 1"
+        },
+        {
+          key: "foh-aux-1-output-to-vocal-wedge-input",
+          from: "foh-aux-1-output",
+          to: "vocal-wedge-input",
+          checklist: "FOH Aux 1 Output → Vocal Wedge Input"
+        }
+      ]
+    },
     "LIV-009": {
       id: "LIV-009",
       title: "Keyboard Stereo Inputs",
@@ -367,6 +416,7 @@
     "foh-line-in-7": { label: "FOH Line In 7", kind: "jack", panelJack: "foh.lineIn7", ghost: true },
     "foh-line-in-8": { label: "FOH Line In 8", kind: "jack", panelJack: "foh.lineIn8", ghost: true },
     "foh-line-out-1": { label: "FOH Line Out 1", kind: "jack", panelJack: "foh.lineOut1", ghost: true },
+    "foh-aux-1-output": { label: "FOH Aux 1 Output", kind: "jack", panelJack: "foh.lineOut1" },
     "foh-line-out-3": { label: "Aux 3 Output", kind: "jack", panelJack: "foh.lineOut3", ghost: true },
     "aux-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
     "talkback-output": { label: "Talkback Output", kind: "jack", panelJack: "foh.lineOut4" },
@@ -377,6 +427,9 @@
     "system-processor-right-in": { label: "System Processor Right In", kind: "jack", panelJack: "amp.inputB" },
     "sub-processor-input": { label: "Sub Input", kind: "jack", panelJack: "amp.link" },
     "in-ear-b-in": { label: "In-Ear B In", kind: "jack", panelJack: "amp.inputB" },
+    "vocal-wedge-input": { label: "Vocal Wedge Input", kind: "jack", panelJack: "monitor.input" },
+    "vocal-wedge-thru": { label: "Vocal Wedge Thru", kind: "jack", panelJack: "monitor.thru", ghost: true },
+    "vocal-wedge-aux-in": { label: "Vocal Wedge Aux In", kind: "jack", panelJack: "monitor.auxIn", ghost: true },
     "delay-tower-processing-input": { label: "Delay", kind: "jack", panelJack: "amp.link" },
     "processor-output-a": { label: "Processor Output A", kind: "jack", panelJack: "amp.outputA", ghost: true },
     "processor-output-b": { label: "Processor Output B", kind: "jack", panelJack: "amp.outputB", ghost: true }
@@ -405,6 +458,7 @@
     return {
       stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head.svg",
       foh: "/assets/live-sound/svg/hardware/foh-console-io-panel.svg",
+      monitor: "/assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
       amp: "/assets/live-sound/svg/hardware/power-amplifier.svg"
     }[kind];
   }
@@ -596,7 +650,7 @@
     const isTalkbackBoard = LEVEL_ID === "LIV-028";
     const liv = isTalkbackBoard ? LIV_028_LAYOUT : null;
 
-    const allPanels = [
+    const defaultPanels = [
       {
         id: "stagebox",
         kind: "stagebox",
@@ -620,9 +674,19 @@
       }
     ];
 
+    const manifestPanels = defaultPanels.concat([
+      {
+        id: "monitor",
+        kind: "monitor",
+        x: rect.width * 0.52,
+        y: layoutHeight * 0.54,
+        width: rect.width * 0.34
+      }
+    ]);
+
     const panels = LEVEL.panelKinds
-      ? allPanels.filter(panel => LEVEL.panelKinds.includes(panel.kind))
-      : allPanels;
+      ? manifestPanels.filter(panel => LEVEL.panelKinds.includes(panel.kind))
+      : defaultPanels;
 
     return {
       id: LEVEL_ID,
@@ -2507,6 +2571,9 @@
     }
     if (panelKinds.has("amp")) {
       createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
+    }
+    if (panelKinds.has("monitor")) {
+      createLabel(layer, LEVEL.processorLabel || "VOCAL WEDGE", level.rect.width * 0.52, level.rect.height * 0.51, 11);
     }
 
     level.panels.forEach(panel => {
