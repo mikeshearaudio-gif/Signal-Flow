@@ -1,0 +1,51 @@
+level_id,status,title,brief,difficulty,time,training_type,required_route_count,source_file
+LIV-001,non-patch-do-not-convert,Lead Vocal Mic to FOH,Patch Lead Vocal Mic into the stagebox and feed mains to system processing.,,,build-room,3,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-002,patch-board,Vocal wedge mix 2,Patch a vocal monitor aux to the wedge input.,,,,2,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-003,patch-board,Stereo IEM send 1,Patch stereo aux outputs into the IEM transmitter.,,,,2,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-004,non-patch-do-not-convert,Front fill matrix,Patch matrix output to front-fill processing while mains remain active.,,,quiz,3,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-005,non-patch-do-not-convert,Sub matrix feed,Patch sub matrix output to the sub processor.,,,,3,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-006,patch-board,Delay tower route,Patch a matrix output to the delay tower processor.,,,,3,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-007,patch-board,Broadcast split,Patch broadcast split outputs for a recorder or stream feed.,,,,2,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-008,non-patch-do-not-convert,Talkback to monitor system,Route talkback into the monitor send path without feeding mains.,,,diagnose,2,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-009,patch-board,Keyboard stereo inputs,Patch stereo keyboard DIs into adjacent stagebox inputs.,,,,2,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-010,patch-board,Main PA amp feed,"Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-011,patch-board,Lead Vocal Mic to FOH,Patch Lead Vocal Mic into the stagebox and feed mains to system processing.,,,,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-012,patch-board,Vocal wedge mix 4,Patch a vocal monitor aux to the wedge input.,,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-013,non-patch-do-not-convert,Stereo IEM send 1,Patch stereo aux outputs into the IEM transmitter.,,,build-room,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-014,non-patch-do-not-convert,Front fill matrix,Patch matrix output to front-fill processing while mains remain active.,,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-015,patch-board,Sub matrix feed,Patch sub matrix output to the sub processor.,,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-016,patch-board,Delay tower route,Patch a matrix output to the delay tower processor.,,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-017,non-patch-do-not-convert,Broadcast split,Patch broadcast split outputs for a recorder or stream feed.,,,diagnose,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-018,patch-board,Talkback to monitor system,Route talkback into the monitor send path without feeding mains.,,,,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-019,patch-board,Keyboard stereo inputs,Patch stereo keyboard DIs into adjacent stagebox inputs.,,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-020,patch-board,Main PA amp feed,"Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",,,,4,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-021,patch-board,Lead Vocal Mic to FOH,Patch Lead Vocal Mic into the stagebox and feed mains to system processing.,,,,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-022,non-patch-do-not-convert,Vocal wedge mix 2,Patch a vocal monitor aux to the wedge input.,,,quiz,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-023,patch-board,Stereo IEM send 1,Patch stereo aux outputs into the IEM transmitter.,,,,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-024,non-patch-do-not-convert,Front fill matrix,Patch matrix output to front-fill processing while mains remain active.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-025,patch-board,Sub matrix feed,Patch Aux 2 to the crossover sub input.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-026,patch-board,Delay tower route,Patch Aux 3 to delay.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-027,non-patch-do-not-convert,Broadcast split,Patch broadcast split outputs for a recorder or stream feed.,,,build-room,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-028,patch-board,Talkback to monitor system,Route talkback into the in-ear monitor path without feeding mains.,,,,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-029,patch-board,Keyboard stereo inputs,Patch stereo keyboard DIs into adjacent stagebox inputs.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-030,patch-board,Main PA amp feed,"Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",,,,5,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-031,non-patch-do-not-convert,Lead Vocal Mic to FOH,Patch Lead Vocal Mic into the stagebox and feed mains to system processing.,,,diagnose,8,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-032,patch-board,Vocal wedge mix 4,Patch a vocal monitor aux to the wedge input.,,,,7,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-033,patch-board,Stereo IEM send 1,Patch stereo aux outputs into the IEM transmitter.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-034,patch-board,Front fill matrix,Patch matrix output to front-fill processing while mains remain active.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-035,non-patch-do-not-convert,Sub matrix feed,Patch sub matrix output to the sub processor.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-036,non-patch-do-not-convert,Delay tower route,Patch a matrix output to the delay tower processor.,,,quiz,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-037,patch-board,Broadcast split,Patch broadcast split outputs for a recorder or stream feed.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-038,patch-board,Talkback to monitor system,Route talkback into the monitor send path without feeding mains.,,,,7,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-039,patch-board,Keyboard stereo inputs,Patch stereo keyboard DIs into adjacent stagebox inputs.,,,,6,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-040,patch-board,Main PA amp feed,"Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",,,,7,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-041,non-patch-do-not-convert,Lead Vocal Mic to FOH,Patch Lead Vocal Mic into the stagebox and feed mains to system processing.,,,build-room,8,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-042,patch-board,Vocal wedge mix 2,Patch a vocal monitor aux to the wedge input.,,,,9,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-043,patch-board,Stereo IEM send 1,Patch stereo aux outputs into the IEM transmitter.,,,,8,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-044,patch-board,Front fill matrix,Patch matrix output to front-fill processing while mains remain active.,,,,9,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-045,non-patch-do-not-convert,Sub matrix feed,Patch sub matrix output to the sub processor.,,,quiz,9,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-046,non-patch-do-not-convert,Delay tower route,Patch a matrix output to the delay tower processor.,,,,9,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-047,patch-board,Broadcast split,Patch broadcast split outputs for a recorder or stream feed.,,,,8,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-048,patch-board,Talkback to monitor system,Route talkback into the monitor send path without feeding mains.,,,,9,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-049,patch-board,Keyboard stereo inputs,Patch stereo keyboard DIs into adjacent stagebox inputs.,,,,8,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+LIV-050,non-patch-do-not-convert,Main PA amp feed,"Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",,,diagnose,8,launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html

@@ -1,0 +1,1648 @@
+{
+  "LIV-001": {
+    "level_id": "LIV-001",
+    "status": "non-patch-do-not-convert",
+    "title": "Lead Vocal Mic to FOH",
+    "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "build-room",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-002": {
+    "level_id": "LIV-002",
+    "status": "patch-board",
+    "title": "Vocal wedge mix 2",
+    "brief": "Patch a vocal monitor aux to the wedge input.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "FOH Aux 1 Output",
+        "destination": "Vocal Wedge Input"
+      }
+    ]
+  },
+  "LIV-003": {
+    "level_id": "LIV-003",
+    "status": "patch-board",
+    "title": "Stereo IEM send 1",
+    "brief": "Patch stereo aux outputs into the IEM transmitter.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-004": {
+    "level_id": "LIV-004",
+    "status": "non-patch-do-not-convert",
+    "title": "Front fill matrix",
+    "brief": "Patch matrix output to front-fill processing while mains remain active.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "quiz",
+    "required": [
+      {
+        "source": "Matrix 1 Output",
+        "destination": "Front Fill Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-005": {
+    "level_id": "LIV-005",
+    "status": "non-patch-do-not-convert",
+    "title": "Sub matrix feed",
+    "brief": "Patch sub matrix output to the sub processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 2 Output",
+        "destination": "Sub Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-006": {
+    "level_id": "LIV-006",
+    "status": "patch-board",
+    "title": "Delay tower route",
+    "brief": "Patch a matrix output to the delay tower processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 3 Output",
+        "destination": "Delay Tower Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-007": {
+    "level_id": "LIV-007",
+    "status": "patch-board",
+    "title": "Broadcast split",
+    "brief": "Patch broadcast split outputs for a recorder or stream feed.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Broadcast Split L",
+        "destination": "Record Out L"
+      },
+      {
+        "source": "Broadcast Split R",
+        "destination": "Record Out R"
+      }
+    ]
+  },
+  "LIV-008": {
+    "level_id": "LIV-008",
+    "status": "non-patch-do-not-convert",
+    "title": "Talkback to monitor system",
+    "brief": "Route talkback into the monitor send path without feeding mains.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "diagnose",
+    "required": [
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Talkback Output",
+        "destination": "In-Ear B Input"
+      }
+    ]
+  },
+  "LIV-009": {
+    "level_id": "LIV-009",
+    "status": "patch-board",
+    "title": "Keyboard stereo inputs",
+    "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-010": {
+    "level_id": "LIV-010",
+    "status": "patch-board",
+    "title": "Main PA amp feed",
+    "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "System Processor L Out",
+        "destination": "Main PA L Input"
+      },
+      {
+        "source": "System Processor R Out",
+        "destination": "Main PA R Input"
+      }
+    ]
+  },
+  "LIV-011": {
+    "level_id": "LIV-011",
+    "status": "patch-board",
+    "title": "Lead Vocal Mic to FOH",
+    "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 11"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-012": {
+    "level_id": "LIV-012",
+    "status": "patch-board",
+    "title": "Vocal wedge mix 4",
+    "brief": "Patch a vocal monitor aux to the wedge input.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "FOH Aux 1 Output",
+        "destination": "Vocal Wedge Input"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-013": {
+    "level_id": "LIV-013",
+    "status": "non-patch-do-not-convert",
+    "title": "Stereo IEM send 1",
+    "brief": "Patch stereo aux outputs into the IEM transmitter.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "build-room",
+    "required": [
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-014": {
+    "level_id": "LIV-014",
+    "status": "non-patch-do-not-convert",
+    "title": "Front fill matrix",
+    "brief": "Patch matrix output to front-fill processing while mains remain active.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 1 Output",
+        "destination": "Front Fill Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      }
+    ]
+  },
+  "LIV-015": {
+    "level_id": "LIV-015",
+    "status": "patch-board",
+    "title": "Sub matrix feed",
+    "brief": "Patch sub matrix output to the sub processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 2 Output",
+        "destination": "Sub Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      }
+    ]
+  },
+  "LIV-016": {
+    "level_id": "LIV-016",
+    "status": "patch-board",
+    "title": "Delay tower route",
+    "brief": "Patch a matrix output to the delay tower processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 3 Output",
+        "destination": "Delay Tower Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      }
+    ]
+  },
+  "LIV-017": {
+    "level_id": "LIV-017",
+    "status": "non-patch-do-not-convert",
+    "title": "Broadcast split",
+    "brief": "Patch broadcast split outputs for a recorder or stream feed.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "diagnose",
+    "required": [
+      {
+        "source": "Broadcast Split L",
+        "destination": "Record Out L"
+      },
+      {
+        "source": "Broadcast Split R",
+        "destination": "Record Out R"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-018": {
+    "level_id": "LIV-018",
+    "status": "patch-board",
+    "title": "Talkback to monitor system",
+    "brief": "Route talkback into the monitor send path without feeding mains.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Talkback Output",
+        "destination": "In-Ear B Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-019": {
+    "level_id": "LIV-019",
+    "status": "patch-board",
+    "title": "Keyboard stereo inputs",
+    "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      }
+    ]
+  },
+  "LIV-020": {
+    "level_id": "LIV-020",
+    "status": "patch-board",
+    "title": "Main PA amp feed",
+    "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "System Processor L Out",
+        "destination": "Main PA L Input"
+      },
+      {
+        "source": "System Processor R Out",
+        "destination": "Main PA R Input"
+      }
+    ]
+  },
+  "LIV-021": {
+    "level_id": "LIV-021",
+    "status": "patch-board",
+    "title": "Lead Vocal Mic to FOH",
+    "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 9"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-022": {
+    "level_id": "LIV-022",
+    "status": "non-patch-do-not-convert",
+    "title": "Vocal wedge mix 2",
+    "brief": "Patch a vocal monitor aux to the wedge input.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "quiz",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "FOH Aux 1 Output",
+        "destination": "Vocal Wedge Input"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      }
+    ]
+  },
+  "LIV-023": {
+    "level_id": "LIV-023",
+    "status": "patch-board",
+    "title": "Stereo IEM send 1",
+    "brief": "Patch stereo aux outputs into the IEM transmitter.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-024": {
+    "level_id": "LIV-024",
+    "status": "non-patch-do-not-convert",
+    "title": "Front fill matrix",
+    "brief": "Patch matrix output to front-fill processing while mains remain active.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 1 Output",
+        "destination": "Front Fill Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-025": {
+    "level_id": "LIV-025",
+    "status": "patch-board",
+    "title": "Sub matrix feed",
+    "brief": "Patch Aux 2 to the crossover sub input.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Aux 2 Output",
+        "destination": "Sub Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-026": {
+    "level_id": "LIV-026",
+    "status": "patch-board",
+    "title": "Delay tower route",
+    "brief": "Patch Aux 3 to delay.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Aux 3 Output",
+        "destination": "Delay"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-027": {
+    "level_id": "LIV-027",
+    "status": "non-patch-do-not-convert",
+    "title": "Broadcast split",
+    "brief": "Patch broadcast split outputs for a recorder or stream feed.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "build-room",
+    "required": [
+      {
+        "source": "Broadcast Split L",
+        "destination": "Record Out L"
+      },
+      {
+        "source": "Broadcast Split R",
+        "destination": "Record Out R"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-028": {
+    "level_id": "LIV-028",
+    "status": "patch-board",
+    "title": "Talkback to monitor system",
+    "brief": "Route talkback into the in-ear monitor path without feeding mains.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Talkback Output",
+        "destination": "In-Ear B In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-029": {
+    "level_id": "LIV-029",
+    "status": "patch-board",
+    "title": "Keyboard stereo inputs",
+    "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-030": {
+    "level_id": "LIV-030",
+    "status": "patch-board",
+    "title": "Main PA amp feed",
+    "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "System Processor L Out",
+        "destination": "Main PA L Input"
+      },
+      {
+        "source": "System Processor R Out",
+        "destination": "Main PA R Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      }
+    ]
+  },
+  "LIV-031": {
+    "level_id": "LIV-031",
+    "status": "non-patch-do-not-convert",
+    "title": "Lead Vocal Mic to FOH",
+    "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "diagnose",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 5"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-032": {
+    "level_id": "LIV-032",
+    "status": "patch-board",
+    "title": "Vocal wedge mix 4",
+    "brief": "Patch a vocal monitor aux to the wedge input.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "FOH Aux 1 Output",
+        "destination": "Vocal Wedge Input"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-033": {
+    "level_id": "LIV-033",
+    "status": "patch-board",
+    "title": "Stereo IEM send 1",
+    "brief": "Patch stereo aux outputs into the IEM transmitter.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      }
+    ]
+  },
+  "LIV-034": {
+    "level_id": "LIV-034",
+    "status": "patch-board",
+    "title": "Front fill matrix",
+    "brief": "Patch matrix output to front-fill processing while mains remain active.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 1 Output",
+        "destination": "Front Fill Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-035": {
+    "level_id": "LIV-035",
+    "status": "non-patch-do-not-convert",
+    "title": "Sub matrix feed",
+    "brief": "Patch sub matrix output to the sub processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 2 Output",
+        "destination": "Sub Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-036": {
+    "level_id": "LIV-036",
+    "status": "non-patch-do-not-convert",
+    "title": "Delay tower route",
+    "brief": "Patch a matrix output to the delay tower processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "quiz",
+    "required": [
+      {
+        "source": "Matrix 3 Output",
+        "destination": "Delay Tower Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-037": {
+    "level_id": "LIV-037",
+    "status": "patch-board",
+    "title": "Broadcast split",
+    "brief": "Patch broadcast split outputs for a recorder or stream feed.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Broadcast Split L",
+        "destination": "Record Out L"
+      },
+      {
+        "source": "Broadcast Split R",
+        "destination": "Record Out R"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      }
+    ]
+  },
+  "LIV-038": {
+    "level_id": "LIV-038",
+    "status": "patch-board",
+    "title": "Talkback to monitor system",
+    "brief": "Route talkback into the monitor send path without feeding mains.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Talkback Output",
+        "destination": "In-Ear B Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-039": {
+    "level_id": "LIV-039",
+    "status": "patch-board",
+    "title": "Keyboard stereo inputs",
+    "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-040": {
+    "level_id": "LIV-040",
+    "status": "patch-board",
+    "title": "Main PA amp feed",
+    "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "System Processor L Out",
+        "destination": "Main PA L Input"
+      },
+      {
+        "source": "System Processor R Out",
+        "destination": "Main PA R Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      }
+    ]
+  },
+  "LIV-041": {
+    "level_id": "LIV-041",
+    "status": "non-patch-do-not-convert",
+    "title": "Lead Vocal Mic to FOH",
+    "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "build-room",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 5"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-042": {
+    "level_id": "LIV-042",
+    "status": "patch-board",
+    "title": "Vocal wedge mix 2",
+    "brief": "Patch a vocal monitor aux to the wedge input.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "FOH Aux 1 Output",
+        "destination": "Vocal Wedge Input"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-043": {
+    "level_id": "LIV-043",
+    "status": "patch-board",
+    "title": "Stereo IEM send 1",
+    "brief": "Patch stereo aux outputs into the IEM transmitter.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-044": {
+    "level_id": "LIV-044",
+    "status": "patch-board",
+    "title": "Front fill matrix",
+    "brief": "Patch matrix output to front-fill processing while mains remain active.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 1 Output",
+        "destination": "Front Fill Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-045": {
+    "level_id": "LIV-045",
+    "status": "non-patch-do-not-convert",
+    "title": "Sub matrix feed",
+    "brief": "Patch sub matrix output to the sub processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "quiz",
+    "required": [
+      {
+        "source": "Matrix 2 Output",
+        "destination": "Sub Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-046": {
+    "level_id": "LIV-046",
+    "status": "non-patch-do-not-convert",
+    "title": "Delay tower route",
+    "brief": "Patch a matrix output to the delay tower processor.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Matrix 3 Output",
+        "destination": "Delay Tower Processor Input"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-047": {
+    "level_id": "LIV-047",
+    "status": "patch-board",
+    "title": "Broadcast split",
+    "brief": "Patch broadcast split outputs for a recorder or stream feed.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Broadcast Split L",
+        "destination": "Record Out L"
+      },
+      {
+        "source": "Broadcast Split R",
+        "destination": "Record Out R"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      }
+    ]
+  },
+  "LIV-048": {
+    "level_id": "LIV-048",
+    "status": "patch-board",
+    "title": "Talkback to monitor system",
+    "brief": "Route talkback into the monitor send path without feeding mains.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Talkback Output",
+        "destination": "In-Ear B Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-049": {
+    "level_id": "LIV-049",
+    "status": "patch-board",
+    "title": "Keyboard stereo inputs",
+    "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "",
+    "required": [
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      },
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "FOH Aux 5 L Output",
+        "destination": "IEM TX A Left Input"
+      },
+      {
+        "source": "FOH Aux 5 R Output",
+        "destination": "IEM TX A Right Input"
+      }
+    ]
+  },
+  "LIV-050": {
+    "level_id": "LIV-050",
+    "status": "non-patch-do-not-convert",
+    "title": "Main PA amp feed",
+    "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+    "difficulty": "",
+    "time": "",
+    "training_type": "diagnose",
+    "required": [
+      {
+        "source": "Main L Output",
+        "destination": "System Processor L In"
+      },
+      {
+        "source": "Main R Output",
+        "destination": "System Processor R In"
+      },
+      {
+        "source": "System Processor L Out",
+        "destination": "Main PA L Input"
+      },
+      {
+        "source": "System Processor R Out",
+        "destination": "Main PA R Input"
+      },
+      {
+        "source": "Lead Vocal Mic",
+        "destination": "Stage Box Input 1"
+      },
+      {
+        "source": "Keys L DI",
+        "destination": "Stage Box Input 7"
+      },
+      {
+        "source": "Keys R DI",
+        "destination": "Stage Box Input 8"
+      },
+      {
+        "source": "Talkback Mic",
+        "destination": "Stage Box Input 14"
+      }
+    ]
+  }
+}
