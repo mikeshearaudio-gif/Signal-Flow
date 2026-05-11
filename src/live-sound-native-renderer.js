@@ -20,6 +20,31 @@
   let activeNativeLevelId = null;
   let nativeLevelCompleteShown = false;
 
+  const LIV_028_LAYOUT = {
+    sources: {
+      x: 0.145,
+      firstY: 0.155,
+      gap: 44,
+      width: 154,
+      height: 38
+    },
+    stagebox: {
+      x: 0.060,
+      y: 0.555,
+      width: 0.440
+    },
+    foh: {
+      x: 0.390,
+      y: 0.150,
+      width: 0.550
+    },
+    iem: {
+      x: 0.600,
+      y: 0.575,
+      width: 0.365
+    }
+  };
+
   let selectedNode = null;
   let patchDrag = null;
   let suppressNativeClickUntil = 0;
@@ -126,7 +151,6 @@
       validRoutes: [
         {
           key: "aux-3-to-delay-processing",
-    "aux-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
           from: "aux-3-output",
           to: "delay-tower-processing-input",
           checklist: "Aux 3 Output → Delay"
@@ -142,6 +166,43 @@
           from: "main-right-output",
           to: "system-processor-right-in",
           checklist: "Main Right Output → System Processor Right In"
+        },
+        {
+          key: "lead-vocal-to-stagebox-1",
+          from: "lead-vocal-mic",
+          to: "stagebox-input-1",
+          checklist: "Lead Vocal Microphone → Stage Box Input 1"
+        },
+        {
+          key: "keys-left-to-stagebox-7",
+          from: "keys-left-di",
+          to: "stagebox-input-7",
+          checklist: "Keys Left DI → Stage Box Input 7"
+        },
+        {
+          key: "keys-right-to-stagebox-8",
+          from: "keys-right-di",
+          to: "stagebox-input-8",
+          checklist: "Keys Right DI → Stage Box Input 8"
+        }
+      ]
+    },
+    "LIV-028": {
+      id: "LIV-028",
+      title: "Talkback to Monitor System",
+      processorLabel: "IN-EAR MONITORING",
+      validRoutes: [
+        {
+          key: "talkback-mic-to-stagebox-14",
+          from: "talkback-mic",
+          to: "stagebox-input-14",
+          checklist: "Talkback Mic → Stage Box Input 14"
+        },
+        {
+          key: "talkback-output-to-in-ear-b",
+          from: "talkback-output",
+          to: "in-ear-b-in",
+          checklist: "Talkback Output → In-Ear B In"
         },
         {
           key: "lead-vocal-to-stagebox-1",
@@ -222,6 +283,7 @@
 
   const NODE_DEFS = {
     "lead-vocal-mic": { label: "Lead Vocal Microphone", kind: "source" },
+    "talkback-mic": { label: "Talkback Mic", kind: "source", x: 44, y: 160 },
     "keys-left-di": { label: "Keys Left DI", kind: "source" },
     "keys-right-di": { label: "Keys Right DI", kind: "source" },
 
@@ -231,6 +293,14 @@
     "stagebox-input-4": { label: "Stage Box Input 4", kind: "jack", panelJack: "stagebox.mic4", ghost: true },
     "stagebox-input-5": { label: "Stage Box Input 5", kind: "jack", panelJack: "stagebox.mic5", ghost: true },
     "stagebox-input-6": { label: "Stage Box Input 6", kind: "jack", panelJack: "stagebox.mic6", ghost: true },
+    "stagebox-input-14": { label: "Stage Box Input 14", kind: "jack", panelJack: "stagebox.input14" },
+    "stagebox-input-9": { label: "Stage Box Input 9", kind: "jack", panelJack: "stagebox.input9" },
+    "stagebox-input-10": { label: "Stage Box Input 10", kind: "jack", panelJack: "stagebox.input10" },
+    "stagebox-input-11": { label: "Stage Box Input 11", kind: "jack", panelJack: "stagebox.input11" },
+    "stagebox-input-12": { label: "Stage Box Input 12", kind: "jack", panelJack: "stagebox.input12" },
+    "stagebox-input-13": { label: "Stage Box Input 13", kind: "jack", panelJack: "stagebox.input13" },
+    "stagebox-input-15": { label: "Stage Box Input 15", kind: "jack", panelJack: "stagebox.input15" },
+    "stagebox-input-16": { label: "Stage Box Input 16", kind: "jack", panelJack: "stagebox.input16" },
     "stagebox-input-7": { label: "Stage Box Input 7", kind: "jack", panelJack: "stagebox.mic7" },
     "stagebox-input-8": { label: "Stage Box Input 8", kind: "jack", panelJack: "stagebox.mic8" },
     "stagebox-link-out": { label: "Stagebox Link Out", kind: "jack", panelJack: "stagebox.linkOut", ghost: true },
@@ -251,12 +321,15 @@
     "foh-line-in-8": { label: "FOH Line In 8", kind: "jack", panelJack: "foh.lineIn8", ghost: true },
     "foh-line-out-1": { label: "FOH Line Out 1", kind: "jack", panelJack: "foh.lineOut1", ghost: true },
     "foh-line-out-3": { label: "Aux 3 Output", kind: "jack", panelJack: "foh.lineOut3", ghost: true },
+    "aux-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
+    "talkback-output": { label: "Talkback Output", kind: "jack", panelJack: "foh.lineOut4" },
     "aux-3-output": { label: "Aux 3 Output", kind: "jack", panelJack: "foh.lineOut3" },
     "foh-line-out-4": { label: "FOH Line Out 4", kind: "jack", panelJack: "foh.lineOut4", ghost: true },
 
     "system-processor-left-in": { label: "System Processor Left In", kind: "jack", panelJack: "amp.inputA" },
     "system-processor-right-in": { label: "System Processor Right In", kind: "jack", panelJack: "amp.inputB" },
     "sub-processor-input": { label: "Sub Input", kind: "jack", panelJack: "amp.link" },
+    "in-ear-b-in": { label: "In-Ear B In", kind: "jack", panelJack: "amp.inputB" },
     "delay-tower-processing-input": { label: "Delay", kind: "jack", panelJack: "amp.link" },
     "processor-output-a": { label: "Processor Output A", kind: "jack", panelJack: "amp.outputA", ghost: true },
     "processor-output-b": { label: "Processor Output B", kind: "jack", panelJack: "amp.outputB", ghost: true }
@@ -369,7 +442,91 @@
     return NODE_DEFS[key] ? NODE_DEFS[key].label : key;
   }
 
+  function fallbackNativePanelPoint(level, panelJackId) {
+    const stage = level.panels && level.panels.find && level.panels.find(p => p.id === "stagebox");
+    const foh = level.panels && level.panels.find && level.panels.find(p => p.id === "foh");
+    const amp = level.panels && level.panels.find && level.panels.find(p => p.id === "amp");
+
+    const stageMatch = /^stagebox\.input(\d+)$/.exec(panelJackId || "");
+    if (stage && stageMatch) {
+      const n = Number(stageMatch[1]);
+
+      if (LEVEL_ID === "LIV-028" && n >= 1 && n <= 16) {
+        const svgXs = [92, 168, 244, 320, 396, 472, 548, 624];
+        const col = (n - 1) % 8;
+        const row = n > 8 ? 1 : 0;
+        const assetHeight = stage.width * 360 / 980;
+
+        return {
+          x: stage.x + stage.width * (svgXs[col] / 980),
+          y: stage.y + assetHeight * ((row ? 250 : 125) / 360)
+        };
+      }
+
+      if (n >= 1 && n <= 16) {
+        const col = (n - 1) % 8;
+        const row = n > 8 ? 1 : 0;
+
+        return {
+          x: stage.x + stage.width * (0.12 + col * 0.065),
+          y: stage.y + (row ? 126 : 72)
+        };
+      }
+    }
+
+    const fohOutMatch = /^foh\.lineOut(\d+)$/.exec(panelJackId || "");
+    if (foh && fohOutMatch) {
+      const n = Number(fohOutMatch[1]);
+
+      if (n >= 1 && n <= 4) {
+        return {
+          x: foh.x + foh.width * (0.62 + (n - 1) * 0.052),
+          y: foh.y + 72
+        };
+      }
+    }
+
+    if (amp && panelJackId === "amp.inputB") {
+      return {
+        x: amp.x + amp.width * 0.245,
+        y: amp.y + 62
+      };
+    }
+
+    if (amp && panelJackId === "amp.link") {
+      return {
+        x: amp.x + amp.width * 0.34,
+        y: amp.y + 72
+      };
+    }
+
+    return null;
+  }
+
   function pointFromPanel(adapter, level, panelJackId) {
+    if (
+      LEVEL_ID === "LIV-028" &&
+      (
+        /^stagebox\.input([1-9]|1[0-6])$/.test(panelJackId || "") ||
+        panelJackId === "amp.inputB"
+      )
+    ) {
+      const fallback = fallbackNativePanelPoint(level, panelJackId);
+      if (fallback) return fallback;
+    }
+
+    try {
+      const pt = adapter.endpointPanelPoint(level, panelJackId, {
+        levelId: LEVEL_ID,
+        scenario: "native-liv025"
+      });
+
+      if (pt && Number.isFinite(pt.x) && Number.isFinite(pt.y)) return pt;
+    } catch (err) {}
+
+    const fallback = fallbackNativePanelPoint(level, panelJackId);
+    if (fallback) return fallback;
+
     return adapter.endpointPanelPoint(level, panelJackId, {
       levelId: LEVEL_ID,
       scenario: "native-liv025"
@@ -379,9 +536,6 @@
   function buildLevelGeometry(surface) {
     const rect = surface.getBoundingClientRect();
 
-    // The legacy live board surface is much taller than the visible clipped
-    // board area. Use a compact native layout height so the System Processor/Sub
-    // section remains visible without scrolling.
     const layoutHeight = Math.min(rect.height, 640);
     const layoutRect = {
       left: rect.left,
@@ -392,34 +546,80 @@
       height: layoutHeight
     };
 
+    const isTalkbackBoard = LEVEL_ID === "LIV-028";
+    const liv = isTalkbackBoard ? LIV_028_LAYOUT : null;
+
     return {
       id: LEVEL_ID,
       rect: layoutRect,
       panels: [
-        { id: "stagebox", kind: "stagebox", x: rect.width * 0.06, y: layoutHeight * 0.34, width: rect.width * 0.39 },
-        { id: "foh", kind: "foh", x: rect.width * 0.39, y: layoutHeight * 0.15, width: rect.width * 0.55 },
-        { id: "amp", kind: "amp", x: rect.width * 0.46, y: layoutHeight * 0.50, width: rect.width * 0.42 }
+        {
+          id: "stagebox",
+          kind: "stagebox",
+          x: rect.width * (liv ? liv.stagebox.x : 0.06),
+          y: layoutHeight * (liv ? liv.stagebox.y : 0.34),
+          width: rect.width * (liv ? liv.stagebox.width : 0.39)
+        },
+        {
+          id: "foh",
+          kind: "foh",
+          x: rect.width * (liv ? liv.foh.x : 0.39),
+          y: layoutHeight * (liv ? liv.foh.y : 0.15),
+          width: rect.width * (liv ? liv.foh.width : 0.55)
+        },
+        {
+          id: "amp",
+          kind: "amp",
+          x: rect.width * (liv ? liv.iem.x : 0.48),
+          y: layoutHeight * (liv ? liv.iem.y : 0.50),
+          width: rect.width * (liv ? liv.iem.width : 0.40)
+        }
       ]
     };
   }
 
-  function getNodePoint(adapter, level, key) {
-    const def = NODE_DEFS[key];
-    if (!def) return null;
 
-    if (def.kind === "source") {
-      const sourcePositions = {
-        "lead-vocal-mic": { x: level.rect.width * 0.06 + 85, y: level.rect.height * 0.12 + 19 },
-        "keys-left-di": { x: level.rect.width * 0.06 + 85, y: level.rect.height * 0.18 + 19 },
-        "keys-right-di": { x: level.rect.width * 0.06 + 85, y: level.rect.height * 0.24 + 19 }
+
+  function getNodePoint(adapter, level, key) {
+    if (LEVEL_ID === "LIV-028") {
+      const sourceIndex = {
+        "lead-vocal-mic": 0,
+        "keys-left-di": 1,
+        "keys-right-di": 2,
+        "talkback-mic": 3
       };
-      return sourcePositions[key] || null;
+
+      if (Object.prototype.hasOwnProperty.call(sourceIndex, key)) {
+        return {
+          x: level.rect.width * LIV_028_LAYOUT.sources.x,
+          y: level.rect.height * LIV_028_LAYOUT.sources.firstY + sourceIndex[key] * LIV_028_LAYOUT.sources.gap
+        };
+      }
     }
 
-    if (def.panelJack) return pointFromPanel(adapter, level, def.panelJack);
+    const def = NODE_DEFS[key];
 
-    return null;
+    if (!def) {
+      return {
+        x: level.rect.width * 0.5,
+        y: level.rect.height * 0.5
+      };
+    }
+
+    if (def.panelJack) {
+      return pointFromPanel(adapter, level, def.panelJack);
+    }
+
+    const sourceBaseX = level.rect.width * 0.06;
+    const sourceBaseY = level.rect.height * 0.11;
+
+    return {
+      x: sourceBaseX + (def.x || 0),
+      y: sourceBaseY + (def.y || 0)
+    };
   }
+
+
 
   function hideLegacyBoard(surface) {
     // Do NOT hide the whole board card. The header contains Inspect, Back Panel,
@@ -564,7 +764,7 @@
     svg.style.cssText = [
       "position:absolute",
       "inset:0",
-      "z-index:180",
+      "z-index:1800",
       "pointer-events:none",
       "overflow:visible"
     ].join(";");
@@ -995,7 +1195,7 @@
   }
 
   function nextNativeLevelId() {
-    const sequence = ["LIV-025", "LIV-026", "LIV-027"];
+    const sequence = ["LIV-025", "LIV-026", "LIV-027", "LIV-028", "LIV-029"];
     const index = sequence.indexOf(LEVEL_ID);
     return index >= 0 ? sequence[index + 1] || null : null;
   }
@@ -1408,11 +1608,30 @@
     event.stopImmediatePropagation();
   }
 
+  function setNativeNodeDomKey(el, key, kind) {
+    if (!el) return;
+
+    const nodeKey = String(key || "");
+    if (!nodeKey) return;
+
+    el.setAttribute("data-node-key", nodeKey);
+    el.setAttribute("data-key", nodeKey);
+    el.setAttribute("data-node-kind", kind || "node");
+  }
+
   function createSourceNode(layer, key, label, x, y) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.textContent = label;
     btn.className = "sf-native-node sf-native-source";
+
+    setNativeNodeDomKey(btn, key, "source");
+
+    btn.setAttribute("data-node-key", key);
+
+    btn.setAttribute("data-key", key);
+
+    btn.setAttribute("data-node-kind", "source" || "node");
     btn.dataset.sfNativeKey = key;
     btn.setAttribute("aria-label", label);
 
@@ -1519,6 +1738,13 @@
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "sf-native-node sf-native-jack";
+
+    setNativeNodeDomKey(btn, key, "jack");
+
+    btn.setAttribute("data-node-key", key);
+
+    btn.setAttribute("data-key", key);
+
     btn.dataset.sfNativeKey = key;
     btn.dataset.sfNativeGhost = ghost ? "1" : "0";
     btn.setAttribute("aria-label", label);
@@ -1712,6 +1938,393 @@
     }
   }
 
+  function createNativeAssetLabel(layer, src, x, y, options) {
+    const opts = options || {};
+    const img = document.createElement("img");
+
+    img.className = "sf-native-asset-label";
+    img.src = src;
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+
+    img.style.cssText = [
+      "position:absolute",
+      "left:" + x + "px",
+      "top:" + y + "px",
+      "width:" + (opts.width || 74) + "px",
+      "height:" + (opts.height || 24) + "px",
+      "object-fit:contain",
+      "transform:translate(-50%,-50%) rotate(" + (opts.rotate || "0deg") + ")",
+      "opacity:" + (opts.opacity || ".96"),
+      "pointer-events:none",
+      "z-index:" + (opts.zIndex || 1000)
+    ].join(";");
+
+    layer.appendChild(img);
+    return img;
+  }
+
+  function installLiv028LayerStackCss(targetLayer) {
+    if (LEVEL_ID !== "LIV-028") return;
+
+    const doc = targetLayer && targetLayer.ownerDocument ? targetLayer.ownerDocument : document;
+    if (!doc || !doc.head) return;
+
+    let style = doc.getElementById("sf-liv028-layer-stack-style");
+    if (!style) {
+      style = doc.createElement("style");
+      style.id = "sf-liv028-layer-stack-style";
+      doc.head.appendChild(style);
+    }
+
+    style.textContent = [
+      ".sf-live-native-layer img { z-index: 700 !important; pointer-events: none !important; }",
+      ".sf-live-native-layer .sf-native-liv028-stagebox-asset { z-index: 700 !important; pointer-events: none !important; }",
+      ".sf-live-native-layer svg, .sf-live-native-layer svg.sf-native-cables { position: absolute !important; z-index: 3500 !important; pointer-events: none !important; overflow: visible !important; }",
+      ".sf-live-native-layer .sf-native-node.sf-native-jack { z-index: 4600 !important; pointer-events: auto !important; }",
+      ".sf-live-native-layer .sf-native-node.sf-native-source { z-index: 5000 !important; pointer-events: auto !important; }",
+      ".sf-live-native-layer .sf-native-liv028-talkback-source { z-index: 6000 !important; pointer-events: auto !important; }"
+    ].join("\n");
+  }
+
+  function syncLiv028JackHitboxesToVisibleHardware(layer) {
+    if (LEVEL_ID !== "LIV-028") return;
+
+    const targetLayer = layer || document.querySelector(".sf-live-native-layer");
+    if (!targetLayer) return;
+
+    const layerRect = targetLayer.getBoundingClientRect();
+    installLiv028LayerStackCss(targetLayer);
+    const debug = true;
+
+    const stageAsset = targetLayer.querySelector(".sf-native-liv028-stagebox-asset") ||
+      Array.from(targetLayer.querySelectorAll("img")).find(img =>
+        String(img.getAttribute("src") || "").includes("stagebox-snake-head-16x2")
+      );
+
+    const iemAsset = Array.from(targetLayer.querySelectorAll("img")).find(img => {
+      const src = String(img.getAttribute("src") || "").toLowerCase();
+      const cls = String(img.className || "").toLowerCase();
+      return src.includes("iem-wireless-rack-front") ||
+        src.includes("in-ear") ||
+        src.includes("iem") ||
+        cls.includes("iem") ||
+        cls.includes("in-ear");
+    });
+
+    const fohAsset = Array.from(targetLayer.querySelectorAll("img")).find(img =>
+      String(img.getAttribute("src") || "").includes("foh-console-io-panel")
+    );
+
+    function styleHitbox(key, x, y, size) {
+      const nodes = Array.from(targetLayer.querySelectorAll("[data-node-key='" + key + "']"));
+
+      nodes.forEach(el => {
+        el.style.position = "absolute";
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+        el.style.width = (size || 30) + "px";
+        el.style.height = (size || 30) + "px";
+        el.style.transform = "translate(-50%,-50%)";
+        el.style.pointerEvents = "auto";
+        el.style.zIndex = "2600";
+        el.style.opacity = debug ? "0.55" : "0.01";
+        el.style.background = debug ? "rgba(255,0,255,.28)" : "transparent";
+        el.style.outline = debug ? "2px solid rgba(255,0,255,.95)" : "none";
+        el.style.borderRadius = "50%";
+        el.style.boxSizing = "border-box";
+      });
+
+      return nodes.length;
+    }
+
+    let stageboxCount = 0;
+
+    if (stageAsset) {
+      const r = stageAsset.getBoundingClientRect();
+      const ox = r.left - layerRect.left;
+      const oy = r.top - layerRect.top;
+
+      const xs = [92, 168, 244, 320, 396, 472, 548, 624];
+
+      xs.forEach((svgX, i) => {
+        stageboxCount += styleHitbox(
+          "stagebox-input-" + (i + 1),
+          ox + r.width * (svgX / 980),
+          oy + r.height * (125 / 360),
+          32
+        );
+      });
+
+      xs.forEach((svgX, i) => {
+        stageboxCount += styleHitbox(
+          "stagebox-input-" + (i + 9),
+          ox + r.width * (svgX / 980),
+          oy + r.height * (250 / 360),
+          32
+        );
+      });
+
+      stageAsset.style.zIndex = "700";
+      stageAsset.style.pointerEvents = "none";
+    }
+
+    let iemCount = 0;
+
+    if (iemAsset) {
+      const r = iemAsset.getBoundingClientRect();
+      const ox = r.left - layerRect.left;
+      const oy = r.top - layerRect.top;
+
+      iemAsset.style.zIndex = "700";
+      iemAsset.style.pointerEvents = "none";
+
+      iemCount += styleHitbox(
+        "in-ear-b-in",
+        ox + r.width * 0.215,
+        oy + r.height * 0.42,
+        34
+      );
+    }
+
+    let fohCount = 0;
+
+    if (fohAsset) {
+      const r = fohAsset.getBoundingClientRect();
+      const ox = r.left - layerRect.left;
+      const oy = r.top - layerRect.top;
+
+      fohAsset.style.zIndex = "700";
+      fohAsset.style.pointerEvents = "none";
+
+      fohCount += styleHitbox(
+        "talkback-output",
+        ox + r.width * 0.765,
+        oy + r.height * 0.575,
+        34
+      );
+    }
+
+    console.log("[Signal Flow] LIV-028 real hitboxes synced from Talkback helper", {
+      stageAsset: !!stageAsset,
+      iemAsset: !!iemAsset,
+      fohAsset: !!fohAsset,
+      stageboxCount,
+      iemCount,
+      fohCount
+    });
+  }
+
+  function forceLiv028TalkbackSourceFinal(layer, level) {
+    if (LEVEL_ID !== "LIV-028") return;
+
+    const targetLayer = layer || document.querySelector(".sf-live-native-layer");
+    if (!targetLayer) {
+      console.log("[Signal Flow] LIV-028 talkback final helper: no layer");
+      return;
+    }
+
+    const layerRect = targetLayer.getBoundingClientRect();
+
+    const candidates = Array.from(targetLayer.querySelectorAll("button, div, [role='button']")).filter(el => {
+      const txt = (el.textContent || "").trim().toLowerCase();
+      const r = el.getBoundingClientRect();
+      const style = getComputedStyle(el);
+
+      return (
+        txt.includes("keys right di") &&
+        r.width > 70 &&
+        r.height > 18 &&
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        Number(style.opacity || 1) > 0.05
+      );
+    });
+
+    let sourceX = 150;
+    let sourceY = 230;
+
+    if (candidates.length) {
+      const kr = candidates[0].getBoundingClientRect();
+      sourceX = kr.left - layerRect.left + kr.width / 2;
+      sourceY = kr.top - layerRect.top + kr.height / 2 + 48;
+    }
+
+    sourceX = Math.max(90, Math.min(sourceX, layerRect.width - 90));
+    sourceY = Math.max(80, Math.min(sourceY, layerRect.height - 80));
+
+    Array.from(targetLayer.querySelectorAll(".sf-native-liv028-talkback-source, [data-node-key='talkback-mic']")).forEach(el => {
+      el.remove();
+    });
+
+    const talkback = document.createElement("button");
+    talkback.type = "button";
+    talkback.className = "sf-native-source-node sf-native-liv028-talkback-source";
+    talkback.setAttribute("data-node-key", "talkback-mic");
+    talkback.setAttribute("data-key", "talkback-mic");
+    talkback.setAttribute("data-node-kind", "source");
+    talkback.textContent = "Talkback Mic";
+
+    talkback.style.cssText = [
+      "position:absolute",
+      "left:" + sourceX + "px",
+      "top:" + sourceY + "px",
+      "width:154px",
+      "height:38px",
+      "transform:translate(-50%,-50%)",
+      "display:flex",
+      "align-items:center",
+      "justify-content:center",
+      "text-align:center",
+      "box-sizing:border-box",
+      "border-radius:10px",
+      "border:1px solid rgba(119,185,255,.42)",
+      "background:linear-gradient(180deg, rgba(28,70,116,.98), rgba(10,30,55,.98))",
+      "box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 3px 10px rgba(0,0,0,.35)",
+      "color:#f6f2dc",
+      "font-size:10.5px",
+      "font-weight:900",
+      "letter-spacing:.04em",
+      "text-transform:uppercase",
+      "cursor:grab",
+      "pointer-events:auto",
+      "z-index:5000"
+    ].join(";");
+
+    talkback.addEventListener("pointerdown", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      handleNodeClick("talkback-mic");
+    });
+
+    targetLayer.appendChild(talkback);
+    syncLiv028JackHitboxesToVisibleHardware(targetLayer);
+
+    console.log("[Signal Flow] LIV-028 talkback final helper ran", {
+      candidates: candidates.length,
+      sourceX,
+      sourceY
+    });
+  }
+
+
+
+
+
+
+
+
+
+  function createLiv028TalkbackUnderSources(layer, adapter, level) {
+    if (LEVEL_ID !== "LIV-028") return;
+
+    const layout = LIV_028_LAYOUT.sources;
+    const sourceX = level.rect.width * layout.x;
+    const firstY = level.rect.height * layout.firstY;
+
+    const sourceLayout = [
+      { key: "lead-vocal-mic", y: firstY },
+      { key: "keys-left-di", y: firstY + layout.gap },
+      { key: "keys-right-di", y: firstY + layout.gap * 2 },
+      { key: "talkback-mic", y: firstY + layout.gap * 3 }
+    ];
+
+    Array.from(layer.querySelectorAll("[data-node-key='talkback-mic']")).forEach(el => {
+      el.remove();
+    });
+
+    const talkback = document.createElement("button");
+    talkback.type = "button";
+    talkback.className = "sf-native-source-node sf-native-liv028-talkback-source";
+    talkback.setAttribute("data-node-key", "talkback-mic");
+    talkback.setAttribute("data-key", "talkback-mic");
+    talkback.setAttribute("data-node-kind", "source");
+    talkback.textContent = "Talkback Mic";
+
+    talkback.addEventListener("pointerdown", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      handleNodeClick("talkback-mic");
+    });
+
+    layer.appendChild(talkback);
+
+    sourceLayout.forEach(item => {
+      Array.from(layer.querySelectorAll("[data-node-key='" + item.key + "']")).forEach(el => {
+        el.style.left = sourceX + "px";
+        el.style.top = item.y + "px";
+        el.style.width = layout.width + "px";
+        el.style.height = layout.height + "px";
+        el.style.transform = "translate(-50%,-50%)";
+        el.style.zIndex = item.key === "talkback-mic" ? "1100" : "900";
+        el.style.display = "flex";
+        el.style.alignItems = "center";
+        el.style.justifyContent = "center";
+        el.style.textAlign = "center";
+        el.style.boxSizing = "border-box";
+      });
+    });
+
+    talkback.style.borderRadius = "10px";
+    talkback.style.border = "1px solid rgba(119,185,255,.42)";
+    talkback.style.background = "linear-gradient(180deg, rgba(28,70,116,.98), rgba(10,30,55,.98))";
+    talkback.style.boxShadow = "inset 0 1px 0 rgba(255,255,255,.12), 0 3px 10px rgba(0,0,0,.35)";
+    talkback.style.color = "#f6f2dc";
+    talkback.style.fontSize = "10.5px";
+    talkback.style.fontWeight = "900";
+    talkback.style.letterSpacing = ".04em";
+    talkback.style.textTransform = "uppercase";
+    talkback.style.cursor = "grab";
+  }
+
+
+
+
+
+
+
+
+
+  function createNativeStagebox16Overlay(layer, level) {
+    if (LEVEL_ID !== "LIV-028") return;
+
+    const stage = level.panels && level.panels.find && level.panels.find(p => p.id === "stagebox");
+    if (!stage) return;
+
+    for (let n = 1; n <= 16; n++) {
+      Array.from(layer.querySelectorAll("[data-node-key='stagebox-input-" + n + "']")).forEach(el => {
+        el.style.opacity = "0.01";
+        el.style.pointerEvents = "auto";
+        el.style.zIndex = "780";
+      });
+    }
+
+    const old = layer.querySelector(".sf-native-liv028-stagebox-asset");
+    if (old) old.remove();
+
+    const assetHeight = stage.width * 360 / 980;
+
+    const img = document.createElement("img");
+    img.className = "sf-native-liv028-stagebox-asset";
+    img.src = "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg";
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+
+    img.style.cssText = [
+      "position:absolute",
+      "left:" + stage.x + "px",
+      "top:" + stage.y + "px",
+      "width:" + stage.width + "px",
+      "height:" + assetHeight + "px",
+      "object-fit:contain",
+      "pointer-events:none",
+      "z-index:720",
+      "filter:drop-shadow(0 8px 16px rgba(0,0,0,.48))"
+    ].join(";");
+
+    layer.appendChild(img);
+  }
+
   function createNativeBoardTerminologyOverlays(layer, adapter, level) {
     function mask(x, y, w, h) {
       const el = document.createElement("div");
@@ -1736,7 +2349,7 @@
       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
     }
 
-    createNativePrewireIcons(layer, adapter, level);
+    if (LEVEL_ID !== "LIV-028") createNativePrewireIcons(layer, adapter, level);
 
     if (LEVEL_ID === "LIV-025") {
       const aux = pointFromPanel(adapter, level, "foh.lineOut2");
@@ -1759,7 +2372,21 @@
       plaque("AUX OUTS", aux.x + 2, aux.y - 48, 92);
 
       mask(delay.x, delay.y - 35, 86, 16);
-      plaque("DELAY", delay.x, delay.y - 35, 66);
+      createNativeAssetLabel(layer, "/assets/live-sound/svg/cable-wrap/delay-cable-wrap-label.svg", delay.x, delay.y - 35, { width: 76, height: 24 });
+    }
+
+    if (LEVEL_ID === "LIV-028") {
+      createNativeStagebox16Overlay(layer, level);
+
+      const talkbackOut = pointFromPanel(adapter, level, "foh.lineOut4");
+
+      createNativeAssetLabel(
+        layer,
+        "/assets/live-sound/svg/cable-wrap/tb-cable-wrap-label.svg",
+        talkbackOut.x,
+        talkbackOut.y + 28,
+        { width: 64, height: 20, rotate: "-2deg", opacity: ".96" }
+      );
     }
   }
 
@@ -1783,9 +2410,9 @@
 
     createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + " - NATIVE CONCEPT MODE", 18, 14, 12);
     createLabel(layer, "SOURCES", level.rect.width * 0.06, level.rect.height * 0.08, 12);
-    createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, level.rect.height * 0.31, 11);
+    createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, (LEVEL_ID === "LIV-028" ? level.rect.height * 0.31 + 86 : level.rect.height * 0.31), 11);
     createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
-    createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", level.rect.width * 0.46, level.rect.height * 0.47, 11);
+    createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
 
     level.panels.forEach(panel => {
       const img = document.createElement("img");
@@ -1838,6 +2465,7 @@
 
     surface.appendChild(layer);
     createNativeBoardTerminologyOverlays(layer, adapter, level);
+    createLiv028TalkbackUnderSources(layer, adapter, level);
     redrawCables(layer);
     installCableDrag(layer);
   }
@@ -1994,7 +2622,10 @@
     setTimeout(wireBoardButtons, 650);
     setTimeout(() => mountNative(false), 900);
     setTimeout(() => mountNative(false), 1600);
-  }
+      setTimeout(() => forceLiv028TalkbackSourceFinal(document.querySelector(".sf-live-native-layer")), 1150);
+    setTimeout(() => forceLiv028TalkbackSourceFinal(document.querySelector(".sf-live-native-layer")), 1700);
+    setTimeout(() => forceLiv028TalkbackSourceFinal(document.querySelector(".sf-live-native-layer")), 2400);
+}
 
   window.addEventListener("hashchange", () => {
     clearNative();
