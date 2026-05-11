@@ -101,6 +101,50 @@
   };
 
   const LIVE_NATIVE_PATCH_SPECS = {
+    "LIV-009": {
+      id: "LIV-009",
+      title: "Keyboard Stereo Inputs",
+      processorLabel: "",
+      panelKinds: ["stagebox"],
+      sourceOrder: ["keys-left-di", "keys-right-di"],
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "stagebox-link-out"
+      ],
+      validRoutes: [
+        {
+          key: "keys-l-di-to-stagebox-input-7",
+          from: "keys-left-di",
+          to: "stagebox-input-7",
+          checklist: "Keys L DI → Stage Box Input 7",
+          stereoGroup: "keys-di",
+          stereoSide: "left"
+        },
+        {
+          key: "keys-r-di-to-stagebox-input-8",
+          from: "keys-right-di",
+          to: "stagebox-input-8",
+          checklist: "Keys R DI → Stage Box Input 8",
+          stereoGroup: "keys-di",
+          stereoSide: "right"
+        }
+      ]
+    },
     "LIV-025": {
       id: "LIV-025",
       title: "Sub Matrix Feed",
@@ -277,6 +321,9 @@
     LEVEL.title = spec.title;
     LEVEL.processorLabel = spec.processorLabel;
     LEVEL.validRoutes = spec.validRoutes;
+    LEVEL.panelKinds = spec.panelKinds || null;
+    LEVEL.sourceOrder = spec.sourceOrder || null;
+    LEVEL.generatedJackKeys = spec.generatedJackKeys || null;
 
     return spec;
   }
@@ -284,8 +331,8 @@
   const NODE_DEFS = {
     "lead-vocal-mic": { label: "Lead Vocal Microphone", kind: "source" },
     "talkback-mic": { label: "Talkback Mic", kind: "source", x: 44, y: 160 },
-    "keys-left-di": { label: "Keys Left DI", kind: "source" },
-    "keys-right-di": { label: "Keys Right DI", kind: "source" },
+    "keys-left-di": { label: "Keys L DI", kind: "source" },
+    "keys-right-di": { label: "Keys R DI", kind: "source" },
 
     "stagebox-input-1": { label: "Stage Box Input 1", kind: "jack", panelJack: "stagebox.mic1" },
     "stagebox-input-2": { label: "Stage Box Input 2", kind: "jack", panelJack: "stagebox.mic2", ghost: true },
@@ -549,32 +596,38 @@
     const isTalkbackBoard = LEVEL_ID === "LIV-028";
     const liv = isTalkbackBoard ? LIV_028_LAYOUT : null;
 
+    const allPanels = [
+      {
+        id: "stagebox",
+        kind: "stagebox",
+        x: rect.width * (liv ? liv.stagebox.x : 0.06),
+        y: layoutHeight * (liv ? liv.stagebox.y : 0.34),
+        width: rect.width * (liv ? liv.stagebox.width : 0.39)
+      },
+      {
+        id: "foh",
+        kind: "foh",
+        x: rect.width * (liv ? liv.foh.x : 0.39),
+        y: layoutHeight * (liv ? liv.foh.y : 0.15),
+        width: rect.width * (liv ? liv.foh.width : 0.55)
+      },
+      {
+        id: "amp",
+        kind: "amp",
+        x: rect.width * (liv ? liv.iem.x : 0.48),
+        y: layoutHeight * (liv ? liv.iem.y : 0.50),
+        width: rect.width * (liv ? liv.iem.width : 0.40)
+      }
+    ];
+
+    const panels = LEVEL.panelKinds
+      ? allPanels.filter(panel => LEVEL.panelKinds.includes(panel.kind))
+      : allPanels;
+
     return {
       id: LEVEL_ID,
       rect: layoutRect,
-      panels: [
-        {
-          id: "stagebox",
-          kind: "stagebox",
-          x: rect.width * (liv ? liv.stagebox.x : 0.06),
-          y: layoutHeight * (liv ? liv.stagebox.y : 0.34),
-          width: rect.width * (liv ? liv.stagebox.width : 0.39)
-        },
-        {
-          id: "foh",
-          kind: "foh",
-          x: rect.width * (liv ? liv.foh.x : 0.39),
-          y: layoutHeight * (liv ? liv.foh.y : 0.15),
-          width: rect.width * (liv ? liv.foh.width : 0.55)
-        },
-        {
-          id: "amp",
-          kind: "amp",
-          x: rect.width * (liv ? liv.iem.x : 0.48),
-          y: layoutHeight * (liv ? liv.iem.y : 0.50),
-          width: rect.width * (liv ? liv.iem.width : 0.40)
-        }
-      ]
+      panels
     };
   }
 
@@ -2408,11 +2461,17 @@
       "background:radial-gradient(circle at top, rgba(18,36,28,.32), rgba(0,0,0,0) 62%)"
     ].join(";");
 
+    const panelKinds = new Set(level.panels.map(panel => panel.kind));
+
     createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + " - NATIVE CONCEPT MODE", 18, 14, 12);
     createLabel(layer, "SOURCES", level.rect.width * 0.06, level.rect.height * 0.08, 12);
     createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, (LEVEL_ID === "LIV-028" ? level.rect.height * 0.31 + 86 : level.rect.height * 0.31), 11);
-    createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
-    createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
+    if (panelKinds.has("foh")) {
+      createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
+    }
+    if (panelKinds.has("amp")) {
+      createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
+    }
 
     level.panels.forEach(panel => {
       const img = document.createElement("img");
@@ -2432,20 +2491,38 @@
       layer.appendChild(img);
     });
 
-    createSourceNode(layer, "lead-vocal-mic", "Lead Vocal Microphone", level.rect.width * 0.06, level.rect.height * 0.12);
-    createSourceNode(layer, "keys-left-di", "Keys Left DI", level.rect.width * 0.06, level.rect.height * 0.18);
-    createSourceNode(layer, "keys-right-di", "Keys Right DI", level.rect.width * 0.06, level.rect.height * 0.24);
-
     const activeEndpointKeys = new Set();
     LEVEL.validRoutes.forEach(route => {
       activeEndpointKeys.add(route.from);
       activeEndpointKeys.add(route.to);
     });
 
+    const sourceOrder = LEVEL.sourceOrder || [
+      "lead-vocal-mic",
+      "keys-left-di",
+      "keys-right-di",
+      "talkback-mic"
+    ];
+
+    sourceOrder
+      .filter(key => activeEndpointKeys.has(key))
+      .filter(key => NODE_DEFS[key] && NODE_DEFS[key].kind === "source")
+      .forEach((key, index) => {
+        const def = NODE_DEFS[key];
+        createSourceNode(
+          layer,
+          key,
+          def.label,
+          level.rect.width * 0.06,
+          level.rect.height * (0.12 + index * 0.06)
+        );
+      });
+
     const renderedPanelJacks = new Set();
 
     Object.keys(NODE_DEFS)
       .filter(key => NODE_DEFS[key].kind === "jack")
+      .filter(key => !LEVEL.generatedJackKeys || LEVEL.generatedJackKeys.includes(key))
       .sort((a, b) => {
         const aa = activeEndpointKeys.has(a) ? 1 : 0;
         const bb = activeEndpointKeys.has(b) ? 1 : 0;
