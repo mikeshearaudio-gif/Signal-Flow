@@ -1247,10 +1247,38 @@
     closeNativeCompletionPopup();
   }
 
+  function allCanonicalLevelIds() {
+    try {
+      const data =
+        (typeof DATA !== "undefined" && DATA) ||
+        (window.DATA && window.DATA) ||
+        null;
+
+      const levels = data && Array.isArray(data.levels)
+        ? data.levels
+        : [];
+
+      return levels
+        .map(item => item && item.id)
+        .filter(id => typeof id === "string" && id.length > 0);
+    } catch (err) {
+      return [];
+    }
+  }
+
   function nextNativeLevelId() {
-    const sequence = ["LIV-025", "LIV-026", "LIV-027", "LIV-028", "LIV-029"];
-    const index = sequence.indexOf(LEVEL_ID);
-    return index >= 0 ? sequence[index + 1] || null : null;
+    const ids = allCanonicalLevelIds();
+    const index = ids.indexOf(LEVEL_ID);
+
+    if (index >= 0) {
+      return ids[index + 1] || null;
+    }
+
+    const match = String(LEVEL_ID || "").match(/^LIV-(\d+)$/i);
+    if (!match) return null;
+
+    const nextNumber = String(Number(match[1]) + 1).padStart(3, "0");
+    return "LIV-" + nextNumber;
   }
 
   function goToNativeLevel(levelId) {
@@ -1262,28 +1290,36 @@
     closeNativeCompletionPopup();
     resetNativeLevelComplete();
 
-    const url = "/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html?htmlcache=6r38#/level/" + levelId;
+    const route = "/level/" + encodeURIComponent(levelId);
 
     try {
-      if (window.parent && window.parent !== window && window.parent.document) {
-        const frame = Array.from(window.parent.document.querySelectorAll("iframe"))
-          .find(f => {
-            try {
-              return f.contentWindow === window ||
-                String(f.getAttribute("src") || f.src || "").includes("Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html");
-            } catch (err) {
-              return false;
-            }
-          });
-
-        if (frame) {
-          frame.src = url;
-          return;
-        }
+      if (typeof window.navigateTo === "function") {
+        window.navigateTo(route);
+        return;
       }
     } catch (err) {}
 
-    window.location.href = url;
+    try {
+      if (
+        window.parent &&
+        window.parent !== window &&
+        typeof window.parent.navigateTo === "function"
+      ) {
+        window.parent.navigateTo(route);
+        return;
+      }
+    } catch (err) {}
+
+    try {
+      if (location.hash !== "#" + route) {
+        location.hash = route;
+      } else {
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+      }
+      return;
+    } catch (err) {}
+
+    window.location.href = "#" + route;
   }
 
   function showNativeCompletionPopup() {
