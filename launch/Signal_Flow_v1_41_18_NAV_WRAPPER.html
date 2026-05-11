@@ -8,6 +8,70 @@
     :root{--sf-bg:#07101f;--sf-panel:#0f1d34;--sf-ink:#f8fbff;--sf-muted:#9fb4d8;--sf-cyan:#00f5ff;--sf-yellow:#ffd76a;--sf-line:rgba(255,255,255,.16)}
     *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--sf-bg);color:var(--sf-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}.sf-shell{height:100%;display:grid;grid-template-rows:auto 1fr;min-height:0}.sf-topnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;background:linear-gradient(180deg,rgba(15,29,52,.98),rgba(7,16,31,.98));border-bottom:1px solid var(--sf-line);box-shadow:0 8px 24px rgba(0,0,0,.32);z-index:10}.sf-brand{font-weight:900;letter-spacing:.05em;color:var(--sf-yellow);margin-right:8px;white-space:nowrap}.sf-topnav label{font-size:12px;color:var(--sf-muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}.sf-topnav select,.sf-topnav input{background:#0a1528;color:var(--sf-ink);border:1px solid rgba(0,245,255,.28);border-radius:10px;padding:8px 10px;font-weight:700;min-height:38px}.sf-topnav input{width:128px;text-transform:uppercase}.sf-topnav button,.sf-topnav a{appearance:none;text-decoration:none;cursor:pointer;border:1px solid rgba(255,215,106,.36);border-radius:10px;background:linear-gradient(180deg,rgba(255,215,106,.22),rgba(255,215,106,.08));color:var(--sf-ink);font-weight:900;padding:9px 12px;min-height:38px}.sf-topnav button.secondary,.sf-topnav a.secondary{border-color:rgba(0,245,255,.28);background:linear-gradient(180deg,rgba(0,245,255,.18),rgba(0,245,255,.06))}.sf-frame-wrap{min-height:0;position:relative;background:#020713}#gameFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#020713}.sf-hint{font-size:12px;color:var(--sf-muted);margin-left:auto;white-space:nowrap}.sf-score{font-size:13px;font-weight:900;color:var(--sf-yellow);border:1px solid var(--sf-line);padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.04)}@media(max-width:980px){.sf-hint{display:none}.sf-topnav{gap:7px}.sf-brand{width:100%}.sf-topnav label{font-size:11px}.sf-topnav select{max-width:155px}.sf-topnav input{width:110px}}
   </style>
+
+
+
+<style id="sf-brief-todo-attention-runtime-v4">
+@keyframes sfBriefTodoPulseV4 {
+  0%, 100% {
+    box-shadow:
+      -6px 0 0 rgba(255, 215, 106, .70),
+      0 0 18px rgba(255, 215, 106, .18),
+      0 8px 18px rgba(0, 0, 0, .24);
+    outline: 1px solid rgba(255, 215, 106, .20);
+  }
+  50% {
+    box-shadow:
+      -13px 0 0 rgba(255, 215, 106, 1),
+      0 0 42px rgba(255, 215, 106, .72),
+      0 0 14px rgba(255, 236, 162, .38) inset,
+      0 14px 34px rgba(0, 0, 0, .42);
+    outline: 1px solid rgba(255, 236, 162, .58);
+  }
+}
+
+@keyframes sfBriefTodoRailPulseV4 {
+  0%, 100% {
+    opacity: .68;
+    filter: drop-shadow(0 0 7px rgba(255, 215, 106, .32));
+  }
+  50% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 18px rgba(255, 215, 106, .95))
+      drop-shadow(0 0 28px rgba(255, 236, 162, .55));
+  }
+}
+
+.sf-brief-todo-attention {
+  position: relative !important;
+  border-left: 4px solid rgba(255, 215, 106, .92) !important;
+  animation: sfBriefTodoPulseV4 1.65s ease-in-out infinite !important;
+  overflow: visible !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 215, 106, .12), rgba(255, 215, 106, 0) 38%) !important;
+}
+
+.sf-brief-todo-attention::before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 6px;
+  bottom: 6px;
+  width: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 236, 162, .18),
+    rgba(255, 215, 106, 1),
+    rgba(255, 236, 162, .18)
+  );
+  pointer-events: none;
+  animation: sfBriefTodoRailPulseV4 1.65s ease-in-out infinite;
+  z-index: 20;
+}
+</style>
+
 </head>
 <body>
   <div class="sf-shell">
@@ -191,5 +255,177 @@
     populate('PST'); loadLevel('PST-IR-01');
   })();
   </script>
+
+
+
+<script id="sf-brief-todo-attention-runtime-script-v4">
+(function () {
+  if (window.sfBriefTodoAttentionV4Installed) return;
+  window.sfBriefTodoAttentionV4Installed = true;
+
+  const HEADING_RE = /^(level brief|brief|objective|objectives|to[-\s]?do|tasks?|checklist)\b/i;
+  const TEXT_RE = /\b(level brief|brief|objective|objectives|to[-\s]?do|tasks?|checklist|patch this|route|connect|signal path)\b/i;
+  const WRAPPER_RE = /sidebar|column|left-col|leftcol|layout|wrapper|container|nav|shell|app|main/i;
+  const CARD_RE = /brief|todo|to-do|task|checklist|objective|mission|panel|card/i;
+
+  function ensureStyle(doc) {
+    if (!doc || doc.getElementById("sf-brief-todo-attention-runtime-v4")) return;
+    const style = doc.createElement("style");
+    style.id = "sf-brief-todo-attention-runtime-v4";
+    style.textContent = document.getElementById("sf-brief-todo-attention-runtime-v4") ? document.getElementById("sf-brief-todo-attention-runtime-v4").textContent : "";
+    doc.head.appendChild(style);
+  }
+
+  function rectOf(el) {
+    return el.getBoundingClientRect();
+  }
+
+  function visible(el) {
+    const r = rectOf(el);
+    return r.width > 80 && r.height > 28;
+  }
+
+  function leftSide(el, win) {
+    const r = rectOf(el);
+    return r.left < Math.max(430, win.innerWidth * 0.48);
+  }
+
+  function classId(el) {
+    return String(el.className || "") + " " + String(el.id || "");
+  }
+
+  function textOf(el) {
+    return (el.innerText || el.textContent || "").trim();
+  }
+
+  function tooBroad(el, win) {
+    const r = rectOf(el);
+    const ci = classId(el);
+    const text = textOf(el);
+    if (WRAPPER_RE.test(ci) && !CARD_RE.test(ci)) return true;
+    if (r.width > Math.min(620, win.innerWidth * 0.54)) return true;
+    if (r.height > Math.min(430, win.innerHeight * 0.62)) return true;
+    if ((text.match(/\b(brief|objective|to[-\s]?do|task|checklist)\b/gi) || []).length > 4) return true;
+    return false;
+  }
+
+  function cardFor(el, win) {
+    let best = el;
+
+    for (let node = el; node && node !== node.ownerDocument.body; node = node.parentElement) {
+      const r = rectOf(node);
+      const ci = classId(node);
+
+      if (!visible(node) || !leftSide(node, win)) continue;
+      if (tooBroad(node, win)) break;
+
+      if (
+        CARD_RE.test(ci) ||
+        (r.width >= 150 && r.width <= 560 && r.height >= 42 && r.height <= 360)
+      ) {
+        best = node;
+      }
+    }
+
+    return best;
+  }
+
+  function score(el, win) {
+    const text = textOf(el);
+    if (!text || !TEXT_RE.test(text)) return 0;
+    if (!visible(el) || !leftSide(el, win)) return 0;
+    if (tooBroad(el, win)) return 0;
+
+    const r = rectOf(el);
+    const ci = classId(el);
+    let s = 1;
+
+    if (HEADING_RE.test(text)) s += 8;
+    if (CARD_RE.test(ci)) s += 6;
+    if (text.length >= 8 && text.length <= 900) s += 2;
+    if (r.width >= 160 && r.width <= 520) s += 2;
+    if (r.height >= 42 && r.height <= 320) s += 2;
+
+    return s;
+  }
+
+  function applyInDocument(doc, win) {
+    if (!doc || !win) return 0;
+    ensureStyle(doc);
+
+    doc.querySelectorAll(".sf-brief-todo-attention").forEach(el => {
+      el.classList.remove("sf-brief-todo-attention");
+    });
+
+    const all = Array.from(doc.querySelectorAll("h1,h2,h3,h4,h5,p,li,div,section,article,ul,ol"));
+
+    const candidates = all
+      .map(el => [score(el, win), el])
+      .filter(pair => pair[0] > 0)
+      .sort((a, b) => b[0] - a[0])
+      .map(pair => cardFor(pair[1], win))
+      .filter(el => !tooBroad(el, win));
+
+    const unique = [];
+    for (const el of candidates) {
+      if (!unique.includes(el) && !unique.some(existing => existing.contains(el) || el.contains(existing))) {
+        unique.push(el);
+      }
+      if (unique.length >= 3) break;
+    }
+
+    unique.forEach(el => el.classList.add("sf-brief-todo-attention"));
+    return unique.length;
+  }
+
+  function frames() {
+    const out = [];
+    document.querySelectorAll("iframe").forEach(frame => {
+      try {
+        if (frame.contentDocument && frame.contentWindow) out.push([frame.contentDocument, frame.contentWindow]);
+      } catch (err) {}
+    });
+    return out;
+  }
+
+  function applyBriefTodoAttention() {
+    let count = applyInDocument(document, window);
+    frames().forEach(pair => {
+      count += applyInDocument(pair[0], pair[1]);
+    });
+    return count;
+  }
+
+  window.sfApplyBriefTodoAttention = applyBriefTodoAttention;
+
+  function schedule(delay) {
+    setTimeout(applyBriefTodoAttention, delay);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => schedule(80));
+  window.addEventListener("load", () => {
+    schedule(80);
+    schedule(450);
+    schedule(1200);
+  });
+  window.addEventListener("hashchange", () => schedule(180));
+  window.addEventListener("popstate", () => schedule(180));
+
+  const observer = new MutationObserver(() => {
+    clearTimeout(window.sfBriefTodoAttentionTimer);
+    window.sfBriefTodoAttentionTimer = setTimeout(applyBriefTodoAttention, 180);
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true
+  });
+
+  schedule(180);
+  schedule(900);
+})();
+</script>
+
 </body>
 </html>
