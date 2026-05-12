@@ -216,6 +216,68 @@
         }
       ]
     },
+    "LIV-006": {
+      id: "LIV-006",
+      title: "Delay Tower Route",
+      processorLabel: "SYSTEM + DELAY PROCESSING",
+      panelKinds: ["foh", "amp"],
+      sourceOrder: [],
+      assetOverrides: {
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg"
+      },
+      generatedJackKeys: [
+        "foh-liv006-matrix-1-output",
+        "foh-liv006-matrix-2-output",
+        "foh-liv006-matrix-3-output",
+        "foh-liv006-matrix-4-output",
+        "foh-liv006-aux-1-output",
+        "foh-liv006-aux-2-output",
+        "foh-liv006-aux-3-output",
+        "foh-liv006-aux-4-output",
+        "foh-liv006-aux-5-output",
+        "foh-liv006-aux-6-output",
+        "foh-liv006-bus-1-output",
+        "foh-liv006-bus-2-output",
+        "foh-liv006-bus-3-output",
+        "foh-liv006-bus-4-output",
+        "foh-liv006-bus-5-output",
+        "foh-liv006-bus-6-output",
+        "foh-liv006-bus-7-output",
+        "foh-liv006-bus-8-output",
+        "foh-liv006-main-left-output",
+        "foh-liv006-main-right-output",
+        "liv006-system-processor-l-input",
+        "liv006-system-processor-r-input",
+        "liv006-delay-tower-processor-input",
+        "liv006-sub-processor-input",
+        "liv006-front-fill-processor-input"
+      ],
+      validRoutes: [
+        {
+          key: "foh-liv006-matrix-3-output-to-liv006-delay-tower-processor-input",
+          from: "foh-liv006-matrix-3-output",
+          to: "liv006-delay-tower-processor-input",
+          checklist: "Matrix 3 Output → Delay Tower Processor Input"
+        },
+        {
+          key: "foh-liv006-main-left-output-to-liv006-system-processor-l-input",
+          from: "foh-liv006-main-left-output",
+          to: "liv006-system-processor-l-input",
+          checklist: "Main L Output → System Processor L In",
+          stereoGroup: "liv006-main-to-system",
+          stereoSide: "left"
+        },
+        {
+          key: "foh-liv006-main-right-output-to-liv006-system-processor-r-input",
+          from: "foh-liv006-main-right-output",
+          to: "liv006-system-processor-r-input",
+          checklist: "Main R Output → System Processor R In",
+          stereoGroup: "liv006-main-to-system",
+          stereoSide: "right"
+        }
+      ]
+    },
     "LIV-009": {
       id: "LIV-009",
       title: "Keyboard Stereo Inputs",
@@ -492,6 +554,30 @@
     "foh-mic-line-7-input": { label: "FOH Mic/Line 7 Input", kind: "jack", panelRel: { panel: "foh", x: 220 / 1120, y: 190 / 260 }, ghost: true },
     "foh-mic-line-8-input": { label: "FOH Mic/Line 8 Input", kind: "jack", panelRel: { panel: "foh", x: 280 / 1120, y: 190 / 260 }, ghost: true },
 
+    "foh-liv006-matrix-1-output": { label: "Matrix 1 Output", kind: "jack", panelRel: { panel: "foh", x: 105 / 1120, y: 134 / 260 }, ghost: true },
+    "foh-liv006-matrix-2-output": { label: "Matrix 2 Output", kind: "jack", panelRel: { panel: "foh", x: 180 / 1120, y: 134 / 260 }, ghost: true },
+    "foh-liv006-matrix-3-output": { label: "Matrix 3 Output", kind: "jack", panelRel: { panel: "foh", x: 255 / 1120, y: 134 / 260 } },
+    "foh-liv006-matrix-4-output": { label: "Matrix 4 Output", kind: "jack", panelRel: { panel: "foh", x: 330 / 1120, y: 134 / 260 }, ghost: true },
+
+    "foh-liv006-aux-1-output": { label: "Aux 1 Output", kind: "jack", panelRel: { panel: "foh", x: 418 / 1120, y: 140 / 260 }, ghost: true },
+    "foh-liv006-aux-2-output": { label: "Aux 2 Output", kind: "jack", panelRel: { panel: "foh", x: 458 / 1120, y: 140 / 260 }, ghost: true },
+    "foh-liv006-aux-3-output": { label: "Aux 3 Output", kind: "jack", panelRel: { panel: "foh", x: 498 / 1120, y: 140 / 260 }, ghost: true },
+    "foh-liv006-aux-4-output": { label: "Aux 4 Output", kind: "jack", panelRel: { panel: "foh", x: 538 / 1120, y: 140 / 260 }, ghost: true },
+    "foh-liv006-aux-5-output": { label: "Aux 5 Output", kind: "jack", panelRel: { panel: "foh", x: 578 / 1120, y: 140 / 260 }, ghost: true },
+    "foh-liv006-aux-6-output": { label: "Aux 6 Output", kind: "jack", panelRel: { panel: "foh", x: 618 / 1120, y: 140 / 260 }, ghost: true },
+
+    "foh-liv006-bus-1-output": { label: "Bus 1 Output", kind: "jack", panelRel: { panel: "foh", x: 710 / 1120, y: 126 / 260 }, ghost: true },
+    "foh-liv006-bus-2-output": { label: "Bus 2 Output", kind: "jack", panelRel: { panel: "foh", x: 756 / 1120, y: 126 / 260 }, ghost: true },
+    "foh-liv006-bus-3-output": { label: "Bus 3 Output", kind: "jack", panelRel: { panel: "foh", x: 802 / 1120, y: 126 / 260 }, ghost: true },
+    "foh-liv006-bus-4-output": { label: "Bus 4 Output", kind: "jack", panelRel: { panel: "foh", x: 848 / 1120, y: 126 / 260 }, ghost: true },
+    "foh-liv006-bus-5-output": { label: "Bus 5 Output", kind: "jack", panelRel: { panel: "foh", x: 710 / 1120, y: 190 / 260 }, ghost: true },
+    "foh-liv006-bus-6-output": { label: "Bus 6 Output", kind: "jack", panelRel: { panel: "foh", x: 756 / 1120, y: 190 / 260 }, ghost: true },
+    "foh-liv006-bus-7-output": { label: "Bus 7 Output", kind: "jack", panelRel: { panel: "foh", x: 802 / 1120, y: 190 / 260 }, ghost: true },
+    "foh-liv006-bus-8-output": { label: "Bus 8 Output", kind: "jack", panelRel: { panel: "foh", x: 848 / 1120, y: 190 / 260 }, ghost: true },
+
+    "foh-liv006-main-left-output": { label: "Main L Output", kind: "jack", panelRel: { panel: "foh", x: 975 / 1120, y: 134 / 260 } },
+    "foh-liv006-main-right-output": { label: "Main R Output", kind: "jack", panelRel: { panel: "foh", x: 1045 / 1120, y: 134 / 260 } },
+
     "foh-aux-1-output": { label: "FOH Aux 1 Output", kind: "jack", panelJack: "foh.lineOut1" },
 
     "foh-aux-1-l-output": { label: "FOH Aux 1 L Output", kind: "jack", panelRel: { panel: "foh", x: 418 / 1120, y: 126 / 260 }, ghost: true },
@@ -534,6 +620,12 @@
     "iem-tx-b-left-input": { label: "IEM TX B Left Input", kind: "jack", panelRel: { panel: "iem", x: 460 / 900, y: 140 / 240 }, ghost: true },
     "iem-tx-b-right-input": { label: "IEM TX B Right Input", kind: "jack", panelRel: { panel: "iem", x: 540 / 900, y: 140 / 240 }, ghost: true },
     "iem-tx-phones": { label: "IEM TX Phones", kind: "jack", panelRel: { panel: "iem", x: 740 / 900, y: 140 / 240 }, ghost: true },
+
+    "liv006-system-processor-l-input": { label: "System Processor L In", kind: "jack", panelRel: { panel: "amp", x: 94 / 940, y: 146 / 260 } },
+    "liv006-system-processor-r-input": { label: "System Processor R In", kind: "jack", panelRel: { panel: "amp", x: 214 / 940, y: 146 / 260 } },
+    "liv006-delay-tower-processor-input": { label: "Delay Tower Processor Input", kind: "jack", panelRel: { panel: "amp", x: 470 / 940, y: 146 / 260 } },
+    "liv006-sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelRel: { panel: "amp", x: 704 / 940, y: 146 / 260 }, ghost: true },
+    "liv006-front-fill-processor-input": { label: "Front Fill Processor Input", kind: "jack", panelRel: { panel: "amp", x: 818 / 940, y: 146 / 260 }, ghost: true },
 
     "delay-tower-processing-input": { label: "Delay", kind: "jack", panelJack: "amp.link" },
     "processor-output-a": { label: "Processor Output A", kind: "jack", panelJack: "amp.outputA", ghost: true },
@@ -759,6 +851,7 @@
 
     const isTalkbackBoard = LEVEL_ID === "LIV-028";
     const isStereoIemBoard = LEVEL_ID === "LIV-003";
+    const isDelayTowerBoard = LEVEL_ID === "LIV-006";
     const liv = isTalkbackBoard ? LIV_028_LAYOUT : null;
 
     const defaultPanels = [
@@ -772,16 +865,16 @@
       {
         id: "foh",
         kind: "foh",
-        x: rect.width * (isStereoIemBoard ? 0.06 : (liv ? liv.foh.x : 0.39)),
-        y: layoutHeight * (isStereoIemBoard ? 0.18 : (liv ? liv.foh.y : 0.15)),
-        width: rect.width * (isStereoIemBoard ? 0.88 : (liv ? liv.foh.width : 0.55))
+        x: rect.width * (isDelayTowerBoard ? 0.055 : (isStereoIemBoard ? 0.06 : (liv ? liv.foh.x : 0.39))),
+        y: layoutHeight * (isDelayTowerBoard ? 0.105 : (isStereoIemBoard ? 0.18 : (liv ? liv.foh.y : 0.15))),
+        width: rect.width * (isDelayTowerBoard ? 0.89 : (isStereoIemBoard ? 0.88 : (liv ? liv.foh.width : 0.55)))
       },
       {
         id: "amp",
         kind: "amp",
-        x: rect.width * (liv ? liv.iem.x : 0.48),
-        y: layoutHeight * (liv ? liv.iem.y : 0.50),
-        width: rect.width * (liv ? liv.iem.width : 0.40)
+        x: rect.width * (isDelayTowerBoard ? 0.075 : 0.22),
+        y: layoutHeight * (isDelayTowerBoard ? 0.50 : 0.58),
+        width: rect.width * (isDelayTowerBoard ? 0.88 : 0.60)
       }
     ];
 
@@ -849,7 +942,7 @@
           foh: 260 / 1120,
           monitor: 240 / 850,
           iem: 240 / 900,
-          amp: 240 / 940
+          amp: 260 / 940
         }[panel.kind] || 0.25;
 
         return {
@@ -2638,7 +2731,7 @@
       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
     }
 
-    if (!["LIV-003", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+    if (!["LIV-003", "LIV-006", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
 
     if (LEVEL_ID === "LIV-025") {
       const aux = pointFromPanel(adapter, level, "foh.lineOut2");
@@ -2686,6 +2779,7 @@
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer";
+    layer.classList.add("sf-live-native-level-" + LEVEL_ID.toLowerCase());
     layer.style.cssText = [
       "position:absolute",
       "inset:0",
@@ -2713,7 +2807,7 @@
     if (panelKinds.has("stagebox")) {
       createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, (LEVEL_ID === "LIV-028" ? level.rect.height * 0.31 + 86 : level.rect.height * 0.31), 11);
     }
-    if (panelKinds.has("foh") && LEVEL_ID !== "LIV-003") {
+    if (panelKinds.has("foh") && !["LIV-003", "LIV-006"].includes(LEVEL_ID)) {
       createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
     }
     if (panelKinds.has("amp")) {
