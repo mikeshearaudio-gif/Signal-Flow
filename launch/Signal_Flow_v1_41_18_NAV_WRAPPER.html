@@ -879,15 +879,10 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
       var needsY = el.scrollHeight > el.clientHeight + 8;
       var needsX = el.scrollWidth > el.clientWidth + 8;
 
-      // Native boards with absolutely positioned gear may not advertise scrollHeight
-      // until overflow is allowed, so always permit scroll on these known board surfaces.
-      if (
-        el.classList.contains("sf-live-native-layer") ||
-        (el.classList.contains("patchbay-wrap") && el.querySelector(".sf-live-native-layer")) ||
-        needsY ||
-        needsX
-      ) {
+      if (needsY || needsX) {
         el.classList.add("sf-scroll-managed");
+      } else {
+        el.classList.remove("sf-scroll-managed");
       }
     });
   }
@@ -937,7 +932,19 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
 
       var maxY = maxScrollY(el, doc, win);
       var maxX = maxScrollX(el, doc, win);
-      if (maxY < 12 && maxX < 12) return;
+
+      // Do not show cues unless this exact element has a real hidden scroll range.
+      if (maxY < 32 && maxX < 32) return;
+
+      // Native board layers are often large absolute-position canvases. Only the
+      // actual scroll host should get arrows.
+      if (
+        el.classList &&
+        el.classList.contains("sf-live-native-layer") &&
+        !el.classList.contains("sf-live-native-scroll-host-liv010")
+      ) {
+        return;
+      }
 
       var top = scrollTopOf(el, doc);
       var left = scrollLeftOf(el, doc);
@@ -1022,5 +1029,479 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
   schedule(1000);
 })();
 </script>
-\n</body>
+\n
+
+
+
+
+
+
+
+
+
+
+<script id="sf-build-room-submit-visibility-v1">
+(function () {
+  if (window.sfBuildRoomSubmitVisibilityInstalled) return;
+  window.sfBuildRoomSubmitVisibilityInstalled = true;
+
+  function isBuildRoomBoard() {
+    return /BUILD THE ROOM|Build the Room|Check Room/i.test(document.body.innerText || "");
+  }
+
+  function isBuildSubmit(el) {
+    var text = [
+      el && el.textContent,
+      el && el.value,
+      el && el.getAttribute && el.getAttribute("aria-label"),
+      el && el.className,
+      el && el.id
+    ].join(" ");
+
+    return /check room|submit|finish build|complete room|confirm build/i.test(text);
+  }
+
+  function keepBuildSubmitVisible() {
+    if (!isBuildRoomBoard()) return;
+
+    document.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']").forEach(function(el) {
+      if (!isBuildSubmit(el)) return;
+
+      el.style.setProperty("display", "inline-flex", "important");
+      el.style.setProperty("visibility", "visible", "important");
+      el.style.setProperty("opacity", "1", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("position", "sticky", "important");
+      el.style.setProperty("bottom", "14px", "important");
+      el.style.setProperty("z-index", "9999", "important");
+    });
+
+    var board = document.querySelector(".build-room, .build-a-room, .level-board, .game-board, main");
+    if (board) {
+      board.style.setProperty("padding-bottom", "90px", "important");
+      board.style.setProperty("overflow-y", "auto", "important");
+    }
+  }
+
+  window.sfKeepBuildSubmitVisible = keepBuildSubmitVisible;
+
+  window.addEventListener("load", keepBuildSubmitVisible);
+  window.addEventListener("resize", keepBuildSubmitVisible);
+  setInterval(keepBuildSubmitVisible, 700);
+
+  new MutationObserver(function () {
+    clearTimeout(window.sfBuildSubmitVisibilityTimer);
+    window.sfBuildSubmitVisibilityTimer = setTimeout(keepBuildSubmitVisible, 80);
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "style"]
+  });
+
+  keepBuildSubmitVisible();
+})();
+</script>
+
+
+
+
+<script id="sf-native-game-shell-state-v1">
+(function () {
+  if (window.sfNativeGameShellStateInstalled) return;
+  window.sfNativeGameShellStateInstalled = true;
+  window.sfNativeGameShellOwnsNavigation = true;
+  window.sfCentralCompletionNextInstalled = true;
+
+  function normalizeLevelId(value) {
+    var match = String(value || "").toUpperCase().match(/\b([A-Z]{3})[-_ ]?(\d{1,3})\b/);
+    if (!match) return "";
+    return match[1] + "-" + String(Number(match[2])).padStart(3, "0");
+  }
+
+  function visible(el) {
+    if (!el || !el.getBoundingClientRect) return false;
+    var r = el.getBoundingClientRect();
+    return r.width > 8 && r.height > 8 && r.bottom > 0 && r.right > 0;
+  }
+
+  function selectedLevelFromSelect(select) {
+    if (!select) return "";
+    var option = select.options && select.options[select.selectedIndex];
+
+    return normalizeLevelId(
+      (option && (option.textContent || option.value)) ||
+      select.value ||
+      ""
+    );
+  }
+
+  function currentGameLevelId() {
+    var candidates = [];
+
+    document.querySelectorAll("select").forEach(function(select) {
+      if (!visible(select)) return;
+
+      var id = selectedLevelFromSelect(select);
+      if (!id) return;
+
+      var r = select.getBoundingClientRect();
+      var option = select.options && select.options[select.selectedIndex];
+      var selectedText = option ? option.textContent || "" : "";
+
+      var context = [
+        select.id,
+        select.name,
+        select.getAttribute("aria-label"),
+        selectedText,
+        select.parentElement && select.parentElement.textContent
+      ].join(" ");
+
+      var score = 0;
+
+      // Prefer the in-game selector, not the exterior wrapper.
+      if (r.top > 185) score += 100;
+      if (r.top <= 185) score -= 100;
+
+      if (/\[BUILD\]|\[QUIZ\]|\[PATCH\]/i.test(selectedText)) score += 30;
+      if (/board|level|LIV/i.test(context)) score += 15;
+      if (/environment|sound reinforcement|recording studio|post production/i.test(context)) score -= 20;
+
+      candidates.push({
+        id: id,
+        score: score,
+        top: r.top,
+        selectedText: selectedText
+      });
+    });
+
+    candidates.sort(function(a, b) {
+      return b.score - a.score;
+    });
+
+    if (candidates[0]) {
+      return candidates[0].id;
+    }
+
+    // Fallback: visible in-game title/brief, never the exterior top wrapper.
+    var titleCandidates = [];
+
+    document.querySelectorAll("h1, h2, h3, .level-title, .current-level, aside, main, section").forEach(function(el) {
+      if (!visible(el)) return;
+
+      var r = el.getBoundingClientRect();
+      if (r.top < 185) return;
+
+      var id = normalizeLevelId(el.textContent || "");
+      if (id) {
+        titleCandidates.push({ id: id, top: r.top });
+      }
+    });
+
+    titleCandidates.sort(function(a, b) {
+      return a.top - b.top;
+    });
+
+    return titleCandidates[0] ? titleCandidates[0].id : "";
+  }
+
+  function nextSequentialLevelId(levelId) {
+    var match = String(levelId || "").toUpperCase().match(/^([A-Z]{3})-(\d{3})$/);
+    if (!match) return "";
+    return match[1] + "-" + String(Number(match[2]) + 1).padStart(3, "0");
+  }
+
+  function findInGameLevelOption(targetId) {
+    var candidates = [];
+
+    document.querySelectorAll("select").forEach(function(select) {
+      if (!visible(select)) return;
+
+      var option = Array.from(select.options || []).find(function(opt) {
+        return normalizeLevelId(opt.value) === targetId ||
+               normalizeLevelId(opt.textContent) === targetId;
+      });
+
+      if (!option) return;
+
+      var r = select.getBoundingClientRect();
+      var score = 0;
+
+      // Prefer the in-game selector below the wrapper.
+      if (r.top > 185) score += 100;
+      if (r.top <= 185) score -= 100;
+
+      if (/\[BUILD\]|\[QUIZ\]|\[PATCH\]/i.test(option.textContent || "")) score += 30;
+
+      candidates.push({
+        select: select,
+        option: option,
+        score: score,
+        top: r.top
+      });
+    });
+
+    candidates.sort(function(a, b) {
+      return b.score - a.score;
+    });
+
+    return candidates[0] || null;
+  }
+
+  function removeCompletionModal(button) {
+    var modal = button && button.closest && button.closest(
+      ".sf-native-completion, .sf-native-completion-popup, .native-completion, .completion-popup, .level-complete, .modal, .popup, [class*='completion'], [class*='complete']"
+    );
+
+    if (modal && /LEVEL COMPLETE/i.test(modal.textContent || "")) {
+      modal.remove();
+    }
+  }
+
+  function loadGameLevel(targetId) {
+    var target = normalizeLevelId(targetId);
+    if (!target) return false;
+
+    var found = findInGameLevelOption(target);
+
+    if (found && found.select && found.option) {
+      found.select.value = found.option.value;
+      found.option.selected = true;
+
+      // The in-game selector owns game state. Trigger its normal load behavior.
+      found.select.dispatchEvent(new Event("input", { bubbles: true }));
+      found.select.dispatchEvent(new Event("change", { bubbles: true }));
+
+      console.log("[Signal Flow] Native game shell changed in-game selector:", target);
+      return true;
+    }
+
+    try {
+      if (typeof window.loadLevel === "function") {
+        window.loadLevel(target);
+        console.log("[Signal Flow] Native game shell loaded level:", target);
+        return true;
+      }
+    } catch (err) {
+      console.warn("[Signal Flow] Native game shell loadLevel failed:", err);
+    }
+
+    try {
+      var buttons = Array.from(document.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']"));
+
+      var loadButton = buttons.find(function(btn) {
+        if (!visible(btn)) return false;
+
+        var r = btn.getBoundingClientRect();
+        if (r.top <= 185) return false;
+
+        var text = (btn.textContent || btn.value || btn.getAttribute("aria-label") || "").trim();
+        return /^load board$/i.test(text) || /^load$/i.test(text);
+      });
+
+      if (loadButton) {
+        loadButton.click();
+        console.log("[Signal Flow] Native game shell clicked in-game Load Board:", target);
+        return true;
+      }
+    } catch (err) {
+      console.warn("[Signal Flow] Native game shell Load Board click failed:", err);
+    }
+
+    console.warn("[Signal Flow] Native game shell could not load:", target);
+    return false;
+  }
+
+  function isCompletionNextButton(button) {
+    if (!button) return false;
+
+    var text = (button.textContent || button.value || button.getAttribute("aria-label") || "").trim();
+    if (!/\b(next|next level|continue|continue to next)\b/i.test(text)) return false;
+
+    var container = button.closest && button.closest(
+      ".sf-native-completion, .sf-native-completion-popup, .native-completion, .completion-popup, .level-complete, .modal, .popup, [class*='completion'], [class*='complete']"
+    );
+
+    if (!container) return false;
+
+    return /LEVEL COMPLETE|complete|completed/i.test(container.textContent || "");
+  }
+
+  document.addEventListener("click", function(event) {
+    var button = event.target && event.target.closest
+      ? event.target.closest("button, [role='button'], input[type='button'], input[type='submit'], a")
+      : null;
+
+    if (!isCompletionNextButton(button)) return;
+
+    var currentId = currentGameLevelId();
+    var nextId = nextSequentialLevelId(currentId);
+
+    if (!currentId || !nextId) {
+      console.warn("[Signal Flow] Native game shell could not determine current/next:", currentId, nextId);
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    console.log("[Signal Flow] Native game shell completion Next:", currentId, "->", nextId);
+
+    removeCompletionModal(button);
+    loadGameLevel(nextId);
+  }, true);
+
+  function devShellEnabled() {
+    return (
+      /[?&#]devShell=1\b/i.test(location.href) ||
+      /[?&#]dev=1\b/i.test(location.href) ||
+      localStorage.getItem("sfDevShell") === "1"
+    );
+  }
+
+  function markDevShell() {
+    if (devShellEnabled()) {
+      document.documentElement.classList.remove("sf-hide-exterior-dev-shell");
+      return;
+    }
+
+    document.documentElement.classList.add("sf-hide-exterior-dev-shell");
+
+    document.querySelectorAll("header, nav, .topbar, .toolbar, .nav, .navbar, .wrapper-controls, .environment-controls, .board-controls, .level-controls, div").forEach(function(el) {
+      if (!visible(el)) return;
+
+      var r = el.getBoundingClientRect();
+      if (r.top > 185) return;
+
+      var text = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+      var looksLikeExteriorWrapper =
+        /SIGNAL FLOW/i.test(text) &&
+        /ENVIRONMENT/i.test(text) &&
+        /BOARD/i.test(text) &&
+        /GO TO BOARD/i.test(text);
+
+      if (!looksLikeExteriorWrapper) return;
+
+      el.dataset.sfExteriorDevShell = "1";
+    });
+  }
+
+  function installDevShellStyle() {
+    if (document.getElementById("sf-native-game-shell-dev-style-v1")) return;
+
+    var style = document.createElement("style");
+    style.id = "sf-native-game-shell-dev-style-v1";
+    style.textContent = [
+      "html.sf-hide-exterior-dev-shell [data-sf-exterior-dev-shell='1'] {",
+      "  display: none !important;",
+      "}",
+      "html.sf-hide-exterior-dev-shell body {",
+      "  padding-top: 0 !important;",
+      "}",
+      "html.sf-hide-exterior-dev-shell .sf-dev-only {",
+      "  display: none !important;",
+      "}"
+    ].join("\\n");
+
+    document.head.appendChild(style);
+  }
+
+  function realNativeScrollExists() {
+    var hosts = Array.from(document.querySelectorAll(
+      ".sf-live-native-scroll-host-liv010, .sf-live-native-scroll-host, .sf-live-native-viewport"
+    ));
+
+    return hosts.some(function(el) {
+      if (!el) return false;
+
+      var y = (el.scrollHeight || 0) - (el.clientHeight || 0);
+      var x = (el.scrollWidth || 0) - (el.clientWidth || 0);
+      var cs = getComputedStyle(el);
+
+      return (
+        (/auto|scroll/i.test(cs.overflowY) && y > 40) ||
+        (/auto|scroll/i.test(cs.overflowX) && x > 40)
+      );
+    });
+  }
+
+  function applyScrollCueFilter() {
+    var ok = realNativeScrollExists();
+
+    document.querySelectorAll([
+      ".sf-scroll-cue",
+      ".sf-scroll-arrow",
+      ".sf-scroll-affordance",
+      ".scroll-cue",
+      ".scroll-arrow",
+      "[class*='scroll-cue']",
+      "[class*='scroll-arrow']",
+      "[class*='ScrollCue']",
+      "[class*='ScrollArrow']"
+    ].join(",")).forEach(function(el) {
+      if (!ok) {
+        el.style.setProperty("display", "none", "important");
+        el.style.setProperty("visibility", "hidden", "important");
+        el.style.setProperty("opacity", "0", "important");
+        el.style.setProperty("pointer-events", "none", "important");
+      } else {
+        el.style.removeProperty("display");
+        el.style.removeProperty("visibility");
+        el.style.removeProperty("opacity");
+        el.style.removeProperty("pointer-events");
+      }
+    });
+  }
+
+  window.sfShowDevShell = function () {
+    localStorage.setItem("sfDevShell", "1");
+    location.reload();
+  };
+
+  window.sfHideDevShell = function () {
+    localStorage.removeItem("sfDevShell");
+    location.reload();
+  };
+
+  window.sfNativeGameShellCurrentLevel = currentGameLevelId;
+  window.sfNativeGameShellLoadLevel = loadGameLevel;
+  window.sfApplyScrollCueFilter = applyScrollCueFilter;
+
+  installDevShellStyle();
+  markDevShell();
+  applyScrollCueFilter();
+
+  window.addEventListener("load", function() {
+    markDevShell();
+    applyScrollCueFilter();
+  });
+
+  window.addEventListener("resize", function() {
+    markDevShell();
+    applyScrollCueFilter();
+  });
+
+  setInterval(function() {
+    markDevShell();
+    applyScrollCueFilter();
+  }, 900);
+
+  new MutationObserver(function () {
+    clearTimeout(window.sfNativeGameShellTimer);
+    window.sfNativeGameShellTimer = setTimeout(function() {
+      markDevShell();
+      applyScrollCueFilter();
+    }, 80);
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "style"]
+  });
+})();
+</script>
+
+</body>
 </html>
