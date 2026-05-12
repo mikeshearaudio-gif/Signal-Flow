@@ -109,6 +109,70 @@
 }
 </style>
 
+
+\n
+<style id="sf-todo-list-overlay-glow-v3">
+@keyframes sfTodoOverlayPulseV3 {
+  0%, 100% {
+    box-shadow:
+      -7px 0 0 rgba(255, 215, 106, .76),
+      0 0 24px rgba(255, 215, 106, .22),
+      0 8px 24px rgba(0,0,0,.28);
+    opacity: .92;
+  }
+  50% {
+    box-shadow:
+      -16px 0 0 rgba(255, 215, 106, 1),
+      0 0 54px rgba(255, 215, 106, .84),
+      0 0 18px rgba(255, 236, 162, .46) inset,
+      0 15px 38px rgba(0,0,0,.44);
+    opacity: 1;
+  }
+}
+
+@keyframes sfTodoOverlayRailV3 {
+  0%, 100% {
+    opacity: .75;
+    filter: drop-shadow(0 0 8px rgba(255,215,106,.38));
+  }
+  50% {
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 22px rgba(255,215,106,1))
+      drop-shadow(0 0 34px rgba(255,236,162,.68));
+  }
+}
+
+.sf-todo-list-glow-overlay-v3 {
+  position: fixed;
+  pointer-events: none;
+  z-index: 2147483000;
+  border-left: 4px solid rgba(255, 215, 106, .98);
+  border-radius: 15px;
+  outline: 1px solid rgba(255, 236, 162, .42);
+  background:
+    linear-gradient(90deg, rgba(255, 215, 106, .13), rgba(255, 215, 106, 0) 44%);
+  animation: sfTodoOverlayPulseV3 1.55s ease-in-out infinite;
+}
+
+.sf-todo-list-glow-overlay-v3::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 4px;
+  bottom: 4px;
+  width: 7px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,236,162,.18),
+    rgba(255,215,106,1),
+    rgba(255,236,162,.18)
+  );
+  animation: sfTodoOverlayRailV3 1.55s ease-in-out infinite;
+}
+</style>
+
 </head>
 <body>
   <div class="sf-shell">
@@ -461,6 +525,131 @@
 
   schedule(180);
   schedule(900);
+})();
+</script>
+
+
+\n
+<script id="sf-todo-list-overlay-glow-script-v3">
+(function () {
+  if (window.sfTodoListOverlayGlowV3Installed) return;
+  window.sfTodoListOverlayGlowV3Installed = true;
+
+  function ensureStyle(doc) {
+    if (!doc || doc.getElementById("sf-todo-list-overlay-glow-v3")) return;
+    const src = document.getElementById("sf-todo-list-overlay-glow-v3");
+    const style = doc.createElement("style");
+    style.id = "sf-todo-list-overlay-glow-v3";
+    style.textContent = src ? src.textContent : "";
+    doc.head.appendChild(style);
+  }
+
+  function textOf(el) {
+    return (el.innerText || el.textContent || "").trim();
+  }
+
+  function visible(el) {
+    const r = el.getBoundingClientRect();
+    return r.width > 90 && r.height > 28;
+  }
+
+  function isTodoCard(el, win) {
+    const r = el.getBoundingClientRect();
+    const text = textOf(el);
+    if (!visible(el)) return false;
+    if (r.left > Math.max(430, win.innerWidth * 0.48)) return false;
+    if (r.width > 390 || r.height > 130) return false;
+    if (!/\bTO DO\b/i.test(text)) return false;
+    if (!/(→|->|Output|Input|Feed|Station|Record|Amp|Processor|Aux|Main)/i.test(text)) return false;
+    return true;
+  }
+
+  function applyIn(doc, win) {
+    if (!doc || !win) return 0;
+    ensureStyle(doc);
+
+    let overlay = doc.getElementById("sf-todo-list-glow-overlay-v3");
+    if (!overlay) {
+      overlay = doc.createElement("div");
+      overlay.id = "sf-todo-list-glow-overlay-v3";
+      overlay.className = "sf-todo-list-glow-overlay-v3";
+      doc.body.appendChild(overlay);
+    }
+
+    const cards = Array.from(doc.querySelectorAll("div,li,section,article,ol,ul"))
+      .filter(function(el) { return isTodoCard(el, win); });
+
+    if (!cards.length) {
+      overlay.style.display = "none";
+      return 0;
+    }
+
+    const rects = cards.map(function(el) { return el.getBoundingClientRect(); });
+    const left = Math.min.apply(null, rects.map(function(r) { return r.left; }));
+    const top = Math.min.apply(null, rects.map(function(r) { return r.top; }));
+    const right = Math.max.apply(null, rects.map(function(r) { return r.right; }));
+    const bottom = Math.max.apply(null, rects.map(function(r) { return r.bottom; }));
+
+    overlay.style.display = "block";
+    overlay.style.left = Math.max(0, left - 10) + "px";
+    overlay.style.top = Math.max(0, top - 42) + "px";
+    overlay.style.width = (right - left + 20) + "px";
+    overlay.style.height = (bottom - top + 54) + "px";
+
+    return cards.length;
+  }
+
+  function frames() {
+    const out = [];
+    document.querySelectorAll("iframe").forEach(function(frame) {
+      try {
+        if (frame.contentDocument && frame.contentWindow) {
+          out.push([frame.contentDocument, frame.contentWindow]);
+        }
+      } catch (err) {}
+    });
+    return out;
+  }
+
+  function applyTodoListOverlayGlow() {
+    let count = applyIn(document, window);
+    frames().forEach(function(pair) {
+      count += applyIn(pair[0], pair[1]);
+    });
+    return count;
+  }
+
+  window.sfApplyTodoListAttention = applyTodoListOverlayGlow;
+  window.sfApplyTodoListOverlayGlow = applyTodoListOverlayGlow;
+
+  function schedule(delay) {
+    setTimeout(applyTodoListOverlayGlow, delay);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () { schedule(120); });
+  window.addEventListener("load", function () {
+    schedule(120);
+    schedule(600);
+    schedule(1400);
+  });
+  window.addEventListener("hashchange", function () { schedule(200); });
+  window.addEventListener("popstate", function () { schedule(200); });
+  window.addEventListener("resize", function () { schedule(120); });
+
+  const observer = new MutationObserver(function () {
+    clearTimeout(window.sfTodoListOverlayGlowTimer);
+    window.sfTodoListOverlayGlowTimer = setTimeout(applyTodoListOverlayGlow, 180);
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+    attributes: true
+  });
+
+  schedule(250);
+  schedule(1000);
 })();
 </script>
 

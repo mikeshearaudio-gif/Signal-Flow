@@ -278,6 +278,126 @@
         }
       ]
     },
+    "LIV-007": {
+      id: "LIV-007",
+      title: "Broadcast Split",
+      processorLabel: "BROADCAST FEEDS",
+      panelKinds: ["foh", "iem-record", "iem-station-a", "iem-station-b", "amp7"],
+      sourceOrder: [],
+      assetOverrides: {
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg",
+        "iem-record": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
+        "iem-station-a": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+        "iem-station-b": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
+        amp7: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+      },
+      generatedJackKeys: [
+        "foh-mic-line-1-input",
+        "foh-mic-line-2-input",
+        "foh-mic-line-3-input",
+        "foh-mic-line-4-input",
+        "foh-mic-line-5-input",
+        "foh-mic-line-6-input",
+        "foh-mic-line-7-input",
+        "foh-mic-line-8-input",
+        "foh-aux-1-l-output",
+        "foh-aux-1-r-output",
+        "foh-aux-2-l-output",
+        "foh-aux-2-r-output",
+        "foh-aux-3-l-output",
+        "foh-aux-3-r-output",
+        "foh-aux-4-l-output",
+        "foh-aux-4-r-output",
+        "foh-aux-5-l-output",
+        "foh-aux-5-r-output",
+        "foh-aux-6-l-output",
+        "foh-aux-6-r-output",
+        "foh-bus-1-output",
+        "foh-bus-2-output",
+        "foh-bus-3-output",
+        "foh-bus-4-output",
+        "foh-bus-5-output",
+        "foh-bus-6-output",
+        "foh-bus-7-output",
+        "foh-bus-8-output",
+        "foh-liv007-main-left-output",
+        "foh-liv007-main-right-output",
+        "liv007-record-feed-left-input",
+        "liv007-record-feed-right-input",
+        "liv007-station-a-feed-left-input",
+        "liv007-station-a-feed-right-input",
+        "liv007-station-b-feed-left-input",
+        "liv007-station-b-feed-right-input",
+        "liv007-system-amp-left-input",
+        "liv007-system-amp-right-input"
+      ],
+      validRoutes: [
+        {
+          key: "foh-aux-1-l-output-to-liv007-record-feed-left-input",
+          from: "foh-aux-1-l-output",
+          to: "liv007-record-feed-left-input",
+          checklist: "Aux 1 L / Split 1 L → Record Feed L",
+          stereoGroup: "liv007-split-1-record",
+          stereoSide: "left"
+        },
+        {
+          key: "foh-aux-1-r-output-to-liv007-record-feed-right-input",
+          from: "foh-aux-1-r-output",
+          to: "liv007-record-feed-right-input",
+          checklist: "Aux 1 R / Split 1 R → Record Feed R",
+          stereoGroup: "liv007-split-1-record",
+          stereoSide: "right"
+        },
+        {
+          key: "foh-aux-2-l-output-to-liv007-station-a-feed-left-input",
+          from: "foh-aux-2-l-output",
+          to: "liv007-station-a-feed-left-input",
+          checklist: "Aux 2 L / Split 2 L → Station A L",
+          stereoGroup: "liv007-split-2-station-a",
+          stereoSide: "left"
+        },
+        {
+          key: "foh-aux-2-r-output-to-liv007-station-a-feed-right-input",
+          from: "foh-aux-2-r-output",
+          to: "liv007-station-a-feed-right-input",
+          checklist: "Aux 2 R / Split 2 R → Station A R",
+          stereoGroup: "liv007-split-2-station-a",
+          stereoSide: "right"
+        },
+        {
+          key: "foh-aux-3-l-output-to-liv007-station-b-feed-left-input",
+          from: "foh-aux-3-l-output",
+          to: "liv007-station-b-feed-left-input",
+          checklist: "Aux 3 L / Split 3 L → Station B L",
+          stereoGroup: "liv007-split-3-station-b",
+          stereoSide: "left"
+        },
+        {
+          key: "foh-aux-3-r-output-to-liv007-station-b-feed-right-input",
+          from: "foh-aux-3-r-output",
+          to: "liv007-station-b-feed-right-input",
+          checklist: "Aux 3 R / Split 3 R → Station B R",
+          stereoGroup: "liv007-split-3-station-b",
+          stereoSide: "right"
+        },
+        {
+          key: "foh-liv007-main-left-output-to-liv007-system-amp-left-input",
+          from: "foh-liv007-main-left-output",
+          to: "liv007-system-amp-left-input",
+          checklist: "Main L Output → System Amp L In",
+          stereoGroup: "liv007-main-amp",
+          stereoSide: "left"
+        },
+        {
+          key: "foh-liv007-main-right-output-to-liv007-system-amp-right-input",
+          from: "foh-liv007-main-right-output",
+          to: "liv007-system-amp-right-input",
+          checklist: "Main R Output → System Amp R In",
+          stereoGroup: "liv007-main-amp",
+          stereoSide: "right"
+        }
+      ]
+    },
     "LIV-009": {
       id: "LIV-009",
       title: "Keyboard Stereo Inputs",
@@ -554,6 +674,9 @@
     "foh-mic-line-7-input": { label: "FOH Mic/Line 7 Input", kind: "jack", panelRel: { panel: "foh", x: 220 / 1120, y: 190 / 260 }, ghost: true },
     "foh-mic-line-8-input": { label: "FOH Mic/Line 8 Input", kind: "jack", panelRel: { panel: "foh", x: 280 / 1120, y: 190 / 260 }, ghost: true },
 
+    "foh-liv007-main-left-output": { label: "Main L Output", kind: "jack", panelRel: { panel: "foh", x: 975 / 1120, y: 134 / 260 } },
+    "foh-liv007-main-right-output": { label: "Main R Output", kind: "jack", panelRel: { panel: "foh", x: 1045 / 1120, y: 134 / 260 } },
+
     "foh-liv006-matrix-1-output": { label: "Matrix 1 Output", kind: "jack", panelRel: { panel: "foh", x: 105 / 1120, y: 134 / 260 }, ghost: true },
     "foh-liv006-matrix-2-output": { label: "Matrix 2 Output", kind: "jack", panelRel: { panel: "foh", x: 180 / 1120, y: 134 / 260 }, ghost: true },
     "foh-liv006-matrix-3-output": { label: "Matrix 3 Output", kind: "jack", panelRel: { panel: "foh", x: 255 / 1120, y: 134 / 260 } },
@@ -620,6 +743,15 @@
     "iem-tx-b-left-input": { label: "IEM TX B Left Input", kind: "jack", panelRel: { panel: "iem", x: 460 / 900, y: 140 / 240 }, ghost: true },
     "iem-tx-b-right-input": { label: "IEM TX B Right Input", kind: "jack", panelRel: { panel: "iem", x: 540 / 900, y: 140 / 240 }, ghost: true },
     "iem-tx-phones": { label: "IEM TX Phones", kind: "jack", panelRel: { panel: "iem", x: 740 / 900, y: 140 / 240 }, ghost: true },
+
+    "liv007-record-feed-left-input": { label: "Record Feed L", kind: "jack", panelRel: { panel: "iem-record", x: 335 / 900, y: 150 / 240 } },
+    "liv007-record-feed-right-input": { label: "Record Feed R", kind: "jack", panelRel: { panel: "iem-record", x: 565 / 900, y: 150 / 240 } },
+    "liv007-station-a-feed-left-input": { label: "Station A Feed L", kind: "jack", panelRel: { panel: "iem-station-a", x: 335 / 900, y: 150 / 240 } },
+    "liv007-station-a-feed-right-input": { label: "Station A Feed R", kind: "jack", panelRel: { panel: "iem-station-a", x: 565 / 900, y: 150 / 240 } },
+    "liv007-station-b-feed-left-input": { label: "Station B Feed L", kind: "jack", panelRel: { panel: "iem-station-b", x: 335 / 900, y: 150 / 240 } },
+    "liv007-station-b-feed-right-input": { label: "Station B Feed R", kind: "jack", panelRel: { panel: "iem-station-b", x: 565 / 900, y: 150 / 240 } },
+    "liv007-system-amp-left-input": { label: "System Amp L In", kind: "jack", panelRel: { panel: "amp7", x: 260 / 700, y: 168 / 240 } },
+    "liv007-system-amp-right-input": { label: "System Amp R In", kind: "jack", panelRel: { panel: "amp7", x: 440 / 700, y: 168 / 240 } },
 
     "liv006-system-processor-l-input": { label: "System Processor L In", kind: "jack", panelRel: { panel: "amp", x: 94 / 940, y: 146 / 260 } },
     "liv006-system-processor-r-input": { label: "System Processor R In", kind: "jack", panelRel: { panel: "amp", x: 214 / 940, y: 146 / 260 } },
@@ -852,6 +984,7 @@
     const isTalkbackBoard = LEVEL_ID === "LIV-028";
     const isStereoIemBoard = LEVEL_ID === "LIV-003";
     const isDelayTowerBoard = LEVEL_ID === "LIV-006";
+    const isBroadcastBoard = LEVEL_ID === "LIV-007";
     const liv = isTalkbackBoard ? LIV_028_LAYOUT : null;
 
     const defaultPanels = [
@@ -865,9 +998,9 @@
       {
         id: "foh",
         kind: "foh",
-        x: rect.width * (isDelayTowerBoard ? 0.055 : (isStereoIemBoard ? 0.06 : (liv ? liv.foh.x : 0.39))),
-        y: layoutHeight * (isDelayTowerBoard ? 0.105 : (isStereoIemBoard ? 0.18 : (liv ? liv.foh.y : 0.15))),
-        width: rect.width * (isDelayTowerBoard ? 0.89 : (isStereoIemBoard ? 0.88 : (liv ? liv.foh.width : 0.55)))
+        x: rect.width * ((isDelayTowerBoard || isBroadcastBoard) ? 0.055 : (isStereoIemBoard ? 0.06 : (liv ? liv.foh.x : 0.39))),
+        y: layoutHeight * (isDelayTowerBoard ? 0.105 : (isBroadcastBoard ? 0.105 : (isStereoIemBoard ? 0.18 : (liv ? liv.foh.y : 0.15)))),
+        width: rect.width * ((isDelayTowerBoard || isBroadcastBoard) ? 0.89 : (isStereoIemBoard ? 0.88 : (liv ? liv.foh.width : 0.55)))
       },
       {
         id: "amp",
@@ -894,6 +1027,38 @@
         width: rect.width * (isStereoIemBoard ? 0.66 : 0.66)
       }
     ]);
+    if (LEVEL_ID === "LIV-007") {
+      manifestPanels.push(
+        {
+          id: "iem-record",
+          kind: "iem-record",
+          x: rect.width * 0.060,
+          y: layoutHeight * 0.485,
+          width: rect.width * 0.390
+        },
+        {
+          id: "iem-station-a",
+          kind: "iem-station-a",
+          x: rect.width * 0.535,
+          y: layoutHeight * 0.485,
+          width: rect.width * 0.390
+        },
+        {
+          id: "iem-station-b",
+          kind: "iem-station-b",
+          x: rect.width * 0.060,
+          y: layoutHeight * 0.695,
+          width: rect.width * 0.390
+        },
+        {
+          id: "amp7",
+          kind: "amp7",
+          x: rect.width * 0.535,
+          y: layoutHeight * 0.705,
+          width: rect.width * 0.390
+        }
+      );
+    }
 
     const panels = LEVEL.panelKinds
       ? manifestPanels.filter(panel => LEVEL.panelKinds.includes(panel.kind))
@@ -942,6 +1107,10 @@
           foh: 260 / 1120,
           monitor: 240 / 850,
           iem: 240 / 900,
+          "iem-record": 240 / 900,
+          "iem-station-a": 240 / 900,
+          "iem-station-b": 240 / 900,
+          amp7: 240 / 700,
           amp: 260 / 940
         }[panel.kind] || 0.25;
 
@@ -2731,7 +2900,7 @@
       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
     }
 
-    if (!["LIV-003", "LIV-006", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
 
     if (LEVEL_ID === "LIV-025") {
       const aux = pointFromPanel(adapter, level, "foh.lineOut2");
@@ -2807,7 +2976,7 @@
     if (panelKinds.has("stagebox")) {
       createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, (LEVEL_ID === "LIV-028" ? level.rect.height * 0.31 + 86 : level.rect.height * 0.31), 11);
     }
-    if (panelKinds.has("foh") && !["LIV-003", "LIV-006"].includes(LEVEL_ID)) {
+    if (panelKinds.has("foh") && !["LIV-003", "LIV-006", "LIV-007"].includes(LEVEL_ID)) {
       createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
     }
     if (panelKinds.has("amp")) {

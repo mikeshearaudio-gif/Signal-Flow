@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" role="img" aria-label="STATION B FEED">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#343535"/><stop offset="0.48" stop-color="#222323"/><stop offset="1" stop-color="#111214"/></linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#777"/><stop offset="0.18" stop-color="#272727"/><stop offset="1" stop-color="#060606"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0ddd0"/><stop offset="0.22" stop-color="#71706a"/><stop offset="0.52" stop-color="#202122"/><stop offset="0.83" stop-color="#0b0c0d"/><stop offset="1" stop-color="#7e7a70"/></linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2021"/><stop offset="0.45" stop-color="#060708"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/></filter>
+
+  <linearGradient id="liv007TapePaper" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f5df9a"/>
+    <stop offset="0.50" stop-color="#d9b96e"/>
+    <stop offset="1" stop-color="#f0d58a"/>
+  </linearGradient>
+  <filter id="liv007TapeShadow" x="-20%" y="-30%" width="140%" height="160%">
+    <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.48"/>
+  </filter>
+
+</defs>
+
+<rect x="4" y="6" width="892" height="228" rx="8" fill="url(#rackEdge)" filter="url(#shadow)"/>
+<rect x="18" y="14" width="864" height="212" rx="5" fill="url(#rackFace)" stroke="#5e5e58" stroke-width="1.2"/>
+<path d="M22 18H878" stroke="#7d7a70" stroke-opacity="0.5"/>
+<path d="M22 222H878" stroke="#000" stroke-opacity="0.8"/>
+<rect x="3" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="885" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<circle cx="9" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="9" cy="220" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="891" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="891" cy="220" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+
+<g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" text-anchor="middle" font-size="12" font-weight="800" fill="#e8e5da">
+  <text x="335" y="108">LEFT</text>
+  <text x="565" y="108">RIGHT</text>
+</g>
+
+<g filter="url(#shadow)">
+  <circle cx="335" cy="150" r="25" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="335" cy="150" r="21.5" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="335" cy="150" r="17.5" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="329.5" cy="146.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="340.5" cy="146.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="335" cy="157" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="565" cy="150" r="25" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="565" cy="150" r="21.5" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="565" cy="150" r="17.5" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="559.5" cy="146.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="570.5" cy="146.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="565" cy="157" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+</g>
+
+<g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" text-anchor="middle" font-size="12" font-weight="800" fill="#e8e5da">
+  <text x="335" y="202">L IN</text>
+  <text x="565" y="202">R IN</text>
+</g>
+
+<g id="liv007-large-tape-label" filter="url(#liv007TapeShadow)">
+  <image href="../handwritten/tb-label-tape-straight.svg" x="135" y="22" width="630" height="66" preserveAspectRatio="none" opacity=".96"/>
+  <text x="450" y="58" text-anchor="middle"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="32" font-weight="900" letter-spacing="1.6"
+    fill="#ffffff" stroke="#000000" stroke-width="1.1" paint-order="stroke" style="text-shadow:0 2px 4px #000">STATION B</text>
+  <text x="450" y="77" text-anchor="middle"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="12" font-weight="900" letter-spacing=".9"
+    fill="#f4f1dc">Split 3 Destination</text>
+</g>
+
+</svg>
