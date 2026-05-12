@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="LEFT LINE ARRAY image">
+  <defs>
+    <linearGradient id="panelBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f3234"/>
+      <stop offset="0.45" stop-color="#181a1d"/>
+      <stop offset="1" stop-color="#0d0e10"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000" flood-opacity="0.62"/>
+    </filter>
+    <filter id="lift" x="-20%" y="-20%" width="140%" height="140%">
+      <feColorMatrix type="matrix"
+        values="1.18 0 0 0 0
+                0 1.18 0 0 0
+                0 0 1.18 0 0
+                0 0 0 1 0"/>
+    </filter>
+  </defs>
+
+  <rect x="18" y="18" width="864" height="384" rx="18" fill="url(#panelBg)" stroke="#666a66" stroke-width="1.4" filter="url(#shadow)"/>
+  <rect x="30" y="30" width="840" height="360" rx="12" fill="#0f1215" stroke="#3a3e42" stroke-width="1"/>
+
+  <image href="../panels/full-pa-system-line-array-over-subs-renderstyle-standalone.svg"
+    x="72" y="40" width="756" height="320" preserveAspectRatio="xMidYMid meet" filter="url(#lift)"/>
+
+  <rect x="56" y="300" width="788" height="54" rx="10" fill="rgba(0,0,0,.42)"/>
+  <text x="450" y="332" text-anchor="middle"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="20" font-weight="900" fill="#ffffff" stroke="#000" stroke-width="1.1" paint-order="stroke">LEFT LINE ARRAY</text>
+</svg>
