@@ -173,6 +173,154 @@
 }
 </style>
 
+
+<style id="sf-universal-scroll-cues-v1">
+/* Universal scroll affordance: if hidden scroll content exists, show direction arrows. */
+.sf-scroll-managed {
+  overflow: auto !important;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.sf-scroll-managed::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.sf-scroll-managed::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 106, .45);
+  border-radius: 999px;
+}
+
+.sf-scroll-managed::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, .28);
+}
+
+.sf-scroll-cue {
+  position: fixed;
+  z-index: 2147483100;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 45% 38%, rgba(255, 236, 162, .98), rgba(255, 215, 106, .84) 48%, rgba(126, 82, 12, .72) 100%);
+  box-shadow:
+    0 0 20px rgba(255, 215, 106, .72),
+    0 8px 18px rgba(0, 0, 0, .42),
+    inset 0 0 8px rgba(255, 255, 255, .35);
+  opacity: .94;
+  animation: sfScrollCuePulseV1 1.15s ease-in-out infinite;
+}
+
+.sf-scroll-cue::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+}
+
+.sf-scroll-cue-down::before {
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 15px solid #171006;
+  margin-top: 2px;
+}
+
+.sf-scroll-cue-up::before {
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 15px solid #171006;
+  margin-top: -2px;
+}
+
+.sf-scroll-cue-right::before {
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 15px solid #171006;
+  margin-left: 2px;
+}
+
+.sf-scroll-cue-left::before {
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-right: 15px solid #171006;
+  margin-left: -2px;
+}
+
+@keyframes sfScrollCuePulseV1 {
+  0%, 100% {
+    transform: scale(.92);
+    opacity: .74;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+</style>
+\n
+\n
+<style id="sf-live-native-liv010-scroll-layout-v3">
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010,
+main.level-liv-010 .patchbay-wrap.front-panel-view {
+  position: relative !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: thin;
+}
+
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010::-webkit-scrollbar,
+main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar {
+  width: 12px;
+}
+
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010::-webkit-scrollbar-thumb,
+main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 106, .55);
+  border-radius: 999px;
+}
+
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010::-webkit-scrollbar-track,
+main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, .35);
+}
+
+.sf-live-native-layer.sf-live-native-level-liv-010 {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  min-height: 1500px !important;
+  height: 1500px !important;
+  overflow: visible !important;
+  background:
+    radial-gradient(circle at 25% 18%, rgba(41, 126, 93, 0.13) 0%, rgba(41, 126, 93, 0.06) 22%, rgba(0, 0, 0, 0) 46%),
+    linear-gradient(180deg,
+      rgba(2, 8, 9, 0.91) 0%,
+      rgba(3, 9, 10, 0.95) 50%,
+      rgba(3, 8, 9, 0.98) 100%) !important;
+  border-radius: 18px;
+}
+
+.sf-live-native-layer.sf-live-native-level-liv-010.sf-scroll-managed {
+  overflow: visible !important;
+}
+
+.sfLiv010SurfaceScrollSpacer {
+  position: relative !important;
+  display: block !important;
+  width: 1px !important;
+  min-height: 1500px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+</style>
+
 </head>
 <body>
   <div class="sf-shell">
@@ -451,7 +599,7 @@
   }
 
   function applyInDocument(doc, win) {
-    if (!doc || !win) return 0;
+    if (!doc || !win || !doc.body) return 0;
     ensureStyle(doc);
 
     doc.querySelectorAll(".sf-brief-todo-attention").forEach(el => {
@@ -536,7 +684,7 @@
   window.sfTodoListOverlayGlowV3Installed = true;
 
   function ensureStyle(doc) {
-    if (!doc || doc.getElementById("sf-todo-list-overlay-glow-v3")) return;
+    if (!doc || !doc.head || doc.getElementById("sf-todo-list-overlay-glow-v3")) return;
     const src = document.getElementById("sf-todo-list-overlay-glow-v3");
     const style = doc.createElement("style");
     style.id = "sf-todo-list-overlay-glow-v3";
@@ -565,7 +713,7 @@
   }
 
   function applyIn(doc, win) {
-    if (!doc || !win) return 0;
+    if (!doc || !win || !doc.body) return 0;
     ensureStyle(doc);
 
     let overlay = doc.getElementById("sf-todo-list-glow-overlay-v3");
@@ -653,5 +801,226 @@
 })();
 </script>
 
-</body>
+
+<script id="sf-universal-scroll-cues-script-v1">
+(function () {
+  if (window.sfUniversalScrollCuesV1Installed) return;
+  window.sfUniversalScrollCuesV1Installed = true;
+
+  function ensureStyle(doc) {
+    if (!doc || doc.getElementById("sf-universal-scroll-cues-v1")) return;
+    var src = document.getElementById("sf-universal-scroll-cues-v1");
+    var style = doc.createElement("style");
+    style.id = "sf-universal-scroll-cues-v1";
+    style.textContent = src ? src.textContent : "";
+    doc.head.appendChild(style);
+  }
+
+  function rectFor(el, doc, win) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return {
+        left: 0,
+        top: 0,
+        right: win.innerWidth,
+        bottom: win.innerHeight,
+        width: win.innerWidth,
+        height: win.innerHeight
+      };
+    }
+    return el.getBoundingClientRect();
+  }
+
+  function maxScrollY(el, doc, win) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return Math.max(0, doc.scrollingElement.scrollHeight - win.innerHeight);
+    }
+    return Math.max(0, el.scrollHeight - el.clientHeight);
+  }
+
+  function maxScrollX(el, doc, win) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return Math.max(0, doc.scrollingElement.scrollWidth - win.innerWidth);
+    }
+    return Math.max(0, el.scrollWidth - el.clientWidth);
+  }
+
+  function scrollTopOf(el, doc) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return doc.scrollingElement.scrollTop;
+    }
+    return el.scrollTop;
+  }
+
+  function scrollLeftOf(el, doc) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return doc.scrollingElement.scrollLeft;
+    }
+    return el.scrollLeft;
+  }
+
+  function visibleRect(r) {
+    return r.width > 160 && r.height > 120 && r.bottom > 0 && r.right > 0;
+  }
+
+  function makeCue(doc, dir, x, y) {
+    var cue = doc.createElement("div");
+    cue.className = "sf-scroll-cue sf-scroll-cue-" + dir;
+    cue.style.left = Math.round(x - 21) + "px";
+    cue.style.top = Math.round(y - 21) + "px";
+    cue.setAttribute("aria-hidden", "true");
+    doc.body.appendChild(cue);
+  }
+
+  function makeNativeSurfacesScrollable(doc) {
+    doc.querySelectorAll(".patchbay-wrap.front-panel-view, .sf-live-native-layer:not(.sf-live-native-level-liv-010)").forEach(function(el) {
+      var r = el.getBoundingClientRect();
+      if (r.width < 200 || r.height < 160) return;
+
+      var needsY = el.scrollHeight > el.clientHeight + 8;
+      var needsX = el.scrollWidth > el.clientWidth + 8;
+
+      // Native boards with absolutely positioned gear may not advertise scrollHeight
+      // until overflow is allowed, so always permit scroll on these known board surfaces.
+      if (
+        el.classList.contains("sf-live-native-layer") ||
+        (el.classList.contains("patchbay-wrap") && el.querySelector(".sf-live-native-layer")) ||
+        needsY ||
+        needsX
+      ) {
+        el.classList.add("sf-scroll-managed");
+      }
+    });
+  }
+
+  function findScrollableCandidates(doc) {
+    var set = new Set();
+
+    if (doc.scrollingElement) set.add(doc.scrollingElement);
+
+    doc.querySelectorAll([
+      ".sf-live-native-layer",
+      ".patchbay-wrap.front-panel-view",
+      ".lesson-panel",
+      ".level-panel",
+      ".sidebar",
+      "aside",
+      "main",
+      "section",
+      "article",
+      "div",
+      "ol",
+      "ul"
+    ].join(",")).forEach(function(el) {
+      set.add(el);
+    });
+
+    return Array.from(set);
+  }
+
+  function applyIn(doc, win) {
+    if (!doc || !win || !doc.body) return 0;
+    ensureStyle(doc);
+    makeNativeSurfacesScrollable(doc);
+
+    doc.querySelectorAll(".sf-scroll-cue").forEach(function(el) {
+      el.remove();
+    });
+
+    var count = 0;
+    var candidates = findScrollableCandidates(doc);
+
+    candidates.forEach(function(el) {
+      if (count > 16) return;
+
+      var r = rectFor(el, doc, win);
+      if (!visibleRect(r)) return;
+
+      var maxY = maxScrollY(el, doc, win);
+      var maxX = maxScrollX(el, doc, win);
+      if (maxY < 12 && maxX < 12) return;
+
+      var top = scrollTopOf(el, doc);
+      var left = scrollLeftOf(el, doc);
+
+      var centerX = Math.max(30, Math.min(win.innerWidth - 30, r.left + r.width / 2));
+      var centerY = Math.max(30, Math.min(win.innerHeight - 30, r.top + r.height / 2));
+
+      if (maxY >= 12 && top > 8) {
+        makeCue(doc, "up", centerX, Math.max(28, r.top + 28));
+        count += 1;
+      }
+
+      if (maxY >= 12 && top < maxY - 8) {
+        makeCue(doc, "down", centerX, Math.min(win.innerHeight - 28, r.bottom - 28));
+        count += 1;
+      }
+
+      if (maxX >= 12 && left > 8) {
+        makeCue(doc, "left", Math.max(28, r.left + 28), centerY);
+        count += 1;
+      }
+
+      if (maxX >= 12 && left < maxX - 8) {
+        makeCue(doc, "right", Math.min(win.innerWidth - 28, r.right - 28), centerY);
+        count += 1;
+      }
+    });
+
+    return count;
+  }
+
+  function frames() {
+    var out = [];
+    document.querySelectorAll("iframe").forEach(function(frame) {
+      try {
+        if (frame.contentDocument && frame.contentWindow) {
+          out.push([frame.contentDocument, frame.contentWindow]);
+        }
+      } catch (err) {}
+    });
+    return out;
+  }
+
+  function updateScrollCues() {
+    var count = applyIn(document, window);
+    frames().forEach(function(pair) {
+      count += applyIn(pair[0], pair[1]);
+    });
+    return count;
+  }
+
+  window.sfUpdateScrollCues = updateScrollCues;
+
+  function schedule(delay) {
+    setTimeout(updateScrollCues, delay);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () { schedule(120); });
+  window.addEventListener("load", function () {
+    schedule(120);
+    schedule(650);
+    schedule(1500);
+  });
+  window.addEventListener("resize", function () { schedule(100); });
+  window.addEventListener("hashchange", function () { schedule(200); });
+  window.addEventListener("popstate", function () { schedule(200); });
+  window.addEventListener("scroll", function () { schedule(20); }, true);
+
+  const observer = new MutationObserver(function () {
+    clearTimeout(window.sfUniversalScrollCueTimer);
+    window.sfUniversalScrollCueTimer = setTimeout(updateScrollCues, 160);
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    characterData: true
+  });
+
+  schedule(250);
+  schedule(1000);
+})();
+</script>
+\n</body>
 </html>

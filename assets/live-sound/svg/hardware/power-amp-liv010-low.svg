@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="240" viewBox="0 0 940 240" role="img" aria-label="LOW AMPLIFIER">
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#353638"/>
+      <stop offset="0.45" stop-color="#1f2022"/>
+      <stop offset="1" stop-color="#101113"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7f7f7f"/>
+      <stop offset="0.18" stop-color="#2a2b2d"/>
+      <stop offset="1" stop-color="#050607"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d9d6cb"/>
+      <stop offset="0.20" stop-color="#77756f"/>
+      <stop offset="0.50" stop-color="#242527"/>
+      <stop offset="0.82" stop-color="#0a0b0c"/>
+      <stop offset="1" stop-color="#7b776d"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/>
+    </filter>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="6" y="8" width="928" height="224" rx="14" fill="url(#edge)" filter="url(#shadow)"/>
+  <rect x="18" y="20" width="904" height="198" rx="10" fill="url(#face)" stroke="#5e605c" stroke-width="1.3"/>
+
+  <text x="470" y="34" text-anchor="middle"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="14" font-weight="900" fill="#ffffff">LOW AMPLIFIER</text>
+
+  <rect x="310" y="44" width="320" height="12" rx="6" fill="#0d1012" stroke="#3a3d40"/>
+  <g filter="url(#softGlow)">
+    <rect x="322" y="47" width="296" height="6" rx="3" fill="#f1c75b" opacity="0.95"/>
+    <rect x="336" y="47" width="14" height="6" rx="3" fill="#f4f0da" opacity="0.9"/>
+    <rect x="366" y="47" width="10" height="6" rx="3" fill="#f4f0da" opacity="0.75"/>
+    <rect x="390" y="47" width="12" height="6" rx="3" fill="#f4f0da" opacity="0.82"/>
+    <rect x="418" y="47" width="9" height="6" rx="3" fill="#f4f0da" opacity="0.68"/>
+    <rect x="444" y="47" width="13" height="6" rx="3" fill="#f4f0da" opacity="0.88"/>
+    <rect x="472" y="47" width="8" height="6" rx="3" fill="#f4f0da" opacity="0.64"/>
+    <rect x="495" y="47" width="12" height="6" rx="3" fill="#f4f0da" opacity="0.85"/>
+    <rect x="524" y="47" width="9" height="6" rx="3" fill="#f4f0da" opacity="0.73"/>
+    <rect x="548" y="47" width="12" height="6" rx="3" fill="#f4f0da" opacity="0.86"/>
+    <rect x="575" y="47" width="15" height="6" rx="3" fill="#f4f0da" opacity="0.92"/>
+  </g>
+
+  <g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+     font-size="11" font-weight="800" fill="#ece8db" text-anchor="middle">
+    <text x="170" y="114">LEFT IN</text>
+    <text x="270" y="114">RIGHT IN</text>
+    <text x="670" y="114">LEFT OUT</text>
+    <text x="770" y="114">RIGHT OUT</text>
+  </g>
+
+  <!-- XLR/TRS style inputs -->
+  <g filter="url(#shadow)">
+    <circle cx="170" cy="145" r="19" fill="url(#metal)" stroke="#050505"/>
+    <circle cx="170" cy="145" r="14.8" fill="#0e1012" stroke="#7a766d"/>
+    <circle cx="164" cy="141" r="2.2" fill="#202427"/>
+    <circle cx="176" cy="141" r="2.2" fill="#202427"/>
+    <circle cx="170" cy="151" r="2.2" fill="#202427"/>
+
+    <circle cx="270" cy="145" r="19" fill="url(#metal)" stroke="#050505"/>
+    <circle cx="270" cy="145" r="14.8" fill="#0e1012" stroke="#7a766d"/>
+    <circle cx="264" cy="141" r="2.2" fill="#202427"/>
+    <circle cx="276" cy="141" r="2.2" fill="#202427"/>
+    <circle cx="270" cy="151" r="2.2" fill="#202427"/>
+  </g>
+
+  <!-- Speakon outputs -->
+  <g filter="url(#shadow)">
+    <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgdmlld0JveD0iMCAwIDkyIDkyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNwZWFrb24gTkw0IGxhcmdlIGNvbm5lY3RvciI+CjxkZWZzPgogIDxsaW5lYXJHcmFkaWVudCBpZD0icmFja0ZhY2UiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNDM1MzUiLz48c3RvcCBvZmZzZXQ9IjAuNDgiIHN0b3AtY29sb3I9IiMyMjIzMjMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMTEyMTQiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0icmFja0VkZ2UiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM3NzciLz48c3RvcCBvZmZzZXQ9IjAuMTgiIHN0b3AtY29sb3I9IiMyNzI3MjciLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNjA2MDYiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0ibWV0YWwiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlMGRkZDAiLz48c3RvcCBvZmZzZXQ9IjAuMjIiIHN0b3AtY29sb3I9IiM3MTcwNmEiLz48c3RvcCBvZmZzZXQ9IjAuNTIiIHN0b3AtY29sb3I9IiMyMDIxMjIiLz48c3RvcCBvZmZzZXQ9IjAuODMiIHN0b3AtY29sb3I9IiMwYjBjMGQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3ZTdhNzAiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0iYmx1ZU1ldGFsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNWFhMmZmIi8+PHN0b3Agb2Zmc2V0PSIwLjQiIHN0b3AtY29sb3I9IiMxNzYzYzciLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNzMwNmQiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZFBpbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZTdhNiIvPjxzdG9wIG9mZnNldD0iMC40NSIgc3RvcC1jb2xvcj0iI2M4OGMyYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzVmM2IwZCIvPjwvbGluZWFyR3JhZGllbnQ+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJqYWNrQ3VwIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWUyMDIxIi8+PHN0b3Agb2Zmc2V0PSIwLjQ1IiBzdG9wLWNvbG9yPSIjMDYwNzA4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIi8+PC9saW5lYXJHcmFkaWVudD4KICA8bGluZWFyR3JhZGllbnQgaWQ9ImFtYmVyTGVucyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZTVhNiIvPjxzdG9wIG9mZnNldD0iMC4zOCIgc3RvcC1jb2xvcj0iI2Q5OTYxOSIvPjxzdG9wIG9mZnNldD0iMC43MiIgc3RvcC1jb2xvcj0iIzVkMzIwMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmYmQyZCIvPjwvbGluZWFyR3JhZGllbnQ+CiAgPGZpbHRlciBpZD0ic2hhZG93IiB4PSItMjUlIiB5PSItMjUlIiB3aWR0aD0iMTUwJSIgaGVpZ2h0PSIxNTAlIj48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMyIgc3RkRGV2aWF0aW9uPSIzIiBmbG9vZC1jb2xvcj0iIzAwMCIgZmxvb2Qtb3BhY2l0eT0iMC42NSIvPjwvZmlsdGVyPgogIDxmaWx0ZXIgaWQ9InNvZnRHbG93IiB4PSItNzAlIiB5PSItNzAlIiB3aWR0aD0iMjQwJSIgaGVpZ2h0PSIyNDAlIj48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIzIiByZXN1bHQ9ImIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImIiLz48ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz48L2ZlTWVyZ2U+PC9maWx0ZXI+CjwvZGVmcz4KPGcgY2xhc3M9InNwZWFrb24iIGRhdGEtc2NhbGU9InNwZWFrb24tbGFyZ2UiIGZpbHRlcj0idXJsKCNzaGFkb3cpIj4KPHJlY3QgeD0iMTUuMCIgeT0iMTUuMCIgd2lkdGg9IjYyIiBoZWlnaHQ9IjYyIiByeD0iNyIgZmlsbD0idXJsKCNibHVlTWV0YWwpIiBzdHJva2U9IiMwNTExMjgiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxjaXJjbGUgY3g9IjQ2IiBjeT0iNDYiIHI9IjIxLjA4MDAwMDAwMDAwMDAwMiIgZmlsbD0iIzA3MTAyNSIgc3Ryb2tlPSIjMmU4MWZmIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTQ2IDMwLjVhMTUuNSAxNS41IDAgMSAwIDAgMzEuMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDUwODEyIiBzdHJva2Utd2lkdGg9IjguMDYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cmVjdCB4PSI0MS42NiIgeT0iMzIuMzYiIHdpZHRoPSI4LjY4MDAwMDAwMDAwMDAwMSIgaGVpZ2h0PSIxMy42NCIgcng9IjIiIGZpbGw9IiMyZTgxZmYiIG9wYWNpdHk9IjAuNjUiLz4KPGNpcmNsZSBjeD0iMjQuMyIgY3k9IjI0LjMiIHI9IjIuMiIgZmlsbD0iIzA1MDUwNSIgc3Ryb2tlPSIjOWI5ODhkIiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNMjMuMSAyNS41TDI1LjUgMjMuMSIgc3Ryb2tlPSIjNzc3IiBzdHJva2Utd2lkdGg9IjAuOCIvPgo8Y2lyY2xlIGN4PSI2Ny43IiBjeT0iNjcuNyIgcj0iMi4yIiBmaWxsPSIjMDUwNTA1IiBzdHJva2U9IiM5Yjk4OGQiIHN0cm9rZS13aWR0aD0iMSIvPjxwYXRoIGQ9Ik02Ni41IDY4LjlMNjguOSA2Ni41IiBzdHJva2U9IiM3NzciIHN0cm9rZS13aWR0aD0iMC44Ii8+CjwvZz4KCjwvc3ZnPg==" x="637.0" y="112.0" width="66" height="66" preserveAspectRatio="xMidYMid meet"/>
+    <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgdmlld0JveD0iMCAwIDkyIDkyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNwZWFrb24gTkw0IGxhcmdlIGNvbm5lY3RvciI+CjxkZWZzPgogIDxsaW5lYXJHcmFkaWVudCBpZD0icmFja0ZhY2UiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzNDM1MzUiLz48c3RvcCBvZmZzZXQ9IjAuNDgiIHN0b3AtY29sb3I9IiMyMjIzMjMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxMTEyMTQiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0icmFja0VkZ2UiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM3NzciLz48c3RvcCBvZmZzZXQ9IjAuMTgiIHN0b3AtY29sb3I9IiMyNzI3MjciLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNjA2MDYiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0ibWV0YWwiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNlMGRkZDAiLz48c3RvcCBvZmZzZXQ9IjAuMjIiIHN0b3AtY29sb3I9IiM3MTcwNmEiLz48c3RvcCBvZmZzZXQ9IjAuNTIiIHN0b3AtY29sb3I9IiMyMDIxMjIiLz48c3RvcCBvZmZzZXQ9IjAuODMiIHN0b3AtY29sb3I9IiMwYjBjMGQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3ZTdhNzAiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0iYmx1ZU1ldGFsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNWFhMmZmIi8+PHN0b3Agb2Zmc2V0PSIwLjQiIHN0b3AtY29sb3I9IiMxNzYzYzciLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNzMwNmQiLz48L2xpbmVhckdyYWRpZW50PgogIDxsaW5lYXJHcmFkaWVudCBpZD0iZ29sZFBpbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZTdhNiIvPjxzdG9wIG9mZnNldD0iMC40NSIgc3RvcC1jb2xvcj0iI2M4OGMyYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzVmM2IwZCIvPjwvbGluZWFyR3JhZGllbnQ+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJqYWNrQ3VwIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWUyMDIxIi8+PHN0b3Agb2Zmc2V0PSIwLjQ1IiBzdG9wLWNvbG9yPSIjMDYwNzA4Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwIi8+PC9saW5lYXJHcmFkaWVudD4KICA8bGluZWFyR3JhZGllbnQgaWQ9ImFtYmVyTGVucyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZTVhNiIvPjxzdG9wIG9mZnNldD0iMC4zOCIgc3RvcC1jb2xvcj0iI2Q5OTYxOSIvPjxzdG9wIG9mZnNldD0iMC43MiIgc3RvcC1jb2xvcj0iIzVkMzIwMCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmYmQyZCIvPjwvbGluZWFyR3JhZGllbnQ+CiAgPGZpbHRlciBpZD0ic2hhZG93IiB4PSItMjUlIiB5PSItMjUlIiB3aWR0aD0iMTUwJSIgaGVpZ2h0PSIxNTAlIj48ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMyIgc3RkRGV2aWF0aW9uPSIzIiBmbG9vZC1jb2xvcj0iIzAwMCIgZmxvb2Qtb3BhY2l0eT0iMC42NSIvPjwvZmlsdGVyPgogIDxmaWx0ZXIgaWQ9InNvZnRHbG93IiB4PSItNzAlIiB5PSItNzAlIiB3aWR0aD0iMjQwJSIgaGVpZ2h0PSIyNDAlIj48ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSIzIiByZXN1bHQ9ImIiLz48ZmVNZXJnZT48ZmVNZXJnZU5vZGUgaW49ImIiLz48ZmVNZXJnZU5vZGUgaW49IlNvdXJjZUdyYXBoaWMiLz48L2ZlTWVyZ2U+PC9maWx0ZXI+CjwvZGVmcz4KPGcgY2xhc3M9InNwZWFrb24iIGRhdGEtc2NhbGU9InNwZWFrb24tbGFyZ2UiIGZpbHRlcj0idXJsKCNzaGFkb3cpIj4KPHJlY3QgeD0iMTUuMCIgeT0iMTUuMCIgd2lkdGg9IjYyIiBoZWlnaHQ9IjYyIiByeD0iNyIgZmlsbD0idXJsKCNibHVlTWV0YWwpIiBzdHJva2U9IiMwNTExMjgiIHN0cm9rZS13aWR0aD0iMS41Ii8+CjxjaXJjbGUgY3g9IjQ2IiBjeT0iNDYiIHI9IjIxLjA4MDAwMDAwMDAwMDAwMiIgZmlsbD0iIzA3MTAyNSIgc3Ryb2tlPSIjMmU4MWZmIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTQ2IDMwLjVhMTUuNSAxNS41IDAgMSAwIDAgMzEuMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDUwODEyIiBzdHJva2Utd2lkdGg9IjguMDYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cmVjdCB4PSI0MS42NiIgeT0iMzIuMzYiIHdpZHRoPSI4LjY4MDAwMDAwMDAwMDAwMSIgaGVpZ2h0PSIxMy42NCIgcng9IjIiIGZpbGw9IiMyZTgxZmYiIG9wYWNpdHk9IjAuNjUiLz4KPGNpcmNsZSBjeD0iMjQuMyIgY3k9IjI0LjMiIHI9IjIuMiIgZmlsbD0iIzA1MDUwNSIgc3Ryb2tlPSIjOWI5ODhkIiBzdHJva2Utd2lkdGg9IjEiLz48cGF0aCBkPSJNMjMuMSAyNS41TDI1LjUgMjMuMSIgc3Ryb2tlPSIjNzc3IiBzdHJva2Utd2lkdGg9IjAuOCIvPgo8Y2lyY2xlIGN4PSI2Ny43IiBjeT0iNjcuNyIgcj0iMi4yIiBmaWxsPSIjMDUwNTA1IiBzdHJva2U9IiM5Yjk4OGQiIHN0cm9rZS13aWR0aD0iMSIvPjxwYXRoIGQ9Ik02Ni41IDY4LjlMNjguOSA2Ni41IiBzdHJva2U9IiM3NzciIHN0cm9rZS13aWR0aD0iMC44Ii8+CjwvZz4KCjwvc3ZnPg==" x="737.0" y="112.0" width="66" height="66" preserveAspectRatio="xMidYMid meet"/>
+  </g>
+</svg>

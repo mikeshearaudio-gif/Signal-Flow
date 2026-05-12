@@ -398,6 +398,190 @@
         }
       ]
     },
+    "LIV-010": {
+      id: "LIV-010",
+      title: "3-Way Main PA Crossover",
+      processorLabel: "3-WAY PA SYSTEM",
+      panelKinds: ["foh", "crossover10", "speaker-left-input10", "amp-high10", "amp-mid10", "amp-low10", "speaker-right-input10", "pa-image10"],
+      sourceOrder: [],
+      assetOverrides: {
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        crossover10: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+        "speaker-left-input10": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
+        "speaker-right-input10": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
+        "amp-high10": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+        "amp-mid10": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+        "amp-low10": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+        "pa-image10": "/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg"
+      },
+      generatedJackKeys: [
+        "foh-liv006-matrix-1-output",
+        "foh-liv006-matrix-2-output",
+        "foh-liv006-matrix-3-output",
+        "foh-liv006-matrix-4-output",
+        "foh-liv006-aux-1-output",
+        "foh-liv006-aux-2-output",
+        "foh-liv006-aux-3-output",
+        "foh-liv006-aux-4-output",
+        "foh-liv006-aux-5-output",
+        "foh-liv006-aux-6-output",
+        "foh-liv006-bus-1-output",
+        "foh-liv006-bus-2-output",
+        "foh-liv006-bus-3-output",
+        "foh-liv006-bus-4-output",
+        "foh-liv006-bus-5-output",
+        "foh-liv006-bus-6-output",
+        "foh-liv006-bus-7-output",
+        "foh-liv006-bus-8-output",
+        "foh-liv010-main-left-output",
+        "foh-liv010-main-right-output",
+
+        "liv010-crossover-left-input",
+        "liv010-crossover-right-input",
+        "liv010-crossover-high-left-output",
+        "liv010-crossover-high-right-output",
+        "liv010-crossover-mid-left-output",
+        "liv010-crossover-mid-right-output",
+        "liv010-crossover-low-left-output",
+        "liv010-crossover-low-right-output",
+
+        "liv010-high-amp-left-input",
+        "liv010-high-amp-right-input",
+        "liv010-high-amp-left-output",
+        "liv010-high-amp-right-output",
+
+        "liv010-mid-amp-left-input",
+        "liv010-mid-amp-right-input",
+        "liv010-mid-amp-left-output",
+        "liv010-mid-amp-right-output",
+
+        "liv010-low-amp-left-input",
+        "liv010-low-amp-right-input",
+        "liv010-low-amp-left-output",
+        "liv010-low-amp-right-output",
+
+        "liv010-left-line-array-high-input",
+        "liv010-left-line-array-mid-input",
+        "liv010-left-line-array-low-input",
+        "liv010-right-line-array-high-input",
+        "liv010-right-line-array-mid-input",
+        "liv010-right-line-array-low-input"
+      ],
+      validRoutes: [
+        {
+          key: "foh-liv010-main-left-output-to-liv010-crossover-left-input",
+          from: "foh-liv010-main-left-output",
+          to: "liv010-crossover-left-input",
+          checklist: "Main L Output → Crossover L Input",
+          stereoGroup: "liv010-main-to-crossover",
+          stereoSide: "left"
+        },
+        {
+          key: "foh-liv010-main-right-output-to-liv010-crossover-right-input",
+          from: "foh-liv010-main-right-output",
+          to: "liv010-crossover-right-input",
+          checklist: "Main R Output → Crossover R Input",
+          stereoGroup: "liv010-main-to-crossover",
+          stereoSide: "right"
+        },
+        {
+          key: "liv010-crossover-high-left-output-to-liv010-high-amp-left-input",
+          from: "liv010-crossover-high-left-output",
+          to: "liv010-high-amp-left-input",
+          checklist: "High L Output → High Amp L Input",
+          stereoGroup: "liv010-high-crossover-to-amp",
+          stereoSide: "left"
+        },
+        {
+          key: "liv010-crossover-high-right-output-to-liv010-high-amp-right-input",
+          from: "liv010-crossover-high-right-output",
+          to: "liv010-high-amp-right-input",
+          checklist: "High R Output → High Amp R Input",
+          stereoGroup: "liv010-high-crossover-to-amp",
+          stereoSide: "right"
+        },
+        {
+          key: "liv010-crossover-mid-left-output-to-liv010-mid-amp-left-input",
+          from: "liv010-crossover-mid-left-output",
+          to: "liv010-mid-amp-left-input",
+          checklist: "Mid L Output → Mid Amp L Input",
+          stereoGroup: "liv010-mid-crossover-to-amp",
+          stereoSide: "left"
+        },
+        {
+          key: "liv010-crossover-mid-right-output-to-liv010-mid-amp-right-input",
+          from: "liv010-crossover-mid-right-output",
+          to: "liv010-mid-amp-right-input",
+          checklist: "Mid R Output → Mid Amp R Input",
+          stereoGroup: "liv010-mid-crossover-to-amp",
+          stereoSide: "right"
+        },
+        {
+          key: "liv010-crossover-low-left-output-to-liv010-low-amp-left-input",
+          from: "liv010-crossover-low-left-output",
+          to: "liv010-low-amp-left-input",
+          checklist: "Low L Output → Low Amp L Input",
+          stereoGroup: "liv010-low-crossover-to-amp",
+          stereoSide: "left"
+        },
+        {
+          key: "liv010-crossover-low-right-output-to-liv010-low-amp-right-input",
+          from: "liv010-crossover-low-right-output",
+          to: "liv010-low-amp-right-input",
+          checklist: "Low R Output → Low Amp R Input",
+          stereoGroup: "liv010-low-crossover-to-amp",
+          stereoSide: "right"
+        },
+        {
+          key: "liv010-high-amp-left-output-to-liv010-left-line-array-high-input",
+          from: "liv010-high-amp-left-output",
+          to: "liv010-left-line-array-high-input",
+          checklist: "High Amp L Output → Left Line Array High Input",
+          stereoGroup: "liv010-high-amp-to-speaker",
+          stereoSide: "left"
+        },
+        {
+          key: "liv010-high-amp-right-output-to-liv010-right-line-array-high-input",
+          from: "liv010-high-amp-right-output",
+          to: "liv010-right-line-array-high-input",
+          checklist: "High Amp R Output → Right Line Array High Input",
+          stereoGroup: "liv010-high-amp-to-speaker",
+          stereoSide: "right"
+        },
+        {
+          key: "liv010-mid-amp-left-output-to-liv010-left-line-array-mid-input",
+          from: "liv010-mid-amp-left-output",
+          to: "liv010-left-line-array-mid-input",
+          checklist: "Mid Amp L Output → Left Line Array Mid Input",
+          stereoGroup: "liv010-mid-amp-to-speaker",
+          stereoSide: "left"
+        },
+        {
+          key: "liv010-mid-amp-right-output-to-liv010-right-line-array-mid-input",
+          from: "liv010-mid-amp-right-output",
+          to: "liv010-right-line-array-mid-input",
+          checklist: "Mid Amp R Output → Right Line Array Mid Input",
+          stereoGroup: "liv010-mid-amp-to-speaker",
+          stereoSide: "right"
+        },
+        {
+          key: "liv010-low-amp-left-output-to-liv010-left-line-array-low-input",
+          from: "liv010-low-amp-left-output",
+          to: "liv010-left-line-array-low-input",
+          checklist: "Low Amp L Output → Left Line Array Low Input",
+          stereoGroup: "liv010-low-amp-to-speaker",
+          stereoSide: "left"
+        },
+        {
+          key: "liv010-low-amp-right-output-to-liv010-right-line-array-low-input",
+          from: "liv010-low-amp-right-output",
+          to: "liv010-right-line-array-low-input",
+          checklist: "Low Amp R Output → Right Line Array Low Input",
+          stereoGroup: "liv010-low-amp-to-speaker",
+          stereoSide: "right"
+        }
+      ]
+    },
     "LIV-009": {
       id: "LIV-009",
       title: "Keyboard Stereo Inputs",
@@ -677,6 +861,9 @@
     "foh-liv007-main-left-output": { label: "Main L Output", kind: "jack", panelRel: { panel: "foh", x: 975 / 1120, y: 134 / 260 } },
     "foh-liv007-main-right-output": { label: "Main R Output", kind: "jack", panelRel: { panel: "foh", x: 1045 / 1120, y: 134 / 260 } },
 
+    "foh-liv010-main-left-output": { label: "Main L Output", kind: "jack", panelRel: { panel: "foh", x: 975 / 1120, y: 134 / 260 } },
+    "foh-liv010-main-right-output": { label: "Main R Output", kind: "jack", panelRel: { panel: "foh", x: 1045 / 1120, y: 134 / 260 } },
+
     "foh-liv006-matrix-1-output": { label: "Matrix 1 Output", kind: "jack", panelRel: { panel: "foh", x: 105 / 1120, y: 134 / 260 }, ghost: true },
     "foh-liv006-matrix-2-output": { label: "Matrix 2 Output", kind: "jack", panelRel: { panel: "foh", x: 180 / 1120, y: 134 / 260 }, ghost: true },
     "foh-liv006-matrix-3-output": { label: "Matrix 3 Output", kind: "jack", panelRel: { panel: "foh", x: 255 / 1120, y: 134 / 260 } },
@@ -752,6 +939,41 @@
     "liv007-station-b-feed-right-input": { label: "Station B Feed R", kind: "jack", panelRel: { panel: "iem-station-b", x: 565 / 900, y: 150 / 240 } },
     "liv007-system-amp-left-input": { label: "System Amp L In", kind: "jack", panelRel: { panel: "amp7", x: 260 / 700, y: 168 / 240 } },
     "liv007-system-amp-right-input": { label: "System Amp R In", kind: "jack", panelRel: { panel: "amp7", x: 440 / 700, y: 168 / 240 } },
+
+    "liv010-crossover-left-input": { label: "Crossover L Input", kind: "jack", panelRel: { panel: "crossover10", x: 165 / 940, y: 155 / 250 } },
+    "liv010-crossover-right-input": { label: "Crossover R Input", kind: "jack", panelRel: { panel: "crossover10", x: 255 / 940, y: 155 / 250 } },
+
+    "liv010-crossover-high-left-output": { label: "Crossover High L Output", kind: "jack", panelRel: { panel: "crossover10", x: 505 / 940, y: 95 / 250 } },
+    "liv010-crossover-high-right-output": { label: "Crossover High R Output", kind: "jack", panelRel: { panel: "crossover10", x: 595 / 940, y: 95 / 250 } },
+
+    "liv010-crossover-mid-left-output": { label: "Crossover Mid L Output", kind: "jack", panelRel: { panel: "crossover10", x: 505 / 940, y: 155 / 250 } },
+    "liv010-crossover-mid-right-output": { label: "Crossover Mid R Output", kind: "jack", panelRel: { panel: "crossover10", x: 595 / 940, y: 155 / 250 } },
+
+    "liv010-crossover-low-left-output": { label: "Crossover Low L Output", kind: "jack", panelRel: { panel: "crossover10", x: 505 / 940, y: 215 / 250 } },
+    "liv010-crossover-low-right-output": { label: "Crossover Low R Output", kind: "jack", panelRel: { panel: "crossover10", x: 595 / 940, y: 215 / 250 } },
+
+    "liv010-high-amp-left-input": { label: "High Amp L Input", kind: "jack", panelRel: { panel: "amp-high10", x: 170 / 940, y: 145 / 240 } },
+    "liv010-high-amp-right-input": { label: "High Amp R Input", kind: "jack", panelRel: { panel: "amp-high10", x: 270 / 940, y: 145 / 240 } },
+    "liv010-high-amp-left-output": { label: "High Amp L Output", kind: "jack", panelRel: { panel: "amp-high10", x: 670 / 940, y: 145 / 240 } },
+    "liv010-high-amp-right-output": { label: "High Amp R Output", kind: "jack", panelRel: { panel: "amp-high10", x: 770 / 940, y: 145 / 240 } },
+
+    "liv010-mid-amp-left-input": { label: "Mid Amp L Input", kind: "jack", panelRel: { panel: "amp-mid10", x: 170 / 940, y: 145 / 240 } },
+    "liv010-mid-amp-right-input": { label: "Mid Amp R Input", kind: "jack", panelRel: { panel: "amp-mid10", x: 270 / 940, y: 145 / 240 } },
+    "liv010-mid-amp-left-output": { label: "Mid Amp L Output", kind: "jack", panelRel: { panel: "amp-mid10", x: 670 / 940, y: 145 / 240 } },
+    "liv010-mid-amp-right-output": { label: "Mid Amp R Output", kind: "jack", panelRel: { panel: "amp-mid10", x: 770 / 940, y: 145 / 240 } },
+
+    "liv010-low-amp-left-input": { label: "Low Amp L Input", kind: "jack", panelRel: { panel: "amp-low10", x: 170 / 940, y: 145 / 240 } },
+    "liv010-low-amp-right-input": { label: "Low Amp R Input", kind: "jack", panelRel: { panel: "amp-low10", x: 270 / 940, y: 145 / 240 } },
+    "liv010-low-amp-left-output": { label: "Low Amp L Output", kind: "jack", panelRel: { panel: "amp-low10", x: 670 / 940, y: 145 / 240 } },
+    "liv010-low-amp-right-output": { label: "Low Amp R Output", kind: "jack", panelRel: { panel: "amp-low10", x: 770 / 940, y: 145 / 240 } },
+
+    "liv010-left-line-array-high-input": { label: "Left Line Array High Input", kind: "jack", panelRel: { panel: "speaker-left-input10", x: 130 / 260, y: 168 / 620 } },
+    "liv010-left-line-array-mid-input": { label: "Left Line Array Mid Input", kind: "jack", panelRel: { panel: "speaker-left-input10", x: 130 / 260, y: 328 / 620 } },
+    "liv010-left-line-array-low-input": { label: "Left Line Array Low Input", kind: "jack", panelRel: { panel: "speaker-left-input10", x: 130 / 260, y: 488 / 620 } },
+
+    "liv010-right-line-array-high-input": { label: "Right Line Array High Input", kind: "jack", panelRel: { panel: "speaker-right-input10", x: 130 / 260, y: 168 / 620 } },
+    "liv010-right-line-array-mid-input": { label: "Right Line Array Mid Input", kind: "jack", panelRel: { panel: "speaker-right-input10", x: 130 / 260, y: 328 / 620 } },
+    "liv010-right-line-array-low-input": { label: "Right Line Array Low Input", kind: "jack", panelRel: { panel: "speaker-right-input10", x: 130 / 260, y: 488 / 620 } },
 
     "liv006-system-processor-l-input": { label: "System Processor L In", kind: "jack", panelRel: { panel: "amp", x: 94 / 940, y: 146 / 260 } },
     "liv006-system-processor-r-input": { label: "System Processor R In", kind: "jack", panelRel: { panel: "amp", x: 214 / 940, y: 146 / 260 } },
@@ -971,7 +1193,8 @@
   function buildLevelGeometry(surface) {
     const rect = surface.getBoundingClientRect();
 
-    const layoutHeight = Math.min(rect.height, 640);
+    const nativeLayoutHeight = LEVEL_ID === "LIV-010" ? rect.height * 2.15 : rect.height;
+    const layoutHeight = nativeLayoutHeight;
     const layoutRect = {
       left: rect.left,
       top: rect.top,
@@ -985,6 +1208,7 @@
     const isStereoIemBoard = LEVEL_ID === "LIV-003";
     const isDelayTowerBoard = LEVEL_ID === "LIV-006";
     const isBroadcastBoard = LEVEL_ID === "LIV-007";
+    const isCrossoverBoard = LEVEL_ID === "LIV-010";
     const liv = isTalkbackBoard ? LIV_028_LAYOUT : null;
 
     const defaultPanels = [
@@ -998,9 +1222,9 @@
       {
         id: "foh",
         kind: "foh",
-        x: rect.width * ((isDelayTowerBoard || isBroadcastBoard) ? 0.055 : (isStereoIemBoard ? 0.06 : (liv ? liv.foh.x : 0.39))),
-        y: layoutHeight * (isDelayTowerBoard ? 0.105 : (isBroadcastBoard ? 0.105 : (isStereoIemBoard ? 0.18 : (liv ? liv.foh.y : 0.15)))),
-        width: rect.width * ((isDelayTowerBoard || isBroadcastBoard) ? 0.89 : (isStereoIemBoard ? 0.88 : (liv ? liv.foh.width : 0.55)))
+        x: rect.width * (isCrossoverBoard ? 0.070 : ((isDelayTowerBoard || isBroadcastBoard) ? 0.055 : (isStereoIemBoard ? 0.06 : (liv ? liv.foh.x : 0.39)))),
+        y: layoutHeight * (isCrossoverBoard ? 0.020 : (isDelayTowerBoard ? 0.105 : (isBroadcastBoard ? 0.105 : (isStereoIemBoard ? 0.18 : (liv ? liv.foh.y : 0.15))))),
+        width: rect.width * (isCrossoverBoard ? 0.860 : ((isDelayTowerBoard || isBroadcastBoard) ? 0.89 : (isStereoIemBoard ? 0.88 : (liv ? liv.foh.width : 0.55))))
       },
       {
         id: "amp",
@@ -1034,28 +1258,82 @@
           kind: "iem-record",
           x: rect.width * 0.060,
           y: layoutHeight * 0.485,
-          width: rect.width * 0.390
+          width: rect.width * 0.420
         },
         {
           id: "iem-station-a",
           kind: "iem-station-a",
           x: rect.width * 0.535,
           y: layoutHeight * 0.485,
-          width: rect.width * 0.390
+          width: rect.width * 0.420
         },
         {
           id: "iem-station-b",
           kind: "iem-station-b",
           x: rect.width * 0.060,
           y: layoutHeight * 0.695,
-          width: rect.width * 0.390
+          width: rect.width * 0.420
         },
         {
           id: "amp7",
           kind: "amp7",
           x: rect.width * 0.535,
           y: layoutHeight * 0.705,
-          width: rect.width * 0.390
+          width: rect.width * 0.420
+        }
+      );
+    }
+
+    if (LEVEL_ID === "LIV-010") {
+      manifestPanels.push(
+        {
+          id: "crossover10",
+          kind: "crossover10",
+          x: rect.width * 0.145,
+          y: layoutHeight * 0.215,
+          width: rect.width * 0.710
+        },
+        {
+          id: "speaker-left-input10",
+          kind: "speaker-left-input10",
+          x: rect.width * 0.045,
+          y: layoutHeight * 0.410,
+          width: rect.width * 0.155
+        },
+        {
+          id: "amp-high10",
+          kind: "amp-high10",
+          x: rect.width * 0.250,
+          y: layoutHeight * 0.385,
+          width: rect.width * 0.500
+        },
+        {
+          id: "amp-mid10",
+          kind: "amp-mid10",
+          x: rect.width * 0.250,
+          y: layoutHeight * 0.525,
+          width: rect.width * 0.500
+        },
+        {
+          id: "amp-low10",
+          kind: "amp-low10",
+          x: rect.width * 0.250,
+          y: layoutHeight * 0.665,
+          width: rect.width * 0.500
+        },
+        {
+          id: "speaker-right-input10",
+          kind: "speaker-right-input10",
+          x: rect.width * 0.800,
+          y: layoutHeight * 0.410,
+          width: rect.width * 0.155
+        },
+        {
+          id: "pa-image10",
+          kind: "pa-image10",
+          x: rect.width * 0.235,
+          y: layoutHeight * 0.815,
+          width: rect.width * 0.530
         }
       );
     }
@@ -1111,6 +1389,17 @@
           "iem-station-a": 240 / 900,
           "iem-station-b": 240 / 900,
           amp7: 240 / 700,
+          crossover10: 250 / 940,
+          "amp-high10": 240 / 940,
+          "amp-mid10": 240 / 940,
+          "amp-low10": 240 / 940,
+          "speaker-left10": 420 / 900,
+          "speaker-right10": 420 / 900,
+          "speaker-left-input10": 620 / 260,
+          "speaker-right-input10": 620 / 260,
+          "line-array-left-image10": 420 / 900,
+          "line-array-right-image10": 420 / 900,
+          "pa-image10": 870 / 857,
           amp: 260 / 940
         }[panel.kind] || 0.25;
 
@@ -2900,7 +3189,7 @@
       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
     }
 
-    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-010", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
 
     if (LEVEL_ID === "LIV-025") {
       const aux = pointFromPanel(adapter, level, "foh.lineOut2");
@@ -2949,6 +3238,65 @@
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer";
     layer.classList.add("sf-live-native-level-" + LEVEL_ID.toLowerCase());
+
+    if (LEVEL_ID === "LIV-010") {
+      const surfaceRect = surface.getBoundingClientRect ? surface.getBoundingClientRect() : { height: surface.clientHeight || 720 };
+      const liv010Height = Math.max(1280, Math.round((surfaceRect.height || 720) * 2.15));
+      layer.style.minHeight = liv010Height + "px";
+      layer.style.height = liv010Height + "px";
+      layer.dataset.sfLiv010ScrollHeight = String(liv010Height);
+
+      surface.classList.add("sf-live-native-scroll-host-liv010");
+      surface.style.position = surface.style.position || "relative";
+      surface.style.overflowY = "auto";
+      surface.style.overflowX = "hidden";
+      surface.style.overscrollBehavior = "contain";
+
+      let surfaceSpacer = Array.from(surface.children).find(child =>
+        child.classList && child.classList.contains("sfLiv010SurfaceScrollSpacer")
+      );
+
+      if (!surfaceSpacer) {
+        surfaceSpacer = document.createElement("div");
+        surfaceSpacer.className = "sfLiv010SurfaceScrollSpacer";
+        surfaceSpacer.setAttribute("aria-hidden", "true");
+        surface.appendChild(surfaceSpacer);
+      }
+
+      surfaceSpacer.style.position = "relative";
+      surfaceSpacer.style.display = "block";
+      surfaceSpacer.style.width = "1px";
+      surfaceSpacer.style.height = liv010Height + "px";
+      surfaceSpacer.style.pointerEvents = "none";
+      surfaceSpacer.style.opacity = "0";
+
+      if (!surface.dataset.sfLiv010WheelBound) {
+        surface.dataset.sfLiv010WheelBound = "1";
+        surface.addEventListener("wheel", function (event) {
+          if (!surface.classList.contains("sf-live-native-scroll-host-liv010")) return;
+          surface.scrollTop += event.deltaY;
+          if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+            surface.scrollLeft += event.deltaX;
+          }
+          event.preventDefault();
+          if (window.sfUpdateScrollCues) window.sfUpdateScrollCues();
+        }, { passive: false });
+      }
+
+
+      const existingSpacer = layer.querySelector(".sfLiv010NativeScrollSpacer");
+      if (!existingSpacer) {
+        const spacer = document.createElement("div");
+        spacer.className = "sfLiv010NativeScrollSpacer";
+        spacer.setAttribute("aria-hidden", "true");
+        spacer.style.position = "relative";
+        spacer.style.width = "1px";
+        spacer.style.height = liv010Height + "px";
+        spacer.style.pointerEvents = "none";
+        spacer.style.opacity = "0";
+        layer.appendChild(spacer);
+      }
+    }
     layer.style.cssText = [
       "position:absolute",
       "inset:0",
@@ -2976,7 +3324,7 @@
     if (panelKinds.has("stagebox")) {
       createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.07, (LEVEL_ID === "LIV-028" ? level.rect.height * 0.31 + 86 : level.rect.height * 0.31), 11);
     }
-    if (panelKinds.has("foh") && !["LIV-003", "LIV-006", "LIV-007"].includes(LEVEL_ID)) {
+    if (panelKinds.has("foh") && !["LIV-003", "LIV-006", "LIV-007", "LIV-010"].includes(LEVEL_ID)) {
       createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
     }
     if (panelKinds.has("amp")) {

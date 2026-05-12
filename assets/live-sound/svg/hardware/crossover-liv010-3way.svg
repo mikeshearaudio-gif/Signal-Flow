@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="250" viewBox="0 0 940 250" role="img" aria-label="LIV-010 3-way stereo crossover">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#343535"/>
+    <stop offset="0.48" stop-color="#222323"/>
+    <stop offset="1" stop-color="#111214"/>
+  </linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#777"/>
+    <stop offset="0.18" stop-color="#272727"/>
+    <stop offset="1" stop-color="#060606"/>
+  </linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#e0ddd0"/>
+    <stop offset="0.22" stop-color="#71706a"/>
+    <stop offset="0.52" stop-color="#202122"/>
+    <stop offset="0.83" stop-color="#0b0c0d"/>
+    <stop offset="1" stop-color="#7e7a70"/>
+  </linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#1e2021"/>
+    <stop offset="0.45" stop-color="#060708"/>
+    <stop offset="1" stop-color="#000"/>
+  </linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+    <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/>
+  </filter>
+</defs>
+
+<rect x="4" y="6" width="932" height="238" rx="8" fill="url(#rackEdge)" filter="url(#shadow)"/>
+<rect x="18" y="14" width="904" height="222" rx="5" fill="url(#rackFace)" stroke="#5e5e58" stroke-width="1.2"/>
+<path d="M22 18H918" stroke="#7d7a70" stroke-opacity="0.5"/>
+<path d="M22 232H918" stroke="#000" stroke-opacity="0.8"/>
+
+<text x="470" y="44" text-anchor="middle"
+  font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+  font-size="15" font-weight="800" fill="#e8e5da">3-WAY STEREO CROSSOVER</text>
+
+<path d="M360 56V214" stroke="#8e8d86" stroke-width="1.2" opacity=".7"/>
+
+<text x="200" y="76" text-anchor="middle"
+  font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+  font-size="12" font-weight="800" fill="#e8e5da">INPUTS</text>
+
+<text x="540" y="76" text-anchor="middle"
+  font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+  font-size="12" font-weight="800" fill="#e8e5da">HIGH OUTS</text>
+<text x="540" y="136" text-anchor="middle"
+  font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+  font-size="12" font-weight="800" fill="#e8e5da">MID OUTS</text>
+<text x="540" y="196" text-anchor="middle"
+  font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+  font-size="12" font-weight="800" fill="#e8e5da">LOW OUTS</text>
+
+<g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" text-anchor="middle" font-size="11" font-weight="800" fill="#e8e5da">
+  <text x="165" y="118">LEFT</text>
+  <text x="255" y="118">RIGHT</text>
+
+  <text x="505" y="118">LEFT</text>
+  <text x="595" y="118">RIGHT</text>
+  <text x="505" y="178">LEFT</text>
+  <text x="595" y="178">RIGHT</text>
+  <text x="505" y="228">LEFT</text>
+  <text x="595" y="228">RIGHT</text>
+</g>
+
+<g filter="url(#shadow)">
+  <circle cx="165" cy="155" r="22" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="165" cy="155" r="18.92" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="165" cy="155" r="15.4" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="159.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="170.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="165" cy="162" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="255" cy="155" r="22" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="255" cy="155" r="18.92" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="255" cy="155" r="15.4" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="249.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="260.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="255" cy="162" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+
+  <circle cx="505" cy="95" r="20" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="505" cy="95" r="17.2" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="505" cy="95" r="14.0" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="499.5" cy="91.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="510.5" cy="91.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="505" cy="102" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="595" cy="95" r="20" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="595" cy="95" r="17.2" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="595" cy="95" r="14.0" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="589.5" cy="91.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="600.5" cy="91.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="595" cy="102" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+
+  <circle cx="505" cy="155" r="20" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="505" cy="155" r="17.2" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="505" cy="155" r="14.0" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="499.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="510.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="505" cy="162" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="595" cy="155" r="20" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="595" cy="155" r="17.2" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="595" cy="155" r="14.0" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="589.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="600.5" cy="151.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="595" cy="162" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+
+  <circle cx="505" cy="215" r="20" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="505" cy="215" r="17.2" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="505" cy="215" r="14.0" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="499.5" cy="211.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="510.5" cy="211.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="505" cy="222" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="595" cy="215" r="20" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/>
+<circle cx="595" cy="215" r="17.2" fill="#121314" stroke="#817d72" stroke-width=".8"/>
+<circle cx="595" cy="215" r="14.0" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/>
+<circle cx="589.5" cy="211.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="600.5" cy="211.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+<circle cx="595" cy="222" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+</g>
+
+<g id="liv010-crossover-color-coding" pointer-events="none">
+  <rect x="438" y="64" width="210" height="50" rx="9" fill="none" stroke="#68e3ff" stroke-width="3" opacity=".92"/>
+  <rect x="438" y="124" width="210" height="50" rx="9" fill="none" stroke="#91ee75" stroke-width="3" opacity=".92"/>
+  <rect x="438" y="184" width="210" height="50" rx="9" fill="none" stroke="#f1c75b" stroke-width="3" opacity=".92"/>
+
+  <text x="672" y="94" text-anchor="start"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="13" font-weight="900" fill="#68e3ff" stroke="#000" stroke-width=".8" paint-order="stroke">TO HIGH AMP</text>
+  <text x="672" y="154" text-anchor="start"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="13" font-weight="900" fill="#91ee75" stroke="#000" stroke-width=".8" paint-order="stroke">TO MID AMP</text>
+  <text x="672" y="214" text-anchor="start"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="13" font-weight="900" fill="#f1c75b" stroke="#000" stroke-width=".8" paint-order="stroke">TO LOW AMP</text>
+</g>
+
+</svg>
