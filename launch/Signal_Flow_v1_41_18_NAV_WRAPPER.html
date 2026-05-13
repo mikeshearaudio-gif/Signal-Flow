@@ -480,6 +480,16 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
         ? IR_RUNNER + '?level=' + encodeURIComponent(id) + '&display=' + encodeURIComponent(displayLabel(id))
         : GAME + '#/level/' + encodeURIComponent(id);
     }
+    function delegateToGameFrame(id){
+      if(IR_IDS.has(id)) return false;
+      try{
+        const win = frame.contentWindow;
+        if(win && typeof win.sfNativeGameShellLoadLevel === 'function'){
+          return win.sfNativeGameShellLoadLevel(id) !== false;
+        }
+      }catch{}
+      return false;
+    }
 
     function loadLevel(id){
       const clean = internalId(id);
@@ -492,7 +502,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
         if(Array.from(levelSelect.options).some(o => o.value === clean)) levelSelect.value = clean;
       }
       updateScore(0);
-      frame.src = routeFor(clean);
+      if(!delegateToGameFrame(clean)) frame.src = routeFor(clean);
     }
     function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=internalId(manualLevel.value); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
     envSelect.addEventListener('change',()=>{ populate(envSelect.value); manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
@@ -1258,6 +1268,20 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
     }
   }
 
+  function findInGameLoadButton() {
+    var buttons = Array.from(document.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']"));
+
+    return buttons.find(function(btn) {
+      if (!visible(btn)) return false;
+
+      var r = btn.getBoundingClientRect();
+      if (r.top <= 185) return false;
+
+      var text = (btn.textContent || btn.value || btn.getAttribute("aria-label") || "").trim();
+      return /^load board$/i.test(text) || /^load$/i.test(text);
+    }) || null;
+  }
+
   function loadGameLevel(targetId) {
     var target = normalizeLevelId(targetId);
     if (!target) return false;
@@ -1273,6 +1297,11 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
       found.select.dispatchEvent(new Event("change", { bubbles: true }));
 
       console.log("[Signal Flow] Native game shell changed in-game selector:", target);
+      var selectedLoadButton = findInGameLoadButton();
+      if (selectedLoadButton) {
+        selectedLoadButton.click();
+        console.log("[Signal Flow] Native game shell clicked in-game Load Board:", target);
+      }
       return true;
     }
 
@@ -1287,17 +1316,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
     }
 
     try {
-      var buttons = Array.from(document.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']"));
-
-      var loadButton = buttons.find(function(btn) {
-        if (!visible(btn)) return false;
-
-        var r = btn.getBoundingClientRect();
-        if (r.top <= 185) return false;
-
-        var text = (btn.textContent || btn.value || btn.getAttribute("aria-label") || "").trim();
-        return /^load board$/i.test(text) || /^load$/i.test(text);
-      });
+      var loadButton = findInGameLoadButton();
 
       if (loadButton) {
         loadButton.click();
