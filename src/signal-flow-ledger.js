@@ -188,10 +188,20 @@
         return state;
       }
 
-      if (cost > getAvailableCredits(state)) throw new Error('Not enough credits for reward purchase');
+      const availableCredits = getAvailableCredits(state);
+      const actualSpend = Math.max(0, Math.min(cost, availableCredits));
+      const budgetGrant = Math.max(0, cost - actualSpend);
 
-      state.spentCredits += cost;
-      level.creditsSpent += cost;
+      state.spentCredits += actualSpend;
+      level.creditsSpent += actualSpend;
+
+      if (budgetGrant > 0) {
+        state.budgetGrants = state.budgetGrants || 0;
+        level.budgetGrants = level.budgetGrants || 0;
+        state.budgetGrants += budgetGrant;
+        level.budgetGrants += budgetGrant;
+      }
+
       uniquePush(level.rewardPurchases, itemId);
 
       withHistory(state, event);

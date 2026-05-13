@@ -121,6 +121,17 @@ state = Ledger.dispatch(state, {
 assertStrictEqual(state.spentCredits, 30);
 assertStrictEqual(Ledger.getAvailableCredits(state), 20);
 
+
+state = Ledger.dispatch(state, {
+  type: 'REWARD_SPENT',
+  levelId: 'LIV-005',
+  itemId: 'large-room-grant-test',
+  cost: 999
+});
+
+assertStrictEqual(Ledger.getAvailableCredits(state), 0, 'overspend should use available credits without throwing');
+assertStrictEqual(state.levels['LIV-005'].budgetGrants > 0, true, 'overspend should record a budget grant');
+
 state = Ledger.dispatch(state, { type: 'HINT_USED', levelId: 'LIV-003' });
 state = Ledger.dispatch(state, { type: 'LEVEL_COMPLETED', levelId: 'LIV-003' });
 
