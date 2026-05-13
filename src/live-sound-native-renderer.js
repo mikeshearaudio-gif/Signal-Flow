@@ -324,6 +324,130 @@
     completedValidKeys: new Set()
   };
 
+  const SF_NATIVE_LEDGER_STORAGE_KEY = "signal-flow-native-ledger-v1";
+
+  function getNativeLedgerModule() {
+    if (typeof window === "undefined") return null;
+
+    if (window.SignalFlowLedger) return window.SignalFlowLedger;
+
+    try {
+      if (window.parent && window.parent !== window && window.parent.SignalFlowLedger) {
+        return window.parent.SignalFlowLedger;
+      }
+    } catch (err) {}
+
+    return null;
+  }
+
+  function getNativeLedgerState() {
+    const Ledger = getNativeLedgerModule();
+    if (!Ledger) return null;
+
+    if (window.sfSignalFlowLedgerState) {
+      return window.sfSignalFlowLedgerState;
+    }
+
+    try {
+      const raw = window.sessionStorage && window.sessionStorage.getItem(SF_NATIVE_LEDGER_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.version === Ledger.VERSION) {
+          window.sfSignalFlowLedgerState = parsed;
+          return parsed;
+        }
+      }
+    } catch (err) {}
+
+    window.sfSignalFlowLedgerState = Ledger.createInitialState({
+      environmentId: "live-sound",
+      currentLevelId: getLevelId() || activeNativeLevelId || LEVEL_ID || null
+    });
+
+    return window.sfSignalFlowLedgerState;
+  }
+
+  function saveNativeLedgerState(nextState) {
+    if (!nextState) return;
+
+    window.sfSignalFlowLedgerState = nextState;
+
+    try {
+      if (window.parent && window.parent !== window) {
+        window.parent.sfSignalFlowLedgerState = nextState;
+      }
+    } catch (err) {}
+
+    try {
+      if (window.sessionStorage) {
+        window.sessionStorage.setItem(SF_NATIVE_LEDGER_STORAGE_KEY, JSON.stringify(nextState));
+      }
+    } catch (err) {}
+  }
+
+  function dispatchNativeLedger(event) {
+    const Ledger = getNativeLedgerModule();
+    if (!Ledger) return null;
+
+    const currentState = getNativeLedgerState();
+    const levelId = event.levelId || getLevelId() || activeNativeLevelId || LEVEL_ID;
+
+    if (!levelId) return currentState;
+
+    const nextState = Ledger.dispatch(
+      currentState,
+      Object.assign({}, event, { levelId: levelId })
+    );
+
+    saveNativeLedgerState(nextState);
+
+    try {
+      console.log("[Signal Flow] Native ledger updated:", Ledger.summarize(nextState));
+    } catch (err) {}
+
+    return nextState;
+  }
+
+  function getNativeLedgerScore() {
+    const ledgerState = getNativeLedgerState();
+    if (!ledgerState) return null;
+
+    const score = Number(ledgerState.totalScore);
+    return Number.isFinite(score) ? score : null;
+  }
+
+  function dispatchNativeRouteCompleted(validRoute) {
+    if (!validRoute || !validRoute.key) return null;
+
+    const groupId = validRoute.stereoGroup || validRoute.key;
+    const requiredRouteIds = validRoute.stereoGroup
+      ? LEVEL.validRoutes
+          .filter(route => route.stereoGroup === validRoute.stereoGroup)
+          .map(route => route.key)
+      : [validRoute.key];
+
+    return dispatchNativeLedger({
+      type: "ROUTE_COMPLETED",
+      routeId: validRoute.key,
+      groupId: groupId,
+      requiredRouteIds: requiredRouteIds,
+      scoreValue: 100,
+      creditValue: 25
+    });
+  }
+
+  function dispatchNativeWrongAttempt(attemptId) {
+    if (!attemptId) return null;
+
+    return dispatchNativeLedger({
+      type: "ROUTE_ATTEMPTED",
+      routeId: attemptId,
+      attemptId: attemptId,
+      isCorrect: false,
+      penaltyValue: 50
+    });
+  }
+
   const NATIVE_LAYER_TOP = 58;
 
   const LEVEL = {
@@ -896,6 +1020,12 @@ if (activeNativeLevelId === nextLevelId) return;
         state.completedValidKeys.clear();
       }
     } catch (err) {}
+
+    try {
+      dispatchNativeLedger({ type: "LEVEL_STARTED", levelId: nextLevelId });
+    } catch (err) {
+      console.warn("[Signal Flow] Native ledger level start failed:", err);
+    }
 
     // Remove any old native layers/cables so a previous board cannot visually
     // carry routes into the next board.
@@ -2186,7 +2316,8 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function updateNativeScore() {
-    const score = state.completedValidKeys.size * 100;
+    const ledgerScore = getNativeLedgerScore();
+    const score = ledgerScore != null ? ledgerScore : state.completedValidKeys.size * 100;
 
     const roots = [document];
 
@@ -2267,9 +2398,11 @@ if (activeNativeLevelId === nextLevelId) return;
 
     if (valid) {
       state.completedValidKeys.add(valid.key);
+      dispatchNativeRouteCompleted(valid);
       markChecklist(valid.key);
       playGoodConnect();
     } else {
+      dispatchNativeWrongAttempt(key);
       playBadConnect();
       flashNode(fromNode);
       flashNode(toNode);

@@ -182,6 +182,12 @@
 
       if (!itemId) throw new Error('REWARD_SPENT requires itemId');
       if (cost < 0) throw new Error('REWARD_SPENT cost cannot be negative');
+
+      if (level.rewardPurchases.indexOf(itemId) !== -1) {
+        withHistory(state, event);
+        return state;
+      }
+
       if (cost > getAvailableCredits(state)) throw new Error('Not enough credits for reward purchase');
 
       state.spentCredits += cost;
