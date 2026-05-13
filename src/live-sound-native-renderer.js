@@ -325,6 +325,9 @@
   };
 
   const SF_NATIVE_LEDGER_STORAGE_KEY = "signal-flow-native-ledger-v1";
+  try {
+    window.sessionStorage && window.sessionStorage.removeItem(SF_NATIVE_LEDGER_STORAGE_KEY);
+  } catch (err) {}
 
   function getNativeLedgerModule() {
     if (typeof window === "undefined") return null;
@@ -349,13 +352,9 @@
     }
 
     try {
-      const raw = window.sessionStorage && window.sessionStorage.getItem(SF_NATIVE_LEDGER_STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed && parsed.version === Ledger.VERSION) {
-          window.sfSignalFlowLedgerState = parsed;
-          return parsed;
-        }
+      if (window.parent && window.parent !== window && window.parent.sfSignalFlowLedgerState) {
+        window.sfSignalFlowLedgerState = window.parent.sfSignalFlowLedgerState;
+        return window.sfSignalFlowLedgerState;
       }
     } catch (err) {}
 
@@ -375,12 +374,6 @@
     try {
       if (window.parent && window.parent !== window) {
         window.parent.sfSignalFlowLedgerState = nextState;
-      }
-    } catch (err) {}
-
-    try {
-      if (window.sessionStorage) {
-        window.sessionStorage.setItem(SF_NATIVE_LEDGER_STORAGE_KEY, JSON.stringify(nextState));
       }
     } catch (err) {}
   }
@@ -1037,7 +1030,7 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function syncActiveLevelSpec() {
-    const id = getLevelId();
+    const id = currentNativePatchLevelId();
     const spec = LIVE_NATIVE_PATCH_SPECS[id];
 
     if (!spec) return null;
@@ -1212,6 +1205,19 @@ if (activeNativeLevelId === nextLevelId) return;
       .find(value => /^LIV-\d+$/i.test(value));
 
     return selected || "";
+  }
+
+  function isNativePatchLevelId(levelId) {
+    return !!LIVE_NATIVE_PATCH_SPECS[String(levelId || "").toUpperCase()];
+  }
+
+  function currentNativePatchLevelId() {
+    const id = getLevelId();
+    return isNativePatchLevelId(id) ? id : "";
+  }
+
+  function isNativePatchBoardActive() {
+    return !!currentNativePatchLevelId() && !document.querySelector('[data-training-panel], .quiz-panel, .inline-room-build');
   }
 
   function hardwareAssetFor(kind) {
@@ -3549,6 +3555,7 @@ if (activeNativeLevelId === nextLevelId) return;
       return;
     }
 
+    if (!isNativePatchBoardActive()) return;
     if (!syncActiveLevelSpec() || !nativeVisible) return;
 
     const surface = findSurface();
@@ -3584,6 +3591,7 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function clearNative() {
+    if (!isNativePatchBoardActive()) return;
     resetNativeLevelComplete();
     state.routes = [];
     state.completedValidKeys.clear();
@@ -3647,8 +3655,14 @@ if (activeNativeLevelId === nextLevelId) return;
 }
 
   window.addEventListener("hashchange", () => {
-    clearNative();
+    if (!currentNativePatchLevelId()) {
+      nativeVisible = false;
+      unmountNative();
+      return;
+    }
+
     nativeVisible = true;
+    clearNative();
     boot();
   });
 
@@ -3670,6 +3684,8 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   document.addEventListener("click", event => {
+    if (!isNativePatchBoardActive()) return;
+
     // Never interpret native board/source/jack/cable clicks as header controls.
     if (event.target && event.target.closest && event.target.closest(".sf-live-native-layer")) {
       return;

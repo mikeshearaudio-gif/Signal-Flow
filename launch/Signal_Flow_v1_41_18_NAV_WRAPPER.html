@@ -930,6 +930,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
     doc.querySelectorAll(".sf-scroll-cue").forEach(function(el) {
       el.remove();
     });
+    if (doc.querySelector('[data-training-panel="quiz"]')) return 0;
 
     var count = 0;
     var candidates = findScrollableCandidates(doc);
@@ -939,6 +940,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
 
       var r = rectFor(el, doc, win);
       if (!visibleRect(r)) return;
+      if (el.closest && el.closest('[data-training-panel="quiz"], .sfv182-quiz-board, .sfv189-quiz-direct')) return;
 
       var maxY = maxScrollY(el, doc, win);
       var maxX = maxScrollX(el, doc, win);
@@ -1303,6 +1305,16 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
         console.log("[Signal Flow] Native game shell clicked in-game Load Board:", target);
       }
       return true;
+    }
+
+    try {
+      if (typeof navigateTo === "function") {
+        navigateTo("/level/" + encodeURIComponent(target));
+        console.log("[Signal Flow] Native game shell routed level:", target);
+        return true;
+      }
+    } catch (err) {
+      console.warn("[Signal Flow] Native game shell route failed:", err);
     }
 
     try {
