@@ -295,8 +295,8 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
   left: 0 !important;
   top: 0 !important;
   right: 0 !important;
-  min-height: 1500px !important;
-  height: 1500px !important;
+  min-height: var(--sf-liv010-board-height, 2300px) !important;
+  height: var(--sf-liv010-board-height, 2300px) !important;
   overflow: visible !important;
   background:
     radial-gradient(circle at 25% 18%, rgba(41, 126, 93, 0.13) 0%, rgba(41, 126, 93, 0.06) 22%, rgba(0, 0, 0, 0) 46%),
@@ -315,7 +315,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
   position: relative !important;
   display: block !important;
   width: 1px !important;
-  min-height: 1500px !important;
+  min-height: var(--sf-liv010-board-height, 2300px) !important;
   opacity: 0 !important;
   pointer-events: none !important;
 }
@@ -337,7 +337,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
       <button id="homeBtn" type="button" class="secondary">Splash</button>
       <span class="sf-score" id="scoreReadout">Score: 0</span>
       <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
-      <div class="sf-hint">v1.41.18 distributed IR wrapper</div>
+      <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r206</div>
     </nav>
     <main class="sf-frame-wrap"><iframe id="gameFrame" title="Signal Flow Game"></iframe></main>
   </div>

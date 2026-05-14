@@ -1,0 +1,394 @@
+/* Signal Flow Diagnosis Universal GUI v6r207
+   Visual/animation layer only. Preserves existing question/answer/next/scoring logic. */
+:root {
+  --sfdiag-ink: #fff8df;
+  --sfdiag-paper: #f4dfb8;
+  --sfdiag-amber: #ffd76a;
+  --sfdiag-green: #8dfc49;
+  --sfdiag-blue: #45c8ff;
+  --sfdiag-red: #ff4a4a;
+  --sfdiag-panel: rgba(8, 10, 10, .92);
+}
+
+main.sfdiag-ui-active {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(61, 114, 79, .20), transparent 42%),
+    radial-gradient(circle at 86% 18%, rgba(27, 88, 129, .16), transparent 30%),
+    linear-gradient(180deg, #060503 0%, #0a0805 42%, #050403 100%) !important;
+  color: var(--sfdiag-ink) !important;
+  overflow: hidden !important;
+}
+
+main.sfdiag-ui-active .game-header {
+  background: linear-gradient(180deg, rgba(2,2,2,.98), rgba(9,9,8,.96)) !important;
+  border-bottom: 1px solid rgba(255, 215, 106, .18) !important;
+  box-shadow: 0 14px 26px rgba(0,0,0,.45) !important;
+}
+main.sfdiag-ui-active .game-title h1 { color:#fff7df !important; text-shadow: 0 1px 0 rgba(0,0,0,.75); }
+main.sfdiag-ui-active .game-title p,
+main.sfdiag-ui-active .game-title .eyebrow { color:#6dd8ff !important; letter-spacing:.16em !important; font-weight:900 !important; }
+
+main.sfdiag-ui-active .training-stage-shell {
+  height: calc(100vh - 92px) !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-columns: minmax(280px, 360px) minmax(0, 1fr) !important;
+  gap: 14px !important;
+  padding: 14px !important;
+  overflow: hidden !important;
+  background: linear-gradient(90deg, rgba(0,0,0,.24), transparent 16%, transparent 84%, rgba(0,0,0,.28)) !important;
+}
+
+main.sfdiag-ui-active .training-only-side,
+main.sfdiag-ui-active aside.panel {
+  border-radius: 18px !important;
+  background: linear-gradient(180deg, rgba(18, 13, 9, .93), rgba(5, 4, 3, .98)) !important;
+  border: 1px solid rgba(255, 215, 106, .20) !important;
+  box-shadow: inset 0 0 34px rgba(255,215,106,.06), 0 18px 40px rgba(0,0,0,.42) !important;
+  overflow: hidden !important;
+}
+main.sfdiag-ui-active .training-only-side .mission-note,
+main.sfdiag-ui-active .compact-mission,
+main.sfdiag-ui-active .mission-note {
+  background: linear-gradient(180deg, #96cf5b, #75b846) !important;
+  color: #11190b !important;
+  border: 1px solid rgba(255,255,255,.34) !important;
+  box-shadow: inset 0 0 18px rgba(255,255,255,.22), 0 12px 24px rgba(0,0,0,.25) !important;
+}
+main.sfdiag-ui-active .training-only-side .mission-note h2,
+main.sfdiag-ui-active .training-only-side .mission-note p,
+main.sfdiag-ui-active .training-only-side .mission-note .eyebrow { color:#101608 !important; }
+
+main.sfdiag-ui-active .sfdiag-board-shell,
+main.sfdiag-ui-active .training-only-board,
+main.sfdiag-ui-active .board-card,
+main.sfdiag-ui-active .sfv182-quiz-board {
+  position: relative !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  background:
+    linear-gradient(180deg, rgba(24, 16, 11, .78), rgba(8, 6, 5, .95)) !important;
+  box-shadow: inset 0 0 80px rgba(0,0,0,.40), 0 18px 46px rgba(0,0,0,.45) !important;
+  display: grid !important;
+  grid-template-columns: minmax(220px, 270px) minmax(520px, 1fr) minmax(310px, 420px) !important;
+  grid-template-rows: minmax(0, 1fr) 52px !important;
+  gap: 10px !important;
+  padding: 12px 12px 10px !important;
+}
+
+.sfdiag-lab-left,
+.sfdiag-lab-right,
+.sfdiag-workflow-rail {
+  position: relative;
+  pointer-events: none !important;
+  z-index: 1;
+}
+.sfdiag-lab-left *, .sfdiag-lab-right *, .sfdiag-workflow-rail * { pointer-events:none !important; }
+.sfdiag-lab-left { grid-column:1; grid-row:1; display:grid; gap:9px; align-content:start; min-width:0; }
+.sfdiag-lab-right { grid-column:3; grid-row:1; display:grid; gap:9px; align-content:start; min-width:0; }
+.sfdiag-workflow-rail { grid-column:1 / -1; grid-row:2; }
+
+/* Preserve existing playable UI: this is the real question/answer/next layer. */
+main.sfdiag-ui-active .sfdiag-clipboard-panel,
+main.sfdiag-ui-active .training-level-panel.sfdiag-clipboard-panel,
+main.sfdiag-ui-active [data-training-panel].sfdiag-clipboard-panel,
+main.sfdiag-ui-active .sfv182-quiz-popover.sfdiag-clipboard-panel,
+main.sfdiag-ui-active .quiz-panel.sfdiag-clipboard-panel,
+main.sfdiag-ui-active .diagnose-panel.sfdiag-clipboard-panel {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: stretch !important;
+  justify-self: stretch !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: auto !important;
+  pointer-events: auto !important;
+  border-radius: 22px !important;
+  border: 0 !important;
+  padding: clamp(22px, 2.2vw, 36px) clamp(24px, 2.7vw, 44px) !important;
+  background:
+    url('/assets/diagnosis/svg/overlays/paper-coffee-ring.svg') right 14% bottom 12% / 170px auto no-repeat,
+    linear-gradient(180deg, rgba(255,247,222,.97), rgba(237,216,177,.99)) !important;
+  color: #1c130b !important;
+  box-shadow:
+    0 0 0 10px rgba(92, 56, 25, .48),
+    0 0 0 14px rgba(213, 158, 85, .24),
+    0 26px 60px rgba(0,0,0,.42),
+    inset 0 0 0 1px rgba(255,255,255,.55) !important;
+  font-family: "Comic Sans MS", "Marker Felt", "Bradley Hand", system-ui, sans-serif !important;
+}
+main.sfdiag-ui-active .sfdiag-clipboard-panel * { pointer-events:auto; }
+main.sfdiag-ui-active .sfdiag-clipboard-panel::before {
+  content: "";
+  position: sticky;
+  top: -30px;
+  display:block;
+  width: 230px;
+  height: 72px;
+  margin: -24px auto 6px;
+  background: url('/assets/diagnosis/svg/hardware/question-board-frame.svg') center/contain no-repeat;
+  filter: drop-shadow(0 8px 8px rgba(0,0,0,.34));
+  pointer-events:none !important;
+  z-index: 2;
+}
+
+/* Important: old v175 diagnosis template has its own decorative columns. Universal lab replaces them. */
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-diagnose-stage {
+  display: block !important;
+  grid-template-columns: none !important;
+  min-height: 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-diagnose-left,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-diagnose-right,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-side-device {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv174-clipboard,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-clipboard {
+  display:block !important;
+  width:100% !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  color:#1c130b !important;
+}
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv174-clipboard::before,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-clipboard::before,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv174-clipboard-clip,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-clipboard-clip {
+  display:none !important;
+}
+
+main.sfdiag-ui-active .sfv173-quiz-head,
+main.sfdiag-ui-active .sfv183-quiz-head,
+main.sfdiag-ui-active .sfdiag-clipboard-panel > .eyebrow,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .eyebrow {
+  text-align:center !important;
+  color:#17100b !important;
+}
+main.sfdiag-ui-active .sfv173-quiz-head .eyebrow,
+main.sfdiag-ui-active .sfv183-quiz-head .eyebrow,
+main.sfdiag-ui-active .sfdiag-clipboard-panel > .eyebrow {
+  display:block !important;
+  background: transparent !important;
+  color:#14100c !important;
+  font-size: clamp(1.75rem, 3vw, 3.1rem) !important;
+  line-height:1 !important;
+  letter-spacing: .02em !important;
+  text-transform: none !important;
+  font-weight: 900 !important;
+  margin: 0 0 12px !important;
+}
+main.sfdiag-ui-active .sfv173-quiz-head .eyebrow::before,
+main.sfdiag-ui-active .sfv183-quiz-head .eyebrow::before,
+main.sfdiag-ui-active .sfdiag-clipboard-panel > .eyebrow::before { content:"Diagnosis Check"; }
+main.sfdiag-ui-active .sfv173-quiz-head .eyebrow,
+main.sfdiag-ui-active .sfv183-quiz-head .eyebrow,
+main.sfdiag-ui-active .sfdiag-clipboard-panel > .eyebrow { font-size:0 !important; }
+main.sfdiag-ui-active .sfv173-quiz-head .eyebrow::before,
+main.sfdiag-ui-active .sfv183-quiz-head .eyebrow::before,
+main.sfdiag-ui-active .sfdiag-clipboard-panel > .eyebrow::before { font-size:clamp(1.75rem,3vw,3.1rem) !important; }
+
+main.sfdiag-ui-active .sfv183-question-count,
+main.sfdiag-ui-active .sfv164-quiz-progress,
+main.sfdiag-ui-active .sfv173-quiz-head span,
+main.sfdiag-ui-active .sfv183-quiz-head span {
+  color:#2a2116 !important;
+  font-weight:900 !important;
+  font-size: clamp(.95rem, 1.4vw, 1.3rem) !important;
+}
+main.sfdiag-ui-active .sfv183-card-back,
+main.sfdiag-ui-active .sfv183-flip-inner,
+main.sfdiag-ui-active .sfv183-flip-card {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  transform:none !important;
+}
+main.sfdiag-ui-active .sfv183-card-back {
+  display:block !important;
+  position:relative !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  overflow:visible !important;
+}
+main.sfdiag-ui-active .sfv183-card-front { display:none !important; }
+main.sfdiag-ui-active .sfv183-question,
+main.sfdiag-ui-active .sfv183-card-back h3,
+main.sfdiag-ui-active .sfv183-card-back p:first-child,
+main.sfdiag-ui-active .sfdiag-clipboard-panel strong {
+  color:#24150d !important;
+  font-size: clamp(1.18rem, 1.8vw, 1.72rem) !important;
+  line-height: 1.32 !important;
+  font-weight: 900 !important;
+  text-align:left !important;
+}
+main.sfdiag-ui-active .sfv183-answer-list,
+main.sfdiag-ui-active .inline-diagnose-list,
+main.sfdiag-ui-active .inline-quiz-list,
+main.sfdiag-ui-active .sfv175-diagnose-list {
+  display:grid !important;
+  grid-template-columns:1fr !important;
+  gap:12px !important;
+  margin:16px 0 !important;
+  padding:0 0 22px !important;
+}
+main.sfdiag-ui-active .quiz-answer,
+main.sfdiag-ui-active .sfv183-answer,
+main.sfdiag-ui-active .diagnose-patch,
+main.sfdiag-ui-active .inline-diagnose,
+main.sfdiag-ui-active .inline-quiz {
+  position:relative !important;
+  z-index:12 !important;
+  pointer-events:auto !important;
+  background: linear-gradient(180deg, #f4dc99, #e8c779) !important;
+  color:#251509 !important;
+  border: 1px solid rgba(117,74,23,.22) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 5px 10px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.48) !important;
+  font-family: "Comic Sans MS", "Marker Felt", "Bradley Hand", system-ui, sans-serif !important;
+  font-size: clamp(1.05rem, 1.6vw, 1.55rem) !important;
+  font-weight: 900 !important;
+  min-height: 54px !important;
+  padding: 10px 18px !important;
+}
+main.sfdiag-ui-active .quiz-answer span,
+main.sfdiag-ui-active .sfv183-answer span,
+main.sfdiag-ui-active .sfv183-answer b,
+main.sfdiag-ui-active .diagnose-patch span {
+  color:#b9312b !important;
+  font-weight:1000 !important;
+  font-size:1.15em !important;
+}
+main.sfdiag-ui-active .quiz-answer.correct,
+main.sfdiag-ui-active .quiz-answer.selected[data-correct="true"],
+main.sfdiag-ui-active .diagnose-patch.selected[data-ok="false"] {
+  outline: 3px solid rgba(73, 187, 83, .85) !important;
+}
+main.sfdiag-ui-active .quiz-answer.wrong,
+main.sfdiag-ui-active .quiz-answer.selected[data-correct="false"],
+main.sfdiag-ui-active .diagnose-patch.selected[data-ok="true"] {
+  outline: 3px solid rgba(240, 66, 66, .85) !important;
+}
+main.sfdiag-ui-active .primary,
+main.sfdiag-ui-active button.primary,
+main.sfdiag-ui-active #nextQuestionBtn,
+main.sfdiag-ui-active .sfv183-next-question {
+  position:relative !important;
+  z-index:14 !important;
+  pointer-events:auto !important;
+  background: linear-gradient(180deg, #1a6d91, #073653) !important;
+  color:#fff7df !important;
+  border: 2px solid rgba(125,211,252,.65) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 9px 20px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.28) !important;
+}
+
+.sfdiag-card,
+.sfdiag-prop,
+.sfdiag-animated-monitor {
+  position: relative;
+  border-radius: 12px;
+  overflow:hidden;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 8px 20px rgba(0,0,0,.38), inset 0 0 18px rgba(255,255,255,.035);
+}
+.sfdiag-card img,
+.sfdiag-prop img { display:block; width:100%; height:auto; }
+.sfdiag-neon { filter: drop-shadow(0 0 16px rgba(63,206,255,.42)); animation: sfdiagNeon 3.2s ease-in-out infinite; }
+
+/* Animated monitor replacements: no static monitor image underneath. */
+.sfdiag-animated-monitor { min-height: 100px; background:linear-gradient(180deg,#1a1713,#070706); padding:8px; }
+.sfdiag-monitor-bezel { position:relative; height:100%; min-height:92px; border-radius:10px; background:linear-gradient(180deg,#151515,#050505); border:1px solid rgba(255,215,106,.22); box-shadow:inset 0 0 16px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.12); padding:22px 10px 10px; }
+.sfdiag-monitor-title { position:absolute; left:12px; top:7px; right:10px; color:#c9d0c4; font-size:.66rem; font-weight:950; letter-spacing:.08em; text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; }
+.sfdiag-monitor-title b { color:#ffd76a; font-size:.72rem; }
+.sfdiag-monitor-screen { position:relative; min-height:72px; border-radius:6px; background:linear-gradient(180deg,#020707,#090f0d); border:1px solid rgba(141,252,73,.12); overflow:hidden; box-shadow:inset 0 0 22px rgba(0,0,0,.9); }
+.sfdiag-monitor-screen::before { content:""; position:absolute; inset:0; background:linear-gradient(transparent 0 48%, rgba(255,255,255,.035) 50%, transparent 52%); background-size:100% 8px; opacity:.28; pointer-events:none; }
+.sfdiag-vitals-monitor .sfdiag-monitor-screen { min-height:82px; }
+.sfdiag-ecg { position:absolute; inset:12px 50px 10px 8px; }
+.sfdiag-ecg svg { width:100%; height:100%; overflow:visible; }
+.sfdiag-ecg path { fill:none; stroke: var(--sfdiag-green); stroke-width: 4; stroke-linecap:round; stroke-linejoin:round; filter: drop-shadow(0 0 6px rgba(141,252,73,.8)); stroke-dasharray: 420; animation: sfdiagTrace 1.35s linear infinite; }
+.sfdiag-heart-rate { position:absolute; right:10px; bottom:12px; color: var(--sfdiag-green); font-weight:1000; font-size: clamp(1rem,1.8vw,1.55rem); text-shadow:0 0 8px rgba(141,252,73,.7); display:grid; line-height:.9; text-align:right; }
+.sfdiag-heart-rate small { font-size:.55rem; }
+.sfdiag-row-label { color:#bcae9a; font-size:.58rem; font-weight:950; margin:5px 0 2px; }
+.sfdiag-meter-row { display:flex; align-items:end; gap:2px; height:18px; }
+.sfdiag-meter-row span { flex:1; min-width:3px; border-radius:1px; background:linear-gradient(180deg,#ff4040 0 18%,#ffd83d 18% 45%,#8dfc49 45%); animation: sfdiagMeter 1s ease-in-out infinite alternate; opacity:.88; transform-origin:bottom; }
+.sfdiag-analyzer-layer,
+.sfdiag-spectrum-layer { position:absolute; inset:10px; display:flex; align-items:end; gap:2px; }
+.sfdiag-analyzer-layer span,
+.sfdiag-spectrum-layer span { flex:1; min-width:2px; border-radius:2px 2px 0 0; transform-origin:bottom; animation: sfdiagAnalyzer 1.4s ease-in-out infinite alternate; }
+.sfdiag-analyzer-layer span { background:linear-gradient(180deg,#69d2ff,#0577ff); box-shadow:0 0 5px rgba(67,166,255,.55); }
+.sfdiag-spectrum-layer span { background:linear-gradient(180deg,#9aff4b,#24a51f); box-shadow:0 0 5px rgba(77,255,61,.55); }
+.sfdiag-spectrum-monitor .sfdiag-monitor-screen { min-height:118px; background-image: linear-gradient(rgba(141,252,73,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(141,252,73,.08) 1px, transparent 1px); background-size: 24px 20px; }
+.sfdiag-patch-tester-screen { position:relative; min-height:82px; display:grid; grid-template-columns:64px 1fr 64px 1fr 64px 30px; align-items:center; gap:8px; color:#d2c2a8; }
+.sfdiag-jack { display:grid; place-items:center; width:44px; height:44px; border-radius:999px; background:radial-gradient(circle,#0a0a08 0 42%,#9d7a46 43% 47%,#17110a 48%); border:1px solid rgba(255,215,106,.32); font-size:.48rem; font-weight:950; padding-top:48px; }
+.sfdiag-dotline { height:0; border-top:4px dotted #8a7b45; filter: drop-shadow(0 0 4px rgba(255,215,106,.2)); animation: sfdiagSignal 1.1s linear infinite; }
+.sfdiag-mini-led { width:18px; height:18px; border-radius:999px; background:#4c3a18; box-shadow:inset 0 0 8px rgba(0,0,0,.8); }
+.sfdiag-state-neutral [data-sfdiag-patch-state] { color:#ffd76a; }
+.sfdiag-state-neutral .sfdiag-dotline { border-color:#8a7b45; }
+.sfdiag-state-pass [data-sfdiag-patch-state] { color:#8dfc49; text-shadow:0 0 6px rgba(141,252,73,.75); }
+.sfdiag-state-pass .sfdiag-dotline { border-color:#75ff45; filter: drop-shadow(0 0 7px rgba(117,255,69,.75)); }
+.sfdiag-state-pass .sfdiag-mini-led { background:#8dfc49; box-shadow:0 0 12px rgba(141,252,73,.8); }
+.sfdiag-state-fail [data-sfdiag-patch-state] { color:#ff6b6b; text-shadow:0 0 6px rgba(255,74,74,.75); }
+.sfdiag-state-fail .sfdiag-dotline { border-color:#ff5555; filter: drop-shadow(0 0 7px rgba(255,74,74,.75)); }
+.sfdiag-state-fail .sfdiag-mini-led { background:#ff4a4a; box-shadow:0 0 12px rgba(255,74,74,.8); }
+.sfdiag-right-bottom { display:grid; grid-template-columns:116px minmax(0,1fr); gap:8px; align-items:end; }
+.sfdiag-overall-meter { min-height:220px; }
+.sfdiag-level-body { display:grid; grid-template-columns:1fr 1fr 34px; gap:8px; height:178px; align-items:end; }
+.sfdiag-level-column { display:flex; flex-direction:column-reverse; gap:2px; height:100%; }
+.sfdiag-level-column span { height:5px; border-radius:2px; background:#214020; opacity:.45; }
+.sfdiag-level-column span:nth-child(n+4):nth-child(-n+18) { background:linear-gradient(90deg,#49ff3d,#f6d348,#ff3f3f); opacity:1; box-shadow:0 0 4px rgba(118,255,70,.62); animation: sfdiagLevel 1.25s ease-in-out infinite alternate; }
+.sfdiag-level-body ol { list-style:none; margin:0; padding:0; color:#c5b69f; font-size:.62rem; display:grid; height:100%; align-content:space-between; }
+.sfdiag-prop-row { display:grid; grid-template-columns: 1fr .64fr; gap:9px; align-items:end; }
+.sfdiag-cart-stack { display:grid; grid-template-columns:1fr 78px; gap:8px; align-items:end; }
+.sfdiag-trash { align-self:end; }
+.sfdiag-lamp { position:absolute; right: 0; top: 0; width: 104px; opacity:.95; transform: translate(18%, -18%); filter: drop-shadow(0 8px 12px rgba(0,0,0,.45)); }
+.sfdiag-workflow-rail { display:grid; align-items:center; min-height: 48px; border-radius:10px; background:linear-gradient(180deg, rgba(19,17,13,.96), rgba(8,7,5,.96)); border:1px solid rgba(255,215,106,.18); overflow:hidden; box-shadow: inset 0 0 18px rgba(255,215,106,.04); }
+.sfdiag-workflow-inner { display:grid; grid-template-columns:repeat(6,1fr); align-items:center; color:rgba(255,255,255,.40); font-weight:900; font-size:.92rem; }
+.sfdiag-workflow-inner span { display:flex; align-items:center; justify-content:center; gap:8px; min-height:44px; border-right:1px solid rgba(255,255,255,.08); }
+.sfdiag-workflow-inner span:first-child { color:#ffd76a; text-shadow:0 0 10px rgba(255,215,106,.55); }
+.sfdiag-workflow-inner b { width:10px; height:10px; border-radius:999px; background:#ffdf74; box-shadow:0 0 14px #ffdf74; }
+@keyframes sfdiagTrace { from { stroke-dashoffset: 420; } to { stroke-dashoffset: 0; } }
+@keyframes sfdiagMeter { from { transform:scaleY(.28); } to { transform:scaleY(1); } }
+@keyframes sfdiagAnalyzer { from { transform:scaleY(.18); opacity:.72; } to { transform:scaleY(1); opacity:1; } }
+@keyframes sfdiagNeon { 0%,100%{opacity:.95} 7%{opacity:.65} 9%{opacity:1} 64%{opacity:.88} 67%{opacity:1} }
+@keyframes sfdiagSignal { from { transform:translateX(-8px); } to { transform:translateX(8px); } }
+@keyframes sfdiagLevel { from { opacity:.42; } to { opacity:1; } }
+@media (max-width: 1320px) {
+  main.sfdiag-ui-active .sfdiag-board-shell,
+  main.sfdiag-ui-active .training-only-board,
+  main.sfdiag-ui-active .board-card,
+  main.sfdiag-ui-active .sfv182-quiz-board { grid-template-columns: 220px minmax(430px, 1fr) 310px !important; gap:8px !important; }
+  main.sfdiag-ui-active .training-stage-shell { grid-template-columns: 300px minmax(0, 1fr) !important; padding:10px !important; }
+  .sfdiag-card, .sfdiag-animated-monitor, .sfdiag-prop { border-radius:9px; }
+}
+@media (max-width: 1050px) {
+  main.sfdiag-ui-active { overflow:auto !important; }
+  main.sfdiag-ui-active .training-stage-shell { height:auto !important; grid-template-columns:1fr !important; overflow:visible !important; }
+  main.sfdiag-ui-active .sfdiag-board-shell,
+  main.sfdiag-ui-active .training-only-board,
+  main.sfdiag-ui-active .board-card,
+  main.sfdiag-ui-active .sfv182-quiz-board { height:auto !important; grid-template-columns:1fr !important; grid-template-rows:auto !important; overflow:visible !important; }
+  .sfdiag-lab-left, .sfdiag-lab-right, .sfdiag-workflow-rail, main.sfdiag-ui-active .sfdiag-clipboard-panel { grid-column:1 !important; grid-row:auto !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sfdiag-ui-active * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
