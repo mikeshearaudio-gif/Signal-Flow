@@ -1,4 +1,4 @@
-/* Signal Flow Diagnosis Universal GUI v6r207
+/* Signal Flow Diagnosis Universal GUI v6r208
    Visual/animation layer only. Preserves existing question/answer/next/scoring logic. */
 :root {
   --sfdiag-ink: #fff8df;
@@ -391,4 +391,101 @@ main.sfdiag-ui-active .sfv183-next-question {
 }
 @media (prefers-reduced-motion: reduce) {
   .sfdiag-ui-active * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
+
+
+/* v6r208 markup fixes from annotated mockup:
+   - delete the small generated clipboard tab/label
+   - move clipboard content down
+   - move right diagnostic monitors down
+   - make animated monitor displays visible; no stagnant monitor image overlays */
+main.sfdiag-ui-active .sfdiag-clipboard-panel::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+}
+
+main.sfdiag-ui-active .sfdiag-clipboard-panel,
+main.sfdiag-ui-active .training-level-panel.sfdiag-clipboard-panel,
+main.sfdiag-ui-active [data-training-panel].sfdiag-clipboard-panel,
+main.sfdiag-ui-active .sfv182-quiz-popover.sfdiag-clipboard-panel,
+main.sfdiag-ui-active .quiz-panel.sfdiag-clipboard-panel,
+main.sfdiag-ui-active .diagnose-panel.sfdiag-clipboard-panel {
+  padding-top: clamp(54px, 5.2vw, 84px) !important;
+}
+
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv175-clipboard,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv174-clipboard,
+main.sfdiag-ui-active .sfdiag-clipboard-panel .sfv183-card-back,
+main.sfdiag-ui-active .sfdiag-clipboard-panel [data-training-panel="diagnose"],
+main.sfdiag-ui-active .sfdiag-clipboard-panel [data-training-panel="quiz"] {
+  margin-top: 0 !important;
+}
+
+.sfdiag-lab-right {
+  padding-top: clamp(38px, 4.2vw, 72px) !important;
+  align-content: start !important;
+}
+
+.sfdiag-lab-right .sfdiag-neon {
+  margin-bottom: 4px !important;
+}
+
+.sfdiag-lab-right .sfdiag-patch-tester,
+.sfdiag-lab-right .sfdiag-spectrum-monitor {
+  margin-top: 6px !important;
+}
+
+/* Delete any leftover static monitor images in the universal lab if old assets were inserted by a previous pass. */
+.sfdiag-lab-left img[src*="monitors/"],
+.sfdiag-lab-right img[src*="monitors/"],
+.sfdiag-lab-left img[src*="side-monitor-frame"],
+.sfdiag-lab-right img[src*="side-monitor-frame"],
+.sfdiag-lab-left img[src*="signal-flow-patch-tester"],
+.sfdiag-lab-right img[src*="signal-flow-patch-tester"],
+.sfdiag-lab-left img[src*="spectrum-view"],
+.sfdiag-lab-right img[src*="spectrum-view"],
+.sfdiag-lab-left img[src*="overall-level-meter"],
+.sfdiag-lab-right img[src*="overall-level-meter"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Make the CSS/HTML animated displays visibly replace static monitor art. */
+.sfdiag-analyzer-layer span,
+.sfdiag-spectrum-layer span {
+  display: block !important;
+  height: calc(16% + (var(--i, 1) % 11) * 7%) !important;
+  opacity: .9 !important;
+}
+
+.sfdiag-spectrum-layer span:nth-child(3n),
+.sfdiag-analyzer-layer span:nth-child(4n) {
+  height: 72% !important;
+}
+.sfdiag-spectrum-layer span:nth-child(5n),
+.sfdiag-analyzer-layer span:nth-child(7n) {
+  height: 46% !important;
+}
+.sfdiag-spectrum-layer span:nth-child(8n),
+.sfdiag-analyzer-layer span:nth-child(9n) {
+  height: 86% !important;
+}
+
+.sfdiag-spectrum-monitor .sfdiag-monitor-screen,
+.sfdiag-audio-analyzer-monitor .sfdiag-monitor-screen {
+  background-color: #020706 !important;
+}
+
+.sfdiag-patch-tester .sfdiag-monitor-title b {
+  min-width: 48px !important;
+  text-align: right !important;
+}
+
+@media (max-width: 1320px) {
+  .sfdiag-lab-right { padding-top: 34px !important; }
+  main.sfdiag-ui-active .sfdiag-clipboard-panel { padding-top: 48px !important; }
 }

@@ -1,8 +1,8 @@
-// Signal Flow Diagnosis Universal GUI v6r207
+// Signal Flow Diagnosis Universal GUI v6r208
 // Visual/animation layer only: preserves existing question, answers, next-question behavior, scoring, timer, completion, and navigation.
 (function(){
   'use strict';
-  const VERSION = '6r207';
+  const VERSION = '6r208';
   const ASSET = '/assets/diagnosis/svg/';
 
   function qs(sel, root=document){ return root.querySelector(sel); }
@@ -81,6 +81,16 @@
         <div class="sfdiag-level-body"><div class="sfdiag-level-column">${bars(26)}</div><div class="sfdiag-level-column">${bars(26)}</div><ol><li>0</li><li>-6</li><li>-12</li><li>-18</li><li>-24</li><li>-36</li><li>-48</li><li>-60</li></ol></div>
       </div>
     </div>`;
+  }
+
+
+  function removeStagnantDiagnosisMonitorImages(root=document){
+    qsa('[data-sfdiag-decorator] img', root).forEach(img => {
+      const src = String(img.getAttribute('src') || img.src || '');
+      if(/monitors\/|side-monitor-frame|signal-flow-patch-tester|spectrum-view|overall-level-meter|insert-path-monitor|audio-analyzer/i.test(src)){
+        img.remove();
+      }
+    });
   }
 
   function labLeftHtml(){
@@ -174,6 +184,7 @@
     if(!qs('[data-sfdiag-decorator="left"]', board)) board.insertAdjacentHTML('afterbegin', labLeftHtml());
     if(!qs('[data-sfdiag-decorator="right"]', board)) board.insertAdjacentHTML('beforeend', labRightHtml());
     if(!qs('[data-sfdiag-decorator="workflow"]', board)) board.insertAdjacentHTML('beforeend', workflowHtml());
+    removeStagnantDiagnosisMonitorImages(board);
 
     // Old diagnosis side devices live inside the original panel. The universal lab replaces them,
     // but the original playable center column must stay visible and clickable.
