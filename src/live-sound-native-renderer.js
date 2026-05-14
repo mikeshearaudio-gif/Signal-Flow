@@ -786,10 +786,19 @@
     },
     "LIV-009": {
       id: "LIV-009",
-      title: "Keyboard Stereo Inputs",
-      processorLabel: "",
-      panelKinds: ["stagebox"],
-      sourceOrder: ["keys-left-di", "keys-right-di"],
+      title: "Drum Kit Stage Inputs",
+      processorLabel: "DRUM INPUTS",
+      panelKinds: ["stagebox", "foh"],
+      sourceOrder: [
+        "kick",
+        "snare",
+        "hi-hat",
+        "high-rack-tom",
+        "low-rack-tom",
+        "floor-tom",
+        "overhead-left-crash",
+        "overhead-right-ride"
+      ],
       generatedJackKeys: [
         "stagebox-input-1",
         "stagebox-input-2",
@@ -811,19 +820,55 @@
       ],
       validRoutes: [
         {
-          key: "keys-l-di-to-stagebox-input-7",
-          from: "keys-left-di",
+          key: "kick-to-stagebox-input-1",
+          from: "kick",
+          to: "stagebox-input-1",
+          checklist: "Kick → Stage Box Input 1"
+        },
+        {
+          key: "snare-to-stagebox-input-2",
+          from: "snare",
+          to: "stagebox-input-2",
+          checklist: "Snare → Stage Box Input 2"
+        },
+        {
+          key: "hi-hat-to-stagebox-input-3",
+          from: "hi-hat",
+          to: "stagebox-input-3",
+          checklist: "Hi-hat → Stage Box Input 3"
+        },
+        {
+          key: "high-rack-tom-to-stagebox-input-4",
+          from: "high-rack-tom",
+          to: "stagebox-input-4",
+          checklist: "Rack Tom 1 → Stage Box Input 4"
+        },
+        {
+          key: "low-rack-tom-to-stagebox-input-5",
+          from: "low-rack-tom",
+          to: "stagebox-input-5",
+          checklist: "Rack Tom 2 → Stage Box Input 5"
+        },
+        {
+          key: "floor-tom-to-stagebox-input-6",
+          from: "floor-tom",
+          to: "stagebox-input-6",
+          checklist: "Floor Tom → Stage Box Input 6"
+        },
+        {
+          key: "overhead-left-crash-to-stagebox-input-7",
+          from: "overhead-left-crash",
           to: "stagebox-input-7",
-          checklist: "Keys L DI → Stage Box Input 7",
-          stereoGroup: "keys-di",
+          checklist: "OH L → Stage Box Input 7",
+          stereoGroup: "drum-overheads",
           stereoSide: "left"
         },
         {
-          key: "keys-r-di-to-stagebox-input-8",
-          from: "keys-right-di",
+          key: "overhead-right-ride-to-stagebox-input-8",
+          from: "overhead-right-ride",
           to: "stagebox-input-8",
-          checklist: "Keys R DI → Stage Box Input 8",
-          stereoGroup: "keys-di",
+          checklist: "OH R → Stage Box Input 8",
+          stereoGroup: "drum-overheads",
           stereoSide: "right"
         }
       ]
@@ -1055,6 +1100,14 @@ if (activeNativeLevelId === nextLevelId) return;
     "talkback-mic": { label: "Talkback Mic", kind: "source", x: 44, y: 160 },
     "keys-left-di": { label: "Keys L DI", kind: "source" },
     "keys-right-di": { label: "Keys R DI", kind: "source" },
+    "kick": { label: "Kick", kind: "source" },
+    "snare": { label: "Snare", kind: "source" },
+    "hi-hat": { label: "Hi-hat", kind: "source" },
+    "high-rack-tom": { label: "Rack Tom 1", kind: "source" },
+    "low-rack-tom": { label: "Rack Tom 2", kind: "source" },
+    "floor-tom": { label: "Floor Tom", kind: "source" },
+    "overhead-left-crash": { label: "OH L", kind: "source" },
+    "overhead-right-ride": { label: "OH R", kind: "source" },
 
     "stagebox-input-1": { label: "Stage Box Input 1", kind: "jack", panelJack: "stagebox.mic1" },
     "stagebox-input-2": { label: "Stage Box Input 2", kind: "jack", panelJack: "stagebox.mic2", ghost: true },
@@ -2814,6 +2867,327 @@ if (activeNativeLevelId === nextLevelId) return;
     layer.appendChild(btn);
   }
 
+  function selectNativeSourceOnly(layer, node) {
+    if (!node || !node.key || !node.el || !node.point) return;
+    if (selectedNode && selectedNode.el !== node.el) clearSelection();
+    selectedNode = node;
+    setSelected(node, true);
+    console.log("[Signal Flow] Native source selected:", node.key);
+  }
+
+  function nativeNodeFromButton(layer, btn, key, defaultShadow) {
+    const rect = btn.getBoundingClientRect();
+    const parent = layer.getBoundingClientRect();
+    return {
+      key,
+      el: btn,
+      defaultShadow,
+      point: {
+        x: rect.left - parent.left + rect.width / 2,
+        y: rect.top - parent.top + rect.height / 2
+      }
+    };
+  }
+
+  function createLiv009SourceButton(layer, panel, key, label) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = label;
+    btn.className = "sf-native-node sf-native-source sf-native-liv009-source-chip";
+    setNativeNodeDomKey(btn, key, "source");
+    btn.dataset.sfNativeKey = key;
+    btn.setAttribute("aria-label", label);
+
+    const defaultShadow = "inset 0 1px 0 rgba(255,255,255,.12), 0 8px 16px rgba(0,0,0,.36)";
+    btn.dataset.sfNativeDefaultShadow = defaultShadow;
+    btn.style.cssText = [
+      "min-width:0",
+      "height:48px",
+      "border-radius:12px",
+      "border:1px solid rgba(255,215,106,.30)",
+      "background:linear-gradient(180deg,rgba(75,57,36,.98),rgba(42,31,22,.98))",
+      "color:#fff4d2",
+      "font:900 clamp(13px,1.35vw,20px) system-ui,-apple-system,Segoe UI,sans-serif",
+      "letter-spacing:0",
+      "cursor:pointer",
+      "pointer-events:auto",
+      "box-shadow:" + defaultShadow
+    ].join(";");
+
+    btn.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      selectNativeSourceOnly(layer, nativeNodeFromButton(layer, btn, key, defaultShadow));
+    });
+
+    panel.appendChild(btn);
+    return btn;
+  }
+
+  function createLiv009DrumHitbox(layer, key, label, drum, rel) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "sf-native-node sf-native-source sf-native-liv009-drum-hitbox";
+    setNativeNodeDomKey(btn, key, "source");
+    btn.dataset.sfNativeKey = key;
+    btn.setAttribute("aria-label", label);
+
+    const defaultShadow = "0 0 0 0 rgba(0,0,0,0)";
+    btn.dataset.sfNativeDefaultShadow = defaultShadow;
+    btn.style.cssText = [
+      "position:absolute",
+      "left:" + (drum.x + drum.w * rel.x) + "px",
+      "top:" + (drum.y + drum.h * rel.y) + "px",
+      "width:" + (drum.w * rel.w) + "px",
+      "height:" + (drum.h * rel.h) + "px",
+      "transform:translate(-50%,-50%)",
+      "border-radius:50%",
+      "border:1px solid rgba(100,241,255,.08)",
+      "background:rgba(100,241,255,.001)",
+      "cursor:pointer",
+      "pointer-events:auto",
+      "z-index:2150",
+      "box-shadow:" + defaultShadow
+    ].join(";");
+
+    btn.addEventListener("mouseenter", () => {
+      if (!selectedNode || selectedNode.el !== btn) {
+        btn.style.boxShadow = "0 0 0 2px rgba(100,241,255,.22), 0 0 18px rgba(100,241,255,.18)";
+      }
+    });
+    btn.addEventListener("mouseleave", () => {
+      if (!selectedNode || selectedNode.el !== btn) btn.style.boxShadow = defaultShadow;
+    });
+    btn.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      selectNativeSourceOnly(layer, nativeNodeFromButton(layer, btn, key, defaultShadow));
+    });
+
+    layer.appendChild(btn);
+  }
+
+  function createLiv009StageboxInput(layer, key, point, falseTarget) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = key.replace("stagebox-input-", "");
+    btn.className = "sf-native-node sf-native-jack sf-native-liv009-stagebox-input";
+    setNativeNodeDomKey(btn, key, "jack");
+    btn.dataset.sfNativeKey = key;
+    btn.dataset.sfNativeGhost = falseTarget ? "1" : "0";
+    btn.dataset.sfNativePointX = String(point.x);
+    btn.dataset.sfNativePointY = String(point.y);
+    btn.setAttribute("aria-label", "Stage Box Input " + key.replace("stagebox-input-", ""));
+
+    const defaultShadow = falseTarget
+      ? "0 0 0 1px rgba(255,255,255,.16), 0 4px 10px rgba(0,0,0,.25)"
+      : "0 0 0 2px rgba(255,215,106,.68), 0 0 15px rgba(255,215,106,.24)";
+    btn.dataset.sfNativeDefaultShadow = defaultShadow;
+    btn.style.cssText = [
+      "position:absolute",
+      "left:" + point.x + "px",
+      "top:" + point.y + "px",
+      "width:" + (falseTarget ? 22 : 30) + "px",
+      "height:" + (falseTarget ? 22 : 30) + "px",
+      "transform:translate(-50%,-50%)",
+      "border-radius:50%",
+      "border:1px solid " + (falseTarget ? "rgba(255,255,255,.26)" : "rgba(255,230,126,.92)"),
+      "background:" + (falseTarget ? "rgba(14,22,30,.48)" : "rgba(255,215,106,.12)"),
+      "color:" + (falseTarget ? "rgba(230,238,244,.64)" : "#fff3b0"),
+      "font:900 9px system-ui,-apple-system,Segoe UI,sans-serif",
+      "cursor:pointer",
+      "pointer-events:auto",
+      "z-index:2300",
+      "box-shadow:" + defaultShadow
+    ].join(";");
+
+    btn.addEventListener("pointerdown", event => {
+      startNativePatchDrag(layer, { key, el: btn, defaultShadow, point }, event);
+    }, true);
+
+    btn.addEventListener("click", event => {
+      if (Date.now() < suppressNativeClickUntil) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      handleNodeClick(layer, { key, el: btn, defaultShadow, point });
+    });
+
+    layer.appendChild(btn);
+  }
+
+  function renderLiv009DrumStageInputs(surface, adapter) {
+    const level = buildLevelGeometry(surface);
+    const rect = level.rect;
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-009";
+    layer.style.cssText = [
+      "position:absolute",
+      "inset:0",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:hidden",
+      "border-radius:16px",
+      "background:linear-gradient(180deg,rgba(8,24,19,.96),rgba(6,17,15,.98))"
+    ].join(";");
+
+    const width = Math.max(1, rect.width || surface.getBoundingClientRect().width);
+    const height = Math.max(1, rect.height || surface.getBoundingClientRect().height);
+    const stage = { x: width * 0.02, y: 78, w: width * 0.39 };
+    stage.h = stage.w * 260 / 860;
+    const foh = { x: width * 0.43, y: 96, w: width * 0.54 };
+    foh.h = foh.w * 260 / 1120;
+    const drum = { x: width * 0.40, y: Math.max(228, height * 0.38), w: width * 0.55 };
+    drum.h = drum.w * 1102 / 2048;
+    const sourcePanel = { x: width * 0.10, y: Math.max(260, drum.y + 44), w: width * 0.28, h: 162 };
+
+    createLabel(layer, "DRUM INPUTS - NATIVE CONCEPT MODE", 28, 28, 12);
+    createLabel(layer, "STAGE BOX INPUTS", stage.x + 12, stage.y - 24, 11);
+    createLabel(layer, "FOH CONSOLE", foh.x + 12, foh.y - 24, 11);
+
+    const stageImg = document.createElement("img");
+    stageImg.src = hardwareAssetFor("stagebox");
+    stageImg.alt = "Stagebox inputs";
+    stageImg.style.cssText = [
+      "position:absolute",
+      "left:" + stage.x + "px",
+      "top:" + stage.y + "px",
+      "width:" + stage.w + "px",
+      "height:auto",
+      "pointer-events:none",
+      "user-select:none",
+      "filter:drop-shadow(0 12px 24px rgba(0,0,0,.72))",
+      "z-index:40"
+    ].join(";");
+    layer.appendChild(stageImg);
+
+    const fohImg = document.createElement("img");
+    fohImg.src = hardwareAssetFor("foh");
+    fohImg.alt = "FOH console input map";
+    fohImg.style.cssText = [
+      "position:absolute",
+      "left:" + foh.x + "px",
+      "top:" + foh.y + "px",
+      "width:" + foh.w + "px",
+      "height:auto",
+      "pointer-events:none",
+      "user-select:none",
+      "filter:drop-shadow(0 12px 24px rgba(0,0,0,.72))",
+      "z-index:40"
+    ].join(";");
+    layer.appendChild(fohImg);
+
+    for (let i = 1; i <= 8; i += 1) {
+      createNativeOverlayLabel(layer, String(i), foh.x + foh.w * (0.08 + (i - 1) * 0.071), foh.y + foh.h * 0.48, {
+        width: 24,
+        size: 8,
+        color: "#fff3b0",
+        zIndex: 2300
+      });
+    }
+
+    for (let i = 1; i <= 16; i += 1) {
+      const col = (i - 1) % 8;
+      const row = i > 8 ? 1 : 0;
+      const point = {
+        x: stage.x + stage.w * (0.115 + col * 0.079),
+        y: stage.y + stage.h * (row ? 0.78 : 0.49)
+      };
+      createLiv009StageboxInput(layer, "stagebox-input-" + i, point, i > 8);
+    }
+
+    const kitImg = document.createElement("img");
+    kitImg.src = "/assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg";
+    kitImg.alt = "Drum kit sources";
+    kitImg.style.cssText = [
+      "position:absolute",
+      "left:" + drum.x + "px",
+      "top:" + drum.y + "px",
+      "width:" + drum.w + "px",
+      "height:" + drum.h + "px",
+      "object-fit:contain",
+      "pointer-events:none",
+      "user-select:none",
+      "filter:drop-shadow(0 18px 28px rgba(0,0,0,.66))",
+      "z-index:70"
+    ].join(";");
+    layer.appendChild(kitImg);
+
+    const panel = document.createElement("div");
+    panel.className = "sf-native-liv009-source-panel";
+    panel.style.cssText = [
+      "position:absolute",
+      "left:" + sourcePanel.x + "px",
+      "top:" + sourcePanel.y + "px",
+      "width:" + sourcePanel.w + "px",
+      "min-width:320px",
+      "max-width:430px",
+      "padding:12px 16px 14px",
+      "box-sizing:border-box",
+      "border-radius:0",
+      "border:1px solid rgba(65,91,132,.55)",
+      "background:linear-gradient(180deg,rgba(22,39,65,.96),rgba(13,26,45,.96))",
+      "box-shadow:0 18px 36px rgba(0,0,0,.42)",
+      "pointer-events:auto",
+      "z-index:2400"
+    ].join(";");
+
+    const panelTitle = document.createElement("div");
+    panelTitle.textContent = "DRUM KIT SOURCES";
+    panelTitle.style.cssText = [
+      "margin:0 0 8px",
+      "color:#ffe66c",
+      "font:900 14px system-ui,-apple-system,Segoe UI,sans-serif",
+      "letter-spacing:.14em",
+      "text-transform:uppercase"
+    ].join(";");
+    panel.appendChild(panelTitle);
+
+    const grid = document.createElement("div");
+    grid.style.cssText = [
+      "display:grid",
+      "grid-template-columns:repeat(3,minmax(0,1fr))",
+      "gap:8px"
+    ].join(";");
+    panel.appendChild(grid);
+
+    [
+      ["kick", "Kick"],
+      ["snare", "Snare"],
+      ["hi-hat", "Hi-hat"],
+      ["high-rack-tom", "Rack Tom 1"],
+      ["low-rack-tom", "Rack Tom 2"],
+      ["floor-tom", "Floor Tom"],
+      ["overhead-left-crash", "OH L"],
+      ["overhead-right-ride", "OH R"]
+    ].forEach(item => createLiv009SourceButton(layer, grid, item[0], item[1]));
+
+    layer.appendChild(panel);
+
+    [
+      ["kick", "Kick", { x: 0.48, y: 0.43, w: 0.24, h: 0.36 }],
+      ["snare", "Snare", { x: 0.36, y: 0.56, w: 0.18, h: 0.22 }],
+      ["hi-hat", "Hi-hat", { x: 0.22, y: 0.39, w: 0.20, h: 0.28 }],
+      ["high-rack-tom", "Rack Tom 1", { x: 0.40, y: 0.32, w: 0.17, h: 0.22 }],
+      ["low-rack-tom", "Rack Tom 2", { x: 0.54, y: 0.31, w: 0.17, h: 0.22 }],
+      ["floor-tom", "Floor Tom", { x: 0.66, y: 0.56, w: 0.20, h: 0.24 }],
+      ["overhead-left-crash", "OH L", { x: 0.29, y: 0.22, w: 0.22, h: 0.22 }],
+      ["overhead-right-ride", "OH R", { x: 0.77, y: 0.29, w: 0.24, h: 0.26 }]
+    ].forEach(item => createLiv009DrumHitbox(layer, item[0], item[1], drum, item[2]));
+
+    surface.appendChild(layer);
+    redrawCables(layer);
+    installCableDrag(layer);
+    console.log("[Signal Flow] LIV-009 dedicated drum renderer mounted.");
+  }
+
   function createNativeOverlayLabel(layer, text, x, y, options) {
     const opts = options || {};
     const label = document.createElement("div");
@@ -3382,6 +3756,11 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function renderNative(surface, adapter) {
+    if (LEVEL_ID === "LIV-009") {
+      renderLiv009DrumStageInputs(surface, adapter);
+      return;
+    }
+
     const level = buildLevelGeometry(surface);
 
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
