@@ -2967,10 +2967,438 @@ if (activeNativeLevelId === nextLevelId) return;
     layer.appendChild(btn);
   }
 
-  function createLiv009StageboxInput(layer, key, point, falseTarget) {
+  
+  function sfLiv009InstallHintGate(){
+    if(document.getElementById("sf-liv009-hint-gate-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "sf-liv009-hint-gate-style";
+    style.textContent = `
+      /*
+        LIV-009 hint gate:
+        Hide hint/highlight/glow artifacts until the player actually enables hints.
+        Keep completed/correct/error route feedback untouched.
+      */
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-hint,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-hint-highlight,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-hint-ring,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-native-hint,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-native-hint-highlight,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .hint-highlight,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) [data-hint],
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) [data-hint-target],
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) [data-liv009-hint] {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+      }
+
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-source-chip.is-hint,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-source-chip.hint,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-stagebox-input.is-hint,
+      .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled) .sf-liv009-stagebox-input.hint {
+        outline: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function sfLiv009SyncHintGate(){
+    const layer = document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009");
+    if(!layer) return;
+
+    const hintButton = Array.from(document.querySelectorAll("button")).find(btn =>
+      /show hints|hide hints/i.test((btn.textContent || "").trim())
+    );
+
+    const hintsEnabled = !!(
+      hintButton &&
+      (
+        /hide hints/i.test((hintButton.textContent || "").trim()) ||
+        hintButton.getAttribute("aria-pressed") === "true" ||
+        hintButton.classList.contains("active") ||
+        hintButton.classList.contains("is-active") ||
+        hintButton.classList.contains("selected") ||
+        hintButton.classList.contains("is-selected")
+      )
+    );
+
+    layer.classList.toggle("sf-liv009-hints-enabled", hintsEnabled);
+  }
+
+  
+  const sfLiv009StageboxHintRingGateStyle = document.createElement("style");
+  sfLiv009StageboxHintRingGateStyle.id = "sf-liv009-stagebox-hint-ring-gate-style";
+  sfLiv009StageboxHintRingGateStyle.textContent = `
+    /*
+      LIV-009: stagebox yellow rings are hints, not default jack visuals.
+      Hide them until Show Hints is enabled.
+
+      Preserve completed/correct/valid route feedback so already-patched
+      inputs can still glow green.
+    */
+
+    .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled)
+      .sf-native-liv009-stagebox-input:not(.complete):not(.completed):not(.correct):not(.valid):not(.is-complete):not(.is-correct):not(.is-valid):not(.connected):not(.patched):not(.done),
+    .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled)
+      [data-node-key^="stagebox-input-"]:not(.complete):not(.completed):not(.correct):not(.valid):not(.is-complete):not(.is-correct):not(.is-valid):not(.connected):not(.patched):not(.done) {
+      outline: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      border-color: transparent !important;
+      background: transparent !important;
+    }
+
+    .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled)
+      .sf-native-liv009-stagebox-input:not(.complete):not(.completed):not(.correct):not(.valid):not(.is-complete):not(.is-correct):not(.is-valid):not(.connected):not(.patched):not(.done)::before,
+    .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled)
+      .sf-native-liv009-stagebox-input:not(.complete):not(.completed):not(.correct):not(.valid):not(.is-complete):not(.is-correct):not(.is-valid):not(.connected):not(.patched):not(.done)::after,
+    .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled)
+      [data-node-key^="stagebox-input-"]:not(.complete):not(.completed):not(.correct):not(.valid):not(.is-complete):not(.is-correct):not(.is-valid):not(.connected):not(.patched):not(.done)::before,
+    .sf-live-native-layer.sf-live-native-level-liv-009:not(.sf-liv009-hints-enabled)
+      [data-node-key^="stagebox-input-"]:not(.complete):not(.completed):not(.correct):not(.valid):not(.is-complete):not(.is-correct):not(.is-valid):not(.connected):not(.patched):not(.done)::after {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      box-shadow: none !important;
+      filter: none !important;
+      border-color: transparent !important;
+      background: transparent !important;
+    }
+
+    /*
+      When hints are enabled, restore the intended target-ring styling.
+      This lets Show Hints work without changing route logic.
+    */
+    .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-hints-enabled
+      .sf-native-liv009-stagebox-input,
+    .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-hints-enabled
+      [data-node-key^="stagebox-input-"] {
+      visibility: visible !important;
+      pointer-events: auto !important;
+    }
+  `;
+  document.head.appendChild(sfLiv009StageboxHintRingGateStyle);
+
+
+
+  const sfLiv009CableTopLayerStyle = document.createElement("style");
+  sfLiv009CableTopLayerStyle.id = "sf-liv009-cable-top-layer-style";
+  sfLiv009CableTopLayerStyle.textContent = `
+    /*
+      LIV-009 visual-only cable layering:
+      Draw cables above hardware/drum graphics, but keep them non-interactive
+      so source chips and stagebox jacks remain clickable.
+    */
+
+    .sf-live-native-layer.sf-live-native-level-liv-009 svg[class*="cable"],
+    .sf-live-native-layer.sf-live-native-level-liv-009 [class*="cable-layer"],
+    .sf-live-native-layer.sf-live-native-level-liv-009 [class*="cables"],
+    .sf-live-native-layer.sf-live-native-level-liv-009 [data-cable-layer],
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-cable-layer,
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-cables,
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-cable-svg {
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 9000 !important;
+      pointer-events: none !important;
+      overflow: visible !important;
+    }
+
+    .sf-live-native-layer.sf-live-native-level-liv-009 svg[class*="cable"] *,
+    .sf-live-native-layer.sf-live-native-level-liv-009 [class*="cable-layer"] *,
+    .sf-live-native-layer.sf-live-native-level-liv-009 [class*="cables"] *,
+    .sf-live-native-layer.sf-live-native-level-liv-009 [data-cable-layer] *,
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-cable-layer *,
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-cables *,
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-cable-svg * {
+      pointer-events: none !important;
+    }
+
+    /*
+      Keep active controls above background art but below cable visuals.
+      Since cable SVG is pointer-events:none, it will not block clicks.
+    */
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-liv009-source-chip,
+    .sf-live-native-layer.sf-live-native-level-liv-009 .sf-native-liv009-stagebox-input,
+    .sf-live-native-layer.sf-live-native-level-liv-009 [data-node-key^="stagebox-input-"] {
+      position: relative !important;
+      z-index: 7000 !important;
+    }
+  `;
+  document.head.appendChild(sfLiv009CableTopLayerStyle);
+
+
+function sfLiv009BindHintGate(){
+    sfLiv009InstallHintGate();
+    sfLiv009SyncHintGate();
+
+    if(window.sfLiv009HintGateBound) return;
+    window.sfLiv009HintGateBound = true;
+
+    document.addEventListener("click", event => {
+      const btn = event.target && event.target.closest && event.target.closest("button");
+      if(!btn) return;
+      if(!/show hints|hide hints/i.test((btn.textContent || "").trim())) return;
+
+      setTimeout(sfLiv009SyncHintGate, 0);
+      setTimeout(sfLiv009SyncHintGate, 80);
+      setTimeout(sfLiv009SyncHintGate, 220);
+    }, true);
+
+    const observer = new MutationObserver(() => {
+      if(document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009")){
+        sfLiv009SyncHintGate();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class", "aria-pressed"]
+    });
+  }
+
+
+
+  function sfLiv009NormalizeLabelAndJackLayers(){
+    const layer = document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009");
+    if(!layer) return;
+
+    layer.classList.add("sf-liv009-label-jack-clean");
+
+    // Normalize duplicate labels created by generic + dedicated render paths.
+    const labelTexts = new Set([
+      "STAGE BOX INPUTS",
+      "FOH CONSOLE",
+      "FOH CONSOLE INPUT MAP"
+    ]);
+
+    const leafLabels = Array.from(layer.querySelectorAll("*")).filter(el => {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if(!labelTexts.has(text)) return false;
+      if(el.closest("[data-liv009-source-panel]")) return false;
+      return el.children.length === 0 || Array.from(el.children).every(child => !(child.textContent || "").trim());
+    });
+
+    // Prefer simple FOH CONSOLE over FOH CONSOLE INPUT MAP if both exist.
+    const hasSimpleFoh = leafLabels.some(el => (el.textContent || "").replace(/\s+/g, " ").trim() === "FOH CONSOLE");
+    leafLabels.forEach(el => {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if(text === "FOH CONSOLE INPUT MAP" && hasSimpleFoh){
+        el.remove();
+      }
+    });
+
+    // Remove duplicate exact labels, keeping the upper-leftmost one.
+    const groups = {};
+    Array.from(layer.querySelectorAll("*")).forEach(el => {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if(!labelTexts.has(text)) return;
+      if(el.closest("[data-liv009-source-panel]")) return;
+      const r = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+      if(!r || r.width <= 0 || r.height <= 0) return;
+      (groups[text] ||= []).push({ el, x: r.x, y: r.y });
+    });
+
+    Object.values(groups).forEach(items => {
+      items.sort((a, b) => (a.y - b.y) || (a.x - b.x));
+      items.slice(1).forEach(item => item.el.remove());
+    });
+
+    // Ensure stagebox hitboxes have no visible label or second jack graphic.
+    layer.querySelectorAll(".sf-native-liv009-stagebox-input, [data-node-key^='stagebox-input-']").forEach(el => {
+      if(el.classList.contains("sf-native-liv009-stagebox-input") || /^stagebox-input-/.test(el.getAttribute("data-node-key") || "")){
+        el.textContent = "";
+        el.setAttribute("aria-label", el.getAttribute("aria-label") || el.title || el.getAttribute("data-node-key") || "Stage Box Input");
+      }
+    });
+  }
+
+  function sfLiv009InstallLabelJackLayerStyle(){
+    if(document.getElementById("sf-liv009-label-jack-layer-cleanup-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "sf-liv009-label-jack-layer-cleanup-style";
+    style.textContent = `
+      /*
+        LIV-009 label/jack layer cleanup:
+        - stagebox asset is the visible jack graphic
+        - native buttons are transparent hitboxes
+        - hover/focus still gives useful feedback
+      */
+
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"] {
+        color: transparent !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
+        text-shadow: none !important;
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        filter: none !important;
+        outline: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input::before,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input::after,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"]::before,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"]::after {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        border-color: transparent !important;
+      }
+
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input:hover,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input:focus-visible,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"]:hover,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"]:focus-visible {
+        outline: 2px solid rgba(125, 211, 252, 0.9) !important;
+        outline-offset: 2px !important;
+      }
+
+      /*
+        Preserve completed/correct/valid state feedback. This should only show
+        after a successful patch, not as the default jack layer.
+      */
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input.complete,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input.completed,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input.correct,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        .sf-native-liv009-stagebox-input.valid,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"].complete,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"].completed,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"].correct,
+      .sf-live-native-layer.sf-live-native-level-liv-009.sf-liv009-label-jack-clean
+        [data-node-key^="stagebox-input-"].valid {
+        outline: 2px solid rgba(74, 222, 128, 0.95) !important;
+        outline-offset: 2px !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function sfLiv009ApplyLabelJackLayerCleanup(){
+    sfLiv009InstallLabelJackLayerStyle();
+    sfLiv009NormalizeLabelAndJackLayers();
+    setTimeout(sfLiv009NormalizeLabelAndJackLayers, 80);
+    setTimeout(sfLiv009NormalizeLabelAndJackLayers, 220);
+  }
+
+
+
+  
+  function sfLiv009AlignStageboxHitboxes(){
+    const layer = document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009");
+    if(!layer) return;
+
+    const layerRect = layer.getBoundingClientRect();
+
+    /*
+      Anchor to the actual stagebox graphic instead of guessing from the layer.
+      This prevents the clickable map from drifting away from the visible jacks.
+    */
+    const stageImg = Array.from(layer.querySelectorAll("img")).find(img => {
+      const src = String(img.getAttribute("src") || img.src || "");
+      return /stagebox|snake/i.test(src);
+    });
+
+    if(!stageImg || !stageImg.getBoundingClientRect){
+      console.warn("[Signal Flow] LIV-009 stagebox image not found for hitbox alignment");
+      return;
+    }
+
+    const imgRect = stageImg.getBoundingClientRect();
+    const imgLeft = imgRect.left - layerRect.left;
+    const imgTop = imgRect.top - layerRect.top;
+
+    /*
+      stagebox-snake-head.svg input map:
+      1–8 are the visible mic/line XLR jacks across the top row.
+      9–16 stay as lower false targets, smaller and transparent.
+    */
+    const topRowRelX = [0.142, 0.227, 0.312, 0.397, 0.482, 0.567, 0.652, 0.737];
+    const topRowRelY = 0.535;
+    const falseRowRelY = 0.700;
+    const linkOutRelX = 0.885;
+    const linkOutRelY = 0.555;
+
+    function place(key, relX, relY, size){
+      const el = layer.querySelector(`[data-node-key="${key}"]`);
+      if(!el) return;
+
+      const centerX = imgLeft + imgRect.width * relX;
+      const centerY = imgTop + imgRect.height * relY;
+
+      Object.assign(el.style, {
+        position: "absolute",
+        left: Math.round(centerX - size / 2) + "px",
+        top: Math.round(centerY - size / 2) + "px",
+        width: size + "px",
+        height: size + "px",
+        minWidth: size + "px",
+        minHeight: size + "px",
+        maxWidth: size + "px",
+        maxHeight: size + "px",
+        zIndex: "7000",
+        pointerEvents: "auto",
+        transform: "none"
+      });
+    }
+
+    topRowRelX.forEach((relX, idx) => {
+      place("stagebox-input-" + (idx + 1), relX, topRowRelY, 28);
+      place("stagebox-input-" + (idx + 9), relX, falseRowRelY, 24);
+    });
+
+    place("stagebox-link-out", linkOutRelX, linkOutRelY, 30);
+
+    console.log("[Signal Flow] LIV-009 asset-relative stagebox hitboxes aligned:", {
+      img: {
+        x: Math.round(imgRect.x),
+        y: Math.round(imgRect.y),
+        w: Math.round(imgRect.width),
+        h: Math.round(imgRect.height)
+      }
+    });
+  }
+
+
+
+function createLiv009StageboxInput(layer, key, point, falseTarget) {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.textContent = key.replace("stagebox-input-", "");
+    // The stagebox SVG/asset is the visible jack layer.
+    // This button is only the clickable hitbox.
+    const hitboxLabel = "Stage Box Input " + key.replace("stagebox-input-", "");
+    btn.textContent = "";
+    btn.setAttribute("aria-label", hitboxLabel);
+    btn.title = hitboxLabel;
     btn.className = "sf-native-node sf-native-jack sf-native-liv009-stagebox-input";
     setNativeNodeDomKey(btn, key, "jack");
     btn.dataset.sfNativeKey = key;
@@ -3020,7 +3448,17 @@ if (activeNativeLevelId === nextLevelId) return;
     layer.appendChild(btn);
   }
 
-  function renderLiv009DrumStageInputs(surface, adapter) {
+  
+  function sfLiv009NormalizeRoutes(){
+    // Disabled: prior patch referenced LEVELS, which is not in scope here.
+    // LIV-009 route definitions must live in the active dedicated renderer/spec,
+    // not in a post-hoc global normalizer.
+    return;
+  }
+
+
+function renderLiv009DrumStageInputs(surface, adapter) {
+
     const level = buildLevelGeometry(surface);
     const rect = level.rect;
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
@@ -3102,6 +3540,7 @@ if (activeNativeLevelId === nextLevelId) return;
       };
       createLiv009StageboxInput(layer, "stagebox-input-" + i, point, i > 8);
     }
+    sfLiv009ApplyLabelJackLayerCleanup();
 
     const kitImg = document.createElement("img");
     kitImg.src = "/assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg";
@@ -3185,6 +3624,14 @@ if (activeNativeLevelId === nextLevelId) return;
     surface.appendChild(layer);
     redrawCables(layer);
     installCableDrag(layer);
+    sfLiv009BindHintGate();
+    if(typeof sfLiv009SyncHintGate === 'function') sfLiv009SyncHintGate();
+    sfLiv009ApplyLabelJackLayerCleanup();
+    sfLiv009AlignStageboxHitboxes();
+    setTimeout(sfLiv009AlignStageboxHitboxes, 80);
+    sfLiv009AlignStageboxHitboxes();
+    setTimeout(sfLiv009AlignStageboxHitboxes, 80);
+    setTimeout(sfLiv009AlignStageboxHitboxes, 260);
     console.log("[Signal Flow] LIV-009 dedicated drum renderer mounted.");
   }
 
