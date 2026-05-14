@@ -1,0 +1,143 @@
+/* Signal Flow Economy + Timeout Rules v6r214 */
+.sf-economy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483400;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0,0,0,.66);
+  color: #fff7d1;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+}
+.sf-economy-card {
+  width: min(720px, calc(100vw - 42px));
+  max-height: calc(100vh - 42px);
+  overflow: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255,215,106,.42);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255,215,106,.16), transparent 28%),
+    linear-gradient(180deg, rgba(37,26,15,.98), rgba(10,8,7,.98));
+  box-shadow: 0 26px 80px rgba(0,0,0,.62), inset 0 1px 0 rgba(255,255,255,.08);
+  padding: 24px 26px;
+}
+.sf-economy-kicker {
+  color: #ffe66c;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  margin-bottom: 8px;
+}
+.sf-economy-card h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.05;
+}
+.sf-economy-card p { color: #f8ead1; line-height: 1.45; }
+.sf-economy-list {
+  margin: 14px 0;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.10);
+}
+.sf-economy-list h3 {
+  margin: 0 0 8px;
+  font-size: .9rem;
+  color: #9effb6;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.sf-economy-list ul { margin: 0; padding-left: 20px; }
+.sf-economy-list li { margin: 5px 0; }
+.sf-economy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.sf-economy-actions button,
+.sf-locker-open-button,
+.sf-locker-close {
+  appearance: none;
+  border: 1px solid rgba(255,215,106,.42);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,215,106,.95), rgba(239,184,72,.92));
+  color: #1c1205;
+  font-weight: 950;
+  padding: 10px 14px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.28);
+}
+.sf-economy-actions button.secondary,
+.sf-locker-open-button.secondary {
+  border-color: rgba(125,211,252,.38);
+  background: linear-gradient(180deg, rgba(23,39,61,.98), rgba(10,19,32,.98));
+  color: #dff7ff;
+}
+.sf-credit-shortage {
+  border-color: rgba(248,113,113,.7) !important;
+  background: linear-gradient(180deg, rgba(127,29,29,.85), rgba(69,10,10,.88)) !important;
+}
+.sf-build-room-owned .room-gear-cost::after {
+  content: ' · Owned';
+  color: #9effb6;
+  font-weight: 950;
+}
+.room-gear.sf-owned-gear {
+  outline: 2px solid rgba(158,255,182,.55) !important;
+  box-shadow: 0 0 18px rgba(74,222,128,.20), inset 0 1px 0 rgba(255,255,255,.12) !important;
+}
+.room-gear.sf-owned-gear::before {
+  content: 'LOCKER';
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  z-index: 5;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(22,101,52,.92);
+  color: #dcfce7;
+  font: 950 9px system-ui, sans-serif;
+  letter-spacing: .08em;
+}
+.sf-locker-open-button {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147482500;
+}
+.sf-locker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.sf-locker-item {
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(0,0,0,.24);
+}
+.sf-locker-item strong { display: block; color: #fff7d1; }
+.sf-locker-item span { display: block; color: #9effb6; font-weight: 900; margin-top: 4px; }
+.sf-critical-signal {
+  box-shadow: 0 0 0 2px rgba(248,113,113,.85), 0 0 26px rgba(248,113,113,.28) !important;
+}
+.sf-review-path-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 10px;
+  align-items: start;
+}
+.sf-review-path-card b {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #ffe66c;
+  color: #1c1205;
+}
