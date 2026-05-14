@@ -1,4 +1,4 @@
-/* Signal Flow Diagnosis Universal GUI v6r208
+/* Signal Flow Diagnosis Universal GUI v6r213
    Visual/animation layer only. Preserves existing question/answer/next/scoring logic. */
 :root {
   --sfdiag-ink: #fff8df;
@@ -394,7 +394,7 @@ main.sfdiag-ui-active .sfv183-next-question {
 }
 
 
-/* v6r208 markup fixes from annotated mockup:
+/* v6r213 markup fixes from annotated mockup:
    - delete the small generated clipboard tab/label
    - move clipboard content down
    - move right diagnostic monitors down
@@ -488,4 +488,46 @@ main.sfdiag-ui-active .sfdiag-clipboard-panel [data-training-panel="quiz"] {
 @media (max-width: 1320px) {
   .sfdiag-lab-right { padding-top: 34px !important; }
   main.sfdiag-ui-active .sfdiag-clipboard-panel { padding-top: 48px !important; }
+}
+
+
+/* v6r213 generic diagnosis renderer: generated clipboard owns the board. */
+main.sfdiag-ui-active .sfdiag-board-shell > .board-top,
+main.sfdiag-ui-active .sfdiag-board-shell > .training-board-top,
+main.sfdiag-ui-active .sfdiag-board-shell > header:not(.game-header) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+main.sfdiag-ui-active [data-sfdiag-legacy-diagnosis="hidden"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel {
+  contain: layout paint;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel .sfdiag-generated-title {
+  display: none !important;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel .sfdiag-generated-prompt {
+  display:block !important;
+  margin: 0 0 12px !important;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel .sfdiag-generated-note {
+  color:#6e4b31 !important;
+  font-weight:900 !important;
+  margin: 8px 0 14px !important;
+  font-size: clamp(.88rem, 1.15vw, 1.05rem) !important;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel .diagnose-patch[disabled] {
+  cursor: default !important;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel .diagnose-patch.selected[data-ok="false"] {
+  border-color: rgba(74,222,128,.92) !important;
+  box-shadow: 0 0 0 3px rgba(74,222,128,.20), 0 9px 18px rgba(0,0,0,.20) !important;
+}
+main.sfdiag-ui-active .sfdiag-generic-panel .diagnose-patch.selected[data-ok="true"] {
+  border-color: rgba(248,113,113,.88) !important;
+  box-shadow: 0 0 0 3px rgba(248,113,113,.18), 0 9px 18px rgba(0,0,0,.20) !important;
 }
