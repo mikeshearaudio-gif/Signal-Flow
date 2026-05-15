@@ -1,0 +1,116 @@
+/* Signal Flow Build-a-Room Locker Integration v6r216 */
+.sf-build-room-locker-v216 .room-gear {
+  position: relative !important;
+}
+.sf-build-room-locker-v216 .room-gear.sf-owned-gear {
+  outline: 2px solid rgba(134, 239, 172, .55) !important;
+  box-shadow: 0 0 0 5px rgba(34, 197, 94, .10), 0 14px 32px rgba(0,0,0,.35) !important;
+}
+.sf-v216-locker-badge {
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(8, 13, 20, .86);
+  border: 1px solid rgba(255, 215, 106, .38);
+  color: #ffe08a;
+  font: 950 10px/1 system-ui, -apple-system, Segoe UI, sans-serif;
+  letter-spacing: .08em;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #000;
+}
+.sf-build-room-locker-v216 .room-gear.sf-owned-gear .sf-v216-locker-badge {
+  background: rgba(6, 78, 59, .92);
+  color: #bbf7d0;
+  border-color: rgba(134, 239, 172, .62);
+  box-shadow: 0 0 16px rgba(34, 197, 94, .22);
+}
+.sf-v216-build-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+  color: #fef3c7;
+  font: 850 12px/1.25 system-ui, -apple-system, Segoe UI, sans-serif;
+}
+.sf-v216-build-summary span {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 7px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, .25);
+  background: rgba(7, 18, 30, .76);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.sf-v216-build-summary b { color: #86efac; }
+.sf-build-room-message.show.good,
+.sf-build-room-locker-v216 .sf-build-room-message.show.good {
+  border-color: rgba(52, 211, 153, .95) !important;
+  background: rgba(6, 95, 70, .90) !important;
+  color: #d1fae5 !important;
+}
+.sf-build-room-message.show.bad,
+.sf-build-room-locker-v216 .sf-build-room-message.show.bad {
+  border-color: rgba(248, 113, 113, .95) !important;
+  background: rgba(127, 29, 29, .90) !important;
+  color: #fee2e2 !important;
+}
+.sf-build-room-v216-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483650;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0,0,0,.70);
+  backdrop-filter: blur(7px);
+  color: #fff6dc;
+}
+.sf-build-room-v216-card {
+  width: min(620px, 94vw);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 215, 106, .42);
+  background: linear-gradient(180deg, rgba(28, 20, 12, .98), rgba(6, 9, 13, .99));
+  box-shadow: 0 30px 90px rgba(0,0,0,.62), inset 0 1px 0 rgba(255,255,255,.10);
+  padding: 24px;
+}
+.sf-build-room-v216-kicker {
+  color: #ffd76a;
+  font: 950 12px/1 system-ui, -apple-system, Segoe UI, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  margin-bottom: 8px;
+}
+.sf-build-room-v216-card h2 { margin: 0 0 10px; font-size: clamp(28px, 4vw, 44px); line-height: .95; color: #fff3c4; }
+.sf-build-room-v216-card p { color: rgba(255,246,220,.84); font-weight: 750; line-height: 1.4; }
+.sf-build-room-v216-list {
+  margin: 14px 0;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(125, 211, 252, .22);
+  background: rgba(4, 16, 28, .70);
+}
+.sf-build-room-v216-list h3 { margin: 0 0 8px; color: #bae6fd; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
+.sf-build-room-v216-list ul { margin: 0; padding-left: 20px; color: #e5f6ff; line-height: 1.45; }
+.sf-build-room-v216-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-top: 18px; }
+.sf-build-room-v216-actions button {
+  min-height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 106, .45);
+  background: linear-gradient(180deg, #ffd76a, #b98226);
+  color: #1b1104;
+  font-weight: 950;
+  padding: 0 14px;
+  cursor: pointer;
+}
+.sf-build-room-v216-actions button.secondary {
+  background: rgba(10, 23, 36, .92);
+  color: #dff7ff;
+  border-color: rgba(125, 211, 252, .36);
+}

@@ -1,0 +1,403 @@
+
+/* Signal Flow Equipment Locker UI v6r215
+ * Visual locker shell for permanent Build-a-Room gear ownership.
+ * Uses existing build-room shelf/cubby/gear assets. Logic remains in sf-economy-rules.js.
+ */
+:root {
+  --sf-locker-gold: #ffd76a;
+  --sf-locker-ink: #fff6dc;
+  --sf-locker-blue: #7dd3fc;
+  --sf-locker-green: #86efac;
+  --sf-locker-red: #fca5a5;
+  --sf-locker-bg: #080b10;
+}
+
+#sf-equipment-locker-open {
+  right: 18px !important;
+  bottom: 18px !important;
+  z-index: 2147482300 !important;
+}
+
+.sf-locker-splash-entry {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 2147480400;
+  display: none;
+  gap: 10px;
+  align-items: center;
+  min-width: 230px;
+  max-width: 310px;
+  border: 1px solid rgba(255, 215, 106, .42);
+  border-radius: 18px;
+  padding: 12px 15px;
+  color: var(--sf-locker-ink);
+  background:
+    linear-gradient(180deg, rgba(33, 24, 14, .92), rgba(12, 9, 6, .96));
+  box-shadow: 0 18px 44px rgba(0,0,0,.48), inset 0 1px 0 rgba(255,255,255,.12);
+  cursor: pointer;
+  font: 900 13px system-ui, -apple-system, Segoe UI, sans-serif;
+  letter-spacing: .04em;
+}
+body:has(.splash),
+body:has(.corrected-splash-stage),
+body:has(.machine-home) {
+  --sf-splash-locker-visible: 1;
+}
+.sf-locker-splash-entry.is-visible { display: flex; }
+.sf-locker-splash-entry::before {
+  content: "";
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 45% 35%, rgba(255, 246, 210, .95), rgba(255, 215, 106, .78) 44%, rgba(116, 76, 16, .82) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.28), 0 0 18px rgba(255,215,106,.28);
+}
+.sf-locker-splash-entry span { display: block; color: rgba(255,255,255,.72); font-size: 11px; font-weight: 750; letter-spacing: 0; margin-top: 3px; }
+
+.sf-locker-modal-v215 {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483600;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  color: var(--sf-locker-ink);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(125, 211, 252, .16), transparent 34%),
+    radial-gradient(circle at 80% 20%, rgba(255, 215, 106, .18), transparent 36%),
+    rgba(0, 0, 0, .76);
+  backdrop-filter: blur(9px);
+}
+
+.sf-locker-stage-v215 {
+  position: relative;
+  width: min(1180px, 96vw);
+  height: min(780px, 92vh);
+  min-height: 620px;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 215, 106, .34);
+  background:
+    linear-gradient(180deg, rgba(28, 18, 10, .96), rgba(6, 9, 12, .98));
+  box-shadow: 0 34px 110px rgba(0,0,0,.68), inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+.sf-locker-bg-v215 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .95;
+}
+.sf-locker-bg-v215::before,
+.sf-locker-bg-v215::after {
+  content: "";
+  position: absolute;
+  top: 94px;
+  width: 34%;
+  height: 58%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  opacity: .86;
+  filter: drop-shadow(0 26px 32px rgba(0,0,0,.58));
+}
+.sf-locker-bg-v215::before {
+  left: 20px;
+  background-image: url('/assets/build-room/svg/shelves/left-pegboard-shelf-bay-goodstyle.svg');
+}
+.sf-locker-bg-v215::after {
+  right: 20px;
+  background-image: url('/assets/build-room/svg/shelves/right-pegboard-shelf-bay-goodstyle.svg');
+}
+
+.sf-locker-header-v215 {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: center;
+  margin: 18px auto 8px;
+  width: min(890px, calc(100% - 60px));
+  min-height: 96px;
+  padding: 16px 24px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(54, 34, 17, .94), rgba(26, 16, 9, .96));
+  border: 1px solid rgba(255,215,106,.35);
+  box-shadow: 0 18px 42px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.sf-locker-header-v215 h2 {
+  margin: 0;
+  color: #ffe69b;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: .92;
+  text-transform: uppercase;
+  letter-spacing: -.04em;
+  text-shadow: 0 3px 0 rgba(0,0,0,.38), 0 0 20px rgba(255,215,106,.24);
+}
+.sf-locker-header-v215 p { margin: 6px 0 0; color: rgba(255,246,220,.76); font-weight: 750; line-height: 1.35; }
+.sf-locker-close-v215 {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 999px;
+  background: rgba(0,0,0,.24);
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+.sf-locker-counters-v215 {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 auto 12px;
+  width: min(900px, calc(100% - 52px));
+}
+.sf-locker-pill-v215 {
+  border: 1px solid rgba(125,211,252,.28);
+  border-radius: 999px;
+  padding: 7px 11px;
+  background: rgba(5, 18, 32, .75);
+  color: #dff7ff;
+  font-size: 12px;
+  font-weight: 900;
+}
+.sf-locker-pill-v215 strong { color: #ffd76a; }
+
+.sf-locker-body-v215 {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 292px;
+  gap: 18px;
+  width: min(1060px, calc(100% - 56px));
+  height: calc(100% - 166px);
+  margin: 0 auto 24px;
+}
+
+.sf-locker-shelves-v215 {
+  position: relative;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(180deg, rgba(14, 20, 27, .84), rgba(8, 12, 16, .92));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 46px rgba(0,0,0,.28);
+}
+.sf-locker-shelves-v215::after {
+  content: "";
+  position: sticky;
+  display: block;
+  bottom: 0;
+  height: 86px;
+  margin-top: 10px;
+  background: url('/assets/build-room/svg/shelves/wood-bench-wide-goodstyle.svg') center bottom / contain no-repeat;
+  pointer-events: none;
+  opacity: .84;
+}
+
+.sf-locker-tabs-v215 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 0 12px;
+}
+.sf-locker-tab-v215 {
+  appearance: none;
+  border: 1px solid rgba(255,215,106,.22);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,246,220,.82);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.sf-locker-tab-v215.is-active {
+  background: linear-gradient(180deg, #ffe08c, #e6aa3f);
+  color: #211306;
+  border-color: rgba(255,236,180,.7);
+}
+
+.sf-locker-grid-v215 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
+  gap: 14px;
+  padding-bottom: 18px;
+}
+.sf-locker-slot-v215 {
+  position: relative;
+  min-height: 184px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  box-shadow: 0 10px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.08);
+  cursor: pointer;
+}
+.sf-locker-slot-v215::before {
+  content: "";
+  position: absolute;
+  inset: 6px 6px 46px;
+  border-radius: 14px;
+  background: url('/assets/build-room/svg/shelves/dimensional-empty-cubby-goodstyle.svg') center / cover no-repeat;
+  opacity: .68;
+  filter: saturate(.82) brightness(.9);
+}
+.sf-locker-slot-v215.is-selected {
+  outline: 3px solid rgba(125,211,252,.88);
+  outline-offset: 2px;
+}
+.sf-locker-item-art-v215 {
+  position: absolute;
+  left: 50%;
+  top: 16px;
+  width: 78%;
+  height: 106px;
+  transform: translateX(-50%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 12px 14px rgba(0,0,0,.54));
+  z-index: 2;
+}
+.sf-locker-qty-v215 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  border-radius: 999px;
+  padding: 5px 8px;
+  background: linear-gradient(180deg, #bbf7d0, #22c55e);
+  color: #052e16;
+  font-size: 12px;
+  font-weight: 950;
+  box-shadow: 0 6px 14px rgba(0,0,0,.34);
+}
+.sf-locker-item-label-v215 {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 28px;
+  z-index: 3;
+  color: #fff7d6;
+  font-size: 13px;
+  line-height: 1.12;
+  font-weight: 950;
+  text-shadow: 0 2px 6px rgba(0,0,0,.8);
+}
+.sf-locker-item-meta-v215 {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 9px;
+  z-index: 3;
+  color: rgba(255,255,255,.64);
+  font-size: 10px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.sf-locker-empty-v215 {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+  border-radius: 20px;
+  border: 1px dashed rgba(255,215,106,.32);
+  background: rgba(0,0,0,.22);
+  text-align: center;
+  padding: 28px;
+  color: rgba(255,246,220,.78);
+}
+.sf-locker-empty-v215 strong { color: #ffd76a; display: block; margin-bottom: 8px; font-size: 22px; }
+
+.sf-locker-detail-v215 {
+  min-height: 0;
+  overflow: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255,215,106,.26);
+  background:
+    linear-gradient(180deg, rgba(41, 29, 17, .92), rgba(11, 14, 18, .95));
+  box-shadow: 0 18px 46px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08);
+  padding: 16px;
+}
+.sf-locker-detail-art-v215 {
+  width: 100%;
+  height: 170px;
+  border-radius: 16px;
+  background-color: rgba(0,0,0,.22);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 1px solid rgba(255,255,255,.11);
+  margin-bottom: 14px;
+}
+.sf-locker-detail-v215 h3 {
+  margin: 0 0 6px;
+  color: #ffe69b;
+  font-size: 22px;
+  line-height: 1;
+}
+.sf-locker-detail-v215 p {
+  margin: 8px 0;
+  color: rgba(255,246,220,.76);
+  line-height: 1.35;
+  font-size: 13px;
+}
+.sf-locker-detail-list-v215 {
+  display: grid;
+  gap: 8px;
+  margin-top: 13px;
+}
+.sf-locker-detail-list-v215 div {
+  border-radius: 12px;
+  padding: 9px 10px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.78);
+  font-size: 12px;
+  line-height: 1.25;
+}
+.sf-locker-detail-list-v215 b { color: #fff1b8; display: block; margin-bottom: 2px; }
+
+.room-gear.sf-owned-gear,
+.room-gear[data-owned-qty]:not([data-owned-qty="0"]) {
+  box-shadow: 0 0 0 2px rgba(134,239,172,.74), 0 0 22px rgba(34,197,94,.24) !important;
+}
+.room-gear.sf-owned-gear::after,
+.room-gear[data-owned-qty]:not([data-owned-qty="0"])::after {
+  content: "LOCKER ×" attr(data-owned-qty) " · $0 reuse";
+  display: block;
+  margin-top: 7px;
+  border-radius: 999px;
+  padding: 4px 7px;
+  background: rgba(22, 163, 74, .92);
+  color: #ecfdf5;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .06em;
+}
+
+@media (max-width: 880px) {
+  .sf-locker-stage-v215 { height: 92vh; }
+  .sf-locker-header-v215 { grid-template-columns: 1fr auto; width: calc(100% - 28px); margin-top: 12px; }
+  .sf-locker-body-v215 { grid-template-columns: 1fr; height: calc(100% - 174px); width: calc(100% - 28px); overflow: auto; }
+  .sf-locker-shelves-v215 { min-height: 420px; overflow: visible; }
+  .sf-locker-detail-v215 { min-height: 320px; }
+  .sf-locker-bg-v215 { opacity: .35; }
+}
