@@ -1,13 +1,13 @@
-/* Signal Flow Economy + Timeout Rules v6r214
+/* Signal Flow Economy + Timeout Rules v6r224
  * Adds board-type timeout handling, Build-a-Room equipment locker ownership,
  * replay/best-run bookkeeping, and locker UI without changing quiz handling.
  */
 (function(){
   'use strict';
-  if(window.sfEconomyRulesV6r214Installed) return;
-  window.sfEconomyRulesV6r214Installed = true;
+  if(window.sfEconomyRulesV6r224Installed) return;
+  window.sfEconomyRulesV6r224Installed = true;
 
-  const VERSION = '6r214';
+  const VERSION = '6r224';
   const LOCKER_KEY = 'signal-flow-equipment-locker-v1';
   const BEST_KEY = 'signal-flow-best-runs-v1';
   const HINT_KEY = 'signal-flow-hint-usage-v1';
@@ -43,13 +43,32 @@
   function clearGameTimer(){ try { if(typeof clearTimer === 'function') clearTimer(); } catch(_) {} }
   function stopGameMusic(){ try { if(typeof stopMusic === 'function') stopMusic(); } catch(_) {} }
   function updateGameTimer(){ try { if(typeof updateTimer === 'function') updateTimer(); } catch(_) {} }
+  function clearBlockingModals(){
+    try { document.querySelectorAll('.sf-economy-modal, .sf-br2-modal').forEach(x => x.remove()); } catch(_) {}
+  }
   function setStatus(kind, msg){ try { if(typeof status === 'function') status(kind, msg); } catch(_) {} }
   function retryCurrent(){
+    clearBlockingModals();
     const id = currentLevelId();
     try {
-      if(typeof navigateTo === 'function' && id){ navigateTo('/level/' + encodeURIComponent(id)); return; }
+      if(window.state){
+        state.gameOver = false;
+        state.paused = false;
+        if(Number(state.timeLeft || 0) <= 0) state.timeLeft = Number(state.baseTime || state.timer || 60) || 60;
+      }
+    } catch(_) {}
+    try { document.querySelectorAll('.jack, #undoBtn, #clearBtn, #hintBtn, #inspectBtn, #checkLevelTraining').forEach(el => { el.disabled = false; }); } catch(_) {}
+    try {
+      if(typeof navigateTo === 'function' && id){
+        navigateTo('/level/' + encodeURIComponent(id));
+        setTimeout(clearBlockingModals, 25);
+        setTimeout(clearBlockingModals, 250);
+        return;
+      }
     } catch(_) {}
     try { if(typeof renderLevel === 'function') renderLevel(); } catch(_) { location.reload(); }
+    setTimeout(clearBlockingModals, 25);
+    setTimeout(clearBlockingModals, 250);
   }
 
   function routeListMarkup(l){
@@ -75,7 +94,7 @@
     document.body.appendChild(el);
     actions.forEach((a, i) => {
       const btn = el.querySelector(`[data-sf-action="${i}"]`);
-      if(btn) btn.addEventListener('click', ev => { ev.preventDefault(); a.run && a.run(el); });
+      if(btn) btn.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); a.run && a.run(el); });
     });
     return el;
   }
@@ -96,7 +115,7 @@
       body: 'Use this review as a teaching view, then retry the board. Review mode does not complete the level or award credits.',
       blocks: [`<div class="sf-economy-list"><h3>Correct signal path</h3><ul>${routeListMarkup(l)}</ul></div>`],
       actions: [
-        { label: 'Retry Board', run: retryCurrent },
+        { label: 'Retry Board', run: el => { if(el) el.remove(); retryCurrent(); } },
         { label: 'Close Review', secondary: true, run: el => el.remove() }
       ]
     });
@@ -134,7 +153,7 @@
       body: 'The issue was not diagnosed before showtime. The answer is shown for review, but completion credits are not awarded unless the case is solved during an active run.',
       blocks: [`<div class="sf-economy-list"><h3>Correct diagnosis</h3><ul><li><strong>${esc(answerText)}</strong>${reason ? `<br>${esc(reason)}` : ''}</li></ul></div>`],
       actions: [
-        { label: 'Retry Case', run: retryCurrent },
+        { label: 'Retry Case', run: el => { if(el) el.remove(); retryCurrent(); } },
         { label: 'Review Case File', secondary: true, run: el => el.querySelector('.sf-economy-list')?.scrollIntoView({ block:'nearest', behavior:'smooth' }) }
       ]
     });
@@ -149,19 +168,19 @@
       body: 'The room was not submitted before time ran out. Review the brief, check your available credits, then retry.',
       blocks: [`<div class="sf-economy-list"><h3>Build rule</h3><ul><li>Required equipment must be present.</li><li>Extra equipment is allowed if it stays within available credits.</li><li>Owned locker gear can be reused without buying again.</li></ul></div>`],
       actions: [
-        { label: 'Retry Build', run: retryCurrent },
+        { label: 'Retry Build', run: el => { if(el) el.remove(); retryCurrent(); } },
         { label: 'Open Equipment Locker', secondary: true, run: () => showLocker() }
       ]
     });
   }
 
   function installTimeoutOverride(){
-    if(window.sfEconomyOriginalGameOverV6r214) return;
-    window.sfEconomyOriginalGameOverV6r214 = typeof window.gameOver === 'function' ? window.gameOver : null;
+    if(window.sfEconomyOriginalGameOverV6r224) return;
+    window.sfEconomyOriginalGameOverV6r224 = typeof window.gameOver === 'function' ? window.gameOver : null;
     window.gameOver = function(){
       const l = currentLevel();
       const mode = modeFor(l);
-      if(mode === 'quiz' && window.sfEconomyOriginalGameOverV6r214) return window.sfEconomyOriginalGameOverV6r214.apply(this, arguments);
+      if(mode === 'quiz' && window.sfEconomyOriginalGameOverV6r224) return window.sfEconomyOriginalGameOverV6r224.apply(this, arguments);
       if(mode === 'diagnose') return diagnosisTimeout(l);
       if(mode === 'build-room') return buildRoomTimeout(l);
       return patchTimeout(l);
@@ -342,8 +361,8 @@
   }
 
   function installBuildRoomDelegatedCheck(){
-    if(window.sfEconomyBuildRoomDelegatedV6r214) return;
-    window.sfEconomyBuildRoomDelegatedV6r214 = true;
+    if(window.sfEconomyBuildRoomDelegatedV6r224) return;
+    window.sfEconomyBuildRoomDelegatedV6r224 = true;
     document.addEventListener('click', function(event){
       const target = event.target && event.target.closest ? event.target : null;
       if(!target) return;
@@ -399,8 +418,8 @@
   }
 
   function installBestRunCapture(){
-    if(window.sfEconomyBestRunCaptureV6r214) return;
-    window.sfEconomyBestRunCaptureV6r214 = true;
+    if(window.sfEconomyBestRunCaptureV6r224) return;
+    window.sfEconomyBestRunCaptureV6r224 = true;
     const originalComplete = typeof window.completeLevel === 'function' ? window.completeLevel : null;
     if(originalComplete){
       window.completeLevel = function(){
@@ -440,8 +459,8 @@
   }
 
   function enhanceCompletionLanguage(){
-    if(window.sfEconomyCompletionLanguageV6r214) return;
-    window.sfEconomyCompletionLanguageV6r214 = true;
+    if(window.sfEconomyCompletionLanguageV6r224) return;
+    window.sfEconomyCompletionLanguageV6r224 = true;
     const original = window.sfCompletionDecorateOverlay;
     window.sfCompletionDecorateOverlay = function(levelId){
       try { if(typeof original === 'function') original(levelId); } catch(_) {}

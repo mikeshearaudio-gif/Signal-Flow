@@ -1,14 +1,14 @@
 
-/* Signal Flow Equipment Locker UI v6r215
+/* Signal Flow Equipment Locker UI v6r224
  * Visual locker for permanent Build-a-Room gear ownership.
  * Reads signal-flow-equipment-locker-v1 written by sf-economy-rules.js.
  */
 (function(){
   'use strict';
-  if(window.sfEquipmentLockerUiV6r215Installed) return;
-  window.sfEquipmentLockerUiV6r215Installed = true;
+  if(window.sfEquipmentLockerUiV6r224Installed) return;
+  window.sfEquipmentLockerUiV6r224Installed = true;
 
-  const VERSION = '6r215';
+  const VERSION = '6r224';
   const LOCKER_KEY = 'signal-flow-equipment-locker-v1';
   const ROOT = '/assets/build-room/svg/';
   const SHELVES = ROOT + 'shelves/';
@@ -114,7 +114,7 @@
   }
 
   function renderLocker(){
-    document.querySelectorAll('.sf-locker-modal-v215, .sf-economy-modal').forEach(el => el.remove());
+    document.querySelectorAll('.sf-locker-modal-v221, .sf-economy-modal').forEach(el => el.remove());
     const items = itemsArray();
     const cats = categories(items);
     if(!cats.includes(currentCategory)) currentCategory = 'all';
@@ -125,8 +125,8 @@
     const ownedCount = items.reduce((sum,item) => sum + Number(item.qty || 0), 0);
 
     const el = document.createElement('div');
-    el.className = 'sf-locker-modal-v215';
-    el.innerHTML = `<section class="sf-locker-stage-v215" role="dialog" aria-modal="true" aria-label="Equipment Locker">
+    el.className = 'sf-locker-modal-v221';
+    el.innerHTML = `<section class="sf-locker-stage-v221" role="dialog" aria-modal="true" aria-label="Equipment Locker">
       <div class="sf-locker-bg-v215" aria-hidden="true"></div>
       <header class="sf-locker-header-v215">
         <div><h2>Equipment Locker</h2><p>Permanent Build-a-Room inventory. Owned equipment is reusable and costs 0 credits on future builds.</p></div>
@@ -169,38 +169,28 @@
 
   function showLocker(){ renderLocker(); }
   window.sfOpenEquipmentLocker = showLocker;
-  window.sfShowEquipmentLockerV6r215 = showLocker;
+  window.sfShowEquipmentLockerV6r224 = showLocker;
 
   function replaceOpenButton(){
     const old = document.getElementById('sf-equipment-locker-open');
-    if(old && old.dataset.sfLockerUiV215 !== '1'){
+    if(old && old.dataset.sfLockerUiV221 !== '1'){
       const clone = old.cloneNode(true);
-      clone.dataset.sfLockerUiV215 = '1';
+      clone.dataset.sfLockerUiV221 = '1';
       clone.textContent = 'Equipment Locker';
       clone.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); showLocker(); }, true);
       old.replaceWith(clone);
-      return;
-    }
-    if(!old){
-      const btn = document.createElement('button');
-      btn.id = 'sf-equipment-locker-open';
-      btn.type = 'button';
-      btn.className = 'sf-locker-open-button secondary';
-      btn.dataset.sfLockerUiV215 = '1';
-      btn.textContent = 'Equipment Locker';
-      btn.style.position = 'fixed';
-      btn.style.right = '18px';
-      btn.style.bottom = '18px';
-      btn.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); showLocker(); }, true);
-      document.body.appendChild(btn);
     }
   }
 
+  function hasMicLockerButton(){
+    return !!document.querySelector('.sf-equipment-locker-replaces-mic-locker') || Array.from(document.querySelectorAll('button, [role="button"], a, .splash *, .corrected-splash-stage *, .machine-home *')).some(btn => /mic locker/i.test(buttonText(btn)) && isLikelySplashButton(btn));
+  }
+
   function installSplashEntry(){
-    let entry = document.getElementById('sf-locker-splash-entry-v215');
+    let entry = document.getElementById('sf-locker-splash-entry-v220');
     if(!entry){
       entry = document.createElement('button');
-      entry.id = 'sf-locker-splash-entry-v215';
+      entry.id = 'sf-locker-splash-entry-v220';
       entry.type = 'button';
       entry.className = 'sf-locker-splash-entry';
       entry.innerHTML = `<div>Equipment Locker<span>Owned Build-a-Room gear</span></div>`;
@@ -208,17 +198,18 @@
       document.body.appendChild(entry);
     }
     const isSplash = !!document.querySelector('.splash, .corrected-splash-stage, .machine-home') && !document.querySelector('.level-shell, [data-training-panel]');
-    entry.classList.toggle('is-visible', isSplash);
+    /* Primary behavior: replace the Mic Locker in-place. Only show the fallback if that old anchor is absent. */
+    entry.classList.toggle('is-visible', isSplash && !hasMicLockerButton());
   }
 
   function interceptOldLockerClicks(){
-    if(window.sfLockerUiV215CaptureInstalled) return;
-    window.sfLockerUiV215CaptureInstalled = true;
+    if(window.sfLockerUiV221CaptureInstalled) return;
+    window.sfLockerUiV221CaptureInstalled = true;
     document.addEventListener('click', ev => {
       const btn = ev.target && ev.target.closest && ev.target.closest('button, [role="button"], a');
       if(!btn) return;
       const text = (btn.textContent || btn.value || btn.getAttribute('aria-label') || '').replace(/\s+/g,' ').trim();
-      if(btn.id !== 'sf-equipment-locker-open' && !/^open equipment locker$/i.test(text) && !/^equipment locker$/i.test(text)) return;
+      if(btn.id !== 'sf-equipment-locker-open' && !/^open equipment locker$/i.test(text) && !/^equipment locker$/i.test(text) && !/^mic locker$/i.test(text)) return;
       ev.preventDefault();
       ev.stopPropagation();
       ev.stopImmediatePropagation && ev.stopImmediatePropagation();
@@ -226,9 +217,152 @@
     }, true);
   }
 
-  function refresh(){
+  
+  function buttonText(btn){
+    return (btn.textContent || btn.value || btn.getAttribute('aria-label') || '').replace(/\s+/g,' ').trim();
+  }
+
+  function replaceMicLockerButtons(){
+    const buttons = Array.from(document.querySelectorAll('button, [role="button"], a'));
+    buttons.forEach(btn => {
+      const text = buttonText(btn);
+      if(!/mic locker/i.test(text) && !btn.classList.contains('sf-equipment-locker-replaces-mic-locker')) return;
+      btn.id = 'sf-equipment-locker-open';
+      btn.classList.add('sf-equipment-locker-replaces-mic-locker');
+      btn.classList.remove('sf-mic-locker-button','mic-locker','mic-locker-button');
+      btn.textContent = 'Equipment Locker';
+      btn.setAttribute('aria-label','Equipment Locker');
+      btn.setAttribute('title','Open Equipment Locker');
+      btn.dataset.sfLockerUiV221 = '1';
+      if(!btn.dataset.sfLockerClickBound){
+        btn.dataset.sfLockerClickBound = '1';
+        btn.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); showLocker(); }, true);
+      }
+    });
+
+    /* Remove old bottom-right fallback buttons that were created before the in-place replacement. */
+    Array.from(document.querySelectorAll('#sf-equipment-locker-open.sf-locker-open-button, .sf-locker-open-button')).forEach(btn => {
+      if(btn.classList.contains('sf-equipment-locker-replaces-mic-locker')) return;
+      const rect = btn.getBoundingClientRect();
+      const nearBottom = rect.bottom > window.innerHeight - 130;
+      if(nearBottom && !/mic locker/i.test(buttonText(btn))) btn.remove();
+    });
+  }
+
+
+
+  function isLikelySplashButton(el){
+    if(!el || !el.getBoundingClientRect) return false;
+    const txt = buttonText(el);
+    if(!/^(Mic Locker|Equipment Locker)$/i.test(txt)) return false;
+    const r = el.getBoundingClientRect();
+    return r.width > 20 && r.width < 320 && r.height > 12 && r.height < 120;
+  }
+
+  function findMicLockerAnchors(){
+    return Array.from(document.querySelectorAll('button, [role="button"], a, .splash *, .corrected-splash-stage *, .machine-home *'))
+      .filter(el => /mic locker/i.test(buttonText(el)) && isLikelySplashButton(el));
+  }
+
+  function hardReplaceMicLockerInPlace(){
+    const anchors = findMicLockerAnchors();
+    anchors.forEach(el => {
+      el.id = 'sf-equipment-locker-open';
+      el.classList.add('sf-equipment-locker-replaces-mic-locker');
+      el.classList.remove('sf-mic-locker-button','mic-locker','mic-locker-button');
+      if(el.tagName !== 'BUTTON' && el.tagName !== 'A'){
+        el.setAttribute('role','button');
+        el.setAttribute('tabindex','0');
+      }
+      el.textContent = 'Equipment Locker';
+      el.setAttribute('aria-label','Equipment Locker');
+      el.setAttribute('title','Open Equipment Locker');
+      el.dataset.sfLockerUiV221 = '1';
+    });
+    return anchors.length;
+  }
+
+  function removeSplashFallbackLockerButtons(){
+    const isSplash = !!document.querySelector('.splash, .corrected-splash-stage, .machine-home') && !document.querySelector('.level-shell, [data-training-panel]');
+    if(!isSplash) return;
+    Array.from(document.querySelectorAll('#sf-locker-splash-entry-v221, .sf-locker-splash-entry, .sf-locker-open-button')).forEach(el => {
+      if(el.classList.contains('sf-equipment-locker-replaces-mic-locker')) return;
+      el.remove();
+    });
+    Array.from(document.querySelectorAll('#sf-equipment-locker-open')).forEach(el => {
+      if(el.classList.contains('sf-equipment-locker-replaces-mic-locker')) return;
+      const r = el.getBoundingClientRect();
+      if(r.bottom > window.innerHeight - 180 || r.right > window.innerWidth - 260) el.remove();
+    });
+  }
+
+
+
+  function splashLooksVisible(){
+    const text = (document.body && document.body.innerText || '').replace(/\s+/g,' ');
+    const hasSplashChrome = /\bTutorial\b/i.test(text) && /\bPlay\b/i.test(text) && /\bSIGNAL FLOW\b/i.test(text);
+    const hasExplicitStage = !!document.querySelector('.splash, .corrected-splash-stage, .machine-home');
+    const hasActiveBoard = !!document.querySelector('.level-shell [data-training-panel], [data-training-panel], #sf-build-room-2-stage, .sf-diagnosis-stage');
+    return (hasSplashChrome || hasExplicitStage) && !hasActiveBoard;
+  }
+
+  function removeDuplicateLockerOverlays(keep){
+    Array.from(document.querySelectorAll('#sf-equipment-locker-mic-locker-overlay, .sf-equipment-locker-splash-overlay')).forEach(el => {
+      if(el !== keep) el.remove();
+    });
+  }
+
+  function overlayEquipmentLockerOnMicLocker(){
+    let overlay = document.getElementById('sf-equipment-locker-mic-locker-overlay');
+    const onSplash = splashLooksVisible();
+    if(!onSplash){ if(overlay) overlay.remove(); return 0; }
+
+    if(!overlay){
+      overlay = document.createElement('button');
+      overlay.type = 'button';
+      overlay.id = 'sf-equipment-locker-mic-locker-overlay';
+      overlay.className = 'sf-equipment-locker-replaces-mic-locker sf-equipment-locker-splash-overlay';
+      overlay.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); showLocker(); }, true);
+      document.body.appendChild(overlay);
+    }
+    removeDuplicateLockerOverlays(overlay);
+    overlay.textContent = 'Equipment Locker';
+    overlay.setAttribute('aria-label','Equipment Locker');
+    overlay.setAttribute('title','Open Equipment Locker');
+
+    const candidates = Array.from(document.querySelectorAll('.splash *, .corrected-splash-stage *, .machine-home *, button, a, [role="button"]'))
+      .filter(el => el !== overlay && !el.classList.contains('sf-locker-open-button') && el.getBoundingClientRect)
+      .filter(el => /\b(mic locker|equipment locker)\b/i.test(buttonText(el)) && isLikelySplashButton(el));
+    const anchor = candidates.find(el => /mic locker/i.test(buttonText(el))) || candidates[0];
+
+    if(anchor && anchor.getBoundingClientRect){
+      const r = anchor.getBoundingClientRect();
+      if(r.width > 20 && r.height > 10){
+        anchor.classList.add('sf-equipment-locker-replaced-text');
+        anchor.setAttribute('aria-hidden','true');
+        overlay.classList.remove('is-default-position');
+        Object.assign(overlay.style, {
+          position:'fixed',
+          left:Math.round(r.left)+'px',
+          top:Math.round(r.top)+'px',
+          width:Math.round(Math.max(r.width, 210))+'px',
+          height:Math.round(Math.max(r.height, 50))+'px',
+          zIndex:'2147482500'
+        });
+        return 1;
+      }
+    }
+
+    overlay.classList.add('is-default-position');
+    overlay.removeAttribute('style');
+    return 1;
+  }
+function refresh(){
     replaceOpenButton();
-    installSplashEntry();
+    overlayEquipmentLockerOnMicLocker();
+    removeSplashFallbackLockerButtons();
+    const oldEntry=document.getElementById('sf-locker-splash-entry-v220'); if(oldEntry) oldEntry.remove();
+    removeSplashFallbackLockerButtons();
   }
 
   interceptOldLockerClicks();
@@ -236,7 +370,7 @@
   window.addEventListener('load', () => { refresh(); setTimeout(refresh, 250); setTimeout(refresh, 900); });
   window.addEventListener('hashchange', () => setTimeout(refresh, 100));
   window.addEventListener('popstate', () => setTimeout(refresh, 100));
-  new MutationObserver(() => { clearTimeout(window.sfLockerUiV215Timer); window.sfLockerUiV215Timer = setTimeout(refresh, 120); }).observe(document.documentElement, { childList:true, subtree:true });
+  new MutationObserver(() => { clearTimeout(window.sfLockerUiV221Timer); window.sfLockerUiV221Timer = setTimeout(refresh, 120); }).observe(document.documentElement, { childList:true, subtree:true });
   refresh();
   console.log('[Signal Flow] Equipment Locker UI active', VERSION);
 })();

@@ -1,5 +1,5 @@
 
-/* Signal Flow Equipment Locker UI v6r215
+/* Signal Flow Equipment Locker UI v6r224
  * Visual locker shell for permanent Build-a-Room gear ownership.
  * Uses existing build-room shelf/cubby/gear assets. Logic remains in sf-economy-rules.js.
  */
@@ -57,7 +57,7 @@ body:has(.machine-home) {
 }
 .sf-locker-splash-entry span { display: block; color: rgba(255,255,255,.72); font-size: 11px; font-weight: 750; letter-spacing: 0; margin-top: 3px; }
 
-.sf-locker-modal-v215 {
+.sf-locker-modal-v221 {
   position: fixed;
   inset: 0;
   z-index: 2147483600;
@@ -72,7 +72,7 @@ body:has(.machine-home) {
   backdrop-filter: blur(9px);
 }
 
-.sf-locker-stage-v215 {
+.sf-locker-stage-v221 {
   position: relative;
   width: min(1180px, 96vw);
   height: min(780px, 92vh);
@@ -394,10 +394,164 @@ body:has(.machine-home) {
 }
 
 @media (max-width: 880px) {
-  .sf-locker-stage-v215 { height: 92vh; }
+  .sf-locker-stage-v221 { height: 92vh; }
   .sf-locker-header-v215 { grid-template-columns: 1fr auto; width: calc(100% - 28px); margin-top: 12px; }
   .sf-locker-body-v215 { grid-template-columns: 1fr; height: calc(100% - 174px); width: calc(100% - 28px); overflow: auto; }
   .sf-locker-shelves-v215 { min-height: 420px; overflow: visible; }
   .sf-locker-detail-v215 { min-height: 320px; }
   .sf-locker-bg-v215 { opacity: .35; }
 }
+
+
+/* v6r224: Equipment Locker replaces Mic Locker on splash; fallback button no longer covers Play */
+.sf-equipment-locker-replaces-mic-locker{
+  position:relative!important;
+  z-index:2147480500!important;
+}
+#sf-equipment-locker-open{
+  right:18px!important;
+  bottom:82px!important;
+}
+body:has(.splash) #sf-equipment-locker-open,
+body:has(.corrected-splash-stage) #sf-equipment-locker-open,
+body:has(.machine-home) #sf-equipment-locker-open{
+  bottom:110px!important;
+}
+.sf-locker-splash-entry{
+  right:32px!important;
+  bottom:112px!important;
+}
+
+
+/* v6r224: Equipment Locker replaces Mic Locker in-place; fallback only appears if no Mic Locker anchor exists. */
+#sf-equipment-locker-open.sf-equipment-locker-replaces-mic-locker {
+  position: inherit;
+  right: auto !important;
+  bottom: auto !important;
+}
+.sf-locker-open-button:not(.sf-equipment-locker-replaces-mic-locker) {
+  display: none !important;
+}
+.sf-locker-splash-entry {
+  right: 32px;
+  bottom: 132px;
+}
+
+
+/* v6r224: Equipment Locker is the Mic Locker replacement. No bottom-right fallback on splash. */
+body:has(.splash) .sf-locker-splash-entry,
+body:has(.corrected-splash-stage) .sf-locker-splash-entry,
+body:has(.machine-home) .sf-locker-splash-entry,
+body:has(.splash) .sf-locker-open-button:not(.sf-equipment-locker-replaces-mic-locker),
+body:has(.corrected-splash-stage) .sf-locker-open-button:not(.sf-equipment-locker-replaces-mic-locker),
+body:has(.machine-home) .sf-locker-open-button:not(.sf-equipment-locker-replaces-mic-locker) {
+  display:none!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+}
+.sf-equipment-locker-replaces-mic-locker {
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  cursor:pointer!important;
+}
+
+
+/* v6r224 Equipment Locker cleanup: integrated shelf, less black-slab layering, true Mic Locker replacement. */
+#sf-equipment-locker-open.sf-locker-open-button,
+.sf-locker-open-button:not(.sf-equipment-locker-replaces-mic-locker),
+#sf-locker-splash-entry-v220,
+#sf-locker-splash-entry-v221,
+.sf-locker-splash-entry{ display:none!important; visibility:hidden!important; pointer-events:none!important; }
+.sf-equipment-locker-replaced-text{ color:transparent!important; text-shadow:none!important; }
+.sf-equipment-locker-splash-overlay{
+  appearance:none;
+  border:0;
+  background:transparent!important;
+  color:#32f0ff!important;
+  font:inherit;
+  font-size:inherit;
+  text-shadow:0 0 8px rgba(50,240,255,.65), 0 2px 2px rgba(0,0,0,.65);
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+}
+.sf-equipment-locker-splash-overlay:hover{ filter:brightness(1.2); }
+.sf-locker-stage-v221{
+  background:linear-gradient(180deg, rgba(32,22,13,.82), rgba(5,8,10,.90))!important;
+}
+.sf-locker-bg-v215{ opacity:.66!important; }
+.sf-locker-shelves-v215{
+  background:rgba(4,8,12,.42)!important;
+  backdrop-filter:blur(2px);
+  border-color:rgba(255,215,106,.18)!important;
+}
+.sf-locker-slot-v215{
+  background:rgba(5,8,12,.50)!important;
+}
+.sf-locker-detail-v215{
+  background:rgba(37,24,13,.56)!important;
+  backdrop-filter:blur(2px);
+}
+
+
+/* v6r224: true in-place splash overlay and cleaner locker surface */
+.sf-equipment-locker-splash-overlay{
+  appearance:none!important;
+  border:1px solid rgba(125,241,255,.45)!important;
+  border-radius:0!important;
+  background:rgba(59,36,43,.96)!important;
+  color:#34f3ff!important;
+  text-shadow:0 0 8px rgba(52,243,255,.65)!important;
+  box-shadow:0 0 0 2px rgba(0,0,0,.22),0 8px 20px rgba(0,0,0,.35)!important;
+  font:500 30px/1.05 fantasy, "Marker Felt", "Comic Sans MS", system-ui!important;
+  letter-spacing:.02em!important;
+  display:grid!important;
+  place-items:center!important;
+  cursor:pointer!important;
+}
+.sf-equipment-locker-splash-overlay.is-default-position{
+  position:fixed!important;
+  left:clamp(330px, 25.5vw, 455px)!important;
+  bottom:clamp(48px, 6.2vh, 78px)!important;
+  width:260px!important;
+  height:50px!important;
+  z-index:2147482500!important;
+}
+.sf-equipment-locker-replaced-text{opacity:.04!important;color:transparent!important;text-shadow:none!important;}
+.sf-locker-splash-entry,.sf-locker-open-button{display:none!important;}
+#sf-equipment-locker-open.sf-locker-open-button{display:none!important;}
+.sf-locker-modal-v221{background:rgba(0,0,0,.58)!important;backdrop-filter:blur(7px)!important;}
+.sf-locker-stage-v221{background:linear-gradient(180deg,rgba(34,22,12,.74),rgba(4,7,10,.78))!important;}
+.sf-locker-bg-v215{opacity:.72!important;filter:blur(.2px) saturate(.95)!important;}
+.sf-locker-shelves-v215{
+  background:rgba(4,8,12,.36)!important;
+  border-color:rgba(255,255,255,.08)!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)!important;
+  backdrop-filter:blur(1.5px)!important;
+}
+.sf-locker-shelves-v215::after{display:none!important;}
+.sf-locker-detail-v215{background:rgba(39,25,13,.46)!important;backdrop-filter:blur(1.5px)!important;}
+
+/* v6r224: one in-place splash Equipment Locker button, no duplicate/floating buttons */
+.sf-equipment-locker-replaced-text{
+  opacity:0!important;
+  color:transparent!important;
+  text-shadow:none!important;
+  pointer-events:none!important;
+}
+#sf-equipment-locker-mic-locker-overlay.sf-equipment-locker-splash-overlay{
+  white-space:normal!important;
+  text-align:center!important;
+  line-height:1.05!important;
+  overflow:hidden!important;
+}
+#sf-equipment-locker-mic-locker-overlay.sf-equipment-locker-splash-overlay::before,
+#sf-equipment-locker-mic-locker-overlay.sf-equipment-locker-splash-overlay::after{display:none!important;content:none!important;}
+.sf-locker-open-button:not(#sf-equipment-locker-mic-locker-overlay),
+#sf-locker-splash-entry-v220,
+#sf-locker-splash-entry-v224,
+.sf-locker-splash-entry{display:none!important;visibility:hidden!important;pointer-events:none!important;}
+.sf-locker-shelves-v215{background:rgba(4,8,12,.24)!important;}
+.sf-locker-slot-v215{background:rgba(5,8,12,.34)!important;}
+.sf-locker-detail-v215{background:rgba(39,25,13,.38)!important;}

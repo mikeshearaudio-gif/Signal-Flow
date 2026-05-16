@@ -1,4 +1,4 @@
-/* Signal Flow Build-a-Room 2.0 UI v6r217
+/* Signal Flow Build-a-Room 2.0 UI v6r224
    Generic generated room-builder GUI for training.type === "build-room".
    Does not change patch boards, quiz boards, diagnosis boards, or native live boards. */
 
@@ -230,3 +230,319 @@ body.sf-build-room-2-active .training-level-panel.build-room-panel.sf-build-room
 @media (max-width:1280px){
   .sf-br2-grid{grid-template-columns:240px minmax(360px,1fr) 400px}.sf-br2-option-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.sf-br2-bottom{grid-template-columns:1fr 1fr;}.sf-br2-action{min-height:78px;}
 }
+
+
+/* v6r224 readability and no-spoiler build-room refinements */
+.sf-br2-left.compact .sf-br2-note{display:none!important;}
+.sf-br2-left.compact{gap:12px;}
+.sf-br2-check-sub{font-size:.75rem;opacity:.72;}
+.sf-br2-gear .sf-br2-tag.distractor,
+.sf-br2-gear .sf-br2-tag.overkill,
+.sf-br2-gear .sf-br2-tag.required{
+  background:rgba(125,211,252,.14)!important;
+  border-color:rgba(125,211,252,.28)!important;
+  color:#d9f3ff!important;
+}
+.sf-br2-gear .sf-br2-tag.new{
+  background:rgba(125,211,252,.14)!important;
+  border-color:rgba(125,211,252,.28)!important;
+  color:#d9f3ff!important;
+}
+.sf-br2-category-title span{
+  color:rgba(255,246,220,.62)!important;
+  text-transform:none!important;
+  letter-spacing:.03em!important;
+}
+.sf-br2-zone span{
+  text-shadow:0 2px 8px rgba(0,0,0,.72);
+}
+.sf-br2-store .sf-br2-options{
+  padding-bottom:92px;
+}
+
+
+/* v6r224: show both rendered podcast-booth art and generic Build-a-Room category art. */
+.sf-br2-art-stack {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 74px;
+  margin-bottom: 6px;
+}
+.sf-br2-art-stack img {
+  position: absolute;
+  object-fit: contain;
+  pointer-events: none;
+}
+.sf-br2-art-stack .sf-br2-art-primary {
+  left: 8px;
+  right: 20px;
+  top: 0;
+  width: calc(100% - 28px);
+  height: 72px;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,.55));
+}
+.sf-br2-art-stack .sf-br2-art-support {
+  right: 2px;
+  bottom: 0;
+  width: 34px;
+  height: 34px;
+  opacity: .72;
+  background: rgba(0,0,0,.38);
+  border: 1px solid rgba(255,215,106,.22);
+  border-radius: 8px;
+  padding: 2px;
+}
+.sf-br2-gear img:not(.sf-br2-art-primary):not(.sf-br2-art-support) { display: none; }
+.sf-br2-category-title span { color: rgba(255,246,220,.58); }
+
+
+/* v6r224: no-spoiler safety net for older Build-a-Room cards still in the DOM. */
+.sf-build-room-2-active .sf-br2-tag.required,
+.sf-build-room-2-active .sf-br2-tag.distractor,
+.sf-build-room-2-active .sf-br2-tag.overkill,
+.sf-build-room-2-active [class*="badge"].required,
+.sf-build-room-2-active [class*="badge"].distractor,
+.sf-build-room-2-active [class*="badge"].overkill,
+.sf-build-room-2-active [class*="tag"].required,
+.sf-build-room-2-active [class*="tag"].distractor,
+.sf-build-room-2-active [class*="tag"].overkill {
+  display:none!important;
+  visibility:hidden!important;
+}
+.sf-build-room-2-active .sf-br2-category-title span {
+  color:rgba(255,246,220,.56)!important;
+}
+.sf-br2-zone span br + text { display:none; }
+.sf-br2-art-stack .sf-br2-art-primary { z-index:2; }
+.sf-br2-art-stack .sf-br2-art-support { z-index:3; }
+
+
+/* v6r224 Build-a-Room 2.0 layout refactor: single clean shop/build scene, no spoiler labels. */
+.sf-build-room-2-stage-v222{
+  min-height:720px;
+  border-radius:22px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,215,106,.14), transparent 26%),
+    linear-gradient(180deg, rgba(6,10,15,.98), rgba(3,4,6,.98));
+}
+.sf-build-room-2-stage-v222 .sf-br2-topline{
+  grid-template-columns:minmax(240px,1fr) 104px 118px 128px;
+  padding:10px 14px;
+  background:linear-gradient(90deg, rgba(24,17,11,.94), rgba(10,18,28,.92));
+}
+.sf-br2-build-floor{
+  display:grid;
+  grid-template-columns:250px minmax(560px,1fr) 230px;
+  gap:12px;
+  padding:12px;
+  min-height:580px;
+}
+.sf-br2-brief-rail,
+.sf-br2-summary-rail{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  min-height:0;
+}
+.sf-build-room-2-stage-v222 .sf-br2-note.compact-note{
+  padding:14px 14px 16px;
+  border-radius:16px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-note.compact-note p{
+  font-size:.84rem;
+  line-height:1.25;
+}
+.sf-build-room-2-stage-v222 .sf-br2-checklist,
+.sf-build-room-2-stage-v222 .sf-br2-tip,
+.sf-build-room-2-stage-v222 .sf-br2-grade,
+.sf-build-room-2-stage-v222 .sf-br2-locker{
+  border-radius:16px;
+  border:1px solid rgba(255,215,106,.16);
+  background:rgba(5,8,11,.62);
+  box-shadow:none;
+  padding:10px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-checklist{ overflow:auto; }
+.sf-build-room-2-stage-v222 .sf-br2-check-row{
+  min-height:42px;
+  background:rgba(255,255,255,.035);
+  border-color:rgba(255,255,255,.075);
+}
+.sf-br2-shop-scene{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border-radius:20px;
+  min-height:580px;
+  border:1px solid rgba(255,215,106,.20);
+  background:
+    linear-gradient(180deg, rgba(6,8,11,.35), rgba(3,4,6,.74)),
+    url('/assets/post/build-room/items/svg/rendered/18_podcast_booth_scene.svg') center / cover no-repeat,
+    url('/assets/build-room/svg/shelves/wood-bench-wide-goodstyle.svg') center bottom / contain no-repeat,
+    linear-gradient(180deg,#1e150d,#05070a);
+}
+.sf-br2-scene-backdrop{
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.50)),
+    radial-gradient(circle at 50% 36%, rgba(255,210,105,.10), transparent 38%);
+}
+.sf-br2-shop-scene .sf-br2-store-head,
+.sf-br2-shop-scene .sf-br2-tabs,
+.sf-br2-shop-scene .sf-br2-options,
+.sf-br2-shop-scene .sf-br2-selection-strip{
+  position:relative; z-index:2;
+}
+.sf-br2-shop-scene .sf-br2-store-head{ padding:12px 14px 0; }
+.sf-br2-shop-scene .sf-br2-tabs{ padding:8px 14px 6px; }
+.sf-br2-shop-scene .sf-br2-options{
+  max-height:456px;
+  overflow:auto;
+  padding:4px 14px 82px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-option-grid{
+  grid-template-columns:repeat(auto-fill,minmax(118px,1fr));
+  gap:10px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-category-title{
+  margin:12px 0 8px;
+  color:#ffe27a;
+  text-shadow:0 2px 8px rgba(0,0,0,.8);
+}
+.sf-build-room-2-stage-v222 .sf-br2-category-title span{ display:none!important; }
+.sf-build-room-2-stage-v222 .sf-br2-gear{
+  min-height:136px;
+  grid-template-rows:76px minmax(28px,auto) 18px;
+  border-radius:14px;
+  background:linear-gradient(180deg, rgba(36,25,16,.82), rgba(9,8,7,.86));
+  border-color:rgba(255,215,106,.24);
+  box-shadow:0 12px 22px rgba(0,0,0,.33), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.sf-build-room-2-stage-v222 .sf-br2-gear.selected{
+  background:linear-gradient(180deg, rgba(34,80,50,.80), rgba(7,18,11,.92));
+}
+.sf-build-room-2-stage-v222 .sf-br2-gear-name{
+  font-size:.70rem;
+  text-align:center;
+  min-height:28px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-tag.required,
+.sf-build-room-2-stage-v222 .sf-br2-tag.distractor,
+.sf-build-room-2-stage-v222 .sf-br2-tag.overkill,
+.sf-build-room-2-stage-v222 .sf-br2-tag.optional,
+.sf-build-room-2-stage-v222 .sf-br2-tag.acceptable{ display:none!important; }
+.sf-build-room-2-stage-v222 .sf-br2-tag.new,
+.sf-build-room-2-stage-v222 .sf-br2-tag.owned{
+  display:inline-block!important;
+  background:rgba(34,120,190,.80)!important;
+  color:#e7f7ff!important;
+}
+.sf-build-room-2-stage-v222 .sf-br2-selection-strip{
+  position:absolute;
+  left:14px; right:14px; bottom:12px;
+  display:flex; gap:12px; align-items:center; justify-content:flex-end;
+  padding:10px 12px; border-radius:14px;
+  background:rgba(5,7,9,.78);
+  border:1px solid rgba(255,215,106,.16);
+  color:#fff4d0; font-weight:850;
+}
+.sf-br2-selection-strip button{
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:10px;
+  background:rgba(80,25,28,.75);
+  color:#ffd5d9;
+  padding:7px 10px;
+  font-weight:900;
+  cursor:pointer;
+}
+.sf-br2-selection-strip .good{ color:#86efac; }
+.sf-br2-selection-strip .bad{ color:#ff8b9a; }
+.sf-build-room-2-stage-v222 .sf-br2-locker-row{
+  grid-template-columns:1fr;
+  gap:7px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-locker-item{
+  min-height:58px;
+  height:auto;
+  display:grid;
+  grid-template-columns:44px 1fr;
+  text-align:left;
+  gap:8px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-actionbar{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  padding:0 12px 12px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-action{
+  min-width:150px;
+  padding:12px 16px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-result{
+  margin:0 12px 12px;
+}
+.sf-build-room-2-stage-v222 .sf-br2-room,
+.sf-build-room-2-stage-v222 .sf-br2-store,
+.sf-build-room-2-stage-v222 .sf-br2-bottom{ display:none!important; }
+@media (max-width:1320px){
+  .sf-br2-build-floor{ grid-template-columns:230px minmax(460px,1fr) 210px; }
+  .sf-build-room-2-stage-v222 .sf-br2-option-grid{ grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); }
+}
+
+
+/* v6r224: mockup-aligned cleanup - fewer subwindows, no spoiler labels, shelf-first store */
+.sf-build-room-2-stage-v222,
+.sf-build-room-2-stage-v223{
+  --sf-br2-panel: rgba(7,11,14,.52);
+}
+.sf-br2-build-floor{
+  grid-template-columns: 250px minmax(0,1fr) !important;
+  gap: 12px !important;
+}
+.sf-br2-summary-rail{display:none!important;}
+.sf-br2-brief-rail{background:rgba(3,8,12,.42)!important;border-color:rgba(255,215,106,.12)!important;}
+.sf-br2-brief-rail .sf-br2-note,
+.sf-br2-brief-rail .sf-br2-tip{display:none!important;}
+.sf-br2-checklist{background:rgba(4,8,12,.52)!important;border-color:rgba(255,255,255,.08)!important;}
+.sf-br2-shop-scene{
+  position:relative;
+  background:
+    radial-gradient(circle at 45% 20%, rgba(255,215,106,.10), transparent 32%),
+    linear-gradient(180deg, rgba(17,10,6,.36), rgba(5,7,9,.48)),
+    url('/assets/build-room/svg/shelves/left-pegboard-shelf-bay-goodstyle.svg') left top/50% auto no-repeat,
+    url('/assets/build-room/svg/shelves/right-pegboard-shelf-bay-goodstyle.svg') right top/50% auto no-repeat,
+    rgba(6,8,10,.35) !important;
+  border-color:rgba(255,215,106,.18)!important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.035), 0 16px 40px rgba(0,0,0,.22) !important;
+}
+.sf-br2-scene-backdrop{opacity:.18!important;}
+.sf-br2-store-head{background:transparent!important;border:0!important;box-shadow:none!important;}
+.sf-br2-store-title{font-size:.78rem!important;letter-spacing:.16em!important;color:#ffe17d!important;}
+.sf-br2-options{max-height:510px!important;padding-bottom:78px!important;}
+.sf-br2-category-title span{visibility:hidden!important;}
+.sf-br2-option-grid{grid-template-columns:repeat(auto-fill,minmax(132px,1fr))!important;}
+.sf-br2-gear{
+  min-height:116px!important;
+  background:linear-gradient(180deg,rgba(47,31,17,.68),rgba(7,8,10,.78))!important;
+  border-color:rgba(255,215,106,.18)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+.sf-br2-gear-name{font-size:.66rem!important;}
+.sf-br2-gear .sf-br2-tag.required,
+.sf-br2-gear .sf-br2-tag.distractor,
+.sf-br2-gear .sf-br2-tag.overkill,
+.sf-br2-gear .sf-br2-tag.acceptable,
+.sf-br2-gear .sf-br2-tag.optional{display:none!important;}
+.sf-br2-gear .sf-br2-tag.new{background:rgba(125,211,252,.16)!important;color:#dff7ff!important;}
+.sf-br2-selection-strip{
+  position:sticky!important;
+  bottom:0!important;
+  z-index:20!important;
+  background:linear-gradient(180deg,rgba(26,16,10,.94),rgba(6,7,9,.97))!important;
+  border:1px solid rgba(255,215,106,.24)!important;
+  border-radius:14px!important;
+}
+.sf-br2-actionbar{grid-template-columns:1fr 1fr 1fr!important;gap:10px!important;}
