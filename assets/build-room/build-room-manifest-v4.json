@@ -1,0 +1,3450 @@
+{
+  "version": "v4-v6r227",
+  "created": "2026-05-16",
+  "rules": {
+    "store_cards_hide_internal_roles": true,
+    "old_build_room_dom_is_not_visual_source_of_truth": true,
+    "build_room_focus": "physical/session setup; not middleware",
+    "endpoint_terms_belong_in": "Connection_Checklist",
+    "rec_013_ambience_processor": {
+      "preferred": "Reverb unit",
+      "acceptable": [
+        "Plate reverb",
+        "Delay/reverb unit"
+      ]
+    }
+  },
+  "normalization_rules": [
+    {
+      "old": "Stage wedge mix",
+      "canonical": "Stage monitor",
+      "reason": "Store lists physical systems, not mixes/sends."
+    },
+    {
+      "old": "Phone hybrid send",
+      "canonical": "Broadcast Phone System",
+      "reason": "Store lists the system, not its send/output."
+    },
+    {
+      "old": "FOH matrix",
+      "canonical": "Matrix router",
+      "reason": "Use functional device name."
+    },
+    {
+      "old": "FOH matrix 1",
+      "canonical": "Matrix router",
+      "reason": "Use functional device name."
+    },
+    {
+      "old": "Gentner phone hybrid",
+      "canonical": "Broadcast Phone System",
+      "reason": "Normalize brand-style/phone hybrid names."
+    },
+    {
+      "old": "Getner",
+      "canonical": "Broadcast Phone System",
+      "reason": "Normalize misspelling/brand-style phone hybrid names."
+    },
+    {
+      "old": "Telephone hybrid",
+      "canonical": "Broadcast Phone System",
+      "reason": "Normalize phone hybrid names."
+    },
+    {
+      "old": "Comms interface",
+      "canonical": "Comms interface",
+      "reason": "Kept as canonical equipment name."
+    },
+    {
+      "old": "IFB interface",
+      "canonical": "IFB transmitter + IFB receiver",
+      "reason": "Split vague IFB interface into real pieces."
+    },
+    {
+      "old": "Speaker processor",
+      "canonical": "Crossover / matrix router / system processor",
+      "reason": "Avoid generic 'speaker processor' where specific processor type is known."
+    },
+    {
+      "old": "Tie Line / Input / Output / Send / Return / Bus / CH",
+      "canonical": "Connection checklist only",
+      "reason": "Endpoints are not purchasable equipment."
+    },
+    {
+      "old": "Aux output",
+      "canonical": "TT patch cable + source endpoint in checklist",
+      "reason": "Aux output is a jack/route point, not equipment."
+    },
+    {
+      "old": "FX Return L/R",
+      "canonical": "Console with stereo FX return + checklist endpoint",
+      "reason": "FX return is a destination endpoint."
+    }
+  ],
+  "levels": [
+    {
+      "level_id": "REC-004",
+      "environment": "Recording Studio",
+      "scenario": "Keyboard session",
+      "brief": "Patch a stereo pair into line inputs. Keep left and right channels consistent.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "1/4-inch instrument cable",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Keyboard to DI",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Passive DI box",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Keyboard direct boxes",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 2,
+          "role": "required",
+          "need_group": "DI to console",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "8x2x2 analog mixer",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Console/mixer inputs",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "1/4-inch instrument cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Keyboard to DI",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Passive DI box",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Keyboard direct boxes",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "DI to console",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "8x2x2 analog mixer",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Console/mixer inputs",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Plate reverb",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Control room monitor pair",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Keyboard left output",
+          "Passive DI box left input",
+          "1/4-inch instrument cable",
+          "Preserve stereo left/right order."
+        ],
+        [
+          "Keyboard right output",
+          "Passive DI box right input",
+          "1/4-inch instrument cable",
+          "Preserve stereo left/right order."
+        ],
+        [
+          "Passive DI left output",
+          "Mixer line/mic input left",
+          "XLR cable",
+          "Left channel stays left."
+        ],
+        [
+          "Passive DI right output",
+          "Mixer line/mic input right",
+          "XLR cable",
+          "Right channel stays right."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Preserves user's approved logic; spelling cleaned. Tie-line/endpoint terms kept out of equipment."
+    },
+    {
+      "level_id": "REC-013",
+      "environment": "Recording Studio",
+      "scenario": "Create a space",
+      "brief": "Send multiple channels to an effect to create a shared ambience.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "8x2x2 analog mixer",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Console/mixer sends and returns",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Reverb unit",
+          "qty": 1,
+          "role": "preferred",
+          "need_group": "Time-based ambience processor",
+          "category": "Processors / Effects",
+          "notes": "Preferred for this level."
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Patchbay send/return cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Patchbay",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Patch routing",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "8x2x2 analog mixer",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Console/mixer sends and returns",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Reverb unit",
+          "qty": 1,
+          "role": "preferred",
+          "satisfies": "Time-based ambience processor",
+          "category": "Processors / Effects",
+          "notes": "Preferred choice."
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Patchbay send/return cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Patchbay",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Patch routing",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Plate reverb",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Time-based ambience processor",
+          "category": "Processors / Effects",
+          "notes": "Acceptable alternate ambience processor."
+        },
+        {
+          "name": "Delay/reverb unit",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Time-based ambience processor",
+          "category": "Processors / Effects",
+          "notes": "Acceptable alternate ambience processor."
+        },
+        {
+          "name": "Control room monitor pair",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "2x2 USB interface",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Mixer aux output",
+          "Reverb unit input",
+          "TT patch cable",
+          "Aux output is a jack/connection point, not purchasable gear."
+        ],
+        [
+          "Reverb unit output left",
+          "Mixer FX return left",
+          "TT patch cable",
+          "Stereo return left."
+        ],
+        [
+          "Reverb unit output right",
+          "Mixer FX return right",
+          "TT patch cable",
+          "Stereo return right."
+        ],
+        [
+          "Patchbay send/return points",
+          "Reverb unit I/O",
+          "Patchbay",
+          "Patchbay is equipment; patch points are checklist concepts."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Preferred: Reverb unit. Acceptable: Plate reverb or Delay/reverb unit. Route endpoints separated from purchasable gear."
+    },
+    {
+      "level_id": "REC-027",
+      "environment": "Recording Studio",
+      "scenario": "Drum session",
+      "brief": "Patch a drum kit to mic preamps.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 4,
+          "role": "required",
+          "need_group": "Close drum mics",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Large diaphragm condenser",
+          "qty": 4,
+          "role": "required",
+          "need_group": "Room/overhead/spot mics",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Small diaphragm condenser",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Overhead/stereo pair",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 10,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand",
+          "qty": 10,
+          "role": "required",
+          "need_group": "Mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 recording console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic preamps/console inputs",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Close drum mics",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Large diaphragm condenser",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Room/overhead/spot mics",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Overhead/stereo pair",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 recording console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic preamps/console inputs",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Plate reverb",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Control room monitor pair",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Stereo compressor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "8x2x2 analog mixer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "8x8 audio interface",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Mic preamps/console inputs",
+          "category": "Interfaces / Recorders",
+          "notes": "Possible alternate depending level tuning."
+        }
+      ],
+      "checklist": [
+        [
+          "Drum close mic outputs",
+          "Console mic preamp inputs",
+          "XLR cable",
+          "Close mics land on assigned mic preamps."
+        ],
+        [
+          "Overhead mic pair outputs",
+          "Console mic preamp inputs",
+          "XLR cable",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "Room/spot mic outputs",
+          "Console mic preamp inputs",
+          "XLR cable",
+          "Use sufficient mic preamp capacity."
+        ],
+        [
+          "Mic stands",
+          "Drum kit mic positions",
+          "Mic stand",
+          "Physical placement support."
+        ],
+        [
+          "Console inputs",
+          "Recording path",
+          "16x4x2 recording console",
+          "Console/preamps are gear; individual inputs are route endpoints."
+        ],
+        [
+          "Mic inventory",
+          "Drum kit source positions",
+          "Dynamic/cardioid/condenser mics",
+          "Need enough mics for the kit."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Preserves user's approved equipment logic, with spelling cleaned."
+    },
+    {
+      "level_id": "REC-041",
+      "environment": "Recording Studio",
+      "scenario": "Piano session",
+      "brief": "Patch a stereo-miked piano to mic preamps. Send the feed to the player's headphones.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stereo piano mic pair",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Piano mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Piano mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 recording console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic preamps and aux send",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Headphone amp",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Performer cue feed",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Aux/cue patching",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "2x2 USB interface",
+          "qty": 1,
+          "role": "optional",
+          "need_group": "Recording interface",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DAW",
+          "qty": 1,
+          "role": "optional",
+          "need_group": "Recording destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo piano mic pair",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Large diaphragm condenser pair",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Stereo piano mic pair",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Piano mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Piano mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 recording console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic preamps and aux send",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Headphone amp",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer cue feed",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Aux/cue patching",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Plate reverb",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Control room monitor pair",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Piano left microphone",
+          "Console mic preamp input left",
+          "XLR cable",
+          "Tie line/input labels stay in checklist, not store."
+        ],
+        [
+          "Piano right microphone",
+          "Console mic preamp input right",
+          "XLR cable",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "Console aux output",
+          "Headphone amp input",
+          "TT patch cable",
+          "Aux output is a jack/connection point; TT cable is equipment."
+        ],
+        [
+          "Headphone amp output",
+          "Performer headphones",
+          "Headphone amp / headphones",
+          "Performer cue path."
+        ],
+        [
+          "Console/DAW recording path",
+          "Recorder or interface input",
+          "2x2 USB interface / DAW",
+          "Optional depending board tuning."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Converted tie lines, console inputs, aux output, and headphone amp input into connection checklist; equipment list now contains physical gear."
+    },
+    {
+      "level_id": "BRD-004",
+      "environment": "Broadcast / Podcast / Livestream",
+      "scenario": "Distribution",
+      "brief": "Send signal to a recorder and a live broadcast feed.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Host/source microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 digital broadcast console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Broadcast console/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "DAW",
+          "qty": 1,
+          "role": "acceptable",
+          "need_group": "Record feed destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Stream encoder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Live stream output",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Program feed cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "USB cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Computer/encoder connection",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Broadcast dynamic mic",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Host/source microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Host/source microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 digital broadcast console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Broadcast console/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Record feed recorder",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Record feed destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DAW",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Record feed destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Stream encoder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Live stream output",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Program feed cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "USB cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Computer/encoder connection",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "Distribution matrix",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Program feed routing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Guitar amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Host microphone",
+          "Broadcast console mic input",
+          "XLR cable",
+          "Host tie line/input names stay in checklist."
+        ],
+        [
+          "Console program output",
+          "Record feed recorder / DAW input",
+          "Balanced TRS cable pair",
+          "Program bus output is an endpoint."
+        ],
+        [
+          "Console program output",
+          "Stream encoder input",
+          "Balanced TRS cable pair / USB cable",
+          "Encoder input is an endpoint."
+        ],
+        [
+          "Stream encoder",
+          "Streaming computer/platform",
+          "USB cable",
+          "Live feed destination."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Converted program bus and encoder inputs to checklist endpoints; required equipment now represents physical broadcast gear."
+    },
+    {
+      "level_id": "BRD-013",
+      "environment": "Broadcast / Podcast / Livestream",
+      "scenario": "IFB interrupt",
+      "brief": "Route program-minus-talent and talkback through the IFB.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "16x4x2 digital broadcast console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Program-minus/talkback routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Producer talkback mic",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "IFB transmitter",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IFB send",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "IFB receiver",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IFB receive",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 2,
+          "role": "required",
+          "need_group": "IFB/talkback cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Anchor earpiece",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Talent monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "16x4x2 digital broadcast console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Program-minus/talkback routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Producer talkback mic",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Producer talkback mic",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Producer talkback mic",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "IFB transmitter",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB send",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "IFB receiver",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB receive",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "IFB beltpack receiver",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "IFB receive",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB/talkback cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Anchor earpiece",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Talent monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "Front fill processor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Guitar amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Program-minus-talent output",
+          "IFB program input",
+          "Balanced TRS cable",
+          "Endpoint labels are route concepts."
+        ],
+        [
+          "Producer talkback mic",
+          "Broadcast console talkback input",
+          "XLR cable / console input",
+          "Talkback source into console."
+        ],
+        [
+          "IFB interrupt output",
+          "IFB transmitter input",
+          "Balanced TRS cable",
+          "Interrupt feed."
+        ],
+        [
+          "IFB transmitter",
+          "IFB receiver / anchor earpiece",
+          "IFB system",
+          "Talent receives IFB."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Endpoints are now connection requirements; store contains IFB and talkback gear."
+    },
+    {
+      "level_id": "BRD-027",
+      "environment": "Broadcast / Podcast / Livestream",
+      "scenario": "Field reporter IFB",
+      "brief": "Send IFB to the reporter. Patch reporter return to field recorder.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Field recorder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Reporter return recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "8x2x2 broadcast console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IFB/program routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "IFB transmitter",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IFB send",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "IFB receiver",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IFB receive",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Reporter/host mic",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IFB/return cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Field recorder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Reporter return recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "8x2x2 broadcast console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB/program routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "IFB transmitter",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB send",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "IFB receiver",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB receive",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Reporter/host mic",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IFB/return cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "Front fill processor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Guitar amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "16x4x4 digital broadcast console",
+          "qty": 1,
+          "role": "overkill",
+          "satisfies": "IFB/program routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "DAW",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "Reporter return recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Field reporter return",
+          "Field recorder input",
+          "Balanced TRS cable",
+          "Return is an endpoint."
+        ],
+        [
+          "Broadcast console IFB output",
+          "IFB transmitter input",
+          "Balanced TRS cable",
+          "Send IFB to reporter."
+        ],
+        [
+          "IFB transmitter",
+          "IFB receiver",
+          "IFB system",
+          "Reporter monitoring path."
+        ],
+        [
+          "Reporter microphone",
+          "Field recorder / console input",
+          "XLR cable",
+          "Reporter source capture."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Field reporter return and IFB send are endpoints, not store gear."
+    },
+    {
+      "level_id": "BRD-041",
+      "environment": "Broadcast / Podcast / Livestream",
+      "scenario": "Host to air",
+      "brief": "Route host microphone to the console and feed program to the stream.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Broadcast dynamic mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Host microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 digital broadcast console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Broadcast console/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Stream encoder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Streaming destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Program feed cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Broadcast dynamic mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Host microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 digital broadcast console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Broadcast console/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Stream encoder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Streaming destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Program feed cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "Front fill processor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Guitar amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Host microphone",
+          "Broadcast console mic input",
+          "XLR cable",
+          "Host tie line/input names stay in checklist."
+        ],
+        [
+          "Console program output",
+          "Stream encoder input",
+          "Balanced TRS cable pair",
+          "Program output and encoder input are endpoints."
+        ],
+        [
+          "Stream encoder",
+          "Live stream platform",
+          "Network/computer connection",
+          "Feed program to stream."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Host tie line, program bus output, and stream encoder input now appear as connection points only."
+    },
+    {
+      "level_id": "PST-004",
+      "environment": "Film / TV Post Production",
+      "scenario": "Foley capture",
+      "brief": "Route mic to preamp to DAW for Foley.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Shotgun boom mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Foley microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Clean mic preamp",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic preamplification",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "2x2 USB interface",
+          "qty": 1,
+          "role": "required",
+          "need_group": "DAW interface",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Headphone amp",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Cue headphone feed",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Line-level interface cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Patch/cue routing",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Shotgun boom mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Foley microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Clean mic preamp",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic preamplification",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "2x2 USB interface",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "DAW interface",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Headphone amp",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Cue headphone feed",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Line-level interface cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Patch/cue routing",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stage monitor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Matrix router",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "ADR/Foley booth microphone",
+          "Clean mic preamp input",
+          "XLR cable",
+          "Tie line/preamp input are endpoints."
+        ],
+        [
+          "Clean mic preamp output",
+          "2x2 USB interface input",
+          "Balanced TRS cable",
+          "Preamp output/interface input are endpoints."
+        ],
+        [
+          "Cue mix output",
+          "Headphone amp input",
+          "TT patch cable",
+          "Cue output is a route endpoint."
+        ],
+        [
+          "Headphone amp output",
+          "Closed-back studio headphones",
+          "Headphone amp / headphones",
+          "Cue monitoring."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "ADR booth tie line, preamp I/O, interface input, cue output, and headphone amp are checklist endpoints."
+    },
+    {
+      "level_id": "PST-013",
+      "environment": "Film / TV Post Production",
+      "scenario": "Print master metering",
+      "brief": "Route the print through the loudness meter, into the print recorder.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Loudness meter",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Print metering",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Print recorder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Print capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DAW interface I/O",
+          "qty": 1,
+          "role": "required",
+          "need_group": "DAW output/I/O",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DB25 analog loom",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Multichannel analog cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Stereo line cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Loudness meter",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Print metering",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Print recorder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Print capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DAW interface I/O",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "DAW output/I/O",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DB25 analog loom",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Multichannel analog cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo line cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stage monitor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Matrix router",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "DAW print output left",
+          "Loudness meter left input",
+          "Balanced TRS / DB25 loom",
+          "DAW output/meter input are endpoints."
+        ],
+        [
+          "DAW print output right",
+          "Loudness meter right input",
+          "Balanced TRS / DB25 loom",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "Loudness meter left thru/output",
+          "Print recorder left input",
+          "Balanced TRS cable pair",
+          "Meter output/recorder input are endpoints."
+        ],
+        [
+          "Loudness meter right thru/output",
+          "Print recorder right input",
+          "Balanced TRS cable pair",
+          "Stereo recorder path."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "DAW print outputs, meter I/O, and recorder inputs are connection points; equipment is meter, recorder, interface/I/O, and cable loom."
+    },
+    {
+      "level_id": "PST-027",
+      "environment": "Film / TV Post Production",
+      "scenario": "Downmix",
+      "brief": "Feed the print into the downmix encoder and route the downmix to QC.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Downmix encoder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Downmix processing",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "QC recorder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "QC capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DAW interface I/O",
+          "qty": 1,
+          "role": "required",
+          "need_group": "DAW output/I/O",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Stereo line cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Downmix encoder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Downmix processing",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "QC recorder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "QC capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "DAW interface I/O",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "DAW output/I/O",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo line cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "DB25 analog loom",
+          "qty": 1,
+          "role": "acceptable",
+          "satisfies": "DAW output/I/O",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stage monitor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Matrix router",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "DAW print left/right outputs",
+          "Downmix encoder left/right inputs",
+          "Balanced TRS cable pair / DB25 loom",
+          "Encoder I/O are endpoints."
+        ],
+        [
+          "Downmix encoder left output",
+          "QC recorder left input",
+          "Balanced TRS cable pair",
+          "QC stereo left."
+        ],
+        [
+          "Downmix encoder right output",
+          "QC recorder right input",
+          "Balanced TRS cable pair",
+          "QC stereo right."
+        ],
+        [
+          "QC recorder",
+          "QC review path",
+          "QC recorder",
+          "Capture downmix for review."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Downmix encoder I/O and QC recorder I/O are endpoints; gear is encoder, recorder, interface, and cabling."
+    },
+    {
+      "level_id": "PST-041",
+      "environment": "Film / TV Post Production",
+      "scenario": "ADR session",
+      "brief": "Route the ADR booth through preamp and send cue mix back to the booth.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Large diaphragm condenser",
+          "qty": 1,
+          "role": "required",
+          "need_group": "ADR microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Clean mic preamp",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic preamplification",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "2x2 USB interface",
+          "qty": 1,
+          "role": "required",
+          "need_group": "DAW interface",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Headphone amp",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Cue headphone feed",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Line-level interface cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Cue patching",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Large diaphragm condenser",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "ADR microphone",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Clean mic preamp",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic preamplification",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "2x2 USB interface",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "DAW interface",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Headphone amp",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Cue headphone feed",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Line-level interface cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "TT patch cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Cue patching",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stage monitor",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        },
+        {
+          "name": "Matrix router",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Processors / Effects",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "ADR booth microphone",
+          "Clean mic preamp input",
+          "XLR cable",
+          "Tie line/preamp input are endpoints."
+        ],
+        [
+          "Clean mic preamp output",
+          "2x2 USB interface input",
+          "Balanced TRS cable",
+          "Interface input is endpoint."
+        ],
+        [
+          "Cue mix output",
+          "Headphone amp input",
+          "TT patch cable",
+          "Cue output/headphone amp input are endpoints."
+        ],
+        [
+          "Headphone amp output",
+          "Closed-back studio headphones",
+          "Headphone amp / headphones",
+          "Performer cue return."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "ADR tie line, preamp I/O, interface input, cue output, and booth headphone amp are route endpoints."
+    },
+    {
+      "level_id": "GAM-004",
+      "environment": "Video Game Audio",
+      "scenario": "Remote weapons recording session",
+      "brief": "Record multiple weapons at multiple distances.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Shotgun microphone pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Distant/direct pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Boundary microphone pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Close/ground pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Portable multichannel recorder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Field recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Field mic stand kit",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Field mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Field mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Wind protection kit",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Outdoor wind control",
+          "category": "Stands / Field Accessories",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Shotgun microphone pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Distant/direct pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Boundary microphone pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Close/ground pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Portable multichannel recorder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Field recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Field mic stand kit",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Field mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Field mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Wind protection kit",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Outdoor wind control",
+          "category": "Stands / Field Accessories",
+          "notes": ""
+        },
+        {
+          "name": "Console mic preamp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Main PA amp rack",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Shotgun mic pair",
+          "Portable multichannel recorder inputs",
+          "XLR cable set",
+          "Capture distant/transient detail."
+        ],
+        [
+          "Boundary mic pair",
+          "Portable multichannel recorder inputs",
+          "XLR cable set",
+          "Capture close impact/ground perspective."
+        ],
+        [
+          "Mic stands / mounts",
+          "Field recording positions",
+          "Field mic stand kit",
+          "Position multiple distances safely."
+        ],
+        [
+          "Outdoor recording positions",
+          "Microphones",
+          "Wind protection kit",
+          "Control wind noise."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Build-a-Room stays physical/session setup; middleware objects are out of scope for this board type."
+    },
+    {
+      "level_id": "GAM-013",
+      "environment": "Video Game Audio",
+      "scenario": "Loop group",
+      "brief": "Set up a session to record a group of 12 background voice actors.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Large diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Room/ensemble pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stereo/spot pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "16-channel audio interface",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Multichannel capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Headphone distribution amp",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Performer cue distribution",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 12,
+          "role": "required",
+          "need_group": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Talkback mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Director talkback",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand set",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic placement",
+          "category": "Mics",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Large diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Room/ensemble pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo/spot pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "16-channel audio interface",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Multichannel capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Headphone distribution amp",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer cue distribution",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Closed-back studio headphones",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Talkback mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Director talkback",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand set",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Console mic preamp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Main PA amp rack",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Room microphone pairs",
+          "16-channel audio interface inputs",
+          "XLR cable set",
+          "Capture ensemble/loop group."
+        ],
+        [
+          "Talkback mic",
+          "Cue/talkback input",
+          "XLR cable",
+          "Director talkback."
+        ],
+        [
+          "Headphone distribution amp",
+          "Closed-back headphones",
+          "Headphone distribution amp / headphones",
+          "12 performers need cue feeds."
+        ],
+        [
+          "Mic stands",
+          "Room mic positions",
+          "Mic stand set",
+          "Physical setup."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Corrected spelling and shifted from game middleware objects to physical loop-group recording setup."
+    },
+    {
+      "level_id": "GAM-027",
+      "environment": "Video Game Audio",
+      "scenario": "Foley session",
+      "brief": "Record Foley for an immersive audio release.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Detailed Foley capture",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Boundary microphone",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Surface/contact detail",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Foley surface kit",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Foley performance surfaces",
+          "category": "Stands / Field Accessories",
+          "notes": ""
+        },
+        {
+          "name": "8x8 audio interface",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Multichannel capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand set",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mic placement",
+          "category": "Mics",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Small diaphragm condenser pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Detailed Foley capture",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Boundary microphone",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Surface/contact detail",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Foley surface kit",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Foley performance surfaces",
+          "category": "Stands / Field Accessories",
+          "notes": ""
+        },
+        {
+          "name": "8x8 audio interface",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Multichannel capture",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Mic stand set",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mic placement",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Console mic preamp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Main PA amp rack",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Foley microphones",
+          "8x8 audio interface inputs",
+          "XLR cable set",
+          "Capture Foley detail."
+        ],
+        [
+          "Boundary microphone",
+          "8x8 audio interface input",
+          "XLR cable set",
+          "Surface capture."
+        ],
+        [
+          "Foley surface kit",
+          "Performance area",
+          "Foley surface kit",
+          "Physical sound sources."
+        ],
+        [
+          "Mic stands",
+          "Foley mic positions",
+          "Mic stand set",
+          "Set mic distance/angle."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Corrected spelling and changed software event objects to capture-room equipment."
+    },
+    {
+      "level_id": "GAM-041",
+      "environment": "Video Game Audio",
+      "scenario": "Remote vehicle recording session",
+      "brief": "Record vehicles for an immersive audio release.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Shotgun microphone pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Exterior vehicle perspective",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Boundary microphone pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Road/body perspective",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Contact microphone",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Mechanical vibration pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Portable multichannel recorder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Field recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Vehicle mic mount kit",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Vehicle-safe mounting",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Field mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Wind protection kit",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Outdoor wind control",
+          "category": "Stands / Field Accessories",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Shotgun microphone pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Exterior vehicle perspective",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Boundary microphone pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Road/body perspective",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Contact microphone",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Mechanical vibration pickup",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Portable multichannel recorder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Field recording",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Vehicle mic mount kit",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Vehicle-safe mounting",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable set",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Field mic cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Wind protection kit",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Outdoor wind control",
+          "category": "Stands / Field Accessories",
+          "notes": ""
+        },
+        {
+          "name": "Console mic preamp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "Main PA amp rack",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Shotgun/boundary/contact microphones",
+          "Portable multichannel recorder inputs",
+          "XLR cable set",
+          "Multiple perspectives for vehicle pass-bys."
+        ],
+        [
+          "Microphones",
+          "Vehicle-safe mount points",
+          "Vehicle mic mount kit",
+          "Mount without unsafe rigging."
+        ],
+        [
+          "Outdoor vehicle positions",
+          "Microphones",
+          "Wind protection kit",
+          "Reduce wind noise."
+        ],
+        [
+          "Recorder",
+          "Field session media",
+          "Portable multichannel recorder",
+          "Capture session files."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Changed from unrelated middleware event labels to field-recording gear."
+    },
+    {
+      "level_id": "LIV-004",
+      "environment": "Sound Reinforcement / Live Sound",
+      "scenario": "Front fill",
+      "brief": "Patch mix to front-fills and mains.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Handheld dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stage source",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 4,
+          "role": "required",
+          "need_group": "Live cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stagebox",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stage input fan-in",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "FOH mix/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "System processor",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Main PA processing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Front fill processor",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Front fill processing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Front fill speaker pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Front fill output",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Handheld dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stage source",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Live cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stagebox",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stage input fan-in",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "FOH mix/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "System processor",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Main PA processing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Front fill processor",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Front fill processing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Front fill speaker pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Front fill output",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "ADR booth headphone amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Stage microphone",
+          "Stagebox input",
+          "XLR cable",
+          "Lead source/stagebox input are connection points."
+        ],
+        [
+          "Console main left output",
+          "System processor left input",
+          "XLR cable",
+          "Main output/processor input endpoints."
+        ],
+        [
+          "Console main right output",
+          "System processor right input",
+          "XLR cable",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "Console/front fill send",
+          "Front fill processor input",
+          "XLR cable",
+          "Front fill feed."
+        ],
+        [
+          "Front fill processor output",
+          "Front fill speaker pair",
+          "Speaker cable / system patch",
+          "Front fill output."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Lead source, stagebox input, main outputs, and processor inputs are checklist endpoints. Gear is mic, stagebox, console, processors, speakers/amps, and cables."
+    },
+    {
+      "level_id": "LIV-013",
+      "environment": "Sound Reinforcement / Live Sound",
+      "scenario": "IEM",
+      "brief": "Patch stereo aux to an in-ear monitor.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stereo aux sends",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "IEM transmitter",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IEM send",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "IEM beltpack receiver",
+          "qty": 1,
+          "role": "required",
+          "need_group": "IEM receive",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "IEM earbuds",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Performer in-ear monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "XLR/TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stereo aux cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo aux sends",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "IEM transmitter",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IEM send",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "IEM beltpack receiver",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "IEM receive",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "IEM earbuds",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Performer in-ear monitoring",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "XLR/TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo aux cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "ADR booth headphone amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "FOH aux output left",
+          "IEM transmitter left input",
+          "XLR/TRS cable pair",
+          "Aux/IEM inputs are connection points."
+        ],
+        [
+          "FOH aux output right",
+          "IEM transmitter right input",
+          "XLR/TRS cable pair",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "IEM transmitter",
+          "IEM beltpack receiver",
+          "IEM RF system",
+          "Send mix to performer."
+        ],
+        [
+          "IEM beltpack receiver",
+          "IEM earbuds",
+          "IEM earbuds",
+          "Performer monitoring."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "FOH aux outputs and IEM transmitter inputs are connection points. Gear is console, IEM transmitter/receiver, earbuds, and cabling."
+    },
+    {
+      "level_id": "LIV-027",
+      "environment": "Sound Reinforcement / Live Sound",
+      "scenario": "Broadcast split",
+      "brief": "Patch mix to a recorder and live stream.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Live mix source",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Stereo broadcast splitter",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Broadcast split",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "Record feed recorder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Recording destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Stream encoder",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Streaming destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 2,
+          "role": "required",
+          "need_group": "Stereo split cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Live mix source",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Stereo broadcast splitter",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Broadcast split",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "Record feed recorder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Recording destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Stream encoder",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Streaming destination",
+          "category": "Interfaces / Recorders",
+          "notes": ""
+        },
+        {
+          "name": "Balanced TRS cable pair",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stereo split cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "ADR booth headphone amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Console broadcast split left",
+          "Record feed recorder left input",
+          "Balanced TRS cable pair",
+          "Broadcast split outputs are connection points."
+        ],
+        [
+          "Console broadcast split right",
+          "Record feed recorder right input",
+          "Balanced TRS cable pair",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "Broadcast splitter output",
+          "Stream encoder input",
+          "Balanced TRS cable pair",
+          "Feed live stream."
+        ],
+        [
+          "Record feed recorder",
+          "Recording media",
+          "Record feed recorder",
+          "Capture show feed."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Broadcast split outputs and record outputs are connection points; equipment is console/splitter/recorder/encoder/cables."
+    },
+    {
+      "level_id": "LIV-041",
+      "environment": "Sound Reinforcement / Live Sound",
+      "scenario": "Handheld mic to FOH",
+      "brief": "Patch a handheld dynamic mic into the stagebox and feed mains to the PA system.",
+      "instruction": "Choose the equipment needed for this job.",
+      "required": [
+        {
+          "name": "Handheld dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stage source",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 3,
+          "role": "required",
+          "need_group": "Live cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stagebox",
+          "qty": 1,
+          "role": "required",
+          "need_group": "Stage input fan-in",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "need_group": "FOH mix/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Matrix router",
+          "qty": 1,
+          "role": "required",
+          "need_group": "System routing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Main PA speaker system",
+          "qty": 1,
+          "role": "required",
+          "need_group": "PA output",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        }
+      ],
+      "store": [
+        {
+          "name": "Handheld dynamic cardioid mic",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stage source",
+          "category": "Mics",
+          "notes": ""
+        },
+        {
+          "name": "XLR cable",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Live cabling",
+          "category": "Cables / DI",
+          "notes": ""
+        },
+        {
+          "name": "Stagebox",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "Stage input fan-in",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "16x4x2 live console",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "FOH mix/routing",
+          "category": "Consoles / Mixers",
+          "notes": ""
+        },
+        {
+          "name": "Matrix router",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "System routing",
+          "category": "Processors / Effects",
+          "notes": ""
+        },
+        {
+          "name": "Main PA speaker system",
+          "qty": 1,
+          "role": "required",
+          "satisfies": "PA output",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Dolby renderer",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Other",
+          "notes": ""
+        },
+        {
+          "name": "ADR booth headphone amp",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Monitoring / Speakers",
+          "notes": ""
+        },
+        {
+          "name": "Broadcast Phone System",
+          "qty": 1,
+          "role": "distractor",
+          "satisfies": "",
+          "category": "Broadcast / IFB / Comms",
+          "notes": ""
+        }
+      ],
+      "checklist": [
+        [
+          "Handheld microphone",
+          "Stagebox input",
+          "XLR cable",
+          "Stagebox input is endpoint."
+        ],
+        [
+          "Stagebox output",
+          "Live console mic input",
+          "Console/stagebox normal path",
+          "Console input is endpoint."
+        ],
+        [
+          "Console main left output",
+          "Matrix router / system processor left input",
+          "XLR cable",
+          "Main output endpoint."
+        ],
+        [
+          "Console main right output",
+          "Matrix router / system processor right input",
+          "XLR cable",
+          "Stereo pair must include both sides."
+        ],
+        [
+          "Matrix router output",
+          "Main PA speaker system",
+          "System cabling",
+          "Feed PA."
+        ]
+      ],
+      "status": "Approved draft",
+      "notes": "Stagebox and main output endpoints stay in checklist; equipment list uses mic, console, stagebox, matrix router, PA, and cables."
+    }
+  ],
+  "assetMap": "assets/build-room/build-room-asset-map.json",
+  "rendererContract": {
+    "oldDomIsNotVisualSourceOfTruth": true,
+    "equipmentOnlyInStore": true,
+    "jacksAndEndpointsOnlyInChecklist": true,
+    "cardsHideInternalRoles": true,
+    "ownedGearCostsZeroButMustBeSelected": true
+  }
+}

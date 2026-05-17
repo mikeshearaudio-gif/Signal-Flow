@@ -1,0 +1,1009 @@
+{
+  "version": "v6r227",
+  "created": "2026-05-16",
+  "sourceCsv": "Untitled 2.csv",
+  "rules": {
+    "useExactPathsOnly": true,
+    "hideImageOnMissingPath": true,
+    "fallbackToCssCategoryCard": true,
+    "doNotGuessRenderedAssetPaths": true
+  },
+  "items": [
+    {
+      "id": "1-4-inch-instrument-cable",
+      "displayName": "1/4-inch instrument cable",
+      "category": "Cables / DI",
+      "family": "cable",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "16-channel-audio-interface",
+      "displayName": "16-channel audio interface",
+      "category": "Interfaces / Recorders",
+      "family": "interface",
+      "assetPaths": [
+        "assets/build-room/svg/gear/rack-interface-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "16x4x2-broadcast-console",
+      "displayName": "16x4x2 broadcast console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "16x4x2-digital-broadcast-console",
+      "displayName": "16x4x2 digital broadcast console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "16x4x2-live-console",
+      "displayName": "16x4x2 live console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "16x4x2-recording-console",
+      "displayName": "16x4x2 recording console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "16x4x4-digital-broadcast-console",
+      "displayName": "16x4x4 digital broadcast console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "24x8x2-recording-console",
+      "displayName": "24x8x2 recording console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "2x2-usb-interface",
+      "displayName": "2x2 USB interface",
+      "category": "Interfaces / Recorders",
+      "family": "interface",
+      "assetPaths": [
+        "assets/build-room/svg/gear/desktop-2x2-interface-goodstyle.svg",
+        "assets/build-room/svg/boxes/audio-interface-blue-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "3-way-crossover",
+      "displayName": "3-way crossover",
+      "category": "Processors / Routing",
+      "family": "processor",
+      "assetPaths": [
+        "assets/build-room/svg/gear/System Matrix.svg",
+        "assets/build-room/svg/gear/Matrix router.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "31-band-graphic-eq",
+      "displayName": "31-band graphic EQ",
+      "category": "Processors / Routing",
+      "family": "eq",
+      "assetPaths": [
+        "assets/build-room/svg/gear/graphic-eq-rack-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "48x16x4-broadcast-console",
+      "displayName": "48x16x4 broadcast console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "8x2x2-analog-mixer",
+      "displayName": "8x2x2 analog mixer",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "8x2x2-broadcast-console",
+      "displayName": "8x2x2 broadcast console",
+      "category": "Consoles / Mixers",
+      "family": "console",
+      "assetPaths": [
+        "assets/build-room/svg/gear/mixing-console-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "8x8-audio-interface",
+      "displayName": "8x8 audio interface",
+      "category": "Interfaces / Recorders",
+      "family": "interface",
+      "assetPaths": [
+        "assets/build-room/svg/gear/rack-interface-unit-goodstyle.svg",
+        "assets/build-room/svg/boxes/audio-interface-blue-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "adr-booth-headphone-amp",
+      "displayName": "ADR booth headphone amp",
+      "category": "Monitoring / IFB",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "anchor-earpiece",
+      "displayName": "Anchor earpiece",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "audio-interface-daw-interface",
+      "displayName": "Audio interface / DAW interface",
+      "category": "Interfaces / Recorders",
+      "family": "interface",
+      "assetPaths": [
+        "assets/build-room/svg/gear/rack-interface-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "balanced-trs-cable",
+      "displayName": "Balanced TRS cable",
+      "category": "Cables / DI",
+      "family": "cable",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "balanced-trs-cable-pair",
+      "displayName": "Balanced TRS cable pair",
+      "category": "Cables / DI",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "boundary-microphone",
+      "displayName": "Boundary microphone",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Boundary microphone.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "boundary-microphone-pair",
+      "displayName": "Boundary microphone pair",
+      "category": "Mics",
+      "family": "speaker",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "broadcast-dynamic-mic",
+      "displayName": "Broadcast dynamic mic",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/microphone-dynamic-orange-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "broadcast-phone-system",
+      "displayName": "Broadcast Phone System",
+      "category": "General",
+      "family": "broadcast-phone",
+      "assetPaths": [
+        "assets/build-room/svg/gear/07_black_rack_interface.svg"
+      ],
+      "aliases": [
+        "Gentner phone hybrid",
+        "Getner",
+        "Telephone hybrid",
+        "Phone hybrid send"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "clean-mic-preamp",
+      "displayName": "Clean mic preamp",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "clean-preamp",
+      "displayName": "Clean preamp",
+      "category": "General",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/gear/preamp-rack-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "closed-back-studio-headphones",
+      "displayName": "Closed-back studio headphones",
+      "category": "Monitoring / IFB",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/gear/14_studio_headphones.svg",
+        "assets/build-room/svg/boxes/monitor-speakers-teal-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "console-mic-preamp",
+      "displayName": "Console mic preamp",
+      "category": "Mics",
+      "family": "console",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "contact-microphone",
+      "displayName": "Contact microphone",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/gear/contact mic.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "control-room-monitor-pair",
+      "displayName": "Control room monitor pair",
+      "category": "Speakers / Monitors",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/monitor-speakers-teal-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "daw",
+      "displayName": "DAW",
+      "category": "Interfaces / Recorders",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "daw-interface-i-o",
+      "displayName": "DAW interface I/O",
+      "category": "Interfaces / Recorders",
+      "family": "interface",
+      "assetPaths": [
+        "assets/build-room/svg/gear/rack-interface-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "daw-workstation",
+      "displayName": "DAW workstation",
+      "category": "Interfaces / Recorders",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/gear/BAR DAW0.svg"
+      ],
+      "aliases": [
+        "DAW / computer workstation"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "db25-analog-loom",
+      "displayName": "DB25 analog loom",
+      "category": "Cables / DI",
+      "family": "cable",
+      "assetPaths": [
+        "assets/build-room/svg/gear/DB25 analog loom.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "delay-reverb-unit",
+      "displayName": "Delay/reverb unit",
+      "category": "Processors / Routing",
+      "family": "reverb",
+      "assetPaths": [
+        "assets/build-room/svg/gear/delay-reverb-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "distribution-matrix",
+      "displayName": "Distribution matrix",
+      "category": "Processors / Routing",
+      "family": "processor",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "dolby-renderer",
+      "displayName": "Dolby renderer",
+      "category": "General",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "downmix-encoder",
+      "displayName": "Downmix encoder",
+      "category": "Interfaces / Recorders",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "dynamic-cardioid-mic",
+      "displayName": "Dynamic cardioid mic",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/microphone-dynamic-orange-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "field-mic-stand-kit",
+      "displayName": "Field mic stand kit",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "field-recorder",
+      "displayName": "Field recorder",
+      "category": "Interfaces / Recorders",
+      "family": "recorder",
+      "assetPaths": [
+        "assets/build-room/svg/gear/field recorder.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "field-recorder-portable-multichannel-recorder",
+      "displayName": "Field recorder / portable multichannel recorder",
+      "category": "Interfaces / Recorders",
+      "family": "recorder",
+      "assetPaths": [
+        "assets/build-room/svg/gear/field recorder.svg"
+      ],
+      "aliases": [
+        "Portable multichannel recorder / field recorder"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "foley-surface-kit",
+      "displayName": "Foley surface kit",
+      "category": "Accessories",
+      "family": "accessory",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Foley.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "front-fill-processor",
+      "displayName": "Front fill processor",
+      "category": "Processors / Routing",
+      "family": "processor",
+      "assetPaths": [
+        "assets/build-room/svg/gear/System Matrix.svg",
+        "assets/build-room/svg/gear/Matrix router.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "front-fill-speaker-pair",
+      "displayName": "Front fill speaker pair",
+      "category": "Speakers / Monitors",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/frontfill.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "guitar-amp",
+      "displayName": "Guitar amp",
+      "category": "General",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "handheld-dynamic-cardioid-mic",
+      "displayName": "Handheld dynamic cardioid mic",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/microphone-dynamic-orange-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "headphone-amp",
+      "displayName": "Headphone amp",
+      "category": "Monitoring / IFB",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/gear/preamp-rack-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "headphone-distribution-amp",
+      "displayName": "Headphone distribution amp",
+      "category": "Monitoring / IFB",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/gear/preamp-rack-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "iem-beltpack-receiver",
+      "displayName": "IEM beltpack receiver",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [
+        "assets/build-room/svg/gear/iem-receiver-bodypack-teal-led.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "iem-earbuds",
+      "displayName": "IEM earbuds",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [
+        "assets/build-room/svg/gear/iem-earbuds.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "iem-transmitter",
+      "displayName": "IEM transmitter",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [
+        "assets/build-room/svg/gear/iem-transmitter-bodypack-teal-led.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "ifb-beltpack-receiver",
+      "displayName": "IFB beltpack receiver",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [
+        "assets/build-room/svg/gear/ifb-receiver-bodypack-amber-led.svg"
+      ],
+      "aliases": [
+        "IFB receiver / beltpack"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "ifb-earpiece",
+      "displayName": "IFB earpiece",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [
+        "assets/build-room/svg/gear/iem-earbuds.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "ifb-receiver",
+      "displayName": "IFB receiver",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "ifb-transmitter",
+      "displayName": "IFB transmitter",
+      "category": "Monitoring / IFB",
+      "family": "beltpack",
+      "assetPaths": [
+        "assets/build-room/svg/gear/ifb-transmitter-bodypack-amber-led.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "large-diaphragm-condenser",
+      "displayName": "Large diaphragm condenser",
+      "category": "Mics",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/microphone-condenser-green-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "large-diaphragm-condenser-pair",
+      "displayName": "Large diaphragm condenser pair",
+      "category": "Mics",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/microphone-condenser-green-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "loudness-meter",
+      "displayName": "Loudness meter",
+      "category": "Processors / Routing",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "main-pa-amp-rack",
+      "displayName": "Main PA amp rack",
+      "category": "Speakers / Monitors",
+      "family": "speaker",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "main-pa-speaker-system",
+      "displayName": "Main PA speaker system",
+      "category": "Speakers / Monitors",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/main PA speaker syste.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "matrix-router",
+      "displayName": "Matrix router",
+      "category": "Processors / Routing",
+      "family": "processor",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Matrix router.svg",
+        "assets/build-room/svg/gear/System Matrix.svg"
+      ],
+      "aliases": [
+        "System Matrix",
+        "System matrix",
+        "FOH matrix",
+        "FOH matrix 1"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "mic-stand",
+      "displayName": "Mic stand",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "mic-stand-kit",
+      "displayName": "Mic stand kit",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Mic stand A.svg",
+        "assets/build-room/svg/gear/Mic Stands B.svg",
+        "assets/build-room/svg/gear/Mic Stands C.svg"
+      ],
+      "aliases": [
+        "Mic stand / field mic stand kit"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "mic-stand-set",
+      "displayName": "Mic stand set",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "passive-di-box",
+      "displayName": "Passive DI box",
+      "category": "Cables / DI",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "patchbay",
+      "displayName": "Patchbay",
+      "category": "Processors / Routing",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "plate-reverb",
+      "displayName": "Plate reverb",
+      "category": "Processors / Routing",
+      "family": "reverb",
+      "assetPaths": [
+        "assets/build-room/svg/gear/delay-reverb-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "portable-multichannel-recorder",
+      "displayName": "Portable multichannel recorder",
+      "category": "Interfaces / Recorders",
+      "family": "recorder",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "print-recorder",
+      "displayName": "Print recorder",
+      "category": "Interfaces / Recorders",
+      "family": "recorder",
+      "assetPaths": [
+        "assets/build-room/svg/gear/field recorder.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "producer-talkback-mic",
+      "displayName": "Producer talkback mic",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "qc-recorder",
+      "displayName": "QC recorder",
+      "category": "Interfaces / Recorders",
+      "family": "recorder",
+      "assetPaths": [
+        "assets/build-room/svg/gear/field recorder.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "record-feed-recorder",
+      "displayName": "Record feed recorder",
+      "category": "Interfaces / Recorders",
+      "family": "recorder",
+      "assetPaths": [
+        "assets/build-room/svg/gear/field recorder.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "reverb-unit",
+      "displayName": "Reverb unit",
+      "category": "Processors / Routing",
+      "family": "reverb",
+      "assetPaths": [
+        "assets/build-room/svg/gear/delay-reverb-open-case-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "shotgun-boom-mic",
+      "displayName": "Shotgun boom mic",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Shotgun microphone pair.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "shotgun-microphone-pair",
+      "displayName": "Shotgun microphone pair",
+      "category": "Mics",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Shotgun microphone pair.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "small-diaphragm-condenser",
+      "displayName": "Small diaphragm condenser",
+      "category": "Mics",
+      "family": "generic",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "small-diaphragm-condenser-pair",
+      "displayName": "Small diaphragm condenser pair",
+      "category": "Mics",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/boxes/microphone-condenser-green-box-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "stage-monitor",
+      "displayName": "Stage monitor",
+      "category": "Speakers / Monitors",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/stage monitor.svg"
+      ],
+      "aliases": [
+        "Stage wedge mix",
+        "Stage wedge monitor"
+      ],
+      "source": "csv"
+    },
+    {
+      "id": "stagebox",
+      "displayName": "Stagebox",
+      "category": "General",
+      "family": "stagebox",
+      "assetPaths": [
+        "assets/live-sound/svg/hardware/stagebox-snake-head.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "stereo-broadcast-splitter",
+      "displayName": "Stereo broadcast splitter",
+      "category": "Processors / Routing",
+      "family": "processor",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Stereo broadcast splitter.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "stereo-compressor",
+      "displayName": "Stereo compressor",
+      "category": "Processors / Routing",
+      "family": "compressor",
+      "assetPaths": [
+        "assets/build-room/svg/gear/fet-compressor-rack-unit-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "stream-encoder",
+      "displayName": "Stream encoder",
+      "category": "Interfaces / Recorders",
+      "family": "generic",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Stream encoder.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "system-processor",
+      "displayName": "System processor",
+      "category": "Processors / Routing",
+      "family": "processor",
+      "assetPaths": [
+        "assets/build-room/svg/gear/System Matrix.svg",
+        "assets/build-room/svg/gear/Matrix router.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "talkback-mic",
+      "displayName": "Talkback mic",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "tt-patch-cable",
+      "displayName": "TT patch cable",
+      "category": "Cables / DI",
+      "family": "speaker",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "usb-cable",
+      "displayName": "USB cable",
+      "category": "Cables / DI",
+      "family": "cable",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    },
+    {
+      "id": "vehicle-mic-mount-kit",
+      "displayName": "Vehicle mic mount kit",
+      "category": "Mics",
+      "family": "microphone",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Vehicle mic mount kit.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "wind-protection-kit",
+      "displayName": "Wind protection kit",
+      "category": "Accessories",
+      "family": "accessory",
+      "assetPaths": [
+        "assets/build-room/svg/gear/Wind protection kit.svg"
+      ],
+      "aliases": [],
+      "source": "csv"
+    },
+    {
+      "id": "xlr-cable",
+      "displayName": "XLR cable",
+      "category": "Cables / DI",
+      "family": "cable",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "xlr-cable-set",
+      "displayName": "XLR cable set",
+      "category": "Cables / DI",
+      "family": "cable",
+      "assetPaths": [
+        "assets/build-room/svg/gear/xlr-adapter-hanging-card-goodstyle.svg"
+      ],
+      "aliases": [],
+      "source": "supplemental"
+    },
+    {
+      "id": "xlr-trs-cable-pair",
+      "displayName": "XLR/TRS cable pair",
+      "category": "Cables / DI",
+      "family": "speaker",
+      "assetPaths": [],
+      "aliases": [],
+      "source": "manifest"
+    }
+  ]
+}
