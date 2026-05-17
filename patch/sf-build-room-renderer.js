@@ -1,13 +1,13 @@
 
 (function(){
-  if(window.sfBuildRoomRendererV6r227Installed) return;
-  window.sfBuildRoomRendererV6r227Installed = true;
+  if(window.sfBuildRoomRendererV6r228Installed) return;
+  window.sfBuildRoomRendererV6r228Installed = true;
 
-  const VERSION = '6r227';
+  const VERSION = '6r228';
   const MANIFEST_URL = '/assets/build-room/build-room-manifest-v4.json?v=' + VERSION;
   const ASSET_MAP_URL = '/assets/build-room/build-room-asset-map.json?v=' + VERSION;
   const LOCKER_KEY = 'signal-flow-equipment-locker-v1';
-  const SEL_KEY = 'signal-flow-build-room-selection-v6r227';
+  const SEL_KEY = 'signal-flow-build-room-selection-v6r228';
 
   let manifest = null;
   let levelsById = {};
@@ -295,17 +295,14 @@
   }
 
   function ensureContainer(levelId){
-    let existing = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
+    let existing = document.querySelector('.sf-build-room-v6r228[data-level-id="' + levelId + '"]');
     if(existing) return existing;
-    document.querySelectorAll('.sf-build-room-v6r227').forEach(el => el.remove());
+    document.querySelectorAll('.sf-build-room-v6r228').forEach(el => el.remove());
     const root = document.createElement('section');
-    root.className = 'sf-build-room-v6r227';
+    root.className = 'sf-build-room-v6r228';
     root.dataset.levelId = levelId;
     const old = findOldBuildPanel();
-    if(old && old.parentElement){
-      old.parentElement.insertBefore(root, old);
-      old.remove();
-    }
+    if(old && old.parentElement){ old.parentElement.insertBefore(root, old); }
     else {
       const main = document.querySelector('main, .app, .level, body') || document.body;
       main.appendChild(root);
@@ -316,7 +313,7 @@
   function findOldBuildPanel(){
     const selectors = ['[data-training-panel="build-room"]','.build-room','.build-room-panel','.route-training-panel','[class*="build-room"]'];
     for(const sel of selectors){
-      const found = Array.from(document.querySelectorAll(sel)).find(el => !el.classList.contains('sf-build-room-v6r227') && /Build|Room|Check Room|BUY ONLY/i.test(el.textContent || ''));
+      const found = Array.from(document.querySelectorAll(sel)).find(el => !el.classList.contains('sf-build-room-v6r228') && /Build|Room|Check Room|BUY ONLY/i.test(el.textContent || ''));
       if(found) return found;
     }
     return Array.from(document.querySelectorAll('section, article, div')).find(el => /BUY ONLY WHAT THE BRIEF NEEDS|Check Room|Build the Room/i.test(el.textContent || '') && (el.getBoundingClientRect().width > 240));
@@ -329,7 +326,7 @@
     const level = levelsById[levelId];
     if(!level) return;
 
-    document.body.classList.add('sf-build-room-v6r227-active');
+    document.body.classList.add('sf-build-room-v6r228-active');
     const root = ensureContainer(levelId);
     const selection = getSelection(levelId);
     const items = consolidateStore(level);
@@ -341,7 +338,7 @@
     const visibleItems = activeCategory === 'All' ? items : items.filter(i => (i.category || categoryFor(i.name)) === activeCategory);
 
     if(!loggedActive.has(levelId)){
-      console.log('[Signal Flow] Build-a-Room consolidated renderer active v6r227', levelId);
+      console.log('[Signal Flow] Build-a-Room consolidated renderer active v6r228', levelId);
       loggedActive.add(levelId);
     }
 
@@ -360,7 +357,6 @@
       </div>
       <div class="sf-br-body">
         <aside class="sf-br-left">
-          <div class="sf-br-note"><h3>Job Brief</h3><p>${escapeHtml(level.instruction || 'Choose the equipment needed for this job.')}</p></div>
           <div class="sf-br-checklist">
             <div class="sf-br-section-title">Build Checklist</div>
             ${reqStatus.statuses.map(st => `
@@ -371,20 +367,22 @@
           </div>
         </aside>
         <main class="sf-br-main">
-          <section class="sf-br-scene">
+          <section class="sf-br-scene" aria-label="Room and system build">
             <div class="sf-br-room-backdrop"></div>
             <div class="sf-br-room-title">Room / System Build</div>
             <div class="sf-br-placement-grid">
               ${reqStatus.statuses.slice(0,8).map(st => `<div class="sf-br-placement ${st.ok ? 'is-satisfied' : ''}"><div class="sf-br-placement-label">${escapeHtml(st.req.need_group || st.req.name)}</div><div class="sf-br-placement-sub">${st.ok ? 'Ready' : 'Needs gear'}</div></div>`).join('')}
             </div>
           </section>
-          <div class="sf-br-store-head">
-            <div class="sf-br-section-title">Equipment options</div>
-            <div class="sf-br-tabs">${categories.map(cat => `<button class="sf-br-tab ${cat===activeCategory?'is-active':''}" data-sf-br-tab="${escapeAttr(cat)}">${escapeHtml(cat)}</button>`).join('')}</div>
-          </div>
-          <div class="sf-br-store-grid">
-            ${visibleItems.map(item => renderCard(item, selection)).join('')}
-          </div>
+          <section class="sf-br-store-panel" aria-label="Equipment options">
+            <div class="sf-br-store-head">
+              <div class="sf-br-section-title">Equipment options</div>
+              <div class="sf-br-tabs">${categories.map(cat => `<button class="sf-br-tab ${cat===activeCategory?'is-active':''}" data-sf-br-tab="${escapeAttr(cat)}">${escapeHtml(cat)}</button>`).join('')}</div>
+            </div>
+            <div class="sf-br-store-grid">
+              ${visibleItems.map(item => renderCard(item, selection)).join('')}
+            </div>
+          </section>
         </main>
       </div>
       <div class="sf-br-bottom">
@@ -459,7 +457,7 @@
     const reqStatus = requirementStatus(level, selection, items);
     if(!reqStatus.ok){
       showModal('Room Needs Revision', `<p>Required needs are not satisfied yet.</p><ul>${reqStatus.missing.map(m => `<li>${escapeHtml(m.need_group || m.name)}: ${escapeHtml(m.name)} ×${Number(m.qty||1)}</li>`).join('')}</ul>`, [
-        {label:'Retry Build', cls:'secondary', action:() => retryBuild(level.level_id)},
+        {label:'Retry Build', cls:'secondary', action:() => { closeAllBuildModals(); clearSelection(level.level_id); renderBuildRoom(); }},
         {label:'Keep Building', action:closeAllBuildModals}
       ]);
       try{ if(typeof playSfx === 'function') playSfx('wrongAnswer'); }catch(_){ }
@@ -467,7 +465,7 @@
     }
     if(money.spend > totals.availableCredits){
       showModal('Not Enough Credits', `<p>This build needs <strong>${money.spend}</strong> new credits, but only <strong>${totals.availableCredits}</strong> are available.</p><p>Replay earlier boards to earn more credits, then return to this build.</p>`, [
-        {label:'Retry Build', cls:'secondary', action:() => retryBuild(level.level_id)},
+        {label:'Retry Build', cls:'secondary', action:() => { closeAllBuildModals(); clearSelection(level.level_id); renderBuildRoom(); }},
         {label:'Review Gear', action:closeAllBuildModals}
       ]);
       try{ if(typeof playSfx === 'function') playSfx('wrongAnswer'); }catch(_){ }
@@ -498,24 +496,50 @@
     ]);
   }
 
+  function allUiDocuments(){
+    const docs = [];
+    function add(doc){ if(doc && !docs.includes(doc)) docs.push(doc); }
+    add(document);
+    try{ add(window.parent && window.parent.document); }catch(_){ }
+    try{ add(window.top && window.top.document); }catch(_){ }
+    return docs;
+  }
+
+  function modalDocument(){
+    // Prefer the document that contains the active Signal Flow shell so Splash buttons and game boards behave consistently.
+    try{
+      if(window.top && window.top.document && window.top.document.body) return window.top.document;
+    }catch(_){ }
+    return document;
+  }
+
+  function ensureModalStyle(doc){
+    if(!doc || doc.getElementById('sf-br-v6r228-modal-style')) return;
+    const style = doc.createElement('style');
+    style.id = 'sf-br-v6r228-modal-style';
+    style.textContent = `
+      .sf-br-modal-backdrop{position:fixed;inset:0;z-index:2147482000;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:24px}.sf-br-modal{width:min(720px,96vw);max-height:86vh;overflow:auto;border-radius:20px;background:linear-gradient(180deg,#13243c,#07101f);border:1px solid rgba(255,255,255,.18);color:#f7edd1;box-shadow:0 30px 90px rgba(0,0,0,.55);padding:22px;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.sf-br-modal h2{margin:0 0 10px;color:#ffd76a}.sf-br-modal p{color:rgba(247,237,209,.72);line-height:1.45}.sf-br-modal-actions{margin-top:18px;display:flex;justify-content:flex-end;gap:10px}.sf-br-btn{border:1px solid rgba(255,215,106,.4);background:linear-gradient(180deg,rgba(255,215,106,.22),rgba(255,215,106,.08));color:#f7edd1;border-radius:12px;padding:10px 14px;font-weight:950;cursor:pointer}.sf-br-btn.secondary{border-color:rgba(0,245,255,.28);background:rgba(0,245,255,.08)}.sf-br-btn.danger{border-color:rgba(255,115,132,.35);background:rgba(255,115,132,.08)}.sf-br-locker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;margin-top:14px}.sf-br-locker-item{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045);border-radius:14px;padding:10px}.sf-br-locker-item strong{display:block;font-size:13px}.sf-br-locker-item span{color:rgba(247,237,209,.72);font-size:12px}`;
+    (doc.head || doc.documentElement).appendChild(style);
+  }
+
   function showModal(title, html, actions){
     closeAllBuildModals();
-    const backdrop = document.createElement('div');
+    const doc = modalDocument();
+    ensureModalStyle(doc);
+    const backdrop = doc.createElement('div');
     backdrop.className = 'sf-br-modal-backdrop';
     backdrop.innerHTML = `<div class="sf-br-modal" role="dialog" aria-modal="true"><h2>${escapeHtml(title)}</h2><div>${html}</div><div class="sf-br-modal-actions"></div></div>`;
     const actionsEl = backdrop.querySelector('.sf-br-modal-actions');
     (actions || [{label:'OK', action:closeAllBuildModals}]).forEach(a => {
-      const b = document.createElement('button'); b.className = 'sf-br-btn ' + (a.cls || ''); b.textContent = a.label; b.addEventListener('click', a.action || closeAllBuildModals); actionsEl.appendChild(b);
+      const b = doc.createElement('button'); b.className = 'sf-br-btn ' + (a.cls || ''); b.textContent = a.label; b.addEventListener('click', a.action || closeAllBuildModals); actionsEl.appendChild(b);
     });
-    document.body.appendChild(backdrop);
+    doc.body.appendChild(backdrop);
   }
-  function retryBuild(levelId){
-    closeAllBuildModals();
-    clearSelection(levelId);
-    renderBuildRoom();
-  }
+
   function closeAllBuildModals(){
-    document.querySelectorAll('.sf-br-modal-backdrop, .sf-build-room-modal, .sf-equipment-locker-modal, .sf-economy-modal, .sf-br2-modal, #gameOverOverlay, .game-over-overlay').forEach(el => el.remove());
+    allUiDocuments().forEach(doc => {
+      try{ doc.querySelectorAll('.sf-br-modal-backdrop, .sf-build-room-modal, .sf-equipment-locker-modal, .sf-economy-modal, .sf-br2-modal, #gameOverOverlay, .game-over-overlay').forEach(el => el.remove()); }catch(_){ }
+    });
   }
 
   function openLockerModal(){
@@ -525,27 +549,46 @@
     showModal('Equipment Locker', body, [{label:'Close', action:closeAllBuildModals}]);
   }
 
-  function installSplashLocker(){
-    // Remove old floating fallback buttons from previous patches.
-    Array.from(document.querySelectorAll('button, a, [role="button"]')).forEach(el => {
-      if(el === document.activeElement) return;
+  function bindLockerInDoc(doc){
+    if(!doc || !doc.body) return;
+    if(!doc.documentElement.dataset.sfBrLockerClickBound6r228){
+      doc.documentElement.dataset.sfBrLockerClickBound6r228 = 'true';
+      doc.addEventListener('click', ev => {
+        const el = ev.target && ev.target.closest && ev.target.closest('#micLockerBtn, button, a, [role="button"]');
+        if(!el) return;
+        const text = String(el.textContent || el.getAttribute('aria-label') || '').trim();
+        const isLocker = el.id === 'micLockerBtn' || /^(Mic Locker|Equipment Locker)$/i.test(text);
+        if(!isLocker) return;
+        ev.preventDefault(); ev.stopPropagation();
+        try{ if(doc.activeElement && doc.activeElement.blur) doc.activeElement.blur(); }catch(_){ }
+        openLockerModal();
+      }, true);
+    }
+
+    const candidates = [];
+    const idBtn = doc.getElementById('micLockerBtn');
+    if(idBtn) candidates.push(idBtn);
+    Array.from(doc.querySelectorAll('button, a, [role="button"]')).forEach(el => {
       const text = String(el.textContent || el.getAttribute('aria-label') || '').trim();
-      if(/Equipment Locker/i.test(text) && !/micLockerBtn/i.test(el.id || '') && el.dataset.sfBrLockerOwner !== VERSION){
-        const r = el.getBoundingClientRect && el.getBoundingClientRect();
-        if(!r || r.bottom > window.innerHeight * .55 || /fixed|absolute/i.test(getComputedStyle(el).position || '')) el.remove();
-      }
+      if(/^(Mic Locker|Equipment Locker)$/i.test(text) && !candidates.includes(el)) candidates.push(el);
     });
-    const btn = document.getElementById('micLockerBtn') || Array.from(document.querySelectorAll('button, a, [role="button"]')).find(el => /Equipment Locker/i.test(el.textContent || el.getAttribute('aria-label') || ''));
-    if(!btn) return;
-    btn.id = 'micLockerBtn';
-    btn.textContent = 'Equipment Locker';
-    btn.setAttribute('aria-label', 'Equipment Locker');
-    btn.removeAttribute('aria-hidden');
-    btn.classList.add('sf-build-room-equipment-locker-entry');
-    btn.dataset.sfBrLockerOwner = VERSION;
-    if(btn.dataset.sfBrLockerBound === VERSION) return;
-    btn.dataset.sfBrLockerBound = VERSION;
-    btn.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); openLockerModal(); });
+
+    candidates.forEach(btn => {
+      // Mutate the real splash control in place. Do not clone, stack, aria-hide, or create a floating fallback.
+      btn.id = 'micLockerBtn';
+      btn.textContent = 'Equipment Locker';
+      btn.setAttribute('aria-label', 'Equipment Locker');
+      btn.removeAttribute('aria-hidden');
+      btn.removeAttribute('inert');
+      btn.disabled = false;
+      btn.style.pointerEvents = 'auto';
+      btn.classList.add('sf-build-room-equipment-locker-entry');
+      btn.dataset.sfBrLockerOwner = VERSION;
+    });
+  }
+
+  function installSplashLocker(){
+    allUiDocuments().forEach(bindLockerInDoc);
   }
 
   function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -559,7 +602,7 @@
   function boot(){
     Promise.all([loadJson(MANIFEST_URL), loadJson(ASSET_MAP_URL)]).then(([m,a]) => {
       manifest = m; assetMap = a; prepareData();
-      console.log('[Signal Flow] Build-a-Room consolidated renderer installed v6r227');
+      console.log('[Signal Flow] Build-a-Room consolidated renderer installed v6r228');
       installSplashLocker();
       renderBuildRoom();
       const obs = new MutationObserver(() => { installSplashLocker(); scheduleRender(); });
