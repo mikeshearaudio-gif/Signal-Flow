@@ -1006,7 +1006,73 @@
         { key: "liv010-low-amp-right-output-to-liv010-right-line-array-low-input", from: "liv010-low-amp-right-output", to: "liv010-right-line-array-low-input", checklist: "Low Amp R Output → Right Line Array Low Input", stereoGroup: "liv010-low-amp-to-array", stereoSide: "right" }
       ]
     },
-    "LIV-025": {
+                    "LIV-011": {
+      id: "LIV-011",
+      title: "Lead Vocal Mic to FOH",
+      processorLabel: "CROSSOVER",
+      rackLabel: "Crossover Rack",
+      ampLabel: "CROSSOVER",
+      panelKinds: ["stagebox", "foh", "amp"],
+      sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
+      assetOverrides: {
+        stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg"
+      },
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "stagebox-link-out",
+        "foh-liv006-matrix-1-output",
+        "foh-liv006-matrix-2-output",
+        "foh-liv006-matrix-3-output",
+        "foh-liv006-matrix-4-output",
+        "foh-liv006-aux-1-output",
+        "foh-liv006-aux-2-output",
+        "foh-liv006-aux-3-output",
+        "foh-liv006-aux-4-output",
+        "foh-liv006-aux-5-output",
+        "foh-liv006-aux-6-output",
+        "foh-liv006-bus-1-output",
+        "foh-liv006-bus-2-output",
+        "foh-liv006-bus-3-output",
+        "foh-liv006-bus-4-output",
+        "foh-liv006-bus-5-output",
+        "foh-liv006-bus-6-output",
+        "foh-liv006-bus-7-output",
+        "foh-liv006-bus-8-output",
+        "foh-liv006-main-left-output",
+        "foh-liv006-main-right-output",
+        "liv011-crossover-l-input",
+        "liv011-crossover-r-input"
+      ],
+      validRoutes: [
+        { key: "lead-vocal-mic-to-stagebox-input-11", from: "lead-vocal-mic", to: "stagebox-input-11", checklist: "Lead Vocal Mic \u2192 Stage Box Input 11" },
+        { key: "foh-liv006-main-left-output-to-liv011-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv011-crossover-l-input", checklist: "Main L Output \u2192 Crossover L In", stereoGroup: "liv011-main-to-crossover", stereoSide: "left" },
+        { key: "foh-liv006-main-right-output-to-liv011-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv011-crossover-r-input", checklist: "Main R Output \u2192 Crossover R In", stereoGroup: "liv011-main-to-crossover", stereoSide: "right" },
+        { key: "keys-left-di-to-stagebox-input-7", from: "keys-left-di", to: "stagebox-input-7", checklist: "Keys L DI \u2192 Stage Box Input 7", stereoGroup: "liv011-keys-di-to-stagebox", stereoSide: "left" },
+        { key: "keys-right-di-to-stagebox-input-8", from: "keys-right-di", to: "stagebox-input-8", checklist: "Keys R DI \u2192 Stage Box Input 8", stereoGroup: "liv011-keys-di-to-stagebox", stereoSide: "right" }
+      ]
+    },
+
+
+
+
+"LIV-025": {
       id: "LIV-025",
       title: "Sub Matrix Feed",
       processorLabel: "CROSSOVER",
@@ -1242,23 +1308,22 @@ if (activeNativeLevelId === nextLevelId) return;
     "floor-tom": { label: "Floor Tom", kind: "source" },
     "overhead-left-crash": { label: "OH L", kind: "source" },
     "overhead-right-ride": { label: "OH R", kind: "source" },
-
-    "stagebox-input-1": { label: "Stage Box Input 1", kind: "jack", panelJack: "stagebox.mic1" },
-    "stagebox-input-2": { label: "Stage Box Input 2", kind: "jack", panelJack: "stagebox.mic2", ghost: true },
-    "stagebox-input-3": { label: "Stage Box Input 3", kind: "jack", panelJack: "stagebox.mic3", ghost: true },
-    "stagebox-input-4": { label: "Stage Box Input 4", kind: "jack", panelJack: "stagebox.mic4", ghost: true },
-    "stagebox-input-5": { label: "Stage Box Input 5", kind: "jack", panelJack: "stagebox.mic5", ghost: true },
-    "stagebox-input-6": { label: "Stage Box Input 6", kind: "jack", panelJack: "stagebox.mic6", ghost: true },
-    "stagebox-input-14": { label: "Stage Box Input 14", kind: "jack", panelJack: "stagebox.input14" },
-    "stagebox-input-9": { label: "Stage Box Input 9", kind: "jack", panelJack: "stagebox.input9" },
-    "stagebox-input-10": { label: "Stage Box Input 10", kind: "jack", panelJack: "stagebox.input10" },
-    "stagebox-input-11": { label: "Stage Box Input 11", kind: "jack", panelJack: "stagebox.input11" },
-    "stagebox-input-12": { label: "Stage Box Input 12", kind: "jack", panelJack: "stagebox.input12" },
-    "stagebox-input-13": { label: "Stage Box Input 13", kind: "jack", panelJack: "stagebox.input13" },
-    "stagebox-input-15": { label: "Stage Box Input 15", kind: "jack", panelJack: "stagebox.input15" },
-    "stagebox-input-16": { label: "Stage Box Input 16", kind: "jack", panelJack: "stagebox.input16" },
-    "stagebox-input-7": { label: "Stage Box Input 7", kind: "jack", panelJack: "stagebox.mic7" },
-    "stagebox-input-8": { label: "Stage Box Input 8", kind: "jack", panelJack: "stagebox.mic8" },
+    "stagebox-input-1": { label: "Stage Box Input 1", kind: "jack", panelRel: { panel: "stagebox", x: 0.093878, y: 0.347222 } },
+    "stagebox-input-2": { label: "Stage Box Input 2", kind: "jack", panelRel: { panel: "stagebox", x: 0.171429, y: 0.347222 } },
+    "stagebox-input-3": { label: "Stage Box Input 3", kind: "jack", panelRel: { panel: "stagebox", x: 0.248980, y: 0.347222 } },
+    "stagebox-input-4": { label: "Stage Box Input 4", kind: "jack", panelRel: { panel: "stagebox", x: 0.326531, y: 0.347222 } },
+    "stagebox-input-5": { label: "Stage Box Input 5", kind: "jack", panelRel: { panel: "stagebox", x: 0.404082, y: 0.347222 } },
+    "stagebox-input-6": { label: "Stage Box Input 6", kind: "jack", panelRel: { panel: "stagebox", x: 0.481633, y: 0.347222 } },
+    "stagebox-input-14": { label: "Stage Box Input 14", kind: "jack", panelRel: { panel: "stagebox", x: 0.481633, y: 0.694444 } },
+    "stagebox-input-9": { label: "Stage Box Input 9", kind: "jack", panelRel: { panel: "stagebox", x: 0.093878, y: 0.694444 } },
+    "stagebox-input-10": { label: "Stage Box Input 10", kind: "jack", panelRel: { panel: "stagebox", x: 0.171429, y: 0.694444 } },
+    "stagebox-input-11": { label: "Stage Box Input 11", kind: "jack", panelRel: { panel: "stagebox", x: 0.248980, y: 0.694444 } },
+    "stagebox-input-12": { label: "Stage Box Input 12", kind: "jack", panelRel: { panel: "stagebox", x: 0.326531, y: 0.694444 } },
+    "stagebox-input-13": { label: "Stage Box Input 13", kind: "jack", panelRel: { panel: "stagebox", x: 0.404082, y: 0.694444 } },
+    "stagebox-input-15": { label: "Stage Box Input 15", kind: "jack", panelRel: { panel: "stagebox", x: 0.559184, y: 0.694444 } },
+    "stagebox-input-16": { label: "Stage Box Input 16", kind: "jack", panelRel: { panel: "stagebox", x: 0.636735, y: 0.694444 } },
+    "stagebox-input-7": { label: "Stage Box Input 7", kind: "jack", panelRel: { panel: "stagebox", x: 0.559184, y: 0.347222 } },
+    "stagebox-input-8": { label: "Stage Box Input 8", kind: "jack", panelRel: { panel: "stagebox", x: 0.636735, y: 0.347222 } },
     "stagebox-link-out": { label: "Stagebox Link Out", kind: "jack", panelJack: "stagebox.linkOut", ghost: true },
 
     "foh-main-left": { label: "FOH Main Left", kind: "jack", panelJack: "foh.mainLeft", ghost: true },
@@ -1369,7 +1434,8 @@ if (activeNativeLevelId === nextLevelId) return;
     "liv006-delay-tower-processor-input": { label: "Delay Tower Processor Input", kind: "jack", panelRel: { panel: "amp", x: 470 / 940, y: 146 / 260 } },
     "liv006-sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelRel: { panel: "amp", x: 704 / 940, y: 146 / 260 }, ghost: true },
     "liv006-front-fill-processor-input": { label: "Front Fill Processor Input", kind: "jack", panelRel: { panel: "amp", x: 818 / 940, y: 146 / 260 }, ghost: true },
-
+    "liv011-crossover-l-input": { label: "Crossover L In", kind: "jack", panelRel: { panel: "amp", x: 0.155000, y: 0.535000 } },
+    "liv011-crossover-r-input": { label: "Crossover R In", kind: "jack", panelRel: { panel: "amp", x: 0.245000, y: 0.535000 } },
     "delay-tower-processing-input": { label: "Delay", kind: "jack", panelJack: "amp.link" },
     "processor-output-a": { label: "Processor Output A", kind: "jack", panelJack: "amp.outputA", ghost: true },
     "processor-output-b": { label: "Processor Output B", kind: "jack", panelJack: "amp.outputB", ghost: true }
@@ -1642,6 +1708,33 @@ if (activeNativeLevelId === nextLevelId) return;
       }
     ];
 
+    // LIV-011 v6r239 spacious layout: keep source/stagebox, FOH, and crossover in distinct zones.
+    if (LEVEL_ID === "LIV-011") {
+      defaultPanels.splice(0, defaultPanels.length,
+        {
+          id: "stagebox",
+          kind: "stagebox",
+          x: rect.width * 0.055,
+          y: layoutHeight * 0.385,
+          width: rect.width * 0.345
+        },
+        {
+          id: "foh",
+          kind: "foh",
+          x: rect.width * 0.405,
+          y: layoutHeight * 0.170,
+          width: rect.width * 0.545
+        },
+        {
+          id: "amp",
+          kind: "amp",
+          x: rect.width * 0.435,
+          y: layoutHeight * 0.630,
+          width: rect.width * 0.500
+        }
+      );
+    }
+
     const manifestPanels = defaultPanels.concat([
       {
         id: "monitor",
@@ -1721,6 +1814,21 @@ if (activeNativeLevelId === nextLevelId) return;
       }
     }
 
+    // LIV-011 v6r239 source endpoints: match the visible source buttons.
+    if (LEVEL_ID === "LIV-011") {
+      const sourceIndex = {
+        "lead-vocal-mic": 0,
+        "keys-left-di": 1,
+        "keys-right-di": 2
+      };
+      if (Object.prototype.hasOwnProperty.call(sourceIndex, key)) {
+        return {
+          x: level.rect.width * 0.06 + 85,
+          y: level.rect.height * (0.12 + sourceIndex[key] * 0.06) + 23
+        };
+      }
+    }
+
     const def = NODE_DEFS[key];
 
     if (!def) {
@@ -1734,7 +1842,7 @@ if (activeNativeLevelId === nextLevelId) return;
       const panel = (level.panels || []).find(item => item.id === def.panelRel.panel || item.kind === def.panelRel.panel);
       if (panel) {
         const panelAspect = {
-          stagebox: 260 / 860,
+          stagebox: (LEVEL_ID === "LIV-011" ? 360 / 980 : 260 / 860),
           foh: 260 / 1120,
           monitor: 240 / 850,
           iem: 240 / 900,
@@ -4847,6 +4955,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 
 
+  // LIV-011 native patch-board uses generic renderer with crossover player-facing terminology.
   function renderNative(surface, adapter) {
     if (LEVEL_ID === "LIV-009") {
       renderLiv009DrumStageInputs(surface, adapter);
@@ -5254,3 +5363,5 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
   boot();
 })();
+
+

@@ -2,13 +2,15 @@
 
 Educational audio-routing game for learning signal flow, patching, live sound, broadcast, post-production, game audio, diagnosis workflows, and IR/reverb-space listening.
 
-## Current Handoff Target
+## Current Launch Target
 
-Latest active build: **v1.41.16 - IR normal level flow fix**
+Latest active entry point: **v1.41.18 - navigation wrapper with distributed IR levels**
 
-This repository import is based on the local v1.41.16 handoff package assembled on May 5, 2026.
+This repository import started from the local v1.41.16 handoff package assembled on May 5, 2026, then added the v1.41.18 wrapper and distributed IR level files.
 
-- Playable build: `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
+- Playable entry point: `index.html`
+- Active wrapper: `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`
+- Full embedded game dependency: `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
 - Local launcher: `index.html`
 - Launch and handoff docs: `docs/`
 - Audio assets: `assets/audio/`
@@ -24,7 +26,7 @@ Key current milestone:
 
 ## Running Locally
 
-Open `index.html` in a browser, or open the HTML file inside `launch/` directly.
+Open `index.html` in a browser, or open `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html` directly.
 
 For a local server:
 
@@ -43,6 +45,8 @@ http://127.0.0.1:8000/
 The original handoff zip archives are intentionally not committed because some exceed GitHub's 100 MB per-file limit. Their extracted contents are included instead.
 
 Avoid relying on a single huge embedded HTML forever. The embedded builds were useful as transfer workarounds, but the repo should move toward normal source + assets.
+
+Generated one-off patch scripts, pre-patch snapshots, renderer backups, Python cache, OS metadata, and local archive files are intentionally ignored. Keep active code, reusable patch modules, docs, audit summaries, and assets in the repo.
 
 Future preferred structure:
 

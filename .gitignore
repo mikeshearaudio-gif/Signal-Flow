@@ -5,6 +5,16 @@ __MACOSX/
 *.tar.gz
 *.tgz
 *.rar
+*.bak
+*.bak_*
+*.pyc
+__pycache__/
+
+# Generated patch snapshots and one-off patch scripts
+audit/pre-*
+src/live-sound-native-renderer.v6*
+tools/apply_*_v6r*.py
+tools/verify_*_v6r*.py
 
 # Local/editor noise
 .vscode/

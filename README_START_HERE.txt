@@ -1,17 +1,19 @@
-Signal Flow v1.41.16 Handoff Package
+Signal Flow local repo
 
 Start here:
-1. Open launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html in a browser.
-2. Test normal levels and PST-103.
-3. Review docs/Signal_Flow_v1_41_16_Handoff.docx for current status, rules, known risks, and next steps.
+1. Open index.html in a browser.
+2. The local launcher redirects to launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.
+3. The wrapper uses launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html for the full embedded game and launch/ir-level-runner.html for distributed IR levels.
+4. Review docs/Signal_Flow_v1_41_16_Handoff.docx and docs/build-notes/BUILD_NOTES_v1_41_18_DISTRIBUTED_IR_LEVELS.md for current status, rules, known risks, and next steps.
 
 Package contents:
-- launch/: latest active standalone game HTML.
+- index.html: local launcher.
+- launch/: active wrapper, full embedded game dependency, and IR runner.
 - assets/audio/: uploaded music, stems, and SFX assets.
-- assets/images/ir_spaces/final_24/: final 24 IR-space images with numbered filenames.
-- assets/images/ir_spaces/retired_or_reference/: replaced or reference IR imagery.
-- assets/images/ui_mockups_refs/: UI mockups/screenshots/reference images from the design pass.
-- docs/: handoff document, asset manifests, latest build notes, rule source files, and build-note history.
-- source_archives/: original IR images zip as uploaded.
+- assets/: audio, IR images, board art, UI references, and environment art.
+- src/: active extracted source modules.
+- patch/: reusable patch modules referenced by the launch HTML.
+- docs/: handoff documents, asset manifests, build notes, rule source files, and build-note history.
+- audit/: compact audit summaries and manifests only; generated pre-patch snapshots are intentionally excluded.
 
-Important: v1.41.16 is the latest active HTML branch, but audio behavior should still be smoke-tested after extraction because recent user testing reported global audio issues in nearby builds.
+Important: v1.41.18 is the active launcher/wrapper, while v1.41.16 remains the full embedded game dependency.

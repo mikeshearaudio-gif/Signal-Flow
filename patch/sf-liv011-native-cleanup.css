@@ -1,0 +1,15 @@
+body.sf-liv011-v6r239-clean button[data-node-key="open-vocal-mic-input"],
+body.sf-liv011-v6r239-clean [data-node-key="open-vocal-mic-input"],
+body.sf-liv011-v6r239-clean .sf-native-node[data-node-key="open-vocal-mic-input"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.sf-liv011-v6r239-clean .sf-live-native-level-liv-011 {
+  background: radial-gradient(circle at 55% 25%, rgba(18,48,38,.26), rgba(0,0,0,0) 68%) !important;
+}
+
+body.sf-liv011-v6r239-clean .sf-live-native-level-liv-011 .sf-native-source {
+  width: 190px !important;
+}
