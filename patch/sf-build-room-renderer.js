@@ -1,14 +1,14 @@
 
 (function(){
-  if(window.sfBuildRoomRendererV6r235Installed) return;
-  window.sfBuildRoomRendererV6r235Installed = true;
+  if(window.sfBuildRoomRendererV6r227Installed) return;
+  window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r235';
+  const VERSION = '6r227';
   const MANIFEST_URL = '/assets/build-room/build-room-manifest-v4.json?v=' + VERSION;
   const ASSET_MAP_URL = '/assets/build-room/build-room-asset-map.json?v=' + VERSION;
   const LOCKER_KEY = 'signal-flow-equipment-locker-v1';
-  const SEL_KEY = 'signal-flow-build-room-selection-v6r235';
-  const SHELF_MAP_URL = '/assets/build-room/build-room-shelf-map.json?v=' + VERSION;
+  const SEL_KEY = 'signal-flow-build-room-selection-v6r227';
+  const oldScriptNames = ['sf-build-room-2-ui','sf-build-room-locker-integration','sf-equipment-locker-ui'];
 
   let manifest = null;
   let levelsById = {};
@@ -16,7 +16,6 @@
   let assetBySlug = {};
   let aliasToSlug = {};
   let currentRenderedLevelId = '';
-  let shelfMap = { shelves: [] };
   let renderTimer = null;
   let activeCategory = 'All';
   let loggedActive = new Set();
@@ -48,15 +47,7 @@
       [/^system matrix$/i, 'Matrix router'],
       [/^portable multichannel recorder \/ field recorder$/i, 'Field recorder / portable multichannel recorder'],
       [/^mic stand \/ field mic stand kit$/i, 'Mic stand kit'],
-      [/^daw \/ computer workstation$/i, 'DAW workstation'],
-      [/^processors?$/i, 'Processor rack'],
-      [/^consoles?$/i, '16x4x2 live console'],
-      [/^interfaces?$/i, 'Audio interface / DAW interface'],
-      [/^speakers?$/i, 'Control room monitor pair'],
-      [/^equipment$/i, 'General equipment kit'],
-      [/^mixing console$/i, '16x4x2 live console'],
-      [/^speaker processor$/i, 'System processor'],
-      [/^telephone hybrid$/i, 'Broadcast Phone System']
+      [/^daw \/ computer workstation$/i, 'DAW workstation']
     ];
     for(const [re, rep] of replacements){ if(re.test(n)) return rep; }
     // Endpoint terms should become physical gear if they leak into a store list.
@@ -159,27 +150,16 @@
     }catch(_){ return { totalCredits:0, spentCredits:0, availableCredits:0, totalScore:0 }; }
   }
 
-  function normalizeLockerData(locker){
-    const out = {items:{}};
-    const src = locker && locker.items ? Object.values(locker.items) : [];
-    src.forEach(it => {
-      const rawName = it && (it.name || it.displayName || it.id || it.category);
-      if(!rawName) return;
-      addLockerItem(out, rawName, Number(it.qty || it.quantity || 1), it.firstAcquiredLevel || it.firstAcquired || 'Legacy');
-    });
-    return out;
-  }
-
   function loadLocker(){
     try{
       const raw = localStorage.getItem(LOCKER_KEY);
       if(!raw) return { items:{} };
       const parsed = JSON.parse(raw);
-      if(parsed && parsed.items) return normalizeLockerData(parsed);
+      if(parsed && parsed.items) return parsed;
       if(Array.isArray(parsed)){
         const out = {items:{}};
         parsed.forEach(it => addLockerItem(out, it.name || it.displayName || it.id, Number(it.qty || it.quantity || 1), it.firstAcquiredLevel || 'Legacy'));
-        return normalizeLockerData(out);
+        return out;
       }
     }catch(_){ }
     return { items:{} };
@@ -237,25 +217,9 @@
   }
 
   function assetFor(name){
-    const normalized = normalizeName(name);
-    const slug = slugify(normalized);
+    const slug = slugify(normalizeName(name));
     const key = assetBySlug[slug] ? slug : aliasToSlug[slug];
-    const exact = key ? assetBySlug[key] : null;
-    if(exact && Array.isArray(exact.assetPaths) && exact.assetPaths.filter(Boolean).length) return exact;
-
-    const category = categoryFor(normalized);
-    const sameCategory = Object.values(assetBySlug).find(item =>
-      item && Array.isArray(item.assetPaths) && item.assetPaths.filter(Boolean).length &&
-      ((item.category && item.category === category) || categoryFor(item.displayName) === category)
-    );
-    if(sameCategory) return sameCategory;
-
-    const fallbackOrder = ['16x4x2-live-console','xlr-cable','dynamic-cardioid-mic','rack-interface-unit','2x2-usb-interface','reverb-unit','control-room-monitor-pair'];
-    for(const id of fallbackOrder){
-      const item = assetBySlug[id] || assetBySlug[aliasToSlug[id]];
-      if(item && Array.isArray(item.assetPaths) && item.assetPaths.filter(Boolean).length) return item;
-    }
-    return exact || null;
+    return key ? assetBySlug[key] : null;
   }
 
   function imgFor(name){
@@ -263,107 +227,6 @@
     const paths = asset && Array.isArray(asset.assetPaths) ? asset.assetPaths.filter(Boolean) : [];
     if(!paths.length) return '';
     return '/' + String(paths[0]).replace(/^\/+/, '');
-  }
-
-
-  function shelfUrl(){
-    const shelves = shelfMap && Array.isArray(shelfMap.shelves) ? shelfMap.shelves : [];
-    const preferred = shelves.find(s => /locker|shelf|store|equipment|build/i.test(String(s.path || s.name || ''))) || shelves[0];
-    if(preferred && preferred.path) return '/' + String(preferred.path).replace(/^\/+/, '');
-    return '';
-  }
-
-  function buildRoomSidebarRoot(){
-    const candidates = Array.from(document.querySelectorAll('aside, section, article, div'))
-      .filter(el => !el.closest('.sf-build-room-v6r235') && /CURRENT LEVEL|LEVEL BRIEF|EDUCATIONAL TOOLS|WHY THIS SETUP MATTERS/i.test(el.textContent || ''))
-      .map(el => ({el, r: el.getBoundingClientRect(), text: el.textContent || ''}))
-      .filter(x => x.r.width > 220 && x.r.width < 430 && x.r.left < 440 && x.r.height > 260)
-      .sort((a,b) => {
-        const scoreA = (/CURRENT LEVEL/i.test(a.text) ? 2 : 0) + (/EDUCATIONAL TOOLS/i.test(a.text) ? 2 : 0) + (a.r.height / 1000);
-        const scoreB = (/CURRENT LEVEL/i.test(b.text) ? 2 : 0) + (/EDUCATIONAL TOOLS/i.test(b.text) ? 2 : 0) + (b.r.height / 1000);
-        return scoreB - scoreA;
-      });
-    return candidates.length ? candidates[0].el : null;
-  }
-
-  function findEducationalToolsBlock(root){
-    if(!root) return null;
-    const children = Array.from(root.children || []);
-    const direct = children.find(el => /EDUCATIONAL TOOLS/i.test(el.textContent || ''));
-    if(direct) return direct;
-    const label = Array.from(root.querySelectorAll('*')).find(el => /^\s*EDUCATIONAL TOOLS\s*$/i.test(el.textContent || ''));
-    if(!label) return null;
-    let node = label;
-    while(node && node.parentElement && node.parentElement !== root){
-      const r = node.getBoundingClientRect();
-      const pr = node.parentElement.getBoundingClientRect();
-      if(pr.width > 180 && pr.width < 430 && pr.height > Math.max(80, r.height + 40)) node = node.parentElement;
-      else break;
-    }
-    return node.parentElement === root ? node : (label.closest('section, article, .card, .panel, div') || label);
-  }
-
-  function rowSatisfied(row, selection, items, reqStatus){
-    const cableOrGear = normalizeName(row && row[2] || '');
-    if(cableOrGear){
-      const wanted = slugify(cableOrGear);
-      if(Number(selection[wanted] || 0) > 0) return true;
-      const matching = items.find(item => slugify(item.name) === wanted || slugify(normalizeName(item.name)) === wanted);
-      if(matching && Number(selection[slugify(matching.name)] || 0) > 0) return true;
-      if(/xlr/i.test(cableOrGear)){
-        if(Object.keys(selection).some(k => /xlr/.test(k) && Number(selection[k] || 0) > 0)) return true;
-      }
-      if(/tt patch/i.test(cableOrGear)){
-        if(Object.keys(selection).some(k => /tt.*patch|patch.*cable/.test(k) && Number(selection[k] || 0) > 0)) return true;
-      }
-      if(/console|mixer/i.test(cableOrGear)){
-        if(Object.keys(selection).some(k => /console|mixer/.test(k) && Number(selection[k] || 0) > 0)) return true;
-      }
-    }
-    const statuses = reqStatus && reqStatus.statuses || [];
-    const idx = Array.isArray(row) && typeof row.__idx === 'number' ? row.__idx : -1;
-    if(idx >= 0 && statuses[idx]) return !!statuses[idx].ok;
-    return false;
-  }
-
-  function injectSidebarChecklist(level, reqStatus, selection, items){
-    document.querySelectorAll('.sf-br-sidebar-checklist').forEach(el => el.remove());
-    const root = buildRoomSidebarRoot();
-    if(!root) return;
-    const panel = document.createElement('div');
-    panel.className = 'sf-br-sidebar-checklist';
-    const checklist = Array.isArray(level.checklist) ? level.checklist : [];
-    if(checklist.length){
-      panel.innerHTML = `<div class="sf-br-sidebar-title">Connection Checklist</div>${checklist.map((row, idx) => {
-        const from = row[0] || '';
-        const to = row[1] || '';
-        const annotated = row.slice ? row.slice() : row;
-        annotated.__idx = idx;
-        const ok = rowSatisfied(annotated, selection || {}, items || [], reqStatus);
-        return `<div class="sf-br-sidebar-need ${ok ? 'is-satisfied' : ''}">
-          <span class="sf-br-sidebar-dot"></span>
-          <span><strong>${escapeHtml(from)} → ${escapeHtml(to)}</strong></span>
-        </div>`;
-      }).join('')}`;
-    } else if(reqStatus && reqStatus.statuses && reqStatus.statuses.length){
-      panel.innerHTML = `<div class="sf-br-sidebar-title">Build Checklist</div>${reqStatus.statuses.map(st => `
-        <div class="sf-br-sidebar-need ${st.ok ? 'is-satisfied' : ''}">
-          <span class="sf-br-sidebar-dot"></span>
-          <span><strong>${escapeHtml(st.req.need_group || st.req.name)}</strong></span>
-        </div>`).join('')}`;
-    } else {
-      return;
-    }
-    const edu = findEducationalToolsBlock(root);
-    if(edu && edu.parentElement){ edu.parentElement.insertBefore(panel, edu); }
-    else {
-      const firstBig = Array.from(root.children || []).find(el => /EDUCATIONAL TOOLS|LEVEL BRIEF|WHY THIS SETUP/i.test(el.textContent || ''));
-      if(firstBig) root.insertBefore(panel, firstBig); else root.appendChild(panel);
-    }
-  }
-
-  function removeSidebarChecklist(){
-    document.querySelectorAll('.sf-br-sidebar-checklist').forEach(el => el.remove());
   }
 
   function consolidateStore(level){
@@ -433,11 +296,11 @@
   }
 
   function ensureContainer(levelId){
-    let existing = document.querySelector('.sf-build-room-v6r235[data-level-id="' + levelId + '"]');
+    let existing = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
     if(existing) return existing;
-    document.querySelectorAll('.sf-build-room-v6r235').forEach(el => el.remove());
+    document.querySelectorAll('.sf-build-room-v6r227').forEach(el => el.remove());
     const root = document.createElement('section');
-    root.className = 'sf-build-room-v6r235';
+    root.className = 'sf-build-room-v6r227';
     root.dataset.levelId = levelId;
     const old = findOldBuildPanel();
     if(old && old.parentElement){ old.parentElement.insertBefore(root, old); }
@@ -451,7 +314,7 @@
   function findOldBuildPanel(){
     const selectors = ['[data-training-panel="build-room"]','.build-room','.build-room-panel','.route-training-panel','[class*="build-room"]'];
     for(const sel of selectors){
-      const found = Array.from(document.querySelectorAll(sel)).find(el => !el.classList.contains('sf-build-room-v6r235') && /Build|Room|Check Room|BUY ONLY/i.test(el.textContent || ''));
+      const found = Array.from(document.querySelectorAll(sel)).find(el => !el.classList.contains('sf-build-room-v6r227') && /Build|Room|Check Room|BUY ONLY/i.test(el.textContent || ''));
       if(found) return found;
     }
     return Array.from(document.querySelectorAll('section, article, div')).find(el => /BUY ONLY WHAT THE BRIEF NEEDS|Check Room|Build the Room/i.test(el.textContent || '') && (el.getBoundingClientRect().width > 240));
@@ -460,11 +323,11 @@
   function renderBuildRoom(){
     if(!manifest) return;
     const levelId = currentLevelId();
-    if(!isBuildRoomLevel(levelId)){ document.body.classList.remove('sf-build-room-v6r235-active'); removeSidebarChecklist(); return; }
+    if(!isBuildRoomLevel(levelId)) return;
     const level = levelsById[levelId];
     if(!level) return;
 
-    document.body.classList.add('sf-build-room-v6r235-active');
+    document.body.classList.add('sf-build-room-v6r227-active');
     const root = ensureContainer(levelId);
     const selection = getSelection(levelId);
     const items = consolidateStore(level);
@@ -476,26 +339,16 @@
     const visibleItems = activeCategory === 'All' ? items : items.filter(i => (i.category || categoryFor(i.name)) === activeCategory);
 
     if(!loggedActive.has(levelId)){
-      console.log('[Signal Flow] Build-a-Room consolidated renderer active v6r235', levelId);
+      console.log('[Signal Flow] Build-a-Room consolidated renderer active v6r227', levelId);
       loggedActive.add(levelId);
     }
 
-    const renderStamp = JSON.stringify({levelId, activeCategory, selection, availableCredits: totals.availableCredits, spend: money.spend, ownedApplied: money.ownedApplied});
-    if(root.dataset.sfBrRenderStamp === renderStamp) return;
-    root.dataset.sfBrRenderStamp = renderStamp;
-
-    injectSidebarChecklist(level, reqStatus, selection, items);
-
     root.innerHTML = `
       <div class="sf-br-top">
-        <div class="sf-br-title-block">
+        <div>
           <div class="sf-br-title-kicker">${escapeHtml(level.environment || '')} • BUILD A ROOM</div>
           <div class="sf-br-title">${escapeHtml(level.level_id)} • ${escapeHtml(level.scenario || 'Build the Room')}</div>
           <div class="sf-br-brief">${escapeHtml(level.brief || level.instruction || 'Choose the equipment needed for this job.')}</div>
-        </div>
-        <div class="sf-br-header-actions">
-          <button class="sf-br-btn danger" data-sf-br-action="reset">Reset</button>
-          <button class="sf-br-btn" data-sf-br-action="check">Submit</button>
         </div>
         <div class="sf-br-metrics">
           <div class="sf-br-metric"><div class="sf-br-metric-label">Credits available</div><div class="sf-br-metric-value">${totals.availableCredits}</div></div>
@@ -503,18 +356,48 @@
           <div class="sf-br-metric"><div class="sf-br-metric-label">Owned applied</div><div class="sf-br-metric-value">${money.ownedApplied}</div></div>
         </div>
       </div>
-      <div class="sf-br-shop" style="${shelfUrl() ? 'background-image: linear-gradient(180deg, rgba(3,8,18,.46), rgba(3,8,18,.90)), url(' + escapeAttr(shelfUrl()) + ');' : ''}">
-        <div class="sf-br-store-head">
-          <div>
-            <div class="sf-br-section-title">Equipment options</div>
+      <div class="sf-br-body">
+        <aside class="sf-br-left">
+          <div class="sf-br-note"><h3>Job Brief</h3><p>${escapeHtml(level.instruction || 'Choose the equipment needed for this job.')}</p></div>
+          <div class="sf-br-checklist">
+            <div class="sf-br-section-title">Build Checklist</div>
+            ${reqStatus.statuses.map(st => `
+              <div class="sf-br-need ${st.ok ? 'is-satisfied' : ''}">
+                <div class="sf-br-need-dot"></div>
+                <div><div class="sf-br-need-name">${escapeHtml(st.req.need_group || st.req.name)}</div><div class="sf-br-need-detail">${st.have}/${st.needed} selected</div></div>
+              </div>`).join('')}
           </div>
-          <div class="sf-br-tabs">${categories.map(cat => `<button class="sf-br-tab ${cat===activeCategory?'is-active':''}" data-sf-br-tab="${escapeAttr(cat)}">${escapeHtml(cat)}</button>`).join('')}</div>
-        </div>
-        <div class="sf-br-store-grid">
-          ${visibleItems.map(item => renderCard(item, selection)).join('')}
-        </div>
+        </aside>
+        <main class="sf-br-main">
+          <section class="sf-br-scene">
+            <div class="sf-br-room-backdrop"></div>
+            <div class="sf-br-room-title">Room / System Build</div>
+            <div class="sf-br-placement-grid">
+              ${reqStatus.statuses.slice(0,8).map(st => `<div class="sf-br-placement ${st.ok ? 'is-satisfied' : ''}"><div class="sf-br-placement-label">${escapeHtml(st.req.need_group || st.req.name)}</div><div class="sf-br-placement-sub">${st.ok ? 'Ready' : 'Needs gear'}</div></div>`).join('')}
+            </div>
+          </section>
+          <div class="sf-br-store-head">
+            <div class="sf-br-section-title">Equipment options</div>
+            <div class="sf-br-tabs">${categories.map(cat => `<button class="sf-br-tab ${cat===activeCategory?'is-active':''}" data-sf-br-tab="${escapeAttr(cat)}">${escapeHtml(cat)}</button>`).join('')}</div>
+          </div>
+          <div class="sf-br-store-grid">
+            ${visibleItems.map(item => renderCard(item, selection)).join('')}
+          </div>
+        </main>
       </div>
-`;
+      <div class="sf-br-bottom">
+        <div class="sf-br-summary">
+          <span><strong>${money.selectedCount}</strong> selected</span>
+          <span><strong>${money.spend}</strong> new credits</span>
+          <span><strong>${Math.max(0, totals.availableCredits - money.spend)}</strong> remaining</span>
+          <span><strong>${reqStatus.ok ? 'Ready to check' : 'Needs gear'}</strong></span>
+        </div>
+        <div class="sf-br-actions">
+          <button class="sf-br-btn secondary" data-sf-br-action="open-locker">Open Locker</button>
+          <button class="sf-br-btn danger" data-sf-br-action="reset">Reset Build</button>
+          <button class="sf-br-btn" data-sf-br-action="check">Check Room</button>
+        </div>
+      </div>`;
 
     bindBuildRoom(root, level, items);
   }
@@ -528,14 +411,12 @@
     const badges = [];
     if(owned > 0) badges.push(`<span class="sf-br-badge owned">Locker ×${owned}</span><span class="sf-br-badge owned">$0 reuse</span>`);
     badges.push(`<span class="sf-br-badge cost">${cost} credits</span>`);
-    const fallback = `<div class="sf-br-art-fallback">${iconFor(item.name)}</div>`;
-    const art = image ? `<img alt="" src="${escapeAttr(image)}" loading="lazy" onerror="this.remove();this.parentElement.classList.add('no-image')">${fallback}` : fallback;
-    const ownedPill = `<span class="sf-br-owned-pill ${owned > 0 ? 'has-owned' : ''}">Owned ×${owned}</span>`;
+    const art = image ? `<img alt="" src="${escapeAttr(image)}" loading="lazy" onerror="this.remove();this.parentElement.classList.add('no-image')">` : `<div class="sf-br-art-fallback">${iconFor(item.name)}</div>`;
     return `<article class="sf-br-card ${qty?'is-selected':''}" data-sf-br-item="${escapeAttr(slug)}" data-name="${escapeAttr(item.name)}">
-      ${ownedPill}
       <div class="sf-br-art">${art}</div>
       <div class="sf-br-card-body">
         <div class="sf-br-card-name">${escapeHtml(item.name)}</div>
+        <div class="sf-br-card-category">${escapeHtml(item.category || categoryFor(item.name))}</div>
         <div class="sf-br-card-badges">${badges.join('')}</div>
         <div class="sf-br-card-controls">
           <button class="sf-br-step" data-sf-br-step="-1" aria-label="Remove one ${escapeAttr(item.name)}">−</button>
@@ -563,6 +444,7 @@
     });
     root.querySelectorAll('[data-sf-br-action]').forEach(btn => btn.addEventListener('click', () => {
       const action = btn.dataset.sfBrAction;
+      if(action === 'open-locker') openLockerModal();
       if(action === 'reset') { closeAllBuildModals(); clearSelection(level.level_id); renderBuildRoom(); }
       if(action === 'check') checkRoom(level, items);
     }));
@@ -625,146 +507,45 @@
     });
     document.body.appendChild(backdrop);
   }
-  function closeAllBuildModals(){ document.querySelectorAll('.sf-br-modal-backdrop, .sf-build-room-modal, .sf-equipment-locker-modal, .sf-economy-modal, .sf-br2-modal, #gameOverOverlay, .game-over-overlay').forEach(el => el.remove()); }
+  function closeAllBuildModals(){ document.querySelectorAll('.sf-br-modal-backdrop, .sf-build-room-modal, .sf-equipment-locker-modal').forEach(el => el.remove()); }
 
   function openLockerModal(){
     const locker = loadLocker();
     const items = Object.values(locker.items || {}).sort((a,b) => String(a.name).localeCompare(String(b.name)));
-    const shelf = shelfUrl();
-    const body = items.length ? `<div class="sf-br-locker-shelf" style="${shelf ? 'background-image: linear-gradient(180deg, rgba(5,10,18,.30), rgba(5,10,18,.72)), url(' + escapeAttr(shelf) + ');' : ''}">${items.map(it => {
-      const image = imgFor(it.name);
-      const fallback = `<span class="sf-br-locker-fallback">${iconFor(it.name)}</span>`;
-      return `<button class="sf-br-locker-card" type="button"><span class="sf-br-locker-art">${image ? `<img alt="" src="${escapeAttr(image)}" loading="lazy" onerror="this.remove();this.parentElement.classList.add('no-image')">${fallback}` : fallback}</span><strong>${escapeHtml(it.name)}</strong><small>Qty ${Number(it.qty||0)}</small><small>First acquired: ${escapeHtml(it.firstAcquiredLevel || '—')}</small></button>`;
-    }).join('')}</div>` : '<p>No owned equipment yet. Approved Build-a-Room purchases will appear here.</p>';
+    const body = items.length ? `<div class="sf-br-locker-grid">${items.map(it => `<div class="sf-br-locker-item"><strong>${escapeHtml(it.name)}</strong><span>Qty ${Number(it.qty||0)} • ${escapeHtml(it.category || categoryFor(it.name))}</span><br><span>First acquired: ${escapeHtml(it.firstAcquiredLevel || '—')}</span></div>`).join('')}</div>` : '<p>No owned equipment yet. Approved Build-a-Room purchases will appear here.</p>';
     showModal('Equipment Locker', body, [{label:'Close', action:closeAllBuildModals}]);
   }
 
-
-  function isVisibleElement(el){
-    if(!el || !(el instanceof Element)) return false;
-    const r = el.getBoundingClientRect();
-    const st = getComputedStyle(el);
-    return r.width > 20 && r.height > 12 && r.bottom > 0 && r.right > 0 && r.top < innerHeight && r.left < innerWidth && st.display !== 'none' && st.visibility !== 'hidden' && Number(st.opacity || 1) > 0.05;
-  }
-
-  function textOf(el){ return String((el && (el.textContent || el.getAttribute('aria-label') || el.value)) || '').replace(/\s+/g, ' ').trim(); }
-
-  function splashIsVisible(){
-    if(document.querySelector('.sf-build-room-v6r235')) return false;
-    const txt = document.body ? document.body.textContent || '' : '';
-    return /\bPlay\b/i.test(txt) && (/\bTutorial\b/i.test(txt) || /\bMic Locker\b|\bEquipment Locker\b/i.test(txt));
-  }
-
-  function findSplashLockerButton(){
-    const controls = Array.from(document.querySelectorAll('#micLockerBtn, button, a, [role="button"], .clean-splash-btn'))
-      .filter(isVisibleElement)
-      .filter(el => /^(Mic Locker|Equipment Locker)$/i.test(textOf(el)));
-    if(!controls.length) return null;
-    // Prefer the legacy bottom-row locker slot, not any in-game Open Locker action.
-    controls.sort((a,b) => {
-      const ar = a.getBoundingClientRect(), br = b.getBoundingClientRect();
-      const bottomA = ar.top > innerHeight * .55 ? 0 : 1;
-      const bottomB = br.top > innerHeight * .55 ? 0 : 1;
-      const micA = /micLockerBtn/i.test(a.id || '') ? -1 : 0;
-      const micB = /micLockerBtn/i.test(b.id || '') ? -1 : 0;
-      return micA - micB || bottomA - bottomB || ar.left - br.left;
-    });
-    return controls[0];
-  }
-
-  function removeSplashLockerOverlay(){
-    document.querySelectorAll('.sf-br-splash-locker-overlay').forEach(el => el.remove());
-  }
-
-  function removeFloatingLockerButtons(){
-    removeSplashLockerOverlay();
-    document.querySelectorAll('.sf-build-room-floating-locker, .sf-equipment-locker-floating').forEach(el => el.remove());
-    Array.from(document.querySelectorAll('button, a, [role="button"]')).forEach(el => {
-      const r = el.getBoundingClientRect();
-      if(/^Equipment Locker$/i.test(textOf(el)) && r.top > innerHeight * .70 && r.left > innerWidth * .55 && !/micLockerBtn/i.test(el.id || '') && !el.classList.contains('sf-br-splash-locker-overlay')) el.remove();
-    });
-  }
-
-  function findSplashLockerSlot(){
-    const elements = Array.from(document.querySelectorAll('#micLockerBtn, .clean-locker-btn, .clean-splash-btn, button, a, [role="button"], div, span'))
-      .filter(isVisibleElement)
-      .filter(el => /^(Mic Locker|Equipment Locker)$/i.test(textOf(el)))
-      .map(el => ({el, r: el.getBoundingClientRect()}))
-      .filter(x => x.r.top > innerHeight * .50 && x.r.left < innerWidth * .65);
-    if(!elements.length) return null;
-    elements.sort((a,b) => {
-      const am = /micLockerBtn|clean-locker-btn/i.test(a.el.id || a.el.className || '') ? -1 : 0;
-      const bm = /micLockerBtn|clean-locker-btn/i.test(b.el.id || b.el.className || '') ? -1 : 0;
-      return am - bm || a.r.left - b.r.left;
-    });
-    return elements[0];
-  }
-
-  function installSplashLockerOverlay(slot){
-    removeSplashLockerOverlay();
-    if(!slot || !slot.r) return;
-    const r = slot.r;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'sf-br-splash-locker-overlay';
-    btn.textContent = 'Equipment Locker';
-    btn.setAttribute('aria-label', 'Equipment Locker');
-    Object.assign(btn.style, {
-      left: Math.round(r.left) + 'px',
-      top: Math.round(r.top) + 'px',
-      width: Math.max(120, Math.round(r.width)) + 'px',
-      height: Math.max(34, Math.round(r.height)) + 'px'
-    });
-    bindLockerClick(btn);
-    document.body.appendChild(btn);
-  }
-
-  function bindLockerClick(btn){
-    if(!btn) return;
-    btn.dataset.sfBrLockerOwner = VERSION;
-    btn.onclick = function(ev){
-      if(ev){ ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); }
-      openLockerModal();
-      return false;
-    };
-    btn.addEventListener('click', ev => {
-      ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation(); openLockerModal();
-    }, true);
-  }
-
   function installSplashLocker(){
-    removeFloatingLockerButtons();
-    if(!splashIsVisible()){ removeSplashLockerOverlay(); return; }
-    const btn = findSplashLockerButton();
+    // Remove old floating fallback buttons from previous patches.
+    Array.from(document.querySelectorAll('button, a, [role="button"]')).forEach(el => {
+      const text = String(el.textContent || el.getAttribute('aria-label') || '').trim();
+      if(/Equipment Locker/i.test(text) && !/micLockerBtn/i.test(el.id || '') && el.dataset.sfBrLockerOwner !== VERSION){
+        const r = el.getBoundingClientRect && el.getBoundingClientRect();
+        if(!r || r.bottom > window.innerHeight * .55 || /fixed|absolute/i.test(getComputedStyle(el).position || '')) el.remove();
+      }
+    });
+    let btn = document.getElementById('micLockerBtn') || Array.from(document.querySelectorAll('button, a, [role="button"]')).find(el => /Mic Locker/i.test(el.textContent || el.getAttribute('aria-label') || ''));
     if(btn){
-      removeSplashLockerOverlay();
-      btn.id = btn.id || 'micLockerBtn';
-      btn.textContent = 'Equipment Locker';
-      btn.setAttribute('aria-label', 'Equipment Locker');
-      btn.removeAttribute('aria-hidden');
-      btn.removeAttribute('inert');
-      btn.classList.add('sf-build-room-equipment-locker-entry');
-      btn.style.pointerEvents = 'auto';
-      btn.style.visibility = 'visible';
-      btn.style.opacity = '1';
-      bindLockerClick(btn);
+      const clone = btn.cloneNode(true);
+      clone.id = 'micLockerBtn';
+      clone.textContent = 'Equipment Locker';
+      clone.setAttribute('aria-label', 'Equipment Locker');
+      clone.removeAttribute('aria-hidden');
+      clone.classList.add('sf-build-room-equipment-locker-entry');
+      clone.dataset.sfBrLockerOwner = VERSION;
+      clone.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); openLockerModal(); });
+      btn.replaceWith(clone);
       return;
     }
-    // Some Splash builds render the locker label as a non-button visual. Cover that exact slot only.
-    installSplashLockerOverlay(findSplashLockerSlot());
+    // Fallback: add exactly one entry near splash action area, not bottom-right.
+    if(document.querySelector('[data-sf-br-locker-owner="' + VERSION + '"]')) return;
+    const host = Array.from(document.querySelectorAll('main, .splash, .clean-splash, body')).find(el => /Play|Start|Signal Flow/i.test(el.textContent || '')) || document.body;
+    const fallback = document.createElement('button');
+    fallback.type = 'button'; fallback.className = 'clean-splash-btn clean-locker-btn sf-build-room-equipment-locker-entry'; fallback.textContent = 'Equipment Locker'; fallback.dataset.sfBrLockerOwner = VERSION;
+    fallback.addEventListener('click', openLockerModal);
+    host.appendChild(fallback);
   }
-
-  function interceptSplashLockerClick(ev){
-    if(!splashIsVisible()) return;
-    const target = ev.target && ev.target.closest && ev.target.closest('#micLockerBtn, button, a, [role="button"], .clean-splash-btn');
-    if(!target || !isVisibleElement(target)) return;
-    if(!/^(Mic Locker|Equipment Locker)$/i.test(textOf(target))) return;
-    ev.preventDefault(); ev.stopPropagation(); if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-    installSplashLocker();
-    openLockerModal();
-  }
-
-  window.openMicLocker = function(){ openLockerModal(); return false; };
 
   function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function escapeAttr(s){ return escapeHtml(s).replace(/`/g, '&#96;'); }
@@ -775,45 +556,18 @@
   }
 
   function boot(){
-    Promise.all([loadJson(MANIFEST_URL), loadJson(ASSET_MAP_URL), loadJson(SHELF_MAP_URL).catch(() => ({shelves:[]}))]).then(([m,a,sh]) => {
-      manifest = m; assetMap = a; shelfMap = sh || {shelves:[]}; prepareData();
-      console.log('[Signal Flow] Build-a-Room consolidated renderer installed v6r235');
-      window.sfOpenBuildRoomEquipmentLocker = openLockerModal;
-      removeSplashLockerOverlay();
+    Promise.all([loadJson(MANIFEST_URL), loadJson(ASSET_MAP_URL)]).then(([m,a]) => {
+      manifest = m; assetMap = a; prepareData();
+      console.log('[Signal Flow] Build-a-Room consolidated renderer installed v6r227');
       installSplashLocker();
       renderBuildRoom();
-
-      document.addEventListener('click', interceptSplashLockerClick, true);
-      document.addEventListener('click', ev => {
-        const btn = ev.target && ev.target.closest && ev.target.closest('button, a, [role="button"]');
-        if(btn && /^(Splash|Play|Tutorial)$/i.test(textOf(btn))){
-          if(splashIsVisible()) setTimeout(installSplashLocker, 60);
-        }
-      }, false);
-
-      document.addEventListener('change', scheduleRender, true);
-      document.addEventListener('input', scheduleRender, true);
+      setInterval(installSplashLocker, 1000);
+      const obs = new MutationObserver(() => { installSplashLocker(); scheduleRender(); });
+      obs.observe(document.documentElement, {childList:true, subtree:true});
       window.addEventListener('hashchange', scheduleRender);
       window.addEventListener('popstate', scheduleRender);
-      ['sf:level-change','sf-level-change','signalflow:levelchange','signal-flow:level-change'].forEach(name => window.addEventListener(name, scheduleRender));
-
-      const obs = new MutationObserver(mutations => {
-        let shouldRender = false;
-        for(const m of mutations){
-          for(const node of Array.from(m.addedNodes || [])){
-            if(node.nodeType !== 1) continue;
-            if(node.closest && node.closest('.sf-build-room-v6r235')) continue;
-            if(node.matches && node.matches('[data-sf-build-room-renderer-mount], [data-training-panel="build-room"]')) shouldRender = true;
-            if(node.querySelector && node.querySelector('[data-sf-build-room-renderer-mount], [data-training-panel="build-room"]')) shouldRender = true;
-          }
-        }
-        if(shouldRender) scheduleRender();
-        if(splashIsVisible()) setTimeout(installSplashLocker, 80);
-      });
-      obs.observe(document.body || document.documentElement, {childList:true, subtree:true});
     }).catch(err => console.error('[Signal Flow] Build-a-Room consolidated renderer failed:', err));
   }
-
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

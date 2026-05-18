@@ -1195,7 +1195,191 @@
         }
       ]
     }
-  };
+          "LIV-015": {
+          id: "LIV-015",
+          title: "Sub Matrix Feed",
+          familyLayout: "processing-stagebox",
+          processorLabel: "CROSSOVER / SUB PROCESSING",
+          panelKinds: ["stagebox", "foh", "amp"],
+          sourceOrder: ["lead-vocal-mic"],
+          assetOverrides: {
+            stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+            amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+            paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+          },
+          generatedJackKeys: [
+            "stagebox-input-1",
+            "stagebox-input-2",
+            "stagebox-input-3",
+            "stagebox-input-4",
+            "stagebox-input-5",
+            "stagebox-input-6",
+            "stagebox-input-7",
+            "stagebox-input-8",
+            "stagebox-input-9",
+            "stagebox-input-10",
+            "stagebox-input-11",
+            "stagebox-input-12",
+            "stagebox-input-13",
+            "stagebox-input-14",
+            "stagebox-input-15",
+            "stagebox-input-16",
+            "stagebox-link-out",
+            "foh-liv006-matrix-1-output",
+            "foh-liv006-matrix-2-output",
+            "foh-liv006-matrix-3-output",
+            "foh-liv006-matrix-4-output",
+            "foh-liv006-aux-1-output",
+            "foh-liv006-aux-2-output",
+            "foh-liv006-aux-3-output",
+            "foh-liv006-aux-4-output",
+            "foh-liv006-aux-5-output",
+            "foh-liv006-aux-6-output",
+            "foh-liv006-bus-1-output",
+            "foh-liv006-bus-2-output",
+            "foh-liv006-bus-3-output",
+            "foh-liv006-bus-4-output",
+            "foh-liv006-bus-5-output",
+            "foh-liv006-bus-6-output",
+            "foh-liv006-bus-7-output",
+            "foh-liv006-bus-8-output",
+            "foh-liv006-main-left-output",
+            "foh-liv006-main-right-output",
+            "liv242-crossover-l-input",
+            "liv242-crossover-r-input",
+            "liv242-delay-tower-processor-input",
+            "liv242-sub-processor-input",
+            "liv242-crossover-l-output",
+            "liv242-crossover-r-output",
+            "liv242-main-pa-l-input",
+            "liv242-main-pa-r-input"
+          ],
+          validRoutes: [
+            { key: "foh-liv006-matrix-2-output-to-liv242-sub-processor-input", from: "foh-liv006-matrix-2-output", to: "liv242-sub-processor-input", checklist: "Matrix 2 Output → Sub Processor Input" },
+            { key: "foh-liv006-main-left-output-to-liv242-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv015-main-to-crossover", stereoSide: "left" },
+            { key: "foh-liv006-main-right-output-to-liv242-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv015-main-to-crossover", stereoSide: "right" },
+            { key: "lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "stagebox-input-1", checklist: "Lead Vocal Mic → Stage Box Input 1" }
+          ]
+        },
+        "LIV-016": {
+          id: "LIV-016",
+          title: "Delay Tower Route",
+          familyLayout: "processing-stagebox",
+          processorLabel: "CROSSOVER / DELAY TOWER PROCESSING",
+          panelKinds: ["stagebox", "foh", "amp"],
+          sourceOrder: ["lead-vocal-mic"],
+          assetOverrides: {
+            stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+            amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+            paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+          },
+          generatedJackKeys: [
+            "stagebox-input-1",
+            "stagebox-input-2",
+            "stagebox-input-3",
+            "stagebox-input-4",
+            "stagebox-input-5",
+            "stagebox-input-6",
+            "stagebox-input-7",
+            "stagebox-input-8",
+            "stagebox-input-9",
+            "stagebox-input-10",
+            "stagebox-input-11",
+            "stagebox-input-12",
+            "stagebox-input-13",
+            "stagebox-input-14",
+            "stagebox-input-15",
+            "stagebox-input-16",
+            "stagebox-link-out",
+            "foh-liv006-matrix-1-output",
+            "foh-liv006-matrix-2-output",
+            "foh-liv006-matrix-3-output",
+            "foh-liv006-matrix-4-output",
+            "foh-liv006-aux-1-output",
+            "foh-liv006-aux-2-output",
+            "foh-liv006-aux-3-output",
+            "foh-liv006-aux-4-output",
+            "foh-liv006-aux-5-output",
+            "foh-liv006-aux-6-output",
+            "foh-liv006-bus-1-output",
+            "foh-liv006-bus-2-output",
+            "foh-liv006-bus-3-output",
+            "foh-liv006-bus-4-output",
+            "foh-liv006-bus-5-output",
+            "foh-liv006-bus-6-output",
+            "foh-liv006-bus-7-output",
+            "foh-liv006-bus-8-output",
+            "foh-liv006-main-left-output",
+            "foh-liv006-main-right-output",
+            "liv242-crossover-l-input",
+            "liv242-crossover-r-input",
+            "liv242-delay-tower-processor-input",
+            "liv242-sub-processor-input",
+            "liv242-crossover-l-output",
+            "liv242-crossover-r-output",
+            "liv242-main-pa-l-input",
+            "liv242-main-pa-r-input"
+          ],
+          validRoutes: [
+            { key: "foh-liv006-matrix-3-output-to-liv242-delay-tower-processor-input", from: "foh-liv006-matrix-3-output", to: "liv242-delay-tower-processor-input", checklist: "Matrix 3 Output → Delay Tower Processor Input" },
+            { key: "foh-liv006-main-left-output-to-liv242-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv016-main-to-crossover", stereoSide: "left" },
+            { key: "foh-liv006-main-right-output-to-liv242-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv016-main-to-crossover", stereoSide: "right" },
+            { key: "lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "stagebox-input-1", checklist: "Lead Vocal Mic → Stage Box Input 1" }
+          ]
+        },
+        "LIV-020": {
+          id: "LIV-020",
+          title: "Main PA Amp Feed",
+          familyLayout: "processing-main-pa",
+          processorLabel: "CROSSOVER / MAIN PA AMP",
+          panelKinds: ["foh", "amp", "paamp"],
+          sourceOrder: [],
+          assetOverrides: {
+            stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+            amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+            paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+          },
+          generatedJackKeys: [
+            "foh-liv006-matrix-1-output",
+            "foh-liv006-matrix-2-output",
+            "foh-liv006-matrix-3-output",
+            "foh-liv006-matrix-4-output",
+            "foh-liv006-aux-1-output",
+            "foh-liv006-aux-2-output",
+            "foh-liv006-aux-3-output",
+            "foh-liv006-aux-4-output",
+            "foh-liv006-aux-5-output",
+            "foh-liv006-aux-6-output",
+            "foh-liv006-bus-1-output",
+            "foh-liv006-bus-2-output",
+            "foh-liv006-bus-3-output",
+            "foh-liv006-bus-4-output",
+            "foh-liv006-bus-5-output",
+            "foh-liv006-bus-6-output",
+            "foh-liv006-bus-7-output",
+            "foh-liv006-bus-8-output",
+            "foh-liv006-main-left-output",
+            "foh-liv006-main-right-output",
+            "liv242-crossover-l-input",
+            "liv242-crossover-r-input",
+            "liv242-delay-tower-processor-input",
+            "liv242-sub-processor-input",
+            "liv242-crossover-l-output",
+            "liv242-crossover-r-output",
+            "liv242-main-pa-l-input",
+            "liv242-main-pa-r-input"
+          ],
+          validRoutes: [
+            { key: "foh-liv006-main-left-output-to-liv242-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv020-main-to-crossover", stereoSide: "left" },
+            { key: "foh-liv006-main-right-output-to-liv242-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv020-main-to-crossover", stereoSide: "right" },
+            { key: "liv242-crossover-l-output-to-liv242-main-pa-l-input", from: "liv242-crossover-l-output", to: "liv242-main-pa-l-input", checklist: "Crossover L Out → Main PA L Input", stereoGroup: "liv020-crossover-to-main-pa", stereoSide: "left" },
+            { key: "liv242-crossover-r-output-to-liv242-main-pa-r-input", from: "liv242-crossover-r-output", to: "liv242-main-pa-r-input", checklist: "Crossover R Out → Main PA R Input", stereoGroup: "liv020-crossover-to-main-pa", stereoSide: "right" }
+          ]
+        },
+};
 
   function sfClearNativeCompletionOverlay(reason) {
     if (typeof document === "undefined") return;
@@ -1296,6 +1480,14 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   const NODE_DEFS = {
+    "liv242-main-pa-r-input": { label: "Main PA R Input", kind: "jack", panelRel: { panel: "paamp", x: 0.640000, y: 0.625000 } },
+    "liv242-main-pa-l-input": { label: "Main PA L Input", kind: "jack", panelRel: { panel: "paamp", x: 0.360000, y: 0.625000 } },
+    "liv242-crossover-r-output": { label: "Crossover R Out", kind: "jack", panelRel: { panel: "amp", x: 0.720000, y: 0.455000 } },
+    "liv242-crossover-l-output": { label: "Crossover L Out", kind: "jack", panelRel: { panel: "amp", x: 0.620000, y: 0.455000 } },
+    "liv242-sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelRel: { panel: "amp", x: 0.640000, y: 0.615000 } },
+    "liv242-delay-tower-processor-input": { label: "Delay Tower Processor Input", kind: "jack", panelRel: { panel: "amp", x: 0.640000, y: 0.340000 } },
+    "liv242-crossover-r-input": { label: "Crossover R In", kind: "jack", panelRel: { panel: "amp", x: 0.257000, y: 0.615000 } },
+    "liv242-crossover-l-input": { label: "Crossover L In", kind: "jack", panelRel: { panel: "amp", x: 0.166000, y: 0.615000 } },
     "lead-vocal-mic": { label: "Lead Vocal Microphone", kind: "source" },
     "talkback-mic": { label: "Talkback Mic", kind: "source", x: 44, y: 160 },
     "keys-left-di": { label: "Keys L DI", kind: "source" },
@@ -1434,8 +1626,9 @@ if (activeNativeLevelId === nextLevelId) return;
     "liv006-delay-tower-processor-input": { label: "Delay Tower Processor Input", kind: "jack", panelRel: { panel: "amp", x: 470 / 940, y: 146 / 260 } },
     "liv006-sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelRel: { panel: "amp", x: 704 / 940, y: 146 / 260 }, ghost: true },
     "liv006-front-fill-processor-input": { label: "Front Fill Processor Input", kind: "jack", panelRel: { panel: "amp", x: 818 / 940, y: 146 / 260 }, ghost: true },
-    "liv011-crossover-l-input": { label: "Crossover L In", kind: "jack", panelRel: { panel: "amp", x: 0.155000, y: 0.535000 } },
-    "liv011-crossover-r-input": { label: "Crossover R In", kind: "jack", panelRel: { panel: "amp", x: 0.245000, y: 0.535000 } },
+    "liv011-crossover-l-input": { label: "Crossover L In", kind: "jack", panelRel: { panel: "amp", x: 0.166000, y: 0.615000 } },
+    "liv011-crossover-r-input": { label: "Crossover R In", kind: "jack", panelRel: { panel: "amp", x: 0.257000, y: 0.615000 } },
+    // LIV-011 v6r240 crossover input jack alignment hotfix.
     "delay-tower-processing-input": { label: "Delay", kind: "jack", panelJack: "amp.link" },
     "processor-output-a": { label: "Processor Output A", kind: "jack", panelJack: "amp.outputA", ghost: true },
     "processor-output-b": { label: "Processor Output B", kind: "jack", panelJack: "amp.outputB", ghost: true }
@@ -1850,6 +2043,7 @@ if (activeNativeLevelId === nextLevelId) return;
           "iem-station-a": 240 / 900,
           "iem-station-b": 240 / 900,
           amp7: 240 / 700,
+          paamp: 240 / 700,
           amp: 260 / 940,
           crossover: 250 / 940,
           "amp-high": 240 / 940,
@@ -2269,12 +2463,107 @@ if (activeNativeLevelId === nextLevelId) return;
     osc.stop(start + duration + 0.03);
   }
 
+  // LIV-011 v6r241 native SFX latency fix: preload/decode and pool route feedback sounds.
+  const NATIVE_SFX_SOURCES = [
+    "/assets/audio/sfx/SFcoin(81).wav",
+    "/assets/audio/sfx/wrong_patch_blip(51).mp3"
+  ];
+  const NATIVE_SFX_POOL_SIZE = 4;
+  const nativeSfxBuffers = window.__sfLiveNativeSfxBuffers || (window.__sfLiveNativeSfxBuffers = Object.create(null));
+  const nativeSfxPromises = window.__sfLiveNativeSfxPromises || (window.__sfLiveNativeSfxPromises = Object.create(null));
+  const nativeSfxPools = window.__sfLiveNativeSfxPools || (window.__sfLiveNativeSfxPools = Object.create(null));
+
+  function loadNativeSfxBuffer(src) {
+    try {
+      if (nativeSfxBuffers[src]) return Promise.resolve(nativeSfxBuffers[src]);
+      if (nativeSfxPromises[src]) return nativeSfxPromises[src];
+
+      const ctx = getNativeAudioContext();
+      if (!ctx || !window.fetch) return Promise.resolve(null);
+
+      nativeSfxPromises[src] = fetch(src)
+        .then(resp => {
+          if (!resp.ok) throw new Error("SFX preload failed " + resp.status + " " + src);
+          return resp.arrayBuffer();
+        })
+        .then(data => ctx.decodeAudioData(data))
+        .then(buffer => {
+          nativeSfxBuffers[src] = buffer;
+          return buffer;
+        })
+        .catch(err => {
+          console.warn("[Signal Flow] Native SFX preload failed:", src, err);
+          nativeSfxPromises[src] = null;
+          return null;
+        });
+
+      return nativeSfxPromises[src];
+    } catch (err) {
+      return Promise.resolve(null);
+    }
+  }
+
+  function getNativeSfxPool(src) {
+    if (!nativeSfxPools[src]) {
+      nativeSfxPools[src] = [];
+      for (let i = 0; i < NATIVE_SFX_POOL_SIZE; i += 1) {
+        const audio = new Audio(src);
+        audio.preload = "auto";
+        audio.load();
+        nativeSfxPools[src].push(audio);
+      }
+    }
+    return nativeSfxPools[src];
+  }
+
+  function primeNativeSfx() {
+    NATIVE_SFX_SOURCES.forEach(src => {
+      loadNativeSfxBuffer(src);
+      getNativeSfxPool(src);
+    });
+  }
+
+  function playNativeSfxBuffer(src, volume) {
+    try {
+      const ctx = getNativeAudioContext();
+      const buffer = nativeSfxBuffers[src];
+      if (!ctx || !buffer) return false;
+
+      const source = ctx.createBufferSource();
+      const gain = ctx.createGain();
+      source.buffer = buffer;
+      gain.gain.setValueAtTime(volume == null ? 0.75 : volume, ctx.currentTime);
+      source.connect(gain);
+      gain.connect(ctx.destination);
+      source.start(ctx.currentTime);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  try {
+    if (!window.__sfLiveNativeSfxPrimeInstalled) {
+      window.__sfLiveNativeSfxPrimeInstalled = true;
+      window.addEventListener("pointerdown", primeNativeSfx, { capture: true, passive: true });
+      window.addEventListener("keydown", primeNativeSfx, { capture: true, passive: true });
+      setTimeout(primeNativeSfx, 0);
+    }
+  } catch (err) {}
+
   function playNativeSfx(src, volume, delay) {
     try {
       const play = () => {
-        const audio = new Audio(src);
+        if (playNativeSfxBuffer(src, volume)) return;
+
+        loadNativeSfxBuffer(src);
+        const pool = getNativeSfxPool(src);
+        const audio = pool.find(item => item.paused || item.ended) || pool[0].cloneNode(true);
         audio.volume = volume == null ? 0.75 : volume;
-        audio.currentTime = 0;
+        try {
+          audio.pause();
+          audio.currentTime = 0;
+        } catch (err) {}
 
         const result = audio.play();
         if (result && result.catch) {
@@ -4956,7 +5245,136 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
 
   // LIV-011 native patch-board uses generic renderer with crossover player-facing terminology.
+
+
+  function isLivProcessingFamilyLevel() {
+    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-016" || LEVEL_ID === "LIV-020";
+  }
+
+  function buildLivProcessingFamilyGeometry(surface) {
+    const rect = surface.getBoundingClientRect();
+    const layoutHeight = Math.min(rect.height, 640);
+    const layoutRect = {
+      left: rect.left,
+      top: rect.top,
+      right: rect.right,
+      bottom: rect.top + layoutHeight,
+      width: rect.width,
+      height: layoutHeight
+    };
+
+    const panels = [];
+    if (LEVEL_ID === "LIV-020") {
+      panels.push(
+        { id: "foh", kind: "foh", x: rect.width * 0.045, y: layoutHeight * 0.195, width: rect.width * 0.445 },
+        { id: "amp", kind: "amp", x: rect.width * 0.505, y: layoutHeight * 0.180, width: rect.width * 0.410 },
+        { id: "paamp", kind: "paamp", x: rect.width * 0.575, y: layoutHeight * 0.600, width: rect.width * 0.315 }
+      );
+    } else {
+      panels.push(
+        { id: "stagebox", kind: "stagebox", x: rect.width * 0.055, y: layoutHeight * 0.400, width: rect.width * 0.330 },
+        { id: "foh", kind: "foh", x: rect.width * 0.405, y: layoutHeight * 0.145, width: rect.width * 0.545 },
+        { id: "amp", kind: "amp", x: rect.width * 0.455, y: layoutHeight * 0.600, width: rect.width * 0.475 }
+      );
+    }
+
+    return { id: LEVEL_ID, rect: layoutRect, panels };
+  }
+
+  function renderLivProcessingFamily(surface, adapter) {
+    const level = buildLivProcessingFamilyGeometry(surface);
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-processing-family";
+    layer.classList.add("sf-live-native-level-" + LEVEL_ID.toLowerCase());
+    layer.style.cssText = [
+      "position:absolute",
+      "inset:0",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:hidden",
+      "border-radius:16px",
+      "background:radial-gradient(circle at 56% 30%, rgba(18,48,38,.30), rgba(0,0,0,0) 70%)"
+    ].join(";");
+
+    const activeEndpointKeys = new Set();
+    (LEVEL.validRoutes || []).forEach(route => {
+      activeEndpointKeys.add(route.from);
+      activeEndpointKeys.add(route.to);
+    });
+
+    createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + " - PROCESSING FAMILY MODE", level.rect.width * 0.03, level.rect.height * 0.055, 12);
+
+    if (LEVEL_ID === "LIV-020") {
+      createLabel(layer, "FOH CONSOLE MAIN OUTS", level.rect.width * 0.065, level.rect.height * 0.145, 12);
+      createLabel(layer, "CROSSOVER", level.rect.width * 0.520, level.rect.height * 0.130, 12);
+      createLabel(layer, "MAIN PA AMPLIFIER", level.rect.width * 0.600, level.rect.height * 0.550, 12);
+    } else {
+      createLabel(layer, "SOURCE", level.rect.width * 0.060, level.rect.height * 0.100, 12);
+      createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.065, level.rect.height * 0.350, 12);
+      createLabel(layer, "FOH CONSOLE MATRIX / MAIN OUTS", level.rect.width * 0.420, level.rect.height * 0.095, 12);
+      createLabel(layer, LEVEL_ID === "LIV-015" ? "CROSSOVER + SUB PROCESSING" : "CROSSOVER + DELAY TOWER PROCESSING", level.rect.width * 0.470, level.rect.height * 0.545, 12);
+    }
+
+    level.panels.forEach(panel => {
+      const img = document.createElement("img");
+      img.src = hardwareAssetFor(panel.kind);
+      img.alt = panel.kind;
+      img.style.cssText = [
+        "position:absolute",
+        "left:" + panel.x + "px",
+        "top:" + panel.y + "px",
+        "width:" + panel.width + "px",
+        "height:auto",
+        "pointer-events:none",
+        "user-select:none",
+        "filter:drop-shadow(0 12px 24px rgba(0,0,0,.70))",
+        "z-index:10"
+      ].join(";");
+      layer.appendChild(img);
+    });
+
+    const sourceOrder = LEVEL.sourceOrder || [];
+    sourceOrder
+      .filter(key => activeEndpointKeys.has(key))
+      .filter(key => NODE_DEFS[key] && NODE_DEFS[key].kind === "source")
+      .forEach((key, index) => {
+        const def = NODE_DEFS[key];
+        createSourceNode(layer, key, def.label, level.rect.width * 0.060, level.rect.height * (0.135 + index * 0.066));
+      });
+
+    const renderedPanelJacks = new Set();
+    Object.keys(NODE_DEFS)
+      .filter(key => NODE_DEFS[key].kind === "jack")
+      .filter(key => !LEVEL.generatedJackKeys || LEVEL.generatedJackKeys.includes(key))
+      .sort((a, b) => {
+        const aa = activeEndpointKeys.has(a) ? 1 : 0;
+        const bb = activeEndpointKeys.has(b) ? 1 : 0;
+        return bb - aa;
+      })
+      .forEach(key => {
+        const def = NODE_DEFS[key];
+        const panelJack = def.panelJack || key;
+        if (renderedPanelJacks.has(panelJack)) return;
+        renderedPanelJacks.add(panelJack);
+        const point = getNodePoint(adapter, level, key);
+        createJackNode(layer, key, point, def.label, !activeEndpointKeys.has(key));
+      });
+
+    surface.appendChild(layer);
+    createNativeBoardTerminologyOverlays(layer, adapter, level);
+    redrawCables(layer);
+    installCableDrag(layer);
+  }
+
   function renderNative(surface, adapter) {
+    if (isLivProcessingFamilyLevel()) {
+      renderLivProcessingFamily(surface, adapter);
+      return;
+    }
+
     if (LEVEL_ID === "LIV-009") {
       renderLiv009DrumStageInputs(surface, adapter);
       return;
@@ -5158,7 +5576,11 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     }
 
     hideLegacyBoard(surface);
-    renderNative(surface, adapter);
+    if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
+      renderLivProcessingFamily(surface, adapter);
+    } else {
+      renderNative(surface, adapter);
+    }
     hidePanelToggleControls();
     raiseHintOverlays();
     updateNativeHintHighlights();
@@ -5363,5 +5785,3 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
   boot();
 })();
-
-

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
-  const VERSION = "v6r239";
-  const MARKER = "sfLiv011V6r239CleanupInstalled";
+  const VERSION = "v6r240";
+  const MARKER = "sfLiv011V6r240CleanupInstalled";
   if (window[MARKER]) return;
   window[MARKER] = true;
   function textOf(el) { return String((el && (el.textContent || el.value || el.getAttribute("aria-label"))) || "").trim(); }
@@ -50,7 +50,7 @@
   }
   function cleanup() {
     if (!isLiv011Active() || !document.body) return;
-    document.body.classList.add("sf-liv011-v6r239-clean");
+    document.body.classList.add("sf-liv011-v6r240-clean");
     replaceText(document.body);
     hideLegacyControls(document.body);
   }
@@ -63,6 +63,6 @@
   const observer = new MutationObserver(scheduleCleanup);
   function startObserver() { if (document.body) { observer.observe(document.body, { childList: true, subtree: true, characterData: true }); scheduleCleanup(); } else { setTimeout(startObserver, 50); } }
   startObserver();
-  window.sfLiv011V6r239Cleanup = cleanup;
+  window.sfLiv011V6r240Cleanup = cleanup;
   console.log("[Signal Flow] LIV-011 cleanup " + VERSION + " installed");
 })();
