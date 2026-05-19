@@ -79,3 +79,23 @@ At this handoff point, the relevant edited files are:
 Also present:
 
 - `launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html` is untracked and appears to be a local crash-investigation harness. It should be kept until the native live-sound crash investigation is finished.
+
+## Build-a-Room Locked Design Recovery Rule
+
+A previously locked Build-a-Room design regressed after shared renderer/stabilization work. Treat the locked Build-a-Room design as the source of truth and recover it rather than redesigning.
+
+Rules for Build-a-Room fixes:
+- Restore the locked player-facing Build-a-Room experience.
+- Fix shared Build-a-Room behavior in `patch/sf-build-room-renderer.js` and `patch/sf-build-room-renderer.css`.
+- Apply fixes universally to all Build-a-Room levels.
+- Do not use broad DOM movers, mutation observers, or generic cleanup scripts.
+- Do not patch only LIV-004 unless the bug is truly LIV-004-specific.
+- Keep shared submit/check behavior intact.
+- Do not affect native patch boards, diagnosis boards, quiz boards, IR boards, or navigation.
+- Once restored, protect Build-a-Room with reference screenshots and a regression checklist.
+
+Current visible Build-a-Room regression:
+- External left educational sidebar appears during Build-a-Room and contains content from another board/format.
+- Floating Equipment Locker button appears but should not be present.
+- Redundant Room / System Build grid appears and should not be present in the locked design.
+- Submit Build button is missing or not player-facing.

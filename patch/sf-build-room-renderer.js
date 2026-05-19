@@ -3,7 +3,7 @@
   if(window.sfBuildRoomRendererV6r227Installed) return;
   window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r227';
+  const VERSION = '6r272';
   const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
   const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
   const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;
@@ -338,16 +338,29 @@
 
   function ensureContainer(levelId){
     let existing = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
-    if(existing) return existing;
+    if(existing) return promoteContainerToLevelShell(existing);
     document.querySelectorAll('.sf-build-room-v6r227').forEach(el => el.remove());
     const root = document.createElement('section');
     root.className = 'sf-build-room-v6r227';
     root.dataset.levelId = levelId;
-    const old = findOldBuildPanel();
-    if(old && old.parentElement){ old.parentElement.insertBefore(root, old); }
+    const shell = document.querySelector('.level-shell');
+    if(shell){ shell.appendChild(root); }
     else {
-      const main = document.querySelector('main, .app, .level, body') || document.body;
-      main.appendChild(root);
+      const old = findOldBuildPanel();
+      if(old && old.parentElement){ old.parentElement.insertBefore(root, old); }
+      else {
+        const main = document.querySelector('main, .app, .level, body') || document.body;
+        main.appendChild(root);
+      }
+    }
+    return promoteContainerToLevelShell(root);
+  }
+
+  function promoteContainerToLevelShell(root){
+    if(!root) return root;
+    const shell = root.closest('.level-shell') || document.querySelector('.level-shell');
+    if(shell && root.parentElement !== shell){
+      shell.appendChild(root);
     }
     return root;
   }
@@ -361,14 +374,184 @@
     return Array.from(document.querySelectorAll('section, article, div')).find(el => /BUY ONLY WHAT THE BRIEF NEEDS|Check Room|Build the Room/i.test(el.textContent || '') && (el.getBoundingClientRect().width > 240));
   }
 
+
+  function applyBuildRoomShellMode(root){
+    try{
+      document.body.classList.add('sf-build-room-v6r227-active');
+
+      if(!root) return;
+
+      const levelId = (typeof currentLevelId === 'function' ? currentLevelId() : '') || '';
+      document.body.dataset.sfBrShellModeKey = 'build-room:' + levelId;
+
+      if(root.parentElement){
+        root.parentElement.style.overflow = 'visible';
+      }
+
+      const shell = root.closest('.level-shell');
+      if(shell){
+        shell.classList.add('sf-br-shell-owned');
+        shell.dataset.sfBrPrevGridTemplateColumns = shell.style.gridTemplateColumns || '';
+        shell.dataset.sfBrPrevGap = shell.style.gap || '';
+        shell.dataset.sfBrPrevPadding = shell.style.padding || '';
+        shell.style.gridTemplateColumns = 'minmax(0, 1fr)';
+        shell.style.gap = '0';
+        shell.style.padding = '10px';
+
+        Array.from(shell.children).forEach(child => {
+          if(child === root || child.contains(root)) {
+            child.dataset.sfBrShellHost = 'true';
+            child.dataset.sfBrPrevGridColumn = child.style.gridColumn || '';
+            child.dataset.sfBrPrevWidth = child.style.width || '';
+            child.dataset.sfBrPrevMinWidth = child.style.minWidth || '';
+            child.style.gridColumn = '1 / -1';
+            child.style.width = '100%';
+            child.style.minWidth = '0';
+            const boardTop = child.querySelector(':scope > .board-top');
+            if(boardTop && boardTop.dataset.sfBrShellHidden !== 'true'){
+              boardTop.dataset.sfBrShellHidden = 'true';
+              boardTop.dataset.sfBrPrevDisplay = boardTop.style.display || '';
+              boardTop.dataset.sfBrPrevVisibility = boardTop.style.visibility || '';
+              boardTop.dataset.sfBrPrevPointerEvents = boardTop.style.pointerEvents || '';
+              boardTop.style.display = 'none';
+              boardTop.style.visibility = 'hidden';
+              boardTop.style.pointerEvents = 'none';
+            }
+            return;
+          }
+          if(child.dataset.sfBrShellHidden === 'true') return;
+          child.dataset.sfBrShellHidden = 'true';
+          child.dataset.sfBrPrevDisplay = child.style.display || '';
+          child.dataset.sfBrPrevVisibility = child.style.visibility || '';
+          child.dataset.sfBrPrevPointerEvents = child.style.pointerEvents || '';
+          child.style.display = 'none';
+          child.style.visibility = 'hidden';
+          child.style.pointerEvents = 'none';
+        });
+      }
+
+      const rootRect = root.getBoundingClientRect();
+
+      const shellSelectors = [
+        '.level-shell > aside',
+        '.level-shell > .panel',
+        '.training-level-panel',
+        '.training-sidebar',
+        '.lesson-sidebar',
+        '.level-sidebar',
+        '[data-role="lesson-sidebar"]',
+        '[data-training-panel="brief"]',
+        '[class*="lesson"]',
+        '[class*="brief"]',
+        '[class*="sidebar"]'
+      ];
+      const candidates = Array.from(new Set(shellSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))))).filter(el => {
+        if(!el || el === root || root.contains(el) || el.contains(root)) return false;
+        if(el.dataset.sfBrShellHidden === 'true') return false;
+
+        const r = el.getBoundingClientRect && el.getBoundingClientRect();
+        if(!r || r.width < 120 || r.height < 220) return false;
+
+        const cs = getComputedStyle(el);
+        if(cs.display === 'none' || cs.visibility === 'hidden') return false;
+
+        return (
+          r.left >= 0 &&
+          r.left < rootRect.left - 12 &&
+          r.top > 90 &&
+          r.width <= 380 &&
+          r.height >= 300
+        );
+      });
+
+      candidates.sort((a,b) => {
+        const ar = a.getBoundingClientRect();
+        const br = b.getBoundingClientRect();
+        return (br.width * br.height) - (ar.width * ar.height);
+      });
+
+      const hidden = [];
+
+      for(const el of candidates){
+        if(hidden.some(parent => parent.contains(el))) continue;
+
+        const txt = String(el.textContent || '');
+        const cls = String(el.className || '');
+        const looksLikeLessonShell =
+          /Current Level|Level Brief|Build the Room|Patch these|Reality Check|Learning Goals|Format Awareness|Why this setup matters|Front fill matrix/i.test(txt) ||
+          /level|brief|lesson|sidebar|education|training/i.test(cls);
+
+        if(!looksLikeLessonShell) continue;
+
+        el.dataset.sfBrShellHidden = 'true';
+        el.dataset.sfBrPrevDisplay = el.style.display || '';
+        el.dataset.sfBrPrevVisibility = el.style.visibility || '';
+        el.dataset.sfBrPrevPointerEvents = el.style.pointerEvents || '';
+        el.style.display = 'none';
+        el.style.visibility = 'hidden';
+        el.style.pointerEvents = 'none';
+        hidden.push(el);
+
+        if(hidden.length >= 2) break;
+      }
+
+      // Rescan when asked, but only log when a newly recreated shell element is hidden.
+      if(hidden.length){
+        console.log('[Signal Flow] Build-a-Room shell mode hid shell ' + VERSION, {hidden: hidden.length});
+      }
+    }catch(err){
+      console.warn('[Signal Flow] Build-a-Room shell mode failed ' + VERSION, err);
+    }
+  }
+
+  function clearBuildRoomShellMode(removeClass = true){
+    try{
+      if(removeClass){
+        document.body.classList.remove('sf-build-room-v6r227-active');
+      }
+      delete document.body.dataset.sfBrShellModeKey;
+
+      document.querySelectorAll('.level-shell.sf-br-shell-owned').forEach(shell => {
+        shell.style.gridTemplateColumns = shell.dataset.sfBrPrevGridTemplateColumns || '';
+        shell.style.gap = shell.dataset.sfBrPrevGap || '';
+        shell.style.padding = shell.dataset.sfBrPrevPadding || '';
+        delete shell.dataset.sfBrPrevGridTemplateColumns;
+        delete shell.dataset.sfBrPrevGap;
+        delete shell.dataset.sfBrPrevPadding;
+        shell.classList.remove('sf-br-shell-owned');
+      });
+
+      document.querySelectorAll('[data-sf-br-shell-host="true"]').forEach(el => {
+        el.style.gridColumn = el.dataset.sfBrPrevGridColumn || '';
+        el.style.width = el.dataset.sfBrPrevWidth || '';
+        el.style.minWidth = el.dataset.sfBrPrevMinWidth || '';
+        delete el.dataset.sfBrShellHost;
+        delete el.dataset.sfBrPrevGridColumn;
+        delete el.dataset.sfBrPrevWidth;
+        delete el.dataset.sfBrPrevMinWidth;
+      });
+
+      document.querySelectorAll('[data-sf-br-shell-hidden="true"]').forEach(el => {
+        el.style.display = el.dataset.sfBrPrevDisplay || '';
+        el.style.visibility = el.dataset.sfBrPrevVisibility || '';
+        el.style.pointerEvents = el.dataset.sfBrPrevPointerEvents || '';
+        delete el.dataset.sfBrShellHidden;
+        delete el.dataset.sfBrPrevDisplay;
+        delete el.dataset.sfBrPrevVisibility;
+        delete el.dataset.sfBrPrevPointerEvents;
+      });
+    }catch(_){}
+  }
+
   function renderBuildRoom(){
     const levelId = currentLevelId();
-    if(!isBuildRoomLevel(levelId)) return;
+    if(!isBuildRoomLevel(levelId)) { clearBuildRoomShellMode(); return; }
     const level = levelsById[levelId] || fallbackLevelFromCurrent();
     if(!level) return;
 
     document.body.classList.add('sf-build-room-v6r227-active');
     const root = ensureContainer(levelId);
+    applyBuildRoomShellMode(root);
     const selection = getSelection(levelId);
     const items = consolidateStore(level);
     const totals = ledgerTotals();
@@ -379,18 +562,20 @@
     const visibleItems = activeCategory === 'All' ? items : items.filter(i => (i.category || categoryFor(i.name)) === activeCategory);
 
     if(!loggedActive.has(levelId)){
-      console.log('[Signal Flow] Build-a-Room consolidated renderer active v6r227', levelId);
+      console.log('[Signal Flow] Build-a-Room consolidated renderer active ' + VERSION, levelId);
       loggedActive.add(levelId);
     }
 
     root.innerHTML = `
       <div class="sf-br-top">
-        <div>
+        <div class="sf-br-title-panel">
           <div class="sf-br-title-kicker">${escapeHtml(level.environment || '')} • BUILD A ROOM</div>
           <div class="sf-br-title">${escapeHtml(level.level_id)} • ${escapeHtml(level.scenario || 'Build the Room')}</div>
           <div class="sf-br-brief">${escapeHtml(level.brief || level.instruction || 'Choose the equipment needed for this job.')}</div>
         </div>
-        <div class="sf-br-metrics">
+        <div class="sf-br-top-strip" aria-label="Build actions and credit summary">
+          <button class="sf-br-btn sf-br-top-btn danger" type="button" data-sf-br-action="reset">Reset Build</button>
+          <button class="sf-br-btn sf-br-top-btn" type="button" data-sf-br-action="check">Submit Build</button>
           <div class="sf-br-metric"><div class="sf-br-metric-label">Credits available</div><div class="sf-br-metric-value">${totals.availableCredits}</div></div>
           <div class="sf-br-metric"><div class="sf-br-metric-label">New spend</div><div class="sf-br-metric-value">${money.spend}</div></div>
           <div class="sf-br-metric"><div class="sf-br-metric-label">Owned applied</div><div class="sf-br-metric-value">${money.ownedApplied}</div></div>
@@ -409,13 +594,6 @@
           </div>
         </aside>
         <main class="sf-br-main">
-          <section class="sf-br-scene">
-            <div class="sf-br-room-backdrop"></div>
-            <div class="sf-br-room-title">Room / System Build</div>
-            <div class="sf-br-placement-grid">
-              ${reqStatus.statuses.slice(0,8).map(st => `<div class="sf-br-placement ${st.ok ? 'is-satisfied' : ''}"><div class="sf-br-placement-label">${escapeHtml(st.req.need_group || st.req.name)}</div><div class="sf-br-placement-sub">${st.ok ? 'Ready' : 'Needs gear'}</div></div>`).join('')}
-            </div>
-          </section>
           <div class="sf-br-store-head">
             <div class="sf-br-section-title">Equipment options</div>
             <div class="sf-br-tabs">${categories.map(cat => `<button class="sf-br-tab ${cat===activeCategory?'is-active':''}" data-sf-br-tab="${escapeAttr(cat)}">${escapeHtml(cat)}</button>`).join('')}</div>
@@ -430,12 +608,7 @@
           <span><strong>${money.selectedCount}</strong> selected</span>
           <span><strong>${money.spend}</strong> new credits</span>
           <span><strong>${Math.max(0, totals.availableCredits - money.spend)}</strong> remaining</span>
-          <span><strong>${reqStatus.ok ? 'Ready to check' : 'Needs gear'}</strong></span>
-        </div>
-        <div class="sf-br-actions">
-          <button class="sf-br-btn secondary" data-sf-br-action="open-locker">Open Locker</button>
-          <button class="sf-br-btn danger" data-sf-br-action="reset">Reset Build</button>
-          <button class="sf-br-btn" data-sf-br-action="check">Check Room</button>
+          <span><strong>${reqStatus.ok ? 'Ready to submit' : 'Needs gear'}</strong></span>
         </div>
       </div>`;
 
@@ -468,26 +641,40 @@
   }
 
   function bindBuildRoom(root, level, items){
-    root.querySelectorAll('[data-sf-br-tab]').forEach(btn => btn.addEventListener('click', () => { activeCategory = btn.dataset.sfBrTab || 'All'; renderBuildRoom(); }));
+    root.querySelectorAll('[data-sf-br-tab]').forEach(btn => btn.addEventListener('click', ev => {
+      ev.preventDefault();
+      activeCategory = btn.dataset.sfBrTab || 'All';
+      renderBuildRoom();
+    }));
+    root.querySelectorAll('[data-sf-br-step]').forEach(btn => btn.addEventListener('click', ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const card = btn.closest('[data-sf-br-item]');
+      if(!card) return;
+      adjustSelection(level.level_id, card.dataset.sfBrItem, Number(btn.dataset.sfBrStep || 0));
+    }));
     root.querySelectorAll('[data-sf-br-item]').forEach(card => {
       card.addEventListener('click', ev => {
-        const stepBtn = ev.target.closest('[data-sf-br-step]');
-        const delta = stepBtn ? Number(stepBtn.dataset.sfBrStep || 0) : 1;
-        const levelId = level.level_id;
-        const selection = getSelection(levelId);
-        const slug = card.dataset.sfBrItem;
-        selection[slug] = Math.max(0, Number(selection[slug] || 0) + delta);
-        if(selection[slug] <= 0) delete selection[slug];
-        setSelection(levelId, selection);
-        renderBuildRoom();
+        if(ev.target.closest('[data-sf-br-step], button, a, input, select, textarea')) return;
+        adjustSelection(level.level_id, card.dataset.sfBrItem, 1);
       });
     });
-    root.querySelectorAll('[data-sf-br-action]').forEach(btn => btn.addEventListener('click', () => {
+    root.querySelectorAll('[data-sf-br-action]').forEach(btn => btn.addEventListener('click', ev => {
+      ev.preventDefault();
       const action = btn.dataset.sfBrAction;
       if(action === 'open-locker') openLockerModal();
       if(action === 'reset') { closeAllBuildModals(); clearSelection(level.level_id); renderBuildRoom(); }
       if(action === 'check') checkRoom(level, items);
     }));
+  }
+
+  function adjustSelection(levelId, slug, delta){
+    if(!slug || !delta) return;
+    const selection = getSelection(levelId);
+    selection[slug] = Math.max(0, Number(selection[slug] || 0) + delta);
+    if(selection[slug] <= 0) delete selection[slug];
+    setSelection(levelId, selection);
+    renderBuildRoom();
   }
 
   function checkRoom(level, items){
@@ -557,6 +744,9 @@
   }
 
   function installSplashLocker(){
+    // Build-a-Room locked layout:
+    // do not inject or clone floating Equipment Locker / Mic Locker buttons.
+    return;
     // Remove old floating fallback buttons from previous patches.
     Array.from(document.querySelectorAll('button, a, [role="button"]')).forEach(el => {
       const text = String(el.textContent || el.getAttribute('aria-label') || '').trim();
@@ -598,24 +788,27 @@
   function boot(){
     Promise.all([loadJson(MANIFEST_URL), loadJson(ASSET_MAP_URL)]).then(([m,a]) => {
       manifest = m; assetMap = a; prepareData();
-      console.log('[Signal Flow] Build-a-Room consolidated renderer installed v6r227');
+      console.log('[Signal Flow] Build-a-Room consolidated renderer installed ' + VERSION);
       installSplashLocker();
       renderBuildRoom();
-      setInterval(installSplashLocker, 1000);
-      const obs = new MutationObserver(() => { installSplashLocker(); scheduleRender(); });
-      obs.observe(document.documentElement, {childList:true, subtree:true});
+      setInterval(rescanBuildRoomShellOnly, 1000);
       window.addEventListener('hashchange', scheduleRender);
       window.addEventListener('popstate', scheduleRender);
     }).catch(err => {
       console.warn('[Signal Flow] Build-a-Room manifest unavailable; using embedded level fallback when possible:', err);
       installSplashLocker();
       renderBuildRoom();
-      setInterval(installSplashLocker, 1000);
-      const obs = new MutationObserver(() => { installSplashLocker(); scheduleRender(); });
-      obs.observe(document.documentElement, {childList:true, subtree:true});
+      setInterval(rescanBuildRoomShellOnly, 1000);
       window.addEventListener('hashchange', scheduleRender);
       window.addEventListener('popstate', scheduleRender);
     });
+  }
+
+  function rescanBuildRoomShellOnly(){
+    const levelId = currentLevelId();
+    if(!isBuildRoomLevel(levelId)) return;
+    const root = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
+    if(root) applyBuildRoomShellMode(root);
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

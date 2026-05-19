@@ -1,5 +1,5 @@
 
-/* Signal Flow Build-a-Room consolidated renderer v6r227 */
+/* Signal Flow Build-a-Room consolidated renderer v6r272 */
 :root {
   --sf-br-bg: #07101f;
   --sf-br-panel: rgba(11, 22, 40, .88);
@@ -50,7 +50,6 @@ body.sf-build-room-v6r227-active .route-training-panel[data-mode="build-room"] {
 .sf-br-title-kicker { color: var(--sf-br-cyan); font-size: 12px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
 .sf-br-title { margin-top: 4px; font-size: 28px; font-weight: 950; letter-spacing: .01em; }
 .sf-br-brief { color: var(--sf-br-muted); max-width: 800px; margin-top: 5px; line-height: 1.35; font-size: 14px; }
-.sf-br-metrics { display: grid; grid-template-columns: repeat(3, minmax(110px, auto)); gap: 10px; align-items: stretch; }
 .sf-br-metric { border: 1px solid rgba(255,255,255,.13); background: rgba(0,0,0,.22); border-radius: 14px; padding: 9px 12px; min-width: 112px; }
 .sf-br-metric-label { color: var(--sf-br-muted); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
 .sf-br-metric-value { color: var(--sf-br-gold); font-size: 20px; font-weight: 950; margin-top: 3px; }
@@ -119,4 +118,208 @@ body.sf-build-room-v6r227-active .route-training-panel[data-mode="build-room"] {
 .sf-br-locker-item { border:1px solid rgba(255,255,255,.13); background:rgba(255,255,255,.045); border-radius:14px; padding:10px; }
 .sf-br-locker-item strong { display:block; font-size:13px; }
 .sf-br-locker-item span { color:var(--sf-br-muted); font-size:12px; }
-@media (max-width: 1050px){ .sf-br-body{grid-template-columns:1fr}.sf-br-left{border-right:0;border-bottom:1px solid var(--sf-br-line)}.sf-br-metrics{grid-template-columns:1fr}.sf-br-placement-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width: 1050px){ .sf-br-body{grid-template-columns:1fr}.sf-br-left{border-right:0;border-bottom:1px solid var(--sf-br-line)}.sf-br-placement-grid{grid-template-columns:repeat(2,1fr)} }
+
+
+/* Build-a-Room locked layout repair v6r272.
+   Shared renderer-level fix for all Build-a-Room levels. */
+body.sf-build-room-v6r227-active .level-shell {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  padding: 10px !important;
+}
+
+body.sf-build-room-v6r227-active .level-shell > .panel:not(:has(.sf-build-room-v6r227)),
+body.sf-build-room-v6r227-active .level-shell > aside:not(:has(.sf-build-room-v6r227)) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.sf-build-room-v6r227-active .level-shell > .board-card:has(.sf-build-room-v6r227),
+body.sf-build-room-v6r227-active .level-shell > .panel:has(.sf-build-room-v6r227) {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+body.sf-build-room-v6r227-active .level-shell > .board-card:has(.sf-build-room-v6r227) > .board-top {
+  display: none !important;
+}
+
+body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  padding: 10px !important;
+}
+
+body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned > [data-sf-br-shell-hidden="true"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned > [data-sf-br-shell-host="true"] {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+body.sf-build-room-v6r227-active #micLockerBtn,
+body.sf-build-room-v6r227-active .clean-locker-btn:not(.sf-br-btn),
+body.sf-build-room-v6r227-active .sf-build-room-equipment-locker-entry,
+body.sf-build-room-v6r227-active [data-sf-br-action="open-locker"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.sf-build-room-v6r227-active .sf-build-room-v6r227 {
+  width: min(1500px, calc(100vw - 36px)) !important;
+  max-width: none !important;
+  margin: 10px auto 28px !important;
+  position: relative !important;
+  z-index: 20 !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-top {
+  box-sizing: border-box !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: stretch !important;
+  gap: 18px !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-title-panel {
+  min-width: 0 !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-top-strip {
+  display: grid !important;
+  grid-template-columns: 124px 132px repeat(3, 126px) !important;
+  grid-auto-rows: minmax(52px, auto) !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+  justify-content: end !important;
+  width: max-content !important;
+  max-width: 100% !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-top-btn {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 52px !important;
+  padding: 10px 12px !important;
+  line-height: 1.1 !important;
+  white-space: normal !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-body {
+  display: grid !important;
+  grid-template-columns: 300px minmax(0, 1fr) !important;
+  gap: 18px !important;
+  min-height: 610px !important;
+  align-items: stretch !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-left {
+  grid-column: 1 !important;
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  align-self: stretch !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-main {
+  grid-column: 2 !important;
+  padding: 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-scene,
+body.sf-build-room-v6r227-active .sf-br-room-title,
+body.sf-build-room-v6r227-active .sf-br-placement-grid {
+  display: none !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-store-head {
+  margin: 0 0 12px !important;
+  align-items: center !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-tabs {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 9px !important;
+  align-items: center !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-tab {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 38px !important;
+  padding: 9px 13px !important;
+  line-height: 1.05 !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  white-space: nowrap !important;
+  position: relative !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-store-grid {
+  align-content: start !important;
+}
+
+body.sf-build-room-v6r227-active .sf-br-step {
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  border-radius: 999px !important;
+  appearance: none !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+@media (max-width: 1050px) {
+  body.sf-build-room-v6r227-active .sf-br-top,
+  body.sf-build-room-v6r227-active .sf-br-body {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.sf-build-room-v6r227-active .sf-br-left {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  body.sf-build-room-v6r227-active .sf-br-main {
+    grid-column: 1 !important;
+  }
+
+  body.sf-build-room-v6r227-active .sf-br-top-strip {
+    width: 100% !important;
+    grid-template-columns: repeat(2, minmax(130px, 1fr)) !important;
+    justify-content: flex-start !important;
+  }
+
+  body.sf-build-room-v6r227-active .sf-br-metric {
+    min-width: 0 !important;
+  }
+}
