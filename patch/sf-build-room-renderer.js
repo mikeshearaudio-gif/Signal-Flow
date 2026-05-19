@@ -4,8 +4,10 @@
   window.sfBuildRoomRendererV6r227Installed = true;
 
   const VERSION = '6r227';
-  const MANIFEST_URL = '/assets/build-room/build-room-manifest-v4.json?v=' + VERSION;
-  const ASSET_MAP_URL = '/assets/build-room/build-room-asset-map.json?v=' + VERSION;
+  const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
+  const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
+  const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;
+  const ASSET_MAP_URL = ASSET_ROOT + 'build-room-asset-map.json?v=' + VERSION;
   const LOCKER_KEY = 'signal-flow-equipment-locker-v1';
   const SEL_KEY = 'signal-flow-build-room-selection-v6r227';
   const oldScriptNames = ['sf-build-room-2-ui','sf-build-room-locker-integration','sf-equipment-locker-ui'];
@@ -226,7 +228,46 @@
     const asset = assetFor(name);
     const paths = asset && Array.isArray(asset.assetPaths) ? asset.assetPaths.filter(Boolean) : [];
     if(!paths.length) return '';
-    return '/' + String(paths[0]).replace(/^\/+/, '');
+    return new URL(String(paths[0]).replace(/^\/+/, ''), REPO_ROOT).href;
+  }
+
+  function fallbackLevelFromCurrent(){
+    const l = currentLevelObject();
+    const t = l && l.training;
+    if(!t || String(t.type || '').toLowerCase() !== 'build-room') return null;
+
+    const levelId = normalizeLevelId(l.id || currentLevelId()) || String(l.id || currentLevelId() || 'BUILD-ROOM').toUpperCase();
+    const needed = Array.isArray(t.needed) ? t.needed : [];
+    const distractors = Array.isArray(t.distractors) ? t.distractors : [];
+    const required = needed.map(item => {
+      const name = normalizeName(item && item.name ? item.name : item);
+      return {
+        name,
+        qty: Number(item && item.qty || 1),
+        need_group: name,
+        category: categoryFor(name),
+        role: 'required'
+      };
+    });
+    const store = required.concat(distractors.map(item => {
+      const name = normalizeName(item && item.name ? item.name : item);
+      return {
+        name,
+        qty: Number(item && item.qty || 1),
+        category: categoryFor(name),
+        role: 'distractor'
+      };
+    }));
+
+    return {
+      level_id: levelId,
+      environment: l.environment || t.environment || '',
+      scenario: l.title || t.scenario || 'Build the Room',
+      brief: t.brief || l.brief || l.prompt || '',
+      instruction: t.instruction || t.prompt || l.instruction || l.prompt || 'Choose the equipment needed for this job.',
+      required,
+      store
+    };
   }
 
   function consolidateStore(level){
@@ -321,10 +362,9 @@
   }
 
   function renderBuildRoom(){
-    if(!manifest) return;
     const levelId = currentLevelId();
     if(!isBuildRoomLevel(levelId)) return;
-    const level = levelsById[levelId];
+    const level = levelsById[levelId] || fallbackLevelFromCurrent();
     if(!level) return;
 
     document.body.classList.add('sf-build-room-v6r227-active');
@@ -566,7 +606,16 @@
       obs.observe(document.documentElement, {childList:true, subtree:true});
       window.addEventListener('hashchange', scheduleRender);
       window.addEventListener('popstate', scheduleRender);
-    }).catch(err => console.error('[Signal Flow] Build-a-Room consolidated renderer failed:', err));
+    }).catch(err => {
+      console.warn('[Signal Flow] Build-a-Room manifest unavailable; using embedded level fallback when possible:', err);
+      installSplashLocker();
+      renderBuildRoom();
+      setInterval(installSplashLocker, 1000);
+      const obs = new MutationObserver(() => { installSplashLocker(); scheduleRender(); });
+      obs.observe(document.documentElement, {childList:true, subtree:true});
+      window.addEventListener('hashchange', scheduleRender);
+      window.addEventListener('popstate', scheduleRender);
+    });
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

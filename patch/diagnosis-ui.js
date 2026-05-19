@@ -3,12 +3,13 @@
 (function(){
   'use strict';
   const VERSION = '6r213';
-  const ASSET = '/assets/diagnosis/svg/';
+  const ASSET = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href;
   document.documentElement.setAttribute('data-sfdiag-gui-version', VERSION);
 
   function qs(sel, root=document){ return root.querySelector(sel); }
   function qsa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
   function asset(path){ return ASSET + path; }
+  function gameRoot(){ return qs('main.game') || qs('main') || qs('#app main') || qs('#app') || document.body; }
   function escHtml(value){
     return String(value == null ? '' : value)
       .replace(/&/g, '&amp;')
@@ -105,7 +106,7 @@
   function workflowHtml(){ return `<div class="sfdiag-workflow-rail" aria-hidden="true" data-sfdiag-decorator="workflow"><div class="sfdiag-workflow-inner"><span><b></b>Diagnose</span><span>Plan</span><span>Patch</span><span>Test</span><span>Listen</span><span>Review</span></div></div>`; }
 
   function findBoardShell(){
-    const main = qs('main.game');
+    const main = gameRoot();
     if(!main) return null;
     const candidates = qsa('.training-only-board, .board-card, .sfv182-quiz-board, .training-board, .training-stage-board', main)
       .filter(el => {
@@ -211,7 +212,7 @@
 
   function renderGenericDiagnosis(){
     if(!isDiagnosisBoard()) return false;
-    const main = qs('main.game');
+    const main = gameRoot();
     const l = currentLevelObject();
     const t = currentDiagnosisTraining();
     const board = findBoardShell();
@@ -257,7 +258,7 @@
 
   function deactivateIfNeeded(){
     if(isDiagnosisBoard()) return;
-    const main = qs('main.game.sfdiag-ui-active');
+    const main = qs('main.game.sfdiag-ui-active') || qs('main.sfdiag-ui-active') || qs('#app.sfdiag-ui-active') || qs('.sfdiag-ui-active');
     if(!main) return;
     main.classList.remove('sfdiag-ui-active');
     delete main.dataset.sfdiagVersion;

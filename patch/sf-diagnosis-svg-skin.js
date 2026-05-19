@@ -2,7 +2,7 @@
 // Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.js
 // Codex should adapt selectors to the current local build.
 (function () {
-  const ASSET_ROOT = 'assets/diagnosis/svg';
+  const ASSET_ROOT = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href.replace(/\/$/, '');
   const DIAGNOSIS_ASSETS = {
     boardShell: `${ASSET_ROOT}/backgrounds/diagnosis-board-shell.svg`,
     topbar: `${ASSET_ROOT}/backgrounds/diagnosis-topbar-skin.svg`,
@@ -72,10 +72,37 @@
     updateDiagnosisMetersFromState
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { installDiagnosisSkin(); updateDiagnosisMetersFromState(); });
-  } else {
+  function refreshDiagnosisSkin() {
     installDiagnosisSkin();
     updateDiagnosisMetersFromState();
   }
+
+  let refreshTimer = null;
+  function scheduleRefresh(delay = 80) {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(refreshDiagnosisSkin, delay);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => scheduleRefresh(20));
+  } else {
+    scheduleRefresh(20);
+  }
+
+  window.addEventListener('load', () => {
+    scheduleRefresh(40);
+    setTimeout(refreshDiagnosisSkin, 250);
+    setTimeout(refreshDiagnosisSkin, 900);
+  });
+  window.addEventListener('hashchange', () => scheduleRefresh(80));
+  window.addEventListener('popstate', () => scheduleRefresh(80));
+  document.addEventListener('change', event => {
+    if (event.target?.matches?.('select,#levelJump,#envJump')) scheduleRefresh(120);
+  }, true);
+  new MutationObserver(() => scheduleRefresh(120)).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class', 'data-mode', 'data-board-id', 'data-level-id']
+  });
 })();

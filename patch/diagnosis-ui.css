@@ -117,7 +117,7 @@ main.sfdiag-ui-active .diagnose-panel.sfdiag-clipboard-panel {
   border: 0 !important;
   padding: clamp(22px, 2.2vw, 36px) clamp(24px, 2.7vw, 44px) !important;
   background:
-    url('/assets/diagnosis/svg/overlays/paper-coffee-ring.svg') right 14% bottom 12% / 170px auto no-repeat,
+    url('../assets/diagnosis/svg/overlays/paper-coffee-ring.svg') right 14% bottom 12% / 170px auto no-repeat,
     linear-gradient(180deg, rgba(255,247,222,.97), rgba(237,216,177,.99)) !important;
   color: #1c130b !important;
   box-shadow:
@@ -136,7 +136,7 @@ main.sfdiag-ui-active .sfdiag-clipboard-panel::before {
   width: 230px;
   height: 72px;
   margin: -24px auto 6px;
-  background: url('/assets/diagnosis/svg/hardware/question-board-frame.svg') center/contain no-repeat;
+  background: url('../assets/diagnosis/svg/hardware/question-board-frame.svg') center/contain no-repeat;
   filter: drop-shadow(0 8px 8px rgba(0,0,0,.34));
   pointer-events:none !important;
   z-index: 2;

@@ -1,0 +1,6 @@
+.sf-v6r249-locker-rescue {
+  position: relative !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.35));
+}

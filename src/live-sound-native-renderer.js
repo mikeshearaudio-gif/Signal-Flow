@@ -16,6 +16,12 @@
 (function () {
   "use strict";
 
+  const SF_REPO_ROOT = new URL("../", document.currentScript?.src || document.baseURI);
+
+  function sfRepoUrl(path) {
+    return new URL(String(path || "").replace(/^\/+/, ""), SF_REPO_ROOT).href;
+  }
+
   function sfNormalizeLevelId(value) {
     const match = String(value || "").toUpperCase().match(/\b([A-Z]{3})[-_ ]?(\d{1,3})\b/);
     if (!match) return "";
@@ -298,19 +304,19 @@
       height: 38
     },
     stagebox: {
-      x: 0.060,
-      y: 0.555,
-      width: 0.440
+      x: 0.045,
+      y: 0.535,
+      width: 0.410
     },
     foh: {
-      x: 0.390,
-      y: 0.150,
-      width: 0.550
+      x: 0.385,
+      y: 0.115,
+      width: 0.555
     },
     iem: {
-      x: 0.600,
-      y: 0.575,
-      width: 0.365
+      x: 0.565,
+      y: 0.625,
+      width: 0.375
     }
   };
 
@@ -656,12 +662,12 @@
     "LIV-006": {
       id: "LIV-006",
       title: "Delay Tower Route",
-      processorLabel: "SYSTEM + DELAY PROCESSING",
+      processorLabel: "CROSSOVER",
       panelKinds: ["foh", "amp"],
       sourceOrder: [],
       assetOverrides: {
         foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
-        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg"
+        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
       },
       generatedJackKeys: [
         "foh-liv006-matrix-1-output",
@@ -701,7 +707,7 @@
           key: "foh-liv006-main-left-output-to-liv006-system-processor-l-input",
           from: "foh-liv006-main-left-output",
           to: "liv006-system-processor-l-input",
-          checklist: "Main L Output → System Processor L In",
+          checklist: "Main L Output → Crossover L In",
           stereoGroup: "liv006-main-to-system",
           stereoSide: "left"
         },
@@ -709,7 +715,7 @@
           key: "foh-liv006-main-right-output-to-liv006-system-processor-r-input",
           from: "foh-liv006-main-right-output",
           to: "liv006-system-processor-r-input",
-          checklist: "Main R Output → System Processor R In",
+          checklist: "Main R Output → Crossover R In",
           stereoGroup: "liv006-main-to-system",
           stereoSide: "right"
         }
@@ -1194,7 +1200,7 @@
           checklist: "Keys Right DI → Stage Box Input 8"
         }
       ]
-    }
+    },
           "LIV-015": {
           id: "LIV-015",
           title: "Sub Matrix Feed",
@@ -1621,8 +1627,8 @@ if (activeNativeLevelId === nextLevelId) return;
     "liv007-system-amp-left-input": { label: "System Amp L In", kind: "jack", panelRel: { panel: "amp7", x: 260 / 700, y: 168 / 240 } },
     "liv007-system-amp-right-input": { label: "System Amp R In", kind: "jack", panelRel: { panel: "amp7", x: 440 / 700, y: 168 / 240 } },
 
-    "liv006-system-processor-l-input": { label: "System Processor L In", kind: "jack", panelRel: { panel: "amp", x: 94 / 940, y: 146 / 260 } },
-    "liv006-system-processor-r-input": { label: "System Processor R In", kind: "jack", panelRel: { panel: "amp", x: 214 / 940, y: 146 / 260 } },
+    "liv006-system-processor-l-input": { label: "Crossover L In", kind: "jack", panelRel: { panel: "amp", x: 94 / 940, y: 146 / 260 } },
+    "liv006-system-processor-r-input": { label: "Crossover R In", kind: "jack", panelRel: { panel: "amp", x: 214 / 940, y: 146 / 260 } },
     "liv006-delay-tower-processor-input": { label: "Delay Tower Processor Input", kind: "jack", panelRel: { panel: "amp", x: 470 / 940, y: 146 / 260 } },
     "liv006-sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelRel: { panel: "amp", x: 704 / 940, y: 146 / 260 }, ghost: true },
     "liv006-front-fill-processor-input": { label: "Front Fill Processor Input", kind: "jack", panelRel: { panel: "amp", x: 818 / 940, y: 146 / 260 }, ghost: true },
@@ -1668,10 +1674,10 @@ if (activeNativeLevelId === nextLevelId) return;
 
   function hardwareAssetFor(kind) {
     if (LEVEL.assetOverrides && LEVEL.assetOverrides[kind]) {
-      return LEVEL.assetOverrides[kind];
+      return sfRepoUrl(LEVEL.assetOverrides[kind]);
     }
 
-    return {
+    const path = {
       stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head.svg",
       foh: "/assets/live-sound/svg/hardware/foh-console-io-panel.svg",
       monitor: "/assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
@@ -1685,6 +1691,7 @@ if (activeNativeLevelId === nextLevelId) return;
       "speaker-right": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
       "pa-visual": "/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg"
     }[kind];
+    return path ? sfRepoUrl(path) : "";
   }
 
   function areaOf(el) {
@@ -1861,7 +1868,13 @@ if (activeNativeLevelId === nextLevelId) return;
   function buildLevelGeometry(surface) {
     const rect = surface.getBoundingClientRect();
 
-    const layoutHeight = Math.min(rect.height, 640);
+    const layoutHeight = LEVEL_ID === "LIV-006"
+      ? Math.min(Math.max(rect.height, 1), 640)
+      : LEVEL_ID === "LIV-011"
+        ? Math.max(820, Math.min(Math.max(rect.height, 1) * 1.45, 980))
+        : LEVEL_ID === "LIV-028"
+          ? Math.max(760, Math.min(Math.max(rect.height, 1) * 1.25, 900))
+          : Math.min(rect.height, 640);
     const layoutRect = {
       left: rect.left,
       top: rect.top,
@@ -1896,7 +1909,7 @@ if (activeNativeLevelId === nextLevelId) return;
         id: "amp",
         kind: "amp",
         x: rect.width * (isDelayTowerBoard ? 0.075 : 0.22),
-        y: layoutHeight * (isDelayTowerBoard ? 0.50 : 0.58),
+        y: layoutHeight * (isDelayTowerBoard ? 0.575 : 0.58),
         width: rect.width * (isDelayTowerBoard ? 0.88 : 0.60)
       }
     ];
@@ -1908,22 +1921,22 @@ if (activeNativeLevelId === nextLevelId) return;
           id: "stagebox",
           kind: "stagebox",
           x: rect.width * 0.055,
-          y: layoutHeight * 0.385,
-          width: rect.width * 0.345
+          y: layoutHeight * 0.310,
+          width: rect.width * 0.410
         },
         {
           id: "foh",
           kind: "foh",
-          x: rect.width * 0.405,
-          y: layoutHeight * 0.170,
-          width: rect.width * 0.545
+          x: rect.width * 0.410,
+          y: layoutHeight * 0.085,
+          width: rect.width * 0.555
         },
         {
           id: "amp",
           kind: "amp",
-          x: rect.width * 0.435,
-          y: layoutHeight * 0.630,
-          width: rect.width * 0.500
+          x: rect.width * 0.385,
+          y: layoutHeight * 0.615,
+          width: rect.width * 0.570
         }
       );
     }
@@ -3247,13 +3260,21 @@ if (activeNativeLevelId === nextLevelId) return;
     btn.setAttribute("aria-label", label);
 
     const defaultShadow = "0 8px 18px rgba(0,0,0,.35)";
+    const sourceWidth = 170;
+    const sourceHeight = 46;
+    const jackPoint = {
+      x: x + sourceWidth - 8,
+      y: y + sourceHeight / 2
+    };
     btn.dataset.sfNativeDefaultShadow = defaultShadow;
+    btn.dataset.sfNativePointX = String(jackPoint.x);
+    btn.dataset.sfNativePointY = String(jackPoint.y);
     btn.style.cssText = [
       "position:absolute",
       "left:" + x + "px",
       "top:" + y + "px",
-      "width:170px",
-      "height:46px",
+      "width:" + sourceWidth + "px",
+      "height:" + sourceHeight + "px",
       "border-radius:14px",
       "border:1px solid rgba(255,210,95,.35)",
       "background:linear-gradient(180deg,rgba(34,66,105,.96),rgba(13,28,48,.96))",
@@ -3266,17 +3287,29 @@ if (activeNativeLevelId === nextLevelId) return;
       "box-shadow:" + defaultShadow
     ].join(";");
 
+    const port = document.createElement("span");
+    port.setAttribute("aria-hidden", "true");
+    port.style.cssText = [
+      "position:absolute",
+      "right:-2px",
+      "top:50%",
+      "width:15px",
+      "height:15px",
+      "border-radius:50%",
+      "transform:translate(50%,-50%)",
+      "background:radial-gradient(circle at 38% 38%,#fef3c7 0,#f59e0b 45%,#78350f 100%)",
+      "border:2px solid rgba(255,246,203,.88)",
+      "box-shadow:0 0 0 3px rgba(245,158,11,.16),0 4px 10px rgba(0,0,0,.35)",
+      "pointer-events:none"
+    ].join(";");
+    btn.appendChild(port);
+
     btn.addEventListener("pointerdown", event => {
-      const rect = btn.getBoundingClientRect();
-      const parent = layer.getBoundingClientRect();
       const node = {
         key,
         el: btn,
         defaultShadow,
-        point: {
-          x: rect.left - parent.left + rect.width / 2,
-          y: rect.top - parent.top + rect.height / 2
-        }
+        point: pointForNativeNode(layer, btn)
       };
 
       console.log("[Signal Flow] Native source drag start:", key);
@@ -3294,16 +3327,11 @@ if (activeNativeLevelId === nextLevelId) return;
       event.preventDefault();
       event.stopPropagation();
 
-      const rect = btn.getBoundingClientRect();
-      const parent = layer.getBoundingClientRect();
       const node = {
         key,
         el: btn,
         defaultShadow,
-        point: {
-          x: rect.left - parent.left + rect.width / 2,
-          y: rect.top - parent.top + rect.height / 2
-        }
+        point: pointForNativeNode(layer, btn)
       };
 
       console.log("[Signal Flow] Native source clicked:", key);
@@ -4278,7 +4306,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     sfLiv009ApplyLabelJackLayerCleanup();
 
     const kitImg = document.createElement("img");
-    kitImg.src = "/assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg";
+    kitImg.src = sfRepoUrl("/assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg");
     kitImg.alt = "Drum kit sources";
     kitImg.style.cssText = [
       "position:absolute",
@@ -4490,7 +4518,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     const img = document.createElement("img");
 
     img.className = "sf-native-asset-label";
-    img.src = src;
+    img.src = sfRepoUrl(src);
     img.alt = "";
     img.setAttribute("aria-hidden", "true");
 
@@ -4853,7 +4881,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     const img = document.createElement("img");
     img.className = "sf-native-liv028-stagebox-asset";
-    img.src = "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg";
+    img.src = sfRepoUrl("/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg");
     img.alt = "";
     img.setAttribute("aria-hidden", "true");
 
@@ -4939,7 +4967,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
 
   function sfLiv010AssetPath(kind) {
-    return (LEVEL.assetOverrides && LEVEL.assetOverrides[kind]) || hardwareAssetFor(kind);
+    return (LEVEL.assetOverrides && LEVEL.assetOverrides[kind]) ? sfRepoUrl(LEVEL.assetOverrides[kind]) : hardwareAssetFor(kind);
   }
 
   function sfLiv010PanelHeight(panel) {
@@ -5077,6 +5105,9 @@ function renderLiv009DrumStageInputs(surface, adapter) {
         overflow-y: auto !important;
         overflow-x: hidden !important;
         overscroll-behavior: contain !important;
+        max-height: min(72vh, 760px) !important;
+        scrollbar-gutter: stable !important;
+        touch-action: pan-y !important;
       }
       .sf-live-native-layer.sf-live-native-level-liv-010 {
         min-height: var(--sf-liv010-board-height, 2300px) !important;
@@ -5104,6 +5135,32 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       .sfLiv010SurfaceScrollSpacer {
         min-height: var(--sf-liv010-board-height, 2300px) !important;
         height: var(--sf-liv010-board-height, 2300px) !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function installNativeScrollStyle() {
+    if (document.getElementById("sf-live-native-shared-scroll-style")) return;
+    const style = document.createElement("style");
+    style.id = "sf-live-native-shared-scroll-style";
+    style.textContent = `
+      .sf-live-native-scroll-host {
+        position: relative !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        overscroll-behavior: contain !important;
+        max-height: min(72vh, 760px) !important;
+        scrollbar-gutter: stable !important;
+        touch-action: pan-y !important;
+      }
+      .sf-live-native-scroll-host .sf-live-native-layer {
+        min-height: var(--sf-live-native-board-height, 820px) !important;
+        overflow: visible !important;
+      }
+      .sfLiveNativeSurfaceScrollSpacer {
+        min-height: var(--sf-live-native-board-height, 820px) !important;
+        height: var(--sf-live-native-board-height, 820px) !important;
       }
     `;
     document.head.appendChild(style);
@@ -5386,15 +5443,32 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     }
 
     const level = buildLevelGeometry(surface);
+    const boardHeight = Math.ceil(level.rect.height);
 
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+
+    const needsNativeScroll = LEVEL_ID === "LIV-011" || LEVEL_ID === "LIV-028";
+    if (needsNativeScroll) {
+      surface.classList.add("sf-live-native-scroll-host");
+      surface.style.setProperty("overflow-y", "auto", "important");
+      surface.style.setProperty("overflow-x", "hidden", "important");
+      surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+    } else {
+      surface.classList.remove("sf-live-native-scroll-host");
+      surface.style.removeProperty("--sf-live-native-board-height");
+    }
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer";
     layer.classList.add("sf-live-native-level-" + LEVEL_ID.toLowerCase());
     layer.style.cssText = [
       "position:absolute",
-      "inset:0",
+      "left:0",
+      "top:0",
+      "right:0",
+      "height:" + boardHeight + "px",
+      "min-height:" + boardHeight + "px",
       "z-index:9990",
       "isolation:isolate",
       "pointer-events:none",
@@ -5422,7 +5496,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     if (panelKinds.has("foh") && !["LIV-003", "LIV-006", "LIV-007"].includes(LEVEL_ID)) {
       createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
     }
-    if (panelKinds.has("amp")) {
+    if (panelKinds.has("amp") && LEVEL_ID !== "LIV-006") {
       createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
     }
     if (panelKinds.has("monitor")) {
@@ -5492,6 +5566,14 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       });
 
     surface.appendChild(layer);
+    if (needsNativeScroll) {
+      const spacer = document.createElement("div");
+      spacer.className = "sfLiveNativeSurfaceScrollSpacer";
+      spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
+      spacer.style.setProperty("min-height", boardHeight + "px", "important");
+      spacer.style.setProperty("height", boardHeight + "px", "important");
+      surface.appendChild(spacer);
+    }
     createNativeBoardTerminologyOverlays(layer, adapter, level);
     createLiv028TalkbackUnderSources(layer, adapter, level);
     redrawCables(layer);
@@ -5551,7 +5633,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     });
   }
 
-  function mountNative(force) {
+function mountNative(force) {
     const adapter = window.SF_LIVE_SOUND_ADAPTER;
     if (!adapter) {
       console.warn("[Signal Flow] Native renderer missing adapter.");
@@ -5575,6 +5657,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       surface.style.position = "relative";
     }
 
+    installNativeScrollStyle();
     hideLegacyBoard(surface);
     if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
       renderLivProcessingFamily(surface, adapter);
