@@ -8219,75 +8219,6 @@ main.level-liv-026 .patchbay-wrap.front-panel-view .sf-live-native-layer * {
 }
 </style>
 \n
-
-
-
-
-
-
-
-<style id="sf-brief-todo-attention-runtime-v4">
-@keyframes sfBriefTodoPulseV4 {
-  0%, 100% {
-    box-shadow:
-      -6px 0 0 rgba(255, 215, 106, .70),
-      0 0 18px rgba(255, 215, 106, .18),
-      0 8px 18px rgba(0, 0, 0, .24);
-    outline: 1px solid rgba(255, 215, 106, .20);
-  }
-  50% {
-    box-shadow:
-      -13px 0 0 rgba(255, 215, 106, 1),
-      0 0 42px rgba(255, 215, 106, .72),
-      0 0 14px rgba(255, 236, 162, .38) inset,
-      0 14px 34px rgba(0, 0, 0, .42);
-    outline: 1px solid rgba(255, 236, 162, .58);
-  }
-}
-
-@keyframes sfBriefTodoRailPulseV4 {
-  0%, 100% {
-    opacity: .68;
-    filter: drop-shadow(0 0 7px rgba(255, 215, 106, .32));
-  }
-  50% {
-    opacity: 1;
-    filter:
-      drop-shadow(0 0 18px rgba(255, 215, 106, .95))
-      drop-shadow(0 0 28px rgba(255, 236, 162, .55));
-  }
-}
-
-.sf-brief-todo-attention {
-  position: relative !important;
-  border-left: 4px solid rgba(255, 215, 106, .92) !important;
-  animation: sfBriefTodoPulseV4 1.65s ease-in-out infinite !important;
-  overflow: visible !important;
-  background-image:
-    linear-gradient(90deg, rgba(255, 215, 106, .12), rgba(255, 215, 106, 0) 38%) !important;
-}
-
-.sf-brief-todo-attention::before {
-  content: "";
-  position: absolute;
-  left: -11px;
-  top: 6px;
-  bottom: 6px;
-  width: 6px;
-  border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 236, 162, .18),
-    rgba(255, 215, 106, 1),
-    rgba(255, 236, 162, .18)
-  );
-  pointer-events: none;
-  animation: sfBriefTodoRailPulseV4 1.65s ease-in-out infinite;
-  z-index: 20;
-}
-</style>
-
-
 <style id="sf-live-native-liv006-mask-v2">
 .sf-live-native-layer.sf-live-native-level-liv-006 {
   position: absolute;
@@ -8326,69 +8257,6 @@ main.level-liv-026 .patchbay-wrap.front-panel-view .sf-live-native-layer * {
 
 
 \n
-<style id="sf-todo-list-overlay-glow-v3">
-@keyframes sfTodoOverlayPulseV3 {
-  0%, 100% {
-    box-shadow:
-      -7px 0 0 rgba(255, 215, 106, .76),
-      0 0 24px rgba(255, 215, 106, .22),
-      0 8px 24px rgba(0,0,0,.28);
-    opacity: .92;
-  }
-  50% {
-    box-shadow:
-      -16px 0 0 rgba(255, 215, 106, 1),
-      0 0 54px rgba(255, 215, 106, .84),
-      0 0 18px rgba(255, 236, 162, .46) inset,
-      0 15px 38px rgba(0,0,0,.44);
-    opacity: 1;
-  }
-}
-
-@keyframes sfTodoOverlayRailV3 {
-  0%, 100% {
-    opacity: .75;
-    filter: drop-shadow(0 0 8px rgba(255,215,106,.38));
-  }
-  50% {
-    opacity: 1;
-    filter:
-      drop-shadow(0 0 22px rgba(255,215,106,1))
-      drop-shadow(0 0 34px rgba(255,236,162,.68));
-  }
-}
-
-.sf-todo-list-glow-overlay-v3 {
-  position: fixed;
-  pointer-events: none;
-  z-index: 2147483000;
-  border-left: 4px solid rgba(255, 215, 106, .98);
-  border-radius: 15px;
-  outline: 1px solid rgba(255, 236, 162, .42);
-  background:
-    linear-gradient(90deg, rgba(255, 215, 106, .13), rgba(255, 215, 106, 0) 44%);
-  animation: sfTodoOverlayPulseV3 1.55s ease-in-out infinite;
-}
-
-.sf-todo-list-glow-overlay-v3::before {
-  content: "";
-  position: absolute;
-  left: -12px;
-  top: 4px;
-  bottom: 4px;
-  width: 7px;
-  border-radius: 999px;
-  background: linear-gradient(
-    180deg,
-    rgba(255,236,162,.18),
-    rgba(255,215,106,1),
-    rgba(255,236,162,.18)
-  );
-  animation: sfTodoOverlayRailV3 1.55s ease-in-out infinite;
-}
-</style>
-
-
 <style id="sf-universal-scroll-cues-v1">
 /* Universal scroll affordance: if hidden scroll content exists, show direction arrows. */
 .sf-scroll-managed {
@@ -8582,6 +8450,61 @@ window.__SignalFlowNoAudio = window.__SignalFlowNoAudio || function(){
   };
 };
 </script>
+
+
+<style id="sf-semantic-todo-highlight-v1">
+@keyframes sfSemanticTodoPulseV1 {
+  0%, 100% {
+    box-shadow:
+      0 0 0 2px rgba(255, 229, 139, .34),
+      0 0 18px rgba(255, 220, 116, .24),
+      0 8px 24px rgba(0, 0, 0, .28),
+      inset 0 0 0 1px rgba(255, 255, 255, .08),
+      inset 0 0 16px rgba(255, 220, 116, .12);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(255, 236, 162, .78),
+      0 0 34px rgba(255, 220, 116, .58),
+      0 0 56px rgba(255, 236, 162, .24),
+      0 12px 34px rgba(0, 0, 0, .38),
+      inset 0 0 26px rgba(255, 220, 116, .20);
+  }
+}
+
+@keyframes sfSemanticTodoRailV1 {
+  0%, 100% { opacity: .52; transform: scaleY(.88); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):not(:has(.done-badge)),
+.sf-build-room-v6r227 .sf-br-checklist > .sf-br-need:not(.is-satisfied) {
+  position: relative !important;
+  border-color: rgba(255, 228, 137, .70) !important;
+  outline: 2px solid rgba(255, 236, 162, .32) !important;
+  outline-offset: 2px !important;
+  background-image: linear-gradient(90deg, rgba(255, 215, 106, .18), rgba(255, 215, 106, .04) 52%, rgba(255, 215, 106, 0)) !important;
+  animation: sfSemanticTodoPulseV1 1.45s ease-in-out infinite !important;
+}
+
+main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):not(:has(.done-badge))::before,
+.sf-build-room-v6r227 .sf-br-checklist > .sf-br-need:not(.is-satisfied)::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 6px;
+  bottom: 6px;
+  width: 7px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,238,162,.25), rgba(255,202,86,.92), rgba(255,238,162,.25));
+  box-shadow:
+    0 0 18px rgba(255, 216, 107, .78),
+    0 0 34px rgba(255, 236, 162, .34);
+  animation: sfSemanticTodoRailV1 1.2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+</style>
 
 </head>
 <body>
@@ -21435,36 +21358,36 @@ const TUTORIAL_PREVIEW_ASSETS = {
 };
 
 const GEAR_ICON_ASSETS = {
-  microphone:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  source:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  preamp:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  compressor:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  outboard:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  equalizer:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  eq:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  gate:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  delay_reverb:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  delay:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  reverb:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  fx:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  mixer_console:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  mixer:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  console:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  audio_interface:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  interface:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  converter:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  monitor_speakers:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  monitor_single:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  subwoofer:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  monitor:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  speaker:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  headphone_amp:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  headphone:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  recorder:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  playback_tape_machine:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  playback:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  tape:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==',
-  gear:'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
+  microphone:'assets/board-art/sheet1_icon_microphone.png',
+  source:'assets/board-art/sheet1_icon_microphone.png',
+  preamp:'assets/build-room/svg/gear/preamp-rack-unit-goodstyle.svg',
+  compressor:'assets/board-art/sheet1_icon_compressor.png',
+  outboard:'assets/build-room/svg/gear/desktop-processor-unit-goodstyle.svg',
+  equalizer:'assets/board-art/sheet1_icon_equalizer.png',
+  eq:'assets/board-art/sheet1_icon_equalizer.png',
+  gate:'assets/build-room/svg/gear/desktop-processor-unit-goodstyle.svg',
+  delay_reverb:'assets/board-art/sheet1_icon_delay_reverb.png',
+  delay:'assets/board-art/sheet1_icon_delay_reverb.png',
+  reverb:'assets/board-art/sheet1_icon_delay_reverb.png',
+  fx:'assets/board-art/sheet1_icon_delay_reverb.png',
+  mixer_console:'assets/board-art/sheet1_icon_mixer_console.png',
+  mixer:'assets/board-art/sheet1_icon_mixer_console.png',
+  console:'assets/board-art/sheet1_icon_mixer_console.png',
+  audio_interface:'assets/board-art/sheet1_icon_audio_interface.png',
+  interface:'assets/board-art/sheet1_icon_audio_interface.png',
+  converter:'assets/board-art/sheet1_icon_audio_interface.png',
+  monitor_speakers:'assets/board-art/sheet1_icon_monitor_speakers.png',
+  monitor_single:'assets/build-room/svg/gear/10_yama_hss_monitor_single.svg',
+  subwoofer:'assets/build-room/svg/gear/main PA speaker syste.svg',
+  monitor:'assets/board-art/sheet1_icon_monitor_speakers.png',
+  speaker:'assets/board-art/sheet1_icon_monitor_speakers.png',
+  headphone_amp:'assets/board-art/sheet1_icon_headphone_amp.png',
+  headphone:'assets/build-room/svg/gear/14_studio_headphones.svg',
+  recorder:'assets/board-art/sheet1_icon_recorder.png',
+  playback_tape_machine:'assets/board-art/sheet1_icon_playback_tape_machine.png',
+  playback:'assets/board-art/sheet1_icon_playback_tape_machine.png',
+  tape:'assets/board-art/sheet1_icon_playback_tape_machine.png',
+  gear:'assets/build-room/svg/gear/desktop-processor-unit-goodstyle.svg'
 };
 function gearIconAsset(key){ return GEAR_ICON_ASSETS[key] || GEAR_ICON_ASSETS.gear; }
 function gearIconKeyForText(text, fallback='gear'){
@@ -29026,307 +28949,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 <script src="../patch/sf-broadcast-svg-skin.js"></script>
 <link rel="stylesheet" href="../patch/sf-live-sound-svg-skin.css" />
 <script src="../patch/sf-live-sound-svg-skin.js"></script>
-
-
-
-
-
-
-<script id="sf-brief-todo-attention-runtime-script-v4">
-(function () {
-  if (window.sfBriefTodoAttentionV4Installed) return;
-  window.sfBriefTodoAttentionV4Installed = true;
-
-  const HEADING_RE = /^(level brief|brief|objective|objectives|to[-\s]?do|tasks?|checklist)\b/i;
-  const TEXT_RE = /\b(level brief|brief|objective|objectives|to[-\s]?do|tasks?|checklist|patch this|route|connect|signal path)\b/i;
-  const WRAPPER_RE = /sidebar|column|left-col|leftcol|layout|wrapper|container|nav|shell|app|main/i;
-  const CARD_RE = /brief|todo|to-do|task|checklist|objective|mission|panel|card/i;
-
-  function ensureStyle(doc) {
-    if (!doc || doc.getElementById("sf-brief-todo-attention-runtime-v4")) return;
-    const style = doc.createElement("style");
-    style.id = "sf-brief-todo-attention-runtime-v4";
-    style.textContent = document.getElementById("sf-brief-todo-attention-runtime-v4") ? document.getElementById("sf-brief-todo-attention-runtime-v4").textContent : "";
-    doc.head.appendChild(style);
-  }
-
-  function rectOf(el) {
-    return el.getBoundingClientRect();
-  }
-
-  function visible(el) {
-    const r = rectOf(el);
-    return r.width > 80 && r.height > 28;
-  }
-
-  function leftSide(el, win) {
-    const r = rectOf(el);
-    return r.left < Math.max(430, win.innerWidth * 0.48);
-  }
-
-  function classId(el) {
-    return String(el.className || "") + " " + String(el.id || "");
-  }
-
-  function textOf(el) {
-    return (el.innerText || el.textContent || "").trim();
-  }
-
-  function tooBroad(el, win) {
-    const r = rectOf(el);
-    const ci = classId(el);
-    const text = textOf(el);
-    if (WRAPPER_RE.test(ci) && !CARD_RE.test(ci)) return true;
-    if (r.width > Math.min(620, win.innerWidth * 0.54)) return true;
-    if (r.height > Math.min(430, win.innerHeight * 0.62)) return true;
-    if ((text.match(/\b(brief|objective|to[-\s]?do|task|checklist)\b/gi) || []).length > 4) return true;
-    return false;
-  }
-
-  function cardFor(el, win) {
-    let best = el;
-
-    for (let node = el; node && node !== node.ownerDocument.body; node = node.parentElement) {
-      const r = rectOf(node);
-      const ci = classId(node);
-
-      if (!visible(node) || !leftSide(node, win)) continue;
-      if (tooBroad(node, win)) break;
-
-      if (
-        CARD_RE.test(ci) ||
-        (r.width >= 150 && r.width <= 560 && r.height >= 42 && r.height <= 360)
-      ) {
-        best = node;
-      }
-    }
-
-    return best;
-  }
-
-  function score(el, win) {
-    const text = textOf(el);
-    if (!text || !TEXT_RE.test(text)) return 0;
-    if (!visible(el) || !leftSide(el, win)) return 0;
-    if (tooBroad(el, win)) return 0;
-
-    const r = rectOf(el);
-    const ci = classId(el);
-    let s = 1;
-
-    if (HEADING_RE.test(text)) s += 8;
-    if (CARD_RE.test(ci)) s += 6;
-    if (text.length >= 8 && text.length <= 900) s += 2;
-    if (r.width >= 160 && r.width <= 520) s += 2;
-    if (r.height >= 42 && r.height <= 320) s += 2;
-
-    return s;
-  }
-
-  function applyInDocument(doc, win) {
-    if (!doc || !win || !doc.body) return 0;
-    ensureStyle(doc);
-
-    doc.querySelectorAll(".sf-brief-todo-attention").forEach(el => {
-      el.classList.remove("sf-brief-todo-attention");
-    });
-
-    const all = Array.from(doc.querySelectorAll("h1,h2,h3,h4,h5,p,li,div,section,article,ul,ol"));
-
-    const candidates = all
-      .map(el => [score(el, win), el])
-      .filter(pair => pair[0] > 0)
-      .sort((a, b) => b[0] - a[0])
-      .map(pair => cardFor(pair[1], win))
-      .filter(el => !tooBroad(el, win));
-
-    const unique = [];
-    for (const el of candidates) {
-      if (!unique.includes(el) && !unique.some(existing => existing.contains(el) || el.contains(existing))) {
-        unique.push(el);
-      }
-      if (unique.length >= 3) break;
-    }
-
-    unique.forEach(el => el.classList.add("sf-brief-todo-attention"));
-    return unique.length;
-  }
-
-  function frames() {
-    const out = [];
-    document.querySelectorAll("iframe").forEach(frame => {
-      try {
-        if (frame.contentDocument && frame.contentWindow) out.push([frame.contentDocument, frame.contentWindow]);
-      } catch (err) {}
-    });
-    return out;
-  }
-
-  function applyBriefTodoAttention() {
-    let count = applyInDocument(document, window);
-    frames().forEach(pair => {
-      count += applyInDocument(pair[0], pair[1]);
-    });
-    return count;
-  }
-
-  window.sfApplyBriefTodoAttention = applyBriefTodoAttention;
-
-  function schedule(delay) {
-    setTimeout(applyBriefTodoAttention, delay);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => schedule(80));
-  window.addEventListener("load", () => {
-    schedule(80);
-    schedule(450);
-    schedule(1200);
-  });
-  window.addEventListener("hashchange", () => schedule(180));
-  window.addEventListener("popstate", () => schedule(180));
-
-  const observer = new MutationObserver(() => {
-    clearTimeout(window.sfBriefTodoAttentionTimer);
-    window.sfBriefTodoAttentionTimer = setTimeout(applyBriefTodoAttention, 180);
-  });
-
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    characterData: true
-  });
-
-  schedule(180);
-  schedule(900);
-})();
-</script>
-
-
 \n
-<script id="sf-todo-list-overlay-glow-script-v3">
-(function () {
-  if (window.sfTodoListOverlayGlowV3Installed) return;
-  window.sfTodoListOverlayGlowV3Installed = true;
-
-  function ensureStyle(doc) {
-    if (!doc || !doc.head || doc.getElementById("sf-todo-list-overlay-glow-v3")) return;
-    const src = document.getElementById("sf-todo-list-overlay-glow-v3");
-    const style = doc.createElement("style");
-    style.id = "sf-todo-list-overlay-glow-v3";
-    style.textContent = src ? src.textContent : "";
-    doc.head.appendChild(style);
-  }
-
-  function textOf(el) {
-    return (el.innerText || el.textContent || "").trim();
-  }
-
-  function visible(el) {
-    const r = el.getBoundingClientRect();
-    return r.width > 90 && r.height > 28;
-  }
-
-  function isTodoCard(el, win) {
-    const r = el.getBoundingClientRect();
-    const text = textOf(el);
-    if (!visible(el)) return false;
-    if (r.left > Math.max(430, win.innerWidth * 0.48)) return false;
-    if (r.width > 390 || r.height > 130) return false;
-    if (!/\bTO DO\b/i.test(text)) return false;
-    if (!/(→|->|Output|Input|Feed|Station|Record|Amp|Processor|Aux|Main)/i.test(text)) return false;
-    return true;
-  }
-
-  function applyIn(doc, win) {
-    if (!doc || !win || !doc.body) return 0;
-    ensureStyle(doc);
-
-    let overlay = doc.getElementById("sf-todo-list-glow-overlay-v3");
-    if (!overlay) {
-      overlay = doc.createElement("div");
-      overlay.id = "sf-todo-list-glow-overlay-v3";
-      overlay.className = "sf-todo-list-glow-overlay-v3";
-      doc.body.appendChild(overlay);
-    }
-
-    const cards = Array.from(doc.querySelectorAll("div,li,section,article,ol,ul"))
-      .filter(function(el) { return isTodoCard(el, win); });
-
-    if (!cards.length) {
-      overlay.style.display = "none";
-      return 0;
-    }
-
-    const rects = cards.map(function(el) { return el.getBoundingClientRect(); });
-    const left = Math.min.apply(null, rects.map(function(r) { return r.left; }));
-    const top = Math.min.apply(null, rects.map(function(r) { return r.top; }));
-    const right = Math.max.apply(null, rects.map(function(r) { return r.right; }));
-    const bottom = Math.max.apply(null, rects.map(function(r) { return r.bottom; }));
-
-    overlay.style.display = "block";
-    overlay.style.left = Math.max(0, left - 10) + "px";
-    overlay.style.top = Math.max(0, top - 42) + "px";
-    overlay.style.width = (right - left + 20) + "px";
-    overlay.style.height = (bottom - top + 54) + "px";
-
-    return cards.length;
-  }
-
-  function frames() {
-    const out = [];
-    document.querySelectorAll("iframe").forEach(function(frame) {
-      try {
-        if (frame.contentDocument && frame.contentWindow) {
-          out.push([frame.contentDocument, frame.contentWindow]);
-        }
-      } catch (err) {}
-    });
-    return out;
-  }
-
-  function applyTodoListOverlayGlow() {
-    let count = applyIn(document, window);
-    frames().forEach(function(pair) {
-      count += applyIn(pair[0], pair[1]);
-    });
-    return count;
-  }
-
-  window.sfApplyTodoListAttention = applyTodoListOverlayGlow;
-  window.sfApplyTodoListOverlayGlow = applyTodoListOverlayGlow;
-
-  function schedule(delay) {
-    setTimeout(applyTodoListOverlayGlow, delay);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () { schedule(120); });
-  window.addEventListener("load", function () {
-    schedule(120);
-    schedule(600);
-    schedule(1400);
-  });
-  window.addEventListener("hashchange", function () { schedule(200); });
-  window.addEventListener("popstate", function () { schedule(200); });
-  window.addEventListener("resize", function () { schedule(120); });
-
-  const observer = new MutationObserver(function () {
-    clearTimeout(window.sfTodoListOverlayGlowTimer);
-    window.sfTodoListOverlayGlowTimer = setTimeout(applyTodoListOverlayGlow, 180);
-  });
-
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    characterData: true,
-    attributes: true
-  });
-
-  schedule(250);
-  schedule(1000);
-})();
-</script>
-
-
 <script id="sf-universal-scroll-cues-script-v1">
 (function () {
   if (window.sfUniversalScrollCuesV1Installed) return;
@@ -30049,7 +29672,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 })();
 </script>
 
-  <script src="../patch/diagnosis-ui.js?v=6r261"></script>
+  <script src="../patch/diagnosis-ui.js?v=6r263"></script>
   <script src="../patch/sf-diagnosis-svg-skin.js?v=6r261"></script>
   <script src="../patch/sf-economy-rules.js?v=6r214"></script>
 
@@ -30058,6 +29681,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 <!-- /Signal Flow Build-a-Room consolidated renderer v6r277 -->
   <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
   
+
 </body>
 </html>
 
@@ -30083,3 +29707,61 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
   <script src="../src/signal-flow-ledger.js?v=1"></script>
 <script src="../src/live-sound-native-renderer.js?v=6r259"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r240"></script>
+
+<script id="sf-semantic-todo-highlight-script-v1">
+(function(){
+  "use strict";
+
+  const VERSION = "v1";
+  const OLD_SELECTORS = [
+    "#sf-todo-list-glow-overlay-v3",
+    ".sf-todo-list-glow-overlay-v3",
+    ".sf-brief-todo-attention",
+    ".sf-todo-item-attention-v1",
+    ".sf-todo-item-complete-v1"
+  ].join(",");
+
+  function cleanup(doc = document) {
+    try {
+      doc.querySelectorAll("#sf-todo-list-glow-overlay-v3, .sf-todo-list-glow-overlay-v3").forEach(el => el.remove());
+      doc.querySelectorAll(OLD_SELECTORS).forEach(el => {
+        el.classList.remove("sf-brief-todo-attention", "sf-todo-item-attention-v1", "sf-todo-item-complete-v1");
+      });
+      doc.querySelectorAll("main.game .level-shell .panel #paths > .path-card").forEach(row => {
+        const badge = row.querySelector(".todo-badge");
+        if (badge && /^(complete|done)$/i.test(badge.textContent.trim())) {
+          row.classList.add("done");
+        }
+      });
+    } catch (_) {}
+  }
+
+  let timer = null;
+  function schedule(delay = 80) {
+    clearTimeout(timer);
+    timer = setTimeout(() => cleanup(document), delay);
+  }
+
+  schedule(40);
+  window.addEventListener("load", () => {
+    schedule(80);
+    setTimeout(() => cleanup(document), 300);
+  });
+  window.addEventListener("hashchange", () => schedule(120));
+  window.addEventListener("popstate", () => schedule(120));
+  document.addEventListener("click", () => schedule(140), true);
+  document.addEventListener("change", () => schedule(140), true);
+  setInterval(() => cleanup(document), 300);
+
+  new MutationObserver(() => schedule(90)).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    characterData: true,
+    attributeFilter: ["class", "style"]
+  });
+
+  window.SignalFlowSemanticTodoHighlight = { VERSION, cleanup };
+  console.log("[Signal Flow] Semantic to-do checklist highlight installed", VERSION);
+})();
+</script>

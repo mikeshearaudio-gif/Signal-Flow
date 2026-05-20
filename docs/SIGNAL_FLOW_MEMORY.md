@@ -1,6 +1,6 @@
 # Signal Flow Memory
 
-Last updated: 2026-05-19
+Last updated: 2026-05-20
 
 ## Current Working Entry Point
 
@@ -143,3 +143,59 @@ Rules for Build-a-Room fixes:
 - Keep shared submit/check behavior intact.
 - Do not affect native patch boards, diagnosis boards, quiz boards, IR boards, or navigation.
 - Protect Build-a-Room with the `v6r277` regression checklist before changing layout again.
+
+## Semantic Checklist Highlight Lock
+
+Locked 2026-05-20 as semantic checklist highlight `sf-semantic-todo-highlight-v1`.
+
+Current locked files:
+
+- `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
+- `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`
+
+Active system:
+
+- CSS block id: `sf-semantic-todo-highlight-v1`
+- Cleanup script id: `sf-semantic-todo-highlight-script-v1`
+- Pulse animation: `sfSemanticTodoPulseV1`
+- Rail animation: `sfSemanticTodoRailV1`
+
+Locked semantic selectors:
+
+- Normal patch-board checklist rows:
+  `main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):not(:has(.done-badge))`
+- Build-a-Room checklist item rows:
+  `.sf-build-room-v6r227 .sf-br-checklist > .sf-br-need:not(.is-satisfied)`
+
+Locked behavior:
+
+- Highlight is item-level only.
+- Normal patch-board incomplete to-do rows pulse.
+- Completed normal rows stop pulsing when `.done` or `.done-badge` is present.
+- The cleanup script also normalizes renderer rows whose `.todo-badge` text becomes `COMPLETE` or `DONE` by adding `.done`, because some native boards update badge text without swapping class names.
+- Build-a-Room highlights only unsatisfied Build Checklist rows inside `.sf-br-checklist`.
+- Build-a-Room satisfied rows stop pulsing through `.is-satisfied`.
+- Gear cards, credit/budget metrics, Job Brief, selected gear lists, Submit/Reset buttons, result modals, diagnosis boards, quiz boards, IR boards, and boards without real checklist rows must not highlight.
+
+Do not restore:
+
+- `sf-brief-todo-attention-runtime-v4`
+- `sf-todo-list-overlay-glow-v3`
+- `sf-todo-item-highlight-v1` or `sf-todo-item-highlight-v2`
+- fixed overlay boxes
+- broad sidebar/brief/panel text scanning
+
+Verification completed 2026-05-20:
+
+- `LIV-003`: normal to-do rows highlight; completed route row stops highlighting.
+- `LIV-004`: Build-a-Room Build Checklist rows highlight; gear cards, metrics, Job Brief, Submit/Reset, and result areas do not.
+- `LIV-031`: diagnosis board has no checklist highlight.
+- `LIV-001`: no-checklist/quiz board has no semantic highlight.
+- `oldOverlay === 0` and `oldBroad === 0`.
+- Build-a-Room still loads `sf-build-room-renderer.js?v=6r277`.
+- Diagnosis still loads `diagnosis-ui.js?v=6r263`.
+- `node --check` passed for both edited inline cleanup scripts.
+
+Reference handoff:
+
+- `docs/HANDOFF_2026-05-20_SEMANTIC_CHECKLIST_HIGHLIGHT_LOCK.md`

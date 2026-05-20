@@ -1,9 +1,9 @@
-// Signal Flow Diagnosis Universal GUI v6r261
+// Signal Flow Diagnosis Universal GUI v6r263
 // Single-owner deterministic diagnosis renderer.
 (function(){
   'use strict';
 
-  const VERSION = '6r261';
+  const VERSION = '6r263';
   const ASSET = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href;
   const PANEL_SELECTOR = '[data-sfdiag-generic-panel="true"]';
   const LEGACY_SELECTOR = '[data-training-panel="diagnose"], .diagnose-panel';
@@ -39,39 +39,65 @@
     return null;
   }
 
-  function selectedLevelId(){
-    const levelSelect = qs('#levelJump, #levelSelect, select[name*="level" i], select[id*="level" i]');
-    if(levelSelect){
-      const opt = levelSelect.selectedOptions && levelSelect.selectedOptions[0];
-      const id = extractLevelId([levelSelect.value, opt && opt.value, opt && opt.textContent].join(' '));
-      if(id) return id;
-    }
+  function visibleEnough(el){
+    if(!el || !el.isConnected) return false;
+    if(el.closest && el.closest('[aria-hidden="true"], [hidden]')) return false;
+    const style = getComputedStyle(el);
+    if(style.display === 'none' || style.visibility === 'hidden') return false;
+    const rect = el.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0;
+  }
 
-    for(const s of qsa('select')){
+  function selectedLevelIdsFromSelectors(){
+    const selectors = qsa('#levelJump, #levelSelect, select[name*="level" i], select[id*="level" i]')
+      .filter(s => !s.disabled && visibleEnough(s));
+    return selectors.map(s => {
       const opt = s.selectedOptions && s.selectedOptions[0];
-      const id = extractLevelId([s.value, opt && opt.value, opt && opt.textContent].join(' '));
-      if(id) return id;
-    }
+      return extractLevelId([s.value, opt && opt.value, opt && opt.textContent].join(' '));
+    }).filter(Boolean);
+  }
 
-    return extractLevelId(location.hash || location.href) ||
-      extractLevelId(qs('.game-title')?.textContent || document.body.textContent || '');
+  function currentLevelCandidates(){
+    const ids = [];
+    selectedLevelIdsFromSelectors().forEach(id => ids.push(id));
+
+    try{ if(window.sfSignalFlowLedgerState && window.sfSignalFlowLedgerState.currentLevelId) ids.push(window.sfSignalFlowLedgerState.currentLevelId); }catch(_){}
+    try{ if(window.parent && window.parent !== window && window.parent.sfSignalFlowLedgerState && window.parent.sfSignalFlowLedgerState.currentLevelId) ids.push(window.parent.sfSignalFlowLedgerState.currentLevelId); }catch(_){}
+    try{ if(window.SignalFlowLedger && window.SignalFlowLedger.currentLevelId) ids.push(window.SignalFlowLedger.currentLevelId); }catch(_){}
+    try{ if(window.state && window.state.currentLevelId) ids.push(window.state.currentLevelId); }catch(_){}
+    try{ if(window.state && window.state.level && window.state.level.id) ids.push(window.state.level.id); }catch(_){}
+    ids.push(extractLevelId(location.hash || location.href));
+    try{ if(typeof level === 'function'){ const l = level(); if(l && l.id) ids.push(l.id); } }catch(_){}
+    ids.push(extractLevelId(qs('.game-title')?.textContent || ''));
+
+    const seen = new Set();
+    return ids.map(extractLevelId).filter(id => {
+      if(!id || seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
   }
 
   function levelBySelectedId(){
-    const id = selectedLevelId();
     const data = dataRoot();
-    if(data && id) return data.levels.find(l => l && l.id === id) || null;
+    const ids = currentLevelCandidates();
+    if(data){
+      for(const id of ids){
+        const found = data.levels.find(l => l && l.id === id);
+        if(found) return found;
+      }
+    }
 
     try{
       if(typeof level === 'function'){
         const l = level();
-        if(l && (!id || l.id === id)) return l;
+        if(l && l.id) return data ? data.levels.find(x => x && x.id === l.id) || l : l;
       }
     }catch(_){}
 
     try{
       const l = window.state && window.state.level;
-      if(l && (!id || l.id === id)) return l;
+      if(l && l.id) return data ? data.levels.find(x => x && x.id === l.id) || l : l;
     }catch(_){}
 
     return null;
@@ -94,6 +120,10 @@
     return surfaces.find(el => {
       if(el.matches && el.matches(LEGACY_SELECTOR)) return false;
       if(el.closest && el.closest('.sf-build-room-v6r227')) return false;
+      if(el.matches && el.matches('.sf-build-room-v6r227, [data-sf-build-room-renderer-mount="true"]')) return false;
+      if(!visibleEnough(el)) return false;
+      const rect = el.getBoundingClientRect();
+      if(rect.width < 320 || rect.height < 180) return false;
       return true;
     }) || main || document.body;
   }
@@ -295,7 +325,11 @@
 
     const main = gameRoot();
     const host = mainTrainingSurface();
-    if(!host) return false;
+    if(!host || !visibleEnough(host)){
+      clearTimeout(renderDiagnosis.surfaceRetryTimer);
+      renderDiagnosis.surfaceRetryTimer = setTimeout(renderDiagnosis, 90);
+      return false;
+    }
 
     removeOldDiagnosisMount(host);
     hideLegacyDiagnosis(host);
@@ -352,19 +386,30 @@
       const original = window.renderTrainingOnlyLevel;
       const wrapped = function(...args){
         const result = original.apply(this, args);
-        const l = args[0];
-        if(l && l.training && l.training.type === 'diagnose') scheduleDiagnosisRemount();
+        scheduleDiagnosisRemount();
         return result;
       };
       wrapped.sfdiagWrapped = true;
       window.renderTrainingOnlyLevel = wrapped;
     }
 
+    ['renderLevel', 'render', 'renderRoute', 'navigateTo', 'loadLevel'].forEach(name => {
+      const fn = window[name];
+      if(typeof fn !== 'function' || fn.sfdiagWrapped) return;
+      const wrapped = function(...args){
+        const result = fn.apply(this, args);
+        scheduleDiagnosisRemount();
+        return result;
+      };
+      wrapped.sfdiagWrapped = true;
+      window[name] = wrapped;
+    });
+
     if(typeof window.sfLedgerDispatch === 'function' && !window.sfLedgerDispatch.sfdiagWrapped){
       const originalDispatch = window.sfLedgerDispatch;
       const wrappedDispatch = function(event){
         const result = originalDispatch.apply(this, arguments);
-        if(event && (event.type === 'LEVEL_STARTED' || event.type === 'LEVEL_RETRIED')) scheduleDiagnosisRemount();
+        if(event && (/LEVEL_|CURRENT_LEVEL|ROUTE_COMPLETED/.test(String(event.type || '')) || event.levelId || event.currentLevelId)) scheduleDiagnosisRemount();
         return result;
       };
       wrappedDispatch.sfdiagWrapped = true;
