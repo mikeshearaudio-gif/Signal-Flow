@@ -1,0 +1,587 @@
+=== git status ===
+ M docs/HANDOFF_SUMMARY.md
+ M docs/SIGNAL_FLOW_MEMORY.md
+ M launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+ M patch/diagnosis-ui.css
+ M patch/diagnosis-ui.js
+ M patch/sf-build-room-renderer.css
+ M patch/sf-build-room-renderer.js
+ M patch/sf-diagnosis-svg-skin.css
+ M patch/sf-diagnosis-svg-skin.js
+?? audit/runtime-debug/
+?? docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md
+
+=== active launch includes ===
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r246" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r246" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:8544:<link rel="stylesheet" href="../patch/sf-build-room-renderer.css?v=6r277">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:27208:    return `<section class="training-level-panel sf-build-room-v6r227-mount" data-training-panel="build-room" data-sf-build-room-renderer-mount="true" data-level-id="${esc(l?.id || '')}" data-training-only="${trainingOnly ? 'true' : 'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:30052:  <script src="../patch/diagnosis-ui.js?v=6r246"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r246"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:30057:<script src="../patch/sf-build-room-renderer.js?v=6r277"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:30084:<script src="../src/live-sound-native-renderer.js?v=6r259"></script>
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:348:    const IR_RUNNER = 'ir-level-runner.html';
+
+=== LIV-005/LIV-006 level definitions ===
+17588:      "id": "LIV-005",
+17626:               "id": "LIV-006",
+30067:/* LIV-006 native layer mask: dim legacy background image/text under native board */
+
+=== IR runner references ===
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:341:      <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r213</div>
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:348:    const IR_RUNNER = 'ir-level-runner.html';
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:390:        'PST-001','PST-002','PST-003','PST-004','PST-IR-01',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:392:        'PST-011','PST-012','PST-013','PST-IR-02','PST-015',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:394:        'PST-021','PST-022','PST-023','PST-IR-03','PST-025',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:396:        'PST-031','PST-032','PST-033','PST-034','PST-IR-04',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:399:        'PST-IR-05','PST-047','PST-048','PST-049','PST-050'
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:515:    populate('PST'); loadLevel('PST-IR-01');
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r267_20260519_125142:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:341:      <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r213</div>
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:348:    const IR_RUNNER = 'ir-level-runner.html';
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:390:        'PST-001','PST-002','PST-003','PST-004','PST-IR-01',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:392:        'PST-011','PST-012','PST-013','PST-IR-02','PST-015',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:394:        'PST-021','PST-022','PST-023','PST-IR-03','PST-025',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:396:        'PST-031','PST-032','PST-033','PST-034','PST-IR-04',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:399:        'PST-IR-05','PST-047','PST-048','PST-049','PST-050'
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_v6r248_20260518_183659:515:    populate('PST'); loadLevel('PST-IR-01');
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r266_20260519_124409:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:341:      <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r213</div>
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:348:    const IR_RUNNER = 'ir-level-runner.html';
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:390:        'PST-001','PST-002','PST-003','PST-004','PST-IR-01',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:392:        'PST-011','PST-012','PST-013','PST-IR-02','PST-015',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:394:        'PST-021','PST-022','PST-023','PST-IR-03','PST-025',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:396:        'PST-031','PST-032','PST-033','PST-034','PST-IR-04',
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:399:        'PST-IR-05','PST-047','PST-048','PST-049','PST-050'
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html:515:    populate('PST'); loadLevel('PST-IR-01');
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:17543:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:27947:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:27950:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:27956:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:27964:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:28489:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_v6r248_20260518_183659:28534:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r263_20260519_115010:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r260_20260519_102210:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r261_20260519_103545:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_17_NAV_WRAPPER.html:81:      LIV:['LIV-001','LIV-002','LIV-003','LIV-004','LIV-005','LIV-006','LIV-013','LIV-113','LIV-213','LIV-214','LIV-215','LIV-216','LIV-217'],
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:17567:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:27971:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:27974:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:27980:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:27988:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:28513:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r260_20260519_102210:28558:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r266_20260519_124409:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:17548:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:27952:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:27955:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:27961:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:27969:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:28494:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html:28539:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:17567:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:27971:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:27974:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:27980:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:27988:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:28513:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html.bak_buildroom_v6r261_20260519_103545:28558:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:17567:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:27971:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:27974:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:27980:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:27988:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:28513:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_AUDIO.html:28558:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r261_20260519_103545:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:17548:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:27952:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:27955:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:27961:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:27969:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:28494:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r260_20260519_102210:28539:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:17550:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:27954:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:27957:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:27963:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:27971:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:28496:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_pre_no_embedded_media_20260518_202619:28541:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:17588:      "id": "LIV-005",
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r263_20260519_115010:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r260_20260519_102210:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:17548:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:27952:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:27955:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:27961:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:27969:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:28494:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html.bak_buildroom_v6r261_20260519_103545:28539:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:17588:      "id": "LIV-005",
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:28482:    .sfv14106-ir-level{
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html:28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+
+=== native surface selection hooks ===
+40:    document.querySelectorAll("select, input, [data-board], [data-level-id]").forEach(el => {
+81:    document.querySelectorAll("select").forEach(select => {
+121:      const buttons = Array.from(root.querySelectorAll ? root.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']") : []);
+157:    document.querySelectorAll("select").forEach(select => {
+170:    document.querySelectorAll("input").forEach(input => {
+1393:    document.querySelectorAll([
+1460:    document.querySelectorAll(".sf-live-native-layer").forEach(layer => layer.remove());
+1655:    const selected = Array.from(document.querySelectorAll("select"))
+1672:    return !!currentNativePatchLevelId() && !document.querySelector('[data-training-panel], .quiz-panel, .inline-room-build');
+1703:    const all = Array.from(document.querySelectorAll("div, section, article, main"));
+1727:    const candidates = Array.from(card.querySelectorAll("div, section, article, main"))
+1754:    console.log("[Signal Flow] Native surface selected:", {
+2104:    Array.from(surface.querySelectorAll("div, section, article")).forEach(el => {
+2115:    Array.from(surface.querySelectorAll("div, section, article")).forEach(el => {
+2225:    let svg = layer.querySelector(".sf-native-cables");
+2357:    const old = layer.querySelector(".sf-native-cables");
+2360:    layer.querySelectorAll(".sf-cable-drag-handle").forEach(handle => handle.remove());
+2364:    const svg = layer.querySelector(".sf-native-cables");
+2370:    layer.querySelectorAll(".sf-cable-drag-handle").forEach(handle => layer.appendChild(handle));
+2378:    group.querySelectorAll("path").forEach(path => path.setAttribute("d", d));
+2623:        Array.from(window.parent.document.querySelectorAll("iframe")).forEach(frame => {
+2629:    Array.from(document.querySelectorAll("iframe")).forEach(frame => {
+2650:      const rows = Array.from(doc.querySelectorAll(".path-card"))
+2651:        .filter(row => row && row.isConnected && row.querySelector(".todo-badge"));
+2670:    const badge = row.querySelector(".todo-badge");
+2752:    document.querySelectorAll(".sf-native-complete-modal").forEach(el => el.remove());
+2970:      const scoreNodes = Array.from(doc.querySelectorAll('[class*="score" i], [id*="score" i], div, span, b, strong'))
+2982:        const numberChild = Array.from(node.querySelectorAll("div, span, b, strong"))
+2997:      const visibleNumbers = Array.from(doc.querySelectorAll("div, span, b, strong"))
+3120:    let path = svg.querySelector(".sf-native-drag-preview");
+3138:    layer.querySelectorAll(".sf-native-drag-preview").forEach(el => el.remove());
+3345:    Array.from(document.querySelectorAll(".sf-native-jack")).forEach(btn => {
+3469:      const drumHitbox = layer.querySelector(".sf-native-liv009-drum-hitbox[data-node-key='" + node.key + "']");
+3635:    const layer = document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009");
+3638:    const hintButton = Array.from(document.querySelectorAll("button")).find(btn =>
+3784:      if(document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009")){
+3800:    const layer = document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009");
+3812:    const leafLabels = Array.from(layer.querySelectorAll("*")).filter(el => {
+3830:    Array.from(layer.querySelectorAll("*")).forEach(el => {
+3845:    layer.querySelectorAll(".sf-native-liv009-stagebox-input, [data-node-key^='stagebox-input-']").forEach(el => {
+3950:    return Array.from(layer.querySelectorAll("img")).find(img => {
+3961:    const layer = document.querySelector(".sf-live-native-layer.sf-live-native-level-liv-009");
+3976:      const el = layer.querySelector(`[data-node-key="${key}"]`);
+4107:    layer.querySelectorAll(".sf-liv009-foh-normalled-cables").forEach(el => el.remove());
+4233:    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+4398:    console.log("[Signal Flow] LIV-009 dedicated drum renderer mounted.");
+4437:    let svg = layer.querySelector(".sf-native-normalled-cables-svg");
+4568:    const targetLayer = layer || document.querySelector(".sf-live-native-layer");
+4575:    const stageAsset = targetLayer.querySelector(".sf-native-liv028-stagebox-asset") ||
+4576:      Array.from(targetLayer.querySelectorAll("img")).find(img =>
+4580:    const iemAsset = Array.from(targetLayer.querySelectorAll("img")).find(img => {
+4590:    const fohAsset = Array.from(targetLayer.querySelectorAll("img")).find(img =>
+4595:      const nodes = Array.from(targetLayer.querySelectorAll("[data-node-key='" + key + "']"));
+4696:    const targetLayer = layer || document.querySelector(".sf-live-native-layer");
+4704:    const candidates = Array.from(targetLayer.querySelectorAll("button, div, [role='button']")).filter(el => {
+4731:    Array.from(targetLayer.querySelectorAll(".sf-native-liv028-talkback-source, [data-node-key='talkback-mic']")).forEach(el => {
+4807:    Array.from(layer.querySelectorAll("[data-node-key='talkback-mic']")).forEach(el => {
+4828:      Array.from(layer.querySelectorAll("[data-node-key='" + item.key + "']")).forEach(el => {
+4870:      Array.from(layer.querySelectorAll("[data-node-key='stagebox-input-" + n + "']")).forEach(el => {
+4877:    const old = layer.querySelector(".sf-native-liv028-stagebox-asset");
+5016:    const el = layer.querySelector('[data-node-key="' + key + '"]');
+5181:    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+5182:    surface.querySelectorAll(".sfLiv010SurfaceScrollSpacer").forEach(el => el.remove());
+5290:    console.log("[Signal Flow] LIV-010 vertical locked dedicated renderer mounted v6r204", {
+5343:    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+5448:    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+5449:    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+5585:    Array.from(document.querySelectorAll("div, section, article, aside, dialog"))
+5614:    Array.from(document.querySelectorAll("button, [role='button']")).forEach(button => {
+5636:function mountNative(force) {
+5652:    if (!force && surface.querySelector(".sf-live-native-layer")) {
+5671:    console.log("[Signal Flow] " + LEVEL_ID + " native renderer v6 mounted.");
+5674:  function unmountNative() {
+5678:    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+5693:    const layer = document.querySelector(".sf-live-native-layer");
+5708:    const layer = document.querySelector(".sf-live-native-layer");
+5738:    setTimeout(() => mountNative(false), 350);
+5740:    setTimeout(() => mountNative(false), 900);
+5741:    setTimeout(() => mountNative(false), 1600);
+5742:      setTimeout(() => forceLiv028TalkbackSourceFinal(document.querySelector(".sf-live-native-layer")), 1150);
+5743:    setTimeout(() => forceLiv028TalkbackSourceFinal(document.querySelector(".sf-live-native-layer")), 1700);
+5744:    setTimeout(() => forceLiv028TalkbackSourceFinal(document.querySelector(".sf-live-native-layer")), 2400);
+5750:      unmountNative();
+5791:      setTimeout(() => mountNative(true), 250);
+5821:      setTimeout(unmountNative, 80);
+5829:      // remount only after the front-panel button state is visible again.
+5841:    const hasFrontPanelButton = Array.from(document.querySelectorAll("button, [role='button']"))
+5847:    const hasBackPanelButton = Array.from(document.querySelectorAll("button, [role='button']"))
+5855:    if (!nativeVisible || document.querySelector(".sf-live-native-layer")) return;
+5859:      mountNative(false);
+
+=== diagnosis files/includes/assets ===
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:30052:  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r264_20260519_120034:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:30052:  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r268_20260519_130510:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:30052:  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_liv006_v6r252_20260519_080130:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:30052:  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.bak_buildroom_v6r262_20260519_114000:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:30052:  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_liv006_v6r252_20260519_080130:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
+launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html.bak_liv006_v6r252_20260519_080130:881:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r246" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r246" />
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:30052:  <script src="../patch/diagnosis-ui.js?v=6r246"></script>
+launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r246"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:8539:  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:8540:  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:21499:  return `<span class="studio-gear-art studio-gear-art-image studio-new-gear-art" aria-hidden="true" data-icon="${key}">${gearIconImageMarkup(key)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:21851:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon" data-needed="${item.needed}"><span class="gear-light"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:21866:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:21871:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:21878:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:23513:  return `<button class="studio-gear-tile ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:23723:  const cell = '<span class="studio-unused-jack" aria-hidden="true"></span>';
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:23726:  return `<section class="studio-unused-band studio-unused-band-c" aria-hidden="true" style="--unused-band-min:${minHeight}px;">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:23729:      <div class="studio-unused-blue-rail" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24497:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(sfv164NodeIconKey(node), 'sfv164-node-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24500:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, 'sfv164-panel-icon-img')}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24532:    <div class="sfv164-cable-wall" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>CABLES / IFB / COMMS</strong></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24587:    <svg class="sfv164-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M10 50 C28 18, 40 82, 52 50 S78 20, 91 50"/><path d="M12 72 C34 92, 64 10, 90 28"/></svg>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24601:  return `<button type="button" class="room-gear inline-gear has-new-gear-icon sfv164-gear-box" data-needed="${item.needed}"><span class="gear-light"></span><span class="sfv164-box-lid" aria-hidden="true"></span><span class="room-gear-icon" aria-hidden="true">${gearIconImageMarkup(key, 'room-gear-icon-img')}</span><span class="room-gear-label">${esc(item.name)}</span><span class="sfv164-price-tag" aria-hidden="true">SF</span></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24745:  return `<button class="studio-gear-tile sfv164-gear-icon-only ${lit ? 'lit' : ''}" type="button" data-gear-group="${esc(group.id)}" data-progress="${esc(String(progress.connected))}" style="--gear-glow:${glow.toFixed(3)}" aria-label="${esc(group.title)}"><span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24788:  return `<span class="${cls}" aria-hidden="true">${gearIconImageMarkup(key, `${cls}-img`)}</span>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24892:    <svg class="sfv166-map-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:24962:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25418:    <span class="studio-gear-led" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25472:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25648:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25679:    <div class="sfv173-postit-pin" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25688:    <div class="sfv174-clinic-bg" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25695:      <div class="sfv174-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25720:        <div class="sfv175-diagnose-column sfv175-diagnose-left" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25725:          <div class="sfv174-clipboard-clip sfv175-clipboard-clip" aria-hidden="true"></div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25732:        <div class="sfv175-diagnose-column sfv175-diagnose-right" aria-hidden="true">
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25852:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:25969:    <span class="sfv171-socket" aria-hidden="true"></span>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:26482:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:26518:  return `<button class="jack sfv171-wire-node ${required ? 'required' : ''} ${sfv173NodeClass ? sfv173NodeClass(node) : ''} ${extra}" data-node="${esc(node)}" title="${esc(full)}" aria-label="${esc(full)}"><span class="sfv171-socket" aria-hidden="true"></span><span class="sfv171-node-icon">${gearIconImageMarkup(sfv166EquipmentIconKey(node), 'sfv171-node-img')}</span><strong>${esc(label)}</strong></button>`;
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:26787:            <div class="sf-quiz-scroll-affordance" aria-hidden="true">Scroll for more</div>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:29395:    cue.setAttribute("aria-hidden", "true");
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:30052:  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html.bak_buildroom_v6r265_20260519_123312:30053:  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
+
+=== syntax check ===
+node not found

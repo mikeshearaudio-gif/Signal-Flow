@@ -1,0 +1,1428 @@
+diff --git a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+index efc681c..2cf8f55 100644
+--- a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
++++ b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+@@ -8536,13 +8536,13 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
+ }
+ </style>
+ 
+-  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r213" />
+-  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r245" />
++  <link rel="stylesheet" href="../patch/diagnosis-ui.css?v=6r256" />
++  <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r256" />
+   <link rel="stylesheet" href="../patch/sf-economy-rules.css?v=6r214" />
+ 
+-<!-- Signal Flow Build-a-Room consolidated renderer v6r272 -->
+-<link rel="stylesheet" href="../patch/sf-build-room-renderer.css?v=6r272">
+-<!-- /Signal Flow Build-a-Room consolidated renderer v6r272 -->
++<!-- Signal Flow Build-a-Room consolidated renderer v6r277 -->
++<link rel="stylesheet" href="../patch/sf-build-room-renderer.css?v=6r277">
++<!-- /Signal Flow Build-a-Room consolidated renderer v6r277 -->
+   <link rel="stylesheet" href="../patch/sf-liv011-native-cleanup.css?v=6r240" />
+   <link rel="stylesheet" href="../patch/sf-v6r249-safe-visual-fixes.css?v=6r249" />
+ 
+@@ -30049,13 +30049,13 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
+ })();
+ </script>
+ 
+-  <script src="../patch/diagnosis-ui.js?v=6r213"></script>
+-  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r245"></script>
++  <script src="../patch/diagnosis-ui.js?v=6r256"></script>
++  <script src="../patch/sf-diagnosis-svg-skin.js?v=6r256"></script>
+   <script src="../patch/sf-economy-rules.js?v=6r214"></script>
+ 
+-<!-- Signal Flow Build-a-Room consolidated renderer v6r272 -->
+-<script src="../patch/sf-build-room-renderer.js?v=6r272"></script>
+-<!-- /Signal Flow Build-a-Room consolidated renderer v6r272 -->
++<!-- Signal Flow Build-a-Room consolidated renderer v6r277 -->
++<script src="../patch/sf-build-room-renderer.js?v=6r277"></script>
++<!-- /Signal Flow Build-a-Room consolidated renderer v6r277 -->
+   <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
+   
+ </body>
+diff --git a/patch/diagnosis-ui.js b/patch/diagnosis-ui.js
+index 3e260bd..a2c9e1a 100644
+--- a/patch/diagnosis-ui.js
++++ b/patch/diagnosis-ui.js
+@@ -1,8 +1,8 @@
+-// Signal Flow Diagnosis Universal GUI v6r213
++// Signal Flow Diagnosis Universal GUI v6r246
+ // Generic diagnosis renderer: builds the clipboard from level().training, not from legacy diagnosis DOM.
+ (function(){
+   'use strict';
+-  const VERSION = '6r213';
++  const VERSION = '6r256';
+   const ASSET = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href;
+   document.documentElement.setAttribute('data-sfdiag-gui-version', VERSION);
+ 
+@@ -24,54 +24,89 @@
+     return out;
+   }
+ 
+-  function selectedDiagnosisId(){
+-    const selects = qsa('select');
+-    for(const s of selects){
+-      const opt = s.selectedOptions && s.selectedOptions[0];
+-      const text = ((opt && opt.textContent) || '') + ' ' + (s.value || '');
+-      if(/\[DIAG\]|diagnose/i.test(text)){
+-        const m = text.match(/\b[A-Z]{3}-\d{3}\b/);
+-        if(m) return m[0];
++
++  function sfdiagExtractId(text){
++    const m = String(text || '').match(/\b[A-Z]{3}-\d{3}\b/);
++    return m ? m[0] : '';
++  }
++
++  function sfdiagLevelById(id){
++    if(!id) return null;
++    try{
++      if(window.DATA && Array.isArray(window.DATA.levels)){
++        return window.DATA.levels.find(l => l && l.id === id) || null;
+       }
++    }catch(_){}
++    return null;
++  }
++
++  function sfdiagDiagnosisLevelById(id){
++    const l = sfdiagLevelById(id);
++    return (l && l.training && l.training.type === 'diagnose') ? l : null;
++  }
++
++  function sfdiagSelectedIdNoRecursion(){
++    // Important: no calls to selectedDiagnosisId(), currentLevelObject(),
++    // levelId(), or sfdiagCurrentDiagnosisLevelObject() in this function.
++    const hashId = sfdiagExtractId(location.hash || location.href || '');
++    if(hashId) return hashId;
++
++    for(const s of qsa('select')){
++      const opt = s.selectedOptions && s.selectedOptions[0];
++      const raw = [
++        s.value || '',
++        opt && opt.value || '',
++        opt && opt.textContent || '',
++        s.id || '',
++        s.className || ''
++      ].join(' ');
++      const id = sfdiagExtractId(raw);
++      if(id) return id;
+     }
+-    const visible = (qs('.game-title')?.textContent || document.body.textContent || '').match(/\b[A-Z]{3}-\d{3}\b/);
+-    return visible ? visible[0] : '';
++
++    return sfdiagExtractId(qs('.game-title')?.textContent || document.body.textContent || '');
++  }
++
++
++  function selectedDiagnosisId(){
++    const id = sfdiagSelectedIdNoRecursion();
++    if(id) return id;
++    return '';
+   }
+ 
+   function currentLevelObject(){
+-    const diagId = selectedDiagnosisId();
+-    try{
+-      if(window.DATA && Array.isArray(window.DATA.levels) && diagId){
+-        const byId = window.DATA.levels.find(l => l && l.id === diagId);
+-        if(byId && byId.training && byId.training.type === 'diagnose') return byId;
+-      }
+-    }catch(_){ }
++    const id = sfdiagSelectedIdNoRecursion();
++
++    // Prefer the explicit selected/hash ID, but only accept DATA levels.
++    const byId = sfdiagLevelById(id);
++    if(byId) return byId;
++
++    // Safe fallbacks. These must not call selectedDiagnosisId/currentLevelObject.
+     try{
+       if(typeof window.level === 'function'){
+         const l = window.level();
+-        if(l && l.training && l.training.type === 'diagnose') return l;
++        if(l && l.id) return l;
+       }
+-    }catch(_){ }
+-    try{
+-      if(window.state && window.state.level && window.state.level.training && window.state.level.training.type === 'diagnose') return window.state.level;
+-    }catch(_){ }
++    }catch(_){}
++
+     try{
+-      if(window.DATA && Array.isArray(window.DATA.levels) && diagId){
+-        return window.DATA.levels.find(l => l && l.id === diagId) || null;
+-      }
+-    }catch(_){ }
++      const l = window.state && window.state.level;
++      if(l && l.id) return l;
++    }catch(_){}
++
+     return null;
+   }
+ 
+   function currentDiagnosisTraining(){
+     const l = currentLevelObject();
+     const t = l && l.training;
+-    return t && t.type === 'diagnose' ? t : null;
++    if(t && t.type === 'diagnose') return t;
++    return diagnosisTrainingFromDom();
+   }
+ 
+   function levelId(){
+     const l = currentLevelObject();
+-    return (l && l.id) || selectedDiagnosisId() || '';
++    return (l && l.id) || sfdiagSelectedIdNoRecursion() || '';
+   }
+ 
+   function isDiagnosisBoard(){
+@@ -125,6 +160,23 @@
+       : [];
+   }
+ 
++  function diagnosisTrainingFromDom(){
++    const panels = qsa('[data-training-panel="diagnose"], .diagnose-panel')
++      .filter(el => !el.closest('[data-sfdiag-generic-panel="true"]'));
++    const panel = panels.find(el => qsa('.diagnose-patch', el).length) || panels[0];
++    if(!panel) return null;
++    const prompt = qs('strong, h2, h3, .sfdiag-generated-prompt', panel)?.textContent?.trim()
++      || 'Find the broken, backwards, or unsafe patch before the room goes live.';
++    const patches = qsa('.diagnose-patch', panel).map(btn => ({
++      text: btn.textContent.replace(/^\s*\d+\s*/, '').trim(),
++      ok: String(btn.dataset.ok) === 'true',
++      reason: btn.dataset.reason || (String(btn.dataset.ok) === 'false'
++        ? 'This is the broken route.'
++        : 'This patch follows the intended route.')
++    })).filter(p => p.text);
++    return { type: 'diagnose', prompt, patches };
++  }
++
+   function generatedPanelHtml(l, t){
+     const choices = diagnosisChoices(t);
+     const prompt = t.prompt || 'Find the broken, backwards, or unsafe patch before the room goes live.';
+@@ -206,75 +258,443 @@
+     });
+   }
+ 
++
++  function resolveDiagnosisMountHost(rawBoard){
++    const main = gameRoot();
++    if(!rawBoard || !main) return rawBoard;
++
++    const isLegacyDiagnosisPanel =
++      rawBoard.matches &&
++      rawBoard.matches('[data-training-panel="diagnose"], .diagnose-panel') &&
++      rawBoard.getAttribute('data-sfdiag-generic-panel') !== 'true';
++
++    if(!isLegacyDiagnosisPanel) return rawBoard;
++
++    const rawRect = rawBoard.getBoundingClientRect();
++
++    const candidates = [
++      rawBoard.parentElement,
++      rawBoard.closest('.training-stage-board'),
++      rawBoard.closest('.training-stage-shell'),
++      rawBoard.closest('.level-shell'),
++      rawBoard.closest('.training-only-board'),
++      rawBoard.closest('.board-card'),
++      main
++    ].filter(Boolean).filter(el => {
++      if(el === rawBoard) return false;
++      if(el.matches && el.matches('[data-training-panel="diagnose"], .diagnose-panel')) return false;
++      const r = el.getBoundingClientRect();
++      return r.width >= Math.min(420, rawRect.width * 0.7) && r.height >= Math.min(220, rawRect.height * 0.7);
++    });
++
++    return candidates[0] || rawBoard.parentElement || rawBoard;
++  }
++
++  function blurDiagnosisButtons(root){
++    try{
++      const active = document.activeElement;
++      if(active && active.matches && active.matches('.diagnose-patch, .sf-diagnosis-choice-card, .sfv174-diagnose-item, .sfv175-diagnose-item')){
++        active.blur();
++      }
++    }catch(_){}
++  }
++
++  function restoreLegacyDiagnosisPanels(root){
++    qsa('[data-sfdiag-legacy-diagnosis="hidden"]', root || document).forEach(el => {
++      el.removeAttribute('data-sfdiag-legacy-diagnosis');
++      el.removeAttribute('aria-hidden');
++      el.style.display = '';
++      el.style.visibility = '';
++      el.style.pointerEvents = '';
++    });
++  }
++
++  function hideLegacyDiagnosisPanels(root, generated){
++    blurDiagnosisButtons(root);
++
++    qsa('[data-training-panel="diagnose"], .diagnose-panel', root || document).forEach(el => {
++      if(el === generated || generated.contains(el) || el.contains(generated)) return;
++      if(el.getAttribute('data-sfdiag-generic-panel') === 'true') return;
++
++      el.setAttribute('data-sfdiag-legacy-diagnosis', 'hidden');
++      el.setAttribute('aria-hidden', 'true');
++      el.style.display = 'none';
++      el.style.visibility = 'hidden';
++      el.style.pointerEvents = 'none';
++    });
++  }
++
++
++
++  function sfdiagRectVisible(el){
++    if(!el || !el.isConnected) return false;
++    const r = el.getBoundingClientRect();
++    const cs = getComputedStyle(el);
++    return cs.display !== 'none' &&
++      cs.visibility !== 'hidden' &&
++      r.width > 240 &&
++      r.height > 160;
++  }
++
++  function sfdiagVisibleGenericPanel(){
++    return qsa('[data-sfdiag-generic-panel="true"]').find(sfdiagRectVisible) || null;
++  }
++
++  function sfdiagSelectedRawText(){
++    return [
++      location.hash || '',
++      location.href || '',
++      qsa('select').map(s => {
++        const opt = s.selectedOptions && s.selectedOptions[0];
++        return [s.id || '', s.className || '', s.value || '', opt && opt.value || '', opt && opt.textContent || ''].join(' ');
++      }).join(' '),
++      qs('.game-title')?.textContent || ''
++    ].join(' ');
++  }
++
++  function sfdiagIdFromText(text){
++    const m = String(text || '').match(/\b[A-Z]{3}-\d{3}\b/);
++    return m ? m[0] : '';
++  }
++
++  function sfdiagLevelById(id){
++    if(!id) return null;
++    try{
++      if(window.DATA && Array.isArray(window.DATA.levels)){
++        return window.DATA.levels.find(l =>
++          l &&
++          l.id === id &&
++          l.training &&
++          l.training.type === 'diagnose'
++        ) || null;
++      }
++    }catch(_){}
++    return null;
++  }
++
++  function sfdiagCurrentDiagnosisLevel(){
++    const raw = sfdiagSelectedRawText();
++    const directId = sfdiagIdFromText(raw);
++    const directLevel = sfdiagLevelById(directId);
++    if(directLevel) return directLevel;
++
++    try{
++      if(typeof window.level === 'function'){
++        const l = window.level();
++        if(l && l.training && l.training.type === 'diagnose') return l;
++      }
++    }catch(_){}
++
++    try{
++      const l = window.state && window.state.level;
++      if(l && l.training && l.training.type === 'diagnose') return l;
++    }catch(_){}
++
++    return null;
++  }
++
++  function sfdiagIsCurrentDiagnosis(){
++    return Boolean(sfdiagCurrentDiagnosisLevel()) ||
++      /\[DIAG\]|diagnose|diagnosis/i.test(sfdiagSelectedRawText());
++  }
++
++  function sfdiagStableHost(){
++    const main = gameRoot();
++
++    const existing = qsa('.sfdiag-board-shell').find(el => {
++      if(el.matches && el.matches('[data-training-panel="diagnose"], .diagnose-panel')) return false;
++      return sfdiagRectVisible(el);
++    });
++    if(existing) return existing;
++
++    const candidates = [
++      qs('.training-stage-shell'),
++      qs('.level-shell'),
++      qs('.training-only-board'),
++      qs('.board-card'),
++      qs('main.game'),
++      qs('main'),
++      qs('#app'),
++      main
++    ].filter(Boolean).filter(el => {
++      if(el.matches && el.matches('[data-training-panel="diagnose"], .diagnose-panel')) return false;
++      if(el.closest && el.closest('.sf-build-room-v6r227')) return false;
++      const r = el.getBoundingClientRect();
++      const cs = getComputedStyle(el);
++      return cs.display !== 'none' &&
++        cs.visibility !== 'hidden' &&
++        r.width > 420 &&
++        r.height > 260;
++    });
++
++    let host = candidates[0] || main || document.body;
++
++    if(host.matches && host.matches('[data-training-panel="diagnose"], .diagnose-panel')){
++      host = host.parentElement || main || document.body;
++    }
++
++    return host;
++  }
++
++  function sfdiagClearOldGeneratedPanels(host){
++    qsa('[data-sfdiag-generic-panel="true"]').forEach(el => {
++      if(host && el.parentElement === host) return;
++      el.remove();
++    });
++    qsa('[data-sfdiag-decorator]').forEach(el => {
++      if(host && el.parentElement === host) return;
++      el.remove();
++    });
++    qsa('.sf-diagnosis-art-layer').forEach(el => {
++      if(host && el.parentElement === host.querySelector('[data-sfdiag-generic-panel="true"]')) return;
++      if(host && host.contains(el)) return;
++      el.remove();
++    });
++  }
++
++  function sfdiagHideLegacyPanels(host, generated){
++    try{
++      const active = document.activeElement;
++      if(active && active.matches && active.matches('.diagnose-patch, .sf-diagnosis-choice-card, .sfv174-diagnose-item, .sfv175-diagnose-item')){
++        active.blur();
++      }
++    }catch(_){}
++
++    qsa('[data-training-panel="diagnose"], .diagnose-panel').forEach(el => {
++      if(el === generated || generated.contains(el) || el.contains(generated)) return;
++      if(el.getAttribute('data-sfdiag-generic-panel') === 'true') return;
++
++      el.setAttribute('data-sfdiag-legacy-diagnosis', 'hidden');
++      el.setAttribute('aria-hidden', 'true');
++      el.style.display = 'none';
++      el.style.visibility = 'hidden';
++      el.style.pointerEvents = 'none';
++    });
++  }
++
++
++  function sfdiagVisible(el){
++    if(!el || !el.isConnected) return false;
++    const r = el.getBoundingClientRect();
++    const cs = getComputedStyle(el);
++    return cs.display !== 'none' &&
++      cs.visibility !== 'hidden' &&
++      r.width > 360 &&
++      r.height > 220;
++  }
++
++  function sfdiagStageHost(){
++    const candidates = [
++      qs('.training-stage-shell'),
++      qs('.level-shell'),
++      qs('.training-only-board'),
++      qs('.board-card'),
++      qs('main.game'),
++      qs('main'),
++      qs('#app')
++    ].filter(Boolean);
++
++    for(const el of candidates){
++      if(el.closest && el.closest('.sf-build-room-v6r227')) continue;
++      if(el.matches && el.matches('[data-training-panel="diagnose"], .diagnose-panel')) continue;
++      const r = el.getBoundingClientRect();
++      const cs = getComputedStyle(el);
++      if(cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 520 && r.height > 320){
++        return el;
++      }
++    }
++
++    return gameRoot() || document.body;
++  }
++
++  function sfdiagClearDiagnosisStage(host){
++    if(!host) return;
++
++    qsa('[data-sfdiag-generic-panel="true"]', host).forEach(el => el.remove());
++    qsa('[data-sfdiag-decorator]', host).forEach(el => el.remove());
++    qsa('.sf-diagnosis-art-layer', host).forEach(el => el.remove());
++
++    // Remove/neutralize legacy diagnosis panels inside the stage host only.
++    qsa('[data-training-panel="diagnose"], .diagnose-panel', host).forEach(el => {
++      if(el.getAttribute('data-sfdiag-generic-panel') === 'true') return;
++      el.remove();
++    });
++
++    // If the stage still contains non-diagnosis leftover content from a previous
++    // Build-a-Room/native shell, clear only when this host is diagnosis-owned.
++    if(host.dataset.sfdiagStageOwned === 'true'){
++      host.innerHTML = '';
++    }
++  }
++
++  function sfdiagCurrentDiagnosisLevelObject(){
++    const id = sfdiagSelectedIdNoRecursion();
++
++    const byId = sfdiagDiagnosisLevelById(id);
++    if(byId) return byId;
++
++    try{
++      if(typeof window.level === 'function'){
++        const l = window.level();
++        if(l && l.training && l.training.type === 'diagnose') return l;
++      }
++    }catch(_){}
++
++    try{
++      const l = window.state && window.state.level;
++      if(l && l.training && l.training.type === 'diagnose') return l;
++    }catch(_){}
++
++    return null;
++  }
++
+   function removeOldDecorators(board){
+     qsa('[data-sfdiag-decorator]', board).forEach(el => el.remove());
+   }
+ 
+   function renderGenericDiagnosis(){
+-    if(!isDiagnosisBoard()) return false;
++    const l = sfdiagCurrentDiagnosisLevelObject();
++    if(!l && !isDiagnosisBoard()) return false;
++
+     const main = gameRoot();
+-    const l = currentLevelObject();
+-    const t = currentDiagnosisTraining();
+-    const board = findBoardShell();
+-    if(!main || !board || !t) return false;
+-
+-    const id = (l && l.id) || levelId();
+-    const existingId = board.getAttribute('data-sfdiag-rendered-level');
+-    if(main.dataset.sfdiagVersion !== VERSION || existingId !== id){
+-      removeOldDecorators(board);
+-      qsa('[data-sfdiag-generic-panel="true"]', board).forEach(el => el.remove());
+-      qsa('[data-sfdiag-legacy-diagnosis="hidden"]', board).forEach(el => {
+-        el.removeAttribute('data-sfdiag-legacy-diagnosis');
+-        el.removeAttribute('aria-hidden');
+-        el.style.display = '';
+-        el.style.visibility = '';
+-        el.style.pointerEvents = '';
+-      });
++    const levelObj = l || currentLevelObject();
++    const t = (levelObj && levelObj.training && levelObj.training.type === 'diagnose')
++      ? levelObj.training
++      : currentDiagnosisTraining();
++
++    if(!main || !levelObj || !t) return false;
++
++    const id = levelObj.id || levelId();
++    const host = sfdiagStageHost();
++
++    if(!host) return false;
++
++    const currentKey = host.dataset.sfdiagRenderedLevel || '';
++
++    if(currentKey !== id || main.dataset.sfdiagVersion !== VERSION){
++      sfdiagClearDiagnosisStage(host);
++      host.dataset.sfdiagStageOwned = 'true';
++      host.dataset.sfdiagRenderedLevel = id || 'unknown';
++
++      host.classList.add('sfdiag-board-shell');
++      if(getComputedStyle(host).position === 'static'){
++        host.style.position = 'relative';
++      }
++
++      host.insertAdjacentHTML('afterbegin', generatedPanelHtml(levelObj, t));
++
++      if(!qs(':scope > [data-sfdiag-decorator="left"]', host)) host.insertAdjacentHTML('afterbegin', labLeftHtml());
++      if(!qs(':scope > [data-sfdiag-decorator="right"]', host)) host.insertAdjacentHTML('beforeend', labRightHtml());
++      if(!qs(':scope > [data-sfdiag-decorator="workflow"]', host)) host.insertAdjacentHTML('beforeend', workflowHtml());
+     }
+ 
++    let panel = qs(':scope > [data-sfdiag-generic-panel="true"]', host);
++    if(!panel){
++      host.insertAdjacentHTML('afterbegin', generatedPanelHtml(levelObj, t));
++      panel = qs(':scope > [data-sfdiag-generic-panel="true"]', host);
++    }
++
++    if(!panel) return false;
++
++    panel.classList.add('sfdiag-clipboard-panel', 'sfdiag-generic-panel');
++    panel.setAttribute('data-training-panel', 'diagnose');
++    panel.setAttribute('data-training-only', 'true');
++    panel.setAttribute('data-sfdiag-generic-panel', 'true');
++    panel.setAttribute('data-sfdiag-level-id', id || 'unknown');
++
+     main.classList.add('sfdiag-ui-active');
+     main.dataset.sfdiagVersion = VERSION;
+-    board.classList.add('sfdiag-board-shell');
+-    board.setAttribute('data-sfdiag-rendered-level', id || 'unknown');
+ 
+-    let panel = qs('[data-sfdiag-generic-panel="true"]', board);
+-    if(!panel){
+-      board.insertAdjacentHTML('afterbegin', generatedPanelHtml(l, t));
+-      panel = qs('[data-sfdiag-generic-panel="true"]', board);
+-    }
+-    panel.classList.add('sfdiag-clipboard-panel');
+     bindGeneratedPanel(panel);
+-    hideLegacyDiagnosis(board, panel);
+-
+-    if(!qs('[data-sfdiag-decorator="left"]', board)) board.insertAdjacentHTML('afterbegin', labLeftHtml());
+-    if(!qs('[data-sfdiag-decorator="right"]', board)) board.insertAdjacentHTML('beforeend', labRightHtml());
+-    if(!qs('[data-sfdiag-decorator="workflow"]', board)) board.insertAdjacentHTML('beforeend', workflowHtml());
+     setPatchTester('neutral');
+ 
+     document.documentElement.classList.remove('sfdiag-precloak-pending','sfdiag-cloak-failsafe-open');
+-    console.log('[Signal Flow] Diagnosis generic GUI active', VERSION, id, diagnosisChoices(t).length);
++
++    try{
++      window.dispatchEvent(new CustomEvent('sf:diagnosis-generic-rendered', {
++        detail: { levelId: id, version: VERSION }
++      }));
++    }catch(_){}
++
++    try{
++      if(window.SF_DIAGNOSIS_SVG_ASSETS && typeof window.SF_DIAGNOSIS_SVG_ASSETS.reapplyDiagnosisSkin === 'function'){
++        window.SF_DIAGNOSIS_SVG_ASSETS.reapplyDiagnosisSkin('diagnosis-ui-v6r252');
++      }else if(window.SF_DIAGNOSIS_SVG_ASSETS && typeof window.SF_DIAGNOSIS_SVG_ASSETS.installDiagnosisSkin === 'function'){
++        window.SF_DIAGNOSIS_SVG_ASSETS.installDiagnosisSkin();
++      }
++    }catch(_){}
++
++    if(renderGenericDiagnosis._lastLog !== id + ':' + VERSION){
++      renderGenericDiagnosis._lastLog = id + ':' + VERSION;
++      console.log('[Signal Flow] Diagnosis generic GUI active', VERSION, id, diagnosisChoices(t).length);
++    }
++
+     return true;
+   }
+ 
+   function deactivateIfNeeded(){
+     if(isDiagnosisBoard()) return;
++
+     const main = qs('main.game.sfdiag-ui-active') || qs('main.sfdiag-ui-active') || qs('#app.sfdiag-ui-active') || qs('.sfdiag-ui-active');
+-    if(!main) return;
+-    main.classList.remove('sfdiag-ui-active');
+-    delete main.dataset.sfdiagVersion;
++    if(main){
++      main.classList.remove('sfdiag-ui-active');
++      delete main.dataset.sfdiagVersion;
++    }
++
++    qsa('[data-sfdiag-stage-owned="true"], .sfdiag-board-shell[data-sfdiag-rendered-level]').forEach(host => {
++      if(host.dataset.sfdiagStageOwned === 'true'){
++        host.innerHTML = '';
++      }
++      delete host.dataset.sfdiagStageOwned;
++      host.removeAttribute('data-sfdiag-rendered-level');
++      host.classList.remove('sfdiag-board-shell');
++    });
++
+     qsa('[data-sfdiag-decorator]').forEach(el => el.remove());
+     qsa('[data-sfdiag-generic-panel="true"]').forEach(el => el.remove());
+-    qsa('[data-sfdiag-legacy-diagnosis="hidden"]').forEach(el => {
+-      el.removeAttribute('data-sfdiag-legacy-diagnosis');
+-      el.removeAttribute('aria-hidden');
+-      el.style.display = '';
+-      el.style.visibility = '';
+-      el.style.pointerEvents = '';
+-    });
+-    qsa('.sfdiag-board-shell').forEach(el => { el.classList.remove('sfdiag-board-shell'); el.removeAttribute('data-sfdiag-rendered-level'); });
++    qsa('.sf-diagnosis-art-layer').forEach(el => el.remove());
+   }
+ 
+   function refresh(){ if(!renderGenericDiagnosis()) deactivateIfNeeded(); }
++
++  // Diagnosis selected-level watchdog v6r256.
++  // This fixes diagnosis levels such as LIV-031 where the ledger/select changes,
++  // but no generic diagnosis panel is rebuilt after navigation.
++  function sfdiagVisibleGenericForSelected(){
++    const id = sfdiagSelectedIdNoRecursion ? sfdiagSelectedIdNoRecursion() : '';
++    return qsa('[data-sfdiag-generic-panel="true"]').find(el => {
++      const r = el.getBoundingClientRect();
++      const cs = getComputedStyle(el);
++      return cs.display !== 'none' &&
++        cs.visibility !== 'hidden' &&
++        r.width > 320 &&
++        r.height > 60 &&
++        (!id || el.getAttribute('data-sfdiag-level-id') === id);
++    }) || null;
++  }
++
++  let sfdiagLastWatchKey = '';
++  function sfdiagWatchDiagnosisLevel(reason){
++    try{
++      const id = sfdiagSelectedIdNoRecursion ? sfdiagSelectedIdNoRecursion() : '';
++      const level = sfdiagDiagnosisLevelById ? sfdiagDiagnosisLevelById(id) : null;
++      if(!level) return;
++
++      const visibleGeneric = sfdiagVisibleGenericForSelected();
++      if(visibleGeneric) return;
++
++      const key = id + ':' + reason + ':' + Date.now().toString().slice(0, -3);
++      if(key === sfdiagLastWatchKey) return;
++      sfdiagLastWatchKey = key;
++
++      refresh();
++      setTimeout(refresh, 120);
++      setTimeout(refresh, 360);
++    }catch(err){
++      console.warn('[Signal Flow] Diagnosis watchdog failed v6r256', err);
++    }
++  }
++
+   window.sfInstallDiagnosisGui = refresh;
+ 
+   let timer = null;
+@@ -292,4 +712,14 @@
+   }, true);
+   new MutationObserver(() => schedule(80)).observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:['class','value','data-ok','data-correct'] });
+   schedule(80);
++
++  window.addEventListener('hashchange', () => setTimeout(() => sfdiagWatchDiagnosisLevel('hashchange'), 90));
++  document.addEventListener('change', event => {
++    if(event.target && event.target.matches && event.target.matches('select,#levelJump,#envJump,#levelSelect,#envSelect')){
++      setTimeout(() => sfdiagWatchDiagnosisLevel('select'), 100);
++      setTimeout(() => sfdiagWatchDiagnosisLevel('select-late'), 450);
++    }
++  }, true);
++
++  setInterval(() => sfdiagWatchDiagnosisLevel('interval'), 500);
+ })();
+diff --git a/patch/sf-diagnosis-svg-skin.css b/patch/sf-diagnosis-svg-skin.css
+index 97a66d7..5d3ffb6 100644
+--- a/patch/sf-diagnosis-svg-skin.css
++++ b/patch/sf-diagnosis-svg-skin.css
+@@ -1,4 +1,4 @@
+-/* Signal Flow Diagnosis Mode SVG Skin helper
++/* Signal Flow Diagnosis Mode SVG Skin helper v6r246
+    Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.css
+    Decorative assets only: keep actual question text, answers, buttons, hotspots, scoring, and game state in DOM/JS. */
+ #patchbayWrap.sf-diagnosis-mode,
+@@ -50,3 +50,130 @@
+ .sf-diagnosis-meter.is-active {
+   filter: drop-shadow(0 0 8px rgba(132, 235, 65, .75));
+ }
++
++
++/* Diagnosis SVG skin ownership v6r247.
++   Attach art to the visible diagnosis panel itself. */
++.diagnose-panel.sfdiag-svg-skin-active,
++.training-level-panel.diagnose-panel.sfdiag-svg-skin-active,
++[data-training-panel="diagnose"].sfdiag-svg-skin-active {
++  position: relative !important;
++  isolation: isolate !important;
++  overflow: hidden !important;
++  background:
++    radial-gradient(circle at 12% 10%, rgba(255, 210, 110, 0.15), transparent 28%),
++    linear-gradient(135deg, rgba(24, 18, 34, 0.96), rgba(8, 12, 22, 0.98)) !important;
++}
++
++.diagnose-panel.sfdiag-svg-skin-active > :not(.sf-diagnosis-art-layer),
++[data-training-panel="diagnose"].sfdiag-svg-skin-active > :not(.sf-diagnosis-art-layer) {
++  position: relative !important;
++  z-index: 2 !important;
++}
++
++.sfdiag-svg-skin-active > .sf-diagnosis-art-layer {
++  position: absolute !important;
++  inset: 0 !important;
++  z-index: 0 !important;
++  pointer-events: none !important;
++  overflow: hidden !important;
++}
++
++.sfdiag-svg-skin-active .sf-diagnosis-board-shell {
++  position: absolute !important;
++  inset: 0 !important;
++  width: 100% !important;
++  height: 100% !important;
++  object-fit: cover !important;
++  opacity: 0.72 !important;
++}
++
++.sfdiag-svg-skin-active .sf-diagnosis-topbar-skin {
++  position: absolute !important;
++  top: 10px !important;
++  left: 18px !important;
++  right: 18px !important;
++  width: calc(100% - 36px) !important;
++  height: 74px !important;
++  object-fit: fill !important;
++  opacity: 0.9 !important;
++}
++
++.sfdiag-svg-skin-active .sf-diagnosis-sidebar-skin {
++  position: absolute !important;
++  top: 92px !important;
++  left: 14px !important;
++  width: min(270px, 28%) !important;
++  height: calc(100% - 112px) !important;
++  object-fit: fill !important;
++  opacity: 0.72 !important;
++}
++
++.sfdiag-svg-skin-active .sf-diagnosis-choice-card,
++.sfdiag-svg-skin-active .diagnose-patch {
++  position: relative !important;
++  z-index: 3 !important;
++}
++
++
++/* Diagnosis diag-to-diag skin lifecycle bridge v6r248 */
++.diagnose-panel.sfdiag-svg-skin-active,
++.training-level-panel.diagnose-panel.sfdiag-svg-skin-active,
++[data-training-panel="diagnose"].sfdiag-svg-skin-active {
++  position: relative !important;
++  isolation: isolate !important;
++}
++
++.sfdiag-svg-skin-active > .sf-diagnosis-art-layer {
++  position: absolute !important;
++  inset: 0 !important;
++  z-index: 0 !important;
++  pointer-events: none !important;
++}
++
++.sfdiag-svg-skin-active > :not(.sf-diagnosis-art-layer) {
++  position: relative !important;
++  z-index: 2 !important;
++}
++
++.sfdiag-svg-skin-active .sf-diagnosis-choice-card,
++.sfdiag-svg-skin-active .diagnose-patch {
++  position: relative !important;
++  z-index: 3 !important;
++}
++
++
++/* Diagnosis generic panel sizing/skin repair v6r254.
++   The generic diagnosis panel can be created at only ~120px high before the
++   SVG skin claims it; make it a real board surface immediately. */
++[data-sfdiag-generic-panel="true"].sfdiag-generic-panel,
++.sfdiag-generic-panel[data-training-panel="diagnose"] {
++  display: block !important;
++  position: relative !important;
++  width: 100% !important;
++  min-height: min(720px, calc(100vh - 230px)) !important;
++  height: min(720px, calc(100vh - 230px)) !important;
++  overflow: hidden !important;
++  isolation: isolate !important;
++  box-sizing: border-box !important;
++}
++
++[data-sfdiag-generic-panel="true"].sfdiag-svg-skin-active,
++.sfdiag-generic-panel.sfdiag-svg-skin-active {
++  min-height: min(720px, calc(100vh - 230px)) !important;
++  height: min(720px, calc(100vh - 230px)) !important;
++}
++
++[data-sfdiag-generic-panel="true"] > .sf-diagnosis-art-layer,
++.sfdiag-generic-panel > .sf-diagnosis-art-layer {
++  position: absolute !important;
++  inset: 0 !important;
++  z-index: 0 !important;
++  pointer-events: none !important;
++}
++
++[data-sfdiag-generic-panel="true"] > :not(.sf-diagnosis-art-layer),
++.sfdiag-generic-panel > :not(.sf-diagnosis-art-layer) {
++  position: relative !important;
++  z-index: 2 !important;
++}
+diff --git a/patch/sf-diagnosis-svg-skin.js b/patch/sf-diagnosis-svg-skin.js
+index b550e95..fe2ec52 100644
+--- a/patch/sf-diagnosis-svg-skin.js
++++ b/patch/sf-diagnosis-svg-skin.js
+@@ -1,7 +1,9 @@
+-// Signal Flow Diagnosis Mode SVG Skin helper
+-// Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.js
+-// Codex should adapt selectors to the current local build.
++// Signal Flow Diagnosis Mode SVG Skin helper v6r247
++// Takes ownership of the visible diagnosis panel, not a loose outer ancestor.
+ (function () {
++  'use strict';
++
++  const VERSION = '6r256';
+   const ASSET_ROOT = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href.replace(/\/$/, '');
+   const DIAGNOSIS_ASSETS = {
+     boardShell: `${ASSET_ROOT}/backgrounds/diagnosis-board-shell.svg`,
+@@ -21,15 +23,73 @@
+     workflowRail: `${ASSET_ROOT}/navigation/diagnosis-workflow-rail.svg`
+   };
+ 
+-  function isDiagnosisMode() {
+-    const wrap = document.querySelector('#patchbayWrap');
+-    const body = document.body;
+-    return Boolean(
+-      wrap?.classList.contains('sf-diagnosis-mode') ||
+-      wrap?.dataset?.mode === 'diagnose' ||
+-      body?.classList.contains('sf-diagnosis-mode') ||
+-      document.querySelector('[data-diagnosis-board], .diagnosis-board, .diagnose-board')
+-    );
++  function qsa(sel, root = document) {
++    return Array.from(root.querySelectorAll(sel));
++  }
++
++  function rectArea(el) {
++    const r = el.getBoundingClientRect();
++    return Math.max(0, r.width) * Math.max(0, r.height);
++  }
++
++  function isVisible(el) {
++    // v6r254 generic panel early visibility allowance
++    if (!el || !el.isConnected) return false;
++    const r = el.getBoundingClientRect();
++    const cs = getComputedStyle(el);
++    if (el.matches && el.matches('[data-sfdiag-generic-panel="true"], .sfdiag-generic-panel')) {
++      return cs.display !== 'none' &&
++        cs.visibility !== 'hidden' &&
++        r.width > 360 &&
++        r.height > 60;
++    }
++    return cs.display !== 'none' &&
++      cs.visibility !== 'hidden' &&
++      r.width > 420 &&
++      r.height > 240;
++  }
++
++  function textOf(el) {
++    return String(el && el.textContent || '').replace(/\s+/g, ' ').trim();
++  }
++
++  function looksLikeDiagnosisPanel(el) {
++    if (!el || !isVisible(el)) return false;
++    const cls = String(el.className || '');
++    const panel = el.getAttribute('data-training-panel') || '';
++    const txt = textOf(el);
++
++    return panel === 'diagnose' ||
++      /\bdiagnose-panel\b|sfv174-diagnose|sfv175-diagnose|diagnosis-board|diagnose-board/i.test(cls) ||
++      /Signal Flow Diagnosis|Find the broken|unsafe patch|Routing Monitor|Diagnosis/i.test(txt);
++  }
++
++  function activeDiagnosisPanel() {
++    const generic = qsa('[data-sfdiag-generic-panel="true"], .sfdiag-generic-panel')
++      .filter(el => {
++        if (!el || !el.isConnected) return false;
++        const r = el.getBoundingClientRect();
++        const cs = getComputedStyle(el);
++        return cs.display !== 'none' &&
++          cs.visibility !== 'hidden' &&
++          r.width > 360 &&
++          r.height > 60;
++      })
++      .sort((a, b) => rectArea(b) - rectArea(a))[0];
++    if (generic) return generic;
++const candidates = qsa([
++      'section.training-level-panel.diagnose-panel[data-training-panel="diagnose"]',
++      '[data-training-panel="diagnose"]',
++      '.diagnose-panel',
++      '.sfv174-diagnose-clinic',
++      '.sfv175-diagnose-board',
++      '.diagnosis-board',
++      '.diagnose-board'
++    ].join(','))
++      .filter(looksLikeDiagnosisPanel)
++      .sort((a, b) => rectArea(b) - rectArea(a));
++
++    return candidates[0] || null;
+   }
+ 
+   function makeImg(src, className, alt = '') {
+@@ -43,29 +103,73 @@
+     return img;
+   }
+ 
++  function ensureLayer(panel) {
++    let layer = Array.from(panel.children).find(el => el.classList && el.classList.contains('sf-diagnosis-art-layer'));
++    if (!layer) {
++      layer = document.createElement('div');
++      layer.className = 'sf-diagnosis-art-layer';
++      layer.dataset.sfDiagnosisSkin = VERSION;
++      layer.appendChild(makeImg(DIAGNOSIS_ASSETS.boardShell, 'sf-diagnosis-board-shell', ''));
++      layer.appendChild(makeImg(DIAGNOSIS_ASSETS.topbar, 'sf-diagnosis-topbar-skin', ''));
++      layer.appendChild(makeImg(DIAGNOSIS_ASSETS.sidebar, 'sf-diagnosis-sidebar-skin', ''));
++      panel.prepend(layer);
++    } else {
++      layer.dataset.sfDiagnosisSkin = VERSION;
++    }
++    return layer;
++  }
++
++  function decoratePanel(panel) {
++    panel.classList.add('sf-diagnosis-mode', 'sfdiag-svg-skin-active');
++    panel.dataset.sfdiagSvgSkin = 'active';
++    panel.dataset.sfdiagSvgVersion = VERSION;
++
++    if (getComputedStyle(panel).position === 'static') {
++      panel.style.position = 'relative';
++    }
++
++    qsa('.diagnose-patch, button.inline-diagnose, .sfv174-diagnose-item, .sfv175-diagnose-item', panel)
++      .forEach((btn, index) => {
++        btn.classList.add('sf-diagnosis-choice-card');
++        btn.dataset.sfdiagChoiceIndex = String(index + 1);
++      });
++
++    qsa('.sf-diagnosis-art-layer', document)
++      .forEach(layer => {
++        if (layer.parentElement !== panel) layer.remove();
++      });
++  }
++
+   function installDiagnosisSkin() {
+-    if (!isDiagnosisMode()) return false;
+-    const host = document.querySelector('#patchbayWrap') || document.querySelector('#app') || document.body;
+-    if (host.querySelector('.sf-diagnosis-art-layer')) return true;
+-    host.classList.add('sf-diagnosis-mode');
+-    if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+-
+-    const layer = document.createElement('div');
+-    layer.className = 'sf-diagnosis-art-layer';
+-    layer.dataset.sfDiagnosisSkin = 'v1';
+-    // Codex: place these assets into the existing diagnosis layout containers instead of absolute defaults when available.
+-    layer.appendChild(makeImg(DIAGNOSIS_ASSETS.boardShell, 'sf-diagnosis-board-shell', ''));
+-    host.prepend(layer);
++    const panel = activeDiagnosisPanel();
++    if (!panel) return false;
++
++    decoratePanel(panel);
++    ensureLayer(panel);
++
++    document.documentElement.dataset.sfdiagSvgSkinVersion = VERSION;
++
++    if (installDiagnosisSkin._lastPanel !== panel) {
++      installDiagnosisSkin._lastPanel = panel;
++      console.log('[Signal Flow] Diagnosis SVG skin active', VERSION, {
++        classes: String(panel.className || ''),
++        level: location.hash || ''
++      });
++    }
++
+     return true;
+   }
+ 
+   function updateDiagnosisMetersFromState() {
+-    // Generic placeholder: Codex should replace this with real diagnosis/progress state.
+-    const completed = Boolean(window.SignalFlow?.state?.diagnosisAnswered || document.querySelector('.diagnosis-choice.is-correct, .sf-diagnosis-choice-card.is-correct'));
++    const completed = Boolean(
++      window.SignalFlow?.state?.diagnosisAnswered ||
++      document.querySelector('.diagnosis-choice.is-correct, .sf-diagnosis-choice-card.is-correct, .diagnose-patch.selected')
++    );
+     document.querySelectorAll('.sf-diagnosis-meter').forEach((el) => el.classList.toggle('is-active', completed));
+   }
+ 
+   window.SF_DIAGNOSIS_SVG_ASSETS = {
++    VERSION,
+     ASSET_ROOT,
+     DIAGNOSIS_ASSETS,
+     installDiagnosisSkin,
+@@ -99,10 +203,396 @@
+   document.addEventListener('change', event => {
+     if (event.target?.matches?.('select,#levelJump,#envJump')) scheduleRefresh(120);
+   }, true);
++
+   new MutationObserver(() => scheduleRefresh(120)).observe(document.documentElement, {
+     childList: true,
+     subtree: true,
+     attributes: true,
+-    attributeFilter: ['class', 'data-mode', 'data-board-id', 'data-level-id']
++    attributeFilter: ['class', 'data-mode', 'data-board-id', 'data-level-id', 'data-training-panel', 'style', 'aria-hidden']
++  });
++})();
++
++
++// Diagnosis diag-to-diag skin lifecycle bridge v6r248.
++// Keeps the SVG skin attached when navigating directly between diagnosis boards.
++(function(){
++  'use strict';
++
++  const VERSION = '6r248';
++  let refreshTimer = null;
++  let lastAppliedKey = '';
++
++  function qsa(sel, root = document){
++    return Array.from(root.querySelectorAll(sel));
++  }
++
++  function rectArea(el){
++    const r = el.getBoundingClientRect();
++    return Math.max(0, r.width) * Math.max(0, r.height);
++  }
++
++  function visible(el){
++    if(!el || !el.isConnected) return false;
++    const r = el.getBoundingClientRect();
++    const cs = getComputedStyle(el);
++    return cs.display !== 'none' &&
++      cs.visibility !== 'hidden' &&
++      el.getAttribute('aria-hidden') !== 'true' &&
++      r.width > 420 &&
++      r.height > 240;
++  }
++
++  function textOf(el){
++    return String(el && el.textContent || '').replace(/\s+/g, ' ').trim();
++  }
++
++  function currentLevelId(){
++    const hash = (location.hash || '').match(/\b[A-Z]{3}-\d{3}\b/);
++    if(hash) return hash[0];
++
++    for(const s of qsa('select')){
++      const opt = s.selectedOptions && s.selectedOptions[0];
++      const raw = [s.value || '', opt && opt.textContent || ''].join(' ');
++      const m = raw.match(/\b[A-Z]{3}-\d{3}\b/);
++      if(m) return m[0];
++    }
++
++    const bodyMatch = textOf(document.body).match(/\b[A-Z]{3}-\d{3}\b/);
++    return bodyMatch ? bodyMatch[0] : '';
++  }
++
++  function isDiagnosisLevel(){
++    const raw = [
++      location.hash || '',
++      document.body.className || '',
++      qsa('select').map(s => {
++        const opt = s.selectedOptions && s.selectedOptions[0];
++        return [s.value || '', opt && opt.textContent || ''].join(' ');
++      }).join(' '),
++      textOf(document.querySelector('.game-title') || document.body).slice(0, 1000)
++    ].join(' ');
++
++    return /\[DIAG\]|diagnose|diagnosis|Find the broken|unsafe patch/i.test(raw) ||
++      Boolean(document.querySelector('[data-training-panel="diagnose"], .diagnose-panel, .sfdiag-generic-panel'));
++  }
++
++  function blurDiagnosisFocus(){
++    const active = document.activeElement;
++    if(active && active.matches && active.matches('.diagnose-patch, .sf-diagnosis-choice-card, .sfv174-diagnose-item, .sfv175-diagnose-item')){
++      try { active.blur(); } catch(_){}
++    }
++  }
++
++  function makeImg(src, cls){
++    const img = document.createElement('img');
++    img.src = src;
++    img.alt = '';
++    img.className = cls;
++    img.decoding = 'async';
++    img.loading = 'eager';
++    img.draggable = false;
++    return img;
++  }
++
++  function assets(){
++    return window.SF_DIAGNOSIS_SVG_ASSETS && window.SF_DIAGNOSIS_SVG_ASSETS.DIAGNOSIS_ASSETS || null;
++  }
++
++  function activeDiagnosisPanel(){
++    const panels = qsa([
++      'section.training-level-panel.diagnose-panel.sfdiag-generic-panel[data-training-panel="diagnose"]',
++      'section.training-level-panel.diagnose-panel[data-training-panel="diagnose"]',
++      '[data-training-panel="diagnose"].sfdiag-generic-panel',
++      '.diagnose-panel.sfdiag-generic-panel',
++      '.sfdiag-generic-panel',
++      '[data-training-panel="diagnose"]',
++      '.diagnose-panel'
++    ].join(','))
++      .filter(el => {
++        if(!visible(el)) return false;
++        if(el.dataset.sfdiagLegacyDiagnosis === 'hidden') return false;
++        const cls = String(el.className || '');
++        const txt = textOf(el);
++        return /diagnose|diagnosis|sfdiag/i.test(cls + ' ' + txt);
++      })
++      .sort((a,b) => {
++        const ag = a.classList.contains('sfdiag-generic-panel') ? 1 : 0;
++        const bg = b.classList.contains('sfdiag-generic-panel') ? 1 : 0;
++        if(ag !== bg) return bg - ag;
++        return rectArea(b) - rectArea(a);
++      });
++
++    return panels[0] || null;
++  }
++
++  function removeStaleSkins(target){
++    qsa('.sf-diagnosis-art-layer').forEach(layer => {
++      if(!target || layer.parentElement !== target) layer.remove();
++    });
++
++    qsa('[data-sfdiag-svg-skin], .sfdiag-svg-skin-active').forEach(panel => {
++      if(panel === target) return;
++      panel.classList.remove('sf-diagnosis-mode', 'sfdiag-svg-skin-active');
++      panel.removeAttribute('data-sfdiag-svg-skin');
++      panel.removeAttribute('data-sfdiag-svg-version');
++      panel.removeAttribute('data-sfdiag-level');
++    });
++  }
++
++  function ensureArtLayer(panel){
++    const a = assets();
++    if(!a) return false;
++
++    let layer = panel.querySelector(':scope > .sf-diagnosis-art-layer');
++    if(!layer){
++      layer = document.createElement('div');
++      layer.className = 'sf-diagnosis-art-layer';
++      panel.prepend(layer);
++    }
++
++    layer.dataset.sfDiagnosisSkin = VERSION;
++
++    if(!layer.querySelector('.sf-diagnosis-board-shell')){
++      layer.appendChild(makeImg(a.boardShell, 'sf-diagnosis-board-shell'));
++    }
++    if(!layer.querySelector('.sf-diagnosis-topbar-skin')){
++      layer.appendChild(makeImg(a.topbar, 'sf-diagnosis-topbar-skin'));
++    }
++    if(!layer.querySelector('.sf-diagnosis-sidebar-skin')){
++      layer.appendChild(makeImg(a.sidebar, 'sf-diagnosis-sidebar-skin'));
++    }
++
++    return true;
++  }
++
++  function applySkin(reason){
++    if(!isDiagnosisLevel()){
++      return false;
++    }
++
++    blurDiagnosisFocus();
++
++    const panel = activeDiagnosisPanel();
++    if(!panel){
++      return false;
++    }
++
++    removeStaleSkins(panel);
++
++    panel.classList.add('sf-diagnosis-mode', 'sfdiag-svg-skin-active');
++    panel.dataset.sfdiagSvgSkin = 'active';
++    panel.dataset.sfdiagSvgVersion = VERSION;
++    panel.dataset.sfdiagLevel = currentLevelId();
++
++    if(getComputedStyle(panel).position === 'static'){
++      panel.style.position = 'relative';
++    }
++
++    qsa('.diagnose-patch, button.inline-diagnose, .sfv174-diagnose-item, .sfv175-diagnose-item', panel)
++      .forEach((btn, index) => {
++        btn.classList.add('sf-diagnosis-choice-card');
++        btn.dataset.sfdiagChoiceIndex = String(index + 1);
++      });
++
++    ensureArtLayer(panel);
++
++    const key = [currentLevelId(), panel.dataset.sfdiagSvgVersion, Math.round(rectArea(panel))].join(':');
++    if(key !== lastAppliedKey){
++      lastAppliedKey = key;
++      console.log('[Signal Flow] Diagnosis SVG skin reapplied', VERSION, {
++        level: currentLevelId(),
++        reason,
++        classes: String(panel.className || '')
++      });
++    }
++
++    return true;
++  }
++
++  function schedule(reason = 'schedule', delay = 60){
++    clearTimeout(refreshTimer);
++    refreshTimer = setTimeout(() => applySkin(reason), delay);
++  }
++
++  function burst(reason){
++    [0, 40, 90, 160, 300, 600, 1000, 1500].forEach(delay => {
++      setTimeout(() => applySkin(reason + ':' + delay), delay);
++    });
++  }
++
++  window.SF_DIAGNOSIS_SVG_ASSETS = window.SF_DIAGNOSIS_SVG_ASSETS || {};
++  window.SF_DIAGNOSIS_SVG_ASSETS.reapplyDiagnosisSkin = function(reason){
++    burst(reason || 'manual');
++  };
++
++  document.addEventListener('change', event => {
++    if(event.target && event.target.matches && event.target.matches('select,#levelJump,#envJump,#levelSelect,#envSelect')){
++      blurDiagnosisFocus();
++      burst('select-change');
++    }
++  }, true);
++
++  document.addEventListener('click', event => {
++    if(event.target && event.target.closest && event.target.closest('select,#levelJump,#envJump,#levelSelect,#envSelect,.diagnose-patch')){
++      schedule('click', 80);
++    }
++  }, true);
++
++  window.addEventListener('hashchange', () => burst('hashchange'));
++  window.addEventListener('popstate', () => burst('popstate'));
++  window.addEventListener('load', () => burst('load'));
++
++  ['pushState', 'replaceState'].forEach(name => {
++    const original = history[name];
++    if(typeof original !== 'function' || original.__sfdiagWrapped) return;
++    history[name] = function(){
++      const result = original.apply(this, arguments);
++      burst('history-' + name);
++      return result;
++    };
++    history[name].__sfdiagWrapped = true;
++  });
++
++  new MutationObserver(() => schedule('mutation', 90)).observe(document.documentElement, {
++    childList: true,
++    subtree: true,
++    attributes: true,
++    attributeFilter: ['class', 'style', 'aria-hidden', 'data-training-panel', 'data-level-id', 'data-sfdiag-legacy-diagnosis']
++  });
++
++  burst('install');
++})();
++
++
++// Diagnosis skin wait-for-generic bridge v6r255.
++// Prevents select-change from skinning the legacy diagnosis panel before
++// diagnosis-ui has recreated the real generic panel.
++(function(){
++  'use strict';
++
++  const VERSION = '6r255';
++  let waitingTimer = null;
++  let lastLogKey = '';
++
++  function qsa(sel, root = document){
++    return Array.from(root.querySelectorAll(sel));
++  }
++
++  function rect(el){
++    return el.getBoundingClientRect();
++  }
++
++  function visible(el){
++    if(!el || !el.isConnected) return false;
++    const r = rect(el);
++    const cs = getComputedStyle(el);
++    return cs.display !== 'none' &&
++      cs.visibility !== 'hidden' &&
++      r.width > 320 &&
++      r.height > 60;
++  }
++
++  function currentLevelId(){
++    const raw = [
++      location.hash || '',
++      location.href || '',
++      qsa('select').map(s => {
++        const opt = s.selectedOptions && s.selectedOptions[0];
++        return [s.value || '', opt && opt.value || '', opt && opt.textContent || ''].join(' ');
++      }).join(' ')
++    ].join(' ');
++    return raw.match(/\b[A-Z]{3}-\d{3}\b/)?.[0] || '';
++  }
++
++  function genericPanel(){
++    return qsa('[data-sfdiag-generic-panel="true"], .sfdiag-generic-panel')
++      .filter(visible)
++      .sort((a,b) => {
++        const ar = rect(a), br = rect(b);
++        return (br.width * br.height) - (ar.width * ar.height);
++      })[0] || null;
++  }
++
++  function removeLegacySkinForLevel(){
++    qsa('[data-training-panel="diagnose"], .diagnose-panel').forEach(el => {
++      if(el.getAttribute('data-sfdiag-generic-panel') === 'true') return;
++      if(!el.classList.contains('sfdiag-svg-skin-active')) return;
++
++      el.classList.remove('sf-diagnosis-mode', 'sfdiag-svg-skin-active');
++      el.removeAttribute('data-sfdiag-svg-skin');
++      el.removeAttribute('data-sfdiag-svg-version');
++      el.removeAttribute('data-sfdiag-level');
++      qsa(':scope > .sf-diagnosis-art-layer', el).forEach(layer => layer.remove());
++    });
++  }
++
++  function reapplyWhenGeneric(reason){
++    clearTimeout(waitingTimer);
++
++    const id = currentLevelId();
++    const generic = genericPanel();
++
++    if(generic){
++      removeLegacySkinForLevel();
++
++      try{
++        if(window.SF_DIAGNOSIS_SVG_ASSETS && typeof window.SF_DIAGNOSIS_SVG_ASSETS.installDiagnosisSkin === 'function'){
++          window.SF_DIAGNOSIS_SVG_ASSETS.installDiagnosisSkin();
++        }
++      }catch(_){}
++
++      generic.dataset.sfdiagSvgVersion = VERSION;
++
++      const key = id + ':' + reason + ':' + Math.round(rect(generic).height);
++      if(key !== lastLogKey){
++        lastLogKey = key;
++        console.log('[Signal Flow] Diagnosis SVG skin generic-ready', VERSION, {
++          level: id,
++          reason,
++          classes: String(generic.className || '')
++        });
++      }
++      return true;
++    }
++
++    // No generic panel yet: strip accidental legacy skin and wait briefly.
++    removeLegacySkinForLevel();
++
++    let tries = 0;
++    waitingTimer = setInterval(() => {
++      tries += 1;
++      const panel = genericPanel();
++      if(panel){
++        clearInterval(waitingTimer);
++        reapplyWhenGeneric(reason + ':ready');
++      }else if(tries >= 12){
++        clearInterval(waitingTimer);
++        console.warn('[Signal Flow] Diagnosis SVG skin waited for generic panel but none appeared', VERSION, {
++          level: id,
++          reason
++        });
++      }
++    }, 80);
++
++    return false;
++  }
++
++  window.addEventListener('sf:diagnosis-generic-rendered', () => {
++    setTimeout(() => reapplyWhenGeneric('generic-rendered'), 0);
++    setTimeout(() => reapplyWhenGeneric('generic-rendered-late'), 120);
++  });
++
++  document.addEventListener('change', event => {
++    if(event.target && event.target.matches && event.target.matches('select,#levelJump,#envJump,#levelSelect,#envSelect')){
++      setTimeout(() => reapplyWhenGeneric('select-change-guard'), 40);
++      setTimeout(() => reapplyWhenGeneric('select-change-guard-late'), 240);
++    }
++  }, true);
++
++  window.addEventListener('hashchange', () => {
++    setTimeout(() => reapplyWhenGeneric('hashchange-guard'), 80);
++    setTimeout(() => reapplyWhenGeneric('hashchange-guard-late'), 260);
+   });
++
++  setTimeout(() => reapplyWhenGeneric('install-guard'), 250);
+ })();

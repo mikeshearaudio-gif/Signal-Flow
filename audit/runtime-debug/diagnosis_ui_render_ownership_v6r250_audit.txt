@@ -1,0 +1,151 @@
+=== diagnosis-ui render/mount function names ===
+188:      .filter(el => !el.closest('[data-sfdiag-generic-panel="true"]'));
+212:    return `<section class="training-level-panel diagnose-panel sfv174-diagnose-clinic sfv175-diagnose-board sfdiag-clipboard-panel sfdiag-generic-panel" data-training-panel="diagnose" data-training-only="true" data-sfdiag-generic-panel="true" data-sfdiag-level-id="${escHtml(l?.id || levelId())}">
+225:  function hideLegacyDiagnosis(board, generated){
+230:      hideTarget.setAttribute('data-sfdiag-legacy-diagnosis', 'hidden');
+239:  function renderScoreSafe(){ try{ if(typeof window.renderScore === 'function') window.renderScore(); }catch(_){ } }
+288:  function renderGenericDiagnosis(){
+300:      qsa('[data-sfdiag-generic-panel="true"]', board).forEach(el => el.remove());
+301:      qsa('[data-sfdiag-legacy-diagnosis="hidden"]', board).forEach(el => {
+302:        el.removeAttribute('data-sfdiag-legacy-diagnosis');
+315:    let panel = qs('[data-sfdiag-generic-panel="true"]', board);
+318:      panel = qs('[data-sfdiag-generic-panel="true"]', board);
+320:    panel.classList.add('sfdiag-clipboard-panel');
+330:    console.log('[Signal Flow] Diagnosis generic GUI active', VERSION, id, diagnosisChoices(t).length);
+341:    qsa('[data-sfdiag-generic-panel="true"]').forEach(el => el.remove());
+342:    qsa('[data-sfdiag-legacy-diagnosis="hidden"]').forEach(el => {
+343:      el.removeAttribute('data-sfdiag-legacy-diagnosis');
+352:  function refresh(){ if(!renderGenericDiagnosis()) deactivateIfNeeded(); }
+
+=== around generic active log ===
+  function completeSafe(){ try{ if(typeof window.completeLevel === 'function') window.completeLevel(); }catch(e){ console.error(e); } }
+
+  function setPatchTester(kind){
+    const tester = qs('[data-sfdiag-patch-tester]');
+    const state = qs('[data-sfdiag-patch-state]', tester || document);
+    if(!tester || !state) return;
+    tester.classList.remove('sfdiag-state-neutral','sfdiag-state-pass','sfdiag-state-fail');
+    if(kind === 'pass') { tester.classList.add('sfdiag-state-pass'); state.textContent = 'PASS'; }
+    else if(kind === 'fail') { tester.classList.add('sfdiag-state-fail'); state.textContent = 'CHECK'; }
+    else { tester.classList.add('sfdiag-state-neutral'); state.textContent = 'READY'; }
+  }
+
+  function bindGeneratedPanel(panel){
+    if(!panel || panel.dataset.sfdiagBound === VERSION) return;
+    panel.dataset.sfdiagBound = VERSION;
+    const out = qs('[data-sfdiag-result], .training-result', panel);
+    function setResult(kind, message){
+      if(out){ out.className = 'training-result show ' + kind + ' sfv174-clipboard-result'; out.textContent = message || ''; }
+      if(kind === 'bad') play('wrongAnswer');
+    }
+    function finish(btn){
+      play('rightAnswer');
+      setPatchTester('pass');
+      setResult('good', 'Correct. ' + (btn.dataset.reason || 'You found the broken route.'));
+      qsa('.diagnose-patch', panel).forEach(b => { b.disabled = true; b.setAttribute('aria-disabled','true'); });
+      try{
+        const id = panel.getAttribute('data-sfdiag-level-id') || levelId();
+        if(typeof window.sfAwardLedgerScoreOnce === 'function') window.sfAwardLedgerScoreOnce('training-' + id, 500, 25);
+        renderScoreSafe();
+      }catch(e){ console.warn('[Signal Flow] Diagnosis GUI award failed', e); }
+      setTimeout(completeSafe, 550);
+    }
+    qsa('.diagnose-patch', panel).forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(btn.disabled) return;
+        const correct = btn.dataset.ok === 'false';
+        qsa('.diagnose-patch', panel).forEach(x => x.classList.remove('selected'));
+        btn.classList.add('selected');
+        if(correct) finish(btn);
+        else { setPatchTester('fail'); setResult('bad', 'That patch is valid for this job. Look for the route that breaks the workflow.'); }
+      });
+    });
+  }
+
+  function removeOldDecorators(board){
+    qsa('[data-sfdiag-decorator]', board).forEach(el => el.remove());
+  }
+
+  function renderGenericDiagnosis(){
+    if(!isDiagnosisBoard()) return false;
+    const main = gameRoot();
+    const l = currentLevelObject();
+    const t = currentDiagnosisTraining();
+    const board = findBoardShell();
+    if(!main || !board || !t) return false;
+
+    const id = (l && l.id) || levelId();
+    const existingId = board.getAttribute('data-sfdiag-rendered-level');
+    if(main.dataset.sfdiagVersion !== VERSION || existingId !== id){
+      removeOldDecorators(board);
+      qsa('[data-sfdiag-generic-panel="true"]', board).forEach(el => el.remove());
+      qsa('[data-sfdiag-legacy-diagnosis="hidden"]', board).forEach(el => {
+        el.removeAttribute('data-sfdiag-legacy-diagnosis');
+        el.removeAttribute('aria-hidden');
+        el.style.display = '';
+        el.style.visibility = '';
+        el.style.pointerEvents = '';
+      });
+    }
+
+    main.classList.add('sfdiag-ui-active');
+    main.dataset.sfdiagVersion = VERSION;
+    board.classList.add('sfdiag-board-shell');
+    board.setAttribute('data-sfdiag-rendered-level', id || 'unknown');
+
+    let panel = qs('[data-sfdiag-generic-panel="true"]', board);
+    if(!panel){
+      board.insertAdjacentHTML('afterbegin', generatedPanelHtml(l, t));
+      panel = qs('[data-sfdiag-generic-panel="true"]', board);
+    }
+    panel.classList.add('sfdiag-clipboard-panel');
+    bindGeneratedPanel(panel);
+    hideLegacyDiagnosis(board, panel);
+
+    if(!qs('[data-sfdiag-decorator="left"]', board)) board.insertAdjacentHTML('afterbegin', labLeftHtml());
+    if(!qs('[data-sfdiag-decorator="right"]', board)) board.insertAdjacentHTML('beforeend', labRightHtml());
+    if(!qs('[data-sfdiag-decorator="workflow"]', board)) board.insertAdjacentHTML('beforeend', workflowHtml());
+    setPatchTester('neutral');
+
+    document.documentElement.classList.remove('sfdiag-precloak-pending','sfdiag-cloak-failsafe-open');
+    console.log('[Signal Flow] Diagnosis generic GUI active', VERSION, id, diagnosisChoices(t).length);
+    return true;
+  }
+
+  function deactivateIfNeeded(){
+    if(isDiagnosisBoard()) return;
+    const main = qs('main.game.sfdiag-ui-active') || qs('main.sfdiag-ui-active') || qs('#app.sfdiag-ui-active') || qs('.sfdiag-ui-active');
+    if(!main) return;
+    main.classList.remove('sfdiag-ui-active');
+    delete main.dataset.sfdiagVersion;
+    qsa('[data-sfdiag-decorator]').forEach(el => el.remove());
+    qsa('[data-sfdiag-generic-panel="true"]').forEach(el => el.remove());
+    qsa('[data-sfdiag-legacy-diagnosis="hidden"]').forEach(el => {
+      el.removeAttribute('data-sfdiag-legacy-diagnosis');
+      el.removeAttribute('aria-hidden');
+      el.style.display = '';
+      el.style.visibility = '';
+      el.style.pointerEvents = '';
+    });
+    qsa('.sfdiag-board-shell').forEach(el => { el.classList.remove('sfdiag-board-shell'); el.removeAttribute('data-sfdiag-rendered-level'); });
+  }
+
+  function refresh(){ if(!renderGenericDiagnosis()) deactivateIfNeeded(); }
+  window.sfInstallDiagnosisGui = refresh;
+
+  let timer = null;
+  function schedule(delay=60){ clearTimeout(timer); timer = setTimeout(refresh, delay); }
+  document.addEventListener('DOMContentLoaded', () => schedule(20));
+  window.addEventListener('load', () => { schedule(30); setTimeout(refresh, 140); setTimeout(refresh, 360); setTimeout(refresh, 760); setTimeout(refresh, 1400); });
+  window.addEventListener('hashchange', () => schedule(60));
+  window.addEventListener('popstate', () => schedule(60));
+  window.addEventListener('resize', () => schedule(100));
+  document.addEventListener('change', event => { if(event.target && event.target.matches && event.target.matches('select,#levelJump,#envJump')) schedule(120); }, true);
+  document.addEventListener('click', event => {
+    if(event.target && event.target.closest && event.target.closest('button,select,#loadLevel,#loadBoard')){
+      setTimeout(refresh, 80); setTimeout(refresh, 260); setTimeout(refresh, 700);
+    }
+  }, true);
+  new MutationObserver(() => schedule(80)).observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:['class','value','data-ok','data-correct'] });
+  schedule(80);
+})();

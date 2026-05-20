@@ -1,4 +1,4 @@
-/* Signal Flow Diagnosis Universal GUI v6r213
+/* Signal Flow Diagnosis Universal GUI v6r261
    Visual/animation layer only. Preserves existing question/answer/next/scoring logic. */
 :root {
   --sfdiag-ink: #fff8df;
@@ -530,4 +530,84 @@ main.sfdiag-ui-active .sfdiag-generic-panel .diagnose-patch.selected[data-ok="fa
 main.sfdiag-ui-active .sfdiag-generic-panel .diagnose-patch.selected[data-ok="true"] {
   border-color: rgba(248,113,113,.88) !important;
   box-shadow: 0 0 0 3px rgba(248,113,113,.18), 0 9px 18px rgba(0,0,0,.20) !important;
+}
+
+/* v6r261 single-owner diagnosis renderer. */
+main.sfdiag-ui-active .sfdiag-host-owned {
+  position: relative !important;
+  display: block !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding: 12px !important;
+}
+
+main.sfdiag-ui-active .sfdiag-host-owned > .board-top,
+main.sfdiag-ui-active .sfdiag-host-owned > header:not(.game-header),
+main.sfdiag-ui-active .sfdiag-host-owned > [data-sfdiag-legacy-diagnosis="hidden"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"].sfdiag-board-shell {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(220px, 270px) minmax(520px, 1fr) minmax(310px, 420px) !important;
+  grid-template-rows: minmax(0, 1fr) 52px !important;
+  gap: 10px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: min(720px, calc(100vh - 230px)) !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  padding: 12px 12px 10px !important;
+  background: linear-gradient(180deg, rgba(24, 16, 11, .78), rgba(8, 6, 5, .95)) !important;
+  box-shadow: inset 0 0 80px rgba(0,0,0,.40), 0 18px 46px rgba(0,0,0,.45) !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sfdiag-clipboard-panel {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sf-diagnosis-art-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > :not(.sf-diagnosis-art-layer) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] .sfdiag-clipboard-panel,
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] > .sfdiag-clipboard-panel {
+  padding-top: clamp(34px, 3.2vw, 48px) !important;
+  padding-bottom: clamp(18px, 2vw, 28px) !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] .inline-diagnose-list {
+  gap: 8px !important;
+  margin: 10px 0 12px !important;
+  padding-bottom: 8px !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] .diagnose-patch {
+  min-height: 46px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  font-size: clamp(.94rem, 1.22vw, 1.22rem) !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] .sfdiag-generated-choice {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }

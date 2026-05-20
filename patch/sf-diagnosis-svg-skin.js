@@ -1,7 +1,9 @@
-// Signal Flow Diagnosis Mode SVG Skin helper
-// Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.js
-// Codex should adapt selectors to the current local build.
-(function () {
+// Signal Flow Diagnosis SVG Skin compatibility shim v6r261.
+// Diagnosis art is now rendered only by patch/diagnosis-ui.js.
+(function(){
+  'use strict';
+
+  const VERSION = '6r261';
   const ASSET_ROOT = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href.replace(/\/$/, '');
   const DIAGNOSIS_ASSETS = {
     boardShell: `${ASSET_ROOT}/backgrounds/diagnosis-board-shell.svg`,
@@ -21,88 +23,12 @@
     workflowRail: `${ASSET_ROOT}/navigation/diagnosis-workflow-rail.svg`
   };
 
-  function isDiagnosisMode() {
-    const wrap = document.querySelector('#patchbayWrap');
-    const body = document.body;
-    return Boolean(
-      wrap?.classList.contains('sf-diagnosis-mode') ||
-      wrap?.dataset?.mode === 'diagnose' ||
-      body?.classList.contains('sf-diagnosis-mode') ||
-      document.querySelector('[data-diagnosis-board], .diagnosis-board, .diagnose-board')
-    );
-  }
-
-  function makeImg(src, className, alt = '') {
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = alt;
-    img.className = className;
-    img.decoding = 'async';
-    img.loading = 'eager';
-    img.draggable = false;
-    return img;
-  }
-
-  function installDiagnosisSkin() {
-    if (!isDiagnosisMode()) return false;
-    const host = document.querySelector('#patchbayWrap') || document.querySelector('#app') || document.body;
-    if (host.querySelector('.sf-diagnosis-art-layer')) return true;
-    host.classList.add('sf-diagnosis-mode');
-    if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
-
-    const layer = document.createElement('div');
-    layer.className = 'sf-diagnosis-art-layer';
-    layer.dataset.sfDiagnosisSkin = 'v1';
-    // Codex: place these assets into the existing diagnosis layout containers instead of absolute defaults when available.
-    layer.appendChild(makeImg(DIAGNOSIS_ASSETS.boardShell, 'sf-diagnosis-board-shell', ''));
-    host.prepend(layer);
-    return true;
-  }
-
-  function updateDiagnosisMetersFromState() {
-    // Generic placeholder: Codex should replace this with real diagnosis/progress state.
-    const completed = Boolean(window.SignalFlow?.state?.diagnosisAnswered || document.querySelector('.diagnosis-choice.is-correct, .sf-diagnosis-choice-card.is-correct'));
-    document.querySelectorAll('.sf-diagnosis-meter').forEach((el) => el.classList.toggle('is-active', completed));
-  }
-
   window.SF_DIAGNOSIS_SVG_ASSETS = {
+    VERSION,
     ASSET_ROOT,
     DIAGNOSIS_ASSETS,
-    installDiagnosisSkin,
-    updateDiagnosisMetersFromState
+    installDiagnosisSkin(){ return Boolean(document.querySelector('[data-sfdiag-generic-panel="true"] > .sf-diagnosis-art-layer')); },
+    reapplyDiagnosisSkin(){ return Boolean(document.querySelector('[data-sfdiag-generic-panel="true"] > .sf-diagnosis-art-layer')); },
+    updateDiagnosisMetersFromState(){ return false; }
   };
-
-  function refreshDiagnosisSkin() {
-    installDiagnosisSkin();
-    updateDiagnosisMetersFromState();
-  }
-
-  let refreshTimer = null;
-  function scheduleRefresh(delay = 80) {
-    clearTimeout(refreshTimer);
-    refreshTimer = setTimeout(refreshDiagnosisSkin, delay);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => scheduleRefresh(20));
-  } else {
-    scheduleRefresh(20);
-  }
-
-  window.addEventListener('load', () => {
-    scheduleRefresh(40);
-    setTimeout(refreshDiagnosisSkin, 250);
-    setTimeout(refreshDiagnosisSkin, 900);
-  });
-  window.addEventListener('hashchange', () => scheduleRefresh(80));
-  window.addEventListener('popstate', () => scheduleRefresh(80));
-  document.addEventListener('change', event => {
-    if (event.target?.matches?.('select,#levelJump,#envJump')) scheduleRefresh(120);
-  }, true);
-  new MutationObserver(() => scheduleRefresh(120)).observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['class', 'data-mode', 'data-board-id', 'data-level-id']
-  });
 })();

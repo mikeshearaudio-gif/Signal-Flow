@@ -1,5 +1,5 @@
 
-/* Signal Flow Build-a-Room consolidated renderer v6r272 */
+/* Signal Flow Build-a-Room consolidated renderer v6r277 */
 :root {
   --sf-br-bg: #07101f;
   --sf-br-panel: rgba(11, 22, 40, .88);
@@ -121,48 +121,46 @@ body.sf-build-room-v6r227-active .route-training-panel[data-mode="build-room"] {
 @media (max-width: 1050px){ .sf-br-body{grid-template-columns:1fr}.sf-br-left{border-right:0;border-bottom:1px solid var(--sf-br-line)}.sf-br-placement-grid{grid-template-columns:repeat(2,1fr)} }
 
 
-/* Build-a-Room locked layout repair v6r272.
+/* Build-a-Room locked layout repair v6r277.
    Shared renderer-level fix for all Build-a-Room levels. */
-body.sf-build-room-v6r227-active .level-shell {
+body.sf-build-room-v6r227-active .level-shell,
+body.sf-build-room-v6r227-active .training-stage-shell {
   grid-template-columns: minmax(0, 1fr) !important;
   gap: 0 !important;
   padding: 10px !important;
+  align-items: start !important;
 }
 
-body.sf-build-room-v6r227-active .level-shell > .panel:not(:has(.sf-build-room-v6r227)),
-body.sf-build-room-v6r227-active .level-shell > aside:not(:has(.sf-build-room-v6r227)) {
+body.sf-build-room-v6r227-active .level-shell > :not(.sf-build-room-v6r227),
+body.sf-build-room-v6r227-active .training-stage-shell > :not(.sf-build-room-v6r227),
+body.sf-build-room-v6r227-active [data-sf-br-old-shell-child="true"] {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
 }
 
-body.sf-build-room-v6r227-active .level-shell > .board-card:has(.sf-build-room-v6r227),
-body.sf-build-room-v6r227-active .level-shell > .panel:has(.sf-build-room-v6r227) {
+body.sf-build-room-v6r227-active .level-shell > .sf-build-room-v6r227,
+body.sf-build-room-v6r227-active .training-stage-shell > .sf-build-room-v6r227,
+body.sf-build-room-v6r227-active [data-sf-br-shell-root="true"] {
   grid-column: 1 / -1 !important;
   width: 100% !important;
+  max-width: none !important;
   min-width: 0 !important;
+  margin-top: 0 !important;
+  align-self: start !important;
 }
 
-body.sf-build-room-v6r227-active .level-shell > .board-card:has(.sf-build-room-v6r227) > .board-top {
-  display: none !important;
-}
-
-body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned {
+body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned,
+body.sf-build-room-v6r227-active .training-stage-shell.sf-br-shell-owned {
   grid-template-columns: minmax(0, 1fr) !important;
   gap: 0 !important;
   padding: 10px !important;
 }
 
-body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned > [data-sf-br-shell-hidden="true"] {
+body.sf-build-room-v6r227-active [data-sf-br-floating-locker="true"] {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
-}
-
-body.sf-build-room-v6r227-active .level-shell.sf-br-shell-owned > [data-sf-br-shell-host="true"] {
-  grid-column: 1 / -1 !important;
-  width: 100% !important;
-  min-width: 0 !important;
 }
 
 body.sf-build-room-v6r227-active #micLockerBtn,

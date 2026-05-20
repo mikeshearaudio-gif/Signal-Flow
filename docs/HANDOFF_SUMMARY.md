@@ -11,8 +11,9 @@ Current launch flow:
 - `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html` for the full embedded game dependency
 - `launch/ir-level-runner.html` for distributed IR levels
 
-Current handoff document:
+Current handoff documents:
 
+- `docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md`
 - `docs/HANDOFF_2026-05-19_LIV006_FOCUSED_REPAIR.md`
 
 Current repo memory:
@@ -27,4 +28,6 @@ Latest live-board bug pass fixed build-room and diagnosis fallback mounting, `LI
 
 Latest focused repair: `LIV-006` now uses renderer-level rack placement, no external rack mover/debug outline, compact non-nested scrolling, aligned jacks, and player-facing `CROSSOVER` / `AUX INPUTS` labels. Details are in `docs/HANDOFF_2026-05-19_LIV006_FOCUSED_REPAIR.md`.
 
-Known risk: browser screenshot QA still needs to be run because Playwright visual verification was blocked in the current environment. Smoke-test diagnosis, build-room, live-sound native boards, normal levels, and PST/IR levels after extraction/opening.
+Latest Build-a-Room lock: `v6r277` is the stable shared Build-a-Room renderer/layout baseline. It preserves the button/hitbox fixes, mounts into the active training shell, hides only old direct shell siblings, removes the duplicated legacy brief/board, keeps the board directly below the game header, and prevents Retry Build from blanking the surface. Details are in `docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md`.
+
+Known risk: continue smoke-testing diagnosis, live-sound native boards, normal levels, and PST/IR levels after extraction/opening. Build-a-Room browser DOM QA passed for `LIV-004`, `LIV-013`, `LIV-027`, `LIV-041`, `REC-004`, `BRD-004`, `PST-004`, and `GAM-004`.

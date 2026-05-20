@@ -1,0 +1,707 @@
+=== LIV-005 / LIV-006 definitions ===
+          "Dolby Renderer",
+          "ADR Booth Headphone Amp",
+          "Phone Hybrid"
+        ],
+        "explanation": "This level replaces the patch board with a system-design decision: identify the pieces that actually belong in the room."
+      }
+    },
+    {
+      "id": "LIV-005",
+      "environment": "live",
+      "title": "Sub matrix feed",
+      "brief": "Patch sub matrix output to the sub processor.",
+      "difficulty": 1,
+      "required": [
+        [
+          "Matrix 2 Output",
+          "Sub Processor Input"
+        ],
+        [
+          "Main L Output",
+          "System Processor L In"
+        ],
+        [
+          "Main R Output",
+          "System Processor R In"
+        ]
+      ],
+      "forbidden": [
+        [
+          "Matrix 2 Output",
+          "Front Fill Processor Input"
+        ]
+      ],
+      "system": [
+        "Matrix 2 can be tailored for sub level and processing.",
+        "Main L/R still feeds the main processor."
+      ],
+      "notes": [
+        "Sub feeds are separate system zones."
+      ],
+      "learning": [
+        "Sub routing",
+        "Matrix outputs"
+      ]
+    },
+             {
+               "id": "LIV-006",
+               "environment": "live",
+               "title": "Delay tower route",
+               "brief": "Patch a matrix output to the delay tower processor.",
+               "difficulty": 1,
+               "required": [
+                 [
+                   "Matrix 3 Output",
+                   "Delay Tower Processor Input"
+                 ],
+                 [
+                   "Main L Output",
+                   "Crossover L In"
+                 ],
+                 [
+                   "Main R Output",
+                   "Crossover R In"
+                 ]
+               ],
+               "forbidden": [
+
+=== IR renderer block ===
+    {id:'wood_room', num:8, label:'Wood Room'},
+    {id:'scoring_stage', num:9, label:'Scoring Stage'},
+    {id:'soundstage', num:10, label:'Soundstage'},
+    {id:'reverse', num:11, label:'Reverse'},
+    {id:'plate', num:12, label:'Plate'},
+    {id:'open_air', num:13, label:'Outdoor Open Air'},
+    {id:'courtyard', num:14, label:'Courtyard'},
+    {id:'alley', num:15, label:'Alley'},
+    {id:'parking_garage', num:16, label:'Parking Garage'},
+    {id:'tunnel', num:17, label:'Tunnel'},
+    {id:'broadcast_studio', num:18, label:'Tight Broadcast Studio'},
+    {id:'chamber', num:19, label:'Chamber'},
+    {id:'club_live_venue', num:20, label:'Club / Live Venue'},
+    {id:'gym', num:21, label:'Gymnasium'},
+    {id:'church_interior', num:22, label:'Church Interior'},
+    {id:'cathedral', num:23, label:'Cathedral'},
+    {id:'concert_hall', num:24, label:'Concert Hall'}
+  ];
+  let selectedIr = null;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .sfv14106-ir-level{
+      min-height:calc(100vh - 28px);
+      padding:18px;
+      color:#f7fbff;
+      background:radial-gradient(circle at 15% 0%,rgba(72,151,255,.18),transparent 34%),linear-gradient(180deg,#081321,#101827 58%,#080c14);
+      overflow:auto;
+    }
+    .sfv14106-head{
+      display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin:0 auto 14px;max-width:1380px;
+    }
+    .sfv14106-head h1{margin:0;font-size:clamp(24px,3vw,40px);letter-spacing:.01em}
+    .sfv14106-head p{margin:6px 0 0;color:#a9bbcb;max-width:780px;line-height:1.35}
+    .sfv14106-badge{border:1px solid rgba(255,215,106,.45);border-radius:999px;padding:8px 12px;background:rgba(255,215,106,.10);color:#ffe7a0;font-weight:800;white-space:nowrap}
+    .sfv14106-grid{display:grid;grid-template-columns:minmax(360px,.85fr) minmax(520px,1.15fr);gap:18px;max-width:1380px;margin:0 auto}
+    .sfv14106-card{border:1px solid rgba(154,184,214,.22);border-radius:24px;background:rgba(7,15,28,.86);box-shadow:0 22px 60px rgba(0,0,0,.35);overflow:hidden}
+    .sfv14106-target{position:relative;min-height:460px}
+    .sfv14106-target img{width:100%;height:100%;min-height:460px;object-fit:cover;display:block}
+    .sfv14106-target .cap{position:absolute;left:18px;right:18px;bottom:18px;background:rgba(4,9,17,.72);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:14px}
+    .sfv14106-target .cap strong{display:block;font-size:18px}
+    .sfv14106-target .cap span{display:block;color:#c7d7e9;margin-top:4px}
+    .sfv14106-selector{padding:18px}
+    .sfv14106-rack{border-radius:20px;background:linear-gradient(180deg,#2b2f34,#11161c);border:1px solid rgba(255,255,255,.16);padding:18px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.04)}
+    .sfv14106-rack-top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}
+    .sfv14106-rack-top strong{font-size:22px;letter-spacing:.04em}
+    .sfv14106-display{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#8dffb5;background:#07100b;border:1px solid rgba(141,255,181,.35);border-radius:12px;padding:10px 12px;min-width:190px;text-align:center;box-shadow:inset 0 0 16px rgba(100,255,158,.10)}
+    .sfv14106-programs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-height:520px;overflow:auto;padding:6px}
+    .sfv14106-ir-btn{appearance:none;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:linear-gradient(180deg,rgba(30,38,48,.98),rgba(14,18,25,.98));color:#f4f8ff;display:flex;gap:8px;align-items:center;justify-content:flex-start;padding:10px 9px;min-height:50px;text-align:left;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.20)}
+    .sfv14106-ir-btn b{display:inline-grid;place-items:center;min-width:34px;height:28px;border-radius:8px;background:#050910;border:1px solid rgba(255,255,255,.16);font-size:13px;color:#ffd76a}
+    .sfv14106-ir-btn span{font-weight:800;font-size:13px;line-height:1.1}
+    .sfv14106-ir-btn:hover{transform:translateY(-1px);border-color:rgba(0,245,255,.42)}
+    .sfv14106-ir-btn.selected{border-color:#64ff9e;background:linear-gradient(180deg,rgba(24,68,47,.98),rgba(10,28,22,.98));box-shadow:0 0 0 3px rgba(100,255,158,.16),0 12px 22px rgba(0,0,0,.28)}
+    .sfv14106-submit-row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:14px;position:sticky;bottom:8px;background:rgba(7,15,28,.88);backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:10px}
+    .sfv14106-submit-row button{border:0;border-radius:12px;padding:12px 18px;font-weight:900;cursor:pointer}
+    .sfv14106-submit{background:#64ff9e;color:#03130a}
+    .sfv14106-reset{background:#253244;color:#e8f0ff}
+    .sfv14106-result{min-height:22px;color:#b8c9d9;font-weight:800}
+    .sfv14106-result.good{color:#64ff9e}
+    .sfv14106-result.bad{color:#ff9b9b}
+    @media(max-width:980px){.sfv14106-grid{grid-template-columns:1fr}.sfv14106-programs{grid-template-columns:repeat(2,minmax(0,1fr));max-height:none}}
+  `;
+  document.head.appendChild(style);
+
+  function esc(s){return String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+  function selectedLabel(){const found=IR_LABELS.find(ir=>ir.id===selectedIr); return found ? `IR ${found.num} · ${found.label}` : 'Select an IR program';}
+  function renderPanel(l, trainingOnly){
+    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+      <div class="sfv14106-head">
+        <div><h1>PST-103 · Convolution Reverb Match</h1><p>Use the target room image as the clue. Select the labeled impulse response that best matches the physical space. All 24 IR programs are present.</p></div>
+        <div class="sfv14106-badge">${VERSION}</div>
+      </div>
+      <div class="sfv14106-grid">
+        <div class="sfv14106-card sfv14106-target"><img src="${TARGET_IMAGE}" alt="Target room"><div class="cap"><strong>Target acoustic space</strong><span>Judge size, surface material, and absorption from the room.</span></div></div>
+        <div class="sfv14106-card sfv14106-selector">
+          <div class="sfv14106-rack">
+            <div class="sfv14106-rack-top"><strong>CONVOLUTION REVERB · IR PROGRAMS</strong><div class="sfv14106-display" id="sfv14106Display">${esc(selectedLabel())}</div></div>
+            <div class="sfv14106-programs" id="sfv14106Programs">
+              ${IR_LABELS.map(ir=>`<button type="button" class="sfv14106-ir-btn ${ir.id===selectedIr?'selected':''}" data-ir="${esc(ir.id)}"><b>${ir.num}</b><span>${esc(ir.label)}</span></button>`).join('')}
+            </div>
+            <div class="sfv14106-submit-row"><div class="sfv14106-result" id="sfv14106Result"></div><div><button type="button" class="sfv14106-reset" id="sfv14106Reset">Reset</button> <button type="button" class="sfv14106-submit" id="sfv14106Submit">Submit</button></div></div>
+          </div>
+        </div>
+      </div>
+    </section>`;
+  }
+  function update(){
+    document.querySelectorAll('.sfv14106-ir-btn').forEach(btn=>btn.classList.toggle('selected',btn.dataset.ir===selectedIr));
+    const display=document.getElementById('sfv14106Display'); if(display) display.textContent=selectedLabel();
+  }
+  function bind(){
+    document.querySelectorAll('.sfv14106-ir-btn').forEach(btn=>btn.addEventListener('click',()=>{selectedIr=btn.dataset.ir; update(); const r=document.getElementById('sfv14106Result'); if(r){r.className='sfv14106-result'; r.textContent='';} }));
+    document.getElementById('sfv14106Reset')?.addEventListener('click',()=>{selectedIr=null; update(); const r=document.getElementById('sfv14106Result'); if(r){r.className='sfv14106-result'; r.textContent='';} });
+    document.getElementById('sfv14106Submit')?.addEventListener('click',()=>{
+      const ok=selectedIr===REQUIRED_IR;
+      const r=document.getElementById('sfv14106Result');
+      if(r){r.className='sfv14106-result '+(ok?'good':'bad'); r.textContent=ok?'Correct IR selected.':'That IR does not match the target room.';}
+      if(ok){try{ if(typeof completeLevel==='function') setTimeout(()=>completeLevel(),250); }catch(e){}}
+    });
+    update();
+  }
+  const previousPanel = typeof trainingLanePanel === 'function' ? trainingLanePanel : null;
+  if(previousPanel){
+    trainingLanePanel = function(l, trainingOnly=false){
+      if(l?.id==='PST-103' || l?.training?.type==='ir-room') return renderPanel(l, trainingOnly);
+      return previousPanel(l, trainingOnly);
+    };
+  }
+  const previousBind = typeof bindTrainingLanePanel === 'function' ? bindTrainingLanePanel : null;
+  if(previousBind){
+    bindTrainingLanePanel = function(){
+      const p=document.querySelector('[data-training-panel]');
+      if(p?.dataset?.trainingPanel==='ir-label-selector') return bind();
+      return previousBind();
+    };
+  }
+  window.sfv14106IrLabels = IR_LABELS.slice();
+  try{document.title='Signal Flow Game '+VERSION+' IR Selector Default Fix'; if(typeof render==='function') render();}catch(err){console.error('v1.41.07 refresh failed',err);}
+})();
+</script>
+
+
+=== IR render call sites ===
+27940:    id:'PST-103', environment:'post', title:'Convolution Reverb IR Return', brief:'Patch an ADR send through a convolution reverb loaded with a room impulse response and return it to the print bus.', difficulty:3, time:240,
+27943:    system:['The dry dialogue send feeds the convolution processor.','The processor output returns as a stereo effect return.','The loaded IR determines the acoustic space.'],
+27949:      {text:'Return only the left side of the convolution output', ok:false, reason:'Stereo pair rule: both L and R returns are required for a stereo effect return.'}
+27957:    if(/convolution|impulse|\bir\b/.test(s)) return {key:'convolution_reverb', label:'Convolution Reverb / IR Loader', iconKey:'compressor'};
+28180:      <div class="sfv194-mode-head"><p class="eyebrow">PST-103 · IR / Convolution Lab · ${VERSION}</p><strong>${htmlEscape(prompt)}</strong><small>${htmlEscape(symptom)}</small></div>
+28390:      <div class="sfv194-mode-head"><p class="eyebrow">PST-103 · IR / Convolution Lab · ${VERSION}</p><strong>Match the ADR reverb to the pictured space.</strong><small>Use the room image, dial a single IR, keep L/R together, then submit.</small></div>
+28482:    .sfv14106-ir-level{
+28527:    return `<section class="training-level-panel sfv14106-ir-level" data-training-panel="ir-label-selector" data-training-only="${trainingOnly?'true':'false'}">
+28529:        <div><h1>PST-103 · Convolution Reverb Match</h1><p>Use the target room image as the clue. Select the labeled impulse response that best matches the physical space. All 24 IR programs are present.</p></div>
+28564:      if(l?.id==='PST-103' || l?.training?.type==='ir-room') return renderPanel(l, trainingOnly);
+28572:      if(p?.dataset?.trainingPanel==='ir-label-selector') return bind();
+28681:  function routeIsPST103(){ return /PST-103/i.test(location.hash || location.href); }
+28849:    const currentLevel = (typeof level === 'function') ? level() : (window.DATA?.levels || []).find(x => x.id === 'PST-103') || {id:'PST-103',environment:'post'};
+28855:      + '<div class="sfv14113-top"><div class="sfv14113-title"><div class="sfv14113-badge">SF</div><div><h1>PST-103 · Convolution / IR Lab</h1><p>Subjective IR scoring · preview, submit, learn from A/B feedback</p></div></div><div class="sfv14113-actions"><select id="sfv14113-envJump" aria-label="Environment">'+envOptions+'</select><select id="sfv14113-levelJump" aria-label="Level">'+levelOptions+'</select><div class="sfv14113-score" id="sfv14113-score">IR Score '+localScore+'</div><button class="sfv14113-btn audio-btn" id="sfv14113-sound">Sound</button><button class="sfv14113-btn" id="sfv14113-preview">Preview Selected</button><button class="sfv14113-btn primary" id="sfv14113-submit">Submit IR</button><button class="sfv14113-btn gold" id="sfv14113-reset">Reset</button><button class="sfv14113-btn" id="sfv14113-splash">Splash</button></div></div>'
+
+=== wrapper IR list/router ===
+      <label>Environment
+        <select id="envSelect">
+          <option value="REC">Recording</option><option value="LIV">Live Sound</option><option value="BRD">Broadcast</option><option value="PST" selected>Post</option><option value="GAM">Game Audio</option>
+        </select>
+      </label>
+      <label>Board <select id="levelSelect"></select></label>
+      <label>Go to Board <input id="manualLevel" value="PST-004" aria-label="Manual board ID" /></label>
+      <button id="loadBtn" type="button">Load Board</button>
+      <button id="homeBtn" type="button" class="secondary">Splash</button>
+      <span class="sf-score" id="scoreReadout">Score: 0</span>
+      <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
+      <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r213</div>
+    </nav>
+    <main class="sf-frame-wrap"><iframe id="gameFrame" title="Signal Flow Game"></iframe></main>
+  </div>
+  <script>
+  (function(){
+    const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
+    const IR_RUNNER = 'ir-level-runner.html';
+    const LEVELS = {
+      REC:[
+        'REC-001','REC-002','REC-003','REC-004','REC-IR-01',
+        'REC-006','REC-007','REC-008','REC-009','REC-010',
+        'REC-011','REC-012','REC-013','REC-IR-02','REC-015',
+        'REC-016','REC-017','REC-018','REC-019','REC-020',
+        'REC-021','REC-022','REC-023','REC-IR-03','REC-025',
+        'REC-026','REC-027','REC-028','REC-029','REC-030',
+        'REC-031','REC-032','REC-033','REC-IR-04','REC-035',
+        'REC-036','REC-037','REC-038','REC-039','REC-040',
+        'REC-041','REC-042','REC-043','REC-044','REC-045',
+        'REC-046','REC-047','REC-048','REC-049','REC-050'
+      ],
+
+      LIV:[
+        'LIV-001','LIV-002','LIV-003','LIV-004','LIV-IR-01',
+        'LIV-006','LIV-007','LIV-008','LIV-009','LIV-010',
+        'LIV-011','LIV-012','LIV-013','LIV-IR-02','LIV-015',
+        'LIV-016','LIV-017','LIV-018','LIV-019','LIV-020',
+        'LIV-021','LIV-022','LIV-023','LIV-IR-03','LIV-025',
+        'LIV-026','LIV-027','LIV-028','LIV-029','LIV-030',
+        'LIV-031','LIV-032','LIV-033','LIV-034','LIV-IR-04',
+        'LIV-036','LIV-037','LIV-038','LIV-039','LIV-040',
+        'LIV-041','LIV-042','LIV-043','LIV-044','LIV-045',
+        'LIV-IR-05','LIV-047','LIV-048','LIV-049','LIV-050'
+      ],
+
+      BRD:[
+        'BRD-001','BRD-002','BRD-003','BRD-004','BRD-IR-01',
+        'BRD-006','BRD-007','BRD-008','BRD-009','BRD-010',
+        'BRD-011','BRD-IR-02','BRD-013','BRD-014','BRD-015',
+        'BRD-016','BRD-017','BRD-018','BRD-019','BRD-020',
+        'BRD-021','BRD-022','BRD-023','BRD-IR-03','BRD-025',
+        'BRD-026','BRD-027','BRD-028','BRD-029','BRD-030',
+        'BRD-031','BRD-032','BRD-033','BRD-034','BRD-035',
+        'BRD-036','BRD-IR-04','BRD-038','BRD-039','BRD-040',
+        'BRD-041','BRD-042','BRD-043','BRD-044','BRD-045',
+        'BRD-046','BRD-047','BRD-048','BRD-049','BRD-050'
+      ],
+
+      PST:[
+        'PST-001','PST-002','PST-003','PST-004','PST-IR-01',
+        'PST-006','PST-007','PST-008','PST-009','PST-010',
+        'PST-011','PST-012','PST-013','PST-IR-02','PST-015',
+        'PST-016','PST-017','PST-018','PST-019','PST-020',
+        'PST-021','PST-022','PST-023','PST-IR-03','PST-025',
+        'PST-026','PST-027','PST-028','PST-029','PST-030',
+        'PST-031','PST-032','PST-033','PST-034','PST-IR-04',
+        'PST-036','PST-037','PST-038','PST-039','PST-040',
+        'PST-041','PST-042','PST-043','PST-044','PST-045',
+        'PST-IR-05','PST-047','PST-048','PST-049','PST-050'
+      ],
+
+      GAM:[
+        'GAM-001','GAM-002','GAM-003','GAM-004','GAM-IR-01',
+        'GAM-006','GAM-007','GAM-008','GAM-009','GAM-010',
+        'GAM-011','GAM-012','GAM-013','GAM-IR-02','GAM-015',
+        'GAM-016','GAM-017','GAM-018','GAM-019','GAM-020',
+        'GAM-021','GAM-022','GAM-023','GAM-024','GAM-IR-03',
+        'GAM-026','GAM-027','GAM-028','GAM-029','GAM-030',
+        'GAM-031','GAM-032','GAM-033','GAM-034','GAM-035',
+        'GAM-036','GAM-IR-04','GAM-038','GAM-039','GAM-040',
+        'GAM-041','GAM-042','GAM-043','GAM-044','GAM-045',
+        'GAM-046','GAM-047','GAM-IR-05','GAM-049','GAM-050'
+      ]
+    };
+    const IR_IDS = new Set(Object.values(LEVELS).flat().filter(id => id.includes('-IR-')));
+
+    const PUBLIC_LABELS = {};
+    const INTERNAL_BY_PUBLIC = {};
+
+    Object.keys(LEVELS).forEach(env => {
+      LEVELS[env].forEach((id, index) => {
+        const publicId = env + '-' + String(index + 1).padStart(3, '0');
+        PUBLIC_LABELS[id] = id.includes('-IR-') ? publicId : id;
+        INTERNAL_BY_PUBLIC[publicId] = id;
+        INTERNAL_BY_PUBLIC[id] = id;
+      });
+    });
+
+    function displayLabel(id){
+      return PUBLIC_LABELS[id] || id;
+
+=== native surface selection ===
+    const path = {
+      stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head.svg",
+      foh: "/assets/live-sound/svg/hardware/foh-console-io-panel.svg",
+      monitor: "/assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      iem: "/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg",
+      amp: "/assets/live-sound/svg/hardware/power-amplifier.svg",
+      crossover: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+      "amp-high": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "amp-mid": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "amp-low": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "speaker-left": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
+      "speaker-right": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
+      "pa-visual": "/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg"
+    }[kind];
+    return path ? sfRepoUrl(path) : "";
+  }
+
+  function areaOf(el) {
+    const r = el.getBoundingClientRect();
+    return Math.max(0, r.width * r.height);
+  }
+
+  function findSurface() {
+    const all = Array.from(document.querySelectorAll("div, section, article, main"));
+
+    const titleEl = all
+      .filter(el => textOf(el).includes("Live Console + Rack World"))
+      .sort((a, b) => textOf(a).length - textOf(b).length)[0];
+
+    if (!titleEl) return null;
+
+    // The surface must be the visual board body below the brown header, not the
+    // whole game shell and not the left checklist/sidebar. Pick the largest
+    // nearby descendant that lives inside the board card, has enough space, and
+    // does not include the level brief / checklist text.
+    let card = titleEl;
+
+    for (let i = 0; i < 10 && card && card.parentElement; i++) {
+      const r = card.getBoundingClientRect();
+      if (r.width > 850 && r.height > 430) break;
+      card = card.parentElement;
+    }
+
+    if (!card) return null;
+
+    const cardRect = card.getBoundingClientRect();
+
+    const candidates = Array.from(card.querySelectorAll("div, section, article, main"))
+      .filter(el => {
+        const r = el.getBoundingClientRect();
+        const t = textOf(el);
+
+        return (
+          r.width > 650 &&
+          r.height > 360 &&
+          r.left >= cardRect.left - 4 &&
+          r.right <= cardRect.right + 4 &&
+          !t.includes("PATCH THESE EXTERNAL CONNECTIONS") &&
+          !t.includes("CURRENT LEVEL") &&
+          !t.includes("REALITY CHECK") &&
+          !t.includes("EDUCATIONAL TOOLS")
+        );
+      })
+      .sort((a, b) => areaOf(b) - areaOf(a));
+
+    // Prefer the old visual playfield if it contains the original helper text.
+    const playfield = candidates.find(el =>
+      textOf(el).includes("Build the path through the console") ||
+      textOf(el).includes("STAGEBOX AUX MATRIX PA") ||
+      textOf(el).includes("CONSOLE + AMP RACK")
+    );
+
+    const surface = playfield || candidates[0] || card;
+
+    console.log("[Signal Flow] Native surface selected:", {
+      text: textOf(surface).slice(0, 90),
+      rect: surface.getBoundingClientRect()
+    });
+
+    return surface;
+  }
+
+  function routeFor(a, b) {
+    return LEVEL.validRoutes.find(route =>
+      (route.from === a && route.to === b) ||
+      (route.from === b && route.to === a)
+    ) || null;
+  }
+
+  function routeAlreadyExists(routeKey) {
+    return state.routes.some(route => route.key === routeKey);
+        button.setAttribute("aria-hidden", "true");
+        if ("tabIndex" in button) button.tabIndex = -1;
+      }
+    });
+  }
+
+function mountNative(force) {
+    const adapter = window.SF_LIVE_SOUND_ADAPTER;
+    if (!adapter) {
+      console.warn("[Signal Flow] Native renderer missing adapter.");
+      return;
+    }
+
+    if (!isNativePatchBoardActive()) return;
+    if (!syncActiveLevelSpec() || !nativeVisible) return;
+
+    const surface = findSurface();
+    if (!surface) {
+      console.warn("[Signal Flow] Native renderer could not find live board surface.");
+      return;
+    }
+
+    if (!force && surface.querySelector(".sf-live-native-layer")) {
+      return;
+    }
+
+    if (getComputedStyle(surface).position === "static") {
+      surface.style.position = "relative";
+    }
+
+    installNativeScrollStyle();
+    hideLegacyBoard(surface);
+    if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
+      renderLivProcessingFamily(surface, adapter);
+    } else {
+      renderNative(surface, adapter);
+    }
+    hidePanelToggleControls();
+    raiseHintOverlays();
+    updateNativeHintHighlights();
+
+    console.log("[Signal Flow] " + LEVEL_ID + " native renderer v6 mounted.");
+  }
+
+  function unmountNative() {
+    const surface = findSurface();
+    if (!surface) return;
+
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    restoreLegacyBoard(surface);
+    clearSelection();
+
+=== diagnosis mount/skin start ===
+// Signal Flow Diagnosis Universal GUI v6r246
+// Generic diagnosis renderer: builds the clipboard from level().training, not from legacy diagnosis DOM.
+(function(){
+  'use strict';
+  const VERSION = '6r246';
+  const ASSET = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href;
+  document.documentElement.setAttribute('data-sfdiag-gui-version', VERSION);
+
+  function qs(sel, root=document){ return root.querySelector(sel); }
+  function qsa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
+  function asset(path){ return ASSET + path; }
+  function gameRoot(){ return qs('main.game') || qs('main') || qs('#app main') || qs('#app') || document.body; }
+  function escHtml(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+  function bars(count, cls=''){
+    let out = '';
+    for(let i=0;i<count;i++) out += `<span class="${cls}" style="--i:${i};animation-delay:${(i%13)*0.045}s"></span>`;
+    return out;
+  }
+
+  function selectedDiagnosisId(){
+    const selects = qsa('select');
+    for(const s of selects){
+      const opt = s.selectedOptions && s.selectedOptions[0];
+      const text = ((opt && opt.textContent) || '') + ' ' + (s.value || '');
+      if(/\[DIAG\]|diagnose/i.test(text)){
+        const m = text.match(/\b[A-Z]{3}-\d{3}\b/);
+        if(m) return m[0];
+      }
+    }
+    const visible = (qs('.game-title')?.textContent || document.body.textContent || '').match(/\b[A-Z]{3}-\d{3}\b/);
+    return visible ? visible[0] : '';
+  }
+
+  function currentLevelObject(){
+    const diagId = selectedDiagnosisId();
+    try{
+      if(window.DATA && Array.isArray(window.DATA.levels) && diagId){
+        const byId = window.DATA.levels.find(l => l && l.id === diagId);
+        if(byId && byId.training && byId.training.type === 'diagnose') return byId;
+      }
+    }catch(_){ }
+    try{
+      if(typeof window.level === 'function'){
+        const l = window.level();
+        if(l && l.training && l.training.type === 'diagnose') return l;
+      }
+    }catch(_){ }
+    try{
+      if(window.state && window.state.level && window.state.level.training && window.state.level.training.type === 'diagnose') return window.state.level;
+    }catch(_){ }
+    try{
+      if(window.DATA && Array.isArray(window.DATA.levels) && diagId){
+        return window.DATA.levels.find(l => l && l.id === diagId) || null;
+      }
+    }catch(_){ }
+    return null;
+  }
+
+  function currentDiagnosisTraining(){
+    const l = currentLevelObject();
+    const t = l && l.training;
+    if(t && t.type === 'diagnose') return t;
+    return diagnosisTrainingFromDom();
+  }
+
+  function levelId(){
+    const l = currentLevelObject();
+    return (l && l.id) || selectedDiagnosisId() || '';
+  }
+
+  function isDiagnosisBoard(){
+    if(currentDiagnosisTraining()) return true;
+    const selected = qsa('select').map(s => ((s.selectedOptions && s.selectedOptions[0] && s.selectedOptions[0].textContent) || '') + ' ' + (s.value || '')).join(' ');
+    const title = (qs('.game-title')?.textContent || '').replace(/\s+/g, ' ');
+    return /\[DIAG\]|\bDIAGNOSE\b|Diagnose Patch|Signal Flow Diagnosis|Find the broken|unsafe patch/i.test(selected + ' ' + title);
+  }
+
+  function animatedMonitor(kind, title, body=''){
+    return `<div class="sfdiag-animated-monitor sfdiag-${kind}" aria-hidden="true">
+      <div class="sfdiag-monitor-bezel">
+        <div class="sfdiag-monitor-title">${title}</div>
+        <div class="sfdiag-monitor-screen">${body}</div>
+      </div>
+    </div>`;
+  }
+  function patientCardHtml(){ return `<div class="sfdiag-card sfdiag-patient-card"><img src="${asset('cards/patient-status-card.svg')}" alt="" /></div>`; }
+  function vitalsHtml(){ return animatedMonitor('vitals-monitor', 'CALLER VITALS', `<div class="sfdiag-ecg"><svg viewBox="0 0 320 90" aria-hidden="true"><path d="M0 48 L34 48 L47 30 L58 60 L72 46 L104 46 L116 15 L130 72 L145 44 L180 44 L190 34 L204 54 L218 42 L242 42 L252 28 L264 58 L278 45 L320 45"/></svg></div><div class="sfdiag-heart-rate">72<small>BPM</small></div>`); }
+  function insertMonitorHtml(){ return animatedMonitor('insert-monitor', 'INSERT PATH MONITOR', `<div class="sfdiag-row-label">SEND</div><div class="sfdiag-meter-row">${bars(30)}</div><div class="sfdiag-row-label">RETURN</div><div class="sfdiag-meter-row">${bars(30)}</div>`); }
+  function analyzerHtml(){ return animatedMonitor('audio-analyzer-monitor', 'AUDIO ANALYZER', `<div class="sfdiag-analyzer-layer">${bars(46)}</div>`); }
+  function patchTesterHtml(){ return `<div class="sfdiag-animated-monitor sfdiag-patch-tester sfdiag-state-neutral" data-sfdiag-patch-tester aria-hidden="true">
+      <div class="sfdiag-monitor-bezel">
+        <div class="sfdiag-monitor-title">SIGNAL FLOW PATCH TESTER <b data-sfdiag-patch-state>READY</b></div>
+        <div class="sfdiag-patch-tester-screen"><div class="sfdiag-jack sfdiag-jack-send">SEND</div><div class="sfdiag-dotline"></div><div class="sfdiag-jack sfdiag-jack-device">DEVICE</div><div class="sfdiag-dotline sfdiag-dotline-2"></div><div class="sfdiag-jack sfdiag-jack-return">RETURN</div><div class="sfdiag-mini-led"></div></div>
+      </div>
+    </div>`; }
+  function spectrumHtml(){ return animatedMonitor('spectrum-monitor', 'SPECTRUM VIEW', `<div class="sfdiag-spectrum-layer">${bars(62)}</div>`); }
+  function levelMeterHtml(){ return `<div class="sfdiag-animated-monitor sfdiag-overall-meter" aria-hidden="true"><div class="sfdiag-monitor-bezel"><div class="sfdiag-monitor-title">OVERALL LEVEL</div><div class="sfdiag-level-body"><div class="sfdiag-level-column">${bars(26)}</div><div class="sfdiag-level-column">${bars(26)}</div><ol><li>0</li><li>-6</li><li>-12</li><li>-18</li><li>-24</li><li>-36</li><li>-48</li><li>-60</li></ol></div></div></div>`; }
+  function labLeftHtml(){ return `<aside class="sfdiag-lab-left" aria-hidden="true" data-sfdiag-decorator="left">${patientCardHtml()}${vitalsHtml()}${insertMonitorHtml()}${analyzerHtml()}<div class="sfdiag-prop-row"><div class="sfdiag-prop"><img src="${asset('props/sticky-note-reminder.svg')}" alt="" /></div><div class="sfdiag-prop"><img src="${asset('props/good-route-mug.svg')}" alt="" /></div></div></aside>`; }
+  function labRightHtml(){ return `<aside class="sfdiag-lab-right" aria-hidden="true" data-sfdiag-decorator="right"><div class="sfdiag-card sfdiag-neon"><img src="${asset('cards/neon-diagnose-sign.svg')}" alt="" /></div>${patchTesterHtml()}${spectrumHtml()}<div class="sfdiag-right-bottom">${levelMeterHtml()}<div class="sfdiag-cart-stack"><div class="sfdiag-prop"><img src="${asset('props/diagnosis-cart.svg')}" alt="" /></div><div class="sfdiag-prop sfdiag-trash"><img src="${asset('props/bad-routes-trash-can.svg')}" alt="" /></div></div></div><img class="sfdiag-lamp" src="${asset('props/desk-lamp.svg')}" alt="" /></aside>`; }
+  function workflowHtml(){ return `<div class="sfdiag-workflow-rail" aria-hidden="true" data-sfdiag-decorator="workflow"><div class="sfdiag-workflow-inner"><span><b></b>Diagnose</span><span>Plan</span><span>Patch</span><span>Test</span><span>Listen</span><span>Review</span></div></div>`; }
+
+  function findBoardShell(){
+    const main = gameRoot();
+    if(!main) return null;
+    const candidates = qsa('.training-only-board, .board-card, .sfv182-quiz-board, .training-board, .training-stage-board', main)
+      .filter(el => {
+        if(el.closest('aside, .training-only-side, .panel-scroll')) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 420 && r.height > 180;
+      })
+      .sort((a,b) => (b.getBoundingClientRect().width * b.getBoundingClientRect().height) - (a.getBoundingClientRect().width * a.getBoundingClientRect().height));
+    return candidates[0] || qs('.training-stage-shell', main) || main;
+  }
+
+  function diagnosisChoices(t){
+    return Array.isArray(t?.patches) && t.patches.length ? t.patches
+      : Array.isArray(t?.checks) && t.checks.length ? t.checks
+      : Array.isArray(t?.choices) && t.choices.length ? t.choices
+      : [];
+  }
+
+  function diagnosisTrainingFromDom(){
+    const panels = qsa('[data-training-panel="diagnose"], .diagnose-panel')
+      .filter(el => !el.closest('[data-sfdiag-generic-panel="true"]'));
+    const panel = panels.find(el => qsa('.diagnose-patch', el).length) || panels[0];
+    if(!panel) return null;
+    const prompt = qs('strong, h2, h3, .sfdiag-generated-prompt', panel)?.textContent?.trim()
+      || 'Find the broken, backwards, or unsafe patch before the room goes live.';
+    const patches = qsa('.diagnose-patch', panel).map(btn => ({
+      text: btn.textContent.replace(/^\s*\d+\s*/, '').trim(),
+      ok: String(btn.dataset.ok) === 'true',
+      reason: btn.dataset.reason || (String(btn.dataset.ok) === 'false'
+        ? 'This is the broken route.'
+// Signal Flow Diagnosis Mode SVG Skin helper v6r246
+// Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.js
+// Codex should adapt selectors to the current local build.
+(function () {
+  const ASSET_ROOT = new URL('../assets/diagnosis/svg/', document.currentScript?.src || document.baseURI).href.replace(/\/$/, '');
+  const DIAGNOSIS_ASSETS = {
+    boardShell: `${ASSET_ROOT}/backgrounds/diagnosis-board-shell.svg`,
+    topbar: `${ASSET_ROOT}/backgrounds/diagnosis-topbar-skin.svg`,
+    sidebar: `${ASSET_ROOT}/backgrounds/diagnosis-sidebar-skin.svg`,
+    clipboard: `${ASSET_ROOT}/clipboard/diagnosis-clipboard-blank.svg`,
+    patient: `${ASSET_ROOT}/cards/patient-status-card.svg`,
+    vitals: `${ASSET_ROOT}/cards/caller-vitals-card.svg`,
+    insertMonitor: `${ASSET_ROOT}/monitors/insert-path-monitor.svg`,
+    analyzer: `${ASSET_ROOT}/monitors/audio-analyzer.svg`,
+    neon: `${ASSET_ROOT}/cards/neon-diagnose-sign.svg`,
+    patchTester: `${ASSET_ROOT}/monitors/signal-flow-patch-tester.svg`,
+    spectrum: `${ASSET_ROOT}/monitors/spectrum-view.svg`,
+    overallMeter: `${ASSET_ROOT}/monitors/overall-level-meter.svg`,
+    cart: `${ASSET_ROOT}/props/diagnosis-cart.svg`,
+    lamp: `${ASSET_ROOT}/props/desk-lamp.svg`,
+    workflowRail: `${ASSET_ROOT}/navigation/diagnosis-workflow-rail.svg`
+  };
+
+  function isDiagnosisMode() {
+    const wrap = document.querySelector('#patchbayWrap');
+    const body = document.body;
+    return Boolean(
+      wrap?.classList.contains('sf-diagnosis-mode') ||
+      wrap?.dataset?.mode === 'diagnose' ||
+      body?.classList.contains('sf-diagnosis-mode') ||
+      document.querySelector('[data-diagnosis-board], .diagnosis-board, .diagnose-board, main.sfdiag-ui-active, .sfdiag-board-shell, [data-training-panel="diagnose"]')
+    );
+  }
+
+  function makeImg(src, className, alt = '') {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alt;
+    img.className = className;
+    img.decoding = 'async';
+    img.loading = 'eager';
+    img.draggable = false;
+    return img;
+  }
+
+  function installDiagnosisSkin() {
+    if (!isDiagnosisMode()) return false;
+    const host = document.querySelector('.sfdiag-board-shell') ||
+      document.querySelector('[data-training-panel="diagnose"]')?.closest('.training-only-board, .board-card, .training-stage-shell') ||
+      document.querySelector('#patchbayWrap') ||
+      document.querySelector('#app') ||
+      document.body;
+    if (host.querySelector('.sf-diagnosis-art-layer')) return true;
+    host.classList.add('sf-diagnosis-mode');
+    if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+
+    const layer = document.createElement('div');
+    layer.className = 'sf-diagnosis-art-layer';
+    layer.dataset.sfDiagnosisSkin = 'v1';
+    // Codex: place these assets into the existing diagnosis layout containers instead of absolute defaults when available.
+    layer.appendChild(makeImg(DIAGNOSIS_ASSETS.boardShell, 'sf-diagnosis-board-shell', ''));
+    host.prepend(layer);
+    return true;
+  }
+
+  function updateDiagnosisMetersFromState() {
+    // Generic placeholder: Codex should replace this with real diagnosis/progress state.
+    const completed = Boolean(window.SignalFlow?.state?.diagnosisAnswered || document.querySelector('.diagnosis-choice.is-correct, .sf-diagnosis-choice-card.is-correct'));
+    document.querySelectorAll('.sf-diagnosis-meter').forEach((el) => el.classList.toggle('is-active', completed));
+  }
+
+  window.SF_DIAGNOSIS_SVG_ASSETS = {
+    ASSET_ROOT,
+    DIAGNOSIS_ASSETS,
+    installDiagnosisSkin,
+    updateDiagnosisMetersFromState
+  };
+
+  function refreshDiagnosisSkin() {
+    installDiagnosisSkin();
+    updateDiagnosisMetersFromState();
+  }
+
+  let refreshTimer = null;
+  function scheduleRefresh(delay = 80) {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(refreshDiagnosisSkin, delay);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => scheduleRefresh(20));
+  } else {
+    scheduleRefresh(20);
+  }
+
+  window.addEventListener('load', () => {
+    scheduleRefresh(40);
+    setTimeout(refreshDiagnosisSkin, 250);
+    setTimeout(refreshDiagnosisSkin, 900);
+  });
+  window.addEventListener('hashchange', () => scheduleRefresh(80));
+  window.addEventListener('popstate', () => scheduleRefresh(80));
+  document.addEventListener('change', event => {
+    if (event.target?.matches?.('select,#levelJump,#envJump')) scheduleRefresh(120);
+  }, true);
+  new MutationObserver(() => scheduleRefresh(120)).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class', 'data-mode', 'data-board-id', 'data-level-id']
+  });
+})();

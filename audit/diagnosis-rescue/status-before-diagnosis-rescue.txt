@@ -1,0 +1,23 @@
+ M docs/HANDOFF_SUMMARY.md
+ M docs/SIGNAL_FLOW_MEMORY.md
+ M launch/Signal_Flow_CRASH_TEST_NO_EMBEDDED_MEDIA.html
+ M launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+ M patch/diagnosis-ui.css
+ M patch/diagnosis-ui.js
+ M patch/sf-build-room-renderer.css
+ M patch/sf-build-room-renderer.js
+ M patch/sf-diagnosis-svg-skin.css
+ M patch/sf-diagnosis-svg-skin.js
+?? audit/diagnosis-rescue/
+?? audit/runtime-debug/
+?? docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md
+?? tools/fix_diagnosis_diag_to_diag_skin_v6r248.py
+?? tools/fix_diagnosis_hard_stage_mount_v6r252.py
+?? tools/fix_diagnosis_liv031_watchdog_v6r256.py
+?? tools/fix_diagnosis_mount_host_v6r250.py
+?? tools/fix_diagnosis_recover_after_buildroom_v6r251.py
+?? tools/fix_diagnosis_recursion_v6r253.py
+?? tools/fix_diagnosis_selected_level_v6r249.py
+?? tools/fix_diagnosis_skin_generic_panel_v6r254.py
+?? tools/fix_diagnosis_skin_wait_for_generic_v6r255.py
+?? tools/fix_diagnosis_svg_skin_v6r247.py

@@ -1,6 +1,6 @@
 # Signal Flow Memory
 
-Last updated: 2026-05-18
+Last updated: 2026-05-19
 
 ## Current Working Entry Point
 
@@ -80,9 +80,59 @@ Also present:
 
 - `launch/Signal_Flow_CRASH_TEST_NATIVE_ONLY.html` is untracked and appears to be a local crash-investigation harness. It should be kept until the native live-sound crash investigation is finished.
 
-## Build-a-Room Locked Design Recovery Rule
+## Build-a-Room Locked Design Baseline
 
-A previously locked Build-a-Room design regressed after shared renderer/stabilization work. Treat the locked Build-a-Room design as the source of truth and recover it rather than redesigning.
+Locked 2026-05-19 as Build-a-Room `v6r277`.
+
+Current locked Build-a-Room files:
+
+- `patch/sf-build-room-renderer.js`
+- `patch/sf-build-room-renderer.css`
+- `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
+
+Active cache refs:
+
+- `patch/sf-build-room-renderer.js?v=6r277`
+- `patch/sf-build-room-renderer.css?v=6r277`
+
+Locked player-facing behavior:
+
+- Build-a-Room owns the main training-stage surface.
+- The legacy external lesson/sidebar and old training-only board are hidden while Build-a-Room is active.
+- Internal Job Brief and Build Checklist are the true left column inside the Build-a-Room UI.
+- Equipment Options and cards are the right/main area.
+- No redundant Room / System Build grid.
+- No floating Equipment Locker / Mic Locker button.
+- Reset Build and Submit Build stay in the top strip immediately left of the credit boxes.
+- Category pill hitboxes and gear plus/minus hitboxes match the visible controls.
+- Submit Build uses the existing shared validation/check path.
+- Retry Build must not blank the Build-a-Room surface.
+
+Implementation lock:
+
+- `ensureContainer(levelId)` mounts into the active `.training-stage-shell` or `.level-shell`, using the current Build-a-Room mount as the anchor.
+- Shell ownership hides only direct old shell siblings of the `.sf-build-room-v6r227` root.
+- Do not reintroduce geometry-based sidebar hiding, broad DOM movers, mutation observers, transforms, negative shifts, or generic class-name scans.
+- Keep the `v6r277` button/hitbox fixes intact.
+
+Verified Build-a-Room levels:
+
+- `LIV-004`
+- `LIV-013`
+- `LIV-027`
+- `LIV-041`
+- `REC-004`
+- `BRD-004`
+- `PST-004`
+- `GAM-004`
+
+Reference handoff:
+
+- `docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md`
+
+## Build-a-Room Future Fix Rule
+
+Treat the locked Build-a-Room design as the source of truth and recover it rather than redesigning.
 
 Rules for Build-a-Room fixes:
 - Restore the locked player-facing Build-a-Room experience.
@@ -92,10 +142,4 @@ Rules for Build-a-Room fixes:
 - Do not patch only LIV-004 unless the bug is truly LIV-004-specific.
 - Keep shared submit/check behavior intact.
 - Do not affect native patch boards, diagnosis boards, quiz boards, IR boards, or navigation.
-- Once restored, protect Build-a-Room with reference screenshots and a regression checklist.
-
-Current visible Build-a-Room regression:
-- External left educational sidebar appears during Build-a-Room and contains content from another board/format.
-- Floating Equipment Locker button appears but should not be present.
-- Redundant Room / System Build grid appears and should not be present in the locked design.
-- Submit Build button is missing or not player-facing.
+- Protect Build-a-Room with the `v6r277` regression checklist before changing layout again.

@@ -3,7 +3,7 @@
   if(window.sfBuildRoomRendererV6r227Installed) return;
   window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r272';
+  const VERSION = '6r277';
   const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
   const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
   const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;
@@ -338,13 +338,13 @@
 
   function ensureContainer(levelId){
     let existing = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
-    if(existing) return promoteContainerToLevelShell(existing);
+    if(existing) return mountContainerInShell(existing);
     document.querySelectorAll('.sf-build-room-v6r227').forEach(el => el.remove());
     const root = document.createElement('section');
     root.className = 'sf-build-room-v6r227';
     root.dataset.levelId = levelId;
-    const shell = document.querySelector('.level-shell');
-    if(shell){ shell.appendChild(root); }
+    const host = buildRoomShellHost();
+    if(host){ host.insertBefore(root, host.firstElementChild || null); }
     else {
       const old = findOldBuildPanel();
       if(old && old.parentElement){ old.parentElement.insertBefore(root, old); }
@@ -353,25 +353,62 @@
         main.appendChild(root);
       }
     }
-    return promoteContainerToLevelShell(root);
+    return mountContainerInShell(root);
   }
 
-  function promoteContainerToLevelShell(root){
+  function currentBuildRoomMount(){
+    const levelId = currentLevelId();
+    const scoped = [
+      levelId ? '[data-sf-build-room-renderer-mount="true"][data-level-id="' + levelId + '"]' : '',
+      levelId ? '[data-training-panel="build-room"][data-level-id="' + levelId + '"]' : '',
+      '[data-sf-build-room-renderer-mount="true"]',
+      '[data-training-panel="build-room"]'
+    ].filter(Boolean);
+
+    for(const sel of scoped){
+      const found = Array.from(document.querySelectorAll(sel)).find(el => !el.closest('.sf-build-room-v6r227'));
+      if(found) return found;
+    }
+    return null;
+  }
+
+  function buildRoomShellFor(el){
+    return el && el.closest ? el.closest('.level-shell, .training-stage-shell') : null;
+  }
+
+  function buildRoomShellHost(){
+    const mountedRoot = document.querySelector('.sf-build-room-v6r227[data-level-id="' + currentLevelId() + '"]');
+    const rootShell = buildRoomShellFor(mountedRoot);
+    if(rootShell) return rootShell;
+
+    const mountShell = buildRoomShellFor(currentBuildRoomMount());
+    if(mountShell) return mountShell;
+
+    const levelId = currentLevelId();
+    const shells = Array.from(document.querySelectorAll('.level-shell, .training-stage-shell'));
+    if(levelId){
+      const matchingShell = shells.find(shell => (shell.textContent || '').indexOf(levelId) !== -1);
+      if(matchingShell) return matchingShell;
+    }
+    return shells[shells.length - 1] || null;
+  }
+
+  function mountContainerInShell(root){
     if(!root) return root;
-    const shell = root.closest('.level-shell') || document.querySelector('.level-shell');
-    if(shell && root.parentElement !== shell){
-      shell.appendChild(root);
+    const host = buildRoomShellHost();
+    if(host && root.parentElement !== host){
+      host.insertBefore(root, host.firstElementChild || null);
     }
     return root;
   }
 
   function findOldBuildPanel(){
-    const selectors = ['[data-training-panel="build-room"]','.build-room','.build-room-panel','.route-training-panel','[class*="build-room"]'];
+    const selectors = ['[data-training-panel="build-room"]','.build-room','.build-room-panel','.route-training-panel'];
     for(const sel of selectors){
       const found = Array.from(document.querySelectorAll(sel)).find(el => !el.classList.contains('sf-build-room-v6r227') && /Build|Room|Check Room|BUY ONLY/i.test(el.textContent || ''));
       if(found) return found;
     }
-    return Array.from(document.querySelectorAll('section, article, div')).find(el => /BUY ONLY WHAT THE BRIEF NEEDS|Check Room|Build the Room/i.test(el.textContent || '') && (el.getBoundingClientRect().width > 240));
+    return null;
   }
 
 
@@ -388,119 +425,75 @@
         root.parentElement.style.overflow = 'visible';
       }
 
-      const shell = root.closest('.level-shell');
+      mountContainerInShell(root);
+
+      const shell = buildRoomShellFor(root);
       if(shell){
         shell.classList.add('sf-br-shell-owned');
-        shell.dataset.sfBrPrevGridTemplateColumns = shell.style.gridTemplateColumns || '';
-        shell.dataset.sfBrPrevGap = shell.style.gap || '';
-        shell.dataset.sfBrPrevPadding = shell.style.padding || '';
-        shell.style.gridTemplateColumns = 'minmax(0, 1fr)';
-        shell.style.gap = '0';
-        shell.style.padding = '10px';
+        rememberStyle(shell, 'gridTemplateColumns');
+        rememberStyle(shell, 'gap');
+        rememberStyle(shell, 'padding');
+        shell.style.setProperty('grid-template-columns', 'minmax(0, 1fr)', 'important');
+        shell.style.setProperty('gap', '0', 'important');
+        shell.style.setProperty('padding', '10px', 'important');
 
         Array.from(shell.children).forEach(child => {
-          if(child === root || child.contains(root)) {
-            child.dataset.sfBrShellHost = 'true';
-            child.dataset.sfBrPrevGridColumn = child.style.gridColumn || '';
-            child.dataset.sfBrPrevWidth = child.style.width || '';
-            child.dataset.sfBrPrevMinWidth = child.style.minWidth || '';
-            child.style.gridColumn = '1 / -1';
-            child.style.width = '100%';
-            child.style.minWidth = '0';
-            const boardTop = child.querySelector(':scope > .board-top');
-            if(boardTop && boardTop.dataset.sfBrShellHidden !== 'true'){
-              boardTop.dataset.sfBrShellHidden = 'true';
-              boardTop.dataset.sfBrPrevDisplay = boardTop.style.display || '';
-              boardTop.dataset.sfBrPrevVisibility = boardTop.style.visibility || '';
-              boardTop.dataset.sfBrPrevPointerEvents = boardTop.style.pointerEvents || '';
-              boardTop.style.display = 'none';
-              boardTop.style.visibility = 'hidden';
-              boardTop.style.pointerEvents = 'none';
-            }
-            return;
-          }
-          if(child.dataset.sfBrShellHidden === 'true') return;
-          child.dataset.sfBrShellHidden = 'true';
-          child.dataset.sfBrPrevDisplay = child.style.display || '';
-          child.dataset.sfBrPrevVisibility = child.style.visibility || '';
-          child.dataset.sfBrPrevPointerEvents = child.style.pointerEvents || '';
-          child.style.display = 'none';
-          child.style.visibility = 'hidden';
-          child.style.pointerEvents = 'none';
+          if(child === root) return;
+          child.dataset.sfBrOldShellChild = 'true';
+          rememberStyle(child, 'display');
+          rememberStyle(child, 'visibility');
+          rememberStyle(child, 'pointerEvents');
+          child.style.setProperty('display', 'none', 'important');
+          child.style.setProperty('visibility', 'hidden', 'important');
+          child.style.setProperty('pointer-events', 'none', 'important');
         });
       }
 
-      const rootRect = root.getBoundingClientRect();
+      root.dataset.sfBrShellRoot = 'true';
+      rememberStyle(root, 'gridColumn');
+      rememberStyle(root, 'width');
+      rememberStyle(root, 'maxWidth');
+      rememberStyle(root, 'margin');
+      rememberStyle(root, 'alignSelf');
+      root.style.setProperty('grid-column', '1 / -1', 'important');
+      root.style.setProperty('width', 'min(1500px, calc(100vw - 36px))', 'important');
+      root.style.setProperty('max-width', 'none', 'important');
+      root.style.setProperty('margin', '0 auto 28px', 'important');
+      root.style.setProperty('align-self', 'start', 'important');
 
-      const shellSelectors = [
-        '.level-shell > aside',
-        '.level-shell > .panel',
-        '.training-level-panel',
-        '.training-sidebar',
-        '.lesson-sidebar',
-        '.level-sidebar',
-        '[data-role="lesson-sidebar"]',
-        '[data-training-panel="brief"]',
-        '[class*="lesson"]',
-        '[class*="brief"]',
-        '[class*="sidebar"]'
-      ];
-      const candidates = Array.from(new Set(shellSelectors.flatMap(sel => Array.from(document.querySelectorAll(sel))))).filter(el => {
-        if(!el || el === root || root.contains(el) || el.contains(root)) return false;
-        if(el.dataset.sfBrShellHidden === 'true') return false;
-
-        const r = el.getBoundingClientRect && el.getBoundingClientRect();
-        if(!r || r.width < 120 || r.height < 220) return false;
-
-        const cs = getComputedStyle(el);
-        if(cs.display === 'none' || cs.visibility === 'hidden') return false;
-
-        return (
-          r.left >= 0 &&
-          r.left < rootRect.left - 12 &&
-          r.top > 90 &&
-          r.width <= 380 &&
-          r.height >= 300
-        );
-      });
-
-      candidates.sort((a,b) => {
-        const ar = a.getBoundingClientRect();
-        const br = b.getBoundingClientRect();
-        return (br.width * br.height) - (ar.width * ar.height);
-      });
-
-      const hidden = [];
-
-      for(const el of candidates){
-        if(hidden.some(parent => parent.contains(el))) continue;
-
-        const txt = String(el.textContent || '');
-        const cls = String(el.className || '');
-        const looksLikeLessonShell =
-          /Current Level|Level Brief|Build the Room|Patch these|Reality Check|Learning Goals|Format Awareness|Why this setup matters|Front fill matrix/i.test(txt) ||
-          /level|brief|lesson|sidebar|education|training/i.test(cls);
-
-        if(!looksLikeLessonShell) continue;
-
-        el.dataset.sfBrShellHidden = 'true';
-        el.dataset.sfBrPrevDisplay = el.style.display || '';
-        el.dataset.sfBrPrevVisibility = el.style.visibility || '';
-        el.dataset.sfBrPrevPointerEvents = el.style.pointerEvents || '';
-        el.style.display = 'none';
-        el.style.visibility = 'hidden';
-        el.style.pointerEvents = 'none';
-        hidden.push(el);
-
-        if(hidden.length >= 2) break;
-      }
-
-      // Rescan when asked, but only log when a newly recreated shell element is hidden.
-      if(hidden.length){
-        console.log('[Signal Flow] Build-a-Room shell mode hid shell ' + VERSION, {hidden: hidden.length});
-      }
+      hideFloatingLockerButtons();
     }catch(err){
       console.warn('[Signal Flow] Build-a-Room shell mode failed ' + VERSION, err);
+    }
+  }
+
+  function hideFloatingLockerButtons(){
+    Array.from(document.querySelectorAll('button, a, [role="button"]')).forEach(el => {
+      if(el.closest('.sf-build-room-v6r227')) return;
+      const label = String(el.textContent || el.getAttribute('aria-label') || '').trim();
+      if(!/^(Equipment Locker|Mic Locker)$/i.test(label)) return;
+      el.dataset.sfBrFloatingLocker = 'true';
+      rememberStyle(el, 'display');
+      rememberStyle(el, 'visibility');
+      rememberStyle(el, 'pointerEvents');
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+      el.style.setProperty('pointer-events', 'none', 'important');
+    });
+  }
+
+  function rememberStyle(el, prop){
+    if(!el || !prop) return;
+    const key = 'sfBrPrev' + prop.charAt(0).toUpperCase() + prop.slice(1);
+    if(!(key in el.dataset)) el.dataset[key] = el.style[prop] || '';
+  }
+
+  function restoreStyle(el, prop){
+    if(!el || !prop) return;
+    const key = 'sfBrPrev' + prop.charAt(0).toUpperCase() + prop.slice(1);
+    if(key in el.dataset){
+      el.style[prop] = el.dataset[key] || '';
+      delete el.dataset[key];
     }
   }
 
@@ -511,34 +504,34 @@
       }
       delete document.body.dataset.sfBrShellModeKey;
 
-      document.querySelectorAll('.level-shell.sf-br-shell-owned').forEach(shell => {
-        shell.style.gridTemplateColumns = shell.dataset.sfBrPrevGridTemplateColumns || '';
-        shell.style.gap = shell.dataset.sfBrPrevGap || '';
-        shell.style.padding = shell.dataset.sfBrPrevPadding || '';
-        delete shell.dataset.sfBrPrevGridTemplateColumns;
-        delete shell.dataset.sfBrPrevGap;
-        delete shell.dataset.sfBrPrevPadding;
+      document.querySelectorAll('.level-shell.sf-br-shell-owned, .training-stage-shell.sf-br-shell-owned').forEach(shell => {
+        restoreStyle(shell, 'gridTemplateColumns');
+        restoreStyle(shell, 'gap');
+        restoreStyle(shell, 'padding');
         shell.classList.remove('sf-br-shell-owned');
       });
 
-      document.querySelectorAll('[data-sf-br-shell-host="true"]').forEach(el => {
-        el.style.gridColumn = el.dataset.sfBrPrevGridColumn || '';
-        el.style.width = el.dataset.sfBrPrevWidth || '';
-        el.style.minWidth = el.dataset.sfBrPrevMinWidth || '';
-        delete el.dataset.sfBrShellHost;
-        delete el.dataset.sfBrPrevGridColumn;
-        delete el.dataset.sfBrPrevWidth;
-        delete el.dataset.sfBrPrevMinWidth;
+      document.querySelectorAll('[data-sf-br-old-shell-child="true"]').forEach(el => {
+        restoreStyle(el, 'display');
+        restoreStyle(el, 'visibility');
+        restoreStyle(el, 'pointerEvents');
+        delete el.dataset.sfBrOldShellChild;
       });
 
-      document.querySelectorAll('[data-sf-br-shell-hidden="true"]').forEach(el => {
-        el.style.display = el.dataset.sfBrPrevDisplay || '';
-        el.style.visibility = el.dataset.sfBrPrevVisibility || '';
-        el.style.pointerEvents = el.dataset.sfBrPrevPointerEvents || '';
-        delete el.dataset.sfBrShellHidden;
-        delete el.dataset.sfBrPrevDisplay;
-        delete el.dataset.sfBrPrevVisibility;
-        delete el.dataset.sfBrPrevPointerEvents;
+      document.querySelectorAll('[data-sf-br-shell-root="true"]').forEach(el => {
+        restoreStyle(el, 'gridColumn');
+        restoreStyle(el, 'width');
+        restoreStyle(el, 'maxWidth');
+        restoreStyle(el, 'margin');
+        restoreStyle(el, 'alignSelf');
+        delete el.dataset.sfBrShellRoot;
+      });
+
+      document.querySelectorAll('[data-sf-br-floating-locker="true"]').forEach(el => {
+        restoreStyle(el, 'display');
+        restoreStyle(el, 'visibility');
+        restoreStyle(el, 'pointerEvents');
+        delete el.dataset.sfBrFloatingLocker;
       });
     }catch(_){}
   }
@@ -791,14 +784,14 @@
       console.log('[Signal Flow] Build-a-Room consolidated renderer installed ' + VERSION);
       installSplashLocker();
       renderBuildRoom();
-      setInterval(rescanBuildRoomShellOnly, 1000);
+      setInterval(rescanBuildRoomShellOnly, 500);
       window.addEventListener('hashchange', scheduleRender);
       window.addEventListener('popstate', scheduleRender);
     }).catch(err => {
       console.warn('[Signal Flow] Build-a-Room manifest unavailable; using embedded level fallback when possible:', err);
       installSplashLocker();
       renderBuildRoom();
-      setInterval(rescanBuildRoomShellOnly, 1000);
+      setInterval(rescanBuildRoomShellOnly, 500);
       window.addEventListener('hashchange', scheduleRender);
       window.addEventListener('popstate', scheduleRender);
     });
@@ -808,7 +801,12 @@
     const levelId = currentLevelId();
     if(!isBuildRoomLevel(levelId)) return;
     const root = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
-    if(root) applyBuildRoomShellMode(root);
+    if(!root || !root.isConnected || !root.querySelector('.sf-br-body')){
+      renderBuildRoom();
+      return;
+    }
+    mountContainerInShell(root);
+    applyBuildRoomShellMode(root);
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

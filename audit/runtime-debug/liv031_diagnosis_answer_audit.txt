@@ -1,0 +1,199 @@
+=== LIV-031 active embedded snippets ===
+18997:      "id": "LIV-031",
+
+=== diagnosis-ui answer logic ===
+156:  function diagnosisChoices(t){
+172:      ok: String(btn.dataset.ok) === 'true',
+173:      reason: btn.dataset.reason || (String(btn.dataset.ok) === 'false'
+180:  function generatedPanelHtml(l, t){
+181:    const choices = diagnosisChoices(t);
+187:      return `<button type="button" class="diagnose-patch inline-diagnose sfv174-diagnose-item sfv175-diagnose-item sfdiag-generated-choice" data-ok="${String(ok)}" data-reason="${escHtml(reason)}"><span>${i + 1}</span>${escHtml(text)}</button>`;
+252:        const correct = btn.dataset.ok === 'false';
+584:      host.insertAdjacentHTML('afterbegin', generatedPanelHtml(levelObj, t));
+593:      host.insertAdjacentHTML('afterbegin', generatedPanelHtml(levelObj, t));
+629:      console.log('[Signal Flow] Diagnosis generic GUI active', VERSION, id, diagnosisChoices(t).length);
+674:  new MutationObserver(() => schedule(80)).observe(document.documentElement, { childList:true, subtree:true, attributes:true, attributeFilter:['class','value','data-ok','data-correct'] });
+
+=== around all LIV-031 mentions ===
+--- context around line 18997 ---
+            "Stereo stage inputs should not be crossed."
+          ],
+          "learning": [
+            "Stereo DI",
+            "Stagebox order"
+          ],
+          "time": 280
+        },
+        {
+          "id": "LIV-030",
+          "environment": "live",
+          "title": "Main PA amp feed",
+          "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+          "difficulty": 3,
+          "required": [
+            [
+              "Main L Output",
+              "System Processor L In"
+            ],
+            [
+              "Main R Output",
+              "System Processor R In"
+            ],
+            [
+              "System Processor L Out",
+              "Main PA L Input"
+            ],
+            [
+              "System Processor R Out",
+              "Main PA R Input"
+            ],
+            [
+              "Lead Vocal Mic",
+              "Stage Box Input 1"
+            ]
+          ],
+          "forbidden": [
+            [
+              "Main L Output",
+              "Main PA R Input"
+            ],
+            [
+              "Main R Output",
+              "Main PA L Input"
+            ]
+          ],
+          "system": [
+            "Main L/R console outputs feed the system processor inputs first.",
+            "The processor outputs, not its inputs, feed the main PA amplifier inputs."
+          ],
+          "notes": [
+            "Do not patch processor input jacks into amplifier inputs. The back-panel path is console output → processor input → processor output → amp input."
+          ],
+          "learning": [
+            "System processing",
+            "PA feed"
+          ],
+          "time": 280
+        },
+    {
+      "id": "LIV-031",
+      "environment": "live",
+      "title": "Lead Vocal Mic to FOH",
+      "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+      "difficulty": 4,
+      "required": [
+        [
+          "Lead Vocal Mic",
+          "Stage Box Input 5"
+        ],
+        [
+          "Main L Output",
+          "System Processor L In"
+        ],
+        [
+          "Main R Output",
+          "System Processor R In"
+        ],
+        [
+          "Keys L DI",
+          "Stage Box Input 7"
+        ],
+        [
+          "Keys R DI",
+          "Stage Box Input 8"
+        ],
+        [
+          "Talkback Mic",
+          "Stage Box Input 14"
+        ],
+        [
+          "FOH Aux 5 L Output",
+          "IEM TX A Left Input"
+        ],
+        [
+          "FOH Aux 5 R Output",
+          "IEM TX A Right Input"
+        ]
+      ],
+      "forbidden": [
+        [
+          "Vocal Wedge Output",
+          "Open Vocal Mic Input"
+        ]
+      ],
+      "system": [
+        "Stagebox input appears on the FOH console over the snake.",
+        "Main outputs feed system processor."
+      ],
+      "notes": [
+        "Stage source and PA system processing are separate routes."
+      ],
+      "learning": [
+        "Stagebox input",
+        "Main PA feed"
+      ],
+      "training": {
+        "type": "diagnose",
+        "label": "Diagnose Patch",
+        "prompt": "Find the broken, backwards, or unsafe patch before the room goes live.",
+        "patches": [
+          {
+            "text": "Lead Vocal Mic → Stage Box Input 5",
+            "ok": true,
+            "reason": "This patch follows the intended route."
+          },
+          {
+            "text": "Main L Output → System Processor L In",
+            "ok": true,
+            "reason": "This patch follows the intended route."
+          },
+          {
+            "text": "Main R Output → System Processor R In",
+            "ok": true,
+            "reason": "This patch completes the stereo main PA feed."
+          },
+          {
+            "text": "FOH Aux 5 L/R Output → IEM TX A Left/Right Input",
+            "ok": true,
+            "reason": "Stereo IEM feeds need both left and right sides."
+          },
+          {
+            "text": "Vocal Wedge Output → Open Vocal Mic Input",
+            "ok": false,
+            "reason": "This is a known bad route for the level. It would send signal to the wrong place or create an unsafe workflow."
+          }
+        ],
+        "explanation": "This level replaces blank patching with troubleshooting. The player must recognize why one route is wrong."
+      },
+      "time": 300
+    },
+    {
+      "id": "LIV-032",
+      "environment": "live",
+      "title": "Vocal wedge mix 4",
+      "brief": "Patch a vocal monitor aux to the wedge input.",
+      "difficulty": 4,
+      "required": [
+        [
+          "Lead Vocal Mic",
+          "Stage Box Input 1"
+        ],
+        [
+          "FOH Aux 1 Output",
+          "Vocal Wedge Input"
+        ],
+        [
+          "Keys L DI",
+          "Stage Box Input 7"
+        ],
+        [
+          "Keys R DI",
+          "Stage Box Input 8"
+        ],
+        [
+          "Talkback Mic",
+          "Stage Box Input 14"
+        ],
+        [
+          "Main L Output",
+          "System Processor L In"

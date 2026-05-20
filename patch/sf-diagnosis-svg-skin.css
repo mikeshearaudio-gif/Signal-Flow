@@ -1,4 +1,4 @@
-/* Signal Flow Diagnosis Mode SVG Skin helper
+/* Signal Flow Diagnosis Mode SVG Skin helper v6r261
    Place at Signal-Flow-main/patch/sf-diagnosis-svg-skin.css
    Decorative assets only: keep actual question text, answers, buttons, hotspots, scoring, and game state in DOM/JS. */
 #patchbayWrap.sf-diagnosis-mode,
@@ -49,4 +49,229 @@
 }
 .sf-diagnosis-meter.is-active {
   filter: drop-shadow(0 0 8px rgba(132, 235, 65, .75));
+}
+
+
+/* Diagnosis SVG skin ownership v6r247.
+   Attach art to the visible diagnosis panel itself. */
+.diagnose-panel.sfdiag-svg-skin-active,
+.training-level-panel.diagnose-panel.sfdiag-svg-skin-active,
+[data-training-panel="diagnose"].sfdiag-svg-skin-active {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 210, 110, 0.15), transparent 28%),
+    linear-gradient(135deg, rgba(24, 18, 34, 0.96), rgba(8, 12, 22, 0.98)) !important;
+}
+
+.diagnose-panel.sfdiag-svg-skin-active > :not(.sf-diagnosis-art-layer),
+[data-training-panel="diagnose"].sfdiag-svg-skin-active > :not(.sf-diagnosis-art-layer) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.sfdiag-svg-skin-active > .sf-diagnosis-art-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+.sfdiag-svg-skin-active .sf-diagnosis-board-shell {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 0.72 !important;
+}
+
+.sfdiag-svg-skin-active .sf-diagnosis-topbar-skin {
+  position: absolute !important;
+  top: 10px !important;
+  left: 18px !important;
+  right: 18px !important;
+  width: calc(100% - 36px) !important;
+  height: 74px !important;
+  object-fit: fill !important;
+  opacity: 0.9 !important;
+}
+
+.sfdiag-svg-skin-active .sf-diagnosis-sidebar-skin {
+  position: absolute !important;
+  top: 92px !important;
+  left: 14px !important;
+  width: min(270px, 28%) !important;
+  height: calc(100% - 112px) !important;
+  object-fit: fill !important;
+  opacity: 0.72 !important;
+}
+
+.sfdiag-svg-skin-active .sf-diagnosis-choice-card,
+.sfdiag-svg-skin-active .diagnose-patch {
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+
+/* Diagnosis skin layer compatibility v6r261 */
+.diagnose-panel.sfdiag-svg-skin-active,
+.training-level-panel.diagnose-panel.sfdiag-svg-skin-active,
+[data-training-panel="diagnose"].sfdiag-svg-skin-active {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+.sfdiag-svg-skin-active > .sf-diagnosis-art-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+.sfdiag-svg-skin-active > :not(.sf-diagnosis-art-layer) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.sfdiag-svg-skin-active .sf-diagnosis-choice-card,
+.sfdiag-svg-skin-active .diagnose-patch {
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+
+/* Diagnosis generic panel sizing/skin repair v6r254.
+   The generic diagnosis panel can be created at only ~120px high before the
+   SVG skin claims it; make it a real board surface immediately. */
+[data-sfdiag-generic-panel="true"].sfdiag-generic-panel,
+.sfdiag-generic-panel[data-training-panel="diagnose"] {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  min-height: min(720px, calc(100vh - 230px)) !important;
+  height: min(720px, calc(100vh - 230px)) !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+}
+
+[data-sfdiag-generic-panel="true"].sfdiag-svg-skin-active,
+.sfdiag-generic-panel.sfdiag-svg-skin-active {
+  min-height: min(720px, calc(100vh - 230px)) !important;
+  height: min(720px, calc(100vh - 230px)) !important;
+}
+
+[data-sfdiag-generic-panel="true"] > .sf-diagnosis-art-layer,
+.sfdiag-generic-panel > .sf-diagnosis-art-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+[data-sfdiag-generic-panel="true"] > :not(.sf-diagnosis-art-layer),
+.sfdiag-generic-panel > :not(.sf-diagnosis-art-layer) {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* v6r261 single-owner diagnosis panel layout lock.
+   This file loads after diagnosis-ui.css, so it must preserve the renderer's
+   grid instead of falling back to the older block-sized skin helper. */
+main.sfdiag-ui-active .sfdiag-host-owned {
+  position: relative !important;
+  display: block !important;
+  grid-template-columns: none !important;
+  grid-template-rows: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+main.sfdiag-ui-active .sfdiag-host-owned > :not([data-sfdiag-generic-panel="true"]) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+main.sfdiag-ui-active .sfdiag-host-owned > [data-sfdiag-generic-panel="true"].sfdiag-board-shell,
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"].sfdiag-board-shell.sfdiag-generic-panel {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(220px, 270px) minmax(420px, 1fr) minmax(280px, 360px) !important;
+  grid-template-rows: minmax(0, 1fr) 52px !important;
+  gap: 10px !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: min(720px, calc(100vh - 230px)) !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  box-sizing: border-box !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sfdiag-lab-left {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: grid !important;
+  min-width: 0 !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sfdiag-clipboard-panel {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sfdiag-lab-right {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  display: grid !important;
+  min-width: 0 !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sfdiag-workflow-rail {
+  grid-column: 1 / -1 !important;
+  grid-row: 2 !important;
+  display: grid !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] > .sf-diagnosis-art-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] > .sfdiag-clipboard-panel {
+  padding-top: clamp(34px, 3.2vw, 48px) !important;
+  padding-bottom: clamp(18px, 2vw, 28px) !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] .inline-diagnose-list {
+  gap: 8px !important;
+  margin: 10px 0 12px !important;
+  padding-bottom: 8px !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"][data-sfdiag-choice-count="5"] .diagnose-patch {
+  min-height: 46px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  font-size: clamp(.94rem, 1.22vw, 1.22rem) !important;
+}
+
+main.sfdiag-ui-active [data-sfdiag-generic-panel="true"] .sfdiag-generated-choice {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
