@@ -254,3 +254,70 @@ Do not modify for this lock:
 Reference handoff:
 
 - `docs/HANDOFF_2026-05-20_SPLASH_IR_ROUTING_AUDIO_LOCK.md`
+
+## Raw Splash Universal Board-Load Lock
+
+Locked 2026-05-21 after repairing raw splash Play / level select navigation inside the wrapper.
+
+Current locked files:
+
+- `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
+- `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`
+
+Locked behavior:
+
+- The raw splash must be able to load every known board from its Environment / Level picker, not just a small set of test levels.
+- When the raw game is embedded in the wrapper, splash Play delegates to the wrapper bridge:
+  - `parent.sfWrapperLoadLevel(levelId)` when available.
+  - `postMessage({ type: "sf-wrapper-load-level", levelId })` as fallback.
+- The wrapper-facing raw API `window.sfNativeGameShellLoadLevel(anyLevelId)` routes by level ID first using:
+  `navigateTo("/level/" + encodeURIComponent(levelId))`
+- The old selector-hunting behavior inside `sfNativeGameShellLoadLevel` is fallback only. Repeated console logs like `Native game shell changed in-game selector: REC-002` indicate the browser is running a stale or broken path.
+- Normal non-IR boards route to the raw game hash:
+  `Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html?v=raw-splash-universal-load-v2#/level/LEVEL-ID`
+- Public IR boards still route through the wrapper to the cleaned IR runner:
+  `ir-level-runner.html?level=ENV-IR-NN&display=ENV-XXX&v=ir-ui-cleanup-v2`
+- The wrapper raw iframe uses cache key:
+  `raw-splash-universal-load-v2`
+- The IR runner URL and cache key are unchanged:
+  - `IR_RUNNER = "ir-level-runner.html"`
+  - `IR_RUNNER_CACHE = "ir-ui-cleanup-v2"`
+
+Expected success console:
+
+- For normal boards loaded from the raw splash:
+  `[Signal Flow] Native game shell routed level: REC-002`
+- Do not accept repeated selector-only logs as a passing state:
+  `[Signal Flow] Native game shell changed in-game selector: REC-002`
+
+Verification completed 2026-05-21 against:
+
+- `http://127.0.0.1:8000/launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`
+
+Verified through the actual raw splash UI:
+
+- `REC-001` -> raw `#/level/REC-001`
+- `REC-002` -> raw `#/level/REC-002`
+- `BRD-003` -> raw `#/level/BRD-003`
+- `PST-010` -> raw `#/level/PST-010`
+- `GAM-020` -> raw `#/level/GAM-020`
+- `LIV-004` -> raw `#/level/LIV-004`
+- `LIV-005` -> cleaned IR runner with 24 choices
+
+Syntax verification:
+
+- Inline script syntax check passed for `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html` with 16 inline scripts.
+- Inline script syntax check passed for `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html` with 5 inline scripts.
+
+Do not modify for this lock:
+
+- `launch/ir-level-runner.html`
+- Build-a-Room v6r277
+- `diagnosis-ui.js?v=6r263`
+- Semantic checklist highlighter
+- LIV-002 jack layout
+- IR runner layout/scoring
+
+Reference handoff:
+
+- `docs/HANDOFF_2026-05-21_RAW_SPLASH_UNIVERSAL_BOARD_LOAD_LOCK.md`

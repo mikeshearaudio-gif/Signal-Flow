@@ -272,6 +272,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
   <script>
   (function(){
     const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
+    const GAME_CACHE = 'raw-splash-universal-load-v2';
     const IR_RUNNER = 'ir-level-runner.html';
     const IR_RUNNER_CACHE = 'ir-ui-cleanup-v2';
     const LEVELS = {
@@ -407,7 +408,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
     function routeFor(id){
       return IR_IDS.has(id)
         ? IR_RUNNER + '?level=' + encodeURIComponent(id) + '&display=' + encodeURIComponent(displayLabel(id)) + '&v=' + encodeURIComponent(IR_RUNNER_CACHE)
-        : GAME + '#/level/' + encodeURIComponent(id);
+        : GAME + '?v=' + encodeURIComponent(GAME_CACHE) + '#/level/' + encodeURIComponent(id);
     }
     function delegateToGameFrame(id){
       if(IR_IDS.has(id)) return false;
@@ -459,7 +460,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
       envSelect.value = 'LIV';
       populate('LIV');
       manualLevel.value = levelSelect.value || '';
-      frame.src = GAME;
+      frame.src = GAME + '?v=' + encodeURIComponent(GAME_CACHE);
     }
     document.getElementById('homeBtn').addEventListener('click', loadSplash);
     window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
