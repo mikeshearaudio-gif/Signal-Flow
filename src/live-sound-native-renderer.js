@@ -559,14 +559,6 @@
         "stagebox-input-6",
         "stagebox-input-7",
         "stagebox-input-8",
-        "stagebox-input-9",
-        "stagebox-input-10",
-        "stagebox-input-11",
-        "stagebox-input-12",
-        "stagebox-input-13",
-        "stagebox-input-14",
-        "stagebox-input-15",
-        "stagebox-input-16",
         "stagebox-link-out",
         "foh-aux-1-output",
         "aux-2-output",
@@ -2042,6 +2034,50 @@ if (activeNativeLevelId === nextLevelId) return;
         x: level.rect.width * 0.5,
         y: level.rect.height * 0.5
       };
+    }
+
+    // LIV-002 uses asset-specific SVG hardware centers.
+    // Keep this level-specific so later boards that use different stagebox/console
+    // artwork do not inherit these coordinates.
+    if (LEVEL_ID === "LIV-002") {
+      const liv002Rel = {
+        "stagebox-input-1": { panel: "stagebox", x: 130 / 860, y: 135 / 260 },
+        "stagebox-input-2": { panel: "stagebox", x: 202 / 860, y: 135 / 260 },
+        "stagebox-input-3": { panel: "stagebox", x: 274 / 860, y: 135 / 260 },
+        "stagebox-input-4": { panel: "stagebox", x: 346 / 860, y: 135 / 260 },
+        "stagebox-input-5": { panel: "stagebox", x: 418 / 860, y: 135 / 260 },
+        "stagebox-input-6": { panel: "stagebox", x: 490 / 860, y: 135 / 260 },
+        "stagebox-input-7": { panel: "stagebox", x: 562 / 860, y: 135 / 260 },
+        "stagebox-input-8": { panel: "stagebox", x: 634 / 860, y: 135 / 260 },
+        "stagebox-link-out": { panel: "stagebox", x: 775 / 860, y: 135 / 260 },
+
+        "foh-aux-1-output": { panel: "foh", x: 715 / 1120, y: 134 / 260 },
+        "aux-2-output": { panel: "foh", x: 770 / 1120, y: 134 / 260 },
+        "aux-3-output": { panel: "foh", x: 825 / 1120, y: 134 / 260 },
+        "talkback-output": { panel: "foh", x: 880 / 1120, y: 134 / 260 },
+        "main-left-output": { panel: "foh", x: 975 / 1120, y: 134 / 260 },
+        "main-right-output": { panel: "foh", x: 1045 / 1120, y: 134 / 260 },
+
+        "vocal-wedge-input": { panel: "monitor", x: 150 / 850, y: 130 / 240 },
+        "vocal-wedge-thru": { panel: "monitor", x: 315 / 850, y: 130 / 240 },
+        "vocal-wedge-aux-in": { panel: "monitor", x: 470 / 850, y: 130 / 240 }
+      }[key];
+
+      if (liv002Rel) {
+        const panel = (level.panels || []).find(item => item.id === liv002Rel.panel || item.kind === liv002Rel.panel);
+        if (panel) {
+          const panelAspect = {
+            stagebox: 260 / 860,
+            foh: 260 / 1120,
+            monitor: 240 / 850
+          }[panel.kind] || 0.25;
+
+          return {
+            x: panel.x + panel.width * liv002Rel.x,
+            y: panel.y + panel.width * panelAspect * liv002Rel.y
+          };
+        }
+      }
     }
 
     if (def.panelRel) {
