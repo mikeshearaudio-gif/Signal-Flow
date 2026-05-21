@@ -199,3 +199,58 @@ Verification completed 2026-05-20:
 Reference handoff:
 
 - `docs/HANDOFF_2026-05-20_SEMANTIC_CHECKLIST_HIGHLIGHT_LOCK.md`
+
+## Splash / IR Routing / Audio-Origin Lock
+
+Locked 2026-05-20 after wrapper splash and IR navigation repairs.
+
+Current locked files:
+
+- `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
+- `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`
+- `launch/ir-level-runner.html`
+- `assets/ui/signal-flow-splash-stage.png`
+
+Locked behavior:
+
+- The wrapper boots to the raw game splash/start state. No gameplay board auto-loads on wrapper boot.
+- The raw splash art is restored through `assets/ui/signal-flow-splash-stage.png`, extracted from the original bundled splash PNG. Do not replace it with the transparent 1x1 GIF or a redesigned CSS splash.
+- Wrapper Splash/Home returns to the same raw splash/start state.
+- Public IR board IDs use the cleaned IR runner:
+  - `REC-005`, `LIV-005`, `BRD-005`, `PST-005`, `GAM-005`
+  - `REC-014`, `LIV-014`, `BRD-014`, `PST-014`, `GAM-014`
+  - `REC-024`, `LIV-024`, `BRD-024`, `PST-024`, `GAM-024`
+  - `REC-035`, `LIV-035`, `BRD-035`, `PST-035`, `GAM-035`
+  - `REC-046`, `LIV-046`, `BRD-046`, `PST-046`, `GAM-046`
+- IR runner URLs stay in this form:
+  `ir-level-runner.html?level=ENV-IR-NN&display=ENV-XXX&v=ir-ui-cleanup-v2`
+- The wrapper exposes `window.sfWrapperLoadLevel = loadLevel`, listens for `sf-wrapper-load-level`, and catches stale iframe raw-game IR hashes so `#/level/LIV-005` cannot strand the user inside the native board.
+- The raw game delegates public IR IDs to the IR runner instead of rendering them through the native level path.
+- Direct top-level `ir-level-runner.html` has standalone navigation fallbacks:
+  - `Choose Another Board` goes to `Signal_Flow_v1_41_18_NAV_WRAPPER.html`.
+  - `Next Board` goes to the next public raw board hash, such as `#/level/LIV-006`.
+  - Inside the wrapper, those buttons continue to use `postMessage`.
+
+Audio-origin rule:
+
+- Test the wrapper through local HTTP:
+  `http://127.0.0.1:8000/launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`
+- Do not test IR preview audio, Build-a-Room manifests, or native SFX from `file://`. Browser security blocks `fetch()` from `origin null`, causing missing flute audio and manifest/SFX CORS errors.
+- Missing `Flute Solo` audio under `file://` is not a code bug. Only change IR audio code if the same failure reproduces from `http://127.0.0.1:8000`.
+
+Harmless/expected console noise:
+
+- `AudioContext was not allowed to start` can appear until a user gesture.
+- `favicon.ico` 404 is harmless.
+
+Do not modify for this lock:
+
+- Build-a-Room v6r277 renderer behavior, layout, submit/retry behavior, scoring, or economy.
+- `diagnosis-ui.js?v=6r263`.
+- Native Live renderer behavior, route validation, scoring, or economy.
+- IR scoring or cleaned IR layout unless directly tasked.
+- Semantic checklist highlighter.
+
+Reference handoff:
+
+- `docs/HANDOFF_2026-05-20_SPLASH_IR_ROUTING_AUDIO_LOCK.md`

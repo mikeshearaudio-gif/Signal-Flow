@@ -22082,7 +22082,32 @@ function navigateTo(path){
   setRouteHash(route);
   renderRoute(route);
 }
+function delegateWrapperPublicIrLevel(id){
+  const clean = String(id || '').trim().toUpperCase();
+  const match = clean.match(/^(REC|LIV|BRD|PST|GAM)-(005|014|024|035|046)$/);
+  if(!match) return false;
+  const irNumberByPublic = { '005':'01', '014':'02', '024':'03', '035':'04', '046':'05' };
+  const irId = match[1] + '-IR-' + irNumberByPublic[match[2]];
+  const irUrl = 'ir-level-runner.html?level=' + encodeURIComponent(irId) + '&display=' + encodeURIComponent(clean) + '&v=ir-ui-cleanup-v2';
+  try{
+    window.location.replace(irUrl);
+    return true;
+  }catch{}
+  if(!(window.parent && window.parent !== window)) return false;
+  try{
+    if(typeof window.parent.sfWrapperLoadLevel === 'function'){
+      window.parent.sfWrapperLoadLevel(clean);
+      return true;
+    }
+  }catch{}
+  try{
+    window.parent.postMessage({ type:'sf-wrapper-load-level', levelId:clean }, '*');
+    return true;
+  }catch{}
+  return false;
+}
 function startLevelById(id, opts={}){
+  if(delegateWrapperPublicIrLevel(id)) return;
   const idx = DATA.levels.findIndex(l => l.id === id);
   state.levelIndex = idx >= 0 ? idx : 0;
   const target = DATA.levels[state.levelIndex];
@@ -22096,6 +22121,25 @@ function startLevelById(id, opts={}){
 function startSelectedLevel(){
   const levelSelect = q('levelSelectSplash');
   const selected = levelSelect?.value || DATA.levels[0]?.id;
+  if(delegateWrapperPublicIrLevel(selected)) return;
+  if(selected && window.parent && window.parent !== window){
+    try{
+      if(typeof window.parent.sfWrapperLoadLevel === 'function'){
+        window.parent.sfWrapperLoadLevel(selected);
+        return;
+      }
+    }catch{}
+    window.parent.postMessage({ type:'sf-wrapper-load-level', levelId:selected }, '*');
+    setTimeout(() => {
+      try{
+        if(window.parent && window.parent !== window) return;
+      }catch{
+        return;
+      }
+      startLevelById(selected);
+    }, 180);
+    return;
+  }
   if(selected) startLevelById(selected);
 }
 function openTutorial(){
@@ -22197,7 +22241,7 @@ function renderSplash(){
   app.innerHTML = `
     <main class="machine-home clean-splash-home">
       <section class="machine-stage clean-splash-stage corrected-splash-stage" aria-label="Signal Flow home screen">
-        <img class="splash-stage-art" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Signal Flow splash art" />
+        <img class="splash-stage-art" src="../assets/ui/signal-flow-splash-stage.png" alt="Signal Flow splash art" />
         <div class="build-badge">${BUILD_VERSION}</div>
         <div class="clean-stage-picker" aria-label="Choose level">
           <p class="eyebrow">Choose Level</p>

@@ -44,6 +44,7 @@
     const readout = document.getElementById('selectedReadout');
     const resultBox = document.getElementById('resultBox');
     const actions = document.getElementById('completeActions');
+    const publicBoard = publicDisplay || level.title;
 
     document.getElementById('levelTitle').textContent = publicDisplay || level.title;
     document.getElementById('fallbackIcon').textContent = level.icon || '🏠';
@@ -105,8 +106,30 @@
       window.parent.postMessage({ type:'sf-ir-complete', levelId:id, points:r.points, stars:r.stars, selected, target:level.space }, '*');
       if(r.points < 100) audio.playCompare(selected, level.space, data.IR_META); else audio.playIR(selected, data.IR_META);
     });
-    document.getElementById('nextBtn').addEventListener('click', () => window.parent.postMessage({ type:'sf-ir-next', levelId:id }, '*'));
-    document.getElementById('chooseBtn').addEventListener('click', () => window.parent.postMessage({ type:'sf-ir-choose', levelId:id }, '*'));
+    function inWrapper(){
+      return window.parent && window.parent !== window;
+    }
+    function nextPublicBoard(){
+      const match = String(publicBoard || '').match(/^(REC|LIV|BRD|PST|GAM)-(\d{3})$/);
+      if(!match) return '';
+      return match[1] + '-' + String(Number(match[2]) + 1).padStart(3, '0');
+    }
+    function goChooseBoard(){
+      location.href = 'Signal_Flow_v1_41_18_NAV_WRAPPER.html';
+    }
+    function goNextBoard(){
+      const next = nextPublicBoard();
+      if(!next){ goChooseBoard(); return; }
+      location.href = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html#/level/' + encodeURIComponent(next);
+    }
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-next', levelId:id }, '*');
+      else goNextBoard();
+    });
+    document.getElementById('chooseBtn').addEventListener('click', () => {
+      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-choose', levelId:id }, '*');
+      else goChooseBoard();
+    });
   })();
   </script>
 </body>

@@ -433,6 +433,22 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
       updateScore(0);
       if(!delegateToGameFrame(clean)) frame.src = routeFor(clean);
     }
+    window.sfWrapperLoadLevel = loadLevel;
+    function redirectFrameIrHash(){
+      let hash = '';
+      try{ hash = frame.contentWindow && frame.contentWindow.location ? frame.contentWindow.location.hash : ''; }catch{}
+      const src = frame.getAttribute('src') || '';
+      const match = String(hash || '').match(/^#\/level\/([^/?#]+)/) || src.match(/#\/level\/([^/?#]+)/);
+      if(!match) return;
+      const clean = internalId(decodeURIComponent(match[1]));
+      if(IR_IDS.has(clean)){
+        frame.src = routeFor(clean);
+      }
+    }
+    frame.addEventListener('load', () => {
+      redirectFrameIrHash();
+      setTimeout(redirectFrameIrHash, 250);
+    });
     function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=internalId(manualLevel.value); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
     envSelect.addEventListener('change',()=>{ populate(envSelect.value); manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
     levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
@@ -446,7 +462,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
       frame.src = GAME;
     }
     document.getElementById('homeBtn').addEventListener('click', loadSplash);
-    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
+    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
     loadSplash();
   })();
   </script>
