@@ -273,6 +273,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
   (function(){
     const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
     const IR_RUNNER = 'ir-level-runner.html';
+    const IR_RUNNER_CACHE = 'ir-ui-cleanup-v2';
     const LEVELS = {
       REC:[
         'REC-001','REC-002','REC-003','REC-004','REC-IR-01',
@@ -405,7 +406,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
 
     function routeFor(id){
       return IR_IDS.has(id)
-        ? IR_RUNNER + '?level=' + encodeURIComponent(id) + '&display=' + encodeURIComponent(displayLabel(id))
+        ? IR_RUNNER + '?level=' + encodeURIComponent(id) + '&display=' + encodeURIComponent(displayLabel(id)) + '&v=' + encodeURIComponent(IR_RUNNER_CACHE)
         : GAME + '#/level/' + encodeURIComponent(id);
     }
     function delegateToGameFrame(id){
@@ -437,9 +438,16 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
     levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
     document.getElementById('loadBtn').addEventListener('click',()=>loadLevel(manualLevel.value));
     manualLevel.addEventListener('keydown',ev=>{ if(ev.key==='Enter') loadLevel(manualLevel.value); });
-    document.getElementById('homeBtn').addEventListener('click',()=>{ frame.src=GAME; });
+    function loadSplash(){
+      updateScore(0);
+      envSelect.value = 'LIV';
+      populate('LIV');
+      manualLevel.value = levelSelect.value || '';
+      frame.src = GAME;
+    }
+    document.getElementById('homeBtn').addEventListener('click', loadSplash);
     window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
-    populate('PST'); loadLevel('PST-IR-01');
+    loadSplash();
   })();
   </script>
 \n
@@ -1237,6 +1245,5 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
   console.log("[Signal Flow] Semantic to-do checklist highlight installed", VERSION);
 })();
 </script>
-
 </body>
 </html>
