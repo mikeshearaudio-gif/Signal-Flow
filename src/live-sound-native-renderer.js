@@ -585,6 +585,63 @@
         }
       ]
     },
+    "LIV-012": {
+      id: "LIV-012",
+      title: "Vocal Wedge Mix 4",
+      processorLabel: "VOCAL WEDGE",
+      panelKinds: ["stagebox", "foh", "monitor"],
+      sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-link-out",
+        "foh-aux-1-output",
+        "aux-2-output",
+        "aux-3-output",
+        "talkback-output",
+        "main-left-output",
+        "main-right-output",
+        "vocal-wedge-input",
+        "vocal-wedge-thru",
+        "vocal-wedge-aux-in"
+      ],
+      validRoutes: [
+        {
+          key: "liv012-lead-vocal-mic-to-stagebox-input-1",
+          from: "lead-vocal-mic",
+          to: "stagebox-input-1",
+          checklist: "Lead Vocal Microphone → Stage Box Input 1"
+        },
+        {
+          key: "liv012-foh-aux-1-output-to-vocal-wedge-input",
+          from: "foh-aux-1-output",
+          to: "vocal-wedge-input",
+          checklist: "Front-of-House Auxiliary 1 Output → Vocal Wedge Input"
+        },
+        {
+          key: "liv012-keys-left-di-to-stagebox-input-7",
+          from: "keys-left-di",
+          to: "stagebox-input-7",
+          checklist: "Keys Left DI → Stage Box Input 7",
+          stereoGroup: "liv012-keys-di-to-stagebox",
+          stereoSide: "left"
+        },
+        {
+          key: "liv012-keys-right-di-to-stagebox-input-8",
+          from: "keys-right-di",
+          to: "stagebox-input-8",
+          checklist: "Keys Right DI → Stage Box Input 8",
+          stereoGroup: "liv012-keys-di-to-stagebox",
+          stereoSide: "right"
+        }
+      ]
+    },
     "LIV-003": {
       id: "LIV-003",
       title: "Stereo IEM Send 1",
@@ -2039,7 +2096,7 @@ if (activeNativeLevelId === nextLevelId) return;
     // LIV-002 uses asset-specific SVG hardware centers.
     // Keep this level-specific so later boards that use different stagebox/console
     // artwork do not inherit these coordinates.
-    if (LEVEL_ID === "LIV-002") {
+    if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
       const liv002Rel = {
         "stagebox-input-1": { panel: "stagebox", x: 130 / 860, y: 135 / 260 },
         "stagebox-input-2": { panel: "stagebox", x: 202 / 860, y: 135 / 260 },
@@ -4961,6 +5018,18 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     }
 
     if (!["LIV-003", "LIV-006", "LIV-007", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+
+    if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
+      const aux = getNodePoint(adapter, level, "foh-aux-1-output");
+      const foh = (level.panels || []).find(panel => panel.id === "foh" || panel.kind === "foh");
+      const labelX = foh ? foh.x + foh.width * (798 / 1120) : aux.x + 44;
+      const labelY = aux.y - 48;
+
+      // Player-facing terminology: these jacks function as monitor aux outputs
+      // in the LIV-002/LIV-012 wedge boards. Do not rename the shared SVG asset.
+      mask(labelX, labelY, 120, 16);
+      plaque("AUX OUTS", labelX, labelY, 94);
+    }
 
     if (LEVEL_ID === "LIV-025") {
       const aux = pointFromPanel(adapter, level, "foh.lineOut2");
