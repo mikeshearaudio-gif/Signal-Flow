@@ -1260,7 +1260,7 @@
           assetOverrides: {
             stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
             foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
-            amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+            amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259",
             paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
           },
           generatedJackKeys: [
@@ -1301,19 +1301,16 @@
             "foh-liv006-bus-8-output",
             "foh-liv006-main-left-output",
             "foh-liv006-main-right-output",
-            "liv242-crossover-l-input",
-            "liv242-crossover-r-input",
-            "liv242-delay-tower-processor-input",
-            "liv242-sub-processor-input",
-            "liv242-crossover-l-output",
-            "liv242-crossover-r-output",
-            "liv242-main-pa-l-input",
-            "liv242-main-pa-r-input"
+            "liv006-system-processor-l-input",
+            "liv006-system-processor-r-input",
+            "liv006-delay-tower-processor-input",
+            "liv006-sub-processor-input",
+            "liv006-front-fill-processor-input"
           ],
           validRoutes: [
-            { key: "foh-liv006-matrix-2-output-to-liv242-sub-processor-input", from: "foh-liv006-matrix-2-output", to: "liv242-sub-processor-input", checklist: "Matrix 2 Output → Sub Processor Input" },
-            { key: "foh-liv006-main-left-output-to-liv242-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv015-main-to-crossover", stereoSide: "left" },
-            { key: "foh-liv006-main-right-output-to-liv242-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv015-main-to-crossover", stereoSide: "right" },
+            { key: "foh-liv006-matrix-2-output-to-liv006-sub-processor-input", from: "foh-liv006-matrix-2-output", to: "liv006-sub-processor-input", checklist: "Matrix 2 Output → Sub Processor Input" },
+            { key: "foh-liv006-main-left-output-to-liv006-system-processor-l-input", from: "foh-liv006-main-left-output", to: "liv006-system-processor-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv015-main-to-crossover", stereoSide: "left" },
+            { key: "foh-liv006-main-right-output-to-liv006-system-processor-r-input", from: "foh-liv006-main-right-output", to: "liv006-system-processor-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv015-main-to-crossover", stereoSide: "right" },
             { key: "lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "stagebox-input-1", checklist: "Lead Vocal Mic → Stage Box Input 1" }
           ]
         },
@@ -5017,7 +5014,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
     }
 
-    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-015", "LIV-016", "LIV-020", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
 
     if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
       const aux = getNodePoint(adapter, level, "foh-aux-1-output");
@@ -5431,6 +5428,14 @@ function renderLiv009DrumStageInputs(surface, adapter) {
         { id: "foh", kind: "foh", x: rect.width * 0.045, y: layoutHeight * 0.195, width: rect.width * 0.445 },
         { id: "amp", kind: "amp", x: rect.width * 0.505, y: layoutHeight * 0.180, width: rect.width * 0.410 },
         { id: "paamp", kind: "paamp", x: rect.width * 0.575, y: layoutHeight * 0.600, width: rect.width * 0.315 }
+      );
+    } else if (LEVEL_ID === "LIV-015") {
+      // LIV-015: larger no-scroll processing layout.
+      // Keep all equipment inside the fixed processing-family board height.
+      panels.push(
+        { id: "stagebox", kind: "stagebox", x: rect.width * 0.045, y: layoutHeight * 0.365, width: rect.width * 0.385 },
+        { id: "foh", kind: "foh", x: rect.width * 0.380, y: layoutHeight * 0.115, width: rect.width * 0.585 },
+        { id: "amp", kind: "amp", x: rect.width * 0.405, y: layoutHeight * 0.595, width: rect.width * 0.540 }
       );
     } else {
       panels.push(
