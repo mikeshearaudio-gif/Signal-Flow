@@ -3,7 +3,7 @@
   if(window.sfBuildRoomRendererV6r227Installed) return;
   window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r277';
+  const VERSION = '6r278';
   const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
   const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
   const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;
@@ -422,7 +422,8 @@
       document.body.dataset.sfBrShellModeKey = 'build-room:' + levelId;
 
       if(root.parentElement){
-        root.parentElement.style.overflow = 'visible';
+        root.parentElement.style.overflowX = 'hidden';
+        root.parentElement.style.overflowY = 'auto';
       }
 
       mountContainerInShell(root);
@@ -433,9 +434,25 @@
         rememberStyle(shell, 'gridTemplateColumns');
         rememberStyle(shell, 'gap');
         rememberStyle(shell, 'padding');
+        rememberStyle(shell, 'minHeight');
+        rememberStyle(shell, 'overflowY');
+        rememberStyle(shell, 'overflowX');
+        rememberStyle(shell, 'overscrollBehavior');
         shell.style.setProperty('grid-template-columns', 'minmax(0, 1fr)', 'important');
         shell.style.setProperty('gap', '0', 'important');
         shell.style.setProperty('padding', '10px', 'important');
+        shell.style.setProperty('min-height', '0', 'important');
+        shell.style.setProperty('overflow-y', 'auto', 'important');
+        shell.style.setProperty('overflow-x', 'hidden', 'important');
+        shell.style.setProperty('overscroll-behavior', 'contain', 'important');
+        shell.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+
+        console.log('[Signal Flow] Build-a-Room viewport contract ' + VERSION, {
+          levelId,
+          clientHeight: shell.clientHeight,
+          scrollHeight: shell.scrollHeight,
+          overflowY: getComputedStyle(shell).overflowY
+        });
 
         Array.from(shell.children).forEach(child => {
           if(child === root) return;

@@ -1316,17 +1316,28 @@
         },
         "LIV-016": {
           id: "LIV-016",
-          title: "Delay Tower Route",
-          familyLayout: "processing-stagebox",
-          processorLabel: "CROSSOVER / DELAY TOWER PROCESSING",
+          title: "16-channel Stage Box to Front-of-House",
+          familyLayout: "png-full-band-stagebox",
+          processorLabel: "FULL BAND STAGEBOX",
           panelKinds: ["stagebox", "foh", "amp"],
-          sourceOrder: ["lead-vocal-mic"],
-          assetOverrides: {
-            stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
-            amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
-            paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
-          },
+          sourceOrder: [
+            "lead-vocal-mic",
+            "bass-di",
+            "guitar-1-left",
+            "guitar-1-right",
+            "guitar-2-left",
+            "guitar-2-right",
+            "keys-left-di",
+            "keys-right-di",
+            "kick",
+            "snare",
+            "hi-hat",
+            "high-rack-tom",
+            "low-rack-tom",
+            "floor-tom",
+            "overhead-left-crash",
+            "overhead-right-ride"
+          ],
           generatedJackKeys: [
             "stagebox-input-1",
             "stagebox-input-2",
@@ -1344,41 +1355,30 @@
             "stagebox-input-14",
             "stagebox-input-15",
             "stagebox-input-16",
-            "stagebox-link-out",
-            "foh-liv006-matrix-1-output",
-            "foh-liv006-matrix-2-output",
-            "foh-liv006-matrix-3-output",
-            "foh-liv006-matrix-4-output",
-            "foh-liv006-aux-1-output",
-            "foh-liv006-aux-2-output",
-            "foh-liv006-aux-3-output",
-            "foh-liv006-aux-4-output",
-            "foh-liv006-aux-5-output",
-            "foh-liv006-aux-6-output",
-            "foh-liv006-bus-1-output",
-            "foh-liv006-bus-2-output",
-            "foh-liv006-bus-3-output",
-            "foh-liv006-bus-4-output",
-            "foh-liv006-bus-5-output",
-            "foh-liv006-bus-6-output",
-            "foh-liv006-bus-7-output",
-            "foh-liv006-bus-8-output",
             "foh-liv006-main-left-output",
             "foh-liv006-main-right-output",
             "liv242-crossover-l-input",
-            "liv242-crossover-r-input",
-            "liv242-delay-tower-processor-input",
-            "liv242-sub-processor-input",
-            "liv242-crossover-l-output",
-            "liv242-crossover-r-output",
-            "liv242-main-pa-l-input",
-            "liv242-main-pa-r-input"
+            "liv242-crossover-r-input"
           ],
           validRoutes: [
-            { key: "foh-liv006-matrix-3-output-to-liv242-delay-tower-processor-input", from: "foh-liv006-matrix-3-output", to: "liv242-delay-tower-processor-input", checklist: "Matrix 3 Output → Delay Tower Processor Input" },
-            { key: "foh-liv006-main-left-output-to-liv242-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv016-main-to-crossover", stereoSide: "left" },
-            { key: "foh-liv006-main-right-output-to-liv242-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv016-main-to-crossover", stereoSide: "right" },
-            { key: "lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "stagebox-input-1", checklist: "Lead Vocal Mic → Stage Box Input 1" }
+            { key: "liv016-lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "stagebox-input-1", checklist: "Lead Vocal Microphone → Stage Box Input 1" },
+            { key: "liv016-bass-di-to-stagebox-input-2", from: "bass-di", to: "stagebox-input-2", checklist: "Bass DI → Stage Box Input 2" },
+            { key: "liv016-guitar-1-left-to-stagebox-input-3", from: "guitar-1-left", to: "stagebox-input-3", checklist: "Guitar 1 Left → Stage Box Input 3", stereoGroup: "liv016-guitar-1-to-stagebox", stereoSide: "left" },
+            { key: "liv016-guitar-1-right-to-stagebox-input-4", from: "guitar-1-right", to: "stagebox-input-4", checklist: "Guitar 1 Right → Stage Box Input 4", stereoGroup: "liv016-guitar-1-to-stagebox", stereoSide: "right" },
+            { key: "liv016-guitar-2-left-to-stagebox-input-5", from: "guitar-2-left", to: "stagebox-input-5", checklist: "Guitar 2 Left → Stage Box Input 5", stereoGroup: "liv016-guitar-2-to-stagebox", stereoSide: "left" },
+            { key: "liv016-guitar-2-right-to-stagebox-input-6", from: "guitar-2-right", to: "stagebox-input-6", checklist: "Guitar 2 Right → Stage Box Input 6", stereoGroup: "liv016-guitar-2-to-stagebox", stereoSide: "right" },
+            { key: "liv016-keys-left-di-to-stagebox-input-7", from: "keys-left-di", to: "stagebox-input-7", checklist: "Keys Left DI → Stage Box Input 7", stereoGroup: "liv016-keys-to-stagebox", stereoSide: "left" },
+            { key: "liv016-keys-right-di-to-stagebox-input-8", from: "keys-right-di", to: "stagebox-input-8", checklist: "Keys Right DI → Stage Box Input 8", stereoGroup: "liv016-keys-to-stagebox", stereoSide: "right" },
+            { key: "liv016-kick-to-stagebox-input-9", from: "kick", to: "stagebox-input-9", checklist: "Kick → Stage Box Input 9" },
+            { key: "liv016-snare-to-stagebox-input-10", from: "snare", to: "stagebox-input-10", checklist: "Snare → Stage Box Input 10" },
+            { key: "liv016-hi-hat-to-stagebox-input-11", from: "hi-hat", to: "stagebox-input-11", checklist: "Hi-hat → Stage Box Input 11" },
+            { key: "liv016-rack-tom-1-to-stagebox-input-12", from: "high-rack-tom", to: "stagebox-input-12", checklist: "Rack Tom 1 → Stage Box Input 12" },
+            { key: "liv016-rack-tom-2-to-stagebox-input-13", from: "low-rack-tom", to: "stagebox-input-13", checklist: "Rack Tom 2 → Stage Box Input 13" },
+            { key: "liv016-floor-tom-to-stagebox-input-14", from: "floor-tom", to: "stagebox-input-14", checklist: "Floor Tom → Stage Box Input 14" },
+            { key: "liv016-overhead-left-to-stagebox-input-15", from: "overhead-left-crash", to: "stagebox-input-15", checklist: "OH Left → Stage Box Input 15", stereoGroup: "liv016-overheads-to-stagebox", stereoSide: "left" },
+            { key: "liv016-overhead-right-to-stagebox-input-16", from: "overhead-right-ride", to: "stagebox-input-16", checklist: "OH Right → Stage Box Input 16", stereoGroup: "liv016-overheads-to-stagebox", stereoSide: "right" },
+            { key: "liv016-main-left-output-to-crossover-left-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main Left Output → Crossover Left In", stereoGroup: "liv016-main-to-crossover", stereoSide: "left" },
+            { key: "liv016-main-right-output-to-crossover-right-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main Right Output → Crossover Right In", stereoGroup: "liv016-main-to-crossover", stereoSide: "right" }
           ]
         },
         "LIV-020": {
@@ -1544,6 +1544,11 @@ if (activeNativeLevelId === nextLevelId) return;
     "talkback-mic": { label: "Talkback Mic", kind: "source", x: 44, y: 160 },
     "keys-left-di": { label: "Keys L DI", kind: "source" },
     "keys-right-di": { label: "Keys R DI", kind: "source" },
+    "bass-di": { label: "Bass DI", kind: "source" },
+    "guitar-1-left": { label: "Guitar 1 L", kind: "source" },
+    "guitar-1-right": { label: "Guitar 1 R", kind: "source" },
+    "guitar-2-left": { label: "Guitar 2 L", kind: "source" },
+    "guitar-2-right": { label: "Guitar 2 R", kind: "source" },
     "kick": { label: "Kick", kind: "source" },
     "snare": { label: "Snare", kind: "source" },
     "hi-hat": { label: "Hi-hat", kind: "source" },
@@ -1745,7 +1750,38 @@ if (activeNativeLevelId === nextLevelId) return;
     return Math.max(0, r.width * r.height);
   }
 
+  function isUsableNativeBoardSurface(el) {
+    if (!el || !el.getBoundingClientRect) return false;
+    const r = el.getBoundingClientRect();
+    return (
+      r.width > 650 &&
+      r.height > 360 &&
+      getComputedStyle(el).display !== "none" &&
+      !el.classList.contains("level-shell") &&
+      !el.classList.contains("game") &&
+      !el.classList.contains("panel-scroll")
+    );
+  }
+
   function findSurface() {
+    const explicitBoardSurface = Array.from(document.querySelectorAll(
+      ".board-card #patchbay, #patchbay, .board-card .patchbay-wrap, .patchbay-wrap"
+    ))
+      .filter(isUsableNativeBoardSurface)
+      .sort((a, b) => {
+        const score = el => (el.id === "patchbay" ? 3 : el.classList.contains("patchbay-wrap") ? 2 : 1) * 10000000 + areaOf(el);
+        return score(b) - score(a);
+      })[0];
+
+    if (explicitBoardSurface) {
+      console.log("[Signal Flow] Native surface selected:", {
+        text: textOf(explicitBoardSurface).slice(0, 90),
+        rect: explicitBoardSurface.getBoundingClientRect(),
+        selector: explicitBoardSurface.id ? "#" + explicitBoardSurface.id : "." + Array.from(explicitBoardSurface.classList).join(".")
+      });
+      return explicitBoardSurface;
+    }
+
     const all = Array.from(document.querySelectorAll("div, section, article, main"));
 
     const titleEl = all
@@ -1776,6 +1812,7 @@ if (activeNativeLevelId === nextLevelId) return;
         const t = textOf(el);
 
         return (
+          isUsableNativeBoardSurface(el) &&
           r.width > 650 &&
           r.height > 360 &&
           r.left >= cardRect.left - 4 &&
@@ -1795,11 +1832,22 @@ if (activeNativeLevelId === nextLevelId) return;
       textOf(el).includes("CONSOLE + AMP RACK")
     );
 
-    const surface = playfield || candidates[0] || card;
+    const surface = playfield || candidates[0] || null;
+
+    if (!surface) {
+      console.warn("[Signal Flow] Native renderer waiting for board surface:", {
+        levelId: LEVEL_ID,
+        cardClass: card.className,
+        cardText: textOf(card).slice(0, 90),
+        cardRect
+      });
+      return null;
+    }
 
     console.log("[Signal Flow] Native surface selected:", {
       text: textOf(surface).slice(0, 90),
-      rect: surface.getBoundingClientRect()
+      rect: surface.getBoundingClientRect(),
+      selector: surface.id ? "#" + surface.id : "." + Array.from(surface.classList).join(".")
     });
 
     return surface;
@@ -1981,7 +2029,8 @@ if (activeNativeLevelId === nextLevelId) return;
           id: "amp",
           kind: "amp",
           x: rect.width * 0.385,
-          y: layoutHeight * 0.615,
+          // LIV-011 v6r302: move crossover 250px upward from previous placement.
+          y: Math.max(12, layoutHeight * 0.615 - 250),
           width: rect.width * 0.570
         }
       );
@@ -2820,6 +2869,22 @@ if (activeNativeLevelId === nextLevelId) return;
     badge.style.boxShadow = "";
   }
 
+  function markChecklistForCompletedRoute(validRoute) {
+    if (!validRoute) return;
+
+    if (LEVEL_ID === "LIV-016" && validRoute.stereoGroup) {
+      const groupRoutes = LEVEL.validRoutes.filter(route => route.stereoGroup === validRoute.stereoGroup);
+      const groupComplete = groupRoutes.every(route => state.completedValidKeys.has(route.key));
+
+      if (!groupComplete) return;
+
+      groupRoutes.forEach(route => markChecklist(route.key));
+      return;
+    }
+
+    markChecklist(validRoute.key);
+  }
+
   function setSelected(node, selected) {
     node.el.style.boxShadow = selected
       ? "0 0 0 3px rgba(111,208,255,.95), 0 0 20px rgba(111,208,255,.55)"
@@ -3128,7 +3193,7 @@ if (activeNativeLevelId === nextLevelId) return;
     if (valid) {
       state.completedValidKeys.add(valid.key);
       dispatchNativeRouteCompleted(valid);
-      markChecklist(valid.key);
+      markChecklistForCompletedRoute(valid);
       playGoodConnect();
     } else {
       dispatchNativeWrongAttempt(key);
@@ -3431,6 +3496,25 @@ if (activeNativeLevelId === nextLevelId) return;
     layer.appendChild(btn);
   }
 
+  function updateLiv016SourceHintHighlights() {
+    Array.from(document.querySelectorAll(".sf-native-liv016-source-hotspot")).forEach(btn => {
+      if (!nativeHintsVisible) {
+        btn.style.boxShadow = "none";
+        btn.style.background = "rgba(255,210,95,0)";
+        btn.style.borderColor = "rgba(255,210,95,0)";
+        return;
+      }
+
+      btn.style.boxShadow = "0 0 0 3px rgba(255,210,95,.88), 0 0 18px rgba(255,210,95,.44)";
+      btn.style.background = "rgba(255,210,95,.10)";
+      btn.style.borderColor = "rgba(255,246,203,.78)";
+    });
+
+    Array.from(document.querySelectorAll(".sf-native-liv016-label")).forEach(label => {
+      label.style.display = "none";
+    });
+  }
+
   function updateNativeHintHighlights() {
     Array.from(document.querySelectorAll(".sf-native-jack")).forEach(btn => {
       const isGhost = btn.dataset.sfNativeGhost === "1";
@@ -3452,6 +3536,7 @@ if (activeNativeLevelId === nextLevelId) return;
         btn.style.background = "rgba(255,210,95,.10)";
       }
     });
+    updateLiv016SourceHintHighlights();
   }
 
   function setNativeHintsVisible(visible) {
@@ -3925,6 +4010,7 @@ function sfLiv009BindHintGate(){
       if(!r || r.width <= 0 || r.height <= 0) return;
       (groups[text] ||= []).push({ el, x: r.x, y: r.y });
     });
+
 
     Object.values(groups).forEach(items => {
       items.sort((a, b) => (a.y - b.y) || (a.x - b.x));
@@ -5268,6 +5354,40 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     document.head.appendChild(style);
   }
 
+  function nativeViewportForSurface(surface) {
+    if (!surface || !surface.closest) return surface;
+    return surface.closest(".patchbay-wrap") || surface;
+  }
+
+  function applyNativeViewportContract(surface, boardHeight) {
+    const viewport = nativeViewportForSurface(surface);
+    if (!viewport) return surface;
+
+    if (getComputedStyle(viewport).position === "static") {
+      viewport.style.position = "relative";
+    }
+
+    viewport.classList.add("sf-live-native-viewport");
+    viewport.style.setProperty("overflow-y", "auto", "important");
+    viewport.style.setProperty("overflow-x", "hidden", "important");
+    viewport.style.setProperty("overscroll-behavior", "contain", "important");
+    viewport.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+    viewport.style.setProperty("touch-action", "pan-y", "important");
+    viewport.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+
+    console.log("[Signal Flow] Native viewport contract:", {
+      levelId: LEVEL_ID,
+      surfaceClass: surface.className,
+      viewportClass: viewport.className,
+      sameElement: viewport === surface,
+      clientHeight: viewport.clientHeight,
+      scrollHeight: viewport.scrollHeight,
+      overflowY: getComputedStyle(viewport).overflowY
+    });
+
+    return viewport;
+  }
+
 
   
   function renderLiv010ThreeWayCrossover(surface, adapter) {
@@ -5407,7 +5527,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
 
   function isLivProcessingFamilyLevel() {
-    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-016" || LEVEL_ID === "LIV-020";
+    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-020";
   }
 
   function buildLivProcessingFamilyGeometry(surface) {
@@ -5476,7 +5596,9 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     if (LEVEL_ID === "LIV-020") {
       createLabel(layer, "FOH CONSOLE MAIN OUTS", level.rect.width * 0.065, level.rect.height * 0.145, 12);
-      createLabel(layer, "CROSSOVER", level.rect.width * 0.520, level.rect.height * 0.130, 12);
+      if (LEVEL_ID !== "LIV-011") {
+        createLabel(layer, "CROSSOVER", level.rect.width * 0.520, level.rect.height * 0.130, 12);
+      }
       createLabel(layer, "MAIN PA AMPLIFIER", level.rect.width * 0.600, level.rect.height * 0.550, 12);
     } else {
       createLabel(layer, "SOURCE", level.rect.width * 0.060, level.rect.height * 0.100, 12);
@@ -5536,7 +5658,258 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     installCableDrag(layer);
   }
 
+  function renderLiv016FullBandPngBoard(surface, adapter) {
+    const rect = surface.getBoundingClientRect();
+    const PNG_W = 3024;
+    const PNG_H = 1628;
+
+    const scale = Math.min(rect.width * 0.985 / PNG_W, rect.height * 0.955 / PNG_H);
+    const bgW = PNG_W * scale;
+    const bgH = PNG_H * scale;
+    const bgX = (rect.width - bgW) / 2;
+    const bgY = 12;
+
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+    surface.classList.remove("sf-live-native-scroll-host");
+    surface.style.removeProperty("--sf-live-native-board-height");
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-016 sf-live-native-liv016-png-board";
+    layer.style.cssText = [
+      "position:absolute",
+      "inset:0",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:hidden",
+      "border-radius:16px",
+      "background:radial-gradient(circle at 46% 42%, rgba(18,48,38,.24), rgba(0,0,0,0) 70%)"
+    ].join(";");
+
+    const bg = document.createElement("img");
+    bg.src = sfRepoUrl("/assets/live-sound/png/liv016v20-board-only.png");
+    bg.alt = "LIV-016 full-band stagebox layout";
+    bg.style.cssText = [
+      "position:absolute",
+      "left:" + bgX + "px",
+      "top:" + bgY + "px",
+      "width:" + bgW + "px",
+      "height:" + bgH + "px",
+      "object-fit:contain",
+      "pointer-events:none",
+      "user-select:none",
+      "z-index:10",
+      "filter:drop-shadow(0 16px 28px rgba(0,0,0,.55))"
+    ].join(";");
+    layer.appendChild(bg);
+
+    function pt(x, y) {
+      return {
+        x: bgX + bgW * (x / PNG_W),
+        y: bgY + bgH * (y / PNG_H)
+      };
+    }
+
+    function source(key, x, y, radius) {
+      const label = nodeLabel(key);
+      const point = pt(x, y);
+      const r = radius || 30;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "sf-native-node sf-native-source sf-native-liv016-source-hotspot";
+      setNativeNodeDomKey(btn, key, "source");
+      btn.dataset.sfNativeKey = key;
+      btn.dataset.sfNativeDefaultShadow = "none";
+      btn.dataset.sfNativePointX = String(point.x);
+      btn.dataset.sfNativePointY = String(point.y);
+      btn.setAttribute("aria-label", label);
+      btn.title = label;
+
+      btn.style.cssText = [
+        "position:absolute",
+        "left:" + point.x + "px",
+        "top:" + point.y + "px",
+        "width:" + (r * 2) + "px",
+        "height:" + (r * 2) + "px",
+        "transform:translate(-50%,-50%)",
+        "border-radius:50%",
+        "border:1px solid rgba(255,210,95,0)",
+        "background:rgba(255,210,95,0)",
+        "box-shadow:none",
+        "cursor:pointer",
+        "pointer-events:auto",
+        "z-index:150"
+      ].join(";");
+
+      btn.addEventListener("mouseenter", () => {
+        btn.style.boxShadow = "0 0 0 2px rgba(255,210,95,.24), 0 0 14px rgba(255,210,95,.18)";
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        if (!selectedNode || selectedNode.el !== btn) btn.style.boxShadow = "none";
+      });
+
+      btn.addEventListener("pointerdown", event => {
+        const node = { key, el: btn, defaultShadow: "none", point: pointForNativeNode(layer, btn) };
+        console.log("[Signal Flow] Native source drag start:", key);
+        startNativePatchDrag(layer, node, event);
+      }, true);
+
+      btn.addEventListener("click", event => {
+        if (Date.now() < suppressNativeClickUntil) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const node = { key, el: btn, defaultShadow: "none", point: pointForNativeNode(layer, btn) };
+        console.log("[Signal Flow] Native source clicked:", key);
+        handleNodeClick(layer, node);
+      });
+
+      layer.appendChild(btn);
+    }
+
+    const active = new Set();
+    (LEVEL.validRoutes || []).forEach(route => {
+      active.add(route.from);
+      active.add(route.to);
+    });
+
+    function jack(key, x, y, label, radius) {
+      createJackNode(layer, key, pt(x, y), label || nodeLabel(key), !active.has(key));
+
+      const btn = layer.querySelector('[data-node-key="' + key + '"]');
+      if (btn) {
+        const r = radius || 16;
+        btn.style.width = (r * 2) + "px";
+        btn.style.height = (r * 2) + "px";
+        btn.style.minWidth = (r * 2) + "px";
+        btn.style.minHeight = (r * 2) + "px";
+        btn.style.padding = "0";
+      }
+    }
+
+
+    function label(text, x, y, w) {
+      const el = document.createElement("div");
+      el.textContent = text;
+      el.className = "sf-native-liv016-label";
+      el.style.cssText = [
+        "position:absolute",
+        "left:" + (bgX + bgW * (x / PNG_W)) + "px",
+        "top:" + (bgY + bgH * (y / PNG_H)) + "px",
+        "width:" + ((w || 94) * scale) + "px",
+        "transform:translate(-50%,-50%)",
+        "padding:" + Math.max(2, 4 * scale) + "px " + Math.max(4, 7 * scale) + "px",
+        "border-radius:" + Math.max(6, 9 * scale) + "px",
+        "border:1px solid rgba(255,214,102,.55)",
+        "background:rgba(6,12,20,.76)",
+        "color:#fff4bf",
+        "font:900 " + Math.max(7, 12 * scale) + "px system-ui,-apple-system,Segoe UI,sans-serif",
+        "letter-spacing:.035em",
+        "line-height:1.05",
+        "text-align:center",
+        "text-transform:uppercase",
+        "text-shadow:0 1px 3px rgba(0,0,0,.75)",
+        "pointer-events:none",
+        "z-index:155",
+        "display:none"
+      ].join(";");
+      layer.appendChild(el);
+      return el;
+    }
+
+    // Source labels + transparent hitboxes.
+    // PNG-space coordinates are mapped from liv016hitboxes0.png reference regions.
+    label("Gtr 1 L", 244, 132, 84);
+    label("Gtr 1 R", 461, 122, 84);
+    source("guitar-1-left", 244, 245, 17);
+    source("guitar-1-right", 461, 233, 17);
+
+    label("Vocal", 1034, 54, 78);
+    source("lead-vocal-mic", 1034, 137, 76);
+
+    label("Gtr 2 L", 361, 660, 86);
+    label("Gtr 2 R", 685, 654, 86);
+    source("guitar-2-left", 361, 777, 17);
+    source("guitar-2-right", 685, 771, 17);
+
+    label("Bass DI", 1271, 1118, 92);
+    source("bass-di", 1271, 1286, 17);
+
+    label("Keys L", 1665, 1044, 82);
+    label("Keys R", 1945, 1044, 82);
+    source("keys-left-di", 1665, 1184, 17);
+    source("keys-right-di", 1945, 1184, 17);
+
+    label("OH L", 326, 1018, 68);
+    label("OH R", 897, 1050, 68);
+    label("Hi-hat", 226, 1172, 78);
+    label("Rack 1", 454, 1114, 78);
+    label("Rack 2", 642, 1114, 78);
+    label("Snare", 386, 1284, 78);
+    label("Kick", 552, 1308, 74);
+    label("Floor", 742, 1318, 74);
+
+    source("overhead-left-crash", 326, 1088, 20);
+    source("overhead-right-ride", 897, 1120, 20);
+    source("hi-hat", 226, 1240, 20);
+    source("high-rack-tom", 454, 1182, 20);
+    source("low-rack-tom", 642, 1182, 20);
+    source("snare", 386, 1350, 20);
+    source("kick", 552, 1372, 20);
+    source("floor-tom", 742, 1382, 20);
+
+    label("Stage Box Inputs", 2358, 98, 176);
+    label("Stage Box 1-8", 2358, 168, 126);
+    label("Stage Box 9-16", 2358, 302, 132);
+    label("FOH Console", 2208, 474, 150);
+    label("FOH Main L/R", 2862, 594, 126);
+    label("Crossover", 2388, 872, 118);
+    label("Crossover Inputs", 2190, 936, 154);
+    label("Crossover Outputs", 2580, 842, 164);
+
+    // 16-channel stagebox input hitboxes.
+    const stageXs = [2080, 2160, 2240, 2320, 2400, 2480, 2560, 2640];
+    stageXs.forEach((x, idx) => jack("stagebox-input-" + (idx + 1), x, 205, "Stage Box Input " + (idx + 1), 15));
+    stageXs.forEach((x, idx) => jack("stagebox-input-" + (idx + 9), x, 340, "Stage Box Input " + (idx + 9), 15));
+
+    // FOH main outputs on the 16ch console.
+    jack("foh-liv006-main-left-output", 2814, 638, "Main Left Output", 20);
+    jack("foh-liv006-main-right-output", 2928, 638, "Main Right Output", 20);
+
+    // Crossover inputs on the left side of the crossover panel.
+    jack("liv242-crossover-l-input", 2140, 990, "Crossover Left In", 18);
+    jack("liv242-crossover-r-input", 2240, 990, "Crossover Right In", 18);
+
+
+    // LIV-016 channel-number and board-label overlay v3
+    surface.appendChild(layer);
+    redrawCables(layer);
+    installCableDrag(layer);
+    updateNativeHintHighlights();
+
+    console.log("[Signal Flow] LIV-016 PNG full-band native renderer mounted", {
+      bgX,
+      bgY,
+      bgW,
+      bgH
+    });
+  }
+
   function renderNative(surface, adapter) {
+    if (LEVEL_ID === "LIV-016") {
+      renderLiv016FullBandPngBoard(surface, adapter);
+      return;
+    }
+
     if (isLivProcessingFamilyLevel()) {
       renderLivProcessingFamily(surface, adapter);
       return;
@@ -5568,6 +5941,8 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       surface.classList.remove("sf-live-native-scroll-host");
       surface.style.removeProperty("--sf-live-native-board-height");
     }
+
+    applyNativeViewportContract(surface, boardHeight);
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer";
@@ -5607,10 +5982,14 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
     }
     if (panelKinds.has("amp") && LEVEL_ID !== "LIV-006") {
-      createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
+      if (LEVEL_ID !== "LIV-011") {
+        createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
+      }
     }
     if (panelKinds.has("monitor")) {
-      createLabel(layer, LEVEL.processorLabel || "VOCAL WEDGE", level.rect.width * 0.52, level.rect.height * 0.51, 11);
+      if (LEVEL_ID !== "LIV-011") {
+        createLabel(layer, LEVEL.processorLabel || "VOCAL WEDGE", level.rect.width * 0.52, level.rect.height * 0.51, 11);
+      }
     }
 
     level.panels.forEach(panel => {

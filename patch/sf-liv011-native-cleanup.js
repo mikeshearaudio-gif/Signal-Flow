@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  const VERSION = "v6r240";
+  const VERSION = "v6r242";
   const MARKER = "sfLiv011V6r240CleanupInstalled";
   if (window[MARKER]) return;
   window[MARKER] = true;
@@ -64,5 +64,10 @@
   function startObserver() { if (document.body) { observer.observe(document.body, { childList: true, subtree: true, characterData: true }); scheduleCleanup(); } else { setTimeout(startObserver, 50); } }
   startObserver();
   window.sfLiv011V6r240Cleanup = cleanup;
+
+
+
+
+
   console.log("[Signal Flow] LIV-011 cleanup " + VERSION + " installed");
 })();

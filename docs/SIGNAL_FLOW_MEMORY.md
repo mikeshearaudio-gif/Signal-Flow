@@ -321,3 +321,68 @@ Do not modify for this lock:
 Reference handoff:
 
 - `docs/HANDOFF_2026-05-21_RAW_SPLASH_UNIVERSAL_BOARD_LOAD_LOCK.md`
+
+## LIV-016 Full-Band Stagebox Repair Memory
+
+Recorded 2026-05-21 after the PNG-backed LIV-016 repair and endpoint-map correction.
+
+Current relevant files:
+
+- `src/live-sound-native-renderer.js`
+- `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html`
+- `assets/live-sound/png/liv016-full-band-layout.png`
+- `assets/live-sound/png/liv016hitboxes0.png`
+- `assets/live-sound/png/liv160.png`
+- `assets/live-sound/svg/hardware/live mic.svg`
+- `assets/live-sound/svg/hardware/bass0.svg`
+- `assets/live-sound/svg/hardware/guitar1.svg`
+- `assets/live-sound/svg/hardware/Guitar 2.svg`
+- `assets/live-sound/svg/hardware/keyboard0.svg`
+
+Locked/current behavior:
+
+- `LIV-016` is now `16-channel Stage Box to Front-of-House`, not the old delay-tower board.
+- It uses `assets/live-sound/png/liv016-full-band-layout.png` as the rendered board image.
+- `assets/live-sound/png/liv016hitboxes0.png` is reference only and must not render.
+- Source/instrument hitboxes were mapped from the brown reference regions and are considered correct after the latest pass.
+- `Stage Box Input 1-16` endpoints belong on the upper stagebox input panel.
+- `FOH Main L/R` endpoints belong on the blue FOH main output jacks.
+- `Crossover Left/Right In` endpoints belong on the left input pair of the crossover.
+- Crossover colored rows are outputs, not the required input targets.
+- Show Hints must show source, jack, and equipment labels, including Stage Box Inputs, FOH Console, FOH Main L/R, Crossover Inputs, and Crossover Outputs.
+- No blue source boxes should render over the PNG.
+- No extra grey normalization cable should be drawn because the trunk cable is already in the PNG.
+- Renderer cache in the raw launch file is currently `v=6r276`.
+
+Route/checklist behavior:
+
+- Required routes are the 16 stagebox inputs plus FOH Main L/R to Crossover L/R In.
+- Stereo-pair visible checklist gating is enforced for Guitar 1, Guitar 2, Keys, OH, and Main L/R.
+- A stereo half should not visually complete its checklist row until the paired route is also complete.
+
+Validation completed:
+
+- `node --check src/live-sound-native-renderer.js`
+- Browser QA through the wrapper on port `8000`.
+- `LIV-016` loads with 16 source hotspots and 20 jack endpoints.
+- Show Hints labels equipment and endpoints.
+- `liv016hitboxes0.png` is not rendered.
+- Tested Lead Vocal, Bass, Keys L/R, Kick, and Main L/R routes.
+- Keys L alone did not complete; Keys R completed both. Main L alone did not complete; Main R completed both.
+- `LIV-015` was smoke-checked earlier and still uses the processing-family renderer, not the LIV-016 PNG layer.
+
+Do not modify for this lock:
+
+- `LIV-015`
+- Build-a-Room v6r277
+- `diagnosis-ui.js?v=6r263`
+- IR runner layout/scoring
+- Semantic checklist highlighter
+
+Reference handoff:
+
+- `docs/HANDOFF_2026-05-21_LIV016_FULL_BAND_STAGEBOX_REPAIR.md`
+
+## Signal Flow project law — reassess the approach when a better one exists
+
+Do not assume the current implementation path is the best or only path. If a cleaner, safer, more maintainable, or more visually reliable approach exists, suggest it clearly before continuing. Do not keep doing work merely because the current path is already underway. When a chosen method starts creating repeated alignment, readability, maintainability, or regression problems, pause and reassess the approach. Prefer the method that best serves the game, player clarity, and long-term maintainability, even if that means changing direction.

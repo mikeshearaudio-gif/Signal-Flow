@@ -8408,9 +8408,9 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
   <link rel="stylesheet" href="../patch/sf-diagnosis-svg-skin.css?v=6r261" />
   <link rel="stylesheet" href="../patch/sf-economy-rules.css?v=6r214" />
 
-<!-- Signal Flow Build-a-Room consolidated renderer v6r277 -->
-<link rel="stylesheet" href="../patch/sf-build-room-renderer.css?v=6r277">
-<!-- /Signal Flow Build-a-Room consolidated renderer v6r277 -->
+<!-- Signal Flow Build-a-Room consolidated renderer v6r278 -->
+<link rel="stylesheet" href="../patch/sf-build-room-renderer.css?v=6r278">
+<!-- /Signal Flow Build-a-Room consolidated renderer v6r278 -->
   <link rel="stylesheet" href="../patch/sf-liv011-native-cleanup.css?v=6r240" />
   <link rel="stylesheet" href="../patch/sf-v6r249-safe-visual-fixes.css?v=6r249" />
 
@@ -18096,52 +18096,51 @@ window.SIGNAL_FLOW_V12 = {
       "time": 260
     },
              {
-               "id": "LIV-016",
-               "environment": "live",
-               "title": "Delay tower route",
-               "brief": "Patch a matrix output to the delay tower processor.",
-               "difficulty": 2,
-               "required": [
-                 [
-                   "Matrix 3 Output",
-                   "Delay Tower Processor Input"
-                 ],
-                 [
-                   "Main L Output",
-                   "System Processor L In"
-                 ],
-                 [
-                   "Main R Output",
-                   "System Processor R In"
-                 ],
-                 [
-                   "Lead Vocal Mic",
-                   "Stage Box Input 1"
-                 ]
-               ],
-               "forbidden": [
-                 [
-                   "Main L Output",
-                   "Delay Tower Processor Input"
-                 ],
-                 [
-                   "Main R Output",
-                   "Delay Tower Processor Input"
-                 ]
-               ],
-               "system": [
-                 "Delay tower processing gets its own matrix feed.",
-                 "Main PA remains on main outputs."
-               ],
-               "notes": [
-                 "Delay fills should use matrix-fed processing."
-               ],
-               "learning": [
-                 "Delay tower",
-                 "Matrix feed"
-               ],
-               "time": 260
-             },
+      "id": "LIV-016",
+      "environment": "live",
+      "title": "16-channel Stage Box to Front-of-House",
+      "brief": "Patch the full band into the 16-channel stagebox, then feed FOH main outputs to the crossover.",
+      "difficulty": 3,
+      "required": [
+        ["Lead Vocal Microphone", "Stage Box Input 1"],
+        ["Bass DI", "Stage Box Input 2"],
+        ["Guitar 1 Left", "Stage Box Input 3"],
+        ["Guitar 1 Right", "Stage Box Input 4"],
+        ["Guitar 2 Left", "Stage Box Input 5"],
+        ["Guitar 2 Right", "Stage Box Input 6"],
+        ["Keys Left DI", "Stage Box Input 7"],
+        ["Keys Right DI", "Stage Box Input 8"],
+        ["Kick", "Stage Box Input 9"],
+        ["Snare", "Stage Box Input 10"],
+        ["Hi-hat", "Stage Box Input 11"],
+        ["Rack Tom 1", "Stage Box Input 12"],
+        ["Rack Tom 2", "Stage Box Input 13"],
+        ["Floor Tom", "Stage Box Input 14"],
+        ["OH Left", "Stage Box Input 15"],
+        ["OH Right", "Stage Box Input 16"],
+        ["Main Left Output", "Crossover Left In"],
+        ["Main Right Output", "Crossover Right In"]
+      ],
+      "forbidden": [
+        ["Main Left Output", "Stage Box Input 1"],
+        ["Main Right Output", "Stage Box Input 2"]
+      ],
+      "system": [
+        "A full stage input list should land on the correct 16-channel snake inputs.",
+        "The 16-channel FOH console receives the normalized stagebox feed.",
+        "FOH Main L/R feeds the crossover inputs."
+      ],
+      "notes": [
+        "Stereo sources must be patched as pairs.",
+        "Drums use inputs 9-16 on this board."
+      ],
+      "learning": [
+        "16-channel stagebox",
+        "Full-band input list",
+        "FOH main to crossover"
+      ],
+      "time": 340
+    },
         {
           "id": "LIV-017",
           "environment": "live",
@@ -29715,9 +29714,9 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   <script src="../patch/sf-diagnosis-svg-skin.js?v=6r261"></script>
   <script src="../patch/sf-economy-rules.js?v=6r214"></script>
 
-<!-- Signal Flow Build-a-Room consolidated renderer v6r277 -->
-<script src="../patch/sf-build-room-renderer.js?v=6r277"></script>
-<!-- /Signal Flow Build-a-Room consolidated renderer v6r277 -->
+<!-- Signal Flow Build-a-Room consolidated renderer v6r278 -->
+<script src="../patch/sf-build-room-renderer.js?v=6r278"></script>
+<!-- /Signal Flow Build-a-Room consolidated renderer v6r278 -->
   <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
   
 
@@ -29744,8 +29743,8 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </style>
 
   <script src="../src/signal-flow-ledger.js?v=1"></script>
-<script src="../src/live-sound-native-renderer.js?v=6r265"></script>
-  <script src="../patch/sf-liv011-native-cleanup.js?v=6r240"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r304"></script>
+  <script src="../patch/sf-liv011-native-cleanup.js?v=6r242"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">
 (function(){
