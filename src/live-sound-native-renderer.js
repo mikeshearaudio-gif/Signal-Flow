@@ -5982,12 +5982,16 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       createLabel(layer, "FOH CONSOLE", level.rect.width * 0.40, level.rect.height * 0.10, 11);
     }
     if (panelKinds.has("amp") && LEVEL_ID !== "LIV-006") {
-      if (LEVEL_ID !== "LIV-011") {
+      if (LEVEL_ID === "LIV-011") {
+        createLabel(layer, LEVEL.processorLabel || "CROSSOVER", level.rect.width * 0.405, level.rect.height * 0.375, 12);
+      } else {
         createLabel(layer, LEVEL.processorLabel || "SYSTEM PROCESSOR / SUB", (LEVEL_ID === "LIV-028" ? level.rect.width * 0.51 : level.rect.width * 0.46), (LEVEL_ID === "LIV-028" ? level.rect.height * 0.55 : level.rect.height * 0.47), 11);
       }
     }
     if (panelKinds.has("monitor")) {
-      if (LEVEL_ID !== "LIV-011") {
+      if (LEVEL_ID === "LIV-011") {
+        createLabel(layer, LEVEL.processorLabel || "CROSSOVER", level.rect.width * 0.405, level.rect.height * 0.375, 12);
+      } else {
         createLabel(layer, LEVEL.processorLabel || "VOCAL WEDGE", level.rect.width * 0.52, level.rect.height * 0.51, 11);
       }
     }

@@ -1,0 +1,86 @@
+diff --git a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+index 07923c5..003d8f5 100644
+--- a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
++++ b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+@@ -29743,7 +29743,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
+ </style>
+ 
+   <script src="../src/signal-flow-ledger.js?v=1"></script>
+-<script src="../src/live-sound-native-renderer.js?v=6r294"></script>
++<script src="../src/live-sound-native-renderer.js?v=6r299"></script>
+   <script src="../patch/sf-liv011-native-cleanup.js?v=6r240"></script>
+ 
+ <script id="sf-semantic-todo-highlight-script-v1">
+diff --git a/src/live-sound-native-renderer.js b/src/live-sound-native-renderer.js
+index b378f6c..621dba1 100644
+--- a/src/live-sound-native-renderer.js
++++ b/src/live-sound-native-renderer.js
+@@ -5845,7 +5845,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+     }
+ 
+     const level = buildLevelGeometry(surface);
+-    const boardHeight = Math.ceil(level.rect.height);
++    const boardHeight = Math.ceil(level.scrollHeight || level.rect.height);
+ 
+     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+@@ -6035,7 +6035,50 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+     });
+   }
+ 
+-function mountNative(force) {
++function applyNativeDeclaredScrollHeight(surface) {
++    if (!surface || !LEVEL) return;
++
++    // Shared native scroll hook:
++    // board data may declare LEVEL.scrollHeight; mount applies it after any native renderer path.
++    // LIV-010 owns its locked dedicated scroll implementation and is intentionally left alone.
++    if (surface.classList.contains("sf-live-native-scroll-host-liv010")) return;
++
++    const declaredHeight = Number(LEVEL.scrollHeight || 0);
++    const layer = surface.querySelector(".sf-live-native-layer");
++
++    surface.querySelectorAll(".sfNativeDeclaredScrollSpacer").forEach(el => el.remove());
++
++    if (!declaredHeight || !layer) return;
++
++    const visibleHeight = surface.clientHeight || surface.getBoundingClientRect().height || 0;
++    if (declaredHeight <= visibleHeight + 8) return;
++
++    installNativeScrollStyle();
++
++    surface.classList.add("sf-live-native-scroll-host");
++    surface.style.setProperty("overflow-y", "auto", "important");
++    surface.style.setProperty("overflow-x", "hidden", "important");
++    surface.style.setProperty("--sf-live-native-board-height", declaredHeight + "px");
++
++    layer.style.setProperty("height", declaredHeight + "px", "important");
++    layer.style.setProperty("min-height", declaredHeight + "px", "important");
++    layer.style.setProperty("overflow", "visible", "important");
++
++    const spacer = document.createElement("div");
++    spacer.className = "sfNativeDeclaredScrollSpacer";
++    spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
++    spacer.style.setProperty("height", declaredHeight + "px", "important");
++    spacer.style.setProperty("min-height", declaredHeight + "px", "important");
++    surface.appendChild(spacer);
++
++    console.log("[Signal Flow] Native declared scroll applied:", {
++      levelId: LEVEL_ID,
++      visibleHeight,
++      declaredHeight
++    });
++  }
++
++  function mountNative(force) {
+     const adapter = window.SF_LIVE_SOUND_ADAPTER;
+     if (!adapter) {
+       console.warn("[Signal Flow] Native renderer missing adapter.");
+@@ -6067,6 +6110,7 @@ function mountNative(force) {
+       renderNative(surface, adapter);
+     }
+     hidePanelToggleControls();
++    applyNativeDeclaredScrollHeight(surface);
+     raiseHintOverlays();
+     updateNativeHintHighlights();
+ 

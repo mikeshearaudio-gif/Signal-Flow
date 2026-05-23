@@ -1,0 +1,219 @@
+diff --git a/assets/live-sound/png/liv016v20.png b/assets/live-sound/png/liv016v20.png
+deleted file mode 100644
+index 9b6bcd9..0000000
+Binary files a/assets/live-sound/png/liv016v20.png and /dev/null differ
+diff --git a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+index 15f311c..33f0990 100644
+--- a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
++++ b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+@@ -29743,7 +29743,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
+ </style>
+ 
+   <script src="../src/signal-flow-ledger.js?v=1"></script>
+-<script src="../src/live-sound-native-renderer.js?v=6r282"></script>
++<script src="../src/live-sound-native-renderer.js?v=6r291"></script>
+   <script src="../patch/sf-liv011-native-cleanup.js?v=6r240"></script>
+ 
+ <script id="sf-semantic-todo-highlight-script-v1">
+diff --git a/src/live-sound-native-renderer.js b/src/live-sound-native-renderer.js
+index 6857713..5d7493c 100644
+--- a/src/live-sound-native-renderer.js
++++ b/src/live-sound-native-renderer.js
+@@ -5582,32 +5582,44 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+     const PNG_W = 3024;
+     const PNG_H = 1628;
+ 
+-    const scale = Math.min(rect.width * 0.985 / PNG_W, rect.height * 0.955 / PNG_H);
++    // LIV-016 uses a dense baked board image. Scale by width, then allow
++    // vertical scrolling so lower source/jack hitboxes stay reachable without
++    // changing the PNG-relative hitbox coordinate system.
++    const scale = Math.min(rect.width * 0.985 / PNG_W, 0.42);
+     const bgW = PNG_W * scale;
+     const bgH = PNG_H * scale;
+     const bgX = (rect.width - bgW) / 2;
+     const bgY = 12;
++    const boardHeight = Math.ceil(bgY + bgH + 36);
+ 
+     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+-    surface.classList.remove("sf-live-native-scroll-host");
+-    surface.style.removeProperty("--sf-live-native-board-height");
++
++    installNativeScrollStyle();
++    surface.classList.add("sf-live-native-scroll-host");
++    surface.style.setProperty("overflow-y", "auto", "important");
++    surface.style.setProperty("overflow-x", "hidden", "important");
++    surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+ 
+     const layer = document.createElement("div");
+     layer.className = "sf-live-native-layer sf-live-native-level-liv-016 sf-live-native-liv016-png-board";
+     layer.style.cssText = [
+       "position:absolute",
+-      "inset:0",
++      "left:0",
++      "top:0",
++      "width:100%",
++      "height:" + boardHeight + "px",
++      "min-height:" + boardHeight + "px",
+       "z-index:9990",
+       "isolation:isolate",
+       "pointer-events:none",
+-      "overflow:hidden",
++      "overflow:visible",
+       "border-radius:16px",
+       "background:radial-gradient(circle at 46% 42%, rgba(18,48,38,.24), rgba(0,0,0,0) 70%)"
+     ].join(";");
+ 
+     const bg = document.createElement("img");
+-    bg.src = sfRepoUrl("/assets/live-sound/png/liv016v20.png");
++    bg.src = sfRepoUrl("/assets/live-sound/png/liv016v20-board-only.png");
+     bg.alt = "LIV-016 full-band stagebox layout";
+     bg.style.cssText = [
+       "position:absolute",
+@@ -5749,24 +5761,24 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+     // PNG-space coordinates are mapped from liv016hitboxes0.png reference regions.
+     label("Gtr 1 L", 244, 132, 84);
+     label("Gtr 1 R", 461, 122, 84);
+-    source("guitar-1-left", 244, 245, 72);
+-    source("guitar-1-right", 461, 233, 72);
++    source("guitar-1-left", 244, 245, 26);
++    source("guitar-1-right", 461, 233, 26);
+ 
+     label("Vocal", 1034, 54, 78);
+     source("lead-vocal-mic", 1034, 137, 76);
+ 
+     label("Gtr 2 L", 361, 660, 86);
+     label("Gtr 2 R", 685, 654, 86);
+-    source("guitar-2-left", 361, 777, 80);
+-    source("guitar-2-right", 685, 771, 82);
++    source("guitar-2-left", 361, 777, 26);
++    source("guitar-2-right", 685, 771, 26);
+ 
+     label("Bass DI", 1271, 1118, 92);
+     source("bass-di", 1271, 1286, 82);
+ 
+     label("Keys L", 1665, 1044, 82);
+     label("Keys R", 1945, 1044, 82);
+-    source("keys-left-di", 1665, 1184, 84);
+-    source("keys-right-di", 1945, 1184, 84);
++    source("keys-left-di", 1665, 1184, 48);
++    source("keys-right-di", 1945, 1184, 48);
+ 
+     label("OH L", 326, 1018, 68);
+     label("OH R", 897, 1050, 68);
+@@ -5777,14 +5789,14 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+     label("Kick", 552, 1308, 74);
+     label("Floor", 742, 1318, 74);
+ 
+-    source("overhead-left-crash", 326, 1088, 60);
+-    source("overhead-right-ride", 897, 1120, 60);
+-    source("hi-hat", 226, 1240, 56);
+-    source("high-rack-tom", 454, 1182, 58);
+-    source("low-rack-tom", 642, 1182, 58);
+-    source("snare", 386, 1350, 58);
+-    source("kick", 552, 1372, 64);
+-    source("floor-tom", 742, 1382, 60);
++    source("overhead-left-crash", 326, 1088, 38);
++    source("overhead-right-ride", 897, 1120, 38);
++    source("hi-hat", 226, 1240, 34);
++    source("high-rack-tom", 454, 1182, 36);
++    source("low-rack-tom", 642, 1182, 36);
++    source("snare", 386, 1350, 36);
++    source("kick", 552, 1372, 42);
++    source("floor-tom", 742, 1382, 38);
+ 
+     label("Stage Box Inputs", 2358, 98, 176);
+     label("Stage Box 1-8", 2358, 168, 126);
+@@ -6035,7 +6047,75 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+     });
+   }
+ 
+-function mountNative(force) {
++function refineNativeSurfaceSelection(surface) {
++    if (!surface || !surface.querySelectorAll) return surface;
++
++    const surfaceText = String(surface.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
++    const looksTooBroad =
++      surfaceText.includes("current level") ||
++      surfaceText.includes("press start level") ||
++      surfaceText.length > 420;
++
++    if (!looksTooBroad) return surface;
++
++    const candidates = Array.from(surface.querySelectorAll([
++      ".patchbay-wrap.front-panel-view",
++      ".patchbay-wrap",
++      ".sf-live-board-surface",
++      ".sf-live-native-surface",
++      ".live-board",
++      ".level-board",
++      ".board-stage",
++      ".patchbay-stage",
++      "[data-board-surface]",
++      "[data-patchbay-surface]"
++    ].join(","))).filter(el => {
++      if (!el || el === surface || el.closest(".sf-live-native-layer")) return false;
++      const r = el.getBoundingClientRect();
++      const cs = getComputedStyle(el);
++      if (cs.display === "none" || cs.visibility === "hidden") return false;
++      return r.width > 280 && r.height > 160;
++    });
++
++    if (!candidates.length) return surface;
++
++    function score(el) {
++      const cls = String(el.className || "").toLowerCase();
++      const txt = String(el.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
++      const r = el.getBoundingClientRect();
++      let value = 0;
++
++      if (cls.includes("patchbay-wrap")) value += 1200;
++      if (cls.includes("front-panel-view")) value += 300;
++      if (cls.includes("board")) value += 140;
++      if (cls.includes("stage")) value += 80;
++      if (cls.includes("surface")) value += 80;
++
++      if (txt.includes("current level")) value -= 500;
++      if (txt.includes("press start level")) value -= 350;
++      if (txt.length > 500) value -= 250;
++
++      value += Math.min(300, (r.width * r.height) / 2400);
++      return value;
++    }
++
++    candidates.sort((a, b) => score(b) - score(a));
++    const refined = candidates[0];
++
++    if (refined && refined !== surface) {
++      console.log("[Signal Flow] Refined native surface:", {
++        levelId: LEVEL_ID,
++        fromText: surfaceText.slice(0, 90),
++        toClass: refined.className,
++        toText: String(refined.textContent || "").replace(/\s+/g, " ").trim().slice(0, 90)
++      });
++      return refined;
++    }
++
++    return surface;
++  }
++
++  function mountNative(force) {
+     const adapter = window.SF_LIVE_SOUND_ADAPTER;
+     if (!adapter) {
+       console.warn("[Signal Flow] Native renderer missing adapter.");
+@@ -6045,12 +6125,14 @@ function mountNative(force) {
+     if (!isNativePatchBoardActive()) return;
+     if (!syncActiveLevelSpec() || !nativeVisible) return;
+ 
+-    const surface = findSurface();
++    let surface = findSurface();
+     if (!surface) {
+       console.warn("[Signal Flow] Native renderer could not find live board surface.");
+       return;
+     }
+ 
++    surface = refineNativeSurfaceSelection(surface);
++
+     if (!force && surface.querySelector(".sf-live-native-layer")) {
+       return;
+     }
