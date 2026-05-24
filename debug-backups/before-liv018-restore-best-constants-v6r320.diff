@@ -1,0 +1,353 @@
+diff --git a/src/live-sound-native-renderer.js b/src/live-sound-native-renderer.js
+index 8c54b64..7ac7e80 100644
+--- a/src/live-sound-native-renderer.js
++++ b/src/live-sound-native-renderer.js
+@@ -1061,7 +1061,80 @@
+         { key: "liv010-low-amp-right-output-to-liv010-right-line-array-low-input", from: "liv010-low-amp-right-output", to: "liv010-right-line-array-low-input", checklist: "Low Amp R Output → Right Line Array Low Input", stereoGroup: "liv010-low-amp-to-array", stereoSide: "right" }
+       ]
+     },
+-                    "LIV-011": {
++                    "LIV-018": {
++      id: "LIV-018",
++      title: "Talkback to monitor system",
++      processorLabel: "IN-EAR MONITORING",
++      sourceOrder: [
++        "talkback-mic",
++        "lead-vocal-mic",
++        "keys-left-di",
++        "keys-right-di"
++      ],
++      panelKinds: ["stagebox", "foh", "iem"],
++      generatedJackKeys: [
++        "stagebox-input-1",
++        "stagebox-input-2",
++        "stagebox-input-3",
++        "stagebox-input-4",
++        "stagebox-input-5",
++        "stagebox-input-6",
++        "stagebox-input-7",
++        "stagebox-input-8",
++        "stagebox-input-9",
++        "stagebox-input-10",
++        "stagebox-input-11",
++        "stagebox-input-12",
++        "stagebox-input-13",
++        "stagebox-input-14",
++        "stagebox-input-15",
++        "stagebox-input-16",
++        "talkback-output",
++        "main-left-output",
++        "main-right-output",
++        "in-ear-b-input",
++        "iem-tx-a-left-input",
++        "iem-tx-phones"
++      ],
++      validRoutes: [
++        {
++          key: "liv018-talkback-mic-to-stagebox-input-14",
++          from: "talkback-mic",
++          to: "stagebox-input-14",
++          checklist: "Talkback Microphone → Stage Box Input 14"
++        },
++        {
++          key: "liv018-talkback-output-to-in-ear-b-input",
++          from: "talkback-output",
++          to: "in-ear-b-input",
++          checklist: "Talkback Output → In-Ear B Input"
++        },
++        {
++          key: "liv018-lead-vocal-mic-to-stagebox-input-1",
++          from: "lead-vocal-mic",
++          to: "stagebox-input-1",
++          checklist: "Lead Vocal Microphone → Stage Box Input 1"
++        },
++        {
++          key: "liv018-keys-left-di-to-stagebox-input-7",
++          from: "keys-left-di",
++          to: "stagebox-input-7",
++          checklist: "Keys Left DI → Stage Box Input 7",
++          stereoGroup: "liv018-keys-di-to-stagebox",
++          stereoSide: "left"
++        },
++        {
++          key: "liv018-keys-right-di-to-stagebox-input-8",
++          from: "keys-right-di",
++          to: "stagebox-input-8",
++          checklist: "Keys Right DI → Stage Box Input 8",
++          stereoGroup: "liv018-keys-di-to-stagebox",
++          stereoSide: "right"
++        }
++      ]
++    },
++
++    "LIV-011": {
+       id: "LIV-011",
+       title: "Lead Vocal Mic to FOH",
+       processorLabel: "CROSSOVER",
+@@ -5526,6 +5599,255 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+   // LIV-011 native patch-board uses generic renderer with crossover player-facing terminology.
+ 
+ 
++
++  function renderLiv018TalkbackMonitor(surface, adapter) {
++    const rect = surface.getBoundingClientRect();
++    const boardHeight = Math.max(620, Math.min(760, Math.round(rect.height || 640)));
++
++    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
++    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
++    surface.classList.remove("sf-live-native-scroll-host");
++    surface.style.removeProperty("--sf-live-native-board-height");
++
++    if (typeof applyNativeViewportContract === "function") {
++      applyNativeViewportContract(surface, boardHeight);
++    }
++
++    const layer = document.createElement("div");
++    layer.className = "sf-live-native-layer sf-live-native-level-liv-018 sf-live-native-liv018-talkback";
++    layer.style.cssText = [
++      "position:absolute",
++      "left:0",
++      "top:0",
++      "right:0",
++      "height:" + boardHeight + "px",
++      "min-height:" + boardHeight + "px",
++      "z-index:9990",
++      "isolation:isolate",
++      "pointer-events:none",
++      "overflow:hidden",
++      "border-radius:16px",
++      "background:radial-gradient(circle at 18% 14%, rgba(68,120,95,.22), rgba(0,0,0,0) 45%),radial-gradient(circle at 76% 28%, rgba(80,118,190,.18), rgba(0,0,0,0) 48%)"
++    ].join(";");
++
++    const W = rect.width;
++    const H = boardHeight;
++
++    const activeEndpointKeys = new Set();
++    (LEVEL.validRoutes || []).forEach(route => {
++      activeEndpointKeys.add(route.from);
++      activeEndpointKeys.add(route.to);
++    });
++
++    function asset(path) {
++      return typeof sfRepoUrl === "function" ? sfRepoUrl(path) : path;
++    }
++
++    function placeImage(path, x, y, w, alt, z) {
++      const img = document.createElement("img");
++      img.src = asset(path);
++      img.alt = alt || "";
++      img.style.cssText = [
++        "position:absolute",
++        "left:" + x + "px",
++        "top:" + y + "px",
++        "width:" + w + "px",
++        "height:auto",
++        "pointer-events:none",
++        "user-select:none",
++        "filter:drop-shadow(0 12px 24px rgba(0,0,0,.70))",
++        "z-index:" + (z || 10)
++      ].join(";");
++      layer.appendChild(img);
++      return img;
++    }
++
++    function textLabel(text, x, y, size, align) {
++      createLabel(layer, text, x, y, size || 11);
++      const labels = Array.from(layer.querySelectorAll("*")).filter(el => {
++        return String(el.textContent || "").replace(/\s+/g, " ").trim() === text;
++      });
++      const el = labels[labels.length - 1];
++      if (el && align === "center") {
++        el.style.transform = "translateX(-50%)";
++        el.style.textAlign = "center";
++      }
++      return el;
++    }
++
++    function transparentSource(key, label, x, y, w, h) {
++      createSourceNode(layer, key, label, x, y);
++      const el = layer.querySelector('[data-node-key="' + key + '"]');
++      if (el) {
++        el.style.setProperty("position", "absolute", "important");
++        el.style.setProperty("left", (x - w / 2) + "px", "important");
++        el.style.setProperty("top", (y - h / 2) + "px", "important");
++        el.style.setProperty("width", w + "px", "important");
++        el.style.setProperty("height", h + "px", "important");
++        el.style.setProperty("min-width", w + "px", "important");
++        el.style.setProperty("min-height", h + "px", "important");
++        el.style.setProperty("background", "rgba(255,255,255,0.001)", "important");
++        el.style.setProperty("border", "2px solid rgba(255,255,255,0.001)", "important");
++        el.style.setProperty("box-shadow", "none", "important");
++        el.style.setProperty("color", "transparent", "important");
++        el.style.setProperty("text-shadow", "none", "important");
++        el.style.setProperty("pointer-events", "auto", "important");
++        el.style.setProperty("z-index", "80", "important");
++        el.dataset.sfLiv018SemanticSource = "true";
++        el.setAttribute("aria-label", label);
++        el.title = label;
++      }
++    }
++
++    function jack(key, x, y, label, active, r) {
++      createJackNode(layer, key, { x, y }, label, !active);
++      const el = layer.querySelector('[data-node-key="' + key + '"]');
++      if (el && r) {
++        el.style.setProperty("width", (r * 2) + "px", "important");
++        el.style.setProperty("height", (r * 2) + "px", "important");
++        el.style.setProperty("margin-left", (-r) + "px", "important");
++        el.style.setProperty("margin-top", (-r) + "px", "important");
++      }
++      return el;
++    }
++
++    function active(key) {
++      return activeEndpointKeys.has(key);
++    }
++
++    createLabel(layer, "TALKBACK TO MONITOR SYSTEM - NATIVE BOARD", 18, 14, 12);
++
++    // Visual layout.
++    // LIV-018 v6r317 rollback: return to the cleaner pre-mockup visual structure.
++    // Keep the now-working native spec/routes; only restore visual placement.
++    const micW = Math.min(155, W * 0.165);
++    const keysW = Math.min(255, W * 0.270);
++
++    const sourceX = W * 0.020;
++    const talkbackMic = { x: sourceX + W * 0.018, y: H * 0.080, w: micW };
++    const vocalMic = { x: sourceX + W * 0.018, y: H * 0.330, w: micW };
++    const keys = { x: sourceX - W * 0.012, y: H * 0.590, w: keysW };
++
++    const stage = { x: W * 0.210, y: H * 0.300, w: W * 0.420 };
++    const foh = { x: W * 0.500, y: H * 0.055, w: W * 0.470 };
++    const iem = { x: W * 0.560, y: H * 0.575, w: W * 0.390 };
++
++    textLabel("SOURCES", W * 0.055, H * 0.075, 12);
++    placeImage("/assets/live-sound/svg/hardware/live mic.svg", talkbackMic.x, talkbackMic.y, talkbackMic.w, "Talkback microphone", 20);
++    textLabel("TALKBACK", talkbackMic.x + talkbackMic.w * 0.50, talkbackMic.y + talkbackMic.w * 1.02, 12, "center");
++
++    placeImage("/assets/live-sound/svg/hardware/live mic.svg", vocalMic.x, vocalMic.y, vocalMic.w, "Lead vocal microphone", 20);
++    textLabel("VOCALS", vocalMic.x + vocalMic.w * 0.50, vocalMic.y + vocalMic.w * 1.02, 12, "center");
++
++    placeImage("/assets/live-sound/svg/hardware/keyboard0.svg", keys.x, keys.y, keys.w, "Keyboard DI", 20);
++    textLabel("KEYS", keys.x + keys.w * 0.50, keys.y + keys.w * 0.70, 12, "center");
++
++    textLabel("STAGE BOX INPUTS", stage.x, stage.y - 25, 11);
++    placeImage("/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", stage.x, stage.y, stage.w, "16-channel stage box", 15);
++
++    textLabel("FOH CONSOLE", foh.x, foh.y - 24, 11);
++    placeImage("/assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg", foh.x, foh.y, foh.w, "FOH console aux outputs", 15);
++
++    textLabel("IN-EAR MONITORING", iem.x, iem.y - 24, 11);
++    placeImage("/assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg", iem.x, iem.y, iem.w, "In-ear monitoring transmitter", 15);
++
++    // Stagebox jack map, 1-8 top row, 9-16 bottom row.
++    const stageAspect = 360 / 980;
++    const stageXs = [0.093878, 0.171429, 0.248980, 0.326531, 0.404082, 0.481633, 0.559184, 0.636735];
++    function stagePoint(input) {
++      const idx = input - 1;
++      const col = idx % 8;
++      const row = idx < 8 ? 0.347222 : 0.694444;
++      return {
++        x: stage.x + stage.w * stageXs[col],
++        y: stage.y + stage.w * stageAspect * row
++      };
++    }
++
++    for (let input = 1; input <= 16; input += 1) {
++      const key = "stagebox-input-" + input;
++      const pt = stagePoint(input);
++      jack(key, pt.x, pt.y, "Stage Box Input " + input, active(key), 14);
++    }
++
++    // FOH coordinates based on the existing 1120x260 console panel convention.
++    const fohAspect = 260 / 1120;
++    function fohPoint(px, py) {
++      return {
++        x: foh.x + foh.w * (px / 1120),
++        y: foh.y + foh.w * fohAspect * (py / 260)
++      };
++    }
++
++    // Aux 4 is the player-facing Talkback Output.
++    const tbOut = fohPoint(538, 140);
++    jack("talkback-output", tbOut.x, tbOut.y, "Talkback Output", active("talkback-output"), 15);
++    placeImage("/assets/live-sound/svg/handwritten/tb-label-tape-slight-left.svg", tbOut.x - 56, tbOut.y - 34, 128, "Talkback label tape", 28);
++
++    // Adjacent false aux outputs remain interactive traps.
++    [
++      [418, "foh-liv006-aux-1-output", "Aux 1 Output"],
++      [458, "foh-liv006-aux-2-output", "Aux 2 Output"],
++      [498, "foh-liv006-aux-3-output", "Aux 3 Output"],
++      [578, "foh-liv006-aux-5-output", "Aux 5 Output"],
++      [618, "foh-liv006-aux-6-output", "Aux 6 Output"]
++    ].forEach(([px, key, label]) => {
++      const pt = fohPoint(px, 140);
++      jack(key, pt.x, pt.y, label, false, 12);
++    });
++
++    // Main L/R false/trap outputs for the "do not feed mains" lesson.
++    [
++      [975, "main-left-output", "Main L Output"],
++      [1045, "main-right-output", "Main R Output"]
++    ].forEach(([px, key, label]) => {
++      const pt = fohPoint(px, 134);
++      jack(key, pt.x, pt.y, label, false, 13);
++    });
++
++    // IEM B input target plus nearby traps.
++    const iemAspect = 240 / 900;
++    function iemPoint(px, py) {
++      return {
++        x: iem.x + iem.w * (px / 900),
++        y: iem.y + iem.w * iemAspect * (py / 240)
++      };
++    }
++
++    const iemB = iemPoint(500, 140);
++    jack("in-ear-b-input", iemB.x, iemB.y, "In-Ear B Input", active("in-ear-b-input"), 15);
++
++    [
++      [270, "iem-tx-a-left-input", "IEM A Input"],
++      [740, "iem-tx-phones", "Phones"]
++    ].forEach(([px, key, label]) => {
++      const pt = iemPoint(px, 140);
++      jack(key, pt.x, pt.y, label, false, 12);
++    });
++
++    // Semantic source hitboxes over SVG equipment, not blue rectangular source boxes.
++    transparentSource("talkback-mic", "Talkback Mic", talkbackMic.x + talkbackMic.w * 0.52, talkbackMic.y + talkbackMic.w * 0.58, 130, 150);
++    transparentSource("lead-vocal-mic", "Lead Vocal Mic", vocalMic.x + vocalMic.w * 0.52, vocalMic.y + vocalMic.w * 0.58, 130, 150);
++    transparentSource("keys-left-di", "Keys L DI", keys.x + keys.w * 0.28, keys.y + keys.w * 0.44, 78, 64);
++    transparentSource("keys-right-di", "Keys R DI", keys.x + keys.w * 0.70, keys.y + keys.w * 0.44, 78, 64);
++
++    // Small visible L/R labels for keyboard DI outputs.
++    textLabel("L DI", keys.x + keys.w * 0.28, keys.y + keys.w * 0.79, 10, "center");
++    textLabel("R DI", keys.x + keys.w * 0.70, keys.y + keys.w * 0.79, 10, "center");
++
++    surface.appendChild(layer);
++    redrawCables(layer);
++    installCableDrag(layer);
++
++    console.log("[Signal Flow] LIV-018 dedicated talkback monitor renderer mounted.", {
++      stage,
++      foh,
++      iem,
++      talkbackOutput: tbOut,
++      iemB
++    });
++  }
++
+   function isLivProcessingFamilyLevel() {
+     return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-020";
+   }
+@@ -6152,7 +6474,9 @@ function mountNative(force) {
+ 
+     installNativeScrollStyle();
+     hideLegacyBoard(surface);
+-    if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
++    if (LEVEL_ID === "LIV-018") {
++      renderLiv018TalkbackMonitor(surface, adapter);
++    } else if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
+       renderLivProcessingFamily(surface, adapter);
+     } else {
+       renderNative(surface, adapter);
