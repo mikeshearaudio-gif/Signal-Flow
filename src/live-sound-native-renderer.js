@@ -1061,7 +1061,80 @@
         { key: "liv010-low-amp-right-output-to-liv010-right-line-array-low-input", from: "liv010-low-amp-right-output", to: "liv010-right-line-array-low-input", checklist: "Low Amp R Output → Right Line Array Low Input", stereoGroup: "liv010-low-amp-to-array", stereoSide: "right" }
       ]
     },
-                    "LIV-011": {
+                    "LIV-018": {
+      id: "LIV-018",
+      title: "Talkback to monitor system",
+      processorLabel: "IN-EAR MONITORING",
+      sourceOrder: [
+        "talkback-mic",
+        "lead-vocal-mic",
+        "keys-left-di",
+        "keys-right-di"
+      ],
+      panelKinds: ["stagebox", "foh", "iem"],
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "talkback-output",
+        "main-left-output",
+        "main-right-output",
+        "in-ear-b-input",
+        "iem-tx-a-left-input",
+        "iem-tx-phones"
+      ],
+      validRoutes: [
+        {
+          key: "liv018-talkback-mic-to-stagebox-input-14",
+          from: "talkback-mic",
+          to: "stagebox-input-14",
+          checklist: "Talkback Microphone → Stage Box Input 14"
+        },
+        {
+          key: "liv018-talkback-output-to-in-ear-b-input",
+          from: "talkback-output",
+          to: "in-ear-b-input",
+          checklist: "Talkback Output → In-Ear B Input"
+        },
+        {
+          key: "liv018-lead-vocal-mic-to-stagebox-input-1",
+          from: "lead-vocal-mic",
+          to: "stagebox-input-1",
+          checklist: "Lead Vocal Microphone → Stage Box Input 1"
+        },
+        {
+          key: "liv018-keys-left-di-to-stagebox-input-7",
+          from: "keys-left-di",
+          to: "stagebox-input-7",
+          checklist: "Keys Left DI → Stage Box Input 7",
+          stereoGroup: "liv018-keys-di-to-stagebox",
+          stereoSide: "left"
+        },
+        {
+          key: "liv018-keys-right-di-to-stagebox-input-8",
+          from: "keys-right-di",
+          to: "stagebox-input-8",
+          checklist: "Keys Right DI → Stage Box Input 8",
+          stereoGroup: "liv018-keys-di-to-stagebox",
+          stereoSide: "right"
+        }
+      ]
+    },
+
+    "LIV-011": {
       id: "LIV-011",
       title: "Lead Vocal Mic to FOH",
       processorLabel: "CROSSOVER",
@@ -3169,6 +3242,19 @@ if (activeNativeLevelId === nextLevelId) return;
     console.log("[Signal Flow] Native score updated:", score);
   }
 
+  function liv018CablePointFor(key, fallback) {
+    if (LEVEL_ID !== "LIV-018") return fallback;
+
+    const anchors = {
+      "talkback-mic": { x: 150, y: 54 },
+      "lead-vocal-mic": { x: 142, y: 278 },
+      "keys-left-di": { x: 211, y: 527 },
+      "keys-right-di": { x: 285, y: 529 }
+    };
+
+    return anchors[key] || fallback;
+  }
+
   function addRoute(layer, fromNode, toNode) {
     const valid = routeFor(fromNode.key, toNode.key);
     const key = valid
@@ -3182,8 +3268,8 @@ if (activeNativeLevelId === nextLevelId) return;
       valid: !!valid,
       from: fromNode.key,
       to: toNode.key,
-      fromPoint: fromNode.point,
-      toPoint: toNode.point,
+      fromPoint: liv018CablePointFor(fromNode.key, fromNode.point),
+      toPoint: liv018CablePointFor(toNode.key, toNode.point),
       bend: defaultCableBend(key, state.routes.length)
     };
 
@@ -3306,7 +3392,7 @@ if (activeNativeLevelId === nextLevelId) return;
     // The preview cable stays neutral while dragging; committed routes become
     // green/red only after finishNativePatchDrag() calls addRoute().
     const path = getDragPreviewPath(patchDrag.layer);
-    path.setAttribute("d", cableD(patchDrag.fromNode.point, point, 0));
+    path.setAttribute("d", cableD(liv018CablePointFor(patchDrag.fromNode.key, patchDrag.fromNode.point), point, 0));
     path.setAttribute("stroke", "#ffd76a");
     path.style.filter = "drop-shadow(0 0 10px rgba(255,215,106,.48))";
 
@@ -5526,6 +5612,665 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   // LIV-011 native patch-board uses generic renderer with crossover player-facing terminology.
 
 
+
+  function renderLiv018TalkbackMonitor(surface, adapter) {
+
+    // LIV-018 v6r366: lock coordinate canvas, not viewport.
+    // All Gear Mover, Hitbox Tool, and Cable Anchor Tool exports were captured on this canvas.
+    // The wrapper may scroll; the coordinate plane must not reflow.
+    const liv018CanvasWidth = 1220;
+    const liv018CanvasHeight = 760;
+    const liv018Wrap = surface && surface.closest ? surface.closest(".patchbay-wrap, .sf-live-native-viewport") : null;
+
+    if (liv018Wrap) {
+      liv018Wrap.style.setProperty("overflow", "auto", "important");
+      liv018Wrap.style.setProperty("max-height", "none", "important");
+    }
+
+    surface.style.setProperty("width", liv018CanvasWidth + "px", "important");
+    surface.style.setProperty("min-width", liv018CanvasWidth + "px", "important");
+    surface.style.setProperty("height", liv018CanvasHeight + "px", "important");
+    surface.style.setProperty("min-height", liv018CanvasHeight + "px", "important");
+    surface.style.setProperty("max-height", "none", "important");
+    surface.style.setProperty("overflow", "visible", "important");
+
+    // LIV-018 v6r370: constrain legacy cableLayer scroll footprint.
+    // Inspector showed svg#cableLayer was 1248x912 and causing diagonal scroll.
+    // Native LIV cables are drawn inside .sf-live-native-layer; the legacy layer should not define scroll size.
+    const legacyCableLayer =
+      (liv018Wrap && liv018Wrap.querySelector && liv018Wrap.querySelector("#cableLayer")) ||
+      document.getElementById("cableLayer");
+
+    if (legacyCableLayer) {
+      legacyCableLayer.setAttribute("width", String(liv018CanvasWidth));
+      legacyCableLayer.setAttribute("height", String(liv018CanvasHeight));
+      legacyCableLayer.style.setProperty("width", liv018CanvasWidth + "px", "important");
+      legacyCableLayer.style.setProperty("height", liv018CanvasHeight + "px", "important");
+      legacyCableLayer.style.setProperty("max-width", liv018CanvasWidth + "px", "important");
+      legacyCableLayer.style.setProperty("max-height", liv018CanvasHeight + "px", "important");
+      legacyCableLayer.style.setProperty("left", "0px", "important");
+      legacyCableLayer.style.setProperty("top", "0px", "important");
+      legacyCableLayer.style.setProperty("overflow", "hidden", "important");
+      legacyCableLayer.style.setProperty("pointer-events", "none", "important");
+    }
+    const rect = surface.getBoundingClientRect();
+    const boardHeight = Math.max(620, Math.min(760, Math.round(rect.height || 640)));
+
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+    surface.classList.remove("sf-live-native-scroll-host");
+    surface.style.removeProperty("--sf-live-native-board-height");
+
+    if (typeof applyNativeViewportContract === "function") {
+      applyNativeViewportContract(surface, boardHeight);
+    }
+
+    const layer = document.createElement("div");
+
+    // LIV-018 v6r352: compatibility point for stale tbOut references.
+    // Required because older TB tape code still references tbOut.x / tbOut.y.
+    const tbOut = { x: 770, y: 293 };
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-018 sf-live-native-liv018-talkback";
+    layer.style.cssText = [
+      "position:absolute",
+      "left:0",
+      "top:0",
+      "right:0",
+      "height:" + boardHeight + "px",
+      "min-height:" + boardHeight + "px",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:hidden",
+      "border-radius:16px",
+      "background:radial-gradient(circle at 18% 14%, rgba(68,120,95,.22), rgba(0,0,0,0) 45%),radial-gradient(circle at 76% 28%, rgba(80,118,190,.18), rgba(0,0,0,0) 48%)"
+    ].join(";");
+
+    const W = rect.width;
+    const H = boardHeight;
+
+    const activeEndpointKeys = new Set();
+    (LEVEL.validRoutes || []).forEach(route => {
+      activeEndpointKeys.add(route.from);
+      activeEndpointKeys.add(route.to);
+    });
+
+    function asset(path) {
+      return typeof sfRepoUrl === "function" ? sfRepoUrl(path) : path;
+    }
+
+    function placeImage(path, x, y, w, alt, z) {
+      const img = document.createElement("img");
+      img.src = asset(path);
+      img.alt = alt || "";
+      img.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + w + "px",
+        "height:auto",
+        "pointer-events:none",
+        "user-select:none",
+        "filter:drop-shadow(0 12px 24px rgba(0,0,0,.70))",
+        "z-index:" + (z || 10)
+      ].join(";");
+      layer.appendChild(img);
+      return img;
+    }
+
+    function textLabel(text, x, y, size, align) {
+      createLabel(layer, text, x, y, size || 11);
+      const labels = Array.from(layer.querySelectorAll("*")).filter(el => {
+        return String(el.textContent || "").replace(/\s+/g, " ").trim() === text;
+      });
+      const el = labels[labels.length - 1];
+      if (el && align === "center") {
+        el.style.transform = "translateX(-50%)";
+        el.style.textAlign = "center";
+      }
+      return el;
+    }
+
+    function transparentSource(key, label, x, y, w, h) {
+      createSourceNode(layer, key, label, x, y);
+      const el = layer.querySelector('[data-node-key="' + key + '"]');
+      if (el) {
+        el.style.setProperty("position", "absolute", "important");
+        el.style.setProperty("left", (x - w / 2) + "px", "important");
+        el.style.setProperty("top", (y - h / 2) + "px", "important");
+        el.style.setProperty("width", w + "px", "important");
+        el.style.setProperty("height", h + "px", "important");
+        el.style.setProperty("min-width", w + "px", "important");
+        el.style.setProperty("min-height", h + "px", "important");
+        el.style.setProperty("background", "rgba(255,255,255,0.001)", "important");
+        el.style.setProperty("border", "2px solid rgba(255,255,255,0.001)", "important");
+        el.style.setProperty("box-shadow", "none", "important");
+        el.style.setProperty("color", "transparent", "important");
+        el.style.setProperty("text-shadow", "none", "important");
+        el.style.setProperty("pointer-events", "auto", "important");
+        el.style.setProperty("z-index", "80", "important");
+        el.dataset.sfLiv018SemanticSource = "true";
+        el.setAttribute("aria-label", label);
+        el.title = label;
+      }
+    }
+
+    function jack(key, x, y, label, active, r) {
+      createJackNode(layer, key, { x, y }, label, !active);
+      const el = layer.querySelector('[data-node-key="' + key + '"]');
+      if (el && r) {
+        el.style.setProperty("width", (r * 2) + "px", "important");
+        el.style.setProperty("height", (r * 2) + "px", "important");
+        el.style.setProperty("margin-left", (-r) + "px", "important");
+        el.style.setProperty("margin-top", (-r) + "px", "important");
+      }
+      return el;
+    }
+
+    function active(key) {
+      return activeEndpointKeys.has(key);
+    }
+
+    createLabel(layer, "TALKBACK TO MONITOR SYSTEM - NATIVE BOARD", 18, 14, 12);
+
+    // Visual layout.
+    // LIV-018 v6r320: restore the uploaded "best version" geometry.
+    // Keep native spec/routes/viewport unchanged.
+    const micW = Math.min(220, W * 0.215);
+    const keysW = Math.min(365, W * 0.360);
+
+    const talkbackMic = { x: W * 0.020, y: H * 0.075, w: micW };
+    // LIV-018 v6r333: move Vocal mic group up to match Talkback spacing better.
+    const vocalMic = { x: W * 0.020, y: H * 0.495, w: micW };
+    // LIV-018 v6r338: align keyboard image box top with Vocal mic image box top; size unchanged.
+
+    const keys = { x: W * 0.165, y: vocalMic.y - H * 0.045, w: keysW };
+
+    const stage = { x: W * 0.505, y: H * 0.045, w: W * 0.470 };
+    const foh = { x: W * 0.291, y: H * 0.255, w: W * 0.710 };
+    const iem = { x: W * 0.505, y: H * 0.565, w: W * 0.465 };
+
+    // LIV-018 v6r350: source visuals locked from Gear Mover export.
+    textLabel("SOURCES", W * 0.055, H * 0.075, 12);
+
+    placeImage("/assets/live-sound/svg/hardware/live mic.svg", 8, 31, 304, "Talkback microphone", 20);
+    textLabel("TALKBACK", 159, 211, 12, "center");
+
+    placeImage("/assets/live-sound/svg/hardware/live mic.svg", 3, 250, 304, "Lead vocal microphone", 20);
+    textLabel("VOCALS", 164, 445, 12, "center");
+
+    placeImage("/assets/live-sound/svg/hardware/keyboard0.svg", 66, 477, 365, "Keyboard DI", 20);
+    textLabel("KEYS", 254, 509, 12, "center");
+    textLabel("STAGE BOX INPUTS", stage.x, stage.y - 25, 11);
+    placeImage("/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", stage.x, stage.y, stage.w, "16-channel stage box", 15);
+
+    // LIV-018 v6r347: FOH visual placement from Gear Mover export.
+    textLabel("FOH CONSOLE", foh.x - 45, foh.y - 24, 11);
+    placeImage("/assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg", foh.x, foh.y, foh.w, "FOH console aux outputs", 15);
+
+    // LIV-018 v6r334: keep In-Ear Monitoring label above rack/cables.
+    const iemLabel = textLabel("IN-EAR MONITORING", iem.x, iem.y - 24, 11);
+    if (iemLabel) {
+      iemLabel.style.setProperty("z-index", "120", "important");
+      iemLabel.style.setProperty("pointer-events", "none", "important");
+    }
+    placeImage("/assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg", iem.x, iem.y, iem.w, "In-ear monitoring transmitter", 15);
+
+    // LIV-018 v6r374: SAFE RESTORE; fixed 1220x760 canvas and v370 cableLayer constraint only. False-jack/axis-lock experiments removed.
+    // LIV-018 v6r354: exact Hitbox Tool rectangles using existing working node helpers.
+    // v6r353 had correct box positions but custom event handlers that were out of scope.
+    // This version creates nodes with transparentSource()/jack(), then snaps the DOM box exactly.
+
+    const LIV018_REQUIRED_HITBOXES = {
+      "talkback-mic": { type: "source", label: "Talkback Mic", x: 165, y: 93, w: 92, h: 178 },
+      "lead-vocal-mic": { type: "source", label: "Lead Vocal Mic", x: 158, y: 313, w: 92, h: 178 },
+      "keys-left-di": { type: "source", label: "Keys L DI", x: 183, y: 556, w: 118, h: 96 },
+      "keys-right-di": { type: "source", label: "Keys R DI", x: 307, y: 559, w: 118, h: 96 },
+
+      "stagebox-input-1": { type: "jack", label: "Stage Box Input 1", x: 668, y: 108, w: 34, h: 34 },
+      "stagebox-input-7": { type: "jack", label: "Stage Box Input 7", x: 935, y: 107, w: 34, h: 34 },
+      "stagebox-input-8": { type: "jack", label: "Stage Box Input 8", x: 981, y: 106, w: 40, h: 40 },
+      "stagebox-input-14": { type: "jack", label: "Stage Box Input 14", x: 891, y: 179, w: 34, h: 34 },
+
+      "talkback-output": { type: "jack", label: "Talkback Output", x: 770, y: 293, w: 34, h: 34 },
+      "in-ear-b-input": { type: "jack", label: "In-Ear B Input", x: 904, y: 519, w: 40, h: 40 }
+    };
+
+    // LIV-018 v6r358: cable anchors captured with Cable Anchor Tool.
+    // Hitboxes remain large/easy; cables start from the visible source output points.
+    const LIV018_CABLE_ANCHORS = {
+      "talkback-mic": { x: 150, y: 54 },
+      "lead-vocal-mic": { x: 142, y: 278 },
+      "keys-left-di": { x: 211, y: 527 },
+      "keys-right-di": { x: 285, y: 529 }
+    };
+
+    function findLiv018NodeElement(key) {
+      const nodes = Array.from(layer.querySelectorAll('[data-node-key="' + key + '"], [data-key="' + key + '"]'));
+      return (
+        nodes.find(el => {
+          const pe = getComputedStyle(el).pointerEvents;
+          return pe !== "none" && (el.tagName === "BUTTON" || el.classList.contains("sf-native-node"));
+        }) ||
+        nodes.find(el => getComputedStyle(el).pointerEvents !== "none") ||
+        nodes[0] ||
+        null
+      );
+    }
+
+    function snapLiv018NodeBox(key) {
+      const hb = LIV018_REQUIRED_HITBOXES[key];
+      const el = findLiv018NodeElement(key);
+
+      if (!hb || !el) {
+        console.warn("[Signal Flow] LIV-018 v6r354 could not snap node", key);
+        return;
+      }
+
+      el.classList.add("sf-native-liv018-exact-node");
+      el.dataset.nodeKey = key;
+      el.dataset.key = key;
+      el.dataset.nodeType = hb.type;
+      el.dataset.type = hb.type;
+      el.dataset.label = hb.label || key;
+      el.setAttribute("aria-label", hb.label || key);
+      el.title = hb.label || key;
+
+      const cableAnchor = LIV018_CABLE_ANCHORS[key];
+      if (cableAnchor) {
+        el.dataset.anchorX = String(cableAnchor.x);
+        el.dataset.anchorY = String(cableAnchor.y);
+        el.dataset.cableX = String(cableAnchor.x);
+        el.dataset.cableY = String(cableAnchor.y);
+        el.style.setProperty("--sf-cable-x", cableAnchor.x + "px");
+        el.style.setProperty("--sf-cable-y", cableAnchor.y + "px");
+
+        // LIV-018 v6r357:
+        // Keep the real DOM box large for clicking, but make cable drawing see
+        // the captured source output point as the element center.
+        Object.defineProperty(el, "getBoundingClientRect", {
+          configurable: true,
+          value: function() {
+            const layerRect = layer.getBoundingClientRect();
+            const size = 2;
+            const left = layerRect.left + cableAnchor.x - size / 2;
+            const top = layerRect.top + cableAnchor.y - size / 2;
+            const rect = {
+              x: left,
+              y: top,
+              left,
+              top,
+              right: left + size,
+              bottom: top + size,
+              width: size,
+              height: size,
+              toJSON() {
+                return {
+                  x: left,
+                  y: top,
+                  left,
+                  top,
+                  right: left + size,
+                  bottom: top + size,
+                  width: size,
+                  height: size
+                };
+              }
+            };
+            return rect;
+          }
+        });
+      }
+
+      el.style.setProperty("position", "absolute", "important");
+      el.style.setProperty("left", Math.round(hb.x - hb.w / 2) + "px", "important");
+      el.style.setProperty("top", Math.round(hb.y - hb.h / 2) + "px", "important");
+      el.style.setProperty("width", Math.round(hb.w) + "px", "important");
+      el.style.setProperty("height", Math.round(hb.h) + "px", "important");
+      el.style.setProperty("margin", "0", "important");
+      el.style.setProperty("margin-left", "0", "important");
+      el.style.setProperty("margin-top", "0", "important");
+      el.style.setProperty("padding", "0", "important");
+      el.style.setProperty("transform", "none", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("z-index", "4200", "important");
+      el.style.setProperty("border-radius", hb.type === "source" ? "18px" : "999px", "important");
+    }
+
+    function forwardLiv018ProxyEvent(proxyEvent, realNode) {
+      if (!realNode) return;
+
+      const opts = {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        clientX: proxyEvent.clientX,
+        clientY: proxyEvent.clientY,
+        screenX: proxyEvent.screenX,
+        screenY: proxyEvent.screenY,
+        button: proxyEvent.button || 0,
+        buttons: proxyEvent.buttons || 1,
+        ctrlKey: proxyEvent.ctrlKey,
+        shiftKey: proxyEvent.shiftKey,
+        altKey: proxyEvent.altKey,
+        metaKey: proxyEvent.metaKey
+      };
+
+      let forwarded;
+      if (proxyEvent.type.indexOf("pointer") === 0 && typeof PointerEvent !== "undefined") {
+        forwarded = new PointerEvent(proxyEvent.type, {
+          ...opts,
+          pointerId: proxyEvent.pointerId || 1,
+          pointerType: proxyEvent.pointerType || "mouse",
+          isPrimary: proxyEvent.isPrimary !== false
+        });
+      } else {
+        forwarded = new MouseEvent(proxyEvent.type, opts);
+      }
+
+      realNode.dispatchEvent(forwarded);
+    }
+
+    function placeLiv018SourceProxy(key, realNode) {
+      const hb = LIV018_REQUIRED_HITBOXES[key];
+      if (!hb || !realNode) return;
+
+      layer.querySelectorAll('[data-liv018-proxy-key="' + key + '"]').forEach(el => el.remove());
+
+      const proxy = document.createElement("button");
+      proxy.type = "button";
+      proxy.className = "sf-native-liv018-source-proxy";
+      proxy.dataset.liv018ProxyKey = key;
+      proxy.setAttribute("aria-label", hb.label || key);
+      proxy.title = hb.label || key;
+
+      proxy.style.cssText = [
+        "position:absolute",
+        "left:" + Math.round(hb.x - hb.w / 2) + "px",
+        "top:" + Math.round(hb.y - hb.h / 2) + "px",
+        "width:" + Math.round(hb.w) + "px",
+        "height:" + Math.round(hb.h) + "px",
+        "padding:0",
+        "margin:0",
+        "border:0",
+        "outline:none",
+        "appearance:none",
+        "-webkit-appearance:none",
+        "background:transparent",
+        "pointer-events:auto",
+        "cursor:pointer",
+        "z-index:4300",
+        "border-radius:18px"
+      ].join(";");
+
+      ["pointerdown", "pointerup", "click"].forEach(type => {
+        proxy.addEventListener(type, event => {
+          event.preventDefault();
+          event.stopPropagation();
+          forwardLiv018ProxyEvent(event, realNode);
+        }, true);
+      });
+
+      layer.appendChild(proxy);
+    }
+
+    function placeLiv018RequiredSource(key) {
+      const hb = LIV018_REQUIRED_HITBOXES[key];
+      if (!hb) return;
+
+      const anchor = LIV018_CABLE_ANCHORS[key] || { x: hb.x, y: hb.y };
+
+      layer.querySelectorAll('[data-node-key="' + key + '"], [data-key="' + key + '"], [data-liv018-proxy-key="' + key + '"]').forEach(el => el.remove());
+
+      // LIV-018 v6r358:
+      // Real native source stays tiny at the cable output point.
+      // A separate large invisible proxy forwards user clicks to it.
+      transparentSource(key, hb.label || key, anchor.x, anchor.y, 18, 18);
+
+      const realNode = findLiv018NodeElement(key);
+      if (realNode) {
+        realNode.classList.add("sf-native-liv018-real-source-anchor");
+        realNode.style.setProperty("position", "absolute", "important");
+        realNode.style.setProperty("left", Math.round(anchor.x - 9) + "px", "important");
+        realNode.style.setProperty("top", Math.round(anchor.y - 9) + "px", "important");
+        realNode.style.setProperty("width", "18px", "important");
+        realNode.style.setProperty("height", "18px", "important");
+        realNode.style.setProperty("margin", "0", "important");
+        realNode.style.setProperty("margin-left", "0", "important");
+        realNode.style.setProperty("margin-top", "0", "important");
+        realNode.style.setProperty("padding", "0", "important");
+        realNode.style.setProperty("transform", "none", "important");
+        realNode.style.setProperty("pointer-events", "auto", "important");
+        realNode.style.setProperty("z-index", "4250", "important");
+        realNode.style.setProperty("opacity", "0.001", "important");
+      }
+
+      placeLiv018SourceProxy(key, realNode);
+    }
+
+    function placeLiv018RequiredJack(key) {
+      const hb = LIV018_REQUIRED_HITBOXES[key];
+      if (!hb) return;
+      layer.querySelectorAll('[data-node-key="' + key + '"], [data-key="' + key + '"]').forEach(el => el.remove());
+      const radius = Math.ceil(Math.max(hb.w, hb.h) / 2);
+      jack(key, hb.x, hb.y, hb.label || key, active(key), radius);
+      snapLiv018NodeBox(key);
+    }
+
+    placeLiv018RequiredSource("talkback-mic");
+    placeLiv018RequiredSource("lead-vocal-mic");
+    placeLiv018RequiredSource("keys-left-di");
+    placeLiv018RequiredSource("keys-right-di");
+
+    placeLiv018RequiredJack("stagebox-input-1");
+    placeLiv018RequiredJack("stagebox-input-7");
+    placeLiv018RequiredJack("stagebox-input-8");
+    placeLiv018RequiredJack("stagebox-input-14");
+    placeLiv018RequiredJack("talkback-output");
+    placeLiv018RequiredJack("in-ear-b-input");
+
+    // LIV-018 v6r377: restore invisible false jacks and visual label overlays.
+    // Scroll remains owned by sf-liv018-scroll-shell.js. No scroll code belongs here.
+
+    const LIV018_FALSE_JACK_HITBOXES = {
+      "stagebox-input-2": { label: "Stage Box Input 2", x: 714, y: 106, w: 28, h: 28 },
+      "stagebox-input-3": { label: "Stage Box Input 3", x: 759, y: 106, w: 28, h: 28 },
+      "stagebox-input-4": { label: "Stage Box Input 4", x: 801, y: 102, w: 28, h: 28 },
+      "stagebox-input-5": { label: "Stage Box Input 5", x: 846, y: 103, w: 28, h: 28 },
+      "stagebox-input-6": { label: "Stage Box Input 6", x: 892, y: 103, w: 28, h: 28 },
+      "stagebox-input-9": { label: "Stage Box Input 9", x: 668, y: 179, w: 28, h: 28 },
+      "stagebox-input-10": { label: "Stage Box Input 10", x: 713, y: 178, w: 28, h: 28 },
+      "stagebox-input-11": { label: "Stage Box Input 11", x: 754, y: 176, w: 28, h: 28 },
+      "stagebox-input-12": { label: "Stage Box Input 12", x: 801, y: 177, w: 28, h: 28 },
+      "stagebox-input-13": { label: "Stage Box Input 13", x: 844, y: 180, w: 28, h: 28 },
+      "stagebox-input-15": { label: "Stage Box Input 15", x: 933, y: 182, w: 28, h: 28 },
+      "stagebox-input-16": { label: "Stage Box Input 16", x: 979, y: 178, w: 28, h: 28 },
+      "stagebox-aes-link-out": { label: "Stagebox AES Link Out", x: 1126, y: 103, w: 28, h: 28 },
+      "stagebox-aes-link-in": { label: "Stagebox AES Link In", x: 1125, y: 178, w: 28, h: 28 },
+
+      "foh-liv018-input-1": { label: "FOH Input 1", x: 426, y: 288, w: 28, h: 28 },
+      "foh-liv018-input-2": { label: "FOH Input 2", x: 478, y: 289, w: 28, h: 28 },
+      "foh-liv018-input-3": { label: "FOH Input 3", x: 526, y: 288, w: 28, h: 28 },
+      "foh-liv018-input-4": { label: "FOH Input 4", x: 574, y: 288, w: 28, h: 28 },
+      "foh-liv018-input-5": { label: "FOH Input 5", x: 431, y: 335, w: 28, h: 28 },
+      "foh-liv018-input-6": { label: "FOH Input 6", x: 475, y: 339, w: 28, h: 28 },
+      "foh-liv018-input-7": { label: "FOH Input 7", x: 524, y: 339, w: 28, h: 28 },
+      "foh-liv018-input-8": { label: "FOH Input 8", x: 572, y: 341, w: 28, h: 28 },
+
+      "foh-liv018-aux-false-1": { label: "Aux Output 1", x: 680, y: 293, w: 28, h: 28 },
+      "foh-liv018-aux-false-2": { label: "Aux Output 2", x: 711, y: 289, w: 28, h: 28 },
+      "foh-liv018-aux-false-3": { label: "Aux Output 3", x: 740, y: 290, w: 28, h: 28 },
+      "foh-liv018-aux-false-5": { label: "Aux Output 5", x: 805, y: 291, w: 28, h: 28 },
+      "foh-liv018-aux-false-6": { label: "Aux Output 6", x: 833, y: 291, w: 28, h: 28 },
+      "foh-liv018-aux-false-7": { label: "Aux Output 7", x: 676, y: 330, w: 28, h: 28 },
+      "foh-liv018-aux-false-8": { label: "Aux Output 8", x: 711, y: 330, w: 28, h: 28 },
+      "foh-liv018-aux-false-9": { label: "Aux Output 9", x: 743, y: 326, w: 28, h: 28 },
+      "foh-liv018-aux-false-10": { label: "Aux Output 10", x: 773, y: 325, w: 28, h: 28 },
+      "foh-liv018-aux-false-11": { label: "Aux Output 11", x: 799, y: 326, w: 28, h: 28 },
+      "foh-liv018-aux-false-12": { label: "Aux Output 12", x: 830, y: 328, w: 28, h: 28 },
+
+      "foh-liv018-bus-1": { label: "Bus Output 1", x: 902, y: 290, w: 28, h: 28 },
+      "foh-liv018-bus-2": { label: "Bus Output 2", x: 937, y: 291, w: 28, h: 28 },
+      "foh-liv018-bus-3": { label: "Bus Output 3", x: 974, y: 290, w: 28, h: 28 },
+      "foh-liv018-bus-4": { label: "Bus Output 4", x: 1013, y: 292, w: 28, h: 28 },
+      "foh-liv018-bus-5": { label: "Bus Output 5", x: 906, y: 340, w: 28, h: 28 },
+      "foh-liv018-bus-6": { label: "Bus Output 6", x: 939, y: 340, w: 28, h: 28 },
+      "foh-liv018-bus-7": { label: "Bus Output 7", x: 975, y: 339, w: 28, h: 28 },
+      "foh-liv018-bus-8": { label: "Bus Output 8", x: 1010, y: 341, w: 28, h: 28 },
+
+      "main-left-output": { label: "Main L Output", x: 1108, y: 298, w: 32, h: 32 },
+      "main-right-output": { label: "Main R Output", x: 1162, y: 298, w: 32, h: 32 },
+
+      "iem-tx-a-left-input": { label: "IEM A Left Input", x: 761, y: 515, w: 30, h: 30 },
+      "iem-tx-a-right-input": { label: "IEM A Right Input", x: 809, y: 518, w: 30, h: 30 },
+      "iem-tx-b-right-input": { label: "IEM B Right Input", x: 966, y: 521, w: 30, h: 30 },
+      "iem-tx-phones": { label: "Phones", x: 1080, y: 518, w: 30, h: 30 }
+    };
+
+    function hideLiv018FalseJackVisual(el) {
+      if (!el) return;
+      el.classList.add("sf-native-liv018-invisible-false-jack");
+      el.style.setProperty("border", "0", "important");
+      el.style.setProperty("outline", "none", "important");
+      el.style.setProperty("box-shadow", "none", "important");
+      el.style.setProperty("background", "transparent", "important");
+      el.style.setProperty("opacity", "0.001", "important");
+      el.style.setProperty("color", "transparent", "important");
+    }
+
+    function snapLiv018InvisibleFalseJackBox(key) {
+      const hb = LIV018_FALSE_JACK_HITBOXES[key];
+      const el = findLiv018NodeElement(key);
+      if (!hb || !el) return;
+
+      el.dataset.nodeKey = key;
+      el.dataset.key = key;
+      el.dataset.nodeType = "jack";
+      el.dataset.type = "jack";
+      el.dataset.label = hb.label || key;
+      el.setAttribute("aria-label", hb.label || key);
+      el.title = hb.label || key;
+
+      el.style.setProperty("position", "absolute", "important");
+      el.style.setProperty("left", Math.round(hb.x - hb.w / 2) + "px", "important");
+      el.style.setProperty("top", Math.round(hb.y - hb.h / 2) + "px", "important");
+      el.style.setProperty("width", Math.round(hb.w) + "px", "important");
+      el.style.setProperty("height", Math.round(hb.h) + "px", "important");
+      el.style.setProperty("margin", "0", "important");
+      el.style.setProperty("margin-left", "0", "important");
+      el.style.setProperty("margin-top", "0", "important");
+      el.style.setProperty("padding", "0", "important");
+      el.style.setProperty("transform", "none", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("z-index", "4140", "important");
+      el.style.setProperty("border-radius", "999px", "important");
+
+      hideLiv018FalseJackVisual(el);
+    }
+
+    function placeLiv018InvisibleFalseJack(key) {
+      const hb = LIV018_FALSE_JACK_HITBOXES[key];
+      if (!hb) return;
+
+      layer.querySelectorAll('[data-node-key="' + key + '"], [data-key="' + key + '"]').forEach(el => el.remove());
+
+      const radius = Math.ceil(Math.max(hb.w, hb.h) / 2);
+      jack(key, hb.x, hb.y, hb.label || key, false, radius);
+      snapLiv018InvisibleFalseJackBox(key);
+    }
+
+    Object.keys(LIV018_FALSE_JACK_HITBOXES).forEach(placeLiv018InvisibleFalseJack);
+
+    function liv018OverlayLabel(text, x, y, w, h, opts = {}) {
+      const el = document.createElement("div");
+      el.className = "sf-liv018-visual-overlay";
+      el.textContent = text || "";
+      el.style.position = "absolute";
+      el.style.left = Math.round(x) + "px";
+      el.style.top = Math.round(y) + "px";
+      el.style.width = Math.round(w) + "px";
+      el.style.height = Math.round(h) + "px";
+      el.style.display = "flex";
+      el.style.alignItems = "center";
+      el.style.justifyContent = "center";
+      el.style.boxSizing = "border-box";
+      el.style.pointerEvents = "none";
+      el.style.zIndex = String(opts.zIndex || 4340);
+      el.style.background = opts.background || "rgba(0,0,0,0.96)";
+      el.style.color = opts.color || "#f1d46a";
+      el.style.fontSize = (opts.fontSize || 12) + "px";
+      el.style.fontWeight = String(opts.fontWeight || 900);
+      el.style.borderRadius = (opts.radius || 2) + "px";
+      el.style.border = opts.border || "none";
+      el.style.lineHeight = "1";
+      el.style.textAlign = "center";
+      layer.appendChild(el);
+      return el;
+    }
+
+    function liv018ApplyVisualOverlays() {
+      layer.querySelectorAll(".sf-liv018-visual-overlay").forEach(el => el.remove());
+      layer.querySelectorAll('img[alt="Talkback label tape"]').forEach(el => el.remove());
+
+      // Restore the white TB tape graphic on the FOH aux section.
+      const tbTape = placeImage(
+        "/assets/live-sound/svg/handwritten/tb-label-tape-slight-left.svg",
+        729,
+        243,
+        91,
+        "Talkback label tape",
+        4340
+      );
+      if (tbTape) {
+        tbTape.style.setProperty("pointer-events", "none", "important");
+        tbTape.style.setProperty("z-index", "4340", "important");
+        tbTape.style.setProperty("transform", "rotate(5deg)", "important");
+        tbTape.style.setProperty("transform-origin", "50% 50%", "important");
+        tbTape.style.setProperty("clip-path", "inset(0 25% 0 25%)", "important");
+        tbTape.style.setProperty("-webkit-clip-path", "inset(0 25% 0 25%)", "important");
+      }
+
+      // LIV-018 v6r378: IEM label overlays locked from IEM Label Mover export.
+      // Black covers over AL / AR / BL / BR.
+      liv018OverlayLabel("", 751, 542, 24, 15);
+      liv018OverlayLabel("", 797, 542, 24, 15);
+      liv018OverlayLabel("", 890, 542, 24, 15);
+      liv018OverlayLabel("", 942, 542, 24, 15);
+
+      // Replace Left/Right labels with 1/2 labels for both IEM packs.
+      liv018OverlayLabel("1", 746, 479, 30, 16, { fontSize: 12 });
+      liv018OverlayLabel("2", 792, 479, 30, 16, { fontSize: 12 });
+      liv018OverlayLabel("1", 890, 479, 30, 16, { fontSize: 12 });
+      liv018OverlayLabel("2", 937, 479, 30, 16, { fontSize: 12 });
+    }
+
+    liv018ApplyVisualOverlays();
+
+
+    // Small visible L/R labels for keyboard DI outputs.
+    textLabel("L DI", 174, 535, 10, "center");
+    textLabel("R DI", 332, 535, 10, "center");
+
+
+    layer.style.setProperty("width", liv018CanvasWidth + "px", "important");
+    layer.style.setProperty("min-width", liv018CanvasWidth + "px", "important");
+    layer.style.setProperty("height", liv018CanvasHeight + "px", "important");
+    layer.style.setProperty("min-height", liv018CanvasHeight + "px", "important");
+    layer.style.setProperty("right", "auto", "important");
+    layer.style.setProperty("overflow", "hidden", "important");
+
+    surface.appendChild(layer);
+    redrawCables(layer);
+    installCableDrag(layer);
+
+    console.log("[Signal Flow] LIV-018 dedicated talkback monitor renderer mounted.", {
+      stage,
+      foh,
+      iem,
+      talkbackOutput: tbOut,
+    });
+  }
+
   function isLivProcessingFamilyLevel() {
     return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-020";
   }
@@ -6152,7 +6897,9 @@ function mountNative(force) {
 
     installNativeScrollStyle();
     hideLegacyBoard(surface);
-    if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
+    if (LEVEL_ID === "LIV-018") {
+      renderLiv018TalkbackMonitor(surface, adapter);
+    } else if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
       renderLivProcessingFamily(surface, adapter);
     } else {
       renderNative(surface, adapter);
