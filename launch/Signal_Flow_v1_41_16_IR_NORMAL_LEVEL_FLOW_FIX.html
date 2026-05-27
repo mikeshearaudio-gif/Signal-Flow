@@ -8258,42 +8258,23 @@ main.level-liv-026 .patchbay-wrap.front-panel-view .sf-live-native-layer * {
 
 \n
 <style id="sf-universal-scroll-cues-v1">
-/* Universal scroll affordance: if hidden scroll content exists, show direction arrows. */
-.sf-scroll-managed {
-  overflow: auto !important;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-}
-
-.sf-scroll-managed::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-.sf-scroll-managed::-webkit-scrollbar-thumb {
-  background: rgba(255, 215, 106, .45);
-  border-radius: 999px;
-}
-
-.sf-scroll-managed::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, .28);
-}
-
+/* Universal scroll affordance: idle-only static direction arrows for hidden scroll content. */
 .sf-scroll-cue {
   position: fixed;
   z-index: 2147483100;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
   pointer-events: none;
   background:
-    radial-gradient(circle at 45% 38%, rgba(255, 236, 162, .98), rgba(255, 215, 106, .84) 48%, rgba(126, 82, 12, .72) 100%);
+    radial-gradient(circle at 45% 38%, rgba(255, 236, 162, .96), rgba(255, 215, 106, .76) 50%, rgba(126, 82, 12, .66) 100%);
   box-shadow:
-    0 0 20px rgba(255, 215, 106, .72),
-    0 8px 18px rgba(0, 0, 0, .42),
+    0 0 16px rgba(255, 215, 106, .46),
+    0 8px 16px rgba(0, 0, 0, .38),
     inset 0 0 8px rgba(255, 255, 255, .35);
-  opacity: .94;
-  animation: sfScrollCuePulseV1 1.15s ease-in-out infinite;
+  opacity: .88;
+  transition: opacity .14s ease;
+  transform: none;
 }
 
 .sf-scroll-cue::before {
@@ -8307,42 +8288,31 @@ main.level-liv-026 .patchbay-wrap.front-panel-view .sf-live-native-layer * {
 }
 
 .sf-scroll-cue-down::before {
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-  border-top: 15px solid #171006;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid #171006;
   margin-top: 2px;
 }
 
 .sf-scroll-cue-up::before {
-  border-left: 11px solid transparent;
-  border-right: 11px solid transparent;
-  border-bottom: 15px solid #171006;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid #171006;
   margin-top: -2px;
 }
 
 .sf-scroll-cue-right::before {
-  border-top: 11px solid transparent;
-  border-bottom: 11px solid transparent;
-  border-left: 15px solid #171006;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 14px solid #171006;
   margin-left: 2px;
 }
 
 .sf-scroll-cue-left::before {
-  border-top: 11px solid transparent;
-  border-bottom: 11px solid transparent;
-  border-right: 15px solid #171006;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 14px solid #171006;
   margin-left: -2px;
-}
-
-@keyframes sfScrollCuePulseV1 {
-  0%, 100% {
-    transform: scale(.92);
-    opacity: .74;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 1;
-  }
 }
 </style>
 \n
@@ -8390,9 +8360,6 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
   border-radius: 18px;
 }
 
-.sf-live-native-layer.sf-live-native-level-liv-010.sf-scroll-managed {
-  overflow: visible !important;
-}
 
 .sfLiv010SurfaceScrollSpacer {
   position: relative !important;
@@ -18271,52 +18238,140 @@ window.SIGNAL_FLOW_V12 = {
           ],
           "time": 260
         },
-    {
-      "id": "LIV-019",
-      "environment": "live",
-      "title": "Drum Kit Stage Inputs",
-      "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
-      "difficulty": 2,
-      "required": [
-        [
-          "Keys L DI",
-          "Stage Box Input 7"
-        ],
-        [
-          "Keys R DI",
-          "Stage Box Input 8"
-        ],
-        [
-          "Lead Vocal Mic",
-          "Stage Box Input 1"
-        ],
-        [
-          "Talkback Mic",
-          "Stage Box Input 14"
-        ]
-      ],
-      "forbidden": [
-        [
-          "Keys L DI",
-          "Stage Box Input 8"
-        ],
-        [
-          "Keys R DI",
-          "Stage Box Input 7"
-        ]
-      ],
-      "system": [
-        "Stagebox inputs map to console channel strips.",
-        "Stereo keys need left/right order."
-      ],
-      "notes": [
-        "Stereo stage inputs should not be crossed."
-      ],
-      "learning": [
-        "Stereo DI",
-        "Stagebox order"
-      ],
-      "time": 260
+                {
+          "id": "LIV-019",
+          "environment": "live",
+          "title": "Drum Inputs, IEM Sends and FX Returns",
+          "brief": "Patch the full drum kit into stagebox inputs 1-8, patch five FOH aux outputs to five IEM inputs, send two stereo bus pairs to reverb and delay, then return the stereo effects to FOH input channels 9-12.",
+          "difficulty": 4,
+          "required": [
+                [
+                      "Kick Mic",
+                      "Stage Box Input 1"
+                ],
+                [
+                      "Snare Mic",
+                      "Stage Box Input 2"
+                ],
+                [
+                      "Hi-Hat Mic",
+                      "Stage Box Input 3"
+                ],
+                [
+                      "Rack Tom 1 Mic",
+                      "Stage Box Input 4"
+                ],
+                [
+                      "Rack Tom 2 Mic",
+                      "Stage Box Input 5"
+                ],
+                [
+                      "Floor Tom Mic",
+                      "Stage Box Input 6"
+                ],
+                [
+                      "Overhead Left Mic",
+                      "Stage Box Input 7"
+                ],
+                [
+                      "Overhead Right Mic",
+                      "Stage Box Input 8"
+                ],
+                [
+                      "FOH Aux 1 Output",
+                      "IEM 1 Input"
+                ],
+                [
+                      "FOH Aux 2 Output",
+                      "IEM 2 Input"
+                ],
+                [
+                      "FOH Aux 3 Output",
+                      "IEM 3 Input"
+                ],
+                [
+                      "FOH Aux 4 Output",
+                      "IEM 4 Input"
+                ],
+                [
+                      "FOH Aux 5 Output",
+                      "IEM 5 Input"
+                ],
+                [
+                      "FOH Bus 1 Output",
+                      "Stereo Reverb L Input"
+                ],
+                [
+                      "FOH Bus 2 Output",
+                      "Stereo Reverb R Input"
+                ],
+                [
+                      "FOH Bus 3 Output",
+                      "Stereo Delay L Input"
+                ],
+                [
+                      "FOH Bus 4 Output",
+                      "Stereo Delay R Input"
+                ],
+                [
+                      "Stereo Reverb L Output",
+                      "FOH Input Channel 9"
+                ],
+                [
+                      "Stereo Reverb R Output",
+                      "FOH Input Channel 10"
+                ],
+                [
+                      "Stereo Delay L Output",
+                      "FOH Input Channel 11"
+                ],
+                [
+                      "Stereo Delay R Output",
+                      "FOH Input Channel 12"
+                ]
+          ],
+          "forbidden": [
+                [
+                      "Overhead Left Mic",
+                      "Stage Box Input 8"
+                ],
+                [
+                      "Overhead Right Mic",
+                      "Stage Box Input 7"
+                ],
+                [
+                      "FOH Aux 6 Output",
+                      "IEM 5 Input"
+                ],
+                [
+                      "FOH Bus 3 L Output",
+                      "Stereo Reverb L Input"
+                ],
+                [
+                      "Stereo Reverb L Output",
+                      "FOH Input Channel 11"
+                ],
+                [
+                      "Stereo Delay L Output",
+                      "FOH Input Channel 9"
+                ]
+          ],
+          "system": [
+                "Drum microphones land on stagebox inputs 1-8.",
+                "Aux outputs feed monitor/IEM mixes.",
+                "Stereo effects sends and returns must keep left/right order.",
+                "Effects returns land back on FOH input channels."
+          ],
+          "notes": [
+                "Keep drum input order intact, keep overheads as a stereo pair, and keep reverb returns on channels 9-10 with delay returns on channels 11-12."
+          ],
+          "learning": [
+                "Drum stage inputs",
+                "Monitor sends",
+                "Stereo bus effects",
+                "Effects returns"
+          ],
+          "time": 420
     },
     {
       "id": "LIV-020",
@@ -28993,13 +29048,21 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   if (window.sfUniversalScrollCuesV1Installed) return;
   window.sfUniversalScrollCuesV1Installed = true;
 
+  var EDGE_THRESHOLD = 3;
+  var IDLE_DELAY = 320;
+  var docStates = new WeakMap();
+
   function ensureStyle(doc) {
-    if (!doc || doc.getElementById("sf-universal-scroll-cues-v1")) return;
+    if (!doc) return;
     var src = document.getElementById("sf-universal-scroll-cues-v1");
-    var style = doc.createElement("style");
+    var style = doc.getElementById("sf-universal-scroll-cues-v1");
+    if (!style) {
+      style = doc.createElement("style");
+      style.id = "sf-universal-scroll-cues-v1";
+      doc.head.appendChild(style);
+    }
     style.id = "sf-universal-scroll-cues-v1";
-    style.textContent = src ? src.textContent : "";
-    doc.head.appendChild(style);
+    if (src && style.textContent !== src.textContent) style.textContent = src.textContent;
   }
 
   function rectFor(el, doc, win) {
@@ -29048,52 +29111,122 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     return r.width > 160 && r.height > 120 && r.bottom > 0 && r.right > 0;
   }
 
+  function stateFor(doc) {
+    var state = docStates.get(doc);
+    if (!state) {
+      state = { active: false, timer: null, installed: false, pointerDown: false };
+      docStates.set(doc, state);
+    }
+    return state;
+  }
+
+  function clearCues(doc) {
+    if (!doc || !doc.body) return;
+    doc.querySelectorAll(".sf-scroll-cue").forEach(function(el) {
+      el.remove();
+    });
+  }
+
+  function markScrolling(doc, win) {
+    if (!doc || !win) return;
+
+    var state = stateFor(doc);
+    state.active = true;
+    clearCues(doc);
+
+    clearTimeout(state.timer);
+    state.timer = setTimeout(function() {
+      state.active = false;
+      applyIn(doc, win);
+    }, IDLE_DELAY);
+  }
+
+  function installActivityListeners(doc, win) {
+    if (!doc || !win) return;
+
+    var state = stateFor(doc);
+    if (state.installed) return;
+    state.installed = true;
+
+    doc.addEventListener("scroll", function() {
+      markScrolling(doc, win);
+    }, true);
+
+    doc.addEventListener("wheel", function() {
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("touchstart", function() {
+      state.pointerDown = true;
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("touchmove", function() {
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("touchend", function() {
+      state.pointerDown = false;
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("pointerdown", function() {
+      state.pointerDown = true;
+    }, true);
+
+    doc.addEventListener("pointermove", function() {
+      if (state.pointerDown) markScrolling(doc, win);
+    }, true);
+
+    doc.addEventListener("pointerup", function() {
+      if (state.pointerDown) markScrolling(doc, win);
+      state.pointerDown = false;
+    }, true);
+
+    doc.addEventListener("pointercancel", function() {
+      state.pointerDown = false;
+      markScrolling(doc, win);
+    }, true);
+
+    doc.addEventListener("keydown", function(event) {
+      if (!event || !/^(ArrowUp|ArrowDown|ArrowLeft|ArrowRight|PageUp|PageDown|Home|End|Space| )$/.test(event.key || "")) return;
+      markScrolling(doc, win);
+    }, true);
+  }
+
   function makeCue(doc, dir, x, y) {
     var cue = doc.createElement("div");
     cue.className = "sf-scroll-cue sf-scroll-cue-" + dir;
-    cue.style.left = Math.round(x - 21) + "px";
-    cue.style.top = Math.round(y - 21) + "px";
+    cue.style.left = Math.round(x - 19) + "px";
+    cue.style.top = Math.round(y - 19) + "px";
     cue.setAttribute("aria-hidden", "true");
     doc.body.appendChild(cue);
   }
 
-  function makeNativeSurfacesScrollable(doc) {
-    doc.querySelectorAll(".patchbay-wrap.front-panel-view, .sf-live-native-layer:not(.sf-live-native-level-liv-010)").forEach(function(el) {
-      var r = el.getBoundingClientRect();
-      if (r.width < 200 || r.height < 160) return;
-
-      var needsY = el.scrollHeight > el.clientHeight + 8;
-      var needsX = el.scrollWidth > el.clientWidth + 8;
-
-      if (needsY || needsX) {
-        el.classList.add("sf-scroll-managed");
-      } else {
-        el.classList.remove("sf-scroll-managed");
-      }
-    });
+  function hasHiddenScrollRange(el, doc, win) {
+    return maxScrollY(el, doc, win) > EDGE_THRESHOLD || maxScrollX(el, doc, win) > EDGE_THRESHOLD;
   }
 
-  function findScrollableCandidates(doc) {
+  function findScrollableCandidates(doc, win) {
     var set = new Set();
-
-    if (doc.scrollingElement) set.add(doc.scrollingElement);
-
-    doc.querySelectorAll([
-      ".sf-live-native-layer",
+    var explicit = [
       ".patchbay-wrap.front-panel-view",
-      ".lesson-panel",
-      ".level-panel",
-      ".sidebar",
-      "aside",
-      "main",
-      "section",
-      "article",
-      "div",
-      "ol",
-      "ul"
-    ].join(",")).forEach(function(el) {
-      set.add(el);
+      ".patchbay-wrap",
+      ".sf-live-native-scroll-host-liv010",
+      ".sf-live-native-scroll-host",
+      ".sf-live-native-viewport",
+      ".training-stage-shell",
+      ".level-shell",
+      "main.game"
+    ].join(",");
+
+    doc.querySelectorAll(explicit).forEach(function(el) {
+      if (hasHiddenScrollRange(el, doc, win)) set.add(el);
     });
+
+    if (!set.size && doc.scrollingElement && hasHiddenScrollRange(doc.scrollingElement, doc, win)) {
+      set.add(doc.scrollingElement);
+    }
 
     return Array.from(set);
   }
@@ -29101,15 +29234,14 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   function applyIn(doc, win) {
     if (!doc || !win || !doc.body) return 0;
     ensureStyle(doc);
-    makeNativeSurfacesScrollable(doc);
+    installActivityListeners(doc, win);
 
-    doc.querySelectorAll(".sf-scroll-cue").forEach(function(el) {
-      el.remove();
-    });
+    clearCues(doc);
+    if (stateFor(doc).active) return 0;
     if (doc.querySelector('[data-training-panel="quiz"]')) return 0;
 
     var count = 0;
-    var candidates = findScrollableCandidates(doc);
+    var candidates = findScrollableCandidates(doc, win);
 
     candidates.forEach(function(el) {
       if (count > 16) return;
@@ -29122,7 +29254,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
       var maxX = maxScrollX(el, doc, win);
 
       // Do not show cues unless this exact element has a real hidden scroll range.
-      if (maxY < 32 && maxX < 32) return;
+      if (maxY <= EDGE_THRESHOLD && maxX <= EDGE_THRESHOLD) return;
 
       // Native board layers are often large absolute-position canvases. Only the
       // actual scroll host should get arrows.
@@ -29136,26 +29268,32 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 
       var top = scrollTopOf(el, doc);
       var left = scrollLeftOf(el, doc);
+      var canScrollUp = maxY > EDGE_THRESHOLD && top > EDGE_THRESHOLD;
+      var canScrollDown = maxY > EDGE_THRESHOLD && top < maxY - EDGE_THRESHOLD;
+      var canScrollLeft = maxX > EDGE_THRESHOLD && left > EDGE_THRESHOLD;
+      var canScrollRight = maxX > EDGE_THRESHOLD && left < maxX - EDGE_THRESHOLD;
+
+      if (!canScrollUp && !canScrollDown && !canScrollLeft && !canScrollRight) return;
 
       var centerX = Math.max(30, Math.min(win.innerWidth - 30, r.left + r.width / 2));
       var centerY = Math.max(30, Math.min(win.innerHeight - 30, r.top + r.height / 2));
 
-      if (maxY >= 12 && top > 8) {
+      if (canScrollUp) {
         makeCue(doc, "up", centerX, Math.max(28, r.top + 28));
         count += 1;
       }
 
-      if (maxY >= 12 && top < maxY - 8) {
+      if (canScrollDown) {
         makeCue(doc, "down", centerX, Math.min(win.innerHeight - 28, r.bottom - 28));
         count += 1;
       }
 
-      if (maxX >= 12 && left > 8) {
+      if (canScrollLeft) {
         makeCue(doc, "left", Math.max(28, r.left + 28), centerY);
         count += 1;
       }
 
-      if (maxX >= 12 && left < maxX - 8) {
+      if (canScrollRight) {
         makeCue(doc, "right", Math.min(win.innerWidth - 28, r.right - 28), centerY);
         count += 1;
       }
@@ -29197,9 +29335,9 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     schedule(1500);
   });
   window.addEventListener("resize", function () { schedule(100); });
+  window.addEventListener("orientationchange", function () { schedule(180); });
   window.addEventListener("hashchange", function () { schedule(200); });
   window.addEventListener("popstate", function () { schedule(200); });
-  window.addEventListener("scroll", function () { schedule(20); }, true);
 
   const observer = new MutationObserver(function () {
     clearTimeout(window.sfUniversalScrollCueTimer);
@@ -29617,7 +29755,12 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 
   function realNativeScrollExists() {
     var hosts = Array.from(document.querySelectorAll(
-      ".sf-live-native-scroll-host-liv010, .sf-live-native-scroll-host, .sf-live-native-viewport"
+      [
+        ".patchbay-wrap.front-panel-view",
+        ".sf-live-native-scroll-host-liv010",
+        ".sf-live-native-scroll-host",
+        ".sf-live-native-viewport"
+      ].join(",")
     ));
 
     return hosts.some(function(el) {
@@ -29628,6 +29771,8 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
       var cs = getComputedStyle(el);
 
       return (
+        y > 40 ||
+        x > 40 ||
         (/auto|scroll/i.test(cs.overflowY) && y > 40) ||
         (/auto|scroll/i.test(cs.overflowX) && x > 40)
       );
@@ -29714,13 +29859,21 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   <script src="../patch/sf-diagnosis-svg-skin.js?v=6r261"></script>
   <script src="../patch/sf-economy-rules.js?v=6r214"></script>
 
-<!-- Signal Flow Build-a-Room consolidated renderer v6r278 -->
-<script src="../patch/sf-build-room-renderer.js?v=6r278"></script>
-<!-- /Signal Flow Build-a-Room consolidated renderer v6r278 -->
+<!-- Signal Flow Build-a-Room consolidated renderer v6r279 -->
+<script src="../patch/sf-build-room-renderer.js?v=6r279"></script>
+<!-- /Signal Flow Build-a-Room consolidated renderer v6r279 -->
   <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
   
 
 <script src="../src/sf-liv018-scroll-shell.js?v=6r376"></script>
+<script src="../src/sf-liv019-scroll-shell.js?v=6r389"></script>
+<script src="../src/sf-liv019-overlay-lock.js?v=6r407"></script>
+<script src="../src/sf-liv019-foh-label-lock.js?v=6r399"></script>
+<script src="../src/sf-liv019-foh-label-final-lock.js?v=6r401"></script>
+<script src="../src/sf-liv019-hitbox-final-lock.js?v=6r408"></script>
+<script src="../src/sf-liv019-stagebox-8-lock.js?v=6r404"></script>
+<script src="../src/sf-liv019-clean-finalizer-v6r421.js?v=6r421q2"></script>
+<script src="../src/sf-live-cable-mode-kit.js?v=6r426"></script>
 </body>
 </html>
 
@@ -29744,7 +29897,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </style>
 
   <script src="../src/signal-flow-ledger.js?v=1"></script>
-<script src="../src/live-sound-native-renderer.js?v=6r378"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r403q2"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r242"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">

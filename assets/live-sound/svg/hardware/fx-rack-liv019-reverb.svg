@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230">
+  <rect x="12" y="16" width="736" height="198" rx="24" fill="#171d2b" stroke="#7b86a6" stroke-width="5"/>
+  <rect x="42" y="52" width="676" height="126" rx="14" fill="#0d1019" stroke="#394461" stroke-width="3"/>
+  <text x="60" y="88" fill="#ffe66c" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900">STEREO REVERB</text>
+  <text x="60" y="126" fill="#bdeaff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">BUS 1 SEND / RETURN CH 9-10</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="900" text-anchor="middle" fill="#ffe66c">
+    <text x="360" y="80" font-size="18">INPUT</text><circle cx="324" cy="128" r="25" fill="#111821" stroke="#c7d2e2" stroke-width="4"/><circle cx="396" cy="128" r="25" fill="#111821" stroke="#c7d2e2" stroke-width="4"/><text x="324" y="178" font-size="18">L</text><text x="396" y="178" font-size="18">R</text>
+    <text x="610" y="80" font-size="18">OUTPUT</text><circle cx="574" cy="128" r="25" fill="#111821" stroke="#c7d2e2" stroke-width="4"/><circle cx="646" cy="128" r="25" fill="#111821" stroke="#c7d2e2" stroke-width="4"/><text x="574" y="178" font-size="18">L</text><text x="646" y="178" font-size="18">R</text>
+  </g>
+</svg>

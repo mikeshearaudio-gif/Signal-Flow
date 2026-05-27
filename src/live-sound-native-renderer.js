@@ -294,6 +294,9 @@
   let LEVEL_ID = "LIV-025";
   let activeNativeLevelId = null;
   let nativeLevelCompleteShown = false;
+  let nativeSurfaceRetryTimer = null;
+  let nativeSurfaceRetryCount = 0;
+  let nativeSurfaceRetryLevelId = null;
 
   const LIV_028_LAYOUT = {
     sources: {
@@ -980,6 +983,105 @@
       ]
     },
 
+    "LIV-019": {
+      id: "LIV-019",
+      title: "Drum Inputs, IEM Sends and FX Returns",
+      processorLabel: "DRUMS / IEM / FX",
+      panelKinds: ["stagebox", "foh", "iem", "reverb", "delay"],
+      sourceOrder: [
+        "kick",
+        "snare",
+        "hi-hat",
+        "high-rack-tom",
+        "low-rack-tom",
+        "floor-tom",
+        "overhead-left-crash",
+        "overhead-right-ride"
+      ],
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "stagebox-link-out",
+
+        "foh-liv019-aux-1-output",
+        "foh-liv019-aux-2-output",
+        "foh-liv019-aux-3-output",
+        "foh-liv019-aux-4-output",
+        "foh-liv019-aux-5-output",
+        "foh-liv019-aux-6-output",
+
+        "liv019-iem-1-input",
+        "liv019-iem-2-input",
+        "liv019-iem-3-input",
+        "liv019-iem-4-input",
+        "liv019-iem-5-input",
+
+        "foh-liv019-bus-1-output",
+        "foh-liv019-bus-2-output",
+        "foh-liv019-bus-3-output",
+        "foh-liv019-bus-4-output",
+        "foh-liv019-bus-3-left-output",
+        "foh-liv019-bus-3-right-output",
+
+        "liv019-reverb-left-input",
+        "liv019-reverb-right-input",
+        "liv019-reverb-left-output",
+        "liv019-reverb-right-output",
+
+        "liv019-delay-left-input",
+        "liv019-delay-right-input",
+        "liv019-delay-left-output",
+        "liv019-delay-right-output",
+
+        "foh-liv019-input-9",
+        "foh-liv019-input-10",
+        "foh-liv019-input-11",
+        "foh-liv019-input-12",
+        "foh-liv019-input-13",
+        "foh-liv019-input-14"
+      ],
+      validRoutes: [
+        { key: "liv019-kick-to-stagebox-input-1", from: "kick", to: "stagebox-input-1", checklist: "Kick Mic → Stage Box Input 1" },
+        { key: "liv019-snare-to-stagebox-input-2", from: "snare", to: "stagebox-input-2", checklist: "Snare Mic → Stage Box Input 2" },
+        { key: "liv019-hi-hat-to-stagebox-input-3", from: "hi-hat", to: "stagebox-input-3", checklist: "Hi-Hat Mic → Stage Box Input 3" },
+        { key: "liv019-rack-tom-1-to-stagebox-input-4", from: "high-rack-tom", to: "stagebox-input-4", checklist: "Rack Tom 1 Mic → Stage Box Input 4" },
+        { key: "liv019-rack-tom-2-to-stagebox-input-5", from: "low-rack-tom", to: "stagebox-input-5", checklist: "Rack Tom 2 Mic → Stage Box Input 5" },
+        { key: "liv019-floor-tom-to-stagebox-input-6", from: "floor-tom", to: "stagebox-input-6", checklist: "Floor Tom Mic → Stage Box Input 6" },
+        { key: "liv019-oh-left-to-stagebox-input-7", from: "overhead-left-crash", to: "stagebox-input-7", checklist: "Overhead Left Mic → Stage Box Input 7", stereoGroup: "liv019-drum-overheads", stereoSide: "left" },
+        { key: "liv019-oh-right-to-stagebox-input-8", from: "overhead-right-ride", to: "stagebox-input-8", checklist: "Overhead Right Mic → Stage Box Input 8", stereoGroup: "liv019-drum-overheads", stereoSide: "right" },
+
+        { key: "liv019-aux-1-to-iem-1", from: "foh-liv019-aux-1-output", to: "liv019-iem-1-input", checklist: "FOH Aux 1 Output → IEM 1 Input" },
+        { key: "liv019-aux-2-to-iem-2", from: "foh-liv019-aux-2-output", to: "liv019-iem-2-input", checklist: "FOH Aux 2 Output → IEM 2 Input" },
+        { key: "liv019-aux-3-to-iem-3", from: "foh-liv019-aux-3-output", to: "liv019-iem-3-input", checklist: "FOH Aux 3 Output → IEM 3 Input" },
+        { key: "liv019-aux-4-to-iem-4", from: "foh-liv019-aux-4-output", to: "liv019-iem-4-input", checklist: "FOH Aux 4 Output → IEM 4 Input" },
+        { key: "liv019-aux-5-to-iem-5", from: "foh-liv019-aux-5-output", to: "liv019-iem-5-input", checklist: "FOH Aux 5 Output → IEM 5 Input" },
+
+        { key: "liv019-bus-1-l-to-reverb-l-in", from: "foh-liv019-bus-1-output", to: "liv019-reverb-left-input", checklist: "FOH Bus 1 Output → Stereo Reverb L Input", stereoGroup: "liv019-bus-1-to-reverb", stereoSide: "left" },
+        { key: "liv019-bus-1-r-to-reverb-r-in", from: "foh-liv019-bus-2-output", to: "liv019-reverb-right-input", checklist: "FOH Bus 2 Output → Stereo Reverb R Input", stereoGroup: "liv019-bus-1-to-reverb", stereoSide: "right" },
+        { key: "liv019-bus-2-l-to-delay-l-in", from: "foh-liv019-bus-3-output", to: "liv019-delay-left-input", checklist: "FOH Bus 3 Output → Stereo Delay L Input", stereoGroup: "liv019-bus-2-to-delay", stereoSide: "left" },
+        { key: "liv019-bus-2-r-to-delay-r-in", from: "foh-liv019-bus-4-output", to: "liv019-delay-right-input", checklist: "FOH Bus 4 Output → Stereo Delay R Input", stereoGroup: "liv019-bus-2-to-delay", stereoSide: "right" },
+
+        { key: "liv019-reverb-l-out-to-foh-input-9", from: "liv019-reverb-left-output", to: "foh-liv019-input-9", checklist: "Stereo Reverb L Output → FOH Input Channel 9", stereoGroup: "liv019-reverb-return", stereoSide: "left" },
+        { key: "liv019-reverb-r-out-to-foh-input-10", from: "liv019-reverb-right-output", to: "foh-liv019-input-10", checklist: "Stereo Reverb R Output → FOH Input Channel 10", stereoGroup: "liv019-reverb-return", stereoSide: "right" },
+        { key: "liv019-delay-l-out-to-foh-input-11", from: "liv019-delay-left-output", to: "foh-liv019-input-11", checklist: "Stereo Delay L Output → FOH Input Channel 11", stereoGroup: "liv019-delay-return", stereoSide: "left" },
+        { key: "liv019-delay-r-out-to-foh-input-12", from: "liv019-delay-right-output", to: "foh-liv019-input-12", checklist: "Stereo Delay R Output → FOH Input Channel 12", stereoGroup: "liv019-delay-return", stereoSide: "right" }
+      ]
+    },
+
     "LIV-010": {
       id: "LIV-010",
       title: "3-Way Crossover PA Feed",
@@ -1544,6 +1646,7 @@ if (activeNativeLevelId === nextLevelId) return;
       console.log("[Signal Flow] Native level changed, clearing state:", activeNativeLevelId, "→", nextLevelId);
 
     activeNativeLevelId = nextLevelId;
+    resetNativeSurfaceRetry();
     resetNativeLevelComplete();
 
     try {
@@ -2444,7 +2547,7 @@ if (activeNativeLevelId === nextLevelId) return;
     svg.style.cssText = [
       "position:absolute",
       "inset:0",
-      "z-index:1800",
+      (LEVEL_ID === "LIV-019" || layer.classList.contains("sf-live-native-level-liv-019")) ? "z-index:2147483600" : "z-index:1800",
       "pointer-events:none",
       "overflow:visible"
     ].join(";");
@@ -2571,10 +2674,20 @@ if (activeNativeLevelId === nextLevelId) return;
 
     layer.querySelectorAll(".sf-cable-drag-handle").forEach(handle => handle.remove());
 
-    state.routes.forEach(route => drawCable(layer, route));
+    state.routes.forEach(route => {
+      refreshNativeCableRoutePoints(layer, route);
+      drawCable(layer, route);
+    });
 
     const svg = layer.querySelector(".sf-native-cables");
     if (svg && svg.parentNode) {
+      if (LEVEL_ID === "LIV-019" || layer.classList.contains("sf-live-native-level-liv-019")) {
+        svg.dataset.sfLiv019NativeGameCables = "top-layer";
+        svg.style.setProperty("z-index", "2147483600", "important");
+        svg.style.setProperty("display", "block", "important");
+        svg.style.setProperty("visibility", "visible", "important");
+        svg.style.setProperty("opacity", "1", "important");
+      }
       svg.parentNode.appendChild(svg);
     }
 
@@ -3255,6 +3368,58 @@ if (activeNativeLevelId === nextLevelId) return;
     return anchors[key] || fallback;
   }
 
+  function isLiv019NativeLayer(layer) {
+    return !!(layer && (LEVEL_ID === "LIV-019" || layer.classList.contains("sf-live-native-level-liv-019")));
+  }
+
+  function liv019NodeKeyFromElement(el) {
+    if (!el || !el.dataset) return "";
+    return el.dataset.nodeKey || el.dataset.sfNativeKey || el.dataset.key || "";
+  }
+
+  function liv019ElementCenterInLayer(layer, el) {
+    if (!layer || !el || !layer.contains(el)) return null;
+
+    const rect = el.getBoundingClientRect();
+    const layerRect = layer.getBoundingClientRect();
+    const style = window.getComputedStyle ? window.getComputedStyle(el) : null;
+
+    if (!rect.width || !rect.height) return null;
+    if (style && (style.display === "none" || style.visibility === "hidden")) return null;
+
+    return {
+      x: rect.left - layerRect.left + rect.width / 2,
+      y: rect.top - layerRect.top + rect.height / 2
+    };
+  }
+
+  function liv019CablePointFor(layer, key, fallback) {
+    if (!isLiv019NativeLayer(layer) || !key) return fallback;
+
+    const matches = Array.from(layer.querySelectorAll("[data-node-key], [data-key]")).filter(el => {
+      if (liv019NodeKeyFromElement(el) !== key) return false;
+      if (el.closest(".sf-native-liv019-source-panel") || el.closest(".sf-native-liv009-source-panel")) return false;
+      return !!liv019ElementCenterInLayer(layer, el);
+    });
+
+    const node = matches.find(el => el.classList && el.classList.contains("sf-native-node")) || matches[0];
+    return liv019ElementCenterInLayer(layer, node) || fallback;
+  }
+
+  function nativeCablePointForRouteNode(layer, node) {
+    if (!node) return { x: 0, y: 0 };
+    const fallback = node.point || { x: 0, y: 0 };
+    if (isLiv019NativeLayer(layer)) return liv019CablePointFor(layer, node.key, fallback);
+    return liv018CablePointFor(node.key, fallback);
+  }
+
+  function refreshNativeCableRoutePoints(layer, route) {
+    if (!route) return;
+    if (!isLiv019NativeLayer(layer)) return;
+    route.fromPoint = liv019CablePointFor(layer, route.from, route.fromPoint);
+    route.toPoint = liv019CablePointFor(layer, route.to, route.toPoint);
+  }
+
   function addRoute(layer, fromNode, toNode) {
     const valid = routeFor(fromNode.key, toNode.key);
     const key = valid
@@ -3268,8 +3433,8 @@ if (activeNativeLevelId === nextLevelId) return;
       valid: !!valid,
       from: fromNode.key,
       to: toNode.key,
-      fromPoint: liv018CablePointFor(fromNode.key, fromNode.point),
-      toPoint: liv018CablePointFor(toNode.key, toNode.point),
+      fromPoint: nativeCablePointForRouteNode(layer, fromNode),
+      toPoint: nativeCablePointForRouteNode(layer, toNode),
       bend: defaultCableBend(key, state.routes.length)
     };
 
@@ -3320,6 +3485,12 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function pointForNativeNode(layer, el) {
+    if (isLiv019NativeLayer(layer)) {
+      const key = liv019NodeKeyFromElement(el);
+      const livePoint = liv019CablePointFor(layer, key, null);
+      if (livePoint) return livePoint;
+    }
+
     const px = parseFloat(el.dataset.sfNativePointX || "");
     const py = parseFloat(el.dataset.sfNativePointY || "");
 
@@ -4659,6 +4830,429 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     setTimeout(sfLiv009AlignStageboxHitboxes, 420);
     console.log("[Signal Flow] LIV-009 dedicated drum renderer mounted.");
   }
+
+
+
+  function renderLiv019IemFxFromLiv009Layout(surface, adapter) {
+    const level = buildLevelGeometry(surface);
+    const rect = level.rect;
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-019";
+    layer.style.cssText = [
+      "position:absolute",
+      "inset:0",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:hidden",
+      "border-radius:16px",
+      "background:linear-gradient(180deg,rgba(8,24,19,.96),rgba(6,17,15,.98))"
+    ].join(";");
+
+    const width = Math.max(980, rect.width || surface.getBoundingClientRect().width || 980);
+
+    // LIV-019 v6r385: corrected gear placement locked from Gear Mover export.
+    const gear = {
+      stagebox: { x: 32, y: -4, w: 464, z: 50, label: "STAGE BOX", src: hardwareAssetFor("stagebox"), alt: "Stagebox inputs" },
+      foh: { x: 496, y: -142, w: 754, z: 50, label: "16CH FOH CONSOLE", src: "/assets/live-sound/svg/hardware/16ch FOH console0.svg", alt: "16 channel FOH console" },
+      drum: { x: 15, y: 190, w: 503, z: 70, label: "DRUM KIT", src: "/assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg", alt: "Drum kit sources" },
+
+      iem1: { x: 574, y: 180, w: 300, z: 55, label: "IEM UNIT 1", src: "/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg", alt: "IEM wireless rack unit 1" },
+      iem2: { x: 888, y: 180, w: 300, z: 55, label: "IEM UNIT 2", src: "/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg", alt: "IEM wireless rack unit 2" },
+      iem3: { x: 754, y: 272, w: 300, z: 55, label: "IEM UNIT 3", src: "/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg", alt: "IEM wireless rack unit 3" },
+
+      reverb: { x: 574, y: 385, w: 316, z: 55, label: "STEREO REVERB", src: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg", alt: "Stereo reverb processor" },
+      delay: { x: 900, y: 395, w: 316, z: 55, label: "STEREO DELAY", src: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg", alt: "Stereo delay processor" }
+    };
+
+    function gearGroup(key) {
+      const g = gear[key];
+      const wrap = document.createElement("div");
+      wrap.className = "sf-liv019-gear";
+      wrap.dataset.liv019GearKey = key;
+      wrap.style.cssText = [
+        "position:absolute",
+        "left:" + Math.round(g.x) + "px",
+        "top:" + Math.round(g.y) + "px",
+        "width:" + Math.round(g.w) + "px",
+        "z-index:" + (g.z || 60),
+        "pointer-events:none"
+      ].join(";");
+
+      const lbl = document.createElement("div");
+      lbl.className = "sf-liv019-gear-label";
+      lbl.textContent = g.label;
+      lbl.style.cssText = [
+        "height:20px",
+        "color:#ffe66c",
+        "font:900 11px system-ui,-apple-system,Segoe UI,sans-serif",
+        "letter-spacing:.08em",
+        "text-transform:uppercase",
+        "text-shadow:0 2px 4px rgba(0,0,0,.78)",
+        "white-space:nowrap"
+      ].join(";");
+      wrap.appendChild(lbl);
+
+      const img = document.createElement("img");
+      img.src = sfRepoUrl(g.src);
+      img.alt = g.alt || key;
+      img.style.cssText = [
+        "display:block",
+        "width:100%",
+        "height:auto",
+        "object-fit:contain",
+        "pointer-events:none",
+        "user-select:none",
+        "filter:drop-shadow(0 12px 24px rgba(0,0,0,.72))"
+      ].join(";");
+      wrap.appendChild(img);
+
+      layer.appendChild(wrap);
+      return { wrap, img, x: g.x, y: g.y + 20, w: g.w };
+    }
+    function processorLedRingRecolor(parent, color) {
+      // LIV-019 v6r386: replace the processor display-frame LED rings.
+      // This covers the existing colored display rings and redraws them in the effect color.
+      parent.querySelectorAll(".sf-liv019-processor-display-frame-recolor").forEach(el => el.remove());
+
+      const frames = [
+        // x%, y%, w%, h% for the three processor display sections
+        [5.1, 27.7, 24.5, 21.3],
+        [39.1, 27.7, 24.5, 21.3],
+        [72.1, 27.7, 23.7, 21.3]
+      ];
+
+      frames.forEach(([x, y, w, h]) => {
+        const cover = document.createElement("div");
+        cover.className = "sf-liv019-processor-display-frame-recolor";
+        cover.style.cssText = [
+          "position:absolute",
+          "left:" + x + "%",
+          "top:" + y + "%",
+          "width:" + w + "%",
+          "height:" + h + "%",
+          "box-sizing:border-box",
+          "border-radius:5px",
+          "background:linear-gradient(180deg,rgba(9,18,21,.98),rgba(6,12,14,.98))",
+          "border:3px solid " + color,
+          "box-shadow:inset 0 0 0 2px rgba(0,0,0,.86)",
+          "pointer-events:none",
+          "z-index:3"
+        ].join(";");
+        parent.appendChild(cover);
+
+        const inner = document.createElement("div");
+        inner.style.cssText = [
+          "position:absolute",
+          "left:8%",
+          "right:8%",
+          "top:18%",
+          "bottom:18%",
+          "border-radius:3px",
+          "border:2px dashed " + color,
+          "opacity:.86",
+          "box-sizing:border-box",
+          "pointer-events:none"
+        ].join(";");
+        cover.appendChild(inner);
+
+        const line1 = document.createElement("div");
+        line1.style.cssText = [
+          "position:absolute",
+          "left:16%",
+          "right:16%",
+          "top:38%",
+          "height:2px",
+          "background:" + color,
+          "opacity:.5",
+          "pointer-events:none"
+        ].join(";");
+        cover.appendChild(line1);
+
+        const line2 = document.createElement("div");
+        line2.style.cssText = [
+          "position:absolute",
+          "left:16%",
+          "right:16%",
+          "top:58%",
+          "height:2px",
+          "background:" + color,
+          "opacity:.32",
+          "pointer-events:none"
+        ].join(";");
+        cover.appendChild(line2);
+      });
+    }
+
+
+    function label(text, x, y, size, w) {
+      const el = document.createElement("div");
+      el.textContent = text;
+      el.style.cssText = [
+        "position:absolute",
+        "left:" + Math.round(x) + "px",
+        "top:" + Math.round(y) + "px",
+        "width:" + Math.round(w || 80) + "px",
+        "color:#ffe66c",
+        "font:900 " + (size || 8) + "px system-ui,-apple-system,Segoe UI,sans-serif",
+        "letter-spacing:.05em",
+        "text-align:center",
+        "text-transform:uppercase",
+        "pointer-events:none",
+        "z-index:7600",
+        "text-shadow:0 2px 4px rgba(0,0,0,.75)"
+      ].join(";");
+      layer.appendChild(el);
+      return el;
+    }
+
+    function jackAt(key, x, y, text, ghost, size) {
+      createJackNode(layer, key, { x, y }, text, !!ghost);
+      const el = layer.querySelector('[data-node-key="' + key + '"]');
+      if (el) {
+        const s = size || 26;
+        el.style.setProperty("left", Math.round(x - s / 2) + "px", "important");
+        el.style.setProperty("top", Math.round(y - s / 2) + "px", "important");
+        el.style.setProperty("width", s + "px", "important");
+        el.style.setProperty("height", s + "px", "important");
+        el.style.setProperty("z-index", "7200", "important");
+        el.style.setProperty("pointer-events", "auto", "important");
+      }
+      return el;
+    }
+
+    createLabel(layer, "DRUM INPUTS + IEM SENDS + FX RETURNS", 28, 28, 12);
+
+    const stagebox = gearGroup("stagebox");
+    const foh = gearGroup("foh");
+    const drum = gearGroup("drum");
+    const iem1 = gearGroup("iem1");
+    const iem2 = gearGroup("iem2");
+    const iem3 = gearGroup("iem3");
+    const reverb = gearGroup("reverb");
+    const delay = gearGroup("delay");
+
+
+    function gearText(parent, text, xPct, yPct, opts = {}) {
+      const el = document.createElement("div");
+      el.textContent = text;
+      el.style.cssText = [
+        "position:absolute",
+        "left:" + xPct + "%",
+        "top:" + yPct + "%",
+        "transform:translate(-50%,-50%)",
+        "min-width:" + (opts.width || 44) + "px",
+        "padding:1px 4px",
+        "border-radius:3px",
+        "background:" + (opts.background || "rgba(0,0,0,.82)"),
+        "color:" + (opts.color || "#ffe66c"),
+        "font:900 " + (opts.size || 9) + "px system-ui,-apple-system,Segoe UI,sans-serif",
+        "letter-spacing:.04em",
+        "text-align:center",
+        "text-transform:uppercase",
+        "pointer-events:none",
+        "z-index:4",
+        "box-sizing:border-box"
+      ].join(";");
+      parent.appendChild(el);
+      return el;
+    }
+
+    [
+      [iem1, "IEM 1", "IEM 2"],
+      [iem2, "IEM 3", "IEM 4"],
+      [iem3, "IEM 5", "IEM 6"]
+    ].forEach(([unit, aLabel, bLabel], idx) => {
+      gearText(unit.wrap, "INPUT A", 28, 74, { width: 58 });
+      gearText(unit.wrap, "INPUT B", 72, 74, { width: 58 });
+      gearText(unit.wrap, aLabel, 28, 88, { width: 52, size: 8, color: "#bdeaff" });
+      gearText(unit.wrap, bLabel, 72, 88, { width: 52, size: 8, color: "#bdeaff" });
+    });
+
+    processorLedRingRecolor(reverb.wrap, "#4cb7ff");
+    gearText(reverb.wrap, "REVERB", 50, 24, { width: 80, size: 10, background: "rgba(0,20,50,.86)", color: "#a9d6ff" });
+    gearText(reverb.wrap, "IN L", 19, 72, { width: 38 });
+    gearText(reverb.wrap, "IN R", 32, 72, { width: 38 });
+    gearText(reverb.wrap, "LINK", 50, 72, { width: 44, color: "#ffb86b" });
+    gearText(reverb.wrap, "OUT L", 68, 72, { width: 44 });
+    gearText(reverb.wrap, "OUT R", 81, 72, { width: 44 });
+
+    processorLedRingRecolor(delay.wrap, "#49f27a");
+    gearText(delay.wrap, "DELAY", 50, 24, { width: 80, size: 10, background: "rgba(0,45,20,.86)", color: "#a8ffbd" });
+    gearText(delay.wrap, "IN L", 19, 72, { width: 38 });
+    gearText(delay.wrap, "IN R", 32, 72, { width: 38 });
+    gearText(delay.wrap, "SIDE", 50, 72, { width: 44, color: "#ffb86b" });
+    gearText(delay.wrap, "OUT L", 68, 72, { width: 44 });
+    gearText(delay.wrap, "OUT R", 81, 72, { width: 44 });
+
+
+    // Rough initial route hitboxes so the level remains interactive while gear is being placed.
+    // Final hitboxes should be mapped with the Hitbox Tool after gear placement is locked.
+
+    const stageH = stagebox.w * 260 / 860;
+    for (let i = 1; i <= 16; i += 1) {
+      const col = (i - 1) % 8;
+      const rel = i <= 8 ? SF_LIV009_STAGEBOX_TOP_REL[col] : SF_LIV009_STAGEBOX_FALSE_REL[col];
+      const x = stagebox.x + stagebox.w * rel[0];
+      const y = stagebox.y + stageH * rel[1];
+      createLiv009StageboxInput(layer, "stagebox-input-" + i, { x, y }, i > 8);
+    }
+
+    // Drum source panel + drum hitboxes from LIV-009.
+    const drumH = drum.w * 1102 / 2048;
+    const panel = document.createElement("div");
+    panel.className = "sf-native-liv009-source-panel sf-native-liv019-source-panel";
+    panel.style.cssText = [
+      "position:absolute",
+      "left:" + Math.round(drum.x + 8) + "px",
+      "top:" + Math.round(drum.y + drumH - 10) + "px",
+      "width:340px",
+      "padding:10px 12px 12px",
+      "box-sizing:border-box",
+      "border:1px solid rgba(65,91,132,.55)",
+      "background:linear-gradient(180deg,rgba(22,39,65,.96),rgba(13,26,45,.96))",
+      "box-shadow:0 18px 36px rgba(0,0,0,.42)",
+      "pointer-events:auto",
+      "z-index:2400"
+    ].join(";");
+
+    const grid = document.createElement("div");
+    grid.style.cssText = "display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px";
+    panel.appendChild(grid);
+    [
+      ["kick", "Kick"], ["snare", "Snare"], ["hi-hat", "Hi-Hat"], ["high-rack-tom", "Rack 1"],
+      ["low-rack-tom", "Rack 2"], ["floor-tom", "Floor"], ["overhead-left-crash", "OH L"], ["overhead-right-ride", "OH R"]
+    ].forEach(item => createLiv009SourceButton(layer, grid, item[0], item[1]));
+    layer.appendChild(panel);
+
+    [
+      ["kick", "Kick", { x: 0.48, y: 0.43, w: 0.24, h: 0.36 }],
+      ["snare", "Snare", { x: 0.36, y: 0.56, w: 0.18, h: 0.22 }],
+      ["hi-hat", "Hi-Hat", { x: 0.22, y: 0.39, w: 0.20, h: 0.28 }],
+      ["high-rack-tom", "Rack Tom 1", { x: 0.40, y: 0.32, w: 0.17, h: 0.22 }],
+      ["low-rack-tom", "Rack Tom 2", { x: 0.54, y: 0.31, w: 0.17, h: 0.22 }],
+      ["floor-tom", "Floor Tom", { x: 0.66, y: 0.56, w: 0.20, h: 0.24 }],
+      ["overhead-left-crash", "OH L", { x: 0.29, y: 0.22, w: 0.22, h: 0.22 }],
+      ["overhead-right-ride", "OH R", { x: 0.77, y: 0.29, w: 0.24, h: 0.26 }]
+    ].forEach(item => createLiv009DrumHitbox(layer, item[0], item[1], { x: drum.x, y: drum.y, w: drum.w, h: drumH }, item[2]));
+
+    // LIV-019 v6r403: FOH hitboxes rebuilt from the locked FOH labels.
+    // Auxes are 1-8. Buses are mono outs 1-12.
+    // FX sends are mono bus outs feeding stereo FX sides:
+    // Bus 1 -> Reverb L, Bus 2 -> Reverb R, Bus 3 -> Delay L, Bus 4 -> Delay R.
+    const FOH_IMG_H = foh.w * 1628 / 3024;
+
+    function fohNodeAt(key, xPct, yPct, labelText, ghost, size = 24) {
+      return jackAt(
+        key,
+        foh.x + foh.w * (xPct / 100),
+        foh.y + FOH_IMG_H * (yPct / 100),
+        labelText,
+        !!ghost,
+        size
+      );
+    }
+
+    const FOH_INPUT_POINTS = {
+      1: [9.6, 42.0], 2: [14.3, 42.0], 3: [19.0, 42.0], 4: [23.95, 42.0],
+      5: [28.65, 42.0], 6: [33.35, 42.0], 7: [38.05, 42.0], 8: [43.0, 42.0],
+      9: [9.5, 54.0], 10: [14.3, 54.0], 11: [19.1, 54.0], 12: [23.9, 54.0],
+      13: [28.5, 54.0], 14: [33.3, 54.0], 15: [38.1, 54.0], 16: [42.9, 54.0]
+    };
+
+    Object.entries(FOH_INPUT_POINTS).forEach(([ch, pt]) => {
+      const n = Number(ch);
+      fohNodeAt(
+        "foh-liv019-input-" + ch,
+        pt[0],
+        pt[1],
+        "FOH Input Channel " + ch,
+        !(n >= 9 && n <= 12),
+        24
+      );
+    });
+
+    const FOH_AUX_POINTS = {
+      1: [49.35, 47.5], 2: [54.55, 47.5],
+      3: [49.5, 53.5], 4: [54.45, 53.5],
+      5: [49.4, 60.25], 6: [54.35, 60.25],
+      7: [49.55, 67.5], 8: [54.5, 67.5]
+    };
+
+    Object.entries(FOH_AUX_POINTS).forEach(([aux, pt]) => {
+      const n = Number(aux);
+      fohNodeAt(
+        "foh-liv019-aux-" + aux + "-output",
+        pt[0],
+        pt[1],
+        "FOH Aux " + aux + " Output",
+        n > 5,
+        24
+      );
+    });
+
+    const FOH_BUS_POINTS = {
+      1: [60.75, 43.0], 2: [65.55, 43.0], 3: [70.35, 43.0], 4: [74.9, 43.0],
+      5: [60.7, 51.5], 6: [65.5, 51.5], 7: [70.3, 51.5], 8: [74.85, 51.5],
+      9: [61.0, 59.5], 10: [65.55, 59.5], 11: [70.1, 59.5], 12: [74.9, 59.5]
+    };
+
+    Object.entries(FOH_BUS_POINTS).forEach(([bus, pt]) => {
+      const n = Number(bus);
+      fohNodeAt(
+        "foh-liv019-bus-" + bus + "-output",
+        pt[0],
+        pt[1],
+        "FOH Bus " + bus + " Output",
+        n > 4,
+        24
+      );
+    });
+
+    fohNodeAt("foh-liv019-main-left-output", 85.25, 46.5, "FOH Main L Output", true, 26);
+    fohNodeAt("foh-liv019-main-right-output", 91.25, 46.5, "FOH Main R Output", true, 26);
+
+    // IEM jacks: two per reused wireless rack. IEM 6 is false/trap.
+    function iemInputJack(unit, suffix, key, text, ghost) {
+      const relX = suffix === "a" ? 0.28 : 0.72;
+      const relY = 0.73;
+      const h = unit.w * 0.34;
+      jackAt(key, unit.x + unit.w * relX, unit.y + h * relY, text, ghost, 28);
+    }
+
+    iemInputJack(iem1, "a", "liv019-iem-1-input", "IEM 1 Input", false);
+    iemInputJack(iem1, "b", "liv019-iem-2-input", "IEM 2 Input", false);
+    iemInputJack(iem2, "a", "liv019-iem-3-input", "IEM 3 Input", false);
+    iemInputJack(iem2, "b", "liv019-iem-4-input", "IEM 4 Input", false);
+    iemInputJack(iem3, "a", "liv019-iem-5-input", "IEM 5 Input", false);
+    iemInputJack(iem3, "b", "liv019-iem-6-input", "IEM 6 Input", true);
+
+    // Processor jacks: reused LIV-006 processor asset, rough positions until Hitbox Tool.
+    function processorJacks(prefix, box, labelPrefix) {
+      const h = box.w * 0.34;
+      [
+        [prefix + "-left-input", 0.19, 0.72, labelPrefix + " L Input", false],
+        [prefix + "-right-input", 0.32, 0.72, labelPrefix + " R Input", false],
+        [prefix + "-link", 0.50, 0.72, labelPrefix + " Link", true],
+        [prefix + "-left-output", 0.68, 0.72, labelPrefix + " L Output", false],
+        [prefix + "-right-output", 0.81, 0.72, labelPrefix + " R Output", false]
+      ].forEach(item => {
+        jackAt(item[0], box.x + box.w * item[1], box.y + h * item[2], item[3], item[4], 24);
+      });
+    }
+
+    processorJacks("liv019-reverb", reverb, "Stereo Reverb");
+    processorJacks("liv019-delay", delay, "Stereo Delay");
+
+    surface.appendChild(layer);
+    redrawCables(layer);
+    installCableDrag(layer);
+
+    console.log("[Signal Flow] LIV-019 corrected gear renderer mounted v6r403.");
+  }
+
 
   function createNativeOverlayLabel(layer, text, x, y, options) {
     const opts = options || {};
@@ -6660,6 +7254,11 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       return;
     }
 
+    if (LEVEL_ID === "LIV-019") {
+      renderLiv019IemFxFromLiv009Layout(surface, adapter);
+      return;
+    }
+
     if (LEVEL_ID === "LIV-009") {
       renderLiv009DrumStageInputs(surface, adapter);
       return;
@@ -6883,9 +7482,11 @@ function mountNative(force) {
 
     const surface = findSurface();
     if (!surface) {
-      console.warn("[Signal Flow] Native renderer could not find live board surface.");
+      scheduleNativeSurfaceRetry(force);
       return;
     }
+
+    resetNativeSurfaceRetry();
 
     if (!force && surface.querySelector(".sf-live-native-layer")) {
       return;
@@ -6909,6 +7510,33 @@ function mountNative(force) {
     updateNativeHintHighlights();
 
     console.log("[Signal Flow] " + LEVEL_ID + " native renderer v6 mounted.");
+  }
+
+  function resetNativeSurfaceRetry() {
+    clearTimeout(nativeSurfaceRetryTimer);
+    nativeSurfaceRetryTimer = null;
+    nativeSurfaceRetryCount = 0;
+    nativeSurfaceRetryLevelId = null;
+  }
+
+  function scheduleNativeSurfaceRetry(force) {
+    if (nativeSurfaceRetryLevelId !== LEVEL_ID) {
+      nativeSurfaceRetryLevelId = LEVEL_ID;
+      nativeSurfaceRetryCount = 0;
+    }
+
+    if (nativeSurfaceRetryCount >= 12) {
+      console.warn("[Signal Flow] Native renderer could not find live board surface.", {
+        levelId: LEVEL_ID,
+        attempts: nativeSurfaceRetryCount
+      });
+      resetNativeSurfaceRetry();
+      return;
+    }
+
+    nativeSurfaceRetryCount += 1;
+    clearTimeout(nativeSurfaceRetryTimer);
+    nativeSurfaceRetryTimer = setTimeout(() => mountNative(!!force), nativeSurfaceRetryCount < 5 ? 260 : 520);
   }
 
   function unmountNative() {

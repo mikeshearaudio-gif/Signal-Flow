@@ -3,7 +3,7 @@
   if(window.sfBuildRoomRendererV6r227Installed) return;
   window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r278';
+  const VERSION = '6r279';
   const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
   const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
   const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;
@@ -21,6 +21,7 @@
   let renderTimer = null;
   let activeCategory = 'All';
   let loggedActive = new Set();
+  let lifecycleHooksInstalled = false;
 
   function slugify(value){
     return String(value || '').toLowerCase()
@@ -422,6 +423,8 @@
       document.body.dataset.sfBrShellModeKey = 'build-room:' + levelId;
 
       if(root.parentElement){
+        rememberStyle(root.parentElement, 'overflowX');
+        rememberStyle(root.parentElement, 'overflowY');
         root.parentElement.style.overflowX = 'hidden';
         root.parentElement.style.overflowY = 'auto';
       }
@@ -438,6 +441,7 @@
         rememberStyle(shell, 'overflowY');
         rememberStyle(shell, 'overflowX');
         rememberStyle(shell, 'overscrollBehavior');
+        rememberStyle(shell, 'webkitOverflowScrolling');
         shell.style.setProperty('grid-template-columns', 'minmax(0, 1fr)', 'important');
         shell.style.setProperty('gap', '0', 'important');
         shell.style.setProperty('padding', '10px', 'important');
@@ -525,7 +529,17 @@
         restoreStyle(shell, 'gridTemplateColumns');
         restoreStyle(shell, 'gap');
         restoreStyle(shell, 'padding');
+        restoreStyle(shell, 'minHeight');
+        restoreStyle(shell, 'overflowY');
+        restoreStyle(shell, 'overflowX');
+        restoreStyle(shell, 'overscrollBehavior');
+        restoreStyle(shell, 'webkitOverflowScrolling');
         shell.classList.remove('sf-br-shell-owned');
+      });
+
+      document.querySelectorAll('[data-sf-br-prev-overflow-x], [data-sf-br-prev-overflow-y]').forEach(el => {
+        restoreStyle(el, 'overflowX');
+        restoreStyle(el, 'overflowY');
       });
 
       document.querySelectorAll('[data-sf-br-old-shell-child="true"]').forEach(el => {
@@ -541,6 +555,7 @@
         restoreStyle(el, 'maxWidth');
         restoreStyle(el, 'margin');
         restoreStyle(el, 'alignSelf');
+        if(removeClass) el.remove();
         delete el.dataset.sfBrShellRoot;
       });
 
@@ -795,11 +810,52 @@
     renderTimer = setTimeout(renderBuildRoom, 80);
   }
 
+  function wrapLifecycleFunction(name){
+    const fn = window[name];
+    if(typeof fn !== 'function' || fn.__sfBuildRoomRendererWrapped) return;
+    const wrapped = function(...args){
+      const result = fn.apply(this, args);
+      scheduleRender();
+      setTimeout(renderBuildRoom, 0);
+      setTimeout(renderBuildRoom, 180);
+      return result;
+    };
+    wrapped.__sfBuildRoomRendererWrapped = true;
+    window[name] = wrapped;
+  }
+
+  function installLifecycleHooks(){
+    if(lifecycleHooksInstalled) return;
+    lifecycleHooksInstalled = true;
+
+    [
+      'startLevelById',
+      'renderRoute',
+      'navigateTo',
+      'loadGameLevel',
+      'loadLevel',
+      'renderLevel',
+      'render',
+      'loadBoardById',
+      'goToLevel'
+    ].forEach(wrapLifecycleFunction);
+
+    document.addEventListener('change', event => {
+      const target = event.target;
+      if(target && target.matches && target.matches('select, #levelJump, #boardSelect, #boardPicker')) {
+        scheduleRender();
+        setTimeout(renderBuildRoom, 0);
+        setTimeout(renderBuildRoom, 180);
+      }
+    }, true);
+  }
+
   function boot(){
     Promise.all([loadJson(MANIFEST_URL), loadJson(ASSET_MAP_URL)]).then(([m,a]) => {
       manifest = m; assetMap = a; prepareData();
       console.log('[Signal Flow] Build-a-Room consolidated renderer installed ' + VERSION);
       installSplashLocker();
+      installLifecycleHooks();
       renderBuildRoom();
       setInterval(rescanBuildRoomShellOnly, 500);
       window.addEventListener('hashchange', scheduleRender);
@@ -807,6 +863,7 @@
     }).catch(err => {
       console.warn('[Signal Flow] Build-a-Room manifest unavailable; using embedded level fallback when possible:', err);
       installSplashLocker();
+      installLifecycleHooks();
       renderBuildRoom();
       setInterval(rescanBuildRoomShellOnly, 500);
       window.addEventListener('hashchange', scheduleRender);
@@ -816,7 +873,10 @@
 
   function rescanBuildRoomShellOnly(){
     const levelId = currentLevelId();
-    if(!isBuildRoomLevel(levelId)) return;
+    if(!isBuildRoomLevel(levelId)) {
+      clearBuildRoomShellMode();
+      return;
+    }
     const root = document.querySelector('.sf-build-room-v6r227[data-level-id="' + levelId + '"]');
     if(!root || !root.isConnected || !root.querySelector('.sf-br-body')){
       renderBuildRoom();

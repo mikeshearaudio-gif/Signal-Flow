@@ -1,6 +1,6 @@
 # Signal Flow Memory
 
-Last updated: 2026-05-20
+Last updated: 2026-05-26
 
 ## Current Working Entry Point
 
@@ -8,6 +8,60 @@ Last updated: 2026-05-20
 - `index.html` redirects to `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`.
 - The wrapper uses `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html` as the full embedded game dependency.
 - Distributed IR levels use `launch/ir-level-runner.html`.
+
+## LIV-019 Native Cable Lock
+
+Locked 2026-05-26 as LIV-019 native cable layer `v6r426`.
+
+Reference handoff:
+
+- `docs/HANDOFF_2026-05-26_LIV019_NATIVE_CABLE_LOCK.md`
+
+Locked cable behavior:
+
+- LIV-019 uses the original native game cable renderer: `.sf-native-cables`, `.sf-cable-line`, `.sf-cable-shadow`, and native endpoint dots.
+- Do not reintroduce custom endpoint stubs, pigtails, viewport overlays, canvas cables, or any second LIV-019 cable layer.
+- `src/sf-live-cable-mode-kit.js?v=6r426` is a cable-mode/top-layer kit only; it must not draw custom cable graphics.
+- LIV-019 native cable SVG must stay above hardware, labels, overlays, and hitboxes with `z-index: 2147483600` and `pointer-events: none`.
+- LIV-019 cable endpoints must resolve from the current locked DOM hitbox centers inside `.sf-live-native-layer.sf-live-native-level-liv-019`.
+- Ignore duplicate source-panel buttons under `.sf-native-liv019-source-panel` and `.sf-native-liv009-source-panel` when resolving cable endpoint anchors.
+- `src/sf-liv019-clean-finalizer-v6r421.js` is locked as tool cleanup only: no cable drawing, no endpoint movement, no native cable suppression.
+
+Forbidden legacy cable code:
+
+- No active include of `src/sf-liv019-runtime-finalizer.js`.
+- No `sf-liv019-runtime-finalizer.js?v=6r419` or `sf-liv019-runtime-finalizer.js?v=6r421`.
+- No `native-cableLayer-rendered-locked-hitbox-center`.
+- No `cableCenterSource`.
+
+Keep these locked LIV-019 scripts:
+
+- `sf-liv019-scroll-shell.js?v=6r389`
+- `sf-liv019-overlay-lock.js?v=6r407`
+- `sf-liv019-foh-label-lock.js?v=6r399`
+- `sf-liv019-foh-label-final-lock.js?v=6r401`
+- `sf-liv019-hitbox-final-lock.js?v=6r408`
+- `sf-liv019-stagebox-8-lock.js?v=6r404`
+- `sf-liv019-clean-finalizer-v6r421.js?v=6r421q2`
+- `sf-live-cable-mode-kit.js?v=6r426`
+
+Do not change route data, `validRoutes`, hitbox coordinates, label locks, gear placement, scroll shell, stagebox 8-input lock, or live-sound native renderer route validation when working on LIV-019 cable display.
+
+Latest cable QA passed for Kick -> Stage Box Input 1, FOH Aux 1 -> IEM 1, and FOH Bus 1 -> Reverb In L. All tested cable endpoints landed exactly on locked hitbox centers with max delta `0px`, the native cable SVG was top-layered, and the hitbox lock reported `70/70` with `missingCount: 0`.
+
+## Scroll Affordance Rule
+
+Scrollable boards should show idle-only static direction indicators for available scroll directions. Indicators hide during active scrolling and recompute after scroll idle. They must not flash, animate repeatedly, intercept pointer events, or be board-specific visual patches.
+
+Locked behavior:
+
+- Show scroll indicators only when the scroll container has hidden content in that direction.
+- Hide the left indicator at the left edge and the right indicator at the right edge.
+- Hide the up indicator at the top edge and the down indicator at the bottom edge.
+- Hide all indicators during wheel, touch, trackpad, pointer-drag, keyboard, or native scroll activity.
+- Recompute after scroll idle, board load, level change, resize, orientation/layout change, and native board remount.
+- Indicators must use `pointer-events: none` and must not alter layout, scroll dimensions, jack clicks, cable dragging, labels, gear interaction, route validation, cable rendering, hitbox locks, or checklist behavior.
+- Keep this as a shared scroll-affordance utility for Signal Flow boards; do not add board-specific scroll indicator patches unless absolutely necessary.
 
 ## Repo Cleanup Rule
 

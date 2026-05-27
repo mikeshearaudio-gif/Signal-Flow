@@ -1,6 +1,6 @@
 # Signal Flow Handoff Summary
 
-Last updated: 2026-05-21
+Last updated: 2026-05-26
 
 Latest active local entry point: `index.html`
 
@@ -16,6 +16,7 @@ Current handoff documents:
 - `docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md`
 - `docs/HANDOFF_2026-05-19_LIV006_FOCUSED_REPAIR.md`
 - `docs/HANDOFF_2026-05-21_LIV016_FULL_BAND_STAGEBOX_REPAIR.md`
+- `docs/HANDOFF_2026-05-26_LIV019_NATIVE_CABLE_LOCK.md`
 
 Current repo memory:
 
@@ -32,5 +33,7 @@ Latest focused repair: `LIV-006` now uses renderer-level rack placement, no exte
 Latest Build-a-Room lock: `v6r277` is the stable shared Build-a-Room renderer/layout baseline. It preserves the button/hitbox fixes, mounts into the active training shell, hides only old direct shell siblings, removes the duplicated legacy brief/board, keeps the board directly below the game header, and prevents Retry Build from blanking the surface. Details are in `docs/HANDOFF_2026-05-19_BUILD_ROOM_V6R277_LOCK.md`.
 
 Latest LIV-016 repair: `LIV-016` is now a PNG-backed full-band stagebox board using `assets/live-sound/png/liv016-full-band-layout.png`, with transparent semantic source and jack hitboxes, equipment labels, corrected stagebox endpoint placement, corrected crossover input placement, and LIV-016-only stereo checklist gating. Details are in `docs/HANDOFF_2026-05-21_LIV016_FULL_BAND_STAGEBOX_REPAIR.md`.
+
+Latest LIV-019 cable lock: `LIV-019` uses the original native game cable renderer, promoted to the top layer by `src/sf-live-cable-mode-kit.js?v=6r426`. Cable endpoints are resolved from the locked DOM hitbox centers, not stale cached points or custom stubs. The old `sf-liv019-runtime-finalizer.js` path and `cableCenterSource`/`native-cableLayer-rendered-locked-hitbox-center` markers must stay absent. Details are in `docs/HANDOFF_2026-05-26_LIV019_NATIVE_CABLE_LOCK.md`.
 
 Known risk: continue smoke-testing diagnosis, live-sound native boards, normal levels, and PST/IR levels after extraction/opening. Build-a-Room browser DOM QA passed for `LIV-004`, `LIV-013`, `LIV-027`, `LIV-041`, `REC-004`, `BRD-004`, `PST-004`, and `GAM-004`.

@@ -1,0 +1,971 @@
+(() => {
+  const VERSION = "v6r408";
+  const HITBOX_LOCKS = {
+  "floor-tom": {
+    "nodeKey": "floor-tom",
+    "leftPx": 350,
+    "topPx": 364,
+    "widthPx": 76,
+    "heightPx": 60,
+    "centerX": 349.97,
+    "centerY": 363.57,
+    "layerRelX": 26.513,
+    "layerRelY": 44.338,
+    "gearRel": null
+  },
+  "foh-liv019-aux-1-output": {
+    "nodeKey": "foh-liv019-aux-1-output",
+    "leftPx": 868,
+    "topPx": 46,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 867.99,
+    "centerY": 46,
+    "layerRelX": 65.757,
+    "layerRelY": 5.61,
+    "gearRel": null
+  },
+  "foh-liv019-aux-2-output": {
+    "nodeKey": "foh-liv019-aux-2-output",
+    "leftPx": 907,
+    "topPx": 46,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 907,
+    "centerY": 46,
+    "layerRelX": 68.712,
+    "layerRelY": 5.61,
+    "gearRel": null
+  },
+  "foh-liv019-aux-3-output": {
+    "nodeKey": "foh-liv019-aux-3-output",
+    "leftPx": 869,
+    "topPx": 75,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 868.99,
+    "centerY": 75,
+    "layerRelX": 65.833,
+    "layerRelY": 9.146,
+    "gearRel": null
+  },
+  "foh-liv019-aux-4-output": {
+    "nodeKey": "foh-liv019-aux-4-output",
+    "leftPx": 907,
+    "topPx": 74,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 907,
+    "centerY": 73.99,
+    "layerRelX": 68.712,
+    "layerRelY": 9.024,
+    "gearRel": null
+  },
+  "foh-liv019-aux-5-output": {
+    "nodeKey": "foh-liv019-aux-5-output",
+    "leftPx": 869,
+    "topPx": 101,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 868.99,
+    "centerY": 101,
+    "layerRelX": 65.833,
+    "layerRelY": 12.317,
+    "gearRel": null
+  },
+  "foh-liv019-aux-6-output": {
+    "nodeKey": "foh-liv019-aux-6-output",
+    "leftPx": 907,
+    "topPx": 101,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 907,
+    "centerY": 101,
+    "layerRelX": 68.712,
+    "layerRelY": 12.317,
+    "gearRel": null
+  },
+  "foh-liv019-aux-7-output": {
+    "nodeKey": "foh-liv019-aux-7-output",
+    "leftPx": 868,
+    "topPx": 128,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 867.99,
+    "centerY": 127.99,
+    "layerRelX": 65.757,
+    "layerRelY": 15.609,
+    "gearRel": null
+  },
+  "foh-liv019-aux-8-output": {
+    "nodeKey": "foh-liv019-aux-8-output",
+    "leftPx": 907,
+    "topPx": 128,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 907,
+    "centerY": 127.99,
+    "layerRelX": 68.712,
+    "layerRelY": 15.609,
+    "gearRel": null
+  },
+  "foh-liv019-bus-1-output": {
+    "nodeKey": "foh-liv019-bus-1-output",
+    "leftPx": 972,
+    "topPx": 48,
+    "widthPx": 24,
+    "heightPx": 29,
+    "centerX": 972,
+    "centerY": 47.99,
+    "layerRelX": 73.636,
+    "layerRelY": 5.853,
+    "gearRel": null
+  },
+  "foh-liv019-bus-10-output": {
+    "nodeKey": "foh-liv019-bus-10-output",
+    "leftPx": 1008,
+    "topPx": 121,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1007.99,
+    "centerY": 121,
+    "layerRelX": 76.363,
+    "layerRelY": 14.756,
+    "gearRel": null
+  },
+  "foh-liv019-bus-11-output": {
+    "nodeKey": "foh-liv019-bus-11-output",
+    "leftPx": 1043,
+    "topPx": 121,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1042.99,
+    "centerY": 121,
+    "layerRelX": 79.015,
+    "layerRelY": 14.756,
+    "gearRel": null
+  },
+  "foh-liv019-bus-12-output": {
+    "nodeKey": "foh-liv019-bus-12-output",
+    "leftPx": 1078,
+    "topPx": 121,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1077.99,
+    "centerY": 121,
+    "layerRelX": 81.666,
+    "layerRelY": 14.756,
+    "gearRel": null
+  },
+  "foh-liv019-bus-2-output": {
+    "nodeKey": "foh-liv019-bus-2-output",
+    "leftPx": 1009,
+    "topPx": 49,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1008.99,
+    "centerY": 48.99,
+    "layerRelX": 76.439,
+    "layerRelY": 5.975,
+    "gearRel": null
+  },
+  "foh-liv019-bus-3-output": {
+    "nodeKey": "foh-liv019-bus-3-output",
+    "leftPx": 1044,
+    "topPx": 49,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1043.99,
+    "centerY": 48.99,
+    "layerRelX": 79.09,
+    "layerRelY": 5.975,
+    "gearRel": null
+  },
+  "foh-liv019-bus-4-output": {
+    "nodeKey": "foh-liv019-bus-4-output",
+    "leftPx": 1078,
+    "topPx": 49,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1077.99,
+    "centerY": 48.99,
+    "layerRelX": 81.666,
+    "layerRelY": 5.975,
+    "gearRel": null
+  },
+  "foh-liv019-bus-5-output": {
+    "nodeKey": "foh-liv019-bus-5-output",
+    "leftPx": 973,
+    "topPx": 85,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 972.99,
+    "centerY": 85,
+    "layerRelX": 73.712,
+    "layerRelY": 10.366,
+    "gearRel": null
+  },
+  "foh-liv019-bus-6-output": {
+    "nodeKey": "foh-liv019-bus-6-output",
+    "leftPx": 1007,
+    "topPx": 85,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1007,
+    "centerY": 85,
+    "layerRelX": 76.288,
+    "layerRelY": 10.366,
+    "gearRel": null
+  },
+  "foh-liv019-bus-7-output": {
+    "nodeKey": "foh-liv019-bus-7-output",
+    "leftPx": 1044,
+    "topPx": 85,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1043.99,
+    "centerY": 85,
+    "layerRelX": 79.09,
+    "layerRelY": 10.366,
+    "gearRel": null
+  },
+  "foh-liv019-bus-8-output": {
+    "nodeKey": "foh-liv019-bus-8-output",
+    "leftPx": 1078,
+    "topPx": 85,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 1077.99,
+    "centerY": 85,
+    "layerRelX": 81.666,
+    "layerRelY": 10.366,
+    "gearRel": null
+  },
+  "foh-liv019-bus-9-output": {
+    "nodeKey": "foh-liv019-bus-9-output",
+    "leftPx": 973,
+    "topPx": 121,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 972.99,
+    "centerY": 121,
+    "layerRelX": 73.712,
+    "layerRelY": 14.756,
+    "gearRel": null
+  },
+  "foh-liv019-input-1": {
+    "nodeKey": "foh-liv019-input-1",
+    "leftPx": 567,
+    "topPx": 59,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 567,
+    "centerY": 58.99,
+    "layerRelX": 42.954,
+    "layerRelY": 7.194,
+    "gearRel": null
+  },
+  "foh-liv019-input-10": {
+    "nodeKey": "foh-liv019-input-10",
+    "leftPx": 604,
+    "topPx": 108,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 603.99,
+    "centerY": 107.99,
+    "layerRelX": 45.757,
+    "layerRelY": 13.17,
+    "gearRel": null
+  },
+  "foh-liv019-input-11": {
+    "nodeKey": "foh-liv019-input-11",
+    "leftPx": 640,
+    "topPx": 109,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 640,
+    "centerY": 108.99,
+    "layerRelX": 48.485,
+    "layerRelY": 13.292,
+    "gearRel": null
+  },
+  "foh-liv019-input-12": {
+    "nodeKey": "foh-liv019-input-12",
+    "leftPx": 676,
+    "topPx": 109,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 676,
+    "centerY": 108.99,
+    "layerRelX": 51.212,
+    "layerRelY": 13.292,
+    "gearRel": null
+  },
+  "foh-liv019-input-13": {
+    "nodeKey": "foh-liv019-input-13",
+    "leftPx": 711,
+    "topPx": 109,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 711,
+    "centerY": 108.99,
+    "layerRelX": 53.863,
+    "layerRelY": 13.292,
+    "gearRel": null
+  },
+  "foh-liv019-input-14": {
+    "nodeKey": "foh-liv019-input-14",
+    "leftPx": 747,
+    "topPx": 110,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 747,
+    "centerY": 110,
+    "layerRelX": 56.591,
+    "layerRelY": 13.415,
+    "gearRel": null
+  },
+  "foh-liv019-input-15": {
+    "nodeKey": "foh-liv019-input-15",
+    "leftPx": 784,
+    "topPx": 108,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 783.99,
+    "centerY": 107.99,
+    "layerRelX": 59.393,
+    "layerRelY": 13.17,
+    "gearRel": null
+  },
+  "foh-liv019-input-16": {
+    "nodeKey": "foh-liv019-input-16",
+    "leftPx": 819,
+    "topPx": 109,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 818.99,
+    "centerY": 108.99,
+    "layerRelX": 62.045,
+    "layerRelY": 13.292,
+    "gearRel": null
+  },
+  "foh-liv019-input-2": {
+    "nodeKey": "foh-liv019-input-2",
+    "leftPx": 603,
+    "topPx": 58,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 602.99,
+    "centerY": 57.99,
+    "layerRelX": 45.681,
+    "layerRelY": 7.073,
+    "gearRel": null
+  },
+  "foh-liv019-input-3": {
+    "nodeKey": "foh-liv019-input-3",
+    "leftPx": 640,
+    "topPx": 58,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 640,
+    "centerY": 57.99,
+    "layerRelX": 48.485,
+    "layerRelY": 7.073,
+    "gearRel": null
+  },
+  "foh-liv019-input-4": {
+    "nodeKey": "foh-liv019-input-4",
+    "leftPx": 675,
+    "topPx": 59,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 675,
+    "centerY": 58.99,
+    "layerRelX": 51.136,
+    "layerRelY": 7.194,
+    "gearRel": null
+  },
+  "foh-liv019-input-5": {
+    "nodeKey": "foh-liv019-input-5",
+    "leftPx": 712,
+    "topPx": 59,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 712,
+    "centerY": 58.99,
+    "layerRelX": 53.939,
+    "layerRelY": 7.194,
+    "gearRel": null
+  },
+  "foh-liv019-input-6": {
+    "nodeKey": "foh-liv019-input-6",
+    "leftPx": 748,
+    "topPx": 59,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 747.99,
+    "centerY": 58.99,
+    "layerRelX": 56.666,
+    "layerRelY": 7.194,
+    "gearRel": null
+  },
+  "foh-liv019-input-7": {
+    "nodeKey": "foh-liv019-input-7",
+    "leftPx": 784,
+    "topPx": 59,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 783.99,
+    "centerY": 58.99,
+    "layerRelX": 59.393,
+    "layerRelY": 7.194,
+    "gearRel": null
+  },
+  "foh-liv019-input-8": {
+    "nodeKey": "foh-liv019-input-8",
+    "leftPx": 819,
+    "topPx": 58,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 818.99,
+    "centerY": 57.99,
+    "layerRelX": 62.045,
+    "layerRelY": 7.073,
+    "gearRel": null
+  },
+  "foh-liv019-input-9": {
+    "nodeKey": "foh-liv019-input-9",
+    "leftPx": 567,
+    "topPx": 109,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 567,
+    "centerY": 108.99,
+    "layerRelX": 42.954,
+    "layerRelY": 13.292,
+    "gearRel": null
+  },
+  "foh-liv019-main-left-output": {
+    "nodeKey": "foh-liv019-main-left-output",
+    "leftPx": 1138,
+    "topPx": 84,
+    "widthPx": 36,
+    "heightPx": 36,
+    "centerX": 1137.99,
+    "centerY": 83.99,
+    "layerRelX": 86.212,
+    "layerRelY": 10.243,
+    "gearRel": null
+  },
+  "foh-liv019-main-right-output": {
+    "nodeKey": "foh-liv019-main-right-output",
+    "leftPx": 1184,
+    "topPx": 83,
+    "widthPx": 36,
+    "heightPx": 36,
+    "centerX": 1183.99,
+    "centerY": 82.99,
+    "layerRelX": 89.696,
+    "layerRelY": 10.121,
+    "gearRel": null
+  },
+  "hi-hat": {
+    "nodeKey": "hi-hat",
+    "leftPx": 126,
+    "topPx": 317,
+    "widthPx": 86,
+    "heightPx": 66,
+    "centerX": 125.66,
+    "centerY": 316.55,
+    "layerRelX": 9.52,
+    "layerRelY": 38.604,
+    "gearRel": null
+  },
+  "high-rack-tom": {
+    "nodeKey": "high-rack-tom",
+    "leftPx": 219,
+    "topPx": 299,
+    "widthPx": 56,
+    "heightPx": 45,
+    "centerX": 219.19,
+    "centerY": 298.6,
+    "layerRelX": 16.606,
+    "layerRelY": 36.415,
+    "gearRel": null
+  },
+  "kick": {
+    "nodeKey": "kick",
+    "leftPx": 270,
+    "topPx": 351,
+    "widthPx": 81,
+    "heightPx": 77,
+    "centerX": 270.43,
+    "centerY": 351.38,
+    "layerRelX": 20.487,
+    "layerRelY": 42.851,
+    "gearRel": null
+  },
+  "liv019-delay-left-input": {
+    "nodeKey": "liv019-delay-left-input",
+    "leftPx": 933,
+    "topPx": 465,
+    "widthPx": 4,
+    "heightPx": 24,
+    "centerX": 932.99,
+    "centerY": 465,
+    "layerRelX": 70.681,
+    "layerRelY": 56.707,
+    "gearRel": null
+  },
+  "liv019-delay-left-output": {
+    "nodeKey": "liv019-delay-left-output",
+    "leftPx": 1135,
+    "topPx": 465,
+    "widthPx": 24,
+    "heightPx": 29,
+    "centerX": 1135,
+    "centerY": 465,
+    "layerRelX": 85.985,
+    "layerRelY": 56.707,
+    "gearRel": null
+  },
+  "liv019-delay-link": {
+    "nodeKey": "liv019-delay-link",
+    "leftPx": 1058,
+    "topPx": 465,
+    "widthPx": 24,
+    "heightPx": 29,
+    "centerX": 1057.99,
+    "centerY": 465,
+    "layerRelX": 80.151,
+    "layerRelY": 56.707,
+    "gearRel": null
+  },
+  "liv019-delay-right-input": {
+    "nodeKey": "liv019-delay-right-input",
+    "leftPx": 971,
+    "topPx": 465,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 971,
+    "centerY": 465,
+    "layerRelX": 73.56,
+    "layerRelY": 56.707,
+    "gearRel": null
+  },
+  "liv019-delay-right-output": {
+    "nodeKey": "liv019-delay-right-output",
+    "leftPx": 1174,
+    "topPx": 465,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 1173.99,
+    "centerY": 465,
+    "layerRelX": 88.939,
+    "layerRelY": 56.707,
+    "gearRel": null
+  },
+  "liv019-iem-1-input": {
+    "nodeKey": "liv019-iem-1-input",
+    "leftPx": 600,
+    "topPx": 243,
+    "widthPx": 28,
+    "heightPx": 28,
+    "centerX": 600,
+    "centerY": 242.99,
+    "layerRelX": 45.455,
+    "layerRelY": 29.634,
+    "gearRel": null
+  },
+  "liv019-iem-2-input": {
+    "nodeKey": "liv019-iem-2-input",
+    "leftPx": 846,
+    "topPx": 242,
+    "widthPx": 28,
+    "heightPx": 28,
+    "centerX": 846,
+    "centerY": 242,
+    "layerRelX": 64.091,
+    "layerRelY": 29.512,
+    "gearRel": null
+  },
+  "liv019-iem-3-input": {
+    "nodeKey": "liv019-iem-3-input",
+    "leftPx": 915,
+    "topPx": 242,
+    "widthPx": 28,
+    "heightPx": 28,
+    "centerX": 915,
+    "centerY": 242,
+    "layerRelX": 69.318,
+    "layerRelY": 29.512,
+    "gearRel": null
+  },
+  "liv019-iem-4-input": {
+    "nodeKey": "liv019-iem-4-input",
+    "leftPx": 1160,
+    "topPx": 241,
+    "widthPx": 28,
+    "heightPx": 28,
+    "centerX": 1160,
+    "centerY": 241,
+    "layerRelX": 87.879,
+    "layerRelY": 29.39,
+    "gearRel": null
+  },
+  "liv019-iem-5-input": {
+    "nodeKey": "liv019-iem-5-input",
+    "leftPx": 780,
+    "topPx": 335,
+    "widthPx": 28,
+    "heightPx": 28,
+    "centerX": 780,
+    "centerY": 335,
+    "layerRelX": 59.091,
+    "layerRelY": 40.854,
+    "gearRel": null
+  },
+  "liv019-iem-6-input": {
+    "nodeKey": "liv019-iem-6-input",
+    "leftPx": 1026,
+    "topPx": 335,
+    "widthPx": 33,
+    "heightPx": 33,
+    "centerX": 1026,
+    "centerY": 335,
+    "layerRelX": 77.727,
+    "layerRelY": 40.854,
+    "gearRel": null
+  },
+  "liv019-reverb-left-input": {
+    "nodeKey": "liv019-reverb-left-input",
+    "leftPx": 605,
+    "topPx": 457,
+    "widthPx": 29,
+    "heightPx": 29,
+    "centerX": 605,
+    "centerY": 457,
+    "layerRelX": 45.833,
+    "layerRelY": 55.731,
+    "gearRel": null
+  },
+  "liv019-reverb-left-output": {
+    "nodeKey": "liv019-reverb-left-output",
+    "leftPx": 812,
+    "topPx": 455,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 812,
+    "centerY": 455,
+    "layerRelX": 61.515,
+    "layerRelY": 55.488,
+    "gearRel": null
+  },
+  "liv019-reverb-link": {
+    "nodeKey": "liv019-reverb-link",
+    "leftPx": 733,
+    "topPx": 456,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 732.99,
+    "centerY": 456,
+    "layerRelX": 55.53,
+    "layerRelY": 55.61,
+    "gearRel": null
+  },
+  "liv019-reverb-right-input": {
+    "nodeKey": "liv019-reverb-right-input",
+    "leftPx": 647,
+    "topPx": 456,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 647,
+    "centerY": 456,
+    "layerRelX": 49.015,
+    "layerRelY": 55.61,
+    "gearRel": null
+  },
+  "liv019-reverb-right-output": {
+    "nodeKey": "liv019-reverb-right-output",
+    "leftPx": 849,
+    "topPx": 456,
+    "widthPx": 24,
+    "heightPx": 24,
+    "centerX": 848.99,
+    "centerY": 456,
+    "layerRelX": 64.318,
+    "layerRelY": 55.61,
+    "gearRel": null
+  },
+  "low-rack-tom": {
+    "nodeKey": "low-rack-tom",
+    "leftPx": 289,
+    "topPx": 294,
+    "widthPx": 66,
+    "heightPx": 50,
+    "centerX": 288.62,
+    "centerY": 293.9,
+    "layerRelX": 21.865,
+    "layerRelY": 35.841,
+    "gearRel": null
+  },
+  "overhead-left-crash": {
+    "nodeKey": "overhead-left-crash",
+    "leftPx": 163,
+    "topPx": 255,
+    "widthPx": 86,
+    "heightPx": 80,
+    "centerX": 162.86,
+    "centerY": 254.54,
+    "layerRelX": 12.338,
+    "layerRelY": 31.041,
+    "gearRel": null
+  },
+  "overhead-right-ride": {
+    "nodeKey": "overhead-right-ride",
+    "leftPx": 407,
+    "topPx": 293,
+    "widthPx": 96,
+    "heightPx": 90,
+    "centerX": 407.31,
+    "centerY": 293.49,
+    "layerRelX": 30.857,
+    "layerRelY": 35.791,
+    "gearRel": null
+  },
+  "snare": {
+    "nodeKey": "snare",
+    "leftPx": 204,
+    "topPx": 366,
+    "widthPx": 71,
+    "heightPx": 60,
+    "centerX": 204.08,
+    "centerY": 365.56,
+    "layerRelX": 15.461,
+    "layerRelY": 44.581,
+    "gearRel": null
+  },
+  "stagebox-input-1": {
+    "nodeKey": "stagebox-input-1",
+    "leftPx": 85,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 102,
+    "centerY": 88.99,
+    "layerRelX": 7.727,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-2": {
+    "nodeKey": "stagebox-input-2",
+    "leftPx": 124,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 140.99,
+    "centerY": 88.99,
+    "layerRelX": 10.681,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-3": {
+    "nodeKey": "stagebox-input-3",
+    "leftPx": 163,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 179.99,
+    "centerY": 88.99,
+    "layerRelX": 13.636,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-4": {
+    "nodeKey": "stagebox-input-4",
+    "leftPx": 202,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 218.99,
+    "centerY": 88.99,
+    "layerRelX": 16.59,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-5": {
+    "nodeKey": "stagebox-input-5",
+    "leftPx": 241,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 257.99,
+    "centerY": 88.99,
+    "layerRelX": 19.545,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-6": {
+    "nodeKey": "stagebox-input-6",
+    "leftPx": 279,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 295.99,
+    "centerY": 88.99,
+    "layerRelX": 22.423,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-7": {
+    "nodeKey": "stagebox-input-7",
+    "leftPx": 318,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 334.99,
+    "centerY": 88.99,
+    "layerRelX": 25.378,
+    "layerRelY": 10.853,
+    "gearRel": null
+  },
+  "stagebox-input-8": {
+    "nodeKey": "stagebox-input-8",
+    "leftPx": 357,
+    "topPx": 72,
+    "widthPx": 34,
+    "heightPx": 34,
+    "centerX": 373.99,
+    "centerY": 88.99,
+    "layerRelX": 28.333,
+    "layerRelY": 10.853,
+    "gearRel": null
+  }
+};
+
+  function expose(win) {
+    try {
+      win.__sfLiv019HitboxLocks = HITBOX_LOCKS;
+    } catch {}
+  }
+
+  expose(window);
+  try {
+    if (window.top) expose(window.top);
+  } catch {}
+
+  console.log("[Signal Flow] LIV-019 hitbox final lock loaded", VERSION);
+
+  function docsToScan() {
+    const docs = [{ name: "top", doc: document, win: window }];
+    document.querySelectorAll("iframe").forEach((frame, i) => {
+      try {
+        if (frame.contentDocument) docs.push({ name: `iframe-${i}`, doc: frame.contentDocument, win: frame.contentWindow });
+      } catch {}
+    });
+    return docs;
+  }
+
+  function setImportant(el, prop, value) {
+    if (el && value !== undefined && value !== "") {
+      el.style.setProperty(prop, value, "important");
+    }
+  }
+
+  function matchingNodes(layer, nodeKey) {
+    return Array.from(layer.querySelectorAll("[data-node-key]")).filter(el => {
+      if (!el.dataset || el.dataset.nodeKey !== nodeKey) return false;
+      if (el.closest(".sf-native-liv019-source-panel") || el.closest(".sf-native-liv009-source-panel")) return false;
+      return true;
+    });
+  }
+
+  function removeStageboxExtras(layer) {
+    let removed = 0;
+    for (let n = 9; n <= 16; n += 1) {
+      matchingNodes(layer, "stagebox-input-" + n).forEach(el => {
+        el.remove();
+        removed += 1;
+      });
+    }
+    return removed;
+  }
+
+  function applyInDoc(item) {
+    const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019");
+    if (!layer) return false;
+
+    try {
+      if (item.win) item.win.__sfLiv019HitboxLocks = HITBOX_LOCKS;
+    } catch {}
+
+    const removedStageboxExtras = removeStageboxExtras(layer);
+    const missing = [];
+    let applied = 0;
+
+    Object.entries(HITBOX_LOCKS).forEach(([key, lock]) => {
+      const nodeKey = lock.nodeKey || key;
+      if (/^stagebox-input-(9|10|11|12|13|14|15|16)$/.test(nodeKey)) return;
+
+      const nodes = matchingNodes(layer, nodeKey);
+      if (!nodes.length) {
+        missing.push(key);
+        return;
+      }
+
+      nodes.forEach(el => {
+        setImportant(el, "left", lock.leftPx + "px");
+        setImportant(el, "top", lock.topPx + "px");
+        setImportant(el, "width", lock.widthPx + "px");
+        setImportant(el, "min-width", lock.widthPx + "px");
+        setImportant(el, "max-width", lock.widthPx + "px");
+        setImportant(el, "inline-size", lock.widthPx + "px");
+        setImportant(el, "height", lock.heightPx + "px");
+        setImportant(el, "min-height", lock.heightPx + "px");
+        setImportant(el, "max-height", lock.heightPx + "px");
+        setImportant(el, "block-size", lock.heightPx + "px");
+        setImportant(el, "box-sizing", "border-box");
+        setImportant(el, "pointer-events", "auto");
+        applied += 1;
+      });
+    });
+
+    const report = {
+      version: VERSION,
+      document: item.name,
+      expected: Object.keys(HITBOX_LOCKS).length,
+      applied,
+      missingCount: missing.length,
+      missing,
+      removedStageboxExtras
+    };
+
+    try {
+      window.__sfLiv019HitboxLockReport = report;
+      if (window.top) window.top.__sfLiv019HitboxLockReport = report;
+      if (item.win) item.win.__sfLiv019HitboxLockReport = report;
+    } catch {}
+
+    console.log("[Signal Flow] LIV-019 hitbox final lock applied", report);
+    return true;
+  }
+
+  function scan() {
+    let ok = false;
+    docsToScan().forEach(item => {
+      try {
+        ok = applyInDoc(item) || ok;
+      } catch (err) {
+        console.warn("[Signal Flow] LIV-019 hitbox final lock failed", item.name, err);
+      }
+    });
+    return ok;
+  }
+
+  scan();
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries += 1;
+    if (scan() || tries > 80) clearInterval(timer);
+  }, 250);
+})();
