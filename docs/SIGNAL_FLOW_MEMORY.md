@@ -1,6 +1,6 @@
 # Signal Flow Memory
 
-Last updated: 2026-05-26
+Last updated: 2026-05-28
 
 ## Current Working Entry Point
 
@@ -8,6 +8,33 @@ Last updated: 2026-05-26
 - `index.html` redirects to `launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html`.
 - The wrapper uses `launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html` as the full embedded game dependency.
 - Distributed IR levels use `launch/ir-level-runner.html`.
+
+## Native Board Surface Discovery After Build-a-Room
+
+Locked 2026-05-27 as Build-a-Room cleanup / native surface discovery fix `v6r280`.
+
+Root cause:
+
+- After visiting LIV-004 / Build-a-Room, `body.sf-build-room-v6r227-active` could remain on the raw iframe after navigating to normal Live Sound boards.
+- That active Build-a-Room class hid normal `.level-shell` children that were not `.sf-build-room-v6r227`.
+- LIV-020 and LIV-019 still rendered `#patchbay`, but the patchbay was hidden at `0 x 0`, so `src/live-sound-native-renderer.js` saw only the brief shell and logged `Native renderer waiting for board surface` / `Native renderer could not find live board surface`.
+
+Locked behavior:
+
+- `patch/sf-build-room-renderer.js?v=6r280` must clear Build-a-Room shell mode whenever the current level is not a Build-a-Room level.
+- Leaving Build-a-Room must remove stale Build-a-Room roots, restore `.level-shell` / `.training-stage-shell` layout and overflow styles, and unhide children marked with `data-sf-br-old-shell-child`.
+- Build-a-Room shell mode must rescan after navigation hooks including `startLevelById`, `renderRoute`, `navigateTo`, `loadGameLevel`, `loadLevel`, selector changes, hash changes, and popstate.
+- Keep Build-a-Room behavior locked for LIV-004, LIV-013, LIV-027, and LIV-041.
+- `src/live-sound-native-renderer.js?v=6r403q2` may retry native surface discovery for a bounded async shell/render replacement window, but must not use infinite retry.
+- Normal Live Sound boards must expose a visible `#patchbay` / `.patchbay-wrap` before native mount attempts complete.
+
+Cache/version notes:
+
+- Active raw build include: `../patch/sf-build-room-renderer.js?v=6r280`.
+- Active native renderer include: `../src/live-sound-native-renderer.js?v=6r403q2`.
+- Wrapper raw-build cache key: `scroll-affordance-passive-v6r292`.
+
+Do not use this fix as a reason to touch route data, `validRoutes`, cable renderer behavior, LIV-019 native cable lock `v6r426`, hitbox locks, label locks, gear placement, checklist behavior, or scoring/economy.
 
 ## LIV-019 Native Cable Lock
 
@@ -51,17 +78,51 @@ Latest cable QA passed for Kick -> Stage Box Input 1, FOH Aux 1 -> IEM 1, and FO
 
 ## Scroll Affordance Rule
 
+Locked 2026-05-28 as passive scroll affordance `v6r292`.
+
 Scrollable boards should show idle-only static direction indicators for available scroll directions. Indicators hide during active scrolling and recompute after scroll idle. They must not flash, animate repeatedly, intercept pointer events, or be board-specific visual patches.
 
 Locked behavior:
 
+- Active shared utility: `src/sf-scroll-affordance.js?v=6r292`.
+- The scroll-affordance utility only observes selected scroll hosts and draws passive cue overlays. It must not own, correct, or rewrite wheel physics.
+- Do not let `src/sf-scroll-affordance.js` set `scrollLeft`, `scrollTop`, container overflow, dimensions, min-height, transforms, wrapping, reparenting, or board content position.
+- Do not reintroduce inline launcher blocks `sf-universal-scroll-cues-v1` or `sf-universal-scroll-cues-script-v1`.
+- Treat scroll affordance as a small state machine: `state = idle | scrolling`.
+- Visible indicators are `idle && availableDirections`; hidden indicators are `scrolling || no hidden content`.
 - Show scroll indicators only when the scroll container has hidden content in that direction.
 - Hide the left indicator at the left edge and the right indicator at the right edge.
 - Hide the up indicator at the top edge and the down indicator at the bottom edge.
 - Hide all indicators during wheel, touch, trackpad, pointer-drag, keyboard, or native scroll activity.
 - Recompute after scroll idle, board load, level change, resize, orientation/layout change, and native board remount.
 - Indicators must use `pointer-events: none` and must not alter layout, scroll dimensions, jack clicks, cable dragging, labels, gear interaction, route validation, cable rendering, hitbox locks, or checklist behavior.
+- Indicator visuals are subtle transparent edge chevrons, not circular buttons or game controls. They must not look clickable.
+- Use existing viewport contract markers rather than guessing board surfaces from scratch: native `.sf-live-native-viewport`, `.sf-live-native-scroll-host`, `.sf-live-native-scroll-host-liv010`, and Build-a-Room `.sf-br-shell-owned` / `data-sf-br-shell-root` viewport contracts.
+- Build-a-Room root contracts may resolve their scroll target to the owned shell, because the visual root is mounted inside the viewport contract while the shell owns the scroll range.
+- For Build-a-Room targets only, the cue overlay should be clipped to the visible browser/iframe viewport if the owned shell extends below the viewport. This keeps the DOWN cue at the visible owned-shell edge instead of below the screen.
+- Build-a-Room target preference is the actual scroll host whose `scrollTop` changes: `.sf-br-shell-owned` with real scroll range, then `[data-sf-br-shell-root]`, then `.sf-build-room-v6r227`, then the nearest visible scrollable ancestor of the Build-a-Room root. Do not attach to gear cards, selected gear lists, option grids, buttons, stale patchbay containers, or stale native board containers.
+- Known rendered viewport hosts such as `.patchbay-wrap`, `.patchbay-wrap.front-panel-view`, and environment-scoped `.patchbay-wrap.env-*` may be used as passive fallback targets only when they already have real hidden scroll range; the affordance utility must never change their overflow, dimensions, or scroll behavior.
+- Diagnosis/training panel roots may be used as passive candidates, but cue rendering must resolve to the nearest visible element with actual scroll range rather than card/control children.
+- The scroll-affordance MutationObserver must ignore `.sf-scroll-cue` and `#sf-universal-scroll-cues-v1` mutations so cue rendering never schedules itself into a repeated clear/repaint loop.
+- Legacy scroll-cue filters in the native game shell must not hide `.sf-scroll-cue`; the shared affordance utility owns those indicators across native patch, LIV-018/019 shell, Build-a-Room, diagnosis, and other real scroll viewports.
+- Build-a-Room submit visibility helpers must not set padding, overflow, dimensions, or scroll ownership on board containers; Build-a-Room renderer `v6r280` owns those viewports.
+- Do not depend on immediate native board mount timing. During navigation/remount, the affordance utility should quietly retry until a stable viewport contract exists, then render idle indicators once appropriate.
 - Keep this as a shared scroll-affordance utility for Signal Flow boards; do not add board-specific scroll indicator patches unless absolutely necessary.
+
+Locked scroll ownership:
+
+- LIV-018 scroll behavior is owned by `src/sf-liv018-scroll-shell.js?v=6r376`. The raw `#patchbayWrap` wheel handler must exit for `.patchbay-wrap[data-sf-liv018-scroll-shell]` and not fight the dedicated shell.
+- LIV-019 scroll shell/layout remains locked by `src/sf-liv019-scroll-shell.js?v=6r389`. The active raw game wheel handler may handle LIV-019 clear vertical wheel as vertical scroll and clear horizontal / shift-wheel as horizontal scroll, but must not reintroduce vertical-wheel-to-horizontal drift.
+- Other patch boards retain the legacy raw game wheel behavior unless specifically repaired.
+- Build-a-Room scroll ownership remains with `patch/sf-build-room-renderer.js?v=6r280`; the affordance utility must only observe `.sf-br-shell-owned` / Build-a-Room viewport contracts and draw cues.
+- Diagnosis scroll ownership remains with diagnosis rendering; the affordance utility must not change diagnosis layout or controls.
+
+Current acceptance lock:
+
+- LIV-018 and LIV-019: vertical wheel/scroll must not drift right; horizontal scrolling must still work; subtle idle cues appear only for available directions and hide while scrolling.
+- Build-a-Room: at top, DOWN cue is visible when content remains below and UP is hidden; after scrolling down, UP appears and DOWN remains visible if more content remains; at bottom, DOWN disappears.
+- Non-scrollable boards show no cues.
+- LIV-019 cable kit `v6r426`, clean finalizer `v6r421q2`, hitbox locks, label locks, route validation, and native cable top-layer behavior remain untouched.
 
 ## Repo Cleanup Rule
 

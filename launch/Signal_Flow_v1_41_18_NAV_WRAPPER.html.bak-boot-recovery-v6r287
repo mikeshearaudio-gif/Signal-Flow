@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Flow v1.41.18 Navigation Wrapper</title>
+  <style>
+    :root{--sf-bg:#07101f;--sf-panel:#0f1d34;--sf-ink:#f8fbff;--sf-muted:#9fb4d8;--sf-cyan:#00f5ff;--sf-yellow:#ffd76a;--sf-line:rgba(255,255,255,.16)}
+    *{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--sf-bg);color:var(--sf-ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}.sf-shell{height:100%;display:grid;grid-template-rows:auto 1fr;min-height:0}.sf-topnav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;background:linear-gradient(180deg,rgba(15,29,52,.98),rgba(7,16,31,.98));border-bottom:1px solid var(--sf-line);box-shadow:0 8px 24px rgba(0,0,0,.32);z-index:10}.sf-brand{font-weight:900;letter-spacing:.05em;color:var(--sf-yellow);margin-right:8px;white-space:nowrap}.sf-topnav label{font-size:12px;color:var(--sf-muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:6px}.sf-topnav select,.sf-topnav input{background:#0a1528;color:var(--sf-ink);border:1px solid rgba(0,245,255,.28);border-radius:10px;padding:8px 10px;font-weight:700;min-height:38px}.sf-topnav input{width:128px;text-transform:uppercase}.sf-topnav button,.sf-topnav a{appearance:none;text-decoration:none;cursor:pointer;border:1px solid rgba(255,215,106,.36);border-radius:10px;background:linear-gradient(180deg,rgba(255,215,106,.22),rgba(255,215,106,.08));color:var(--sf-ink);font-weight:900;padding:9px 12px;min-height:38px}.sf-topnav button.secondary,.sf-topnav a.secondary{border-color:rgba(0,245,255,.28);background:linear-gradient(180deg,rgba(0,245,255,.18),rgba(0,245,255,.06))}.sf-frame-wrap{min-height:0;position:relative;background:#020713}#gameFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#020713}.sf-hint{font-size:12px;color:var(--sf-muted);margin-left:auto;white-space:nowrap}.sf-score{font-size:13px;font-weight:900;color:var(--sf-yellow);border:1px solid var(--sf-line);padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.04)}@media(max-width:980px){.sf-hint{display:none}.sf-topnav{gap:7px}.sf-brand{width:100%}.sf-topnav label{font-size:11px}.sf-topnav select{max-width:155px}.sf-topnav input{width:110px}}
+  </style>
+<style id="sf-live-native-liv006-mask-v2">
+.sf-live-native-layer.sf-live-native-level-liv-006 {
+  position: absolute;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 22% 22%, rgba(41, 126, 93, 0.15) 0%, rgba(41, 126, 93, 0.07) 22%, rgba(0, 0, 0, 0) 46%),
+    linear-gradient(180deg,
+      rgba(2, 8, 9, 0.88) 0%,
+      rgba(3, 9, 10, 0.93) 48%,
+      rgba(3, 8, 9, 0.96) 100%) !important;
+  border-radius: 18px;
+}
+
+.sf-live-native-layer.sf-live-native-level-liv-006::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg,
+      rgba(0, 0, 0, 0.40) 0%,
+      rgba(0, 0, 0, 0.24) 28%,
+      rgba(0, 0, 0, 0.50) 100%),
+    radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.50) 78%);
+  box-shadow:
+    inset 0 0 120px rgba(0, 0, 0, 0.42),
+    inset 0 0 260px rgba(0, 0, 0, 0.32);
+}
+
+.sf-live-native-layer.sf-live-native-level-liv-006 > * {
+  position: absolute;
+}
+</style>
+
+
+\n
+<style id="sf-universal-scroll-cues-v1">
+/* Universal scroll affordance: idle-only static direction arrows for hidden scroll content. */
+.sf-scroll-cue {
+  position: fixed;
+  z-index: 2147483100;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 45% 38%, rgba(255, 236, 162, .96), rgba(255, 215, 106, .76) 50%, rgba(126, 82, 12, .66) 100%);
+  box-shadow:
+    0 0 16px rgba(255, 215, 106, .46),
+    0 8px 16px rgba(0, 0, 0, .38),
+    inset 0 0 8px rgba(255, 255, 255, .35);
+  opacity: .88;
+  transition: opacity .14s ease;
+  transform: none;
+}
+
+.sf-scroll-cue::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+}
+
+.sf-scroll-cue-down::before {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid #171006;
+  margin-top: 2px;
+}
+
+.sf-scroll-cue-up::before {
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 14px solid #171006;
+  margin-top: -2px;
+}
+
+.sf-scroll-cue-right::before {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 14px solid #171006;
+  margin-left: 2px;
+}
+
+.sf-scroll-cue-left::before {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 14px solid #171006;
+  margin-left: -2px;
+}
+</style>
+\n
+\n
+<style id="sf-live-native-liv010-scroll-layout-v3">
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010,
+main.level-liv-010 .patchbay-wrap.front-panel-view {
+  position: relative !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: thin;
+}
+
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010::-webkit-scrollbar,
+main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar {
+  width: 12px;
+}
+
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010::-webkit-scrollbar-thumb,
+main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 106, .55);
+  border-radius: 999px;
+}
+
+.patchbay-wrap.front-panel-view.sf-live-native-scroll-host-liv010::-webkit-scrollbar-track,
+main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, .35);
+}
+
+.sf-live-native-layer.sf-live-native-level-liv-010 {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  min-height: var(--sf-liv010-board-height, 2300px) !important;
+  height: var(--sf-liv010-board-height, 2300px) !important;
+  overflow: visible !important;
+  background:
+    radial-gradient(circle at 25% 18%, rgba(41, 126, 93, 0.13) 0%, rgba(41, 126, 93, 0.06) 22%, rgba(0, 0, 0, 0) 46%),
+    linear-gradient(180deg,
+      rgba(2, 8, 9, 0.91) 0%,
+      rgba(3, 9, 10, 0.95) 50%,
+      rgba(3, 8, 9, 0.98) 100%) !important;
+  border-radius: 18px;
+}
+
+
+.sfLiv010SurfaceScrollSpacer {
+  position: relative !important;
+  display: block !important;
+  width: 1px !important;
+  min-height: var(--sf-liv010-board-height, 2300px) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+</style>
+
+  <link rel="stylesheet" href="../patch/sf-v6r249-safe-visual-fixes.css?v=6r249" />
+
+<style id="sf-semantic-todo-highlight-v1">
+@keyframes sfSemanticTodoPulseV1 {
+  0%, 100% {
+    box-shadow:
+      0 0 0 2px rgba(255, 229, 139, .34),
+      0 0 18px rgba(255, 220, 116, .24),
+      0 8px 24px rgba(0, 0, 0, .28),
+      inset 0 0 0 1px rgba(255, 255, 255, .08),
+      inset 0 0 16px rgba(255, 220, 116, .12);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(255, 236, 162, .78),
+      0 0 34px rgba(255, 220, 116, .58),
+      0 0 56px rgba(255, 236, 162, .24),
+      0 12px 34px rgba(0, 0, 0, .38),
+      inset 0 0 26px rgba(255, 220, 116, .20);
+  }
+}
+
+@keyframes sfSemanticTodoRailV1 {
+  0%, 100% { opacity: .52; transform: scaleY(.88); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):not(:has(.done-badge)),
+.sf-build-room-v6r227 .sf-br-checklist > .sf-br-need:not(.is-satisfied) {
+  position: relative !important;
+  border-color: rgba(255, 228, 137, .70) !important;
+  outline: 2px solid rgba(255, 236, 162, .32) !important;
+  outline-offset: 2px !important;
+  background-image: linear-gradient(90deg, rgba(255, 215, 106, .18), rgba(255, 215, 106, .04) 52%, rgba(255, 215, 106, 0)) !important;
+  animation: sfSemanticTodoPulseV1 1.45s ease-in-out infinite !important;
+}
+
+main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):not(:has(.done-badge))::before,
+.sf-build-room-v6r227 .sf-br-checklist > .sf-br-need:not(.is-satisfied)::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 6px;
+  bottom: 6px;
+  width: 7px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,238,162,.25), rgba(255,202,86,.92), rgba(255,238,162,.25));
+  box-shadow:
+    0 0 18px rgba(255, 216, 107, .78),
+    0 0 34px rgba(255, 236, 162, .34);
+  animation: sfSemanticTodoRailV1 1.2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+</style>
+
+</head>
+<body>
+  <div class="sf-shell">
+    <nav class="sf-topnav" aria-label="Signal Flow navigation">
+      <div class="sf-brand">SIGNAL FLOW</div>
+      <label>Environment
+        <select id="envSelect">
+          <option value="REC">Recording</option><option value="LIV">Live Sound</option><option value="BRD">Broadcast</option><option value="PST" selected>Post</option><option value="GAM">Game Audio</option>
+        </select>
+      </label>
+      <label>Board <select id="levelSelect"></select></label>
+      <label>Go to Board <input id="manualLevel" value="PST-004" aria-label="Manual board ID" /></label>
+      <button id="loadBtn" type="button">Load Board</button>
+      <button id="homeBtn" type="button" class="secondary">Splash</button>
+      <span class="sf-score" id="scoreReadout">Score: 0</span>
+      <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
+      <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r213</div>
+    </nav>
+    <main class="sf-frame-wrap"><iframe id="gameFrame" title="Signal Flow Game"></iframe></main>
+  </div>
+  <script>
+  (function(){
+    const GAME = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html';
+    const GAME_CACHE = 'scroll-affordance-state-machine-v6r286';
+    const IR_RUNNER = 'ir-level-runner.html';
+    const IR_RUNNER_CACHE = 'ir-ui-cleanup-v2';
+    const LEVELS = {
+      REC:[
+        'REC-001','REC-002','REC-003','REC-004','REC-IR-01',
+        'REC-006','REC-007','REC-008','REC-009','REC-010',
+        'REC-011','REC-012','REC-013','REC-IR-02','REC-015',
+        'REC-016','REC-017','REC-018','REC-019','REC-020',
+        'REC-021','REC-022','REC-023','REC-IR-03','REC-025',
+        'REC-026','REC-027','REC-028','REC-029','REC-030',
+        'REC-031','REC-032','REC-033','REC-IR-04','REC-035',
+        'REC-036','REC-037','REC-038','REC-039','REC-040',
+        'REC-041','REC-042','REC-043','REC-044','REC-045',
+        'REC-046','REC-047','REC-048','REC-049','REC-050'
+      ],
+
+      LIV:[
+        'LIV-001','LIV-002','LIV-003','LIV-004','LIV-IR-01',
+        'LIV-006','LIV-007','LIV-008','LIV-009','LIV-010',
+        'LIV-011','LIV-012','LIV-013','LIV-IR-02','LIV-015',
+        'LIV-016','LIV-017','LIV-018','LIV-019','LIV-020',
+        'LIV-021','LIV-022','LIV-023','LIV-IR-03','LIV-025',
+        'LIV-026','LIV-027','LIV-028','LIV-029','LIV-030',
+        'LIV-031','LIV-032','LIV-033','LIV-034','LIV-IR-04',
+        'LIV-036','LIV-037','LIV-038','LIV-039','LIV-040',
+        'LIV-041','LIV-042','LIV-043','LIV-044','LIV-045',
+        'LIV-IR-05','LIV-047','LIV-048','LIV-049','LIV-050'
+      ],
+
+      BRD:[
+        'BRD-001','BRD-002','BRD-003','BRD-004','BRD-IR-01',
+        'BRD-006','BRD-007','BRD-008','BRD-009','BRD-010',
+        'BRD-011','BRD-IR-02','BRD-013','BRD-014','BRD-015',
+        'BRD-016','BRD-017','BRD-018','BRD-019','BRD-020',
+        'BRD-021','BRD-022','BRD-023','BRD-IR-03','BRD-025',
+        'BRD-026','BRD-027','BRD-028','BRD-029','BRD-030',
+        'BRD-031','BRD-032','BRD-033','BRD-034','BRD-035',
+        'BRD-036','BRD-IR-04','BRD-038','BRD-039','BRD-040',
+        'BRD-041','BRD-042','BRD-043','BRD-044','BRD-045',
+        'BRD-046','BRD-047','BRD-048','BRD-049','BRD-050'
+      ],
+
+      PST:[
+        'PST-001','PST-002','PST-003','PST-004','PST-IR-01',
+        'PST-006','PST-007','PST-008','PST-009','PST-010',
+        'PST-011','PST-012','PST-013','PST-IR-02','PST-015',
+        'PST-016','PST-017','PST-018','PST-019','PST-020',
+        'PST-021','PST-022','PST-023','PST-IR-03','PST-025',
+        'PST-026','PST-027','PST-028','PST-029','PST-030',
+        'PST-031','PST-032','PST-033','PST-034','PST-IR-04',
+        'PST-036','PST-037','PST-038','PST-039','PST-040',
+        'PST-041','PST-042','PST-043','PST-044','PST-045',
+        'PST-IR-05','PST-047','PST-048','PST-049','PST-050'
+      ],
+
+      GAM:[
+        'GAM-001','GAM-002','GAM-003','GAM-004','GAM-IR-01',
+        'GAM-006','GAM-007','GAM-008','GAM-009','GAM-010',
+        'GAM-011','GAM-012','GAM-013','GAM-IR-02','GAM-015',
+        'GAM-016','GAM-017','GAM-018','GAM-019','GAM-020',
+        'GAM-021','GAM-022','GAM-023','GAM-024','GAM-IR-03',
+        'GAM-026','GAM-027','GAM-028','GAM-029','GAM-030',
+        'GAM-031','GAM-032','GAM-033','GAM-034','GAM-035',
+        'GAM-036','GAM-IR-04','GAM-038','GAM-039','GAM-040',
+        'GAM-041','GAM-042','GAM-043','GAM-044','GAM-045',
+        'GAM-046','GAM-047','GAM-IR-05','GAM-049','GAM-050'
+      ]
+    };
+    const IR_IDS = new Set(Object.values(LEVELS).flat().filter(id => id.includes('-IR-')));
+
+    const PUBLIC_LABELS = {};
+    const INTERNAL_BY_PUBLIC = {};
+
+    Object.keys(LEVELS).forEach(env => {
+      LEVELS[env].forEach((id, index) => {
+        const publicId = env + '-' + String(index + 1).padStart(3, '0');
+        PUBLIC_LABELS[id] = id.includes('-IR-') ? publicId : id;
+        INTERNAL_BY_PUBLIC[publicId] = id;
+        INTERNAL_BY_PUBLIC[id] = id;
+      });
+    });
+
+    function displayLabel(id){
+      return PUBLIC_LABELS[id] || id;
+    }
+
+    function internalId(input){
+      const clean = String(input || '').trim().toUpperCase();
+      return INTERNAL_BY_PUBLIC[clean] || clean;
+    }
+    const PROGRESS_KEY = 'signal_flow_progress_v36';
+    const frame = document.getElementById('gameFrame'); const envSelect = document.getElementById('envSelect'); const levelSelect = document.getElementById('levelSelect'); const manualLevel = document.getElementById('manualLevel'); const scoreReadout = document.getElementById('scoreReadout');
+    let currentScore = 0;
+    function updateScore(points){
+      currentScore = Number(points || 0);
+      scoreReadout.textContent = 'Score: ' + currentScore;
+    }
+    function defaultProgress(){ return { completedLevels: [], unlockedRewards: [], unlockedMics: [] }; }
+    function loadProgress(){
+      try{
+        const raw = localStorage.getItem(PROGRESS_KEY);
+        const parsed = raw ? JSON.parse(raw) : defaultProgress();
+        return {
+          completedLevels: Array.isArray(parsed.completedLevels) ? parsed.completedLevels : [],
+          unlockedRewards: Array.isArray(parsed.unlockedRewards) ? parsed.unlockedRewards : [],
+          unlockedMics: Array.isArray(parsed.unlockedMics) ? parsed.unlockedMics : []
+        };
+      }catch{ return defaultProgress(); }
+    }
+    function saveProgress(progress){
+      try{ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress || defaultProgress())); }catch{}
+    }
+    function recordCompletion(id){
+      const progress = loadProgress();
+      if(id && !progress.completedLevels.includes(id)){
+        progress.completedLevels.push(id);
+        saveProgress(progress);
+      }
+    }
+    updateScore(0);
+    function populate(env){
+      const ids = LEVELS[env] || LEVELS.PST;
+      levelSelect.innerHTML = '';
+      ids.forEach(id => {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = displayLabel(id);
+        levelSelect.appendChild(opt);
+      });
+      if(!ids.includes(levelSelect.value)) levelSelect.value = ids[0];
+    }
+
+    function routeFor(id){
+      return IR_IDS.has(id)
+        ? IR_RUNNER + '?level=' + encodeURIComponent(id) + '&display=' + encodeURIComponent(displayLabel(id)) + '&v=' + encodeURIComponent(IR_RUNNER_CACHE)
+        : GAME + '?v=' + encodeURIComponent(GAME_CACHE) + '#/level/' + encodeURIComponent(id);
+    }
+    function delegateToGameFrame(id){
+      if(IR_IDS.has(id)) return false;
+      try{
+        const win = frame.contentWindow;
+        if(win && typeof win.sfNativeGameShellLoadLevel === 'function'){
+          return win.sfNativeGameShellLoadLevel(id) !== false;
+        }
+      }catch{}
+      return false;
+    }
+
+    function loadLevel(id){
+      const clean = internalId(id);
+      if(!clean) return;
+      manualLevel.value = displayLabel(clean);
+      const prefix = clean.split('-')[0];
+      if(LEVELS[prefix]){
+        envSelect.value = prefix;
+        populate(prefix);
+        if(Array.from(levelSelect.options).some(o => o.value === clean)) levelSelect.value = clean;
+      }
+      updateScore(0);
+      if(!delegateToGameFrame(clean)) frame.src = routeFor(clean);
+    }
+    window.sfWrapperLoadLevel = loadLevel;
+    function redirectFrameIrHash(){
+      let hash = '';
+      try{ hash = frame.contentWindow && frame.contentWindow.location ? frame.contentWindow.location.hash : ''; }catch{}
+      const src = frame.getAttribute('src') || '';
+      const match = String(hash || '').match(/^#\/level\/([^/?#]+)/) || src.match(/#\/level\/([^/?#]+)/);
+      if(!match) return;
+      const clean = internalId(decodeURIComponent(match[1]));
+      if(IR_IDS.has(clean)){
+        frame.src = routeFor(clean);
+      }
+    }
+    frame.addEventListener('load', () => {
+      redirectFrameIrHash();
+      setTimeout(redirectFrameIrHash, 250);
+    });
+    function nextLevel(){ const ids=LEVELS[envSelect.value]||LEVELS.PST; const cur=internalId(manualLevel.value); const idx=ids.indexOf(cur); loadLevel(ids[(idx+1+ids.length)%ids.length]); }
+    envSelect.addEventListener('change',()=>{ populate(envSelect.value); manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
+    levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
+    document.getElementById('loadBtn').addEventListener('click',()=>loadLevel(manualLevel.value));
+    manualLevel.addEventListener('keydown',ev=>{ if(ev.key==='Enter') loadLevel(manualLevel.value); });
+    function loadSplash(){
+      updateScore(0);
+      envSelect.value = 'LIV';
+      populate('LIV');
+      manualLevel.value = levelSelect.value || '';
+      frame.src = GAME + '?v=' + encodeURIComponent(GAME_CACHE);
+    }
+    document.getElementById('homeBtn').addEventListener('click', loadSplash);
+    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
+    loadSplash();
+  })();
+  </script>
+\n
+<script id="sf-universal-scroll-cues-script-v1">
+(function () {
+  if (window.sfUniversalScrollCuesV1Installed) return;
+  window.sfUniversalScrollCuesV1Installed = true;
+
+  var EDGE_THRESHOLD = 3;
+  var IDLE_DELAY = 320;
+  var RETRY_DELAY = 260;
+  var MAX_QUIET_RETRIES = 30;
+  var docStates = new WeakMap();
+
+  function ensureStyle(doc) {
+    if (!doc) return;
+    var src = document.getElementById("sf-universal-scroll-cues-v1");
+    var style = doc.getElementById("sf-universal-scroll-cues-v1");
+    if (!style) {
+      style = doc.createElement("style");
+      style.id = "sf-universal-scroll-cues-v1";
+      doc.head.appendChild(style);
+    }
+    style.id = "sf-universal-scroll-cues-v1";
+    if (src && style.textContent !== src.textContent) style.textContent = src.textContent;
+  }
+
+  function rectFor(el, doc, win) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return {
+        left: 0,
+        top: 0,
+        right: win.innerWidth,
+        bottom: win.innerHeight,
+        width: win.innerWidth,
+        height: win.innerHeight
+      };
+    }
+    return el.getBoundingClientRect();
+  }
+
+  function maxScrollY(el, doc, win) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return Math.max(0, doc.scrollingElement.scrollHeight - win.innerHeight);
+    }
+    return Math.max(0, el.scrollHeight - el.clientHeight);
+  }
+
+  function maxScrollX(el, doc, win) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return Math.max(0, doc.scrollingElement.scrollWidth - win.innerWidth);
+    }
+    return Math.max(0, el.scrollWidth - el.clientWidth);
+  }
+
+  function scrollTopOf(el, doc) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return doc.scrollingElement.scrollTop;
+    }
+    return el.scrollTop;
+  }
+
+  function scrollLeftOf(el, doc) {
+    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
+      return doc.scrollingElement.scrollLeft;
+    }
+    return el.scrollLeft;
+  }
+
+  function visibleRect(r) {
+    return r.width > 160 && r.height > 120 && r.bottom > 0 && r.right > 0;
+  }
+
+  function stateFor(doc) {
+    var state = docStates.get(doc);
+    if (!state) {
+      state = {
+        mode: "idle",
+        idleTimer: null,
+        retryTimer: null,
+        retryCount: 0,
+        installed: false,
+        pointerDown: false
+      };
+      docStates.set(doc, state);
+    }
+    return state;
+  }
+
+  function clearCues(doc) {
+    if (!doc || !doc.body) return;
+    doc.querySelectorAll(".sf-scroll-cue").forEach(function(el) {
+      el.remove();
+    });
+  }
+
+  function markScrolling(doc, win) {
+    if (!doc || !win) return;
+
+    var state = stateFor(doc);
+    state.mode = "scrolling";
+    clearCues(doc);
+
+    clearTimeout(state.idleTimer);
+    state.idleTimer = setTimeout(function() {
+      state.mode = "idle";
+      applyIn(doc, win);
+    }, IDLE_DELAY);
+  }
+
+  function installActivityListeners(doc, win) {
+    if (!doc || !win) return;
+
+    var state = stateFor(doc);
+    if (state.installed) return;
+    state.installed = true;
+
+    doc.addEventListener("scroll", function() {
+      markScrolling(doc, win);
+    }, true);
+
+    doc.addEventListener("wheel", function() {
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("touchstart", function() {
+      state.pointerDown = true;
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("touchmove", function() {
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("touchend", function() {
+      state.pointerDown = false;
+      markScrolling(doc, win);
+    }, { capture: true, passive: true });
+
+    doc.addEventListener("pointerdown", function() {
+      state.pointerDown = true;
+    }, true);
+
+    doc.addEventListener("pointermove", function() {
+      if (state.pointerDown) markScrolling(doc, win);
+    }, true);
+
+    doc.addEventListener("pointerup", function() {
+      if (state.pointerDown) markScrolling(doc, win);
+      state.pointerDown = false;
+    }, true);
+
+    doc.addEventListener("pointercancel", function() {
+      state.pointerDown = false;
+      markScrolling(doc, win);
+    }, true);
+
+    doc.addEventListener("keydown", function(event) {
+      if (!event || !/^(ArrowUp|ArrowDown|ArrowLeft|ArrowRight|PageUp|PageDown|Home|End|Space| )$/.test(event.key || "")) return;
+      markScrolling(doc, win);
+    }, true);
+  }
+
+  function makeCue(doc, dir, x, y) {
+    var cue = doc.createElement("div");
+    cue.className = "sf-scroll-cue sf-scroll-cue-" + dir;
+    cue.style.left = Math.round(x - 19) + "px";
+    cue.style.top = Math.round(y - 19) + "px";
+    cue.setAttribute("aria-hidden", "true");
+    doc.body.appendChild(cue);
+  }
+
+  function hasHiddenScrollRange(el, doc, win) {
+    return maxScrollY(el, doc, win) > EDGE_THRESHOLD || maxScrollX(el, doc, win) > EDGE_THRESHOLD;
+  }
+
+  function viewportContractSelector() {
+    return [
+      ".sf-live-native-scroll-host-liv010",
+      ".sf-live-native-scroll-host",
+      ".sf-live-native-viewport",
+      ".level-shell.sf-br-shell-owned",
+      ".training-stage-shell.sf-br-shell-owned",
+      ".sf-build-room-v6r227[data-sf-br-shell-root='true']",
+      "[data-training-panel='diagnose']",
+      ".sfdiag-board-shell",
+      ".diagnose-panel",
+      ".sfv175-diagnose-board",
+      ".sfv174-diagnose-clinic",
+      ".training-level-panel",
+      ".training-stage-shell",
+      ".level-shell",
+      ".patchbay-wrap.front-panel-view",
+      ".patchbay-wrap",
+      ".patchbay-wrap.env-live",
+      ".patchbay-wrap.env-studio",
+      ".patchbay-wrap.env-broadcast",
+      ".patchbay-wrap.env-post",
+      ".patchbay-wrap.env-game"
+    ].join(",");
+  }
+
+  function isStableViewportContract(el) {
+    if (!el || !el.getBoundingClientRect) return false;
+    var r = el.getBoundingClientRect();
+    var style = getComputedStyle(el);
+    return (
+      visibleRect(r) &&
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      r.width > 160 &&
+      r.height > 120
+    );
+  }
+
+  function findViewportContracts(doc) {
+    var seen = new Set();
+    var out = [];
+
+    doc.querySelectorAll(viewportContractSelector()).forEach(function(el) {
+      if (seen.has(el) || !isStableViewportContract(el)) return;
+      seen.add(el);
+      out.push(el);
+    });
+
+    return out;
+  }
+
+  function isSuppressedPanel(el) {
+    return !!(el && el.closest && el.closest('[data-training-panel="quiz"], .sfv182-quiz-board, .sfv189-quiz-direct'));
+  }
+
+  function scrollTargetForContract(el, doc, win) {
+    if (!el) return null;
+    if (hasHiddenScrollRange(el, doc, win)) return el;
+
+    if (el.classList && el.classList.contains("sf-build-room-v6r227")) {
+      var shell = el.closest(".level-shell.sf-br-shell-owned, .training-stage-shell.sf-br-shell-owned");
+      if (shell && hasHiddenScrollRange(shell, doc, win)) return shell;
+      if (el.parentElement && hasHiddenScrollRange(el.parentElement, doc, win)) return el.parentElement;
+    }
+
+    var parentScroll = el.closest && el.closest(".level-shell.sf-br-shell-owned, .training-stage-shell.sf-br-shell-owned, .level-shell, .training-stage-shell, .patchbay-wrap, main.game");
+    if (parentScroll && hasHiddenScrollRange(parentScroll, doc, win)) return parentScroll;
+
+    var childScroll = el.querySelector && Array.from(el.querySelectorAll(".sf-live-native-scroll-host-liv010, .sf-live-native-scroll-host, .sf-live-native-viewport, .patchbay-wrap, .panel-scroll")).find(function(child) {
+      return isStableViewportContract(child) && hasHiddenScrollRange(child, doc, win);
+    });
+    if (childScroll) return childScroll;
+
+    if (
+      doc.body &&
+      doc.body.classList &&
+      doc.body.classList.contains("sf-build-room-v6r227-active") &&
+      doc.scrollingElement &&
+      hasHiddenScrollRange(doc.scrollingElement, doc, win)
+    ) {
+      return doc.scrollingElement;
+    }
+
+    return el;
+  }
+
+  function resetQuietRetry(doc) {
+    var state = stateFor(doc);
+    clearTimeout(state.retryTimer);
+    state.retryTimer = null;
+    state.retryCount = 0;
+  }
+
+  function scheduleQuietRetry(doc, win) {
+    var state = stateFor(doc);
+    if (state.retryCount >= MAX_QUIET_RETRIES) return;
+
+    clearTimeout(state.retryTimer);
+    state.retryCount += 1;
+    state.retryTimer = setTimeout(function() {
+      applyIn(doc, win);
+    }, RETRY_DELAY);
+  }
+
+  function applyIn(doc, win, resetRetry) {
+    if (!doc || !win || !doc.body) return 0;
+    ensureStyle(doc);
+    installActivityListeners(doc, win);
+    if (resetRetry) resetQuietRetry(doc);
+
+    clearCues(doc);
+    if (stateFor(doc).mode === "scrolling") return 0;
+
+    var count = 0;
+    var candidates = findViewportContracts(doc);
+    if (!candidates.length) {
+      scheduleQuietRetry(doc, win);
+      return 0;
+    }
+
+    resetQuietRetry(doc);
+
+    var usedScrollTargets = new Set();
+    candidates.forEach(function(el) {
+      if (count > 16) return;
+      if (isSuppressedPanel(el)) return;
+
+      var scrollEl = scrollTargetForContract(el, doc, win);
+      if (!scrollEl || isSuppressedPanel(scrollEl)) return;
+      if (usedScrollTargets.has(scrollEl)) return;
+      usedScrollTargets.add(scrollEl);
+
+      var r = rectFor(scrollEl, doc, win);
+      if (!visibleRect(r)) return;
+
+      var maxY = maxScrollY(scrollEl, doc, win);
+      var maxX = maxScrollX(scrollEl, doc, win);
+
+      // Do not show cues unless this exact element has a real hidden scroll range.
+      if (maxY <= EDGE_THRESHOLD && maxX <= EDGE_THRESHOLD) return;
+
+      // Native board layers are often large absolute-position canvases. Only the
+      // actual scroll host should get arrows.
+      if (
+        scrollEl.classList &&
+        scrollEl.classList.contains("sf-live-native-layer") &&
+        !scrollEl.classList.contains("sf-live-native-scroll-host-liv010")
+      ) {
+        return;
+      }
+
+      var top = scrollTopOf(scrollEl, doc);
+      var left = scrollLeftOf(scrollEl, doc);
+      var canScrollUp = maxY > EDGE_THRESHOLD && top > EDGE_THRESHOLD;
+      var canScrollDown = maxY > EDGE_THRESHOLD && top < maxY - EDGE_THRESHOLD;
+      var canScrollLeft = maxX > EDGE_THRESHOLD && left > EDGE_THRESHOLD;
+      var canScrollRight = maxX > EDGE_THRESHOLD && left < maxX - EDGE_THRESHOLD;
+
+      if (!canScrollUp && !canScrollDown && !canScrollLeft && !canScrollRight) return;
+
+      var centerX = Math.max(30, Math.min(win.innerWidth - 30, r.left + r.width / 2));
+      var centerY = Math.max(30, Math.min(win.innerHeight - 30, r.top + r.height / 2));
+
+      if (canScrollUp) {
+        makeCue(doc, "up", centerX, Math.max(28, r.top + 28));
+        count += 1;
+      }
+
+      if (canScrollDown) {
+        makeCue(doc, "down", centerX, Math.min(win.innerHeight - 28, r.bottom - 28));
+        count += 1;
+      }
+
+      if (canScrollLeft) {
+        makeCue(doc, "left", Math.max(28, r.left + 28), centerY);
+        count += 1;
+      }
+
+      if (canScrollRight) {
+        makeCue(doc, "right", Math.min(win.innerWidth - 28, r.right - 28), centerY);
+        count += 1;
+      }
+    });
+
+    return count;
+  }
+
+  function frames() {
+    var out = [];
+    document.querySelectorAll("iframe").forEach(function(frame) {
+      try {
+        if (frame.contentDocument && frame.contentWindow) {
+          out.push([frame.contentDocument, frame.contentWindow]);
+        }
+      } catch (err) {}
+    });
+    return out;
+  }
+
+  function updateScrollCues(resetRetry) {
+    var count = applyIn(document, window, !!resetRetry);
+    frames().forEach(function(pair) {
+      count += applyIn(pair[0], pair[1], !!resetRetry);
+    });
+    return count;
+  }
+
+  window.sfUpdateScrollCues = updateScrollCues;
+
+  function schedule(delay) {
+    setTimeout(function() { updateScrollCues(true); }, delay);
+  }
+
+  function isCueNode(node) {
+    return !!(
+      node &&
+      node.nodeType === 1 &&
+      (
+        (node.classList && node.classList.contains("sf-scroll-cue")) ||
+        node.id === "sf-universal-scroll-cues-v1"
+      )
+    );
+  }
+
+  function isCueOnlyMutation(mutation) {
+    if (!mutation) return false;
+    if (isCueNode(mutation.target)) return true;
+    var added = Array.from(mutation.addedNodes || []);
+    var removed = Array.from(mutation.removedNodes || []);
+    var touched = added.concat(removed);
+    return touched.length > 0 && touched.every(isCueNode);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () { schedule(120); });
+  window.addEventListener("load", function () {
+    schedule(120);
+    schedule(650);
+    schedule(1500);
+  });
+  window.addEventListener("resize", function () { schedule(100); });
+  window.addEventListener("orientationchange", function () { schedule(180); });
+  window.addEventListener("hashchange", function () { schedule(200); });
+  window.addEventListener("popstate", function () { schedule(200); });
+
+  const observer = new MutationObserver(function (mutations) {
+    if (mutations && mutations.length && mutations.every(isCueOnlyMutation)) return;
+    clearTimeout(window.sfUniversalScrollCueTimer);
+    window.sfUniversalScrollCueTimer = setTimeout(function() { updateScrollCues(true); }, 160);
+  });
+
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    characterData: true
+  });
+
+  schedule(250);
+  schedule(1000);
+})();
+</script>
+\n
+
+
+
+
+
+
+
+
+
+
+<script id="sf-build-room-submit-visibility-v1">
+(function () {
+  if (window.sfBuildRoomSubmitVisibilityInstalled) return;
+  window.sfBuildRoomSubmitVisibilityInstalled = true;
+
+  function isBuildRoomBoard() {
+    return /BUILD THE ROOM|Build the Room|Check Room/i.test(document.body.innerText || "");
+  }
+
+  function isBuildSubmit(el) {
+    var text = [
+      el && el.textContent,
+      el && el.value,
+      el && el.getAttribute && el.getAttribute("aria-label"),
+      el && el.className,
+      el && el.id
+    ].join(" ");
+
+    return /check room|submit|finish build|complete room|confirm build/i.test(text);
+  }
+
+  function keepBuildSubmitVisible() {
+    if (!isBuildRoomBoard()) return;
+
+    document.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']").forEach(function(el) {
+      if (!isBuildSubmit(el)) return;
+
+      el.style.setProperty("display", "inline-flex", "important");
+      el.style.setProperty("visibility", "visible", "important");
+      el.style.setProperty("opacity", "1", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("position", "sticky", "important");
+      el.style.setProperty("bottom", "14px", "important");
+      el.style.setProperty("z-index", "9999", "important");
+    });
+
+    // Do not alter Build-a-Room scroll ownership here. The consolidated
+    // Build-a-Room renderer owns layout and viewport behavior.
+  }
+
+  window.sfKeepBuildSubmitVisible = keepBuildSubmitVisible;
+
+  window.addEventListener("load", keepBuildSubmitVisible);
+  window.addEventListener("resize", keepBuildSubmitVisible);
+  setInterval(keepBuildSubmitVisible, 700);
+
+  new MutationObserver(function () {
+    clearTimeout(window.sfBuildSubmitVisibilityTimer);
+    window.sfBuildSubmitVisibilityTimer = setTimeout(keepBuildSubmitVisible, 80);
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "style"]
+  });
+
+  keepBuildSubmitVisible();
+})();
+</script>
+
+
+
+
+<script id="sf-native-game-shell-state-v1">
+(function () {
+  if (window.sfNativeGameShellStateInstalled) return;
+  window.sfNativeGameShellStateInstalled = true;
+  window.sfNativeGameShellOwnsNavigation = true;
+  window.sfCentralCompletionNextInstalled = true;
+
+  function normalizeLevelId(value) {
+    var match = String(value || "").toUpperCase().match(/\b([A-Z]{3})[-_ ]?(\d{1,3})\b/);
+    if (!match) return "";
+    return match[1] + "-" + String(Number(match[2])).padStart(3, "0");
+  }
+
+  function visible(el) {
+    if (!el || !el.getBoundingClientRect) return false;
+    var r = el.getBoundingClientRect();
+    return r.width > 8 && r.height > 8 && r.bottom > 0 && r.right > 0;
+  }
+
+  function selectedLevelFromSelect(select) {
+    if (!select) return "";
+    var option = select.options && select.options[select.selectedIndex];
+
+    return normalizeLevelId(
+      (option && (option.textContent || option.value)) ||
+      select.value ||
+      ""
+    );
+  }
+
+  function currentGameLevelId() {
+    var candidates = [];
+
+    document.querySelectorAll("select").forEach(function(select) {
+      if (!visible(select)) return;
+
+      var id = selectedLevelFromSelect(select);
+      if (!id) return;
+
+      var r = select.getBoundingClientRect();
+      var option = select.options && select.options[select.selectedIndex];
+      var selectedText = option ? option.textContent || "" : "";
+
+      var context = [
+        select.id,
+        select.name,
+        select.getAttribute("aria-label"),
+        selectedText,
+        select.parentElement && select.parentElement.textContent
+      ].join(" ");
+
+      var score = 0;
+
+      // Prefer the in-game selector, not the exterior wrapper.
+      if (r.top > 185) score += 100;
+      if (r.top <= 185) score -= 100;
+
+      if (/\[BUILD\]|\[QUIZ\]|\[PATCH\]/i.test(selectedText)) score += 30;
+      if (/board|level|LIV/i.test(context)) score += 15;
+      if (/environment|sound reinforcement|recording studio|post production/i.test(context)) score -= 20;
+
+      candidates.push({
+        id: id,
+        score: score,
+        top: r.top,
+        selectedText: selectedText
+      });
+    });
+
+    candidates.sort(function(a, b) {
+      return b.score - a.score;
+    });
+
+    if (candidates[0]) {
+      return candidates[0].id;
+    }
+
+    // Fallback: visible in-game title/brief, never the exterior top wrapper.
+    var titleCandidates = [];
+
+    document.querySelectorAll("h1, h2, h3, .level-title, .current-level, aside, main, section").forEach(function(el) {
+      if (!visible(el)) return;
+
+      var r = el.getBoundingClientRect();
+      if (r.top < 185) return;
+
+      var id = normalizeLevelId(el.textContent || "");
+      if (id) {
+        titleCandidates.push({ id: id, top: r.top });
+      }
+    });
+
+    titleCandidates.sort(function(a, b) {
+      return a.top - b.top;
+    });
+
+    return titleCandidates[0] ? titleCandidates[0].id : "";
+  }
+
+  function nextSequentialLevelId(levelId) {
+    var match = String(levelId || "").toUpperCase().match(/^([A-Z]{3})-(\d{3})$/);
+    if (!match) return "";
+    return match[1] + "-" + String(Number(match[2]) + 1).padStart(3, "0");
+  }
+
+  function findInGameLevelOption(targetId) {
+    var candidates = [];
+
+    document.querySelectorAll("select").forEach(function(select) {
+      if (!visible(select)) return;
+
+      var option = Array.from(select.options || []).find(function(opt) {
+        return normalizeLevelId(opt.value) === targetId ||
+               normalizeLevelId(opt.textContent) === targetId;
+      });
+
+      if (!option) return;
+
+      var r = select.getBoundingClientRect();
+      var score = 0;
+
+      // Prefer the in-game selector below the wrapper.
+      if (r.top > 185) score += 100;
+      if (r.top <= 185) score -= 100;
+
+      if (/\[BUILD\]|\[QUIZ\]|\[PATCH\]/i.test(option.textContent || "")) score += 30;
+
+      candidates.push({
+        select: select,
+        option: option,
+        score: score,
+        top: r.top
+      });
+    });
+
+    candidates.sort(function(a, b) {
+      return b.score - a.score;
+    });
+
+    return candidates[0] || null;
+  }
+
+  function removeCompletionModal(button) {
+    var modal = button && button.closest && button.closest(
+      ".sf-native-completion, .sf-native-completion-popup, .native-completion, .completion-popup, .level-complete, .modal, .popup, [class*='completion'], [class*='complete']"
+    );
+
+    if (modal && /LEVEL COMPLETE/i.test(modal.textContent || "")) {
+      modal.remove();
+    }
+  }
+
+  function findInGameLoadButton() {
+    var buttons = Array.from(document.querySelectorAll("button, [role='button'], input[type='button'], input[type='submit']"));
+
+    return buttons.find(function(btn) {
+      if (!visible(btn)) return false;
+
+      var r = btn.getBoundingClientRect();
+      if (r.top <= 185) return false;
+
+      var text = (btn.textContent || btn.value || btn.getAttribute("aria-label") || "").trim();
+      return /^load board$/i.test(text) || /^load$/i.test(text);
+    }) || null;
+  }
+
+  function loadGameLevel(targetId) {
+    var target = normalizeLevelId(targetId);
+    if (!target) return false;
+
+    var found = findInGameLevelOption(target);
+
+    if (found && found.select && found.option) {
+      found.select.value = found.option.value;
+      found.option.selected = true;
+
+      // The in-game selector owns game state. Trigger its normal load behavior.
+      found.select.dispatchEvent(new Event("input", { bubbles: true }));
+      found.select.dispatchEvent(new Event("change", { bubbles: true }));
+
+      console.log("[Signal Flow] Native game shell changed in-game selector:", target);
+      var selectedLoadButton = findInGameLoadButton();
+      if (selectedLoadButton) {
+        selectedLoadButton.click();
+        console.log("[Signal Flow] Native game shell clicked in-game Load Board:", target);
+      }
+      return true;
+    }
+
+    try {
+      if (typeof navigateTo === "function") {
+        navigateTo("/level/" + encodeURIComponent(target));
+        console.log("[Signal Flow] Native game shell routed level:", target);
+        return true;
+      }
+    } catch (err) {
+      console.warn("[Signal Flow] Native game shell route failed:", err);
+    }
+
+    try {
+      if (typeof window.loadLevel === "function") {
+        window.loadLevel(target);
+        console.log("[Signal Flow] Native game shell loaded level:", target);
+        return true;
+      }
+    } catch (err) {
+      console.warn("[Signal Flow] Native game shell loadLevel failed:", err);
+    }
+
+    try {
+      var loadButton = findInGameLoadButton();
+
+      if (loadButton) {
+        loadButton.click();
+        console.log("[Signal Flow] Native game shell clicked in-game Load Board:", target);
+        return true;
+      }
+    } catch (err) {
+      console.warn("[Signal Flow] Native game shell Load Board click failed:", err);
+    }
+
+    console.warn("[Signal Flow] Native game shell could not load:", target);
+    return false;
+  }
+
+  function isCompletionNextButton(button) {
+    if (!button) return false;
+
+    var text = (button.textContent || button.value || button.getAttribute("aria-label") || "").trim();
+    if (!/\b(next|next level|continue|continue to next)\b/i.test(text)) return false;
+
+    var container = button.closest && button.closest(
+      ".sf-native-completion, .sf-native-completion-popup, .native-completion, .completion-popup, .level-complete, .modal, .popup, [class*='completion'], [class*='complete']"
+    );
+
+    if (!container) return false;
+
+    return /LEVEL COMPLETE|complete|completed/i.test(container.textContent || "");
+  }
+
+  document.addEventListener("click", function(event) {
+    var button = event.target && event.target.closest
+      ? event.target.closest("button, [role='button'], input[type='button'], input[type='submit'], a")
+      : null;
+
+    if (!isCompletionNextButton(button)) return;
+
+    var currentId = currentGameLevelId();
+    var nextId = nextSequentialLevelId(currentId);
+
+    if (!currentId || !nextId) {
+      console.warn("[Signal Flow] Native game shell could not determine current/next:", currentId, nextId);
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    console.log("[Signal Flow] Native game shell completion Next:", currentId, "->", nextId);
+
+    removeCompletionModal(button);
+    loadGameLevel(nextId);
+  }, true);
+
+  function devShellEnabled() {
+    return (
+      /[?&#]devShell=1\b/i.test(location.href) ||
+      /[?&#]dev=1\b/i.test(location.href) ||
+      localStorage.getItem("sfDevShell") === "1"
+    );
+  }
+
+  function markDevShell() {
+    if (devShellEnabled()) {
+      document.documentElement.classList.remove("sf-hide-exterior-dev-shell");
+      return;
+    }
+
+    document.documentElement.classList.add("sf-hide-exterior-dev-shell");
+
+    document.querySelectorAll("header, nav, .topbar, .toolbar, .nav, .navbar, .wrapper-controls, .environment-controls, .board-controls, .level-controls, div").forEach(function(el) {
+      if (!visible(el)) return;
+
+      var r = el.getBoundingClientRect();
+      if (r.top > 185) return;
+
+      var text = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+      var looksLikeExteriorWrapper =
+        /SIGNAL FLOW/i.test(text) &&
+        /ENVIRONMENT/i.test(text) &&
+        /BOARD/i.test(text) &&
+        /GO TO BOARD/i.test(text);
+
+      if (!looksLikeExteriorWrapper) return;
+
+      el.dataset.sfExteriorDevShell = "1";
+    });
+  }
+
+  function installDevShellStyle() {
+    if (document.getElementById("sf-native-game-shell-dev-style-v1")) return;
+
+    var style = document.createElement("style");
+    style.id = "sf-native-game-shell-dev-style-v1";
+    style.textContent = [
+      "html.sf-hide-exterior-dev-shell [data-sf-exterior-dev-shell='1'] {",
+      "  display: none !important;",
+      "}",
+      "html.sf-hide-exterior-dev-shell body {",
+      "  padding-top: 0 !important;",
+      "}",
+      "html.sf-hide-exterior-dev-shell .sf-dev-only {",
+      "  display: none !important;",
+      "}"
+    ].join("\\n");
+
+    document.head.appendChild(style);
+  }
+
+  function realNativeScrollExists() {
+    var hosts = Array.from(document.querySelectorAll(
+      [
+        ".patchbay-wrap.front-panel-view",
+        ".sf-live-native-scroll-host-liv010",
+        ".sf-live-native-scroll-host",
+        ".sf-live-native-viewport"
+      ].join(",")
+    ));
+
+    return hosts.some(function(el) {
+      if (!el) return false;
+
+      var y = (el.scrollHeight || 0) - (el.clientHeight || 0);
+      var x = (el.scrollWidth || 0) - (el.clientWidth || 0);
+      var cs = getComputedStyle(el);
+
+      return (
+        y > 40 ||
+        x > 40 ||
+        (/auto|scroll/i.test(cs.overflowY) && y > 40) ||
+        (/auto|scroll/i.test(cs.overflowX) && x > 40)
+      );
+    });
+  }
+
+  function applyScrollCueFilter() {
+    var ok = realNativeScrollExists();
+
+    document.querySelectorAll([
+      ".sf-scroll-arrow",
+      ".sf-scroll-affordance",
+      ".scroll-cue",
+      ".scroll-arrow",
+      "[class*='scroll-cue']",
+      "[class*='scroll-arrow']",
+      "[class*='ScrollCue']",
+      "[class*='ScrollArrow']"
+    ].join(",")).forEach(function(el) {
+      if (el.classList && el.classList.contains("sf-scroll-cue")) return;
+      if (!ok) {
+        el.style.setProperty("display", "none", "important");
+        el.style.setProperty("visibility", "hidden", "important");
+        el.style.setProperty("opacity", "0", "important");
+        el.style.setProperty("pointer-events", "none", "important");
+      } else {
+        el.style.removeProperty("display");
+        el.style.removeProperty("visibility");
+        el.style.removeProperty("opacity");
+        el.style.removeProperty("pointer-events");
+      }
+    });
+  }
+
+  window.sfShowDevShell = function () {
+    localStorage.setItem("sfDevShell", "1");
+    location.reload();
+  };
+
+  window.sfHideDevShell = function () {
+    localStorage.removeItem("sfDevShell");
+    location.reload();
+  };
+
+  window.sfNativeGameShellCurrentLevel = currentGameLevelId;
+  window.sfNativeGameShellLoadLevel = loadGameLevel;
+  window.sfApplyScrollCueFilter = applyScrollCueFilter;
+
+  installDevShellStyle();
+  markDevShell();
+  applyScrollCueFilter();
+
+  window.addEventListener("load", function() {
+    markDevShell();
+    applyScrollCueFilter();
+  });
+
+  window.addEventListener("resize", function() {
+    markDevShell();
+    applyScrollCueFilter();
+  });
+
+  setInterval(function() {
+    markDevShell();
+    applyScrollCueFilter();
+  }, 900);
+
+  new MutationObserver(function () {
+    clearTimeout(window.sfNativeGameShellTimer);
+    window.sfNativeGameShellTimer = setTimeout(function() {
+      markDevShell();
+      applyScrollCueFilter();
+    }, 80);
+  }).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "style"]
+  });
+})();
+</script>
+
+  <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
+
+<script id="sf-semantic-todo-highlight-script-v1">
+(function(){
+  "use strict";
+
+  const VERSION = "v1";
+  const OLD_SELECTORS = [
+    "#sf-todo-list-glow-overlay-v3",
+    ".sf-todo-list-glow-overlay-v3",
+    ".sf-brief-todo-attention",
+    ".sf-todo-item-attention-v1",
+    ".sf-todo-item-complete-v1"
+  ].join(",");
+
+  function cleanup(doc = document) {
+    try {
+      doc.querySelectorAll("#sf-todo-list-glow-overlay-v3, .sf-todo-list-glow-overlay-v3").forEach(el => el.remove());
+      doc.querySelectorAll(OLD_SELECTORS).forEach(el => {
+        el.classList.remove("sf-brief-todo-attention", "sf-todo-item-attention-v1", "sf-todo-item-complete-v1");
+      });
+      doc.querySelectorAll("main.game .level-shell .panel #paths > .path-card").forEach(row => {
+        const badge = row.querySelector(".todo-badge");
+        if (badge && /^(complete|done)$/i.test(badge.textContent.trim())) {
+          row.classList.add("done");
+        }
+      });
+    } catch (_) {}
+  }
+
+  function cleanupFrames() {
+    cleanup(document);
+    document.querySelectorAll("iframe").forEach(frame => {
+      try {
+        if (frame.contentDocument) cleanup(frame.contentDocument);
+      } catch (_) {}
+    });
+  }
+
+  let timer = null;
+  function schedule(delay = 80) {
+    clearTimeout(timer);
+    timer = setTimeout(cleanupFrames, delay);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => schedule(40));
+  } else {
+    schedule(40);
+  }
+
+  window.addEventListener("load", () => {
+    schedule(80);
+    setTimeout(cleanupFrames, 300);
+  });
+  window.addEventListener("hashchange", () => schedule(120));
+  window.addEventListener("popstate", () => schedule(120));
+  document.addEventListener("click", () => schedule(140), true);
+  document.addEventListener("change", () => schedule(140), true);
+  setInterval(cleanupFrames, 300);
+
+  new MutationObserver(() => schedule(90)).observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "src"]
+  });
+
+  window.SignalFlowSemanticTodoHighlight = { VERSION, cleanup: cleanupFrames };
+  console.log("[Signal Flow] Semantic to-do checklist highlight installed", VERSION);
+})();
+</script>
+<script src="../src/sf-liv018-scroll-shell.js?v=6r376"></script>
+<script src="../src/sf-liv019-scroll-shell.js?v=6r389"></script>
+<script src="../src/sf-liv019-overlay-lock.js?v=6r407"></script>
+<script src="../src/sf-liv019-foh-label-lock.js?v=6r399"></script>
+<script src="../src/sf-liv019-foh-label-final-lock.js?v=6r401"></script>
+<script src="../src/sf-liv019-hitbox-final-lock.js?v=6r408"></script>
+<script src="../src/sf-liv019-stagebox-8-lock.js?v=6r404"></script>
+<script src="../src/sf-liv019-clean-finalizer-v6r421.js?v=6r421q2"></script>
+<script src="../src/sf-live-cable-mode-kit.js?v=6r426"></script>
+</body>
+</html>

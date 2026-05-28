@@ -3,7 +3,7 @@
   if(window.sfBuildRoomRendererV6r227Installed) return;
   window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r279';
+  const VERSION = '6r280';
   const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
   const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
   const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;

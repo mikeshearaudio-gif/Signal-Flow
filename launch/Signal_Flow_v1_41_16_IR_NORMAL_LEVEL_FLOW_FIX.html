@@ -8257,64 +8257,6 @@ main.level-liv-026 .patchbay-wrap.front-panel-view .sf-live-native-layer * {
 
 
 \n
-<style id="sf-universal-scroll-cues-v1">
-/* Universal scroll affordance: idle-only static direction arrows for hidden scroll content. */
-.sf-scroll-cue {
-  position: fixed;
-  z-index: 2147483100;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 45% 38%, rgba(255, 236, 162, .96), rgba(255, 215, 106, .76) 50%, rgba(126, 82, 12, .66) 100%);
-  box-shadow:
-    0 0 16px rgba(255, 215, 106, .46),
-    0 8px 16px rgba(0, 0, 0, .38),
-    inset 0 0 8px rgba(255, 255, 255, .35);
-  opacity: .88;
-  transition: opacity .14s ease;
-  transform: none;
-}
-
-.sf-scroll-cue::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  transform: translate(-50%, -50%);
-}
-
-.sf-scroll-cue-down::before {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 14px solid #171006;
-  margin-top: 2px;
-}
-
-.sf-scroll-cue-up::before {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 14px solid #171006;
-  margin-top: -2px;
-}
-
-.sf-scroll-cue-right::before {
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 14px solid #171006;
-  margin-left: 2px;
-}
-
-.sf-scroll-cue-left::before {
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 14px solid #171006;
-  margin-left: -2px;
-}
-</style>
 \n
 \n
 <style id="sf-live-native-liv010-scroll-layout-v3">
@@ -23940,11 +23882,36 @@ function bindLevelControls(){
     const wrap = q('patchbayWrap');
     if(!wrap) return;
     const canScrollX = wrap.scrollWidth > wrap.clientWidth + 2;
+    const liv018ScrollShell = wrap.matches && wrap.matches('.patchbay-wrap[data-sf-liv018-scroll-shell]');
+    const liv019ScrollShell = wrap.matches && wrap.matches('.patchbay-wrap[data-sf-liv019-scroll-shell]');
+    const mostlyVertical = Math.abs(e.deltaY || 0) > Math.abs(e.deltaX || 0) * 1.5 && !e.shiftKey;
+    const mostlyHorizontal = Math.abs(e.deltaX || 0) > Math.abs(e.deltaY || 0) * 1.5 || e.shiftKey;
+    const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? wrap.clientHeight : 1;
+    if(liv018ScrollShell) return;
+    if(liv019ScrollShell){
+      if(mostlyVertical){
+        const maxY = Math.max(0, wrap.scrollHeight - wrap.clientHeight);
+        if(maxY > 2){
+          wrap.scrollTop = Math.max(0, Math.min(maxY, wrap.scrollTop + ((e.deltaY || 0) * unit)));
+          drawAll();
+          e.preventDefault();
+        }
+        return;
+      }
+      if(canScrollX && mostlyHorizontal){
+        const maxX = Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+        const move = e.shiftKey && Math.abs(e.deltaX || 0) < 1 ? e.deltaY : e.deltaX;
+        wrap.scrollLeft = Math.max(0, Math.min(maxX, wrap.scrollLeft + ((move || 0) * unit)));
+        drawAll();
+        e.preventDefault();
+      }
+      return;
+    }
     if(canScrollX && (e.shiftKey || Math.abs(e.deltaY) > Math.abs(e.deltaX))){
       wrap.scrollLeft += e.shiftKey ? e.deltaY : (e.deltaY * 0.72);
       drawAll();
     }
-  }, {passive:true});
+  }, {passive:false});
 }
 
 function toggleHints(){
@@ -29043,318 +29010,6 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 <link rel="stylesheet" href="../patch/sf-live-sound-svg-skin.css" />
 <script src="../patch/sf-live-sound-svg-skin.js"></script>
 \n
-<script id="sf-universal-scroll-cues-script-v1">
-(function () {
-  if (window.sfUniversalScrollCuesV1Installed) return;
-  window.sfUniversalScrollCuesV1Installed = true;
-
-  var EDGE_THRESHOLD = 3;
-  var IDLE_DELAY = 320;
-  var docStates = new WeakMap();
-
-  function ensureStyle(doc) {
-    if (!doc) return;
-    var src = document.getElementById("sf-universal-scroll-cues-v1");
-    var style = doc.getElementById("sf-universal-scroll-cues-v1");
-    if (!style) {
-      style = doc.createElement("style");
-      style.id = "sf-universal-scroll-cues-v1";
-      doc.head.appendChild(style);
-    }
-    style.id = "sf-universal-scroll-cues-v1";
-    if (src && style.textContent !== src.textContent) style.textContent = src.textContent;
-  }
-
-  function rectFor(el, doc, win) {
-    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
-      return {
-        left: 0,
-        top: 0,
-        right: win.innerWidth,
-        bottom: win.innerHeight,
-        width: win.innerWidth,
-        height: win.innerHeight
-      };
-    }
-    return el.getBoundingClientRect();
-  }
-
-  function maxScrollY(el, doc, win) {
-    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
-      return Math.max(0, doc.scrollingElement.scrollHeight - win.innerHeight);
-    }
-    return Math.max(0, el.scrollHeight - el.clientHeight);
-  }
-
-  function maxScrollX(el, doc, win) {
-    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
-      return Math.max(0, doc.scrollingElement.scrollWidth - win.innerWidth);
-    }
-    return Math.max(0, el.scrollWidth - el.clientWidth);
-  }
-
-  function scrollTopOf(el, doc) {
-    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
-      return doc.scrollingElement.scrollTop;
-    }
-    return el.scrollTop;
-  }
-
-  function scrollLeftOf(el, doc) {
-    if (el === doc.scrollingElement || el === doc.documentElement || el === doc.body) {
-      return doc.scrollingElement.scrollLeft;
-    }
-    return el.scrollLeft;
-  }
-
-  function visibleRect(r) {
-    return r.width > 160 && r.height > 120 && r.bottom > 0 && r.right > 0;
-  }
-
-  function stateFor(doc) {
-    var state = docStates.get(doc);
-    if (!state) {
-      state = { active: false, timer: null, installed: false, pointerDown: false };
-      docStates.set(doc, state);
-    }
-    return state;
-  }
-
-  function clearCues(doc) {
-    if (!doc || !doc.body) return;
-    doc.querySelectorAll(".sf-scroll-cue").forEach(function(el) {
-      el.remove();
-    });
-  }
-
-  function markScrolling(doc, win) {
-    if (!doc || !win) return;
-
-    var state = stateFor(doc);
-    state.active = true;
-    clearCues(doc);
-
-    clearTimeout(state.timer);
-    state.timer = setTimeout(function() {
-      state.active = false;
-      applyIn(doc, win);
-    }, IDLE_DELAY);
-  }
-
-  function installActivityListeners(doc, win) {
-    if (!doc || !win) return;
-
-    var state = stateFor(doc);
-    if (state.installed) return;
-    state.installed = true;
-
-    doc.addEventListener("scroll", function() {
-      markScrolling(doc, win);
-    }, true);
-
-    doc.addEventListener("wheel", function() {
-      markScrolling(doc, win);
-    }, { capture: true, passive: true });
-
-    doc.addEventListener("touchstart", function() {
-      state.pointerDown = true;
-      markScrolling(doc, win);
-    }, { capture: true, passive: true });
-
-    doc.addEventListener("touchmove", function() {
-      markScrolling(doc, win);
-    }, { capture: true, passive: true });
-
-    doc.addEventListener("touchend", function() {
-      state.pointerDown = false;
-      markScrolling(doc, win);
-    }, { capture: true, passive: true });
-
-    doc.addEventListener("pointerdown", function() {
-      state.pointerDown = true;
-    }, true);
-
-    doc.addEventListener("pointermove", function() {
-      if (state.pointerDown) markScrolling(doc, win);
-    }, true);
-
-    doc.addEventListener("pointerup", function() {
-      if (state.pointerDown) markScrolling(doc, win);
-      state.pointerDown = false;
-    }, true);
-
-    doc.addEventListener("pointercancel", function() {
-      state.pointerDown = false;
-      markScrolling(doc, win);
-    }, true);
-
-    doc.addEventListener("keydown", function(event) {
-      if (!event || !/^(ArrowUp|ArrowDown|ArrowLeft|ArrowRight|PageUp|PageDown|Home|End|Space| )$/.test(event.key || "")) return;
-      markScrolling(doc, win);
-    }, true);
-  }
-
-  function makeCue(doc, dir, x, y) {
-    var cue = doc.createElement("div");
-    cue.className = "sf-scroll-cue sf-scroll-cue-" + dir;
-    cue.style.left = Math.round(x - 19) + "px";
-    cue.style.top = Math.round(y - 19) + "px";
-    cue.setAttribute("aria-hidden", "true");
-    doc.body.appendChild(cue);
-  }
-
-  function hasHiddenScrollRange(el, doc, win) {
-    return maxScrollY(el, doc, win) > EDGE_THRESHOLD || maxScrollX(el, doc, win) > EDGE_THRESHOLD;
-  }
-
-  function findScrollableCandidates(doc, win) {
-    var set = new Set();
-    var explicit = [
-      ".patchbay-wrap.front-panel-view",
-      ".patchbay-wrap",
-      ".sf-live-native-scroll-host-liv010",
-      ".sf-live-native-scroll-host",
-      ".sf-live-native-viewport",
-      ".training-stage-shell",
-      ".level-shell",
-      "main.game"
-    ].join(",");
-
-    doc.querySelectorAll(explicit).forEach(function(el) {
-      if (hasHiddenScrollRange(el, doc, win)) set.add(el);
-    });
-
-    if (!set.size && doc.scrollingElement && hasHiddenScrollRange(doc.scrollingElement, doc, win)) {
-      set.add(doc.scrollingElement);
-    }
-
-    return Array.from(set);
-  }
-
-  function applyIn(doc, win) {
-    if (!doc || !win || !doc.body) return 0;
-    ensureStyle(doc);
-    installActivityListeners(doc, win);
-
-    clearCues(doc);
-    if (stateFor(doc).active) return 0;
-    if (doc.querySelector('[data-training-panel="quiz"]')) return 0;
-
-    var count = 0;
-    var candidates = findScrollableCandidates(doc, win);
-
-    candidates.forEach(function(el) {
-      if (count > 16) return;
-
-      var r = rectFor(el, doc, win);
-      if (!visibleRect(r)) return;
-      if (el.closest && el.closest('[data-training-panel="quiz"], .sfv182-quiz-board, .sfv189-quiz-direct')) return;
-
-      var maxY = maxScrollY(el, doc, win);
-      var maxX = maxScrollX(el, doc, win);
-
-      // Do not show cues unless this exact element has a real hidden scroll range.
-      if (maxY <= EDGE_THRESHOLD && maxX <= EDGE_THRESHOLD) return;
-
-      // Native board layers are often large absolute-position canvases. Only the
-      // actual scroll host should get arrows.
-      if (
-        el.classList &&
-        el.classList.contains("sf-live-native-layer") &&
-        !el.classList.contains("sf-live-native-scroll-host-liv010")
-      ) {
-        return;
-      }
-
-      var top = scrollTopOf(el, doc);
-      var left = scrollLeftOf(el, doc);
-      var canScrollUp = maxY > EDGE_THRESHOLD && top > EDGE_THRESHOLD;
-      var canScrollDown = maxY > EDGE_THRESHOLD && top < maxY - EDGE_THRESHOLD;
-      var canScrollLeft = maxX > EDGE_THRESHOLD && left > EDGE_THRESHOLD;
-      var canScrollRight = maxX > EDGE_THRESHOLD && left < maxX - EDGE_THRESHOLD;
-
-      if (!canScrollUp && !canScrollDown && !canScrollLeft && !canScrollRight) return;
-
-      var centerX = Math.max(30, Math.min(win.innerWidth - 30, r.left + r.width / 2));
-      var centerY = Math.max(30, Math.min(win.innerHeight - 30, r.top + r.height / 2));
-
-      if (canScrollUp) {
-        makeCue(doc, "up", centerX, Math.max(28, r.top + 28));
-        count += 1;
-      }
-
-      if (canScrollDown) {
-        makeCue(doc, "down", centerX, Math.min(win.innerHeight - 28, r.bottom - 28));
-        count += 1;
-      }
-
-      if (canScrollLeft) {
-        makeCue(doc, "left", Math.max(28, r.left + 28), centerY);
-        count += 1;
-      }
-
-      if (canScrollRight) {
-        makeCue(doc, "right", Math.min(win.innerWidth - 28, r.right - 28), centerY);
-        count += 1;
-      }
-    });
-
-    return count;
-  }
-
-  function frames() {
-    var out = [];
-    document.querySelectorAll("iframe").forEach(function(frame) {
-      try {
-        if (frame.contentDocument && frame.contentWindow) {
-          out.push([frame.contentDocument, frame.contentWindow]);
-        }
-      } catch (err) {}
-    });
-    return out;
-  }
-
-  function updateScrollCues() {
-    var count = applyIn(document, window);
-    frames().forEach(function(pair) {
-      count += applyIn(pair[0], pair[1]);
-    });
-    return count;
-  }
-
-  window.sfUpdateScrollCues = updateScrollCues;
-
-  function schedule(delay) {
-    setTimeout(updateScrollCues, delay);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () { schedule(120); });
-  window.addEventListener("load", function () {
-    schedule(120);
-    schedule(650);
-    schedule(1500);
-  });
-  window.addEventListener("resize", function () { schedule(100); });
-  window.addEventListener("orientationchange", function () { schedule(180); });
-  window.addEventListener("hashchange", function () { schedule(200); });
-  window.addEventListener("popstate", function () { schedule(200); });
-
-  const observer = new MutationObserver(function () {
-    clearTimeout(window.sfUniversalScrollCueTimer);
-    window.sfUniversalScrollCueTimer = setTimeout(updateScrollCues, 160);
-  });
-
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    characterData: true
-  });
-
-  schedule(250);
-  schedule(1000);
-})();
-</script>
 \n
 
 
@@ -29402,11 +29057,8 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
       el.style.setProperty("z-index", "9999", "important");
     });
 
-    var board = document.querySelector(".build-room, .build-a-room, .level-board, .game-board, main");
-    if (board) {
-      board.style.setProperty("padding-bottom", "90px", "important");
-      board.style.setProperty("overflow-y", "auto", "important");
-    }
+    // Do not alter Build-a-Room scroll ownership here. The consolidated
+    // Build-a-Room renderer owns layout and viewport behavior.
   }
 
   window.sfKeepBuildSubmitVisible = keepBuildSubmitVisible;
@@ -29753,60 +29405,6 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     document.head.appendChild(style);
   }
 
-  function realNativeScrollExists() {
-    var hosts = Array.from(document.querySelectorAll(
-      [
-        ".patchbay-wrap.front-panel-view",
-        ".sf-live-native-scroll-host-liv010",
-        ".sf-live-native-scroll-host",
-        ".sf-live-native-viewport"
-      ].join(",")
-    ));
-
-    return hosts.some(function(el) {
-      if (!el) return false;
-
-      var y = (el.scrollHeight || 0) - (el.clientHeight || 0);
-      var x = (el.scrollWidth || 0) - (el.clientWidth || 0);
-      var cs = getComputedStyle(el);
-
-      return (
-        y > 40 ||
-        x > 40 ||
-        (/auto|scroll/i.test(cs.overflowY) && y > 40) ||
-        (/auto|scroll/i.test(cs.overflowX) && x > 40)
-      );
-    });
-  }
-
-  function applyScrollCueFilter() {
-    var ok = realNativeScrollExists();
-
-    document.querySelectorAll([
-      ".sf-scroll-cue",
-      ".sf-scroll-arrow",
-      ".sf-scroll-affordance",
-      ".scroll-cue",
-      ".scroll-arrow",
-      "[class*='scroll-cue']",
-      "[class*='scroll-arrow']",
-      "[class*='ScrollCue']",
-      "[class*='ScrollArrow']"
-    ].join(",")).forEach(function(el) {
-      if (!ok) {
-        el.style.setProperty("display", "none", "important");
-        el.style.setProperty("visibility", "hidden", "important");
-        el.style.setProperty("opacity", "0", "important");
-        el.style.setProperty("pointer-events", "none", "important");
-      } else {
-        el.style.removeProperty("display");
-        el.style.removeProperty("visibility");
-        el.style.removeProperty("opacity");
-        el.style.removeProperty("pointer-events");
-      }
-    });
-  }
-
   window.sfShowDevShell = function () {
     localStorage.setItem("sfDevShell", "1");
     location.reload();
@@ -29819,32 +29417,26 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 
   window.sfNativeGameShellCurrentLevel = currentGameLevelId;
   window.sfNativeGameShellLoadLevel = loadGameLevel;
-  window.sfApplyScrollCueFilter = applyScrollCueFilter;
 
   installDevShellStyle();
   markDevShell();
-  applyScrollCueFilter();
 
   window.addEventListener("load", function() {
     markDevShell();
-    applyScrollCueFilter();
   });
 
   window.addEventListener("resize", function() {
     markDevShell();
-    applyScrollCueFilter();
   });
 
   setInterval(function() {
     markDevShell();
-    applyScrollCueFilter();
   }, 900);
 
   new MutationObserver(function () {
     clearTimeout(window.sfNativeGameShellTimer);
     window.sfNativeGameShellTimer = setTimeout(function() {
       markDevShell();
-      applyScrollCueFilter();
     }, 80);
   }).observe(document.documentElement, {
     childList: true,
@@ -29859,9 +29451,9 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   <script src="../patch/sf-diagnosis-svg-skin.js?v=6r261"></script>
   <script src="../patch/sf-economy-rules.js?v=6r214"></script>
 
-<!-- Signal Flow Build-a-Room consolidated renderer v6r279 -->
-<script src="../patch/sf-build-room-renderer.js?v=6r279"></script>
-<!-- /Signal Flow Build-a-Room consolidated renderer v6r279 -->
+<!-- Signal Flow Build-a-Room consolidated renderer v6r280 -->
+<script src="../patch/sf-build-room-renderer.js?v=6r280"></script>
+<!-- /Signal Flow Build-a-Room consolidated renderer v6r280 -->
   <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
   
 
@@ -29874,6 +29466,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 <script src="../src/sf-liv019-stagebox-8-lock.js?v=6r404"></script>
 <script src="../src/sf-liv019-clean-finalizer-v6r421.js?v=6r421q2"></script>
 <script src="../src/sf-live-cable-mode-kit.js?v=6r426"></script>
+<script src="../src/sf-scroll-affordance.js?v=6r292"></script>
 </body>
 </html>
 

@@ -29389,6 +29389,8 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 
   var EDGE_THRESHOLD = 3;
   var IDLE_DELAY = 320;
+  var RETRY_DELAY = 260;
+  var MAX_QUIET_RETRIES = 30;
   var docStates = new WeakMap();
 
   function ensureStyle(doc) {
@@ -29453,7 +29455,14 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   function stateFor(doc) {
     var state = docStates.get(doc);
     if (!state) {
-      state = { active: false, timer: null, installed: false, pointerDown: false };
+      state = {
+        mode: "idle",
+        idleTimer: null,
+        retryTimer: null,
+        retryCount: 0,
+        installed: false,
+        pointerDown: false
+      };
       docStates.set(doc, state);
     }
     return state;
@@ -29470,12 +29479,12 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     if (!doc || !win) return;
 
     var state = stateFor(doc);
-    state.active = true;
+    state.mode = "scrolling";
     clearCues(doc);
 
-    clearTimeout(state.timer);
-    state.timer = setTimeout(function() {
-      state.active = false;
+    clearTimeout(state.idleTimer);
+    state.idleTimer = setTimeout(function() {
+      state.mode = "idle";
       applyIn(doc, win);
     }, IDLE_DELAY);
   }
@@ -29546,51 +29555,144 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     return maxScrollY(el, doc, win) > EDGE_THRESHOLD || maxScrollX(el, doc, win) > EDGE_THRESHOLD;
   }
 
-  function findScrollableCandidates(doc, win) {
-    var set = new Set();
-    var explicit = [
-      ".patchbay-wrap.front-panel-view",
-      ".patchbay-wrap",
+  function viewportContractSelector() {
+    return [
       ".sf-live-native-scroll-host-liv010",
       ".sf-live-native-scroll-host",
       ".sf-live-native-viewport",
+      ".level-shell.sf-br-shell-owned",
+      ".training-stage-shell.sf-br-shell-owned",
+      ".sf-build-room-v6r227[data-sf-br-shell-root='true']",
+      "[data-training-panel='diagnose']",
+      ".sfdiag-board-shell",
+      ".diagnose-panel",
+      ".sfv175-diagnose-board",
+      ".sfv174-diagnose-clinic",
+      ".training-level-panel",
       ".training-stage-shell",
       ".level-shell",
-      "main.game"
+      ".patchbay-wrap.front-panel-view",
+      ".patchbay-wrap",
+      ".patchbay-wrap.env-live",
+      ".patchbay-wrap.env-studio",
+      ".patchbay-wrap.env-broadcast",
+      ".patchbay-wrap.env-post",
+      ".patchbay-wrap.env-game"
     ].join(",");
-
-    doc.querySelectorAll(explicit).forEach(function(el) {
-      if (hasHiddenScrollRange(el, doc, win)) set.add(el);
-    });
-
-    if (!set.size && doc.scrollingElement && hasHiddenScrollRange(doc.scrollingElement, doc, win)) {
-      set.add(doc.scrollingElement);
-    }
-
-    return Array.from(set);
   }
 
-  function applyIn(doc, win) {
+  function isStableViewportContract(el) {
+    if (!el || !el.getBoundingClientRect) return false;
+    var r = el.getBoundingClientRect();
+    var style = getComputedStyle(el);
+    return (
+      visibleRect(r) &&
+      style.display !== "none" &&
+      style.visibility !== "hidden" &&
+      r.width > 160 &&
+      r.height > 120
+    );
+  }
+
+  function findViewportContracts(doc) {
+    var seen = new Set();
+    var out = [];
+
+    doc.querySelectorAll(viewportContractSelector()).forEach(function(el) {
+      if (seen.has(el) || !isStableViewportContract(el)) return;
+      seen.add(el);
+      out.push(el);
+    });
+
+    return out;
+  }
+
+  function isSuppressedPanel(el) {
+    return !!(el && el.closest && el.closest('[data-training-panel="quiz"], .sfv182-quiz-board, .sfv189-quiz-direct'));
+  }
+
+  function scrollTargetForContract(el, doc, win) {
+    if (!el) return null;
+    if (hasHiddenScrollRange(el, doc, win)) return el;
+
+    if (el.classList && el.classList.contains("sf-build-room-v6r227")) {
+      var shell = el.closest(".level-shell.sf-br-shell-owned, .training-stage-shell.sf-br-shell-owned");
+      if (shell && hasHiddenScrollRange(shell, doc, win)) return shell;
+      if (el.parentElement && hasHiddenScrollRange(el.parentElement, doc, win)) return el.parentElement;
+    }
+
+    var parentScroll = el.closest && el.closest(".level-shell.sf-br-shell-owned, .training-stage-shell.sf-br-shell-owned, .level-shell, .training-stage-shell, .patchbay-wrap, main.game");
+    if (parentScroll && hasHiddenScrollRange(parentScroll, doc, win)) return parentScroll;
+
+    var childScroll = el.querySelector && Array.from(el.querySelectorAll(".sf-live-native-scroll-host-liv010, .sf-live-native-scroll-host, .sf-live-native-viewport, .patchbay-wrap, .panel-scroll")).find(function(child) {
+      return isStableViewportContract(child) && hasHiddenScrollRange(child, doc, win);
+    });
+    if (childScroll) return childScroll;
+
+    if (
+      doc.body &&
+      doc.body.classList &&
+      doc.body.classList.contains("sf-build-room-v6r227-active") &&
+      doc.scrollingElement &&
+      hasHiddenScrollRange(doc.scrollingElement, doc, win)
+    ) {
+      return doc.scrollingElement;
+    }
+
+    return el;
+  }
+
+  function resetQuietRetry(doc) {
+    var state = stateFor(doc);
+    clearTimeout(state.retryTimer);
+    state.retryTimer = null;
+    state.retryCount = 0;
+  }
+
+  function scheduleQuietRetry(doc, win) {
+    var state = stateFor(doc);
+    if (state.retryCount >= MAX_QUIET_RETRIES) return;
+
+    clearTimeout(state.retryTimer);
+    state.retryCount += 1;
+    state.retryTimer = setTimeout(function() {
+      applyIn(doc, win);
+    }, RETRY_DELAY);
+  }
+
+  function applyIn(doc, win, resetRetry) {
     if (!doc || !win || !doc.body) return 0;
     ensureStyle(doc);
     installActivityListeners(doc, win);
+    if (resetRetry) resetQuietRetry(doc);
 
     clearCues(doc);
-    if (stateFor(doc).active) return 0;
-    if (doc.querySelector('[data-training-panel="quiz"]')) return 0;
+    if (stateFor(doc).mode === "scrolling") return 0;
 
     var count = 0;
-    var candidates = findScrollableCandidates(doc, win);
+    var candidates = findViewportContracts(doc);
+    if (!candidates.length) {
+      scheduleQuietRetry(doc, win);
+      return 0;
+    }
 
+    resetQuietRetry(doc);
+
+    var usedScrollTargets = new Set();
     candidates.forEach(function(el) {
       if (count > 16) return;
+      if (isSuppressedPanel(el)) return;
 
-      var r = rectFor(el, doc, win);
+      var scrollEl = scrollTargetForContract(el, doc, win);
+      if (!scrollEl || isSuppressedPanel(scrollEl)) return;
+      if (usedScrollTargets.has(scrollEl)) return;
+      usedScrollTargets.add(scrollEl);
+
+      var r = rectFor(scrollEl, doc, win);
       if (!visibleRect(r)) return;
-      if (el.closest && el.closest('[data-training-panel="quiz"], .sfv182-quiz-board, .sfv189-quiz-direct')) return;
 
-      var maxY = maxScrollY(el, doc, win);
-      var maxX = maxScrollX(el, doc, win);
+      var maxY = maxScrollY(scrollEl, doc, win);
+      var maxX = maxScrollX(scrollEl, doc, win);
 
       // Do not show cues unless this exact element has a real hidden scroll range.
       if (maxY <= EDGE_THRESHOLD && maxX <= EDGE_THRESHOLD) return;
@@ -29598,15 +29700,15 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
       // Native board layers are often large absolute-position canvases. Only the
       // actual scroll host should get arrows.
       if (
-        el.classList &&
-        el.classList.contains("sf-live-native-layer") &&
-        !el.classList.contains("sf-live-native-scroll-host-liv010")
+        scrollEl.classList &&
+        scrollEl.classList.contains("sf-live-native-layer") &&
+        !scrollEl.classList.contains("sf-live-native-scroll-host-liv010")
       ) {
         return;
       }
 
-      var top = scrollTopOf(el, doc);
-      var left = scrollLeftOf(el, doc);
+      var top = scrollTopOf(scrollEl, doc);
+      var left = scrollLeftOf(scrollEl, doc);
       var canScrollUp = maxY > EDGE_THRESHOLD && top > EDGE_THRESHOLD;
       var canScrollDown = maxY > EDGE_THRESHOLD && top < maxY - EDGE_THRESHOLD;
       var canScrollLeft = maxX > EDGE_THRESHOLD && left > EDGE_THRESHOLD;
@@ -29653,10 +29755,10 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     return out;
   }
 
-  function updateScrollCues() {
-    var count = applyIn(document, window);
+  function updateScrollCues(resetRetry) {
+    var count = applyIn(document, window, !!resetRetry);
     frames().forEach(function(pair) {
-      count += applyIn(pair[0], pair[1]);
+      count += applyIn(pair[0], pair[1], !!resetRetry);
     });
     return count;
   }
@@ -29664,7 +29766,27 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   window.sfUpdateScrollCues = updateScrollCues;
 
   function schedule(delay) {
-    setTimeout(updateScrollCues, delay);
+    setTimeout(function() { updateScrollCues(true); }, delay);
+  }
+
+  function isCueNode(node) {
+    return !!(
+      node &&
+      node.nodeType === 1 &&
+      (
+        (node.classList && node.classList.contains("sf-scroll-cue")) ||
+        node.id === "sf-universal-scroll-cues-v1"
+      )
+    );
+  }
+
+  function isCueOnlyMutation(mutation) {
+    if (!mutation) return false;
+    if (isCueNode(mutation.target)) return true;
+    var added = Array.from(mutation.addedNodes || []);
+    var removed = Array.from(mutation.removedNodes || []);
+    var touched = added.concat(removed);
+    return touched.length > 0 && touched.every(isCueNode);
   }
 
   document.addEventListener("DOMContentLoaded", function () { schedule(120); });
@@ -29678,9 +29800,10 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   window.addEventListener("hashchange", function () { schedule(200); });
   window.addEventListener("popstate", function () { schedule(200); });
 
-  const observer = new MutationObserver(function () {
+  const observer = new MutationObserver(function (mutations) {
+    if (mutations && mutations.length && mutations.every(isCueOnlyMutation)) return;
     clearTimeout(window.sfUniversalScrollCueTimer);
-    window.sfUniversalScrollCueTimer = setTimeout(updateScrollCues, 160);
+    window.sfUniversalScrollCueTimer = setTimeout(function() { updateScrollCues(true); }, 160);
   });
 
   observer.observe(document.documentElement, {
@@ -29741,11 +29864,8 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
       el.style.setProperty("z-index", "9999", "important");
     });
 
-    var board = document.querySelector(".build-room, .build-a-room, .level-board, .game-board, main");
-    if (board) {
-      board.style.setProperty("padding-bottom", "90px", "important");
-      board.style.setProperty("overflow-y", "auto", "important");
-    }
+    // Do not alter Build-a-Room scroll ownership here. The consolidated
+    // Build-a-Room renderer owns layout and viewport behavior.
   }
 
   window.sfKeepBuildSubmitVisible = keepBuildSubmitVisible;
@@ -30115,7 +30235,6 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     var ok = realNativeScrollExists();
 
     document.querySelectorAll([
-      ".sf-scroll-cue",
       ".sf-scroll-arrow",
       ".sf-scroll-affordance",
       ".scroll-cue",
@@ -30125,6 +30244,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
       "[class*='ScrollCue']",
       "[class*='ScrollArrow']"
     ].join(",")).forEach(function(el) {
+      if (el.classList && el.classList.contains("sf-scroll-cue")) return;
       if (!ok) {
         el.style.setProperty("display", "none", "important");
         el.style.setProperty("visibility", "hidden", "important");
