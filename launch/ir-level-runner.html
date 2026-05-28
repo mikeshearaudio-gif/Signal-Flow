@@ -103,11 +103,14 @@
       document.getElementById('submitBtn').disabled = true;
       document.getElementById('resetBtn').disabled = true;
       actions.classList.add('show');
-      window.parent.postMessage({ type:'sf-ir-complete', levelId:id, points:r.points, stars:r.stars, selected, target:level.space }, '*');
+      window.parent.postMessage({ type:'sf-ir-complete', levelId:id, points:r.points, stars:r.stars, selected, target:level.space }, parentMessageOrigin());
       if(r.points < 100) audio.playCompare(selected, level.space, data.IR_META); else audio.playIR(selected, data.IR_META);
     });
     function inWrapper(){
       return window.parent && window.parent !== window;
+    }
+    function parentMessageOrigin(){
+      return location.protocol === 'file:' ? '*' : location.origin;
     }
     function nextPublicBoard(){
       const match = String(publicBoard || '').match(/^(REC|LIV|BRD|PST|GAM)-(\d{3})$/);
@@ -123,11 +126,11 @@
       location.href = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html#/level/' + encodeURIComponent(next);
     }
     document.getElementById('nextBtn').addEventListener('click', () => {
-      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-next', levelId:id }, '*');
+      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-next', levelId:id }, parentMessageOrigin());
       else goNextBoard();
     });
     document.getElementById('chooseBtn').addEventListener('click', () => {
-      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-choose', levelId:id }, '*');
+      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-choose', levelId:id }, parentMessageOrigin());
       else goChooseBoard();
     });
   })();

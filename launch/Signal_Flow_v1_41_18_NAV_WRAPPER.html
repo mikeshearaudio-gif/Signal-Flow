@@ -364,6 +364,11 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
     levelSelect.addEventListener('change',()=>{ manualLevel.value=levelSelect.value; loadLevel(levelSelect.value); });
     document.getElementById('loadBtn').addEventListener('click',()=>loadLevel(manualLevel.value));
     manualLevel.addEventListener('keydown',ev=>{ if(ev.key==='Enter') loadLevel(manualLevel.value); });
+    const TRUSTED_MESSAGE_ORIGIN = location.protocol === 'file:' ? '*' : location.origin;
+    function isTrustedFrameMessage(ev){
+      if(ev.source !== frame.contentWindow) return false;
+      return TRUSTED_MESSAGE_ORIGIN === '*' || ev.origin === TRUSTED_MESSAGE_ORIGIN;
+    }
     function loadSplash(){
       updateScore(0);
       envSelect.value = 'LIV';
@@ -372,7 +377,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
       frame.src = GAME + '?v=' + encodeURIComponent(GAME_CACHE);
     }
     document.getElementById('homeBtn').addEventListener('click', loadSplash);
-    window.addEventListener('message',ev=>{ const msg=ev.data||{}; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
+    window.addEventListener('message',ev=>{ if(!isTrustedFrameMessage(ev)) return; const msg=ev.data||{}; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
     loadSplash();
   })();
   </script>

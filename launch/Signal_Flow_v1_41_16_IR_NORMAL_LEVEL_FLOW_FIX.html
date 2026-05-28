@@ -22085,6 +22085,9 @@ function isEmbeddedInWrapper(){
     return false;
   }
 }
+function wrapperMessageOrigin(){
+  return location.protocol === 'file:' ? '*' : location.origin;
+}
 function delegateWrapperLevel(id){
   const clean = String(id || '').trim().toUpperCase();
   if(!clean || !isEmbeddedInWrapper()) return false;
@@ -22095,7 +22098,7 @@ function delegateWrapperLevel(id){
     }
   }catch{}
   try{
-    window.parent.postMessage({ type:'sf-wrapper-load-level', levelId:clean }, '*');
+    window.parent.postMessage({ type:'sf-wrapper-load-level', levelId:clean }, wrapperMessageOrigin());
     return true;
   }catch{}
   return false;
