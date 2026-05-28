@@ -7,8 +7,14 @@ __MACOSX/
 *.rar
 *.bak
 *.bak_*
+*.bak-*
 *.pyc
 __pycache__/
+
+# Local crash-test and debug snapshots
+debug-backups/
+launch/*CRASH_TEST*.html
+launch/*CRASH_TEST*.html.zip
 
 # Generated patch snapshots and one-off patch scripts
 audit/pre-*
