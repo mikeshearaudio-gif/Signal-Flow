@@ -1558,52 +1558,81 @@
         },
         "LIV-020": {
           id: "LIV-020",
-          title: "Main PA Amp Feed",
-          familyLayout: "processing-main-pa",
-          processorLabel: "CROSSOVER / MAIN PA AMP",
-          panelKinds: ["foh", "amp", "paamp"],
+          title: "Main PA + IEM Monitor Feed",
+          processorLabel: "3-WAY PA + MONITOR IEM FEEDS",
+          panelKinds: ["foh", "crossover", "amp-high", "amp-mid", "amp-low", "speaker-left", "speaker-right", "pa-visual", "iem-pack"],
           sourceOrder: [],
           assetOverrides: {
-            stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
-            amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
-            paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+            foh: "/assets/live-sound/svg/hardware/monitor-console-aux-panel.svg",
+            crossover: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+            "amp-high": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+            "amp-mid": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+            "amp-low": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+            "speaker-left": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
+            "speaker-right": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
+            "pa-visual": "/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg",
+            "iem-pack": "/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg"
           },
           generatedJackKeys: [
-            "foh-liv006-matrix-1-output",
-            "foh-liv006-matrix-2-output",
-            "foh-liv006-matrix-3-output",
-            "foh-liv006-matrix-4-output",
-            "foh-liv006-aux-1-output",
-            "foh-liv006-aux-2-output",
-            "foh-liv006-aux-3-output",
-            "foh-liv006-aux-4-output",
-            "foh-liv006-aux-5-output",
-            "foh-liv006-aux-6-output",
-            "foh-liv006-bus-1-output",
-            "foh-liv006-bus-2-output",
-            "foh-liv006-bus-3-output",
-            "foh-liv006-bus-4-output",
-            "foh-liv006-bus-5-output",
-            "foh-liv006-bus-6-output",
-            "foh-liv006-bus-7-output",
-            "foh-liv006-bus-8-output",
-            "foh-liv006-main-left-output",
-            "foh-liv006-main-right-output",
-            "liv242-crossover-l-input",
-            "liv242-crossover-r-input",
-            "liv242-delay-tower-processor-input",
-            "liv242-sub-processor-input",
-            "liv242-crossover-l-output",
-            "liv242-crossover-r-output",
-            "liv242-main-pa-l-input",
-            "liv242-main-pa-r-input"
+            "liv020-main-left-output",
+            "liv020-main-right-output",
+            "liv020-aux-1-output",
+            "liv020-aux-2-output",
+            "liv020-aux-3-output",
+            "liv020-aux-4-output",
+            "liv020-aux-5-output",
+            "liv020-crossover-left-input",
+            "liv020-crossover-right-input",
+            "liv020-crossover-high-left-output",
+            "liv020-crossover-high-right-output",
+            "liv020-crossover-mid-left-output",
+            "liv020-crossover-mid-right-output",
+            "liv020-crossover-low-left-output",
+            "liv020-crossover-low-right-output",
+            "liv020-high-amp-left-input",
+            "liv020-high-amp-right-input",
+            "liv020-mid-amp-left-input",
+            "liv020-mid-amp-right-input",
+            "liv020-low-amp-left-input",
+            "liv020-low-amp-right-input",
+            "liv020-high-amp-left-output",
+            "liv020-high-amp-right-output",
+            "liv020-mid-amp-left-output",
+            "liv020-mid-amp-right-output",
+            "liv020-low-amp-left-output",
+            "liv020-low-amp-right-output",
+            "liv020-left-line-array-high-input",
+            "liv020-right-line-array-high-input",
+            "liv020-left-line-array-mid-input",
+            "liv020-right-line-array-mid-input",
+            "liv020-left-line-array-low-input",
+            "liv020-right-line-array-low-input",
+            "liv020-iem-pack-1-input",
+            "liv020-iem-pack-1-input-b",
+            "liv020-iem-pack-2-input",
+            "liv020-iem-pack-2-input-b",
+            "liv020-iem-pack-3-input"
           ],
           validRoutes: [
-            { key: "foh-liv006-main-left-output-to-liv242-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv020-main-to-crossover", stereoSide: "left" },
-            { key: "foh-liv006-main-right-output-to-liv242-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv020-main-to-crossover", stereoSide: "right" },
-            { key: "liv242-crossover-l-output-to-liv242-main-pa-l-input", from: "liv242-crossover-l-output", to: "liv242-main-pa-l-input", checklist: "Crossover L Out → Main PA L Input", stereoGroup: "liv020-crossover-to-main-pa", stereoSide: "left" },
-            { key: "liv242-crossover-r-output-to-liv242-main-pa-r-input", from: "liv242-crossover-r-output", to: "liv242-main-pa-r-input", checklist: "Crossover R Out → Main PA R Input", stereoGroup: "liv020-crossover-to-main-pa", stereoSide: "right" }
+            { key: "liv020-main-left-output-to-liv020-crossover-left-input", from: "liv020-main-left-output", to: "liv020-crossover-left-input", checklist: "Main L Output → Crossover L Input", stereoGroup: "liv020-main-to-crossover", stereoSide: "left" },
+            { key: "liv020-main-right-output-to-liv020-crossover-right-input", from: "liv020-main-right-output", to: "liv020-crossover-right-input", checklist: "Main R Output → Crossover R Input", stereoGroup: "liv020-main-to-crossover", stereoSide: "right" },
+            { key: "liv020-crossover-high-left-output-to-liv020-high-amp-left-input", from: "liv020-crossover-high-left-output", to: "liv020-high-amp-left-input", checklist: "Crossover High L Output → High Amp L Input", stereoGroup: "liv020-crossover-high-to-amp", stereoSide: "left" },
+            { key: "liv020-crossover-high-right-output-to-liv020-high-amp-right-input", from: "liv020-crossover-high-right-output", to: "liv020-high-amp-right-input", checklist: "Crossover High R Output → High Amp R Input", stereoGroup: "liv020-crossover-high-to-amp", stereoSide: "right" },
+            { key: "liv020-crossover-mid-left-output-to-liv020-mid-amp-left-input", from: "liv020-crossover-mid-left-output", to: "liv020-mid-amp-left-input", checklist: "Crossover Mid L Output → Mid Amp L Input", stereoGroup: "liv020-crossover-mid-to-amp", stereoSide: "left" },
+            { key: "liv020-crossover-mid-right-output-to-liv020-mid-amp-right-input", from: "liv020-crossover-mid-right-output", to: "liv020-mid-amp-right-input", checklist: "Crossover Mid R Output → Mid Amp R Input", stereoGroup: "liv020-crossover-mid-to-amp", stereoSide: "right" },
+            { key: "liv020-crossover-low-left-output-to-liv020-low-amp-left-input", from: "liv020-crossover-low-left-output", to: "liv020-low-amp-left-input", checklist: "Crossover Low L Output → Low Amp L Input", stereoGroup: "liv020-crossover-low-to-amp", stereoSide: "left" },
+            { key: "liv020-crossover-low-right-output-to-liv020-low-amp-right-input", from: "liv020-crossover-low-right-output", to: "liv020-low-amp-right-input", checklist: "Crossover Low R Output → Low Amp R Input", stereoGroup: "liv020-crossover-low-to-amp", stereoSide: "right" },
+            { key: "liv020-high-amp-left-output-to-liv020-left-line-array-high-input", from: "liv020-high-amp-left-output", to: "liv020-left-line-array-high-input", checklist: "High Amp L Output → Left Line Array High Input", stereoGroup: "liv020-high-amp-to-array", stereoSide: "left" },
+            { key: "liv020-high-amp-right-output-to-liv020-right-line-array-high-input", from: "liv020-high-amp-right-output", to: "liv020-right-line-array-high-input", checklist: "High Amp R Output → Right Line Array High Input", stereoGroup: "liv020-high-amp-to-array", stereoSide: "right" },
+            { key: "liv020-mid-amp-left-output-to-liv020-left-line-array-mid-input", from: "liv020-mid-amp-left-output", to: "liv020-left-line-array-mid-input", checklist: "Mid Amp L Output → Left Line Array Mid Input", stereoGroup: "liv020-mid-amp-to-array", stereoSide: "left" },
+            { key: "liv020-mid-amp-right-output-to-liv020-right-line-array-mid-input", from: "liv020-mid-amp-right-output", to: "liv020-right-line-array-mid-input", checklist: "Mid Amp R Output → Right Line Array Mid Input", stereoGroup: "liv020-mid-amp-to-array", stereoSide: "right" },
+            { key: "liv020-low-amp-left-output-to-liv020-left-line-array-low-input", from: "liv020-low-amp-left-output", to: "liv020-left-line-array-low-input", checklist: "Low Amp L Output → Left Line Array Low Input", stereoGroup: "liv020-low-amp-to-array", stereoSide: "left" },
+            { key: "liv020-low-amp-right-output-to-liv020-right-line-array-low-input", from: "liv020-low-amp-right-output", to: "liv020-right-line-array-low-input", checklist: "Low Amp R Output → Right Line Array Low Input", stereoGroup: "liv020-low-amp-to-array", stereoSide: "right" },
+            { key: "liv020-aux-1-output-to-liv020-iem-pack-1-input", from: "liv020-aux-1-output", to: "liv020-iem-pack-1-input", checklist: "Aux 1 Output → IEM Pack 1 Input A" },
+            { key: "liv020-aux-2-output-to-liv020-iem-pack-1-input-b", from: "liv020-aux-2-output", to: "liv020-iem-pack-1-input-b", checklist: "Aux 2 Output → IEM Pack 1 Input B" },
+            { key: "liv020-aux-3-output-to-liv020-iem-pack-2-input", from: "liv020-aux-3-output", to: "liv020-iem-pack-2-input", checklist: "Aux 3 Output → IEM Pack 2 Input A" },
+            { key: "liv020-aux-4-output-to-liv020-iem-pack-2-input-b", from: "liv020-aux-4-output", to: "liv020-iem-pack-2-input-b", checklist: "Aux 4 Output → IEM Pack 2 Input B" },
+            { key: "liv020-aux-5-output-to-liv020-iem-pack-3-input", from: "liv020-aux-5-output", to: "liv020-iem-pack-3-input", checklist: "Aux 5 Output → IEM Pack 3 Input A" }
           ]
         },
 };
@@ -4817,9 +4846,34 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       ["overhead-right-ride", "OH R", { x: 0.77, y: 0.29, w: 0.24, h: 0.26 }]
     ].forEach(item => createLiv009DrumHitbox(layer, item[0], item[1], drum, item[2]));
 
+
+    Array.from(layer.querySelectorAll("div")).forEach(el => {
+      const text = (el.innerText || el.textContent || "").trim().toUpperCase();
+      const labelKeyByText = {
+        "MAIN PA + IEM MONITOR FEED": "main-pa-iem-monitor-feed",
+        "MONITOR CONSOLE OUTPUTS": "monitor-console-outputs",
+        "3-WAY CROSSOVER": "3-way-crossover",
+        "HIGH AMP": "high-amp",
+        "MID AMP": "mid-amp",
+        "LOW AMP": "low-amp",
+        "LEFT LINE ARRAY INPUTS": "left-line-array-inputs",
+        "RIGHT LINE ARRAY INPUTS": "right-line-array-inputs",
+        "IEM PACK 1": "iem-pack-1",
+        "IEM PACK 2": "iem-pack-2",
+        "IEM PACK 3": "iem-pack-3"
+      };
+      if (labelKeyByText[text]) {
+        el.dataset.sfLiveDevLabelKey = labelKeyByText[text];
+      }
+    });
     surface.appendChild(layer);
     redrawCables(layer);
     installCableDrag(layer);
+    sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem");
+    setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-0"); }, 0);
+    setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-100"); }, 100);
+    setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-500"); }, 500);
+    sfLiv020ApplyHitboxLayoutLock(layer, "after-installCableDrag");
     sfLiv009BindHintGate();
     if(typeof sfLiv009SyncHintGate === 'function') sfLiv009SyncHintGate();
     sfLiv009ApplyLabelJackLayerCleanup();
@@ -6070,6 +6124,738 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
 
   
+
+
+  function applyLiv020GearLock(layer) {
+    if (!layer || layer.dataset.sfLiv020GearLockApplied === "1") return;
+    layer.dataset.sfLiv020GearLockApplied = "1";
+
+    const lock = {
+      "monitor-console-outputs": { leftPx: -31, topPx: -150, widthPx: 782, zIndex: 40 },
+      "3-way-crossover": { leftPx: 6, topPx: 205, widthPx: 420, zIndex: 40 },
+      "high-amplifier": { leftPx: 6, topPx: 331, widthPx: 400, zIndex: 40 },
+      "mid-amplifier": { leftPx: 6, topPx: 406, widthPx: 400, zIndex: 40 },
+      "low-amplifier": { leftPx: 6, topPx: 481, widthPx: 400, zIndex: 40 },
+      "pa-line-arrays-over-subs": { leftPx: 386, topPx: 168, widthPx: 360, zIndex: 47 },
+      "left-line-array-input-panel": { leftPx: 388, topPx: 248, widthPx: 100, zIndex: 49 },
+      "right-line-array-input-panel": { leftPx: 604, topPx: 248, widthPx: 100, zIndex: 49 },
+      "iem-pack-1": { leftPx: 18, topPx: 580, widthPx: 380, zIndex: 44 },
+      "iem-pack-2": { leftPx: 110, topPx: 660, widthPx: 400, zIndex: 44 },
+      "iem-pack-3": { leftPx: 212, topPx: 750, widthPx: 380, zIndex: 44 }
+    };
+
+    function keyFor(el, i) {
+      if (el.dataset.sfLiveDevGearKey) return el.dataset.sfLiveDevGearKey;
+      const raw = el.alt || el.getAttribute("src") || ("gear-" + i);
+      return raw
+        .split("/")
+        .pop()
+        .replace(/\.[a-z0-9]+$/i, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    Array.from(layer.querySelectorAll("img")).forEach((el, i) => {
+      const key = keyFor(el, i);
+      const spec = lock[key];
+      if (!spec) return;
+
+      el.dataset.sfLiveDevGearKey = key;
+      el.style.position = "absolute";
+      el.style.left = spec.leftPx + "px";
+      el.style.top = spec.topPx + "px";
+      el.style.width = spec.widthPx + "px";
+      el.style.height = "auto";
+      el.style.zIndex = String(spec.zIndex);
+    });
+
+    console.log("[Signal Flow] LIV-020 gear layout lock applied", lock);
+  }
+
+
+  const LIV020_LABEL_LAYOUT_LOCK = {
+    "main-pa-iem-monitor-feed": { leftPx: 4, topPx: 5, fontSize: "12px", zIndex: "46" },
+    "monitor-console-outputs": { leftPx: 46, topPx: 93, fontSize: "11px", zIndex: "36" },
+    "3-way-crossover": { leftPx: 28, topPx: 218, fontSize: "11px", zIndex: "50" },
+    "high-amp": { leftPx: 173, topPx: 369, fontSize: "11px", zIndex: "52" },
+    "mid-amp": { leftPx: 178, topPx: 449, fontSize: "11px", zIndex: "49" },
+    "low-amp": { leftPx: 173, topPx: 534, fontSize: "11px", zIndex: "48" },
+    "left-line-array-inputs": { leftPx: 373, topPx: 271, fontSize: "9px", zIndex: "51" },
+    "right-line-array-inputs": { leftPx: 564, topPx: 271, fontSize: "10px", zIndex: "56" },
+    "iem-pack-1": { leftPx: 130, topPx: 583, fontSize: "11px", zIndex: "49" },
+    "iem-pack-2": { leftPx: 232, topPx: 663, fontSize: "11px", zIndex: "49" },
+    "iem-pack-3": { leftPx: 324, topPx: 753, fontSize: "12px", zIndex: "50" }
+  };
+
+
+
+  const LIV020_HITBOX_LAYOUT_LOCK = {
+  "liv020-aux-1-output": {
+    "leftPx": 350,
+    "topPx": 68,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 358,
+    "centerY": 75
+  },
+  "liv020-aux-2-output": {
+    "leftPx": 369,
+    "topPx": 68,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 376,
+    "centerY": 75
+  },
+  "liv020-aux-3-output": {
+    "leftPx": 384,
+    "topPx": 70,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 391,
+    "centerY": 78
+  },
+  "liv020-aux-4-output": {
+    "leftPx": 401,
+    "topPx": 70,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 408,
+    "centerY": 77
+  },
+  "liv020-aux-5-output": {
+    "leftPx": 420,
+    "topPx": 68,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 427,
+    "centerY": 74
+  },
+  "liv020-crossover-high-left-output": {
+    "leftPx": 223,
+    "topPx": 240,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 230,
+    "centerY": 247
+  },
+  "liv020-crossover-high-right-output": {
+    "leftPx": 264,
+    "topPx": 240,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 271,
+    "centerY": 246
+  },
+  "liv020-crossover-left-input": {
+    "leftPx": 74,
+    "topPx": 262,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 81,
+    "centerY": 269
+  },
+  "liv020-crossover-low-left-output": {
+    "leftPx": 224,
+    "topPx": 293,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 231,
+    "centerY": 300
+  },
+  "liv020-crossover-low-right-output": {
+    "leftPx": 265,
+    "topPx": 293,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 272,
+    "centerY": 300
+  },
+  "liv020-crossover-mid-left-output": {
+    "leftPx": 223,
+    "topPx": 266,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 230,
+    "centerY": 273
+  },
+  "liv020-crossover-mid-right-output": {
+    "leftPx": 264,
+    "topPx": 266,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 271,
+    "centerY": 272
+  },
+  "liv020-crossover-right-input": {
+    "leftPx": 112,
+    "topPx": 262,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 119,
+    "centerY": 269
+  },
+  "liv020-high-amp-left-input": {
+    "leftPx": 73,
+    "topPx": 382,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 80,
+    "centerY": 389
+  },
+  "liv020-high-amp-left-output": {
+    "leftPx": 284,
+    "topPx": 382,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 291,
+    "centerY": 389
+  },
+  "liv020-high-amp-right-input": {
+    "leftPx": 116,
+    "topPx": 382,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 123,
+    "centerY": 389
+  },
+  "liv020-high-amp-right-output": {
+    "leftPx": 327,
+    "topPx": 382,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 334,
+    "centerY": 389
+  },
+  "liv020-iem-pack-1-input": {
+    "leftPx": 43,
+    "topPx": 628,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 50,
+    "centerY": 635
+  },
+  "liv020-iem-pack-1-input-b": {
+    "leftPx": 353,
+    "topPx": 628,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 360,
+    "centerY": 635
+  },
+  "liv020-iem-pack-2-input": {
+    "leftPx": 138,
+    "topPx": 708,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 145,
+    "centerY": 715
+  },
+  "liv020-iem-pack-2-input-b": {
+    "leftPx": 463,
+    "topPx": 708,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 470,
+    "centerY": 715
+  },
+  "liv020-iem-pack-3-input": {
+    "leftPx": 238,
+    "topPx": 796,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 245,
+    "centerY": 803
+  },
+  "liv020-left-line-array-high-input": {
+    "leftPx": 431,
+    "topPx": 304,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 438,
+    "centerY": 311
+  },
+  "liv020-left-line-array-low-input": {
+    "leftPx": 431,
+    "topPx": 426,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 438,
+    "centerY": 433
+  },
+  "liv020-left-line-array-mid-input": {
+    "leftPx": 430,
+    "topPx": 364,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 437,
+    "centerY": 371
+  },
+  "liv020-low-amp-left-input": {
+    "leftPx": 73,
+    "topPx": 532,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 80,
+    "centerY": 539
+  },
+  "liv020-low-amp-left-output": {
+    "leftPx": 285,
+    "topPx": 533,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 292,
+    "centerY": 540
+  },
+  "liv020-low-amp-right-input": {
+    "leftPx": 114,
+    "topPx": 532,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 121,
+    "centerY": 539
+  },
+  "liv020-low-amp-right-output": {
+    "leftPx": 326,
+    "topPx": 533,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 333,
+    "centerY": 540
+  },
+  "liv020-main-left-output": {
+    "leftPx": 633,
+    "topPx": 73,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 640,
+    "centerY": 80
+  },
+  "liv020-main-right-output": {
+    "leftPx": 668,
+    "topPx": 73,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 675,
+    "centerY": 80
+  },
+  "liv020-mid-amp-left-input": {
+    "leftPx": 73,
+    "topPx": 457,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 80,
+    "centerY": 464
+  },
+  "liv020-mid-amp-left-output": {
+    "leftPx": 285,
+    "topPx": 457,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 292,
+    "centerY": 464
+  },
+  "liv020-mid-amp-right-input": {
+    "leftPx": 114,
+    "topPx": 457,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 121,
+    "centerY": 464
+  },
+  "liv020-mid-amp-right-output": {
+    "leftPx": 328,
+    "topPx": 456,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 335,
+    "centerY": 463
+  },
+  "liv020-right-line-array-high-input": {
+    "leftPx": 647,
+    "topPx": 304,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 654,
+    "centerY": 311
+  },
+  "liv020-right-line-array-low-input": {
+    "leftPx": 647,
+    "topPx": 426,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 654,
+    "centerY": 433
+  },
+  "liv020-right-line-array-mid-input": {
+    "leftPx": 647,
+    "topPx": 365,
+    "widthPx": 14,
+    "heightPx": 14,
+    "centerX": 654,
+    "centerY": 372
+  }
+};
+
+  function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
+    if (LEVEL_ID !== "LIV-020" || !layer) return;
+
+    let applied = 0;
+
+    Object.entries(LIV020_HITBOX_LAYOUT_LOCK).forEach(([nodeKey, pos]) => {
+      const el = layer.querySelector('[data-node-key="' + nodeKey + '"]');
+      if (!el) return;
+
+      el.style.setProperty("position", "absolute", "important");
+      el.style.setProperty("left", pos.leftPx + "px", "important");
+      el.style.setProperty("top", pos.topPx + "px", "important");
+      el.style.setProperty("width", pos.widthPx + "px", "important");
+      el.style.setProperty("height", pos.heightPx + "px", "important");
+      el.style.setProperty("transform", "none", "important");
+
+      // Visual lock: keep the drawn/clickable jack marker the same size as the real hitbox.
+      // This prevents the player from seeing a large jack target while only the small center is live.
+      el.style.setProperty("box-sizing", "border-box", "important");
+      el.style.setProperty("border-radius", "50%", "important");
+      el.style.setProperty("border", "2px solid rgba(245, 235, 180, 0.92)", "important");
+      el.style.setProperty("background", "rgba(20, 18, 12, 0.72)", "important");
+      el.style.setProperty("box-shadow", "0 0 0 1px rgba(0,0,0,.55), 0 0 8px rgba(255,220,120,.28)", "important");
+      el.style.setProperty("outline", "none", "important");
+      el.style.setProperty("min-width", "0", "important");
+      el.style.setProperty("min-height", "0", "important");
+      el.style.setProperty("max-width", pos.widthPx + "px", "important");
+      el.style.setProperty("max-height", pos.heightPx + "px", "important");
+
+      el.dataset.sfLiv020HitboxLocked = "true";
+      applied += 1;
+    });
+
+    console.log("[Signal Flow] LIV-020 hitbox layout lock applied", {
+      reason: reason || "manual",
+      applied,
+      expected: Object.keys(LIV020_HITBOX_LAYOUT_LOCK).length
+    });
+  }
+
+
+  function applyLiv020LabelLayoutLock(layer) {
+    if (LEVEL_ID !== "LIV-020" || !layer) return;
+
+    const keyByText = {
+      "MAIN PA + IEM MONITOR FEED": "main-pa-iem-monitor-feed",
+      "MONITOR CONSOLE OUTPUTS": "monitor-console-outputs",
+      "3-WAY CROSSOVER": "3-way-crossover",
+      "HIGH AMP": "high-amp",
+      "MID AMP": "mid-amp",
+      "LOW AMP": "low-amp",
+      "LEFT LINE ARRAY INPUTS": "left-line-array-inputs",
+      "RIGHT LINE ARRAY INPUTS": "right-line-array-inputs",
+      "IEM PACK 1": "iem-pack-1",
+      "IEM PACK 2": "iem-pack-2",
+      "IEM PACK 3": "iem-pack-3"
+    };
+
+    let applied = 0;
+
+    Array.from(layer.querySelectorAll("div")).forEach(el => {
+      const text = (el.innerText || el.textContent || "").trim().toUpperCase();
+      const key = keyByText[text];
+      const pos = key ? LIV020_LABEL_LAYOUT_LOCK[key] : null;
+      if (!pos) return;
+
+      el.dataset.sfLiveDevLabelKey = key;
+      el.style.position = "absolute";
+      el.style.left = pos.leftPx + "px";
+      el.style.top = pos.topPx + "px";
+      el.style.fontSize = pos.fontSize;
+      el.style.zIndex = String(pos.zIndex);
+      applied += 1;
+    });
+
+    console.log("[Signal Flow] LIV-020 label layout lock applied", {
+      applied,
+      expected: Object.keys(LIV020_LABEL_LAYOUT_LOCK).length,
+      layout: LIV020_LABEL_LAYOUT_LOCK
+    });
+  }
+
+
+  
+  const LIV020_LABEL_JSON_LOCK = [
+  {"key":"main-pa-iem-monitor-feed","text":"MAIN PA + IEM MONITOR FEED","leftPx":4,"topPx":5,"fontSize":"12px","zIndex":"46"},
+  {"key":"monitor-console-outputs","text":"MONITOR CONSOLE OUTPUTS","leftPx":46,"topPx":93,"fontSize":"11px","zIndex":"36"},
+  {"key":"3-way-crossover","text":"3-WAY CROSSOVER","leftPx":28,"topPx":218,"fontSize":"11px","zIndex":"50"},
+  {"key":"high-amp","text":"HIGH AMP","leftPx":173,"topPx":369,"fontSize":"11px","zIndex":"52"},
+  {"key":"mid-amp","text":"MID AMP","leftPx":178,"topPx":449,"fontSize":"11px","zIndex":"49"},
+  {"key":"low-amp","text":"LOW AMP","leftPx":173,"topPx":534,"fontSize":"11px","zIndex":"48"},
+  {"key":"left-line-array-inputs","text":"LEFT LINE ARRAY INPUTS","leftPx":373,"topPx":271,"fontSize":"9px","zIndex":"51"},
+  {"key":"right-line-array-inputs","text":"RIGHT LINE ARRAY INPUTS","leftPx":564,"topPx":271,"fontSize":"10px","zIndex":"56"},
+  {"key":"iem-pack-1","text":"IEM PACK 1","leftPx":130,"topPx":583,"fontSize":"11px","zIndex":"49"},
+  {"key":"iem-pack-2","text":"IEM PACK 2","leftPx":232,"topPx":663,"fontSize":"11px","zIndex":"49"},
+  {"key":"iem-pack-3","text":"IEM PACK 3","leftPx":324,"topPx":753,"fontSize":"12px","zIndex":"50"},
+  {"key":"input-a-1","text":"INPUT A","leftPx":33,"topPx":597,"fontSize":"8px","zIndex":"49"},
+  {"key":"input-b-1","text":"INPUT B","leftPx":342,"topPx":597,"fontSize":"8px","zIndex":"46"},
+  {"key":"input-a-2","text":"INPUT A","leftPx":125,"topPx":678,"fontSize":"8px","zIndex":"49"},
+  {"key":"input-b-2","text":"INPUT B","leftPx":452,"topPx":677,"fontSize":"8px","zIndex":"54"},
+  {"key":"input-a-3","text":"INPUT A","leftPx":225,"topPx":767,"fontSize":"8px","zIndex":"48"},
+  {"key":"input-b-3","text":"INPUT B","leftPx":538,"topPx":768,"fontSize":"7px","zIndex":"50"}
+];
+
+  function sfLiv020ApplyLabelJsonLock(reason) {
+    if (LEVEL_ID !== "LIV-020") return;
+    const layers = Array.from(document.querySelectorAll(".sf-live-native-layer.sf-live-native-level-liv-020"));
+    let applied = 0;
+
+    layers.forEach(layer => {
+      const labelEls = Array.from(layer.querySelectorAll("div")).filter(el => {
+        const text = (el.innerText || el.textContent || "").trim().toUpperCase();
+        return LIV020_LABEL_JSON_LOCK.some(item => item.text === text);
+      });
+
+      const used = new Set();
+
+      LIV020_LABEL_JSON_LOCK.forEach((item, index) => {
+        let occurrence = -1;
+        const target = labelEls.find((el, elIndex) => {
+          if (used.has(elIndex)) return false;
+          const text = (el.innerText || el.textContent || "").trim().toUpperCase();
+          if (text !== item.text) return false;
+          occurrence += 1;
+          return true;
+        });
+
+        if (!target) return;
+
+        const elIndex = labelEls.indexOf(target);
+        used.add(elIndex);
+
+        target.dataset.sfLiveDevLabelKey = item.key;
+        target.dataset.sfLiv020LabelLockIndex = String(index);
+        target.style.setProperty("position", "absolute", "important");
+        target.style.setProperty("left", item.leftPx + "px", "important");
+        target.style.setProperty("top", item.topPx + "px", "important");
+        target.style.setProperty("font-size", item.fontSize, "important");
+        target.style.setProperty("z-index", String(item.zIndex), "important");
+        target.style.setProperty("pointer-events", "none", "important");
+        applied += 1;
+      });
+    });
+
+    console.log("[Signal Flow] LIV-020 label JSON lock applied", {
+      reason,
+      layers: layers.length,
+      applied,
+      expected: LIV020_LABEL_JSON_LOCK.length
+    });
+  }
+
+
+  function renderLiv020MainPaAndIem(surface, adapter) {
+    sfLiv010InstallStyle();
+
+    surface.classList.add("sf-live-native-scroll-host-liv010");
+    surface.style.setProperty("overflow-y", "auto", "important");
+    surface.style.setProperty("overflow-x", "hidden", "important");
+    if (getComputedStyle(surface).position === "static") {
+      surface.style.position = "relative";
+    }
+
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    surface.querySelectorAll(".sfLiv010SurfaceScrollSpacer").forEach(el => el.remove());
+
+    const rect = surface.getBoundingClientRect();
+    const width = Math.max(1, rect.width);
+    const panels = sfLiv010BuildPanels(width);
+
+    // LIV-020 uses the large monitor console asset, not the compact LIV-010 FOH strip.
+    // Make it ~500% larger than the inherited LIV-010 FOH panel.
+    panels.foh = {
+      kind: "foh",
+      x: Math.round(width * 0.04),
+      y: 70,
+      width: Math.round(width * 4.45)
+    };
+
+    panels.crossover.y += 920;
+    panels.highAmp.y += 920;
+    panels.midAmp.y += 920;
+    panels.lowAmp.y += 920;
+    panels.paVisual.y += 920;
+    panels.speakerLeft.y += 920;
+    panels.speakerRight.y += 920;
+
+    panels.iemPack1 = {
+      kind: "iem-pack",
+      x: Math.round(width * 0.08),
+      y: 2140,
+      width: Math.round(width * 0.26)
+    };
+    panels.iemPack2 = {
+      kind: "iem-pack",
+      x: Math.round(width * 0.37),
+      y: 2140,
+      width: Math.round(width * 0.26)
+    };
+    panels.iemPack3 = {
+      kind: "iem-pack",
+      x: Math.round(width * 0.66),
+      y: 2140,
+      width: Math.round(width * 0.26)
+    };
+
+    const boardHeight = Math.max(2650, Math.ceil(panels.iemPack1.y + 360));
+    surface.style.setProperty("--sf-liv010-board-height", boardHeight + "px");
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-020 sf-liv010-vertical-stack-v204";
+    layer.style.cssText = [
+      "position:absolute",
+      "left:0",
+      "top:0",
+      "right:0",
+      "height:" + boardHeight + "px",
+      "min-height:" + boardHeight + "px",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:visible",
+      "border-radius:18px",
+      "background:radial-gradient(circle at 50% 10%, rgba(41,126,93,.13) 0%, rgba(41,126,93,.06) 22%, rgba(0,0,0,0) 46%), linear-gradient(180deg, rgba(2,8,9,.91), rgba(3,9,10,.95) 50%, rgba(3,8,9,.98))"
+    ].join(";");
+    layer.style.setProperty("height", boardHeight + "px", "important");
+    layer.style.setProperty("min-height", boardHeight + "px", "important");
+
+    function centerLabel(text, panel, yOffset, size) {
+      createLabel(layer, text, panel.x + 12, panel.y + (yOffset || -22), size || 11);
+    }
+
+    createLabel(layer, "MAIN PA + IEM MONITOR FEED", 24, 20, 12);
+    centerLabel("MONITOR CONSOLE OUTPUTS", panels.foh, -22, 11);
+    centerLabel("3-WAY CROSSOVER", panels.crossover, -22, 11);
+    centerLabel("HIGH AMP", panels.highAmp, -22, 11);
+    centerLabel("MID AMP", panels.midAmp, -22, 11);
+    centerLabel("LOW AMP", panels.lowAmp, -22, 11);
+    createLabel(layer, "LEFT LINE ARRAY INPUTS", panels.speakerLeft.x, panels.speakerLeft.y - 22, 11);
+    createLabel(layer, "RIGHT LINE ARRAY INPUTS", panels.speakerRight.x, panels.speakerRight.y - 22, 11);
+    centerLabel("IEM PACK 1", panels.iemPack1, -22, 11);
+    centerLabel("IEM PACK 2", panels.iemPack2, -22, 11);
+    centerLabel("IEM PACK 3", panels.iemPack3, -22, 11);
+
+    // LIV-020 IEM input labels are overlays only, like LIV-019.
+    // Do not create extra IEM equipment here.
+    createLabel(layer, "INPUT A", panels.iemPack1.x + 58, panels.iemPack1.y + 40, 10);
+    createLabel(layer, "INPUT B", panels.iemPack1.x + 138, panels.iemPack1.y + 40, 10);
+    createLabel(layer, "INPUT A", panels.iemPack2.x + 58, panels.iemPack2.y + 40, 10);
+    createLabel(layer, "INPUT B", panels.iemPack2.x + 138, panels.iemPack2.y + 40, 10);
+    createLabel(layer, "INPUT A", panels.iemPack3.x + 58, panels.iemPack3.y + 40, 10);
+    createLabel(layer, "INPUT B", panels.iemPack3.x + 138, panels.iemPack3.y + 40, 10);
+
+    sfLiv010PlaceImage(layer, panels.foh, { alt: "Monitor console outputs", zIndex: 40 });
+    sfLiv010PlaceImage(layer, panels.crossover, { alt: "3-way crossover", zIndex: 40 });
+    sfLiv010PlaceImage(layer, panels.highAmp, { alt: "High amplifier", zIndex: 40 });
+    sfLiv010PlaceImage(layer, panels.midAmp, { alt: "Mid amplifier", zIndex: 40 });
+    sfLiv010PlaceImage(layer, panels.lowAmp, { alt: "Low amplifier", zIndex: 40 });
+    sfLiv010PlaceImage(layer, panels.paVisual, { alt: "PA line arrays over subs", zIndex: 20 });
+    sfLiv010PlaceImage(layer, panels.speakerLeft, { alt: "Left line array input panel", zIndex: 44 });
+    sfLiv010PlaceImage(layer, panels.speakerRight, { alt: "Right line array input panel", zIndex: 44 });
+    sfLiv010PlaceImage(layer, panels.iemPack1, { alt: "IEM pack 1", zIndex: 44 });
+    sfLiv010PlaceImage(layer, panels.iemPack2, { alt: "IEM pack 2", zIndex: 44 });
+    sfLiv010PlaceImage(layer, panels.iemPack3, { alt: "IEM pack 3", zIndex: 44 });
+
+    [
+      ["monitor-console", "Monitor console outputs"],
+      ["crossover", "3-way crossover"],
+      ["high-amp", "High amplifier"],
+      ["mid-amp", "Mid amplifier"],
+      ["low-amp", "Low amplifier"],
+      ["pa-visual", "PA line arrays over subs"],
+      ["speaker-left", "Left line array input panel"],
+      ["speaker-right", "Right line array input panel"],
+      ["iem-pack-1", "IEM pack 1"],
+      ["iem-pack-2", "IEM pack 2"],
+      ["iem-pack-3", "IEM pack 3"]
+    ].forEach(([key, alt]) => {
+      const img = Array.from(layer.querySelectorAll("img")).find(el => el.alt === alt);
+      if (img) {
+        img.dataset.liv019GearKey = key;
+        img.dataset.liv020GearKey = key;
+      }
+    });
+
+    function p(panel, x, y) {
+      return sfLiv010Point(panel, x, y);
+    }
+
+    function jack(key, panel, x, y, label) {
+      sfLiv010CreateJack(layer, key, p(panel, x, y), label || nodeLabel(key), false);
+    }
+
+    jack("liv020-main-left-output", panels.foh, 975 / 1120, 134 / 260, "Main L Output");
+    jack("liv020-main-right-output", panels.foh, 1045 / 1120, 134 / 260, "Main R Output");
+
+    [418, 458, 498, 538, 578].forEach((x, idx) => {
+      jack("liv020-aux-" + (idx + 1) + "-output", panels.foh, x / 1120, 140 / 260, "Aux " + (idx + 1) + " Output");
+    });
+
+    jack("liv020-crossover-left-input", panels.crossover, 165 / 940, 155 / 250, "Crossover L Input");
+    jack("liv020-crossover-right-input", panels.crossover, 255 / 940, 155 / 250, "Crossover R Input");
+    jack("liv020-crossover-high-left-output", panels.crossover, 505 / 940, 95 / 250, "Crossover High L Output");
+    jack("liv020-crossover-high-right-output", panels.crossover, 595 / 940, 95 / 250, "Crossover High R Output");
+    jack("liv020-crossover-mid-left-output", panels.crossover, 505 / 940, 155 / 250, "Crossover Mid L Output");
+    jack("liv020-crossover-mid-right-output", panels.crossover, 595 / 940, 155 / 250, "Crossover Mid R Output");
+    jack("liv020-crossover-low-left-output", panels.crossover, 505 / 940, 215 / 250, "Crossover Low L Output");
+    jack("liv020-crossover-low-right-output", panels.crossover, 595 / 940, 215 / 250, "Crossover Low R Output");
+
+    [
+      [panels.highAmp, "high"],
+      [panels.midAmp, "mid"],
+      [panels.lowAmp, "low"]
+    ].forEach(([panel, band]) => {
+      const label = band.charAt(0).toUpperCase() + band.slice(1);
+      jack("liv020-" + band + "-amp-left-input", panel, 170 / 940, 145 / 240, label + " Amp L Input");
+      jack("liv020-" + band + "-amp-right-input", panel, 270 / 940, 145 / 240, label + " Amp R Input");
+      jack("liv020-" + band + "-amp-left-output", panel, 670 / 940, 145 / 240, label + " Amp L Output");
+      jack("liv020-" + band + "-amp-right-output", panel, 770 / 940, 145 / 240, label + " Amp R Output");
+    });
+
+    jack("liv020-left-line-array-high-input", panels.speakerLeft, 130 / 260, 168 / 620, "Left Line Array High Input");
+    jack("liv020-left-line-array-mid-input", panels.speakerLeft, 130 / 260, 328 / 620, "Left Line Array Mid Input");
+    jack("liv020-left-line-array-low-input", panels.speakerLeft, 130 / 260, 488 / 620, "Left Line Array Low Input");
+    jack("liv020-right-line-array-high-input", panels.speakerRight, 130 / 260, 168 / 620, "Right Line Array High Input");
+    jack("liv020-right-line-array-mid-input", panels.speakerRight, 130 / 260, 328 / 620, "Right Line Array Mid Input");
+    jack("liv020-right-line-array-low-input", panels.speakerRight, 130 / 260, 488 / 620, "Right Line Array Low Input");
+
+    jack("liv020-iem-pack-1-input", panels.iemPack1, 0.50, 0.54, "IEM Pack 1 Input A");
+    jack("liv020-iem-pack-1-input-b", panels.iemPack1, 0.72, 0.54, "IEM Pack 1 Input B");
+    jack("liv020-iem-pack-2-input", panels.iemPack2, 0.50, 0.54, "IEM Pack 2 Input A");
+    jack("liv020-iem-pack-2-input-b", panels.iemPack2, 0.72, 0.54, "IEM Pack 2 Input B");
+    jack("liv020-iem-pack-3-input", panels.iemPack3, 0.50, 0.54, "IEM Pack 3 Input A");
+
+    sfLiv020ApplyHitboxLayoutLock(layer, "after-liv020-jack-create");
+
+    const spacer = document.createElement("div");
+    spacer.className = "sfLiv010SurfaceScrollSpacer";
+    spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
+    spacer.style.setProperty("min-height", boardHeight + "px", "important");
+    spacer.style.setProperty("height", boardHeight + "px", "important");
+
+    surface.appendChild(layer);
+    applyLiv020GearLock(layer);
+    sfLiv020ApplyHitboxLayoutLock(layer, "after-gear-lock");
+    surface.appendChild(spacer);
+    redrawCables(layer);
+    installCableDrag(layer);
+
+    console.log("[Signal Flow] LIV-020 main PA + IEM renderer mounted", {
+      boardHeight,
+      foh: panels.foh,
+      crossover: panels.crossover,
+      iemPack1: panels.iemPack1,
+      iemPack2: panels.iemPack2,
+      iemPack3: panels.iemPack3
+    });
+  }
+
   function renderLiv010ThreeWayCrossover(surface, adapter) {
     sfLiv010InstallStyle();
 
@@ -6186,6 +6972,11 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     surface.appendChild(layer);
     surface.appendChild(spacer);
+
+    applyLiv020LabelLayoutLock(layer);
+    setTimeout(() => applyLiv020LabelLayoutLock(layer), 0);
+    setTimeout(() => applyLiv020LabelLayoutLock(layer), 100);
+
     redrawCables(layer);
     installCableDrag(layer);
 
@@ -6866,7 +7657,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 
   function isLivProcessingFamilyLevel() {
-    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-020";
+    return LEVEL_ID === "LIV-015";
   }
 
   function buildLivProcessingFamilyGeometry(surface) {
@@ -7261,6 +8052,15 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     if (LEVEL_ID === "LIV-009") {
       renderLiv009DrumStageInputs(surface, adapter);
+      return;
+    }
+
+    if (LEVEL_ID === "LIV-020") {
+      renderLiv020MainPaAndIem(surface, adapter);
+      sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem");
+      setTimeout(() => sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-0"), 0);
+      setTimeout(() => sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-100"), 100);
+      setTimeout(() => sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-500"), 500);
       return;
     }
 
