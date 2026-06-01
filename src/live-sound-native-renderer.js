@@ -1958,8 +1958,9 @@ if (activeNativeLevelId === nextLevelId) return;
   function isUsableNativeBoardSurface(el) {
     if (!el || !el.getBoundingClientRect) return false;
     const r = el.getBoundingClientRect();
+    const minWidth = LEVEL_ID === "LIV-020" ? 250 : 650;
     return (
-      r.width > 650 &&
+      r.width > minWidth &&
       r.height > 360 &&
       getComputedStyle(el).display !== "none" &&
       !el.classList.contains("level-shell") &&
@@ -2646,12 +2647,103 @@ if (activeNativeLevelId === nextLevelId) return;
     layer.appendChild(handle);
   }
 
+
+  function sfNativeFinitePoint(point) {
+    return point &&
+      Number.isFinite(Number(point.x)) &&
+      Number.isFinite(Number(point.y));
+  }
+
+  function sfNativeRouteEndpointKeys(route) {
+    const from =
+      route.from ||
+      route.fromKey ||
+      route.source ||
+      route.sourceKey ||
+      route.start ||
+      route.startKey ||
+      null;
+
+    const to =
+      route.to ||
+      route.toKey ||
+      route.dest ||
+      route.destKey ||
+      route.target ||
+      route.targetKey ||
+      null;
+
+    if (from && to) return { from, to };
+
+    const key = String(route.key || "");
+    if (key.startsWith("invalid:") && key.includes("--")) {
+      const parts = key.slice("invalid:".length).split("--");
+      if (parts[0] && parts[1]) return { from: parts[0], to: parts[1] };
+    }
+
+    const marker = "-to-";
+    const idx = key.indexOf(marker);
+    if (idx > 0) {
+      return {
+        from: key.slice(0, idx),
+        to: key.slice(idx + marker.length)
+      };
+    }
+
+    return { from, to };
+  }
+
+  function sfNativeCablePointFromNode(layer, nodeKey, fallbackPoint) {
+    if (!layer || !nodeKey) {
+      return sfNativeFinitePoint(fallbackPoint) ? fallbackPoint : null;
+    }
+
+    const el = layer.querySelector('[data-node-key="' + nodeKey + '"]');
+    if (!el) {
+      return sfNativeFinitePoint(fallbackPoint) ? fallbackPoint : null;
+    }
+
+    const dataX = Number(el.dataset.sfCableCenterX || el.dataset.centerX || el.dataset.x);
+    const dataY = Number(el.dataset.sfCableCenterY || el.dataset.centerY || el.dataset.y);
+    if (Number.isFinite(dataX) && Number.isFinite(dataY)) {
+      return { x: dataX, y: dataY };
+    }
+
+    const layerRect = layer.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+
+    const x = r.left - layerRect.left + r.width / 2;
+    const y = r.top - layerRect.top + r.height / 2;
+
+    if (Number.isFinite(x) && Number.isFinite(y)) {
+      return { x, y };
+    }
+
+    return sfNativeFinitePoint(fallbackPoint) ? fallbackPoint : null;
+  }
+
   function drawCable(layer, route) {
     const svg = getCableSvg(layer);
+    const endpointKeys = sfNativeRouteEndpointKeys(route);
+    const fromPoint = sfNativeCablePointFromNode(layer, endpointKeys.from, route.fromPoint);
+    const toPoint = sfNativeCablePointFromNode(layer, endpointKeys.to, route.toPoint);
+
+    if (!sfNativeFinitePoint(fromPoint) || !sfNativeFinitePoint(toPoint)) {
+      console.warn("[Signal Flow] Native cable skipped invalid points", {
+        routeKey: route && route.key,
+        endpointKeys,
+        fromPoint,
+        toPoint,
+        originalFromPoint: route && route.fromPoint,
+        originalToPoint: route && route.toPoint
+      });
+      return;
+    }
+
     const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
     group.dataset.routeKey = route.key;
-    group.dataset.from = JSON.stringify(route.fromPoint);
-    group.dataset.to = JSON.stringify(route.toPoint);
+    group.dataset.from = JSON.stringify(fromPoint);
+    group.dataset.to = JSON.stringify(toPoint);
     group.dataset.bend = String(route.bend || 0);
 
     const color = route.valid ? "#55e36f" : "#ff4f4f";
@@ -2663,7 +2755,7 @@ if (activeNativeLevelId === nextLevelId) return;
     shadow.setAttribute("stroke", "rgba(0,0,0,.62)");
     shadow.setAttribute("stroke-width", "10");
     shadow.setAttribute("stroke-linecap", "round");
-    shadow.setAttribute("d", cableD(route.fromPoint, route.toPoint, route.bend || 0));
+    shadow.setAttribute("d", cableD(fromPoint, toPoint, route.bend || 0));
     group.appendChild(shadow);
 
     const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -2673,11 +2765,11 @@ if (activeNativeLevelId === nextLevelId) return;
     line.setAttribute("stroke-width", "5");
     line.setAttribute("stroke-linecap", "round");
     line.setAttribute("opacity", "0.96");
-    line.setAttribute("d", cableD(route.fromPoint, route.toPoint, route.bend || 0));
+    line.setAttribute("d", cableD(fromPoint, toPoint, route.bend || 0));
     line.style.filter = "drop-shadow(0 0 10px " + glow + ")";
     group.appendChild(line);
 
-    [route.fromPoint, route.toPoint].forEach(point => {
+    [fromPoint, toPoint].forEach(point => {
       const dotShadow = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       dotShadow.setAttribute("cx", point.x);
       dotShadow.setAttribute("cy", point.y);
@@ -3109,6 +3201,8 @@ if (activeNativeLevelId === nextLevelId) return;
   function clearSelection() {
     if (selectedNode) setSelected(selectedNode, false);
     selectedNode = null;
+    const activeLiv020Layer = document.querySelector(".sf-live-native-level-liv-020");
+    sfLiv020UpdateBadJackAvailability(activeLiv020Layer, "");
   }
 
   function flashNode(node) {
@@ -3449,31 +3543,204 @@ if (activeNativeLevelId === nextLevelId) return;
     route.toPoint = liv019CablePointFor(layer, route.to, route.toPoint);
   }
 
+
+  function sfLiv020IsRealNodeKey(key) {
+    return (
+      LEVEL_ID === "LIV-020" &&
+      typeof key === "string" &&
+      Array.isArray(LEVEL.generatedJackKeys) &&
+      LEVEL.generatedJackKeys.includes(key)
+    );
+  }
+
+  function sfLiv020IsBadNodeKey(key) {
+    return (
+      LEVEL_ID === "LIV-020" &&
+      typeof key === "string" &&
+      key.startsWith("liv020-bad-")
+    );
+  }
+
+  function sfLiv020FalseJackFromNode(node) {
+    if (LEVEL_ID !== "LIV-020" || !node || !node.el || !node.el.dataset) return null;
+    if (!sfLiv020IsBadNodeKey(node.key)) return null;
+
+    return {
+      key: node.key,
+      label: node.el.dataset.label || node.key
+    };
+  }
+
+  function sfLiv020IsOutputKey(key) {
+    return sfLiv020IsRealNodeKey(key) && key.includes("-output");
+  }
+
+  function sfLiv020IsInputKey(key) {
+    return sfLiv020IsRealNodeKey(key) && key.includes("-input");
+  }
+
+  function sfLiv020NormalizeOutputInputPair(aKey, bKey) {
+    if (sfLiv020IsOutputKey(aKey) && sfLiv020IsInputKey(bKey)) {
+      return { fromKey: aKey, toKey: bKey };
+    }
+
+    if (sfLiv020IsInputKey(aKey) && sfLiv020IsOutputKey(bKey)) {
+      return { fromKey: bKey, toKey: aKey };
+    }
+
+    return null;
+  }
+
+  function sfLiv020PairKey(fromKey, toKey) {
+    return fromKey + "-to-" + toKey;
+  }
+
+  function sfLiv020FalseRoutePair(fromNode, toNode) {
+    if (LEVEL_ID !== "LIV-020") return null;
+
+    const fromKey = fromNode && fromNode.key;
+    const toKey = toNode && toNode.key;
+    const fromFalse = sfLiv020FalseJackFromNode(fromNode);
+    const toFalse = sfLiv020FalseJackFromNode(toNode);
+
+    if (fromFalse && sfLiv020IsRealNodeKey(toKey)) {
+      return {
+        fromKey,
+        toKey,
+        key: sfLiv020PairKey(toKey, fromKey)
+      };
+    }
+
+    if (toFalse && sfLiv020IsRealNodeKey(fromKey)) {
+      return {
+        fromKey,
+        toKey,
+        key: sfLiv020PairKey(fromKey, toKey)
+      };
+    }
+
+    return null;
+  }
+
+  function sfLiv020IsCuratedBadPair(aKey, bKey) {
+    if (LEVEL_ID !== "LIV-020") return false;
+    if (!Array.isArray(LIV020_BAD_ROUTE_PAIRS)) return false;
+
+    const pair = sfLiv020NormalizeOutputInputPair(aKey, bKey);
+    if (!pair) return false;
+
+    return LIV020_BAD_ROUTE_PAIRS.some(item =>
+      item &&
+      item[0] === pair.fromKey &&
+      item[1] === pair.toKey
+    );
+  }
+
+  function sfLiv020RouteDecision(fromNode, toNode, baseValid, baseKey) {
+    if (LEVEL_ID !== "LIV-020") {
+      return {
+        allowed: baseValid,
+        valid: baseValid,
+        key: baseKey,
+        from: fromNode && fromNode.key,
+        to: toNode && toNode.key
+      };
+    }
+
+    const falseRoutePair = sfLiv020FalseRoutePair(fromNode, toNode);
+    if (falseRoutePair) {
+      return {
+        allowed: true,
+        valid: false,
+        key: falseRoutePair.key,
+        from: falseRoutePair.fromKey,
+        to: falseRoutePair.toKey
+      };
+    }
+
+    const pair = sfLiv020NormalizeOutputInputPair(
+      fromNode && fromNode.key,
+      toNode && toNode.key
+    );
+
+    if (!pair) {
+      return {
+        allowed: baseValid,
+        valid: baseValid,
+        key: baseKey,
+        from: fromNode && fromNode.key,
+        to: toNode && toNode.key
+      };
+    }
+
+    const normalizedKey = sfLiv020PairKey(pair.fromKey, pair.toKey);
+
+    if (baseValid) {
+      return {
+        allowed: true,
+        valid: true,
+        key: normalizedKey,
+        from: pair.fromKey,
+        to: pair.toKey
+      };
+    }
+
+    if (sfLiv020IsCuratedBadPair(pair.fromKey, pair.toKey)) {
+      return {
+        allowed: true,
+        valid: false,
+        key: normalizedKey,
+        from: pair.fromKey,
+        to: pair.toKey
+      };
+    }
+
+    return {
+      allowed: false,
+      valid: false,
+      key: normalizedKey,
+      from: pair.fromKey,
+      to: pair.toKey
+    };
+  }
+
   function addRoute(layer, fromNode, toNode) {
-    const valid = routeFor(fromNode.key, toNode.key);
-    const key = valid
-      ? valid.key
+    const baseValid = routeFor(fromNode.key, toNode.key);
+    const baseKey = baseValid
+      ? baseValid.key
       : "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+
+    const decision = sfLiv020RouteDecision(fromNode, toNode, !!baseValid, baseKey);
+
+    if (!decision.allowed) {
+      console.log("[Signal Flow] Native route blocked:", decision.key);
+      flashNode(fromNode);
+      flashNode(toNode);
+      playBadConnect();
+      return;
+    }
+
+    const key = decision.key;
 
     if (state.routes.some(route => route.key === key)) return;
 
     const route = {
       key,
-      valid: !!valid,
-      from: fromNode.key,
-      to: toNode.key,
-      fromPoint: nativeCablePointForRouteNode(layer, fromNode),
-      toPoint: nativeCablePointForRouteNode(layer, toNode),
+      valid: !!decision.valid,
+      from: decision.from || fromNode.key,
+      to: decision.to || toNode.key,
+      fromPoint: sfNativeCablePointFromNode(layer, decision.from || fromNode.key, nativeCablePointForRouteNode(layer, fromNode)),
+      toPoint: sfNativeCablePointFromNode(layer, decision.to || toNode.key, nativeCablePointForRouteNode(layer, toNode)),
       bend: defaultCableBend(key, state.routes.length)
     };
 
     state.routes.push(route);
     console.log("[Signal Flow] Native route added:", route.key, "valid?", route.valid);
 
-    if (valid) {
-      state.completedValidKeys.add(valid.key);
-      dispatchNativeRouteCompleted(valid);
-      markChecklistForCompletedRoute(valid);
+    if (decision.valid && baseValid) {
+      state.completedValidKeys.add(baseValid.key);
+      dispatchNativeRouteCompleted(baseValid);
+      markChecklistForCompletedRoute(baseValid);
       playGoodConnect();
     } else {
       dispatchNativeWrongAttempt(key);
@@ -3487,22 +3754,69 @@ if (activeNativeLevelId === nextLevelId) return;
     redrawCables(layer);
   }
 
-  function handleNodeClick(layer, node) {
+
+  function sfLiv020NodeForKey(layer, key) {
+    if (!layer || !key) return null;
+
+    const el = layer.querySelector('[data-node-key="' + key + '"]');
+    if (!el) return null;
+
+    return {
+      el,
+      key,
+      label: (el.dataset && el.dataset.label) || key,
+      kind: (el.dataset && el.dataset.kind) || "jack",
+      point: nativeCablePointForRouteNode(layer, { el, key })
+    };
+  }
+
+  function sfLiv020UpdateBadJackAvailability(layer, selectedKey) {
+    if (LEVEL_ID !== "LIV-020" || !layer) return;
+
+    const badJacks = Array.from(layer.querySelectorAll('[data-node-key^="liv020-bad-"]'));
+
+    badJacks.forEach(el => {
+      // Lock-state behavior:
+      // False hardware jacks remain real hit targets, but they must not visually
+      // announce themselves or use a special cursor before the player drops.
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("cursor", "pointer", "important");
+      el.style.setProperty("opacity", "0", "important");
+      el.style.setProperty("background", "transparent", "important");
+      el.style.setProperty("border", "0", "important");
+      el.style.setProperty("box-shadow", "none", "important");
+      el.style.setProperty("outline", "none", "important");
+      el.style.setProperty("z-index", "2600", "important");
+      el.removeAttribute("aria-hidden");
+      el.tabIndex = -1;
+      el.title = "";
+    });
+
+    console.log("[Signal Flow] LIV-020 bad jack availability updated neutral-hidden", {
+      selectedKey: selectedKey || null,
+      total: badJacks.length
+    });
+  }
+
+function handleNodeClick(layer, node) {
     console.log("[Signal Flow] Native node select/connect:", node.key, "selected was", selectedNode && selectedNode.key);
 
     if (!selectedNode) {
       selectedNode = node;
       setSelected(node, true);
+      sfLiv020UpdateBadJackAvailability(layer, node.key);
       return;
     }
 
     if (selectedNode.key === node.key) {
       clearSelection();
+      sfLiv020UpdateBadJackAvailability(layer, "");
       return;
     }
 
     addRoute(layer, selectedNode, node);
     clearSelection();
+    sfLiv020UpdateBadJackAvailability(layer, "");
   }
 
   function pointInLayerFromEvent(layer, event) {
@@ -3588,18 +3902,47 @@ if (activeNativeLevelId === nextLevelId) return;
 
     if (Math.hypot(dx, dy) > 6) patchDrag.moved = true;
 
-    // Do not reveal whether the hovered endpoint is valid before drop.
-    // The preview cable stays neutral while dragging; committed routes become
-    // green/red only after finishNativePatchDrag() calls addRoute().
+    const startPoint =
+      patchDrag.startPoint ||
+      sfNativeCablePointFromNode(
+        patchDrag.layer,
+        patchDrag.fromNode && patchDrag.fromNode.key,
+        patchDrag.fromNode && patchDrag.fromNode.point
+      );
+
     const path = getDragPreviewPath(patchDrag.layer);
-    path.setAttribute("d", cableD(liv018CablePointFor(patchDrag.fromNode.key, patchDrag.fromNode.point), point, 0));
-    path.setAttribute("stroke", "#ffd76a");
-    path.style.filter = "drop-shadow(0 0 10px rgba(255,215,106,.48))";
+
+    if (sfNativeFinitePoint(startPoint) && sfNativeFinitePoint(point)) {
+      path.setAttribute("d", cableD(startPoint, point, 0));
+      path.setAttribute("stroke", "#ffd76a");
+      path.style.filter = "drop-shadow(0 0 10px rgba(255,215,106,.48))";
+    } else {
+      console.warn("[Signal Flow] Native drag preview skipped invalid points", {
+        fromKey: patchDrag.fromNode && patchDrag.fromNode.key,
+        startPoint,
+        point
+      });
+    }
 
     event.preventDefault();
     event.stopPropagation();
-    event.stopImmediatePropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
   }
+
+
+  function sfLiv020ResolveDropTarget(layer, fromNode, event) {
+    const target = nativeNodeFromDocumentPoint(layer, event);
+    if (LEVEL_ID !== "LIV-020" || !layer || !fromNode || !fromNode.key || !target || !target.key) {
+      return target;
+    }
+
+    if (sfLiv020IsBadNodeKey(target.key)) return target;
+
+    if (!sfLiv020IsRealNodeKey(fromNode.key) || !sfLiv020IsRealNodeKey(target.key)) return target;
+
+    return sfLiv020NodeForKey(layer, target.key) || target;
+  }
+
 
   function finishNativePatchDrag(event) {
     if (!patchDrag) return;
@@ -3607,7 +3950,7 @@ if (activeNativeLevelId === nextLevelId) return;
     const drag = patchDrag;
     patchDrag = null;
 
-    const target = nativeNodeFromDocumentPoint(drag.layer, event);
+    const target = sfLiv020ResolveDropTarget(drag.layer, drag.fromNode, event);
     removeDragPreview(drag.layer);
 
     const shouldConnect =
@@ -3624,6 +3967,8 @@ if (activeNativeLevelId === nextLevelId) return;
       suppressNativeClickUntil = Date.now() + 300;
     }
 
+    sfLiv020UpdateBadJackAvailability(drag.layer, "");
+
     window.removeEventListener("pointermove", updateNativePatchDrag, true);
     window.removeEventListener("pointerup", finishNativePatchDrag, true);
     window.removeEventListener("pointercancel", cancelNativePatchDrag, true);
@@ -3639,6 +3984,7 @@ if (activeNativeLevelId === nextLevelId) return;
     const layer = patchDrag.layer;
     patchDrag = null;
     removeDragPreview(layer);
+    sfLiv020UpdateBadJackAvailability(layer, "");
 
     window.removeEventListener("pointermove", updateNativePatchDrag, true);
     window.removeEventListener("pointerup", finishNativePatchDrag, true);
@@ -3662,7 +4008,19 @@ if (activeNativeLevelId === nextLevelId) return;
       moved: false
     };
 
-    getDragPreviewPath(layer).setAttribute("d", cableD(node.point, node.point, 0));
+    const dragStartPoint = sfNativeCablePointFromNode(layer, node && node.key, node && node.point);
+    if (!sfNativeFinitePoint(dragStartPoint)) {
+      console.warn("[Signal Flow] Native patch drag skipped invalid start point", {
+        nodeKey: node && node.key,
+        point: node && node.point
+      });
+      patchDrag = null;
+      return;
+    }
+
+    patchDrag.startPoint = dragStartPoint;
+    sfLiv020UpdateBadJackAvailability(layer, node && node.key);
+    getDragPreviewPath(layer).setAttribute("d", cableD(dragStartPoint, dragStartPoint, 0));
 
     window.addEventListener("pointermove", updateNativePatchDrag, true);
     window.addEventListener("pointerup", finishNativePatchDrag, true);
@@ -6126,6 +6484,22 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   
 
 
+  const LIV020_LOCKED_LAYOUT_WIDTH = 720;
+
+  function sfLiv020ResponsiveXScale(layer) {
+    if (LEVEL_ID !== "LIV-020" || !layer) return 1;
+
+    const host = layer.parentElement || layer;
+    const width = host.clientWidth || layer.getBoundingClientRect().width || LIV020_LOCKED_LAYOUT_WIDTH;
+    if (width >= LIV020_LOCKED_LAYOUT_WIDTH) return 1;
+
+    return Math.max(0.36, Math.min(1, (width - 18) / LIV020_LOCKED_LAYOUT_WIDTH));
+  }
+
+  function sfLiv020ScaleX(layer, value) {
+    return Math.round(Number(value || 0) * sfLiv020ResponsiveXScale(layer));
+  }
+
   function applyLiv020GearLock(layer) {
     if (!layer || layer.dataset.sfLiv020GearLockApplied === "1") return;
     layer.dataset.sfLiv020GearLockApplied = "1";
@@ -6163,9 +6537,9 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
       el.dataset.sfLiveDevGearKey = key;
       el.style.position = "absolute";
-      el.style.left = spec.leftPx + "px";
+      el.style.left = sfLiv020ScaleX(layer, spec.leftPx) + "px";
       el.style.top = spec.topPx + "px";
-      el.style.width = spec.widthPx + "px";
+      el.style.width = Math.max(80, sfLiv020ScaleX(layer, spec.widthPx)) + "px";
       el.style.height = "auto";
       el.style.zIndex = String(spec.zIndex);
     });
@@ -6497,7 +6871,54 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 };
 
-  function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
+  
+  function sfLiv020NormalizeNeutralJackRings(reason) {
+    if (LEVEL_ID !== "LIV-020") return;
+
+    const hintsOn =
+      document.body.classList.contains("sf-native-hints-visible") ||
+      document.body.classList.contains("sf-live-hints-visible") ||
+      document.documentElement.classList.contains("sf-native-hints-visible") ||
+      document.documentElement.classList.contains("sf-live-hints-visible") ||
+      Array.from(document.querySelectorAll("button")).some(btn =>
+        /hide hints/i.test((btn.textContent || "").trim())
+      );
+
+    const nodes = Array.from(document.querySelectorAll(
+      ".sf-live-native-level-liv-020 [data-node-key^='liv020-']"
+    )).filter(el => sfLiv020IsRealNodeKey(el.dataset.nodeKey));
+
+    nodes.forEach(el => {
+      const isActive =
+        el.classList.contains("sf-native-node-selected") ||
+        el.classList.contains("sf-native-node-valid") ||
+        el.classList.contains("sf-native-node-invalid") ||
+        el.classList.contains("sf-native-route-valid") ||
+        el.classList.contains("sf-native-route-invalid") ||
+        el.dataset.sfNativeSelected === "true" ||
+        el.dataset.sfNativeRouteState === "valid" ||
+        el.dataset.sfNativeRouteState === "invalid";
+
+      if (!hintsOn && !isActive) {
+        el.style.setProperty("border", "2px solid rgba(115,145,170,0.18)", "important");
+        el.style.setProperty("box-shadow", "none", "important");
+        el.style.setProperty("outline", "none", "important");
+        el.style.setProperty("background", "rgba(255,255,255,0)", "important");
+      } else if (hintsOn && !isActive) {
+        el.style.setProperty("border", "2px solid rgba(255,215,95,0.78)", "important");
+        el.style.setProperty("box-shadow", "0 0 0 2px rgba(255,215,95,0.22)", "important");
+      }
+    });
+
+    console.log("[Signal Flow] LIV-020 neutral jack rings normalized", {
+      reason: reason || "manual",
+      hintsOn,
+      count: nodes.length
+    });
+  }
+
+
+function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
     if (LEVEL_ID !== "LIV-020" || !layer) return;
 
     let applied = 0;
@@ -6506,26 +6927,59 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       const el = layer.querySelector('[data-node-key="' + nodeKey + '"]');
       if (!el) return;
 
+      const widthPx = Number(pos.widthPx || 14);
+      const heightPx = Number(pos.heightPx || 14);
+      const centerX = sfLiv020ScaleX(
+        layer,
+        Number.isFinite(Number(pos.centerX))
+          ? Number(pos.centerX)
+          : Number(pos.leftPx) + widthPx / 2
+      );
+      const centerY = Number.isFinite(Number(pos.centerY))
+        ? Number(pos.centerY)
+        : Number(pos.topPx) + heightPx / 2;
+      const leftPx = Math.round(centerX - widthPx / 2);
+
       el.style.setProperty("position", "absolute", "important");
-      el.style.setProperty("left", pos.leftPx + "px", "important");
+      el.style.setProperty("left", leftPx + "px", "important");
       el.style.setProperty("top", pos.topPx + "px", "important");
-      el.style.setProperty("width", pos.widthPx + "px", "important");
-      el.style.setProperty("height", pos.heightPx + "px", "important");
+      el.style.setProperty("width", widthPx + "px", "important");
+      el.style.setProperty("height", heightPx + "px", "important");
       el.style.setProperty("transform", "none", "important");
 
       // Visual lock: keep the drawn/clickable jack marker the same size as the real hitbox.
       // This prevents the player from seeing a large jack target while only the small center is live.
+      // LIV-020 visual reset: make the visible jack exactly match the locked hitbox.
+      // Keep route logic untouched; this is only node presentation.
+      el.style.setProperty("appearance", "none", "important");
+      el.style.setProperty("-webkit-appearance", "none", "important");
+      el.style.setProperty("display", "block", "important");
       el.style.setProperty("box-sizing", "border-box", "important");
+      el.style.setProperty("padding", "0", "important");
+      el.style.setProperty("margin", "0", "important");
+      el.style.setProperty("min-width", widthPx + "px", "important");
+      el.style.setProperty("min-height", heightPx + "px", "important");
+      el.style.setProperty("max-width", widthPx + "px", "important");
+      el.style.setProperty("max-height", heightPx + "px", "important");
+      el.style.setProperty("inline-size", widthPx + "px", "important");
+      el.style.setProperty("block-size", heightPx + "px", "important");
+      el.style.setProperty("line-height", "0", "important");
+      el.style.setProperty("font-size", "0", "important");
+      el.style.setProperty("color", "transparent", "important");
+      el.style.setProperty("text-indent", "-9999px", "important");
+      el.style.setProperty("overflow", "hidden", "important");
       el.style.setProperty("border-radius", "50%", "important");
-      el.style.setProperty("border", "2px solid rgba(245, 235, 180, 0.92)", "important");
-      el.style.setProperty("background", "rgba(20, 18, 12, 0.72)", "important");
-      el.style.setProperty("box-shadow", "0 0 0 1px rgba(0,0,0,.55), 0 0 8px rgba(255,220,120,.28)", "important");
+      el.style.setProperty("border", "2px solid rgba(115, 145, 170, 0.72)", "important");
+      el.style.setProperty("background", "rgba(10, 14, 20, 0.82)", "important");
+      el.style.setProperty("box-shadow", "0 0 0 1px rgba(0,0,0,.72)", "important");
       el.style.setProperty("outline", "none", "important");
-      el.style.setProperty("min-width", "0", "important");
-      el.style.setProperty("min-height", "0", "important");
-      el.style.setProperty("max-width", pos.widthPx + "px", "important");
-      el.style.setProperty("max-height", pos.heightPx + "px", "important");
 
+      el.dataset.centerX = String(centerX);
+      el.dataset.centerY = String(centerY);
+      el.dataset.x = String(centerX);
+      el.dataset.y = String(centerY);
+      el.dataset.sfCableCenterX = String(centerX);
+      el.dataset.sfCableCenterY = String(centerY);
       el.dataset.sfLiv020HitboxLocked = "true";
       applied += 1;
     });
@@ -6535,6 +6989,8 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       applied,
       expected: Object.keys(LIV020_HITBOX_LAYOUT_LOCK).length
     });
+
+    sfLiv020NormalizeNeutralJackRings(reason || "after-hitbox-lock");
   }
 
 
@@ -6565,7 +7021,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
       el.dataset.sfLiveDevLabelKey = key;
       el.style.position = "absolute";
-      el.style.left = pos.leftPx + "px";
+      el.style.left = sfLiv020ScaleX(layer, pos.leftPx) + "px";
       el.style.top = pos.topPx + "px";
       el.style.fontSize = pos.fontSize;
       el.style.zIndex = String(pos.zIndex);
@@ -6632,7 +7088,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
         target.dataset.sfLiveDevLabelKey = item.key;
         target.dataset.sfLiv020LabelLockIndex = String(index);
         target.style.setProperty("position", "absolute", "important");
-        target.style.setProperty("left", item.leftPx + "px", "important");
+        target.style.setProperty("left", sfLiv020ScaleX(layer, item.leftPx) + "px", "important");
         target.style.setProperty("top", item.topPx + "px", "important");
         target.style.setProperty("font-size", item.fontSize, "important");
         target.style.setProperty("z-index", String(item.zIndex), "important");
@@ -6650,12 +7106,1403 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 
 
-  function renderLiv020MainPaAndIem(surface, adapter) {
+
+  const LIV020_BAD_HITBOX_LAYOUT = [
+  {
+    "key": "liv020-bad-mic-in-01",
+    "label": "Mic In 1",
+    "leftPx": 14,
+    "topPx": 63,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 28,
+    "centerY": 80
+  },
+  {
+    "key": "liv020-bad-mic-in-02",
+    "label": "Mic In 2",
+    "leftPx": 35,
+    "topPx": 63,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 49,
+    "centerY": 80
+  },
+  {
+    "key": "liv020-bad-mic-in-03",
+    "label": "Mic In 3",
+    "leftPx": 58,
+    "topPx": 64,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 72,
+    "centerY": 81
+  },
+  {
+    "key": "liv020-bad-mic-in-04",
+    "label": "Mic In 4",
+    "leftPx": 76,
+    "topPx": 64,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 90,
+    "centerY": 81
+  },
+  {
+    "key": "liv020-bad-mic-in-05",
+    "label": "Mic In 5",
+    "leftPx": 99,
+    "topPx": 64,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 113,
+    "centerY": 81
+  },
+  {
+    "key": "liv020-bad-mic-in-06",
+    "label": "Mic In 6",
+    "leftPx": 120,
+    "topPx": 64,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 134,
+    "centerY": 81
+  },
+  {
+    "key": "liv020-bad-mic-in-07",
+    "label": "Mic In 7",
+    "leftPx": 141,
+    "topPx": 64,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 155,
+    "centerY": 81
+  },
+  {
+    "key": "liv020-bad-mic-in-08",
+    "label": "Mic In 8",
+    "leftPx": 162,
+    "topPx": 63,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 176,
+    "centerY": 80
+  },
+  {
+    "key": "liv020-bad-mic-in-09",
+    "label": "Mic In 9",
+    "leftPx": 16,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 30,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-10",
+    "label": "Mic In 10",
+    "leftPx": 37,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 51,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-11",
+    "label": "Mic In 11",
+    "leftPx": 58,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 72,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-12",
+    "label": "Mic In 12",
+    "leftPx": 79,
+    "topPx": 106,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 93,
+    "centerY": 123
+  },
+  {
+    "key": "liv020-bad-mic-in-13",
+    "label": "Mic In 13",
+    "leftPx": 100,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 114,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-14",
+    "label": "Mic In 14",
+    "leftPx": 120,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 134,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-15",
+    "label": "Mic In 15",
+    "leftPx": 141,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 155,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-16",
+    "label": "Mic In 16",
+    "leftPx": 162,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 176,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-mic-in-17",
+    "label": "Mic In 17",
+    "leftPx": 16,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 30,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-18",
+    "label": "Mic In 18",
+    "leftPx": 37,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 51,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-19",
+    "label": "Mic In 19",
+    "leftPx": 59,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 73,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-20",
+    "label": "Mic In 20",
+    "leftPx": 79,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 93,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-21",
+    "label": "Mic In 21",
+    "leftPx": 99,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 113,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-22",
+    "label": "Mic In 22",
+    "leftPx": 121,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 135,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-23",
+    "label": "Mic In 23",
+    "leftPx": 143,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 157,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-mic-in-24",
+    "label": "Mic In 24",
+    "leftPx": 163,
+    "topPx": 146,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 177,
+    "centerY": 163
+  },
+  {
+    "key": "liv020-bad-insert-01",
+    "label": "Insert 1",
+    "leftPx": 190,
+    "topPx": 62,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 204,
+    "centerY": 79
+  },
+  {
+    "key": "liv020-bad-insert-02",
+    "label": "Insert 2",
+    "leftPx": 208,
+    "topPx": 62,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 222,
+    "centerY": 79
+  },
+  {
+    "key": "liv020-bad-insert-03",
+    "label": "Insert 3",
+    "leftPx": 222,
+    "topPx": 61,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 236,
+    "centerY": 78
+  },
+  {
+    "key": "liv020-bad-insert-04",
+    "label": "Insert 4",
+    "leftPx": 240,
+    "topPx": 61,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 254,
+    "centerY": 78
+  },
+  {
+    "key": "liv020-bad-insert-05",
+    "label": "Insert 5",
+    "leftPx": 257,
+    "topPx": 61,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 271,
+    "centerY": 78
+  },
+  {
+    "key": "liv020-bad-insert-06",
+    "label": "Insert 6",
+    "leftPx": 272,
+    "topPx": 60,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 286,
+    "centerY": 77
+  },
+  {
+    "key": "liv020-bad-insert-07",
+    "label": "Insert 7",
+    "leftPx": 290,
+    "topPx": 59,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 304,
+    "centerY": 76
+  },
+  {
+    "key": "liv020-bad-insert-08",
+    "label": "Insert 8",
+    "leftPx": 303,
+    "topPx": 61,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 317,
+    "centerY": 78
+  },
+  {
+    "key": "liv020-bad-insert-09",
+    "label": "Insert 9",
+    "leftPx": 190,
+    "topPx": 82,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 204,
+    "centerY": 99
+  },
+  {
+    "key": "liv020-bad-insert-10",
+    "label": "Insert 10",
+    "leftPx": 203,
+    "topPx": 82,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 217,
+    "centerY": 99
+  },
+  {
+    "key": "liv020-bad-insert-11",
+    "label": "Insert 11",
+    "leftPx": 220,
+    "topPx": 81,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 234,
+    "centerY": 98
+  },
+  {
+    "key": "liv020-bad-insert-12",
+    "label": "Insert 12",
+    "leftPx": 238,
+    "topPx": 81,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 252,
+    "centerY": 98
+  },
+  {
+    "key": "liv020-bad-insert-13",
+    "label": "Insert 13",
+    "leftPx": 256,
+    "topPx": 80,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 270,
+    "centerY": 97
+  },
+  {
+    "key": "liv020-bad-insert-14",
+    "label": "Insert 14",
+    "leftPx": 275,
+    "topPx": 83,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 289,
+    "centerY": 100
+  },
+  {
+    "key": "liv020-bad-insert-15",
+    "label": "Insert 15",
+    "leftPx": 292,
+    "topPx": 83,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 306,
+    "centerY": 100
+  },
+  {
+    "key": "liv020-bad-insert-16",
+    "label": "Insert 16",
+    "leftPx": 304,
+    "topPx": 82,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 318,
+    "centerY": 99
+  },
+  {
+    "key": "liv020-bad-insert-17",
+    "label": "Insert 17",
+    "leftPx": 191,
+    "topPx": 106,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 205,
+    "centerY": 123
+  },
+  {
+    "key": "liv020-bad-insert-18",
+    "label": "Insert 18",
+    "leftPx": 205,
+    "topPx": 105,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 219,
+    "centerY": 122
+  },
+  {
+    "key": "liv020-bad-insert-19",
+    "label": "Insert 19",
+    "leftPx": 221,
+    "topPx": 106,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 235,
+    "centerY": 123
+  },
+  {
+    "key": "liv020-bad-insert-20",
+    "label": "Insert 20",
+    "leftPx": 235,
+    "topPx": 106,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 249,
+    "centerY": 123
+  },
+  {
+    "key": "liv020-bad-insert-21",
+    "label": "Insert 21",
+    "leftPx": 254,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 268,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-insert-22",
+    "label": "Insert 22",
+    "leftPx": 272,
+    "topPx": 104,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 286,
+    "centerY": 121
+  },
+  {
+    "key": "liv020-bad-insert-23",
+    "label": "Insert 23",
+    "leftPx": 287,
+    "topPx": 105,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 301,
+    "centerY": 122
+  },
+  {
+    "key": "liv020-bad-insert-24",
+    "label": "Insert 24",
+    "leftPx": 304,
+    "topPx": 105,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 318,
+    "centerY": 122
+  },
+  {
+    "key": "liv020-bad-insert-25",
+    "label": "Insert 25",
+    "leftPx": 190,
+    "topPx": 126,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 204,
+    "centerY": 143
+  },
+  {
+    "key": "liv020-bad-insert-26",
+    "label": "Insert 26",
+    "leftPx": 208,
+    "topPx": 126,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 222,
+    "centerY": 143
+  },
+  {
+    "key": "liv020-bad-insert-27",
+    "label": "Insert 27",
+    "leftPx": 220,
+    "topPx": 125,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 234,
+    "centerY": 142
+  },
+  {
+    "key": "liv020-bad-insert-28",
+    "label": "Insert 28",
+    "leftPx": 236,
+    "topPx": 127,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 250,
+    "centerY": 144
+  },
+  {
+    "key": "liv020-bad-insert-29",
+    "label": "Insert 29",
+    "leftPx": 259,
+    "topPx": 126,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 273,
+    "centerY": 143
+  },
+  {
+    "key": "liv020-bad-insert-30",
+    "label": "Insert 30",
+    "leftPx": 275,
+    "topPx": 126,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 289,
+    "centerY": 143
+  },
+  {
+    "key": "liv020-bad-insert-31",
+    "label": "Insert 31",
+    "leftPx": 287,
+    "topPx": 125,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 301,
+    "centerY": 142
+  },
+  {
+    "key": "liv020-bad-insert-32",
+    "label": "Insert 32",
+    "leftPx": 310,
+    "topPx": 125,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 324,
+    "centerY": 142
+  },
+  {
+    "key": "liv020-bad-aux-out-01",
+    "label": "Aux Out 1",
+    "leftPx": 430,
+    "topPx": 60,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 444,
+    "centerY": 77
+  },
+  {
+    "key": "liv020-bad-aux-out-02",
+    "label": "Aux Out 2",
+    "leftPx": 445,
+    "topPx": 60,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 459,
+    "centerY": 77
+  },
+  {
+    "key": "liv020-bad-aux-out-03",
+    "label": "Aux Out 3",
+    "leftPx": 461,
+    "topPx": 60,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 475,
+    "centerY": 77
+  },
+  {
+    "key": "liv020-bad-aux-out-04",
+    "label": "Aux Out 4",
+    "leftPx": 345,
+    "topPx": 94,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 359,
+    "centerY": 111
+  },
+  {
+    "key": "liv020-bad-aux-out-05",
+    "label": "Aux Out 5",
+    "leftPx": 362,
+    "topPx": 94,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 376,
+    "centerY": 111
+  },
+  {
+    "key": "liv020-bad-aux-out-06",
+    "label": "Aux Out 6",
+    "leftPx": 379,
+    "topPx": 93,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 393,
+    "centerY": 110
+  },
+  {
+    "key": "liv020-bad-aux-out-07",
+    "label": "Aux Out 7",
+    "leftPx": 396,
+    "topPx": 93,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 410,
+    "centerY": 110
+  },
+  {
+    "key": "liv020-bad-aux-out-08",
+    "label": "Aux Out 8",
+    "leftPx": 413,
+    "topPx": 92,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 427,
+    "centerY": 109
+  },
+  {
+    "key": "liv020-bad-aux-out-09",
+    "label": "Aux Out 9",
+    "leftPx": 431,
+    "topPx": 93,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 445,
+    "centerY": 110
+  },
+  {
+    "key": "liv020-bad-aux-out-10",
+    "label": "Aux Out 10",
+    "leftPx": 446,
+    "topPx": 93,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 460,
+    "centerY": 110
+  },
+  {
+    "key": "liv020-bad-aux-out-11",
+    "label": "Aux Out 11",
+    "leftPx": 461,
+    "topPx": 93,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 475,
+    "centerY": 110
+  },
+  {
+    "key": "liv020-bad-aux-out-12",
+    "label": "Aux Out 12",
+    "leftPx": 346,
+    "topPx": 136,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 360,
+    "centerY": 153
+  },
+  {
+    "key": "liv020-bad-aux-out-13",
+    "label": "Aux Out 13",
+    "leftPx": 363,
+    "topPx": 135,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 377,
+    "centerY": 152
+  },
+  {
+    "key": "liv020-bad-aux-out-14",
+    "label": "Aux Out 14",
+    "leftPx": 379,
+    "topPx": 135,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 393,
+    "centerY": 152
+  },
+  {
+    "key": "liv020-bad-aux-out-15",
+    "label": "Aux Out 15",
+    "leftPx": 397,
+    "topPx": 135,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 411,
+    "centerY": 152
+  },
+  {
+    "key": "liv020-bad-aux-out-16",
+    "label": "Aux Out 16",
+    "leftPx": 414,
+    "topPx": 135,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 428,
+    "centerY": 152
+  },
+  {
+    "key": "liv020-bad-aux-out-17",
+    "label": "Aux Out 17",
+    "leftPx": 428,
+    "topPx": 134,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 442,
+    "centerY": 151
+  },
+  {
+    "key": "liv020-bad-aux-out-18",
+    "label": "Aux Out 18",
+    "leftPx": 444,
+    "topPx": 135,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 458,
+    "centerY": 152
+  },
+  {
+    "key": "liv020-bad-aux-out-19",
+    "label": "Aux Out 19",
+    "leftPx": 462,
+    "topPx": 135,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 476,
+    "centerY": 152
+  },
+  {
+    "key": "liv020-bad-aux-out-20",
+    "label": "Aux Out 20",
+    "leftPx": 510,
+    "topPx": 62,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 524,
+    "centerY": 79
+  },
+  {
+    "key": "liv020-bad-bus-out-01",
+    "label": "Bus Out 1",
+    "leftPx": 531,
+    "topPx": 62,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 545,
+    "centerY": 79
+  },
+  {
+    "key": "liv020-bad-bus-out-02",
+    "label": "Bus Out 2",
+    "leftPx": 552,
+    "topPx": 62,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 566,
+    "centerY": 79
+  },
+  {
+    "key": "liv020-bad-bus-out-03",
+    "label": "Bus Out 3",
+    "leftPx": 572,
+    "topPx": 62,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 586,
+    "centerY": 79
+  },
+  {
+    "key": "liv020-bad-bus-out-04",
+    "label": "Bus Out 4",
+    "leftPx": 511,
+    "topPx": 92,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 525,
+    "centerY": 109
+  },
+  {
+    "key": "liv020-bad-bus-out-05",
+    "label": "Bus Out 5",
+    "leftPx": 532,
+    "topPx": 92,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 546,
+    "centerY": 109
+  },
+  {
+    "key": "liv020-bad-bus-out-06",
+    "label": "Bus Out 6",
+    "leftPx": 552,
+    "topPx": 92,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 566,
+    "centerY": 109
+  },
+  {
+    "key": "liv020-bad-bus-out-07",
+    "label": "Bus Out 7",
+    "leftPx": 573,
+    "topPx": 92,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 587,
+    "centerY": 109
+  },
+  {
+    "key": "liv020-bad-bus-out-08",
+    "label": "Bus Out 8",
+    "leftPx": 511,
+    "topPx": 121,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 525,
+    "centerY": 138
+  },
+  {
+    "key": "liv020-bad-bus-out-09",
+    "label": "Bus Out 9",
+    "leftPx": 533,
+    "topPx": 121,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 547,
+    "centerY": 138
+  },
+  {
+    "key": "liv020-bad-bus-out-10",
+    "label": "Bus Out 10",
+    "leftPx": 553,
+    "topPx": 121,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 567,
+    "centerY": 138
+  },
+  {
+    "key": "liv020-bad-bus-out-11",
+    "label": "Bus Out 11",
+    "leftPx": 574,
+    "topPx": 120,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 588,
+    "centerY": 137
+  },
+  {
+    "key": "liv020-bad-bus-out-12",
+    "label": "Bus Out 12",
+    "leftPx": 511,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 525,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-bus-out-13",
+    "label": "Bus Out 13",
+    "leftPx": 532,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 546,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-bus-out-14",
+    "label": "Bus Out 14",
+    "leftPx": 554,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 568,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-bus-out-15",
+    "label": "Bus Out 15",
+    "leftPx": 575,
+    "topPx": 149,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 589,
+    "centerY": 166
+  },
+  {
+    "key": "liv020-bad-bus-out-16",
+    "label": "Bus Out 16",
+    "leftPx": 619,
+    "topPx": 112,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 633,
+    "centerY": 129
+  },
+  {
+    "key": "liv020-bad-bus-out-17",
+    "label": "Bus Out 17",
+    "leftPx": 636,
+    "topPx": 112,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 650,
+    "centerY": 129
+  },
+  {
+    "key": "liv020-bad-bus-out-18",
+    "label": "Bus Out 18",
+    "leftPx": 652,
+    "topPx": 112,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 666,
+    "centerY": 129
+  },
+  {
+    "key": "liv020-bad-bus-out-19",
+    "label": "Bus Out 19",
+    "leftPx": 667,
+    "topPx": 112,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 681,
+    "centerY": 129
+  },
+  {
+    "key": "liv020-bad-bus-out-20",
+    "label": "Bus Out 20",
+    "leftPx": 614,
+    "topPx": 142,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 628,
+    "centerY": 159
+  },
+  {
+    "key": "liv020-bad-bus-out-21",
+    "label": "Bus Out 21",
+    "leftPx": 635,
+    "topPx": 142,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 649,
+    "centerY": 159
+  },
+  {
+    "key": "liv020-bad-bus-out-22",
+    "label": "Bus Out 22",
+    "leftPx": 656,
+    "topPx": 141,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 670,
+    "centerY": 158
+  },
+  {
+    "key": "liv020-bad-bus-out-23",
+    "label": "Bus Out 23",
+    "leftPx": 675,
+    "topPx": 141,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 689,
+    "centerY": 158
+  },
+  {
+    "key": "liv020-bad-bus-out-24",
+    "label": "Bus Out 24",
+    "leftPx": 271,
+    "topPx": 616,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 285,
+    "centerY": 633
+  },
+  {
+    "key": "liv020-bad-bus-out-25",
+    "label": "Bus Out 25",
+    "leftPx": 376,
+    "topPx": 699,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 390,
+    "centerY": 716
+  },
+  {
+    "key": "liv020-bad-matrix-out-01",
+    "label": "Matrix Out 1",
+    "leftPx": 464,
+    "topPx": 787,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 478,
+    "centerY": 804
+  },
+  {
+    "key": "liv020-bad-matrix-out-02",
+    "label": "Matrix Out 2",
+    "leftPx": 541,
+    "topPx": 785,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 555,
+    "centerY": 802
+  },
+  {
+    "key": "liv020-bad-matrix-out-03",
+    "label": "Matrix Out 3",
+    "leftPx": 196,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 210,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-matrix-out-04",
+    "label": "Matrix Out 4",
+    "leftPx": 211,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 225,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-main-alt-01",
+    "label": "Main Alt 1",
+    "leftPx": 227,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 241,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-main-alt-02",
+    "label": "Main Alt 2",
+    "leftPx": 230,
+    "topPx": 148,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 244,
+    "centerY": 165
+  },
+  {
+    "key": "liv020-bad-main-alt-03",
+    "label": "Main Alt 3",
+    "leftPx": 258,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 272,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-main-alt-04",
+    "label": "Main Alt 4",
+    "leftPx": 273,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 287,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-iem-unused-01",
+    "label": "IEM Unused 1",
+    "leftPx": 288,
+    "topPx": 147,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 302,
+    "centerY": 164
+  },
+  {
+    "key": "liv020-bad-iem-unused-02",
+    "label": "IEM Unused 2",
+    "leftPx": 299,
+    "topPx": 149,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 313,
+    "centerY": 166
+  },
+  {
+    "key": "liv020-bad-iem-unused-03",
+    "label": "IEM Unused 3",
+    "leftPx": 524,
+    "topPx": 423,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 538,
+    "centerY": 440
+  },
+  {
+    "key": "liv020-bad-iem-unused-04",
+    "label": "IEM Unused 4",
+    "leftPx": 522,
+    "topPx": 234,
+    "widthPx": 28,
+    "heightPx": 34,
+    "centerX": 536,
+    "centerY": 251
+  }
+];
+
+  const LIV020_BAD_ROUTE_PAIRS = [
+    ["liv020-main-left-output", "liv020-crossover-right-input"],
+    ["liv020-main-right-output", "liv020-crossover-left-input"],
+    ["liv020-main-left-output", "liv020-high-amp-left-input"],
+    ["liv020-main-left-output", "liv020-mid-amp-left-input"],
+    ["liv020-main-left-output", "liv020-low-amp-left-input"],
+    ["liv020-main-right-output", "liv020-high-amp-right-input"],
+    ["liv020-main-right-output", "liv020-mid-amp-right-input"],
+    ["liv020-main-right-output", "liv020-low-amp-right-input"],
+    ["liv020-aux-1-output", "liv020-crossover-left-input"],
+    ["liv020-aux-2-output", "liv020-crossover-right-input"],
+    ["liv020-aux-3-output", "liv020-crossover-left-input"],
+    ["liv020-aux-4-output", "liv020-crossover-right-input"],
+    ["liv020-aux-5-output", "liv020-crossover-left-input"],
+    ["liv020-aux-1-output", "liv020-iem-pack-1-input-b"],
+    ["liv020-aux-1-output", "liv020-iem-pack-2-input"],
+    ["liv020-aux-1-output", "liv020-iem-pack-2-input-b"],
+    ["liv020-aux-1-output", "liv020-iem-pack-3-input"],
+    ["liv020-aux-2-output", "liv020-iem-pack-1-input"],
+    ["liv020-aux-2-output", "liv020-iem-pack-2-input"],
+    ["liv020-aux-2-output", "liv020-iem-pack-2-input-b"],
+    ["liv020-aux-2-output", "liv020-iem-pack-3-input"],
+    ["liv020-aux-3-output", "liv020-iem-pack-1-input"],
+    ["liv020-aux-3-output", "liv020-iem-pack-1-input-b"],
+    ["liv020-aux-3-output", "liv020-iem-pack-2-input-b"],
+    ["liv020-aux-3-output", "liv020-iem-pack-3-input"],
+    ["liv020-aux-4-output", "liv020-iem-pack-1-input"],
+    ["liv020-aux-4-output", "liv020-iem-pack-1-input-b"],
+    ["liv020-aux-4-output", "liv020-iem-pack-2-input"],
+    ["liv020-aux-4-output", "liv020-iem-pack-3-input"],
+    ["liv020-aux-5-output", "liv020-iem-pack-1-input"],
+    ["liv020-aux-5-output", "liv020-iem-pack-1-input-b"],
+    ["liv020-aux-5-output", "liv020-iem-pack-2-input"],
+    ["liv020-aux-5-output", "liv020-iem-pack-2-input-b"],
+    ["liv020-crossover-high-left-output", "liv020-high-amp-right-input"],
+    ["liv020-crossover-high-right-output", "liv020-high-amp-left-input"],
+    ["liv020-crossover-mid-left-output", "liv020-mid-amp-right-input"],
+    ["liv020-crossover-mid-right-output", "liv020-mid-amp-left-input"],
+    ["liv020-crossover-low-left-output", "liv020-low-amp-right-input"],
+    ["liv020-crossover-low-right-output", "liv020-low-amp-left-input"],
+    ["liv020-crossover-high-left-output", "liv020-mid-amp-left-input"],
+    ["liv020-crossover-high-left-output", "liv020-low-amp-left-input"],
+    ["liv020-crossover-high-right-output", "liv020-mid-amp-right-input"],
+    ["liv020-crossover-high-right-output", "liv020-low-amp-right-input"],
+    ["liv020-crossover-mid-left-output", "liv020-high-amp-left-input"],
+    ["liv020-crossover-mid-left-output", "liv020-low-amp-left-input"],
+    ["liv020-crossover-mid-right-output", "liv020-high-amp-right-input"],
+    ["liv020-crossover-mid-right-output", "liv020-low-amp-right-input"],
+    ["liv020-crossover-low-left-output", "liv020-high-amp-left-input"],
+    ["liv020-crossover-low-left-output", "liv020-mid-amp-left-input"],
+    ["liv020-crossover-low-right-output", "liv020-high-amp-right-input"],
+    ["liv020-crossover-low-right-output", "liv020-mid-amp-right-input"],
+    ["liv020-crossover-high-left-output", "liv020-left-line-array-high-input"],
+    ["liv020-crossover-high-left-output", "liv020-left-line-array-mid-input"],
+    ["liv020-crossover-high-left-output", "liv020-left-line-array-low-input"],
+    ["liv020-crossover-high-right-output", "liv020-right-line-array-high-input"],
+    ["liv020-crossover-high-right-output", "liv020-right-line-array-mid-input"],
+    ["liv020-crossover-high-right-output", "liv020-right-line-array-low-input"],
+    ["liv020-crossover-mid-left-output", "liv020-left-line-array-high-input"],
+    ["liv020-crossover-mid-left-output", "liv020-left-line-array-mid-input"],
+    ["liv020-crossover-mid-left-output", "liv020-left-line-array-low-input"],
+    ["liv020-crossover-mid-right-output", "liv020-right-line-array-high-input"],
+    ["liv020-crossover-mid-right-output", "liv020-right-line-array-mid-input"],
+    ["liv020-crossover-mid-right-output", "liv020-right-line-array-low-input"],
+    ["liv020-crossover-low-left-output", "liv020-left-line-array-high-input"],
+    ["liv020-crossover-low-left-output", "liv020-left-line-array-mid-input"],
+    ["liv020-crossover-low-left-output", "liv020-left-line-array-low-input"],
+    ["liv020-crossover-low-right-output", "liv020-right-line-array-high-input"],
+    ["liv020-crossover-low-right-output", "liv020-right-line-array-mid-input"],
+    ["liv020-crossover-low-right-output", "liv020-right-line-array-low-input"],
+    ["liv020-high-amp-left-output", "liv020-right-line-array-high-input"],
+    ["liv020-high-amp-left-output", "liv020-left-line-array-mid-input"],
+    ["liv020-high-amp-left-output", "liv020-left-line-array-low-input"],
+    ["liv020-high-amp-right-output", "liv020-left-line-array-high-input"],
+    ["liv020-high-amp-right-output", "liv020-right-line-array-mid-input"],
+    ["liv020-high-amp-right-output", "liv020-right-line-array-low-input"],
+    ["liv020-mid-amp-left-output", "liv020-right-line-array-mid-input"],
+    ["liv020-mid-amp-left-output", "liv020-left-line-array-high-input"],
+    ["liv020-mid-amp-left-output", "liv020-left-line-array-low-input"],
+    ["liv020-mid-amp-right-output", "liv020-left-line-array-mid-input"],
+    ["liv020-mid-amp-right-output", "liv020-right-line-array-high-input"],
+    ["liv020-mid-amp-right-output", "liv020-right-line-array-low-input"],
+    ["liv020-low-amp-left-output", "liv020-right-line-array-low-input"],
+    ["liv020-low-amp-left-output", "liv020-left-line-array-high-input"],
+    ["liv020-low-amp-left-output", "liv020-left-line-array-mid-input"],
+    ["liv020-low-amp-right-output", "liv020-left-line-array-low-input"],
+    ["liv020-low-amp-right-output", "liv020-right-line-array-high-input"],
+    ["liv020-low-amp-right-output", "liv020-right-line-array-mid-input"],
+    ["liv020-main-left-output", "liv020-left-line-array-high-input"],
+    ["liv020-main-left-output", "liv020-left-line-array-mid-input"],
+    ["liv020-main-left-output", "liv020-left-line-array-low-input"],
+    ["liv020-main-right-output", "liv020-right-line-array-high-input"],
+    ["liv020-main-right-output", "liv020-right-line-array-mid-input"],
+    ["liv020-main-right-output", "liv020-right-line-array-low-input"],
+    ["liv020-aux-1-output", "liv020-left-line-array-high-input"],
+    ["liv020-aux-2-output", "liv020-right-line-array-high-input"],
+    ["liv020-aux-3-output", "liv020-left-line-array-mid-input"],
+    ["liv020-aux-4-output", "liv020-right-line-array-mid-input"],
+    ["liv020-aux-5-output", "liv020-left-line-array-low-input"],
+    ["liv020-main-left-output", "liv020-iem-pack-1-input"],
+    ["liv020-main-right-output", "liv020-iem-pack-1-input-b"],
+    ["liv020-main-left-output", "liv020-iem-pack-2-input"],
+    ["liv020-main-left-output", "liv020-high-amp-right-input"],
+    ["liv020-main-left-output", "liv020-mid-amp-right-input"],
+    ["liv020-main-left-output", "liv020-low-amp-right-input"],
+    ["liv020-main-left-output", "liv020-right-line-array-high-input"],
+    ["liv020-main-left-output", "liv020-right-line-array-mid-input"],
+    ["liv020-main-left-output", "liv020-right-line-array-low-input"],
+    ["liv020-main-left-output", "liv020-iem-pack-1-input-b"],
+    ["liv020-main-left-output", "liv020-iem-pack-2-input-b"],
+    ["liv020-main-left-output", "liv020-iem-pack-3-input"],
+    ["liv020-main-right-output", "liv020-high-amp-left-input"],
+    ["liv020-main-right-output", "liv020-mid-amp-left-input"],
+    ["liv020-main-right-output", "liv020-low-amp-left-input"]
+  ];
+
+
+  function installLiv020BadJacks(layer) {
+    if (LEVEL_ID !== "LIV-020" || !layer) return;
+
+    layer.querySelectorAll('[data-node-key^="liv020-bad-"]').forEach(el => el.remove());
+
+    const badLayout = Array.isArray(LIV020_BAD_HITBOX_LAYOUT) ? LIV020_BAD_HITBOX_LAYOUT : [];
+
+    let made = 0;
+    let skipped = 0;
+
+    badLayout.forEach((pos, index) => {
+      const badKey = pos && pos.key;
+
+      if (!badKey) {
+        skipped += 1;
+        return;
+      }
+
+      const left = Number(pos.leftPx);
+      const top = Number(pos.topPx);
+      const width = Number(pos.widthPx);
+      const height = Number(pos.heightPx);
+      const centerX = Number.isFinite(Number(pos.centerX)) ? Number(pos.centerX) : left + width / 2;
+      const centerY = Number.isFinite(Number(pos.centerY)) ? Number(pos.centerY) : top + height / 2;
+
+      if (![left, top, width, height, centerX, centerY].every(Number.isFinite)) {
+        console.warn("[Signal Flow] LIV-020 bad jack skipped invalid saved layout", { index, pos });
+        skipped += 1;
+        return;
+      }
+
+      const bad = document.createElement("button");
+      bad.type = "button";
+      bad.className = "sf-native-node sf-native-jack sf-native-liv010-jack sf-native-liv020-bad-jack";
+      bad.tabIndex = 0;
+
+      bad.dataset.nodeKey = badKey;
+      bad.dataset.key = badKey;
+      bad.dataset.sfNativeKey = badKey;
+      bad.dataset.kind = "jack";
+      bad.dataset.nodeKind = "jack";
+      bad.dataset.label = pos.label || badKey;
+      bad.dataset.falseHardwareJack = "1";
+
+      bad.dataset.sfNativePointX = String(centerX);
+      bad.dataset.sfCableCenterX = String(centerX);
+      bad.dataset.centerX = String(centerX);
+      bad.dataset.x = String(centerX);
+
+      bad.dataset.sfNativePointY = String(centerY);
+      bad.dataset.sfCableCenterY = String(centerY);
+      bad.dataset.centerY = String(centerY);
+      bad.dataset.y = String(centerY);
+
+      bad.style.setProperty("position", "absolute", "important");
+      bad.style.setProperty("left", left + "px", "important");
+      bad.style.setProperty("top", top + "px", "important");
+      bad.style.setProperty("width", width + "px", "important");
+      bad.style.setProperty("height", height + "px", "important");
+      bad.style.setProperty("min-width", width + "px", "important");
+      bad.style.setProperty("min-height", height + "px", "important");
+      bad.style.setProperty("max-width", width + "px", "important");
+      bad.style.setProperty("max-height", height + "px", "important");
+      bad.style.setProperty("inline-size", width + "px", "important");
+      bad.style.setProperty("block-size", height + "px", "important");
+      bad.style.setProperty("transform", "none", "important");
+
+      bad.style.setProperty("appearance", "none", "important");
+      bad.style.setProperty("-webkit-appearance", "none", "important");
+      bad.style.setProperty("display", "block", "important");
+      bad.style.setProperty("box-sizing", "border-box", "important");
+      bad.style.setProperty("padding", "0", "important");
+      bad.style.setProperty("margin", "0", "important");
+      bad.style.setProperty("line-height", "0", "important");
+      bad.style.setProperty("font-size", "0", "important");
+      bad.style.setProperty("color", "transparent", "important");
+      bad.style.setProperty("text-indent", "-9999px", "important");
+      bad.style.setProperty("overflow", "hidden", "important");
+      bad.style.setProperty("border-radius", "50%", "important");
+
+      bad.style.setProperty("pointer-events", "auto", "important");
+      bad.style.setProperty("cursor", "pointer", "important");
+      bad.style.setProperty("opacity", "0.42", "important");
+      bad.style.setProperty("background", "rgba(255, 80, 80, 0.18)", "important");
+      bad.style.setProperty("border", "1px solid rgba(255, 80, 80, 0.66)", "important");
+      bad.style.setProperty("box-shadow", "none", "important");
+      bad.style.setProperty("outline", "none", "important");
+      bad.style.setProperty("z-index", "2300", "important");
+      bad.setAttribute("aria-label", pos.label || badKey);
+      bad.title = pos.label || badKey;
+
+      bad.addEventListener("pointerdown", event => {
+        console.log("[Signal Flow] LIV-020 false hardware jack drag start:", badKey);
+        startNativePatchDrag(layer, {
+          key: badKey,
+          el: bad,
+          defaultShadow: "0 0 8px rgba(255,70,70,.35)",
+          point: { x: centerX, y: centerY }
+        }, event);
+      }, true);
+
+      bad.addEventListener("click", event => {
+        if (Date.now() < suppressNativeClickUntil) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        console.log("[Signal Flow] LIV-020 false hardware jack clicked:", badKey);
+        handleNodeClick(layer, {
+          key: badKey,
+          el: bad,
+          defaultShadow: "0 0 8px rgba(255,70,70,.35)",
+          point: { x: centerX, y: centerY }
+        });
+      });
+
+      layer.appendChild(bad);
+      made += 1;
+    });
+
+    sfLiv020UpdateBadJackAvailability(layer, "");
+
+    console.log("[Signal Flow] LIV-020 false hardware jacks installed from saved 113-layout array", {
+      made,
+      expected: 113,
+      skipped,
+      layoutRecords: badLayout.length,
+      good: Array.from(layer.querySelectorAll("[data-node-key]")).filter(el =>
+        sfLiv020IsRealNodeKey(el.dataset && el.dataset.nodeKey)
+      ).length,
+      bad: layer.querySelectorAll('[data-node-key^="liv020-bad-"]').length,
+      total: layer.querySelectorAll("[data-node-key]").length
+    });
+  }
+
+function renderLiv020MainPaAndIem(surface, adapter) {
     sfLiv010InstallStyle();
 
     surface.classList.add("sf-live-native-scroll-host-liv010");
     surface.style.setProperty("overflow-y", "auto", "important");
-    surface.style.setProperty("overflow-x", "hidden", "important");
+    surface.style.setProperty("overflow-x", "auto", "important");
     if (getComputedStyle(surface).position === "static") {
       surface.style.position = "relative";
     }
@@ -6665,7 +8512,9 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     const rect = surface.getBoundingClientRect();
     const width = Math.max(1, rect.width);
-    const panels = sfLiv010BuildPanels(width);
+    const layoutWidth = Math.max(760, Math.ceil(width));
+    const boardWidth = width < LIV020_LOCKED_LAYOUT_WIDTH ? Math.ceil(width) : layoutWidth;
+    const panels = sfLiv010BuildPanels(layoutWidth);
 
     // LIV-020 uses the large monitor console asset, not the compact LIV-010 FOH strip.
     // Make it ~500% larger than the inherited LIV-010 FOH panel.
@@ -6712,7 +8561,9 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       "position:absolute",
       "left:0",
       "top:0",
-      "right:0",
+      "right:auto",
+      "width:" + boardWidth + "px",
+      "min-width:" + boardWidth + "px",
       "height:" + boardHeight + "px",
       "min-height:" + boardHeight + "px",
       "z-index:9990",
@@ -6722,6 +8573,8 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       "border-radius:18px",
       "background:radial-gradient(circle at 50% 10%, rgba(41,126,93,.13) 0%, rgba(41,126,93,.06) 22%, rgba(0,0,0,0) 46%), linear-gradient(180deg, rgba(2,8,9,.91), rgba(3,9,10,.95) 50%, rgba(3,8,9,.98))"
     ].join(";");
+    layer.style.setProperty("width", boardWidth + "px", "important");
+    layer.style.setProperty("min-width", boardWidth + "px", "important");
     layer.style.setProperty("height", boardHeight + "px", "important");
     layer.style.setProperty("min-height", boardHeight + "px", "important");
 
@@ -6835,19 +8688,23 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     const spacer = document.createElement("div");
     spacer.className = "sfLiv010SurfaceScrollSpacer";
-    spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
+    spacer.style.cssText = "position:relative;display:block;opacity:0;pointer-events:none";
+    spacer.style.setProperty("width", boardWidth + "px", "important");
+    spacer.style.setProperty("min-width", boardWidth + "px", "important");
     spacer.style.setProperty("min-height", boardHeight + "px", "important");
     spacer.style.setProperty("height", boardHeight + "px", "important");
 
     surface.appendChild(layer);
     applyLiv020GearLock(layer);
     sfLiv020ApplyHitboxLayoutLock(layer, "after-gear-lock");
+    installLiv020BadJacks(layer);
     surface.appendChild(spacer);
     redrawCables(layer);
     installCableDrag(layer);
 
     console.log("[Signal Flow] LIV-020 main PA + IEM renderer mounted", {
       boardHeight,
+      boardWidth,
       foh: panels.foh,
       crossover: panels.crossover,
       iemPack1: panels.iemPack1,
@@ -8058,9 +9915,19 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     if (LEVEL_ID === "LIV-020") {
       renderLiv020MainPaAndIem(surface, adapter);
       sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem");
-      setTimeout(() => sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-0"), 0);
-      setTimeout(() => sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-100"), 100);
-      setTimeout(() => sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-500"), 500);
+      sfLiv020NormalizeNeutralJackRings("after-renderLiv020MainPaAndIem");
+      setTimeout(() => {
+        sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-0");
+        sfLiv020NormalizeNeutralJackRings("after-renderLiv020MainPaAndIem-timeout-0");
+      }, 0);
+      setTimeout(() => {
+        sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-100");
+        sfLiv020NormalizeNeutralJackRings("after-renderLiv020MainPaAndIem-timeout-100");
+      }, 100);
+      setTimeout(() => {
+        sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem-timeout-500");
+        sfLiv020NormalizeNeutralJackRings("after-renderLiv020MainPaAndIem-timeout-500");
+      }, 500);
       return;
     }
 
