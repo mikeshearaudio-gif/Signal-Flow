@@ -1579,7 +1579,11 @@
             "liv021-system-processor-left-output",
             "liv021-system-processor-right-output",
             "liv021-main-amp-left-input",
-            "liv021-main-amp-right-input"
+            "liv021-main-amp-right-input",
+            "liv021-main-amp-left-output",
+            "liv021-main-amp-right-output",
+            "liv021-main-speaker-left-input",
+            "liv021-main-speaker-right-input"
           ],
           validRoutes: [
             { key: "liv021-lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "liv021-stagebox-input-1", checklist: "Lead Vocal Microphone → Stage Box Input 1" },
@@ -1590,7 +1594,8 @@
             { key: "liv021-main-left-to-system-processor-left-input", from: "liv021-main-left-output", to: "liv021-system-processor-left-input", checklist: "Main Left Output → System Processor Left Input" },
             { key: "liv021-main-right-to-system-processor-right-input", from: "liv021-main-right-output", to: "liv021-system-processor-right-input", checklist: "Main Right Output → System Processor Right Input" },
             { key: "liv021-system-processor-left-output-to-main-amp-left-input", from: "liv021-system-processor-left-output", to: "liv021-main-amp-left-input", checklist: "System Processor Left Output → Main Amp Left Input" },
-            { key: "liv021-system-processor-right-output-to-main-amp-right-input", from: "liv021-system-processor-right-output", to: "liv021-main-amp-right-input", checklist: "System Processor Right Output → Main Amp Right Input" }
+            { key: "liv021-system-processor-right-output-to-main-amp-right-input", from: "liv021-system-processor-right-output", to: "liv021-main-amp-right-input", checklist: "System Processor Right Output → Main Amp Right Input" },
+            { key: "liv021-main-amp-left-output-to-main-speaker-left-input", from: "liv021-main-amp-left-output", to: "liv021-main-speaker-left-input", checklist: "Main Amp Left Output → Main Speaker Left Input" }
           ]
         },
         "LIV-020": {
@@ -3732,34 +3737,6 @@ if (activeNativeLevelId === nextLevelId) return;
       };
     }
 
-    if (LEVEL_ID === "LIV-021" && (
-      String(pair.fromKey).startsWith("liv021-false-") ||
-      String(pair.toKey).startsWith("liv021-false-")
-    )) {
-      return {
-        allowed: true,
-        valid: false,
-        key: normalizedKey,
-        from: pair.fromKey,
-        to: pair.toKey
-      };
-    }
-
-    if (LEVEL_ID === "LIV-021") {
-      const a = String(pair.fromKey || "");
-      const b = String(pair.toKey || "");
-      const isLiv021Node = key => key === "lead-vocal-mic" || key.startsWith("liv021-");
-      if (a !== b && isLiv021Node(a) && isLiv021Node(b)) {
-        return {
-          allowed: true,
-          valid: false,
-          key: normalizedKey,
-          from: pair.fromKey,
-          to: pair.toKey
-        };
-      }
-    }
-
     return {
       allowed: false,
       valid: false,
@@ -3778,23 +3755,11 @@ if (activeNativeLevelId === nextLevelId) return;
     const decision = sfLiv020RouteDecision(fromNode, toNode, !!baseValid, baseKey);
 
     if (!decision.allowed) {
-      const liv021Selectable = key => {
-        key = String(key || "");
-        return key === "lead-vocal-mic" || key.startsWith("liv021-");
-      };
-
-      if (LEVEL_ID === "LIV-021" && fromNode.key !== toNode.key && liv021Selectable(fromNode.key) && liv021Selectable(toNode.key)) {
-        decision.allowed = true;
-        decision.valid = false;
-        decision.from = fromNode.key;
-        decision.to = toNode.key;
-      } else {
-        console.log("[Signal Flow] Native route blocked:", decision.key);
-        flashNode(fromNode);
-        flashNode(toNode);
-        playBadConnect();
-        return;
-      }
+      console.log("[Signal Flow] Native route blocked:", decision.key);
+      flashNode(fromNode);
+      flashNode(toNode);
+      playBadConnect();
+      return;
     }
 
     const key = decision.key;
@@ -4237,29 +4202,13 @@ function handleNodeClick(layer, node) {
   }
 
   function updateNativeHintHighlights() {
-    const hintNodes = Array.from(document.querySelectorAll(".sf-native-jack")).filter(btn => {
-      const key = btn.dataset.nodeKey || btn.dataset.sfNativeKey || btn.getAttribute("data-node-key") || "";
-      return !(LEVEL_ID === "LIV-021" && String(key).startsWith("liv021-false-"));
-    });
-
-    if (LEVEL_ID === "LIV-021") {
-      Array.from(document.querySelectorAll(".sf-native-liv021-hitbox")).forEach(btn => {
-        const key = btn.dataset.nodeKey || btn.dataset.sfNativeKey || btn.getAttribute("data-node-key") || "";
-        if (String(key).startsWith("liv021-false-")) return;
-        if (!hintNodes.includes(btn)) hintNodes.push(btn);
-      });
-    }
-
-    hintNodes.forEach(btn => {
+    Array.from(document.querySelectorAll(".sf-native-jack")).forEach(btn => {
       const isGhost = btn.dataset.sfNativeGhost === "1";
 
       if (!nativeHintsVisible) {
         btn.style.boxShadow = "none";
         btn.style.outline = "none";
         btn.style.background = "rgba(255,255,255,0)";
-        if (LEVEL_ID === "LIV-021" && btn.classList.contains("sf-native-liv021-hitbox")) {
-          btn.style.opacity = "0";
-        }
         return;
       }
 
@@ -4271,9 +4220,6 @@ function handleNodeClick(layer, node) {
         btn.style.boxShadow = "0 0 0 3px rgba(255,210,95,.95), 0 0 18px rgba(255,210,95,.50)";
         btn.style.outline = "none";
         btn.style.background = "rgba(255,210,95,.10)";
-        if (LEVEL_ID === "LIV-021" && btn.classList.contains("sf-native-liv021-hitbox")) {
-          btn.style.opacity = ".55";
-        }
       }
     });
     updateLiv016SourceHintHighlights();
@@ -10018,7 +9964,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       const img = document.createElement("img");
       img.dataset.sfGearId = id;
       img.dataset.sfGearLabel = label || id;
-      img.src = sfRepoUrl(src);
+      img.src = src;
       img.alt = label || id;
       img.style.cssText = [
         "position:absolute",
@@ -10036,96 +9982,28 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     }
 
 
-    function addLiv021DevNode(key, label, x, y, width, height) {
+    function addLiv021DevNode(key, label, x, y, size) {
       const node = document.createElement("button");
       node.type = "button";
-      const kind = NODE_DEFS[key] && NODE_DEFS[key].kind === "source" ? "source" : "jack";
-      node.className = "sf-native-node sf-native-" + kind + " sf-native-liv021-hitbox";
-      setNativeNodeDomKey(node, key, kind);
-      node.dataset.sfNativeKey = key;
+      node.dataset.nodeKey = key;
       node.dataset.sfLiv021DevNode = "1";
-      node.dataset.sfNativeGhost = "0";
       node.title = label;
       node.setAttribute("aria-label", label);
-      const w = width || 22;
-      const h = height || w;
-      const defaultShadow = "none";
-      const centerX = x + w / 2;
-      const centerY = y + h / 2;
-      node.dataset.sfNativeDefaultShadow = defaultShadow;
-      node.dataset.sfNativePointX = String(centerX);
-      node.dataset.sfNativePointY = String(centerY);
-      node.dataset.sfCableCenterX = String(centerX);
-      node.dataset.sfCableCenterY = String(centerY);
+      const d = size || 22;
       node.style.cssText = [
         "position:absolute",
         "left:" + x + "px",
         "top:" + y + "px",
-        "width:" + w + "px",
-        "height:" + h + "px",
-        "min-width:0",
-        "min-height:0",
-        "max-width:none",
-        "max-height:none",
-        "box-sizing:border-box",
-        "padding:0",
-        "margin:0",
-        "line-height:0",
-        "appearance:none",
-        "-webkit-appearance:none",
-        "border-radius:8px",
-        "border:0",
-        "background:transparent",
-        "box-shadow:" + defaultShadow,
-        "z-index:2600",
+        "width:" + d + "px",
+        "height:" + d + "px",
+        "border-radius:50%",
+        "border:2px solid rgba(255,230,120,.95)",
+        "background:rgba(25,180,255,.30)",
+        "box-shadow:0 0 10px rgba(25,180,255,.70)",
+        "z-index:80",
         "pointer-events:auto",
-        "cursor:pointer",
-        "opacity:0"
+        "cursor:pointer"
       ].join(";");
-
-      if (LEVEL_ID === "LIV-021" && !String(key).startsWith("liv021-false-")) {
-        node.dataset.sfNativeHintable = "1";
-        node.dataset.sfNativeGoodHint = "1";
-        node.dataset.sfNativeDefaultShadow = "none";
-        node.dataset.sfNativeHintShadow = "0 0 0 2px rgba(70, 210, 255, .95), 0 0 14px rgba(70, 210, 255, .8)";
-      }
-
-      node.addEventListener("pointerdown", event => {
-        const nativeNode = {
-          key,
-          label,
-          el: node,
-          defaultShadow,
-          point: pointForNativeNode(layer, node)
-        };
-
-        console.log("[Signal Flow] LIV-021 native hitbox drag start:", key);
-        startNativePatchDrag(layer, nativeNode, event);
-      }, true);
-
-      node.addEventListener("click", event => {
-        if (Date.now() < suppressNativeClickUntil) {
-          event.preventDefault();
-          event.stopPropagation();
-          event.stopImmediatePropagation();
-          return;
-        }
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        const nativeNode = {
-          key,
-          label,
-          el: node,
-          defaultShadow,
-          point: pointForNativeNode(layer, node)
-        };
-
-        console.log("[Signal Flow] LIV-021 native hitbox clicked:", key);
-        handleNodeClick(layer, nativeNode);
-      });
-
       layer.appendChild(node);
       return node;
     }
@@ -10154,1100 +10032,63 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     }
 
 
-    addGear("liv021-monitor-console", "/assets/live-sound/svg/hardware/monitor-console-aux-panel.svg", 16, -172, 850, "Monitor Console").style.zIndex = "2";
+    addGear("liv021-monitor-console", "/assets/live-sound/svg/hardware/monitor-console-aux-panel.svg", 16, -172, 850, "Console").style.zIndex = "2";
     addGear("liv021-stagebox", "/assets/live-sound/svg/hardware/stagebox-snake-head.svg", 4, 200, 310, "Stage Box").style.zIndex = "10";
     addGear("liv021-compressor", "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg", 250, 200, 275, "Vocal Compressor").style.zIndex = "10";
     addGear("liv021-system-processor", "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg", 530, 200, 310, "System Processor").style.zIndex = "10";
-    addGear("liv021-main-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", 520, 295, 340, "Power Amp").style.zIndex = "10";
+    addGear("liv021-main-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", 520, 295, 340, "Main Power Amp").style.zIndex = "10";
     addGear("liv021-vocal-wedge-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", 528, 390, 335, "Vocal Wedge Amp").style.zIndex = "10";
-    addGear("liv021-vocal-wedge", "/assets/build-room/svg/gear/stage monitor.svg", 275, 307, 222, "Vocal Wedge").style.zIndex = "10";
-    addGear("liv021-main-speakers", "/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg", 590, 130, 245, "Main Speakers").style.zIndex = "1";
+    addGear("liv021-vocal-wedge", "/assets/build-room/svg/gear/stage monitor.svg", 710, 450, 190, "Vocal Wedge").style.zIndex = "10";
     addGear("lead-vocal-mic", "/assets/live-sound/svg/hardware/mic nbg.svg", 13, 300, 230, "Lead Vocal Mic").style.zIndex = "10";
 
     const liv021CableAsset = "/assets/live-sound/svg/cables/single-one-end-raised.svg";
-    const liv021CableLayout = [
-      { key: "liv021-cable-01", leftPx: -56, topPx: 74, widthPx: 145, heightPx: 54, rotationDeg: 0 },
-      { key: "liv021-cable-02", leftPx: -8, topPx: 62, widthPx: 120, heightPx: 39, rotationDeg: 0 },
-      { key: "liv021-cable-03", leftPx: 12, topPx: 72, widthPx: 120, heightPx: 37, rotationDeg: 0 },
-      { key: "liv021-cable-04", leftPx: 20, topPx: 55, widthPx: 135, heightPx: 55, rotationDeg: 0 },
-      { key: "liv021-cable-05", leftPx: 55, topPx: 70, widthPx: 120, heightPx: 33, rotationDeg: 0 },
-      { key: "liv021-cable-06", leftPx: 79, topPx: 63, widthPx: 120, heightPx: 37, rotationDeg: 0 },
-      { key: "liv021-cable-07", leftPx: 92, topPx: 63, widthPx: 130, heightPx: 44, rotationDeg: 0 },
-      { key: "liv021-cable-08", leftPx: 116, topPx: 59, widthPx: 130, heightPx: 49, rotationDeg: 0 },
-      { key: "liv021-cable-09", leftPx: 653, topPx: 320, widthPx: 155, heightPx: 68, rotationDeg: 0 },
-      { key: "liv021-cable-10", leftPx: 635, topPx: 320, widthPx: 135, heightPx: 64, rotationDeg: 0 }
-    ];
-
-    function liv021CableRuntimeRecord(img, index) {
-      function cssPx(prop, fallback) {
-        const value = parseFloat(img.style[prop]);
-        if (Number.isFinite(value)) return Math.round(value);
-        return Math.round(fallback || 0);
-      }
-
-      const rect = img.getBoundingClientRect();
-      return {
-        index,
-        key: img.dataset.sfGearKey || img.alt || "liv021-cable-" + String(index + 1).padStart(2, "0"),
-        leftPx: cssPx("left", img.offsetLeft),
-        topPx: cssPx("top", img.offsetTop),
-        widthPx: cssPx("width", rect.width),
-        heightPx: cssPx("height", rect.height)
-      };
-    }
-
-    function installLiv021CableDevApi() {
-      window.sfLiv021CableDev = {
-        parentSelector: ".sf-live-native-layer.sf-live-native-level-liv-021",
-        export() {
-          const cables = Array.from(layer.querySelectorAll('img[data-sf-liv021-cable="1"]'));
-          const data = cables.map((img, index) => liv021CableRuntimeRecord(img, index));
-          console.log("[Signal Flow] LIV-021 cable dev export layer-space", data);
-          try { navigator.clipboard.writeText(JSON.stringify(data, null, 2)); } catch (err) {}
-          return data;
-        },
-        apply(records) {
-          if (!Array.isArray(records)) return [];
-          const byKey = new Map(records.map((item, index) => [item.key || "liv021-cable-" + String(index + 1).padStart(2, "0"), item]));
-          const cables = Array.from(layer.querySelectorAll('img[data-sf-liv021-cable="1"]'));
-          cables.forEach((img, index) => {
-            const key = img.dataset.sfGearKey || "liv021-cable-" + String(index + 1).padStart(2, "0");
-            const item = byKey.get(key) || records[index];
-            if (!item) return;
-            ["leftPx", "topPx", "widthPx", "heightPx"].forEach(prop => {
-              const value = Number(item[prop]);
-              if (!Number.isFinite(value)) return;
-              const cssProp = prop === "leftPx" ? "left" : prop === "topPx" ? "top" : prop === "widthPx" ? "width" : "height";
-              img.style[cssProp] = value + "px";
-            });
-          });
-          const data = this.export();
-          console.log("[Signal Flow] LIV-021 cable dev applied layer-space records", data);
-          return data;
-        }
-      };
-    }
-
-    function logLiv021CableRuntimeLayout() {
-      const cables = Array.from(layer.querySelectorAll('img[data-sf-liv021-cable="1"]'));
-      const parent = cables[0] && cables[0].parentElement ? cables[0].parentElement : layer;
-      const records = cables.map((img, index) => liv021CableRuntimeRecord(img, index));
-      console.log("[Signal Flow] LIV-021 static cable runtime layout", {
-        cableCount: cables.length,
-        parentClass: parent.className || "",
-        parentTag: parent.tagName || "",
-        records
-      });
-    }
-
-    liv021CableLayout.forEach(function(c, index) {
+    [
+      ["liv021-cable-01", 145, 254, 145, -8],
+      ["liv021-cable-02", 270, 220, 120, 5],
+      ["liv021-cable-03", 392, 222, 120, -4],
+      ["liv021-cable-04", 440, 255, 135, 10],
+      ["liv021-cable-05", 565, 250, 120, -2],
+      ["liv021-cable-06", 688, 250, 120, 4],
+      ["liv021-cable-07", 710, 336, 130, -6],
+      ["liv021-cable-08", 710, 430, 130, 8],
+      ["liv021-cable-09", 420, 420, 155, -12],
+      ["liv021-cable-10", 195, 365, 135, 14]
+    ].forEach(function(c) {
       const img = document.createElement("img");
-      img.dataset.sfGearKey = c.key;
-      img.dataset.sfLiv021Cable = "1";
-      img.dataset.sfLiv021CableIndex = String(index);
-      img.src = sfRepoUrl(liv021CableAsset);
-      img.alt = c.key;
+      img.dataset.sfGearKey = c[0];
+      img.src = liv021CableAsset;
+      img.alt = c[0];
       img.style.cssText = [
         "position:absolute",
-        "left:" + c.leftPx + "px",
-        "top:" + c.topPx + "px",
-        "width:" + c.widthPx + "px",
-        "height:" + c.heightPx + "px",
-        "z-index:24",
+        "left:" + c[1] + "px",
+        "top:" + c[2] + "px",
+        "width:" + c[3] + "px",
+        "height:auto",
+        "z-index:7",
         "pointer-events:none",
         "user-select:none",
         "opacity:.92",
-        "transform:rotate(0deg)",
+        "transform:rotate(" + c[4] + "deg)",
         "transform-origin:50% 50%",
         "filter:drop-shadow(0 4px 8px rgba(0,0,0,.75))"
       ].join(";");
       layer.appendChild(img);
     });
 
-    installLiv021CableDevApi();
-
 
     addLabel("LIV-021 - LEAD VOCAL INPUT + CHANNEL INSERT COMPRESSOR", -6, 1, 13).style.zIndex = "40";
+    addLabel("CONSOLE - CH 1 INSERT SEND / RETURN, AUX 1, MAIN L/R", 360, 112, 9).style.zIndex = "40";
     addLabel("STAGE BOX - LEAD VOCAL TO INPUT 1", 21, 268, 10).style.zIndex = "40";
     addLabel("VOCAL COMPRESSOR", 322, 212, 11).style.zIndex = "40";
     addLabel("INPUT", 340, 244, 8).style.zIndex = "40";
     addLabel("OUTPUT", 404, 246, 8).style.zIndex = "40";
     addLabel("SYSTEM PROCESSOR", 624, 203, 11).style.zIndex = "40";
     addLabel("MAIN POWER AMP", 635, 303, 11).style.zIndex = "40";
-    addLabel("VOCAL WEDGE AMP", 628, 402, 11).style.zIndex = "40";
-    addLabel("VOCAL WEDGE", 330, 338, 10).style.zIndex = "40";
-    addLabel("MAIN SPEAKERS", 645, 348, 11).style.zIndex = "9";
+    addLabel("VOCAL WEDGE AMP", 625, 402, 11).style.zIndex = "40";
+    addLabel("VOCAL WEDGE", 755, 500, 11).style.zIndex = "40";
     addLabel("LEAD VOCAL MIC", 87, 375, 10).style.zIndex = "40";
 
-    const liv021GoodHitboxes = [
-      [
-            "lead-vocal-mic",
-            "Lead Vocal Mic",
-            82,
-            304,
-            111,
-            149
-      ],
-      [
-            "liv021-stagebox-input-1",
-            "Stage Box Input 1",
-            39,
-            237,
-            23,
-            23
-      ],
-      [
-            "liv021-ch1-insert-send",
-            "Channel 1 Insert Send",
-            259,
-            66,
-            20,
-            19
-      ],
-      [
-            "liv021-compressor-input",
-            "Vocal Compressor Input",
-            344,
-            257,
-            18,
-            19
-      ],
-      [
-            "liv021-compressor-output",
-            "Vocal Compressor Output",
-            414,
-            258,
-            18,
-            17
-      ],
-      [
-            "liv021-ch1-insert-return",
-            "Channel 1 Insert Return",
-            261,
-            90,
-            18,
-            15
-      ],
-      [
-            "liv021-aux-1-output",
-            "Auxiliary 1 Output",
-            432,
-            67,
-            18,
-            16
-      ],
-      [
-            "liv021-vocal-wedge-amp-input",
-            "Vocal Wedge Amp Input",
-            582,
-            435,
-            16,
-            15
-      ],
-      [
-            "liv021-vocal-wedge-amp-output",
-            "Vocal Wedge Amp Output",
-            759,
-            434,
-            16,
-            15
-      ],
-      [
-            "liv021-vocal-wedge-input",
-            "Vocal Wedge Input",
-            275,
-            307,
-            222,
-            117
-      ],
-      [
-            "liv021-main-left-output",
-            "Main Left Output",
-            735,
-            64,
-            26,
-            28
-      ],
-      [
-            "liv021-main-right-output",
-            "Main Right Output",
-            768,
-            63,
-            29,
-            28
-      ],
-      [
-            "liv021-system-processor-left-input",
-            "System Processor Left Input",
-            576,
-            243,
-            16,
-            16
-      ],
-      [
-            "liv021-system-processor-right-input",
-            "System Processor Right Input",
-            605,
-            243,
-            16,
-            15
-      ],
-      [
-            "liv021-system-processor-left-output",
-            "System Processor Left Output",
-            690,
-            247,
-            16,
-            16
-      ],
-      [
-            "liv021-system-processor-right-output",
-            "System Processor Right Output",
-            721,
-            246,
-            15,
-            15
-      ],
-      [
-            "liv021-main-amp-left-input",
-            "Main Amp Left Input",
-            574,
-            341,
-            16,
-            14
-      ],
-      [
-            "liv021-main-amp-right-input",
-            "Main Amp Right Input",
-            613,
-            341,
-            15,
-            14
-      ]
-];
-
-    const liv021FalseHitboxes = [
-      [
-            "liv021-false-console-input-9",
-            "Console Input 9",
-            72,
-            111,
-            16,
-            22
-      ],
-      [
-            "liv021-false-console-input-10",
-            "Console Input 10",
-            94,
-            111,
-            19,
-            21
-      ],
-      [
-            "liv021-false-console-input-11",
-            "Console Input 11",
-            117,
-            112,
-            20,
-            19
-      ],
-      [
-            "liv021-false-console-input-12",
-            "Console Input 12",
-            140,
-            111,
-            18,
-            20
-      ],
-      [
-            "liv021-false-console-input-13",
-            "Console Input 13",
-            163,
-            113,
-            19,
-            18
-      ],
-      [
-            "liv021-false-console-input-14",
-            "Console Input 14",
-            187,
-            113,
-            16,
-            17
-      ],
-      [
-            "liv021-false-console-input-15",
-            "Console Input 15",
-            208,
-            112,
-            20,
-            16
-      ],
-      [
-            "liv021-false-console-input-16",
-            "Console Input 16",
-            231,
-            113,
-            17,
-            17
-      ],
-      [
-            "liv021-false-console-input-17",
-            "Console Input 17",
-            71,
-            160,
-            19,
-            18
-      ],
-      [
-            "liv021-false-console-input-18",
-            "Console Input 18",
-            97,
-            160,
-            18,
-            17
-      ],
-      [
-            "liv021-false-console-input-19",
-            "Console Input 19",
-            118,
-            160,
-            17,
-            18
-      ],
-      [
-            "liv021-false-console-input-20",
-            "Console Input 20",
-            145,
-            159,
-            17,
-            20
-      ],
-      [
-            "liv021-false-console-input-21",
-            "Console Input 21",
-            168,
-            160,
-            19,
-            20
-      ],
-      [
-            "liv021-false-console-input-22",
-            "Console Input 22",
-            183,
-            159,
-            17,
-            20
-      ],
-      [
-            "liv021-false-console-input-23",
-            "Console Input 23",
-            207,
-            160,
-            17,
-            19
-      ],
-      [
-            "liv021-false-console-input-24",
-            "Console Input 24",
-            228,
-            160,
-            19,
-            19
-      ],
-      [
-            "liv021-false-insert-2-send",
-            "Channel 2 Insert Send",
-            281,
-            69,
-            14,
-            12
-      ],
-      [
-            "liv021-false-insert-2-return",
-            "Channel 2 Insert Return",
-            281,
-            91,
-            13,
-            13
-      ],
-      [
-            "liv021-false-insert-3-send",
-            "Channel 3 Insert Send",
-            298,
-            69,
-            12,
-            13
-      ],
-      [
-            "liv021-false-insert-3-return",
-            "Channel 3 Insert Return",
-            298,
-            90,
-            12,
-            14
-      ],
-      [
-            "liv021-false-insert-4-send",
-            "Channel 4 Insert Send",
-            315,
-            69,
-            12,
-            12
-      ],
-      [
-            "liv021-false-insert-4-return",
-            "Channel 4 Insert Return",
-            316,
-            90,
-            15,
-            12
-      ],
-      [
-            "liv021-false-insert-5-send",
-            "Channel 5 Insert Send",
-            341,
-            67,
-            15,
-            15
-      ],
-      [
-            "liv021-false-insert-5-return",
-            "Channel 5 Insert Return",
-            342,
-            89,
-            12,
-            15
-      ],
-      [
-            "liv021-false-insert-6-send",
-            "Channel 6 Insert Send",
-            354,
-            67,
-            13,
-            14
-      ],
-      [
-            "liv021-false-insert-6-return",
-            "Channel 6 Insert Return",
-            354,
-            89,
-            15,
-            15
-      ],
-      [
-            "liv021-false-insert-7-send",
-            "Channel 7 Insert Send",
-            370,
-            66,
-            16,
-            15
-      ],
-      [
-            "liv021-false-insert-7-return",
-            "Channel 7 Insert Return",
-            370,
-            91,
-            13,
-            13
-      ],
-      [
-            "liv021-false-insert-8-send",
-            "Channel 8 Insert Send",
-            388,
-            67,
-            14,
-            14
-      ],
-      [
-            "liv021-false-insert-8-return",
-            "Channel 8 Insert Return",
-            388,
-            90,
-            15,
-            15
-      ],
-      [
-            "liv021-false-insert-9-send",
-            "Channel 9 Insert Send",
-            263,
-            113,
-            14,
-            14
-      ],
-      [
-            "liv021-false-insert-9-return",
-            "Channel 9 Insert Return",
-            263,
-            136,
-            15,
-            18
-      ],
-      [
-            "liv021-false-insert-10-send",
-            "Channel 10 Insert Send",
-            281,
-            113,
-            14,
-            14
-      ],
-      [
-            "liv021-false-insert-10-return",
-            "Channel 10 Insert Return",
-            280,
-            137,
-            15,
-            16
-      ],
-      [
-            "liv021-false-insert-11-send",
-            "Channel 11 Insert Send",
-            298,
-            114,
-            13,
-            14
-      ],
-      [
-            "liv021-false-insert-11-return",
-            "Channel 11 Insert Return",
-            298,
-            137,
-            13,
-            16
-      ],
-      [
-            "liv021-false-insert-12-send",
-            "Channel 12 Insert Send",
-            316,
-            112,
-            15,
-            16
-      ],
-      [
-            "liv021-false-insert-12-return",
-            "Channel 12 Insert Return",
-            316,
-            135,
-            15,
-            18
-      ],
-      [
-            "liv021-false-insert-13-send",
-            "Channel 13 Insert Send",
-            336,
-            112,
-            17,
-            17
-      ],
-      [
-            "liv021-false-insert-13-return",
-            "Channel 13 Insert Return",
-            336,
-            136,
-            15,
-            16
-      ],
-      [
-            "liv021-false-insert-14-send",
-            "Channel 14 Insert Send",
-            354,
-            111,
-            15,
-            18
-      ],
-      [
-            "liv021-false-insert-14-return",
-            "Channel 14 Insert Return",
-            354,
-            137,
-            14,
-            16
-      ],
-      [
-            "liv021-false-insert-15-send",
-            "Channel 15 Insert Send",
-            370,
-            113,
-            15,
-            16
-      ],
-      [
-            "liv021-false-insert-15-return",
-            "Channel 15 Insert Return",
-            370,
-            136,
-            16,
-            16
-      ],
-      [
-            "liv021-false-insert-16-send",
-            "Channel 16 Insert Send",
-            387,
-            114,
-            15,
-            17
-      ],
-      [
-            "liv021-false-insert-16-return",
-            "Channel 16 Insert Return",
-            387,
-            136,
-            16,
-            15
-      ],
-      [
-            "liv021-false-aux-2-output",
-            "Auxiliary 2 Output",
-            451,
-            66,
-            13,
-            15
-      ],
-      [
-            "liv021-false-aux-3-output",
-            "Auxiliary 3 Output",
-            467,
-            67,
-            14,
-            14
-      ],
-      [
-            "liv021-false-aux-4-output",
-            "Auxiliary 4 Output",
-            485,
-            67,
-            15,
-            14
-      ],
-      [
-            "liv021-false-aux-5-output",
-            "Auxiliary 5 Output",
-            506,
-            67,
-            15,
-            14
-      ],
-      [
-            "liv021-false-aux-6-output",
-            "Auxiliary 6 Output",
-            523,
-            67,
-            15,
-            15
-      ],
-      [
-            "liv021-false-aux-7-output",
-            "Auxiliary 7 Output",
-            539,
-            67,
-            16,
-            15
-      ],
-      [
-            "liv021-false-aux-8-output",
-            "Auxiliary 8 Output",
-            559,
-            66,
-            15,
-            16
-      ],
-      [
-            "liv021-false-aux-9-output",
-            "Auxiliary 9 Output",
-            433,
-            103,
-            15,
-            16
-      ],
-      [
-            "liv021-false-aux-10-output",
-            "Auxiliary 10 Output",
-            450,
-            102,
-            16,
-            16
-      ],
-      [
-            "liv021-false-aux-11-output",
-            "Auxiliary 11 Output",
-            467,
-            103,
-            14,
-            14
-      ],
-      [
-            "liv021-false-aux-12-output",
-            "Auxiliary 12 Output",
-            486,
-            103,
-            14,
-            14
-      ],
-      [
-            "liv021-false-aux-13-output",
-            "Auxiliary 13 Output",
-            506,
-            103,
-            15,
-            15
-      ],
-      [
-            "liv021-false-aux-14-output",
-            "Auxiliary 14 Output",
-            524,
-            103,
-            14,
-            14
-      ],
-      [
-            "liv021-false-aux-15-output",
-            "Auxiliary 15 Output",
-            540,
-            104,
-            14,
-            13
-      ],
-      [
-            "liv021-false-aux-16-output",
-            "Auxiliary 16 Output",
-            559,
-            103,
-            15,
-            15
-      ],
-      [
-            "liv021-false-aux-17-output",
-            "Auxiliary 17 Output",
-            434,
-            147,
-            13,
-            15
-      ],
-      [
-            "liv021-false-aux-18-output",
-            "Auxiliary 18 Output",
-            451,
-            148,
-            13,
-            14
-      ],
-      [
-            "liv021-false-aux-19-output",
-            "Auxiliary 19 Output",
-            468,
-            149,
-            14,
-            14
-      ],
-      [
-            "liv021-false-aux-20-output",
-            "Auxiliary 20 Output",
-            485,
-            148,
-            15,
-            13
-      ],
-      [
-            "liv021-false-aux-21-output",
-            "Auxiliary 21 Output",
-            506,
-            149,
-            15,
-            14
-      ],
-      [
-            "liv021-false-aux-22-output",
-            "Auxiliary 22 Output",
-            523,
-            147,
-            16,
-            16
-      ],
-      [
-            "liv021-false-aux-23-output",
-            "Auxiliary 23 Output",
-            539,
-            149,
-            16,
-            14
-      ],
-      [
-            "liv021-false-aux-24-output",
-            "Auxiliary 24 Output",
-            558,
-            147,
-            16,
-            16
-      ],
-      [
-            "liv021-false-aux-25-output",
-            "Auxiliary 25 Output",
-            559,
-            148,
-            14,
-            13
-      ],
-      [
-            "liv021-false-bus-1-output",
-            "Bus 1 Output",
-            610,
-            69,
-            18,
-            17
-      ],
-      [
-            "liv021-false-bus-2-output",
-            "Bus 2 Output",
-            631,
-            69,
-            17,
-            17
-      ],
-      [
-            "liv021-false-bus-3-output",
-            "Bus 3 Output",
-            654,
-            69,
-            20,
-            18
-      ],
-      [
-            "liv021-false-bus-4-output",
-            "Bus 4 Output",
-            675,
-            68,
-            19,
-            20
-      ],
-      [
-            "liv021-false-bus-5-output",
-            "Bus 5 Output",
-            611,
-            99,
-            19,
-            20
-      ],
-      [
-            "liv021-false-bus-6-output",
-            "Bus 6 Output",
-            632,
-            99,
-            21,
-            20
-      ],
-      [
-            "liv021-false-bus-7-output",
-            "Bus 7 Output",
-            655,
-            100,
-            19,
-            19
-      ],
-      [
-            "liv021-false-bus-8-output",
-            "Bus 8 Output",
-            675,
-            100,
-            19,
-            19
-      ],
-      [
-            "liv021-false-bus-9-output",
-            "Bus 9 Output",
-            610,
-            131,
-            18,
-            19
-      ],
-      [
-            "liv021-false-bus-10-output",
-            "Bus 10 Output",
-            631,
-            131,
-            20,
-            19
-      ],
-      [
-            "liv021-false-bus-11-output",
-            "Bus 11 Output",
-            655,
-            131,
-            20,
-            20
-      ],
-      [
-            "liv021-false-bus-12-output",
-            "Bus 12 Output",
-            679,
-            131,
-            18,
-            20
-      ],
-      [
-            "liv021-false-bus-13-output",
-            "Bus 13 Output",
-            610,
-            161,
-            19,
-            19
-      ],
-      [
-            "liv021-false-bus-14-output",
-            "Bus 14 Output",
-            632,
-            160,
-            20,
-            20
-      ],
-      [
-            "liv021-false-bus-15-output",
-            "Bus 15 Output",
-            654,
-            161,
-            19,
-            19
-      ],
-      [
-            "liv021-false-bus-16-output",
-            "Bus 16 Output",
-            677,
-            159,
-            21,
-            21
-      ],
-      [
-            "liv021-false-matrix-1",
-            "M1 Output",
-            731,
-            123,
-            13,
-            13
-      ],
-      [
-            "liv021-false-matrix-2",
-            "M2 Output",
-            748,
-            124,
-            13,
-            13
-      ],
-      [
-            "liv021-false-matrix-3",
-            "M3 Output",
-            764,
-            123,
-            14,
-            15
-      ],
-      [
-            "liv021-false-matrix-4",
-            "M4 Output",
-            783,
-            122,
-            15,
-            16
-      ],
-      [
-            "liv021-false-main-xlr-1",
-            "Misc Main Section XLR 1",
-            722,
-            150,
-            19,
-            21
-      ],
-      [
-            "liv021-false-main-xlr-2",
-            "Misc Main Section XLR 2",
-            744,
-            151,
-            20,
-            21
-      ],
-      [
-            "liv021-false-main-xlr-3",
-            "Misc Main Section XLR 3",
-            767,
-            151,
-            21,
-            22
-      ],
-      [
-            "liv021-false-main-xlr-4",
-            "Misc Main Section XLR 4",
-            790,
-            151,
-            18,
-            20
-      ],
-      [
-            "liv021-false-stagebox-input-2",
-            "Stage Box Input 2",
-            65,
-            237,
-            22,
-            24
-      ],
-      [
-            "liv021-false-stagebox-input-3",
-            "Stage Box Input 3",
-            93,
-            237,
-            19,
-            23
-      ],
-      [
-            "liv021-false-stagebox-input-4",
-            "Stage Box Input 4",
-            117,
-            237,
-            22,
-            22
-      ],
-      [
-            "liv021-false-stagebox-input-5",
-            "Stage Box Input 5",
-            144,
-            237,
-            21,
-            23
-      ],
-      [
-            "liv021-false-stagebox-input-6",
-            "Stage Box Input 6",
-            169,
-            237,
-            24,
-            22
-      ],
-      [
-            "liv021-false-stagebox-input-7",
-            "Stage Box Input 7",
-            195,
-            238,
-            21,
-            22
-      ],
-      [
-            "liv021-false-stagebox-input-8",
-            "Stage Box Input 8",
-            221,
-            237,
-            23,
-            24
-      ]
-];
-
-    liv021GoodHitboxes.concat(liv021FalseHitboxes).forEach(function(hitbox) {
-      addLiv021DevNode(hitbox[0], hitbox[1], hitbox[2], hitbox[3], hitbox[4], hitbox[5]);
-    });
-
-    console.log("[Signal Flow] LIV-021 false jack hitboxes installed", {
-      good: liv021GoodHitboxes.length,
-      falseJacks: liv021FalseHitboxes.length
-    });
-
     surface.appendChild(layer);
-    requestAnimationFrame(logLiv021CableRuntimeLayout);
     redrawCables(layer);
     installCableDrag(layer);
 

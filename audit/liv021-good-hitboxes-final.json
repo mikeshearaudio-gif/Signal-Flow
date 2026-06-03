@@ -1,0 +1,146 @@
+[
+  {
+    "key": "lead-vocal-mic",
+    "label": "Lead Vocal Mic",
+    "leftPx": 82,
+    "topPx": 304,
+    "widthPx": 111,
+    "heightPx": 149
+  },
+  {
+    "key": "liv021-stagebox-input-1",
+    "label": "Stage Box Input 1",
+    "leftPx": 39,
+    "topPx": 237,
+    "widthPx": 23,
+    "heightPx": 23
+  },
+  {
+    "key": "liv021-ch1-insert-send",
+    "label": "Channel 1 Insert Send",
+    "leftPx": 259,
+    "topPx": 66,
+    "widthPx": 20,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-compressor-input",
+    "label": "Vocal Compressor Input",
+    "leftPx": 344,
+    "topPx": 257,
+    "widthPx": 18,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-compressor-output",
+    "label": "Vocal Compressor Output",
+    "leftPx": 414,
+    "topPx": 258,
+    "widthPx": 18,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-ch1-insert-return",
+    "label": "Channel 1 Insert Return",
+    "leftPx": 261,
+    "topPx": 90,
+    "widthPx": 18,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-aux-1-output",
+    "label": "Auxiliary 1 Output",
+    "leftPx": 432,
+    "topPx": 67,
+    "widthPx": 18,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-vocal-wedge-amp-input",
+    "label": "Vocal Wedge Amp Input",
+    "leftPx": 582,
+    "topPx": 435,
+    "widthPx": 16,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-vocal-wedge-amp-output",
+    "label": "Vocal Wedge Amp Output",
+    "leftPx": 759,
+    "topPx": 434,
+    "widthPx": 16,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-vocal-wedge-input",
+    "label": "Vocal Wedge Input",
+    "leftPx": 275,
+    "topPx": 307,
+    "widthPx": 222,
+    "heightPx": 117
+  },
+  {
+    "key": "liv021-main-left-output",
+    "label": "Main Left Output",
+    "leftPx": 735,
+    "topPx": 64,
+    "widthPx": 26,
+    "heightPx": 28
+  },
+  {
+    "key": "liv021-main-right-output",
+    "label": "Main Right Output",
+    "leftPx": 768,
+    "topPx": 63,
+    "widthPx": 29,
+    "heightPx": 28
+  },
+  {
+    "key": "liv021-system-processor-left-input",
+    "label": "System Processor Left Input",
+    "leftPx": 576,
+    "topPx": 243,
+    "widthPx": 16,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-system-processor-right-input",
+    "label": "System Processor Right Input",
+    "leftPx": 605,
+    "topPx": 243,
+    "widthPx": 16,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-system-processor-left-output",
+    "label": "System Processor Left Output",
+    "leftPx": 690,
+    "topPx": 247,
+    "widthPx": 16,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-system-processor-right-output",
+    "label": "System Processor Right Output",
+    "leftPx": 721,
+    "topPx": 246,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-main-amp-left-input",
+    "label": "Main Amp Left Input",
+    "leftPx": 574,
+    "topPx": 341,
+    "widthPx": 16,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-main-amp-right-input",
+    "label": "Main Amp Right Input",
+    "leftPx": 613,
+    "topPx": 341,
+    "widthPx": 15,
+    "heightPx": 14
+  }
+]

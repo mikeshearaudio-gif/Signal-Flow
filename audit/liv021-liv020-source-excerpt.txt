@@ -1,0 +1,200 @@
+t-to-crossover-left-input", from: "foh-liv006-main-left-output", to: "liv242-crossover-l-input", checklist: "Main Left Output → Crossover Left In", stereoGroup: "liv016-main-to-crossover", stereoSide: "left" },
+            { key: "liv016-main-right-output-to-crossover-right-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main Right Output → Crossover Right In", stereoGroup: "liv016-main-to-crossover", stereoSide: "right" }
+          ]
+        },
+        "LIV-020": {
+          id: "LIV-020",
+          title: "Main PA + IEM Monitor Feed",
+          processorLabel: "3-WAY PA + MONITOR IEM FEEDS",
+          panelKinds: ["foh", "crossover", "amp-high", "amp-mid", "amp-low", "speaker-left", "speaker-right", "pa-visual", "iem-pack"],
+          sourceOrder: [],
+          assetOverrides: {
+            foh: "/assets/live-sound/svg/hardware/monitor-console-aux-panel.svg",
+            crossover: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+            "amp-high": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+            "amp-mid": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+            "amp-low": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+            "speaker-left": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
+            "speaker-right": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
+            "pa-visual": "/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg",
+            "iem-pack": "/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg"
+          },
+          generatedJackKeys: [
+            "liv020-main-left-output",
+            "liv020-main-right-output",
+            "liv020-aux-1-output",
+            "liv020-aux-2-output",
+            "liv020-aux-3-output",
+            "liv020-aux-4-output",
+            "liv020-aux-5-output",
+            "liv020-crossover-left-input",
+            "liv020-crossover-right-input",
+            "liv020-crossover-high-left-output",
+            "liv020-crossover-high-right-output",
+            "liv020-crossover-mid-left-output",
+            "liv020-crossover-mid-right-output",
+            "liv020-crossover-low-left-output",
+            "liv020-crossover-low-right-output",
+            "liv020-high-amp-left-input",
+            "liv020-high-amp-right-input",
+            "liv020-mid-amp-left-input",
+            "liv020-mid-amp-right-input",
+            "liv020-low-amp-left-input",
+            "liv020-low-amp-right-input",
+            "liv020-high-amp-left-output",
+            "liv020-high-amp-right-output",
+            "liv020-mid-amp-left-output",
+            "liv020-mid-amp-right-output",
+            "liv020-low-amp-left-output",
+            "liv020-low-amp-right-output",
+            "liv020-left-line-array-high-input",
+            "liv020-right-line-array-high-input",
+            "liv020-left-line-array-mid-input",
+            "liv020-right-line-array-mid-input",
+            "liv020-left-line-array-low-input",
+            "liv020-right-line-array-low-input",
+            "liv020-iem-pack-1-input",
+            "liv020-iem-pack-1-input-b",
+            "liv020-iem-pack-2-input",
+            "liv020-iem-pack-2-input-b",
+            "liv020-iem-pack-3-input"
+          ],
+          validRoutes: [
+            { key: "liv020-main-left-output-to-liv020-crossover-left-input", from: "liv020-main-left-output", to: "liv020-crossover-left-input", checklist: "Main L Output → Crossover L Input", stereoGroup: "liv020-main-to-crossover", stereoSide: "left" },
+            { key: "liv020-main-right-output-to-liv020-crossover-right-input", from: "liv020-main-right-output", to: "liv020-crossover-right-input", checklist: "Main R Output → Crossover R Input", stereoGroup: "liv020-main-to-crossover", stereoSide: "right" },
+            { key: "liv020-crossover-high-left-output-to-liv020-high-amp-left-input", from: "liv020-crossover-high-left-output", to: "liv020-high-amp-left-input", checklist: "Crossover High L Output → High Amp L Input", stereoGroup: "liv020-crossover-high-to-amp", stereoSide: "left" },
+            { key: "liv020-crossover-high-right-output-to-liv020-high-amp-right-input", from: "liv020-crossover-high-right-output", to: "liv020-high-amp-right-input", checklist: "Crossover High R Output → High Amp R Input", stereoGroup: "liv020-crossover-high-to-amp", stereoSide: "right" },
+            { key: "liv020-crossover-mid-left-output-to-liv020-mid-amp-left-input", from: "liv020-crossover-mid-left-output", to: "liv020-mid-amp-left-input", checklist: "Crossover Mid L Output → Mid Amp L Input", stereoGroup: "liv020-crossover-mid-to-amp", stereoSide: "left" },
+            { key: "liv020-crossover-mid-right-output-to-liv020-mid-amp-right-input", from: "liv020-crossover-mid-right-output", to: "liv020-mid-amp-right-input", checklist: "Crossover Mid R Output → Mid Amp R Input", stereoGroup: "liv020-crossover-mid-to-amp", stereoSide: "right" },
+            { key: "liv020-crossover-low-left-output-to-liv020-low-amp-left-input", from: "liv020-crossover-low-left-output", to: "liv020-low-amp-left-input", checklist: "Crossover Low L Output → Low Amp L Input", stereoGroup: "liv020-crossover-low-to-amp", stereoSide: "left" },
+            { key: "liv020-crossover-low-right-output-to-liv020-low-amp-right-input", from: "liv020-crossover-low-right-output", to: "liv020-low-amp-right-input", checklist: "Crossover Low R Output → Low Amp R Input", stereoGroup: "liv020-crossover-low-to-amp", stereoSide: "right" },
+            { key: "liv020-high-amp-left-output-to-liv020-left-line-array-high-input", from: "liv020-high-amp-left-output", to: "liv020-left-line-array-high-input", checklist: "High Amp L Output → Left Line Array High Input", stereoGroup: "liv020-high-amp-to-array", stereoSide: "left" },
+            { key: "liv020-high-amp-right-output-to-liv020-right-line-array-high-input", from: "liv020-high-amp-right-output", to: "liv020-right-line-array-high-input", checklist: "High Amp R Output → Right Line Array High Input", stereoGroup: "liv020-high-amp-to-array", stereoSide: "right" },
+            { key: "liv020-mid-amp-left-output-to-liv020-left-line-array-mid-input", from: "liv020-mid-amp-left-output", to: "liv020-left-line-array-mid-input", checklist: "Mid Amp L Output → Left Line Array Mid Input", stereoGroup: "liv020-mid-amp-to-array", stereoSide: "left" },
+            { key: "liv020-mid-amp-right-output-to-liv020-right-line-array-mid-input", from: "liv020-mid-amp-right-output", to: "liv020-right-line-array-mid-input", checklist: "Mid Amp R Output → Right Line Array Mid Input", stereoGroup: "liv020-mid-amp-to-array", stereoSide: "right" },
+            { key: "liv020-low-amp-left-output-to-liv020-left-line-array-low-input", from: "liv020-low-amp-left-output", to: "liv020-left-line-array-low-input", checklist: "Low Amp L Output → Left Line Array Low Input", stereoGroup: "liv020-low-amp-to-array", stereoSide: "left" },
+            { key: "liv020-low-amp-right-output-to-liv020-right-line-array-low-input", from: "liv020-low-amp-right-output", to: "liv020-right-line-array-low-input", checklist: "Low Amp R Output → Right Line Array Low Input", stereoGroup: "liv020-low-amp-to-array", stereoSide: "right" },
+            { key: "liv020-aux-1-output-to-liv020-iem-pack-1-input", from: "liv020-aux-1-output", to: "liv020-iem-pack-1-input", checklist: "Aux 1 Output → IEM Pack 1 Input A" },
+            { key: "liv020-aux-2-output-to-liv020-iem-pack-1-input-b", from: "liv020-aux-2-output", to: "liv020-iem-pack-1-input-b", checklist: "Aux 2 Output → IEM Pack 1 Input B" },
+            { key: "liv020-aux-3-output-to-liv020-iem-pack-2-input", from: "liv020-aux-3-output", to: "liv020-iem-pack-2-input", checklist: "Aux 3 Output → IEM Pack 2 Input A" },
+            { key: "liv020-aux-4-output-to-liv020-iem-pack-2-input-b", from: "liv020-aux-4-output", to: "liv020-iem-pack-2-input-b", checklist: "Aux 4 Output → IEM Pack 2 Input B" },
+            { key: "liv020-aux-5-output-to-liv020-iem-pack-3-input", from: "liv020-aux-5-output", to: "liv020-iem-pack-3-input", checklist: "Aux 5 Output → IEM Pack 3 Input A" }
+          ]
+        },
+};
+
+  function sfClearNativeCompletionOverlay(reason) {
+    if (typeof document === "undefined") return;
+
+    document.querySelectorAll([
+      ".sf-native-completion",
+      ".sf-native-completion-popup",
+      ".native-completion",
+      ".completion-popup",
+      ".level-complete",
+      ".modal",
+      ".popup",
+      "[class*='completion']",
+      "[class*='complete']"
+    ].join(",")).forEach(function(el) {
+      const body = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+      const looksLikeNativeCompletion =
+        /LEVEL COMPLETE/i.test(body) &&
+        (
+          /All required routes are patched correctly/i.test(body) ||
+          /Continue to LIV-\d{3}/i.test(body) ||
+          /Next Level/i.test(body)
+        );
+
+      if (looksLikeNativeCompletion) {
+        console.log("[Signal Flow] Removed stale native completion overlay:", reason || "");
+        el.remove();
+      }
+    });
+  }
+
+
+
+  function resetNativeStateForLevelChange(nextLevelId) {
+if (activeNativeLevelId === nextLevelId) return;
+      console.log("[Signal Flow] Native level changed, clearing state:", activeNativeLevelId, "→", nextLevelId);
+
+    activeNativeLevelId = nextLevelId;
+    resetNativeSurfaceRetry();
+    resetNativeLevelComplete();
+
+    try {
+      if (patchDrag) {
+        patchDrag = null;
+      }
+    } catch (err) {}
+
+    try {
+      selectedNode = null;
+    } catch (err) {}
+
+    try {
+      nativeHintsVisible = false;
+    } catch (err) {}
+
+    try {
+      state.routes = [];
+      if (state.completedValidKeys && state.completedValidKeys.clear) {
+        state.completedValidKeys.clear();
+      }
+    } catch (err) {}
+
+    try {
+      captureNativeCompletionStartTotals(nextLevelId);
+      dispatchNativeLedger({ type: "LEVEL_STARTED", levelId: nextLevelId });
+    } catch (err) {
+      console.warn("[Signal Flow] Native ledger level start failed:", err);
+    }
+
+    // Remove any old native layers/cables so a previous board cannot visually
+    // carry routes into the next board.
+    document.querySelectorAll(".sf-live-native-layer").forEach(layer => layer.remove());
+
+    try {
+      updateNativeScore();
+    } catch (err) {}
+  }
+
+  function syncActiveLevelSpec() {
+    const id = currentNativePatchLevelId();
+    const spec = LIVE_NATIVE_PATCH_SPECS[id];
+
+    if (!spec) return null;
+
+    resetNativeStateForLevelChange(spec.id);
+
+    LEVEL_ID = spec.id;
+    LEVEL.id = spec.id;
+    LEVEL.title = spec.title;
+    LEVEL.processorLabel = spec.processorLabel;
+    LEVEL.validRoutes = spec.validRoutes;
+    LEVEL.panelKinds = spec.panelKinds || null;
+    LEVEL.sourceOrder = spec.sourceOrder || null;
+    LEVEL.generatedJackKeys = spec.generatedJackKeys || null;
+    LEVEL.assetOverrides = spec.assetOverrides || null;
+
+    return spec;
+  }
+
+  const NODE_DEFS = {
+    "liv242-main-pa-r-input": { label: "Main PA R Input", kind: "jack", panelRel: { panel: "paamp", x: 0.640000, y: 0.625000 } },
+    "liv242-main-pa-l-input": { label: "Main PA L Input", kind: "jack", panelRel: { panel: "paamp", x: 0.360000, y: 0.625000 } },
+    "liv242-crossover-r-output": { label: "Crossover R Out", kind: "jack", panelRel: { panel: "amp", x: 0.720000, y: 0.455000 } },
+    "liv242-crossover-l-output": { label: "Crossover L Out", kind: "jack", panelRel: { panel: "amp", x: 0.620000, y: 0.455000 } },
+    "liv242-sub-processor-input": { label: "Sub Processor Input", kind: "jack", panelRel: { panel: "amp", x: 0.640000, y: 0.615000 } },
+    "liv242-delay-tower-processor-input": { label: "Delay Tower Processor Input", kind: "jack", panelRel: { panel: "amp", x: 0.640000, y: 0.340000 } },
+    "liv242-crossover-r-input": { label: "Crossover R In", kind: "jack", panelRel: { panel: "amp", x: 0.257000, y: 0.615000 } },
+    "liv242-crossover-l-input": { label: "Crossover L In", kind: "jack", panelRel: { panel: "amp", x: 0.166000, y: 0.615000 } },
+    "lead-vocal-mic": { label: "Lead Vocal Microphone", kind: "source" },
+    "talkback-mic": { label: "Talkback Mic", kind: "source", x: 44, y: 160 },
+    "keys-left-di": { label: "Keys L DI", kind: "source" },
+    "keys-right-di": { label: "Keys R DI", kind: "source" },
+    "bass-di": { label: "Bass DI", kind: "source" },
+    "guitar-1-left": { label: "Guitar 1 L", kind: "source" },
+    

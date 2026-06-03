@@ -1,0 +1,79 @@
+[
+  {
+    "key": "monitor-console-outputs",
+    "leftPx": 8,
+    "topPx": -170,
+    "widthPx": 823,
+    "heightPx": 535
+  },
+  {
+    "key": "3-way-crossover",
+    "leftPx": 6,
+    "topPx": 186,
+    "widthPx": 564,
+    "heightPx": 150
+  },
+  {
+    "key": "high-amplifier",
+    "leftPx": 1,
+    "topPx": 348,
+    "widthPx": 509,
+    "heightPx": 130
+  },
+  {
+    "key": "mid-amplifier",
+    "leftPx": 1,
+    "topPx": 454,
+    "widthPx": 504,
+    "heightPx": 129
+  },
+  {
+    "key": "low-amplifier",
+    "leftPx": 2,
+    "topPx": 563,
+    "widthPx": 494,
+    "heightPx": 126
+  },
+  {
+    "key": "pa-line-arrays-over-subs",
+    "leftPx": 513,
+    "topPx": 337,
+    "widthPx": 358,
+    "heightPx": 363
+  },
+  {
+    "key": "left-line-array-input-panel",
+    "leftPx": 518,
+    "topPx": 398,
+    "widthPx": 95,
+    "heightPx": 227
+  },
+  {
+    "key": "right-line-array-input-panel",
+    "leftPx": 717,
+    "topPx": 398,
+    "widthPx": 95,
+    "heightPx": 227
+  },
+  {
+    "key": "iem-pack-1",
+    "leftPx": 0,
+    "topPx": 680,
+    "widthPx": 500,
+    "heightPx": 133
+  },
+  {
+    "key": "iem-pack-2",
+    "leftPx": 122,
+    "topPx": 775,
+    "widthPx": 495,
+    "heightPx": 132
+  },
+  {
+    "key": "iem-pack-3",
+    "leftPx": 254,
+    "topPx": 870,
+    "widthPx": 490,
+    "heightPx": 131
+  }
+]

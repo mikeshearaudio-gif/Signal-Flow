@@ -1,0 +1,2 @@
+10101:      { key: "liv021-cable-09", leftPx: 653, topPx: 320, widthPx: 155, heightPx: 68, rotationDeg: 0 },
+10102:      { key: "liv021-cable-10", leftPx: 635, topPx: 320, widthPx: 135, heightPx: 64, rotationDeg: 0 }

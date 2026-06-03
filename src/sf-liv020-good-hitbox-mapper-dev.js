@@ -14,7 +14,7 @@
   function bestTarget() {
     let best = null;
     docsToScan().forEach(item => {
-      const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019, .sf-live-native-layer.sf-live-native-level-liv-020");
+      const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-020, .sf-live-native-layer.sf-live-native-level-liv-020");
       if (!layer) return;
       const r = layer.getBoundingClientRect();
       const score = (item.name.startsWith("iframe") ? 100000 : 0) + r.width * r.height;
@@ -48,11 +48,14 @@
     const seen = {};
 
     layer.querySelectorAll("[data-node-key]").forEach(el => {
-      if (el.closest(".sf-native-liv019-source-panel") || el.closest(".sf-native-liv009-source-panel")) return;
+      const nodeKey = el.dataset.nodeKey || "";
+      if (!nodeKey.startsWith("liv020-")) return;
+      if (nodeKey.startsWith("liv020-bad-")) return;
+      if (el.closest(".sf-native-liv020-source-panel") || el.closest(".sf-native-liv009-source-panel")) return;
 
       const base = el.dataset.nodeKey || "unknown";
 
-      // LIV-019 uses an 8-input stagebox.
+      // LIV-020 uses an 8-input stagebox.
       if (/^stagebox-input-(9|10|11|12|13|14|15|16)$/.test(base)) {
         el.style.setProperty("display", "none", "important");
         el.style.setProperty("visibility", "hidden", "important");
@@ -63,7 +66,7 @@
       seen[base] = (seen[base] || 0) + 1;
       const key = seen[base] === 1 ? base : `${base}#${seen[base]}`;
 
-      el.dataset.sfLiv019HitboxMapKey = key;
+      el.dataset.sfLiv020HitboxMapKey = key;
       ensurePxBox(el);
       map[key] = el;
     });
@@ -72,10 +75,10 @@
   }
 
   function makeOverlayLayer(layer) {
-    let overlayLayer = layer.querySelector(".sf-liv019-hitbox-visual-layer");
+    let overlayLayer = layer.querySelector(".sf-liv020-hitbox-visual-layer");
     if (!overlayLayer) {
       overlayLayer = layer.ownerDocument.createElement("div");
-      overlayLayer.className = "sf-liv019-hitbox-visual-layer";
+      overlayLayer.className = "sf-liv020-hitbox-visual-layer";
       overlayLayer.style.cssText = [
         "position:absolute",
         "left:0",
@@ -137,13 +140,13 @@
     const target = bestTarget();
     if (!target) return false;
 
-    document.querySelector("#sf-liv019-hitbox-mapper")?.remove();
+    document.querySelector("#sf-liv020-hitbox-mapper")?.remove();
 
     const nodes = collectNodes(target.layer);
     const keys = Object.keys(nodes).sort();
 
     if (!keys.length) {
-      console.warn("[Signal Flow] LIV-019 Hitbox Mapper found no data-node-key targets.");
+      console.warn("[Signal Flow] LIV-020 Hitbox Mapper found no data-node-key targets.");
       return false;
     }
 
@@ -155,7 +158,7 @@
     let showAll = false;
 
     const panel = document.createElement("div");
-    panel.id = "sf-liv019-hitbox-mapper";
+    panel.id = "sf-liv020-hitbox-mapper";
     panel.style.cssText = [
       "position:fixed",
       "right:16px",
@@ -173,7 +176,7 @@
     ].join(";");
 
     panel.innerHTML = [
-      '<div style="font-size:14px;margin-bottom:8px;">LIV-019/020 Hitbox Mapper v6r406</div>',
+      '<div style="font-size:14px;margin-bottom:8px;">LIV-020/020 Hitbox Mapper v6r406</div>',
       `<div style="margin-bottom:6px;color:#9ee;">Target: ${target.name} · ${keys.length} hitboxes</div>`,
       '<div id="sf-hbm-current" style="margin-bottom:8px;color:white;line-height:1.35;"></div>',
       '<select id="sf-hbm-select" style="width:100%;margin-bottom:8px;"></select>',
@@ -218,13 +221,13 @@
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2 - lr.left;
       const cy = r.top + r.height / 2 - lr.top;
-      const parentGear = el.closest("[data-liv019-gear-key]");
+      const parentGear = el.closest("[data-liv020-gear-key]");
       let gearRel = null;
 
       if (parentGear) {
         const gr = parentGear.getBoundingClientRect();
         gearRel = {
-          gear: parentGear.dataset.liv019GearKey,
+          gear: parentGear.dataset.liv020GearKey,
           x: +(((r.left + r.width / 2 - gr.left) / gr.width) * 100).toFixed(3),
           y: +(((r.top + r.height / 2 - gr.top) / gr.height) * 100).toFixed(3)
         };
@@ -262,7 +265,7 @@
         };
       });
 
-      window.__sfLiv019HitboxExport = data;
+      window.__sfLiv020HitboxExport = data;
       return data;
     }
 
@@ -361,7 +364,7 @@
     panel.querySelector("#sf-hbm-export").addEventListener("click", async () => {
       const data = buildExportData();
       const text = JSON.stringify(data, null, 2);
-      console.log("LIV-019 Hitbox Mapper export:");
+      console.log("LIV-020 Hitbox Mapper export:");
       console.log(text);
 
       try {
@@ -379,12 +382,12 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "liv019-020-hitbox-export-v6r406.json";
+      a.download = "liv020-020-hitbox-export-v6r406.json";
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      current.textContent = "Downloaded liv019-hitbox-export-v6r406.json.";
+      current.textContent = "Downloaded liv020-hitbox-export-v6r406.json.";
     });
 
     panel.querySelector("#sf-hbm-close").addEventListener("click", () => {
@@ -395,7 +398,7 @@
 
     update();
 
-    console.log("[Signal Flow] LIV-019 Hitbox Mapper installed", VERSION, {
+    console.log("[Signal Flow] LIV-020 Hitbox Mapper installed", VERSION, {
       target: target.name,
       hitboxes: keys.length,
       visualOverlay: true,
@@ -405,12 +408,12 @@
     return true;
   }
 
-  console.log("[Signal Flow] LIV-019 Hitbox Mapper loaded", VERSION);
+  console.log("[Signal Flow] LIV-020 Hitbox Mapper loaded", VERSION);
 
   install();
   let tries = 0;
   const timer = setInterval(() => {
     tries += 1;
-    if (document.querySelector("#sf-liv019-hitbox-mapper") || install() || tries > 100) clearInterval(timer);
+    if (document.querySelector("#sf-liv020-hitbox-mapper") || install() || tries > 100) clearInterval(timer);
   }, 250);
 })();

@@ -1,0 +1,13 @@
+[
+  {"key":"liv-021-lead-vocal-input-channel-insert-compressor","text":"LIV-021 - LEAD VOCAL INPUT + CHANNEL INSERT COMPRESSOR","leftPx":-6,"topPx":1,"fontSize":"13px","zIndex":"40"},
+  {"key":"monitor-console-use-ch-1-insert-send-return-aux-1-main-l-r","text":"MONITOR CONSOLE - USE CH 1 INSERT SEND / RETURN, AUX 1, MAIN L/R","leftPx":251,"topPx":113,"fontSize":"9px","zIndex":"1"},
+  {"key":"stage-box-lead-vocal-to-input-1","text":"STAGE BOX - LEAD VOCAL TO INPUT 1","leftPx":21,"topPx":268,"fontSize":"10px","zIndex":"40"},
+  {"key":"vocal-compressor","text":"VOCAL COMPRESSOR","leftPx":322,"topPx":212,"fontSize":"11px","zIndex":"40"},
+  {"key":"input","text":"INPUT","leftPx":340,"topPx":244,"fontSize":"8px","zIndex":"40"},
+  {"key":"output","text":"OUTPUT","leftPx":404,"topPx":246,"fontSize":"8px","zIndex":"40"},
+  {"key":"system-processor","text":"SYSTEM PROCESSOR","leftPx":624,"topPx":203,"fontSize":"11px","zIndex":"40"},
+  {"key":"main-power-amp","text":"MAIN POWER AMP","leftPx":635,"topPx":303,"fontSize":"11px","zIndex":"40"},
+  {"key":"vocal-wedge","text":"VOCAL WEDGE","leftPx":653,"topPx":402,"fontSize":"11px","zIndex":"40"},
+  {"key":"main-speakers","text":"MAIN SPEAKERS","leftPx":645,"topPx":348,"fontSize":"11px","zIndex":"9"},
+  {"key":"lead-vocal-mic","text":"LEAD VOCAL MIC","leftPx":87,"topPx":375,"fontSize":"10px","zIndex":"40"}
+]

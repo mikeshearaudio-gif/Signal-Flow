@@ -1,0 +1,449 @@
+diff --git a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+index 459fc75..c6e3af0 100644
+--- a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
++++ b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+@@ -18027,8 +18027,8 @@ window.SIGNAL_FLOW_V12 = {
+         ["Floor Tom", "Stage Box Input 14"],
+         ["OH Left", "Stage Box Input 15"],
+         ["OH Right", "Stage Box Input 16"],
+-        ["Main Left Output", "Crossover Left In"],
+-        ["Main Right Output", "Crossover Right In"]
++        ["Main Left Output", "System Processor L In"],
++        ["Main Right Output", "System Processor R In"]
+       ],
+       "forbidden": [
+         ["Main Left Output", "Stage Box Input 1"],
+@@ -18364,49 +18364,70 @@ window.SIGNAL_FLOW_V12 = {
+     {
+       "id": "LIV-021",
+       "environment": "live",
+-      "title": "Lead Vocal Mic to FOH",
+-      "brief": "Patch Lead Vocal Mic into the stagebox and feed mains to system processing.",
+-      "difficulty": 3,
++      "title": "Lead Vocal Input + Channel Insert Compressor",
++      "brief": "Patch the lead vocal into Stage Box Input 1, insert an outboard compressor on Channel 1, feed Aux 1 to a mono vocal wedge amp, and feed Main L/R to system processing.",
++      "difficulty": 4,
+       "required": [
+         [
+-          "Lead Vocal Mic",
+-          "Stage Box Input 9"
++          "Lead Vocal Microphone",
++          "Stage Box Input 1"
+         ],
+         [
+-          "Main L Output",
+-          "System Processor L In"
++          "Channel 1 Insert Send",
++          "Vocal Compressor Input"
+         ],
+         [
+-          "Main R Output",
+-          "System Processor R In"
++          "Vocal Compressor Output",
++          "Channel 1 Insert Return"
+         ],
+         [
+-          "Keys L DI",
+-          "Stage Box Input 7"
++          "Auxiliary 1 Output",
++          "Vocal Wedge Amp Input"
+         ],
+         [
+-          "Keys R DI",
+-          "Stage Box Input 8"
++          "Vocal Wedge Amp Output",
++          "Vocal Wedge Input"
++        ],
++        [
++          "Main Left Output",
++          "System Processor Left Input"
++        ],
++        [
++          "Main Right Output",
++          "System Processor Right Input"
+         ]
+       ],
+       "forbidden": [
+         [
+-          "Vocal Wedge Output",
++          "Vocal Wedge Amp Output",
+           "Open Vocal Mic Input"
++        ],
++        [
++          "Main Left Output",
++          "System Processor Right Input"
++        ],
++        [
++          "Main Right Output",
++          "System Processor Left Input"
+         ]
+       ],
+       "system": [
+-        "Stagebox input appears on the FOH console over the snake.",
+-        "Main outputs feed system processor."
++        "The console handles channel input, insert processing, monitor send, and main outputs.",
++        "The vocal wedge is mono: Aux 1 feeds the wedge amp, then the wedge amp feeds one wedge input.",
++        "Main L/R feed system processor inputs as a stereo pair; processor-to-main-amp wiring is shown as normalled system wiring."
+       ],
+       "notes": [
+-        "Stage source and PA system processing are separate routes."
++        "Keep the insert loop in order: send → compressor input → compressor output → return.",
++        "Do not split the mono wedge into left/right inputs."
+       ],
+       "learning": [
+         "Stagebox input",
++        "Channel insert loop",
++        "Outboard compression",
++        "Mono monitor wedge feed",
+         "Main PA feed"
+       ],
+-      "time": 280
++      "time": 320
+     },
+     {
+       "id": "LIV-022",
+@@ -29571,7 +29592,15 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
+       hitbox: "../src/sf-live-hitbox-mapper-dev.js?v=liv020-good-hitbox-important1"
+     };
+ 
+-    var scripts = ["../src/sf-live-dev-tool-config.js?v=liv020-good-hitbox-important1"];
++    var scripts = ["../src/sf-live-dev-tool-config.js?v=liv021gearonly1"];
++    var toolMode = params.get("sfLiveDevTool") || "";
++    try {
++      if (!toolMode && window.parent && window.parent !== window) {
++        var parentToolParams = new URLSearchParams(window.parent.location.search || "");
++        toolMode = parentToolParams.get("sfLiveDevTool") || "";
++      }
++    } catch (_) {}
++    toolMode = String(toolMode || "").toLowerCase();
+     if (tool === "all") {
+       scripts.push(toolMap.gear, toolMap.label, toolMap.overlay, toolMap.hitbox);
+     } else {
+@@ -29599,7 +29628,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
+ </script>
+ <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
+ 
+-<script src="../src/live-sound-native-renderer.js?v=6r434liv020neutralbadcursor"></script>
++<script src="../src/live-sound-native-renderer.js?v=6r466liv021bracefix"></script>
+   <script src="../patch/sf-liv011-native-cleanup.js?v=6r242"></script>
+ 
+ <script id="sf-semantic-todo-highlight-script-v1">
+diff --git a/src/live-sound-native-renderer.js b/src/live-sound-native-renderer.js
+index 21b7e09..f69da9c 100644
+--- a/src/live-sound-native-renderer.js
++++ b/src/live-sound-native-renderer.js
+@@ -1556,6 +1556,48 @@
+             { key: "liv016-main-right-output-to-crossover-right-input", from: "foh-liv006-main-right-output", to: "liv242-crossover-r-input", checklist: "Main Right Output → Crossover Right In", stereoGroup: "liv016-main-to-crossover", stereoSide: "right" }
+           ]
+         },
++        "LIV-021": {
++          id: "LIV-021",
++          title: "Lead Vocal Input + Channel Insert Compressor",
++          processorLabel: "LEAD VOCAL INPUT + CHANNEL INSERT COMPRESSOR",
++          panelKinds: ["foh", "stagebox", "compressor", "system-processor", "main-amp", "vocal-wedge-amp", "vocal-wedge"],
++          sourceOrder: ["lead-vocal-mic"],
++          generatedJackKeys: [
++            "liv021-stagebox-input-1",
++            "liv021-ch1-insert-send",
++            "liv021-ch1-insert-return",
++            "liv021-compressor-input",
++            "liv021-compressor-output",
++            "liv021-aux-1-output",
++            "liv021-vocal-wedge-amp-input",
++            "liv021-vocal-wedge-amp-output",
++            "liv021-vocal-wedge-input",
++            "liv021-main-left-output",
++            "liv021-main-right-output",
++            "liv021-system-processor-left-input",
++            "liv021-system-processor-right-input",
++            "liv021-system-processor-left-output",
++            "liv021-system-processor-right-output",
++            "liv021-main-amp-left-input",
++            "liv021-main-amp-right-input",
++            "liv021-main-amp-left-output",
++            "liv021-main-amp-right-output",
++            "liv021-main-speaker-left-input",
++            "liv021-main-speaker-right-input"
++          ],
++          validRoutes: [
++            { key: "liv021-lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "liv021-stagebox-input-1", checklist: "Lead Vocal Microphone → Stage Box Input 1" },
++            { key: "liv021-insert-send-to-compressor-input", from: "liv021-ch1-insert-send", to: "liv021-compressor-input", checklist: "Channel 1 Insert Send → Vocal Compressor Input" },
++            { key: "liv021-compressor-output-to-insert-return", from: "liv021-compressor-output", to: "liv021-ch1-insert-return", checklist: "Vocal Compressor Output → Channel 1 Insert Return" },
++            { key: "liv021-aux1-to-vocal-wedge-amp-input", from: "liv021-aux-1-output", to: "liv021-vocal-wedge-amp-input", checklist: "Auxiliary 1 Output → Vocal Wedge Amp Input" },
++            { key: "liv021-vocal-wedge-amp-output-to-wedge-input", from: "liv021-vocal-wedge-amp-output", to: "liv021-vocal-wedge-input", checklist: "Vocal Wedge Amp Output → Vocal Wedge Input" },
++            { key: "liv021-main-left-to-system-processor-left-input", from: "liv021-main-left-output", to: "liv021-system-processor-left-input", checklist: "Main Left Output → System Processor Left Input" },
++            { key: "liv021-main-right-to-system-processor-right-input", from: "liv021-main-right-output", to: "liv021-system-processor-right-input", checklist: "Main Right Output → System Processor Right Input" },
++            { key: "liv021-system-processor-left-output-to-main-amp-left-input", from: "liv021-system-processor-left-output", to: "liv021-main-amp-left-input", checklist: "System Processor Left Output → Main Amp Left Input" },
++            { key: "liv021-system-processor-right-output-to-main-amp-right-input", from: "liv021-system-processor-right-output", to: "liv021-main-amp-right-input", checklist: "System Processor Right Output → Main Amp Right Input" },
++            { key: "liv021-main-amp-left-output-to-main-speaker-left-input", from: "liv021-main-amp-left-output", to: "liv021-main-speaker-left-input", checklist: "Main Amp Left Output → Main Speaker Left Input" }
++          ]
++        },
+         "LIV-020": {
+           id: "LIV-020",
+           title: "Main PA + IEM Monitor Feed",
+@@ -3596,7 +3638,7 @@ if (activeNativeLevelId === nextLevelId) return;
+   }
+ 
+   function sfLiv020FalseRoutePair(fromNode, toNode) {
+-    if (LEVEL_ID !== "LIV-020") return null;
++    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") return null;
+ 
+     const fromKey = fromNode && fromNode.key;
+     const toKey = toNode && toNode.key;
+@@ -3623,7 +3665,7 @@ if (activeNativeLevelId === nextLevelId) return;
+   }
+ 
+   function sfLiv020IsCuratedBadPair(aKey, bKey) {
+-    if (LEVEL_ID !== "LIV-020") return false;
++    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") return false;
+     if (!Array.isArray(LIV020_BAD_ROUTE_PAIRS)) return false;
+ 
+     const pair = sfLiv020NormalizeOutputInputPair(aKey, bKey);
+@@ -3637,7 +3679,7 @@ if (activeNativeLevelId === nextLevelId) return;
+   }
+ 
+   function sfLiv020RouteDecision(fromNode, toNode, baseValid, baseKey) {
+-    if (LEVEL_ID !== "LIV-020") {
++    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") {
+       return {
+         allowed: baseValid,
+         valid: baseValid,
+@@ -5224,6 +5266,29 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+         el.dataset.sfLiveDevLabelKey = labelKeyByText[text];
+       }
+     });
++    [
++      ["lead-vocal-mic", "Lead Vocal Mic", 65, 280, 133, 158],
++      ["liv021-stagebox-input-1", "Stage Box Input 1", 34, 226, 32, 42],
++      ["liv021-ch1-insert-send", "Channel 1 Insert Send", 254, 49, 32, 42],
++      ["liv021-compressor-input", "Vocal Compressor Input", 337, 242, 32, 42],
++      ["liv021-compressor-output", "Vocal Compressor Output", 402, 242, 32, 42],
++      ["liv021-ch1-insert-return", "Channel 1 Insert Return", 254, 76, 32, 42],
++      ["liv021-aux-1-output", "Auxiliary 1 Output", 423, 56, 32, 42],
++      ["liv021-vocal-wedge-amp-input", "Vocal Wedge Amp Input", 569, 417, 32, 42],
++      ["liv021-vocal-wedge-amp-output", "Vocal Wedge Amp Output", 754, 417, 32, 42],
++      ["liv021-vocal-wedge-input", "Vocal Wedge Input", 275, 307, 222, 117],
++      ["liv021-main-left-output", "Main Left Output", 729, 57, 32, 42],
++      ["liv021-main-right-output", "Main Right Output", 765, 57, 32, 42],
++      ["liv021-system-processor-left-input", "System Processor Left Input", 568, 229, 32, 42],
++      ["liv021-system-processor-right-input", "System Processor Right Input", 599, 229, 32, 42],
++      ["liv021-system-processor-left-output", "System Processor Left Output", 678, 219, 32, 67],
++      ["liv021-system-processor-right-output", "System Processor Right Output", 709, 219, 32, 67],
++      ["liv021-main-amp-left-input", "Main Amp Left Input", 574, 322, 34, 42],
++      ["liv021-main-amp-right-input", "Main Amp Right Input", 606, 322, 32, 42]
++    ].forEach(function(h) {
++      addLiv021DevNode(h[0], h[1], h[2], h[3], h[4], h[5]);
++    });
++
+     surface.appendChild(layer);
+     redrawCables(layer);
+     installCableDrag(layer);
+@@ -5313,7 +5378,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+       img.style.cssText = [
+         "display:block",
+         "width:100%",
+-        "height:auto",
++        "height:" + (h ? h + "px" : "auto"),
+         "object-fit:contain",
+         "pointer-events:none",
+         "user-select:none",
+@@ -6192,7 +6257,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
+     }
+ 
+-    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-015", "LIV-016", "LIV-020", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
++    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-015", "LIV-016", "LIV-020", "LIV-021", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+ 
+     if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
+       const aux = getNodePoint(adapter, level, "foh-aux-1-output");
+@@ -6873,7 +6938,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+ 
+   
+   function sfLiv020NormalizeNeutralJackRings(reason) {
+-    if (LEVEL_ID !== "LIV-020") return;
++    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") return;
+ 
+     const hintsOn =
+       document.body.classList.contains("sf-native-hints-visible") ||
+@@ -7058,7 +7123,7 @@ function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
+ ];
+ 
+   function sfLiv020ApplyLabelJsonLock(reason) {
+-    if (LEVEL_ID !== "LIV-020") return;
++    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") return;
+     const layers = Array.from(document.querySelectorAll(".sf-live-native-layer.sf-live-native-level-liv-020"));
+     let applied = 0;
+ 
+@@ -9035,10 +9100,10 @@ function renderLiv020MainPaAndIem(surface, adapter) {
+     // LIV-018 v6r350: source visuals locked from Gear Mover export.
+     textLabel("SOURCES", W * 0.055, H * 0.075, 12);
+ 
+-    placeImage("/assets/live-sound/svg/hardware/live mic.svg", 8, 31, 304, "Talkback microphone", 20);
++    placeImage("/assets/live-sound/svg/hardware/mic nbg.svg", 8, 31, 304, "Talkback microphone", 20);
+     textLabel("TALKBACK", 159, 211, 12, "center");
+ 
+-    placeImage("/assets/live-sound/svg/hardware/live mic.svg", 3, 250, 304, "Lead vocal microphone", 20);
++    placeImage("/assets/live-sound/svg/hardware/mic nbg.svg", 3, 250, 304, "Lead vocal microphone", 20);
+     textLabel("VOCALS", 164, 445, 12, "center");
+ 
+     placeImage("/assets/live-sound/svg/hardware/keyboard0.svg", 66, 477, 365, "Keyboard DI", 20);
+@@ -9530,7 +9595,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
+     };
+ 
+     const panels = [];
+-    if (LEVEL_ID === "LIV-020") {
++    if (LEVEL_ID === "LIV-020" || LEVEL_ID === "LIV-021") {
+       panels.push(
+         { id: "foh", kind: "foh", x: rect.width * 0.045, y: layoutHeight * 0.195, width: rect.width * 0.445 },
+         { id: "amp", kind: "amp", x: rect.width * 0.505, y: layoutHeight * 0.180, width: rect.width * 0.410 },
+@@ -9581,7 +9646,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
+ 
+     createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + " - PROCESSING FAMILY MODE", level.rect.width * 0.03, level.rect.height * 0.055, 12);
+ 
+-    if (LEVEL_ID === "LIV-020") {
++    if (LEVEL_ID === "LIV-020" || LEVEL_ID === "LIV-021") {
+       createLabel(layer, "FOH CONSOLE MAIN OUTS", level.rect.width * 0.065, level.rect.height * 0.145, 12);
+       if (LEVEL_ID !== "LIV-011") {
+         createLabel(layer, "CROSSOVER", level.rect.width * 0.520, level.rect.height * 0.130, 12);
+@@ -9891,6 +9956,121 @@ function renderLiv020MainPaAndIem(surface, adapter) {
+     });
+   }
+ 
++
++  function renderLiv021VocalInsertDevScaffold(surface, adapter) {
++    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
++    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
++
++    const rect = surface.getBoundingClientRect();
++    const boardWidth = Math.max(1100, Math.ceil(rect.width || 1100));
++    const boardHeight = 900;
++
++    const layer = document.createElement("div");
++    layer.className = "sf-live-native-layer sf-live-native-processing-family sf-live-native-level-liv-021";
++    layer.style.cssText = [
++      "position:absolute",
++      "left:0",
++      "top:0",
++      "width:" + boardWidth + "px",
++      "min-width:" + boardWidth + "px",
++      "height:" + boardHeight + "px",
++      "min-height:" + boardHeight + "px",
++      "z-index:9990",
++      "isolation:isolate",
++      "pointer-events:none",
++      "overflow:visible",
++      "border-radius:16px",
++      "background:radial-gradient(circle at 54% 24%, rgba(18,48,38,.30), rgba(0,0,0,0) 72%)"
++    ].join(";");
++
++    function addGear(id, src, x, y, w, label, h) {
++      const img = document.createElement("img");
++      img.dataset.sfGearId = id;
++      img.dataset.sfGearLabel = label || id;
++      img.src = src;
++      img.alt = label || id;
++      img.style.cssText = [
++        "position:absolute",
++        "left:" + x + "px",
++        "top:" + y + "px",
++        "width:" + w + "px",
++        "height:auto",
++        "pointer-events:none",
++        "user-select:none",
++        "filter:drop-shadow(0 12px 24px rgba(0,0,0,.70))",
++        "z-index:10"
++      ].join(";");
++      layer.appendChild(img);
++      return img;
++    }
++
++
++    function addLiv021DevNode(key, label, x, y, width, height) {
++    const node = document.createElement("button");
++    node.type = "button";
++    node.dataset.nodeKey = key;
++    node.dataset.sfLiv021DevNode = "1";
++    node.title = label;
++    node.setAttribute("aria-label", label);
++
++    const w = width || 22;
++    const h = height || w;
++
++    node.style.cssText = [
++      "position:absolute",
++      "left:" + x + "px",
++      "top:" + y + "px",
++      "width:" + w + "px",
++      "height:" + h + "px",
++      "border-radius:8px",
++      "border:0",
++      "background:transparent",
++      "box-shadow:none",
++      "z-index:2600",
++      "pointer-events:auto",
++      "cursor:pointer",
++      "opacity:0"
++    ].join(";");
++
++    layer.appendChild(node);
++
++    const nativeNode = {
++      key: key,
++      label: label,
++      el: node,
++      defaultShadow: "none"
++    };
++
++    node._sfNativeNode = nativeNode;
++
++    node.addEventListener("pointerdown", function () {
++      window.sfLiv021DragStartNode = nativeNode;
++    });
++
++    node.addEventListener("pointerup", function (event) {
++      const fromNode = window.sfLiv021DragStartNode;
++      window.sfLiv021DragStartNode = null;
++
++      const targetEl = document.elementFromPoint(event.clientX, event.clientY);
++      const toButton = targetEl && targetEl.closest && targetEl.closest("[data-node-key]");
++      const toNode = toButton && toButton._sfNativeNode;
++
++      if (fromNode && toNode && fromNode.key !== toNode.key) {
++        addRoute(layer, fromNode, toNode);
++        clearSelection();
++        event.preventDefault();
++        event.stopPropagation();
++      }
++    });
++
++    node.addEventListener("click", function () {
++      handleNodeClick(layer, nativeNode);
++    });
++
++    return node;
++  }
++
++
+   function renderNative(surface, adapter) {
+     if (LEVEL_ID === "LIV-016") {
+       renderLiv016FullBandPngBoard(surface, adapter);
+@@ -9912,7 +10092,12 @@ function renderLiv020MainPaAndIem(surface, adapter) {
+       return;
+     }
+ 
+-    if (LEVEL_ID === "LIV-020") {
++    if (LEVEL_ID === "LIV-021") {
++      renderLiv021VocalInsertDevScaffold(surface, adapter);
++      return;
++    }
++
++    if (LEVEL_ID === "LIV-020" || LEVEL_ID === "LIV-021") {
+       renderLiv020MainPaAndIem(surface, adapter);
+       sfLiv020ApplyLabelJsonLock("after-renderLiv020MainPaAndIem");
+       sfLiv020NormalizeNeutralJackRings("after-renderLiv020MainPaAndIem");
+@@ -10402,4 +10587,5 @@ function mountNative(force) {
+   });
+ 
+   boot();
++}
+ })();

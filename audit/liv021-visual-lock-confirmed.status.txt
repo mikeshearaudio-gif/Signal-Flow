@@ -1,0 +1,48 @@
+ M launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+ M launch/Signal_Flow_v1_41_17_NAV_WRAPPER.html
+ M launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html
+ M launch/ir-level-runner.html
+ M patch/sf-liv011-native-cleanup.js
+ M src/live-sound-native-renderer.js
+ M src/sf-liv019-foh-label-mover-dev.js
+ M src/sf-liv019-gear-mover-dev.js
+ M src/sf-liv019-hitbox-final-lock.js
+ M src/sf-liv019-hitbox-mapper-dev.js
+ M src/sf-liv019-overlay-mover-dev.js
+?? assets/live-sound/svg/hardware/Monitor_Console.svg
+?? assets/live-sound/svg/hardware/monitor-console-aux-panel.svg
+?? audit/liv020-gear-layout-export.json
+?? audit/liv021-broken-current.diff
+?? audit/liv021-broken-v451.diff
+?? audit/liv021-cable-layout-export.json
+?? audit/liv021-correct-before-incorrect-jacks.diff
+?? audit/liv021-correct-before-incorrect-jacks.status.txt
+?? audit/liv021-current-diff-before-next-fix.diff
+?? audit/liv021-current-status-before-next-fix.txt
+?? audit/liv021-gear-layout-export.json
+?? audit/liv021-label-layout-export.json
+?? audit/liv021-liv020-source-excerpt.txt
+?? audit/liv021-visual-lock-confirmed.diff
+?? audit/liv021-visual-lock-confirmed.status.txt
+?? audit/live-sound-native-renderer-before-final-brace-fix.js
+?? audit/live-sound-native-renderer-current-bad-rollback.js
+?? launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.before-liv021-sidebar-todo-fix
+?? launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html.before-liv021-todo-repair
+?? src/live-sound-native-renderer.js.before-liv020-badclone-cleanup
+?? src/live-sound-native-renderer.js.before-liv020-badjack-access-fix
+?? src/live-sound-native-renderer.js.before-liv020-full-fix
+?? src/live-sound-native-renderer.js.before-liv021-10-cables
+?? src/live-sound-native-renderer.js.before-liv021-cables-v454
+?? src/live-sound-native-renderer.js.before-liv021-dev-scaffold
+?? src/live-sound-native-renderer.js.before-liv021-level-config
+?? src/live-sound-native-renderer.js.before-liv021-remove-console-label-again
+?? src/live-sound-native-renderer.js.before-liv021-single-wire-10
+?? src/sf-liv020-bad-route-hitbox-dev.js
+?? src/sf-liv020-bad-route-native-node-bridge-dev.js
+?? src/sf-liv020-good-hitbox-mapper-dev.js
+?? src/sf-live-dev-tool-config.js
+?? src/sf-live-dev-tool-config.js.before-liv021-level-aware
+?? src/sf-live-gear-mover-dev.js
+?? src/sf-live-hitbox-mapper-dev.js
+?? src/sf-live-label-mover-dev.js
+?? src/sf-live-overlay-mover-dev.js

@@ -48,7 +48,7 @@
     ].join(";");
 
     panel.innerHTML = [
-      '<div style="font-size:14px;margin-bottom:8px;">LIV-019 FOH Label Mover</div>',
+      '<div style="font-size:14px;margin-bottom:8px;">LIV-019/020 Label Mover</div>',
       '<div id="sf-flm-current" style="margin-bottom:8px;color:white;"></div>',
       '<select id="sf-flm-select" style="width:100%;margin-bottom:8px;"></select>',
       '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">',
@@ -175,7 +175,7 @@
 
   function scan() {
     for (const item of docsToScan()) {
-      const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019");
+      const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019, .sf-live-native-layer.sf-live-native-level-liv-020");
       if (layer && install(item.name, item.doc, layer)) return true;
     }
     return false;

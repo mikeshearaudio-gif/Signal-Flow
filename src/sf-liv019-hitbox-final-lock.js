@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = "v6r408";
+  const VERSION = "v6r408q2";
   const HITBOX_LOCKS = {
   "floor-tom": {
     "nodeKey": "floor-tom",
@@ -891,6 +891,20 @@
     return removed;
   }
 
+  const lastReportKeyByDoc = {};
+  const observedDocs = new WeakSet();
+  let rescanQueued = false;
+
+  function reportKeyFor(report) {
+    return [
+      report.document,
+      report.applied,
+      report.missingCount,
+      report.removedStageboxExtras,
+      report.missing.join("|")
+    ].join(":");
+  }
+
   function applyInDoc(item) {
     const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019");
     if (!layer) return false;
@@ -946,7 +960,11 @@
       if (item.win) item.win.__sfLiv019HitboxLockReport = report;
     } catch {}
 
-    console.log("[Signal Flow] LIV-019 hitbox final lock applied", report);
+    const reportKey = reportKeyFor(report);
+    if (lastReportKeyByDoc[item.name] !== reportKey) {
+      lastReportKeyByDoc[item.name] = reportKey;
+      console.log("[Signal Flow] LIV-019 hitbox final lock applied", report);
+    }
     return true;
   }
 
@@ -962,10 +980,66 @@
     return ok;
   }
 
+  function scheduleScan() {
+    if (rescanQueued) return;
+    rescanQueued = true;
+    const run = () => {
+      rescanQueued = false;
+      scan();
+      installObservers();
+    };
+    if (typeof window.requestAnimationFrame === "function") {
+      window.requestAnimationFrame(run);
+    } else {
+      window.setTimeout(run, 0);
+    }
+  }
+
+  function shouldRescanNode(node) {
+    if (!node || node.nodeType !== 1) return false;
+    if (node.matches && node.matches(".sf-live-native-layer.sf-live-native-level-liv-019, .sf-live-native-level-liv-019 [data-node-key]")) return true;
+    return !!(node.querySelector && node.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019, .sf-live-native-level-liv-019 [data-node-key]"));
+  }
+
+  function installObserverForDoc(doc) {
+    if (!doc || !doc.documentElement || observedDocs.has(doc) || typeof MutationObserver !== "function") return;
+    observedDocs.add(doc);
+    const observer = new MutationObserver(mutations => {
+      for (const mutation of mutations) {
+        const added = Array.from(mutation.addedNodes || []);
+        const removed = Array.from(mutation.removedNodes || []);
+        if (added.some(shouldRescanNode) || removed.some(shouldRescanNode)) {
+          scheduleScan();
+          return;
+        }
+      }
+    });
+    observer.observe(doc.documentElement, { childList: true, subtree: true });
+  }
+
+  function installObservers() {
+    docsToScan().forEach(item => installObserverForDoc(item.doc));
+  }
+
+  ["resize", "orientationchange", "pageshow", "hashchange"].forEach(eventName => {
+    window.addEventListener(eventName, () => {
+      installObservers();
+      scheduleScan();
+    }, true);
+  });
+
+  try {
+    window.__sfLiv019HitboxLockRescan = scan;
+    if (window.top) window.top.__sfLiv019HitboxLockRescan = scan;
+  } catch {}
+
+  installObservers();
   scan();
   let tries = 0;
   const timer = setInterval(() => {
     tries += 1;
-    if (scan() || tries > 80) clearInterval(timer);
+    scan();
+    installObservers();
+    if (tries > 120) clearInterval(timer);
   }, 250);
 })();

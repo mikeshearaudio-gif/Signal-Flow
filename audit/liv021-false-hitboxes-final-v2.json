@@ -1,0 +1,810 @@
+[
+  {
+    "key": "liv021-false-console-input-9",
+    "label": "Console Input 9",
+    "leftPx": 72,
+    "topPx": 111,
+    "widthPx": 16,
+    "heightPx": 22
+  },
+  {
+    "key": "liv021-false-console-input-10",
+    "label": "Console Input 10",
+    "leftPx": 94,
+    "topPx": 111,
+    "widthPx": 19,
+    "heightPx": 21
+  },
+  {
+    "key": "liv021-false-console-input-11",
+    "label": "Console Input 11",
+    "leftPx": 117,
+    "topPx": 112,
+    "widthPx": 20,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-console-input-12",
+    "label": "Console Input 12",
+    "leftPx": 140,
+    "topPx": 111,
+    "widthPx": 18,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-console-input-13",
+    "label": "Console Input 13",
+    "leftPx": 163,
+    "topPx": 113,
+    "widthPx": 19,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-console-input-14",
+    "label": "Console Input 14",
+    "leftPx": 187,
+    "topPx": 113,
+    "widthPx": 16,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-console-input-15",
+    "label": "Console Input 15",
+    "leftPx": 208,
+    "topPx": 112,
+    "widthPx": 20,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-console-input-16",
+    "label": "Console Input 16",
+    "leftPx": 231,
+    "topPx": 113,
+    "widthPx": 17,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-console-input-17",
+    "label": "Console Input 17",
+    "leftPx": 71,
+    "topPx": 160,
+    "widthPx": 19,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-console-input-18",
+    "label": "Console Input 18",
+    "leftPx": 97,
+    "topPx": 160,
+    "widthPx": 18,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-console-input-19",
+    "label": "Console Input 19",
+    "leftPx": 118,
+    "topPx": 160,
+    "widthPx": 17,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-console-input-20",
+    "label": "Console Input 20",
+    "leftPx": 145,
+    "topPx": 159,
+    "widthPx": 17,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-console-input-21",
+    "label": "Console Input 21",
+    "leftPx": 168,
+    "topPx": 160,
+    "widthPx": 19,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-console-input-22",
+    "label": "Console Input 22",
+    "leftPx": 183,
+    "topPx": 159,
+    "widthPx": 17,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-console-input-23",
+    "label": "Console Input 23",
+    "leftPx": 207,
+    "topPx": 160,
+    "widthPx": 17,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-console-input-24",
+    "label": "Console Input 24",
+    "leftPx": 228,
+    "topPx": 160,
+    "widthPx": 19,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-insert-2-send",
+    "label": "Channel 2 Insert Send",
+    "leftPx": 281,
+    "topPx": 69,
+    "widthPx": 14,
+    "heightPx": 12
+  },
+  {
+    "key": "liv021-false-insert-2-return",
+    "label": "Channel 2 Insert Return",
+    "leftPx": 281,
+    "topPx": 91,
+    "widthPx": 13,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-insert-3-send",
+    "label": "Channel 3 Insert Send",
+    "leftPx": 298,
+    "topPx": 69,
+    "widthPx": 12,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-insert-3-return",
+    "label": "Channel 3 Insert Return",
+    "leftPx": 298,
+    "topPx": 90,
+    "widthPx": 12,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-insert-4-send",
+    "label": "Channel 4 Insert Send",
+    "leftPx": 315,
+    "topPx": 69,
+    "widthPx": 12,
+    "heightPx": 12
+  },
+  {
+    "key": "liv021-false-insert-4-return",
+    "label": "Channel 4 Insert Return",
+    "leftPx": 316,
+    "topPx": 90,
+    "widthPx": 15,
+    "heightPx": 12
+  },
+  {
+    "key": "liv021-false-insert-5-send",
+    "label": "Channel 5 Insert Send",
+    "leftPx": 341,
+    "topPx": 67,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-insert-5-return",
+    "label": "Channel 5 Insert Return",
+    "leftPx": 342,
+    "topPx": 89,
+    "widthPx": 12,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-insert-6-send",
+    "label": "Channel 6 Insert Send",
+    "leftPx": 354,
+    "topPx": 67,
+    "widthPx": 13,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-insert-6-return",
+    "label": "Channel 6 Insert Return",
+    "leftPx": 354,
+    "topPx": 89,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-insert-7-send",
+    "label": "Channel 7 Insert Send",
+    "leftPx": 370,
+    "topPx": 66,
+    "widthPx": 16,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-insert-7-return",
+    "label": "Channel 7 Insert Return",
+    "leftPx": 370,
+    "topPx": 91,
+    "widthPx": 13,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-insert-8-send",
+    "label": "Channel 8 Insert Send",
+    "leftPx": 388,
+    "topPx": 67,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-insert-8-return",
+    "label": "Channel 8 Insert Return",
+    "leftPx": 388,
+    "topPx": 90,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-insert-9-send",
+    "label": "Channel 9 Insert Send",
+    "leftPx": 263,
+    "topPx": 113,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-insert-9-return",
+    "label": "Channel 9 Insert Return",
+    "leftPx": 263,
+    "topPx": 136,
+    "widthPx": 15,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-insert-10-send",
+    "label": "Channel 10 Insert Send",
+    "leftPx": 281,
+    "topPx": 113,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-insert-10-return",
+    "label": "Channel 10 Insert Return",
+    "leftPx": 280,
+    "topPx": 137,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-11-send",
+    "label": "Channel 11 Insert Send",
+    "leftPx": 298,
+    "topPx": 114,
+    "widthPx": 13,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-insert-11-return",
+    "label": "Channel 11 Insert Return",
+    "leftPx": 298,
+    "topPx": 137,
+    "widthPx": 13,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-12-send",
+    "label": "Channel 12 Insert Send",
+    "leftPx": 316,
+    "topPx": 112,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-12-return",
+    "label": "Channel 12 Insert Return",
+    "leftPx": 316,
+    "topPx": 135,
+    "widthPx": 15,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-insert-13-send",
+    "label": "Channel 13 Insert Send",
+    "leftPx": 336,
+    "topPx": 112,
+    "widthPx": 17,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-insert-13-return",
+    "label": "Channel 13 Insert Return",
+    "leftPx": 336,
+    "topPx": 136,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-14-send",
+    "label": "Channel 14 Insert Send",
+    "leftPx": 354,
+    "topPx": 111,
+    "widthPx": 15,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-insert-14-return",
+    "label": "Channel 14 Insert Return",
+    "leftPx": 354,
+    "topPx": 137,
+    "widthPx": 14,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-15-send",
+    "label": "Channel 15 Insert Send",
+    "leftPx": 370,
+    "topPx": 113,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-15-return",
+    "label": "Channel 15 Insert Return",
+    "leftPx": 370,
+    "topPx": 136,
+    "widthPx": 16,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-insert-16-send",
+    "label": "Channel 16 Insert Send",
+    "leftPx": 387,
+    "topPx": 114,
+    "widthPx": 15,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-insert-16-return",
+    "label": "Channel 16 Insert Return",
+    "leftPx": 387,
+    "topPx": 136,
+    "widthPx": 16,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-2-output",
+    "label": "Auxiliary 2 Output",
+    "leftPx": 451,
+    "topPx": 66,
+    "widthPx": 13,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-3-output",
+    "label": "Auxiliary 3 Output",
+    "leftPx": 467,
+    "topPx": 67,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-4-output",
+    "label": "Auxiliary 4 Output",
+    "leftPx": 485,
+    "topPx": 67,
+    "widthPx": 15,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-5-output",
+    "label": "Auxiliary 5 Output",
+    "leftPx": 506,
+    "topPx": 67,
+    "widthPx": 15,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-6-output",
+    "label": "Auxiliary 6 Output",
+    "leftPx": 523,
+    "topPx": 67,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-7-output",
+    "label": "Auxiliary 7 Output",
+    "leftPx": 539,
+    "topPx": 67,
+    "widthPx": 16,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-8-output",
+    "label": "Auxiliary 8 Output",
+    "leftPx": 559,
+    "topPx": 66,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-aux-9-output",
+    "label": "Auxiliary 9 Output",
+    "leftPx": 433,
+    "topPx": 103,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-aux-10-output",
+    "label": "Auxiliary 10 Output",
+    "leftPx": 450,
+    "topPx": 102,
+    "widthPx": 16,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-aux-11-output",
+    "label": "Auxiliary 11 Output",
+    "leftPx": 467,
+    "topPx": 103,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-12-output",
+    "label": "Auxiliary 12 Output",
+    "leftPx": 486,
+    "topPx": 103,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-13-output",
+    "label": "Auxiliary 13 Output",
+    "leftPx": 506,
+    "topPx": 103,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-14-output",
+    "label": "Auxiliary 14 Output",
+    "leftPx": 524,
+    "topPx": 103,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-15-output",
+    "label": "Auxiliary 15 Output",
+    "leftPx": 540,
+    "topPx": 104,
+    "widthPx": 14,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-aux-16-output",
+    "label": "Auxiliary 16 Output",
+    "leftPx": 559,
+    "topPx": 103,
+    "widthPx": 15,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-17-output",
+    "label": "Auxiliary 17 Output",
+    "leftPx": 434,
+    "topPx": 147,
+    "widthPx": 13,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-aux-18-output",
+    "label": "Auxiliary 18 Output",
+    "leftPx": 451,
+    "topPx": 148,
+    "widthPx": 13,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-19-output",
+    "label": "Auxiliary 19 Output",
+    "leftPx": 468,
+    "topPx": 149,
+    "widthPx": 14,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-20-output",
+    "label": "Auxiliary 20 Output",
+    "leftPx": 485,
+    "topPx": 148,
+    "widthPx": 15,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-aux-21-output",
+    "label": "Auxiliary 21 Output",
+    "leftPx": 506,
+    "topPx": 149,
+    "widthPx": 15,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-22-output",
+    "label": "Auxiliary 22 Output",
+    "leftPx": 523,
+    "topPx": 147,
+    "widthPx": 16,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-aux-23-output",
+    "label": "Auxiliary 23 Output",
+    "leftPx": 539,
+    "topPx": 149,
+    "widthPx": 16,
+    "heightPx": 14
+  },
+  {
+    "key": "liv021-false-aux-24-output",
+    "label": "Auxiliary 24 Output",
+    "leftPx": 558,
+    "topPx": 147,
+    "widthPx": 16,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-aux-25-output",
+    "label": "Auxiliary 25 Output",
+    "leftPx": 559,
+    "topPx": 148,
+    "widthPx": 14,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-bus-1-output",
+    "label": "Bus 1 Output",
+    "leftPx": 610,
+    "topPx": 69,
+    "widthPx": 18,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-bus-2-output",
+    "label": "Bus 2 Output",
+    "leftPx": 631,
+    "topPx": 69,
+    "widthPx": 17,
+    "heightPx": 17
+  },
+  {
+    "key": "liv021-false-bus-3-output",
+    "label": "Bus 3 Output",
+    "leftPx": 654,
+    "topPx": 69,
+    "widthPx": 20,
+    "heightPx": 18
+  },
+  {
+    "key": "liv021-false-bus-4-output",
+    "label": "Bus 4 Output",
+    "leftPx": 675,
+    "topPx": 68,
+    "widthPx": 19,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-bus-5-output",
+    "label": "Bus 5 Output",
+    "leftPx": 611,
+    "topPx": 99,
+    "widthPx": 19,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-bus-6-output",
+    "label": "Bus 6 Output",
+    "leftPx": 632,
+    "topPx": 99,
+    "widthPx": 21,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-bus-7-output",
+    "label": "Bus 7 Output",
+    "leftPx": 655,
+    "topPx": 100,
+    "widthPx": 19,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-bus-8-output",
+    "label": "Bus 8 Output",
+    "leftPx": 675,
+    "topPx": 100,
+    "widthPx": 19,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-bus-9-output",
+    "label": "Bus 9 Output",
+    "leftPx": 610,
+    "topPx": 131,
+    "widthPx": 18,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-bus-10-output",
+    "label": "Bus 10 Output",
+    "leftPx": 631,
+    "topPx": 131,
+    "widthPx": 20,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-bus-11-output",
+    "label": "Bus 11 Output",
+    "leftPx": 655,
+    "topPx": 131,
+    "widthPx": 20,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-bus-12-output",
+    "label": "Bus 12 Output",
+    "leftPx": 679,
+    "topPx": 131,
+    "widthPx": 18,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-bus-13-output",
+    "label": "Bus 13 Output",
+    "leftPx": 610,
+    "topPx": 161,
+    "widthPx": 19,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-bus-14-output",
+    "label": "Bus 14 Output",
+    "leftPx": 632,
+    "topPx": 160,
+    "widthPx": 20,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-bus-15-output",
+    "label": "Bus 15 Output",
+    "leftPx": 654,
+    "topPx": 161,
+    "widthPx": 19,
+    "heightPx": 19
+  },
+  {
+    "key": "liv021-false-bus-16-output",
+    "label": "Bus 16 Output",
+    "leftPx": 677,
+    "topPx": 159,
+    "widthPx": 21,
+    "heightPx": 21
+  },
+  {
+    "key": "liv021-false-matrix-1",
+    "label": "M1 Output",
+    "leftPx": 731,
+    "topPx": 123,
+    "widthPx": 13,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-matrix-2",
+    "label": "M2 Output",
+    "leftPx": 748,
+    "topPx": 124,
+    "widthPx": 13,
+    "heightPx": 13
+  },
+  {
+    "key": "liv021-false-matrix-3",
+    "label": "M3 Output",
+    "leftPx": 764,
+    "topPx": 123,
+    "widthPx": 14,
+    "heightPx": 15
+  },
+  {
+    "key": "liv021-false-matrix-4",
+    "label": "M4 Output",
+    "leftPx": 783,
+    "topPx": 122,
+    "widthPx": 15,
+    "heightPx": 16
+  },
+  {
+    "key": "liv021-false-main-xlr-1",
+    "label": "Misc Main Section XLR 1",
+    "leftPx": 722,
+    "topPx": 150,
+    "widthPx": 19,
+    "heightPx": 21
+  },
+  {
+    "key": "liv021-false-main-xlr-2",
+    "label": "Misc Main Section XLR 2",
+    "leftPx": 744,
+    "topPx": 151,
+    "widthPx": 20,
+    "heightPx": 21
+  },
+  {
+    "key": "liv021-false-main-xlr-3",
+    "label": "Misc Main Section XLR 3",
+    "leftPx": 767,
+    "topPx": 151,
+    "widthPx": 21,
+    "heightPx": 22
+  },
+  {
+    "key": "liv021-false-main-xlr-4",
+    "label": "Misc Main Section XLR 4",
+    "leftPx": 790,
+    "topPx": 151,
+    "widthPx": 18,
+    "heightPx": 20
+  },
+  {
+    "key": "liv021-false-stagebox-input-2",
+    "label": "Stage Box Input 2",
+    "leftPx": 65,
+    "topPx": 237,
+    "widthPx": 22,
+    "heightPx": 24
+  },
+  {
+    "key": "liv021-false-stagebox-input-3",
+    "label": "Stage Box Input 3",
+    "leftPx": 93,
+    "topPx": 237,
+    "widthPx": 19,
+    "heightPx": 23
+  },
+  {
+    "key": "liv021-false-stagebox-input-4",
+    "label": "Stage Box Input 4",
+    "leftPx": 117,
+    "topPx": 237,
+    "widthPx": 22,
+    "heightPx": 22
+  },
+  {
+    "key": "liv021-false-stagebox-input-5",
+    "label": "Stage Box Input 5",
+    "leftPx": 144,
+    "topPx": 237,
+    "widthPx": 21,
+    "heightPx": 23
+  },
+  {
+    "key": "liv021-false-stagebox-input-6",
+    "label": "Stage Box Input 6",
+    "leftPx": 169,
+    "topPx": 237,
+    "widthPx": 24,
+    "heightPx": 22
+  },
+  {
+    "key": "liv021-false-stagebox-input-7",
+    "label": "Stage Box Input 7",
+    "leftPx": 195,
+    "topPx": 238,
+    "widthPx": 21,
+    "heightPx": 22
+  },
+  {
+    "key": "liv021-false-stagebox-input-8",
+    "label": "Stage Box Input 8",
+    "leftPx": 221,
+    "topPx": 237,
+    "widthPx": 23,
+    "heightPx": 24
+  }
+]

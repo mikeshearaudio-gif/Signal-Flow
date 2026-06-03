@@ -1,14 +1,22 @@
 (function () {
   "use strict";
-  const VERSION = "v6r242";
+  const VERSION = "v6r243-liv011-scoped";
   const MARKER = "sfLiv011V6r240CleanupInstalled";
   if (window[MARKER]) return;
   window[MARKER] = true;
   function textOf(el) { return String((el && (el.textContent || el.value || el.getAttribute("aria-label"))) || "").trim(); }
   function isLiv011Active() {
-    const bodyText = document.body ? String(document.body.textContent || "") : "";
-    const boardSelect = Array.from(document.querySelectorAll("select, input")).some(el => /LIV-011/i.test(String(el.value || el.textContent || "")));
-    return /LIV-011/.test(bodyText) || boardSelect;
+    const hash = String(location.hash || "");
+    const pathMatch = hash.match(/\/level\/([^/?#]+)/i);
+    if (pathMatch) return pathMatch[1].toUpperCase() === "LIV-011";
+
+    const activeClass = document.querySelector(".level-liv-011, .sf-live-native-level-liv-011");
+    if (activeClass) return true;
+
+    const selectedLevel = Array.from(document.querySelectorAll("select")).find(el =>
+      /LIV-\d+/i.test(String(el.value || ""))
+    );
+    return !!selectedLevel && String(selectedLevel.value || "").toUpperCase() === "LIV-011";
   }
   function replaceText(root) {
     if (!root) return;

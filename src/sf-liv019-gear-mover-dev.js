@@ -44,7 +44,7 @@
     ].join(";");
 
     panel.innerHTML = [
-      '<div style="font-size:14px;margin-bottom:8px;">LIV-019 Corrected Gear Mover</div>',
+      '<div style="font-size:14px;margin-bottom:8px;">LIV-019/020 Gear Mover</div>',
       '<div id="sf-lgm-current" style="margin-bottom:8px;color:white;"></div>',
       '<div id="sf-lgm-selects" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;"></div>',
       '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">',
@@ -217,7 +217,7 @@
 
   function scan() {
     for (const item of docsToScan()) {
-      const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019");
+      const layer = item.doc.querySelector(".sf-live-native-layer.sf-live-native-level-liv-019, .sf-live-native-layer.sf-live-native-level-liv-020");
       if (layer) return install(item.name, item.doc, layer);
     }
     return false;

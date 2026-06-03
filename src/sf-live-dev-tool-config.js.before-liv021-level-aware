@@ -1,0 +1,27 @@
+/* Signal Flow reusable Live Sound dev-tool config. DEV ONLY. */
+(function () {
+  "use strict";
+
+  const params = new URLSearchParams(window.location.search || "");
+  let enabled = params.get("sfLiveDevTools") === "1" || params.get("fresh") === "liv020-dev-tools";
+
+  try {
+    if (!enabled && window.parent && window.parent !== window) {
+      const parentParams = new URLSearchParams(window.parent.location.search || "");
+      enabled = parentParams.get("sfLiveDevTools") === "1" || parentParams.get("fresh") === "liv020-dev-tools";
+    }
+  } catch (_) {}
+
+  window.sfLiveDevToolConfig = {
+    enabled,
+    levelId: "LIV-020",
+    layerSelector: ".sf-live-native-layer.sf-live-native-level-liv-020",
+    exportPrefix: "[Signal Flow] LIV-020",
+    gearSelector: "img",
+    labelSelector: ".sf-live-native-layer.sf-live-native-level-liv-020 div, .sf-live-native-layer.sf-live-native-level-liv-020 span",
+    hitboxSelector: "[data-node-key]",
+    ignoreHitboxClosest: ".sf-native-liv019-source-panel, .sf-native-liv009-source-panel"
+  };
+
+  console.log("[Signal Flow] Live dev-tool config loaded", window.sfLiveDevToolConfig);
+})();

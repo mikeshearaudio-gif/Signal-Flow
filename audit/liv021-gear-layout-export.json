@@ -1,0 +1,10 @@
+[
+  {"key":"monitor-console","leftPx":16,"topPx":-172,"widthPx":850,"heightPx":552,"zIndex":"2","alt":"Monitor Console","src":"/assets/live-sound/svg/hardware/monitor-console-aux-panel.svg"},
+  {"key":"stage-box","leftPx":4,"topPx":200,"widthPx":310,"heightPx":94,"zIndex":"10","alt":"Stage Box","src":"/assets/live-sound/svg/hardware/stagebox-snake-head.svg"},
+  {"key":"vocal-compressor","leftPx":250,"topPx":200,"widthPx":275,"heightPx":94,"zIndex":"10","alt":"Vocal Compressor","src":"/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"},
+  {"key":"system-processor","leftPx":530,"topPx":200,"widthPx":310,"heightPx":82,"zIndex":"10","alt":"System Processor","src":"/assets/live-sound/svg/hardware/crossover-liv010-3way.svg"},
+  {"key":"power-amp","leftPx":520,"topPx":295,"widthPx":340,"heightPx":87,"zIndex":"10","alt":"Power Amp","src":"/assets/live-sound/svg/hardware/power-amp-liv010-high.svg"},
+  {"key":"vocal-wedge","leftPx":528,"topPx":390,"widthPx":335,"heightPx":89,"zIndex":"10","alt":"Vocal Wedge","src":"/assets/live-sound/svg/hardware/iem-wireless-rack-front.svg"},
+  {"key":"main-speakers","leftPx":590,"topPx":130,"widthPx":245,"heightPx":249,"zIndex":"1","alt":"Main Speakers","src":"/assets/live-sound/svg/hardware/full-pa-system-line-array-over-subs-renderstyle-standalone.svg"},
+  {"key":"lead-vocal-mic","leftPx":13,"topPx":300,"widthPx":230,"heightPx":149,"zIndex":"10","alt":"Lead Vocal Mic","src":"/assets/live-sound/svg/hardware/mic nbg.svg"}
+]
