@@ -3,14 +3,16 @@
 
   const qs = new URLSearchParams(location.search);
   const levelId =
-    qs.get("sfLiveHitboxLevel") ||
+    window.SF_LIVE_HITBOX_MAPPER_LEVEL_ID ||
     window.sfLiveHitboxLevel ||
+    qs.get("sfLiveHitboxLevel") ||
     document.querySelector("[data-current-level-id]")?.dataset.currentLevelId ||
     "LIV-021";
 
   const keyPrefix =
-    qs.get("sfLiveHitboxPrefix") ||
+    window.SF_LIVE_HITBOX_MAPPER_KEY_PREFIX ||
     window.sfLiveHitboxPrefix ||
+    qs.get("sfLiveHitboxPrefix") ||
     "";
 
   const layer =

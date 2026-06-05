@@ -1,0 +1,242 @@
+[
+  {
+    "key": "liv023-lead-vocal-mic",
+    "label": "Lead Vocal Mic",
+    "leftPx": 26,
+    "topPx": 342,
+    "widthPx": 123,
+    "heightPx": 180
+  },
+  {
+    "key": "liv023-keyboard-di-l",
+    "label": "Keyboard DI L",
+    "leftPx": 233,
+    "topPx": 346,
+    "widthPx": 85,
+    "heightPx": 72
+  },
+  {
+    "key": "liv023-keyboard-di-r",
+    "label": "Keyboard DI R",
+    "leftPx": 324,
+    "topPx": 346,
+    "widthPx": 85,
+    "heightPx": 74
+  },
+  {
+    "key": "liv023-stagebox-input-1",
+    "label": "Stage Box Input 1",
+    "leftPx": 58,
+    "topPx": 252,
+    "widthPx": 25,
+    "heightPx": 28
+  },
+  {
+    "key": "liv023-stagebox-input-2",
+    "label": "Stage Box Input 2",
+    "leftPx": 89,
+    "topPx": 253,
+    "widthPx": 25,
+    "heightPx": 27
+  },
+  {
+    "key": "liv023-stagebox-input-3",
+    "label": "Stage Box Input 3",
+    "leftPx": 119,
+    "topPx": 254,
+    "widthPx": 25,
+    "heightPx": 26
+  },
+  {
+    "key": "liv023-ch1-insert-send",
+    "label": "Channel 1 Insert Send",
+    "leftPx": 245,
+    "topPx": 70,
+    "widthPx": 17,
+    "heightPx": 17
+  },
+  {
+    "key": "liv023-ch1-insert-return",
+    "label": "Channel 1 Insert Return",
+    "leftPx": 246,
+    "topPx": 93,
+    "widthPx": 17,
+    "heightPx": 16
+  },
+  {
+    "key": "liv023-aux1-l",
+    "label": "Aux 1 Left Output",
+    "leftPx": 422,
+    "topPx": 68,
+    "widthPx": 16,
+    "heightPx": 17
+  },
+  {
+    "key": "liv023-aux1-r",
+    "label": "Aux 1 Right Output",
+    "leftPx": 440,
+    "topPx": 68,
+    "widthPx": 16,
+    "heightPx": 18
+  },
+  {
+    "key": "liv023-main-l",
+    "label": "Main Left Output",
+    "leftPx": 732,
+    "topPx": 68,
+    "widthPx": 30,
+    "heightPx": 27
+  },
+  {
+    "key": "liv023-main-r",
+    "label": "Main Right Output",
+    "leftPx": 771,
+    "topPx": 68,
+    "widthPx": 27,
+    "heightPx": 26
+  },
+  {
+    "key": "liv023-compressor-input",
+    "label": "Compressor Input",
+    "leftPx": 600,
+    "topPx": 275,
+    "widthPx": 23,
+    "heightPx": 24
+  },
+  {
+    "key": "liv023-compressor-output",
+    "label": "Compressor Output",
+    "leftPx": 678,
+    "topPx": 276,
+    "widthPx": 22,
+    "heightPx": 23
+  },
+  {
+    "key": "liv023-iem-input-l",
+    "label": "IEM A Left Input",
+    "leftPx": 552,
+    "topPx": 363,
+    "widthPx": 21,
+    "heightPx": 23
+  },
+  {
+    "key": "liv023-iem-input-r",
+    "label": "IEM A Right Input",
+    "leftPx": 583,
+    "topPx": 362,
+    "widthPx": 21,
+    "heightPx": 23
+  },
+  {
+    "key": "liv023-crossover-l-input",
+    "label": "Crossover Left Input",
+    "leftPx": 504,
+    "topPx": 474,
+    "widthPx": 21,
+    "heightPx": 23
+  },
+  {
+    "key": "liv023-crossover-r-input",
+    "label": "Crossover Right Input",
+    "leftPx": 545,
+    "topPx": 476,
+    "widthPx": 21,
+    "heightPx": 21
+  },
+  {
+    "key": "liv023-crossover-high-l",
+    "label": "Crossover High Left Output",
+    "leftPx": 657,
+    "topPx": 449,
+    "widthPx": 21,
+    "heightPx": 20
+  },
+  {
+    "key": "liv023-crossover-high-r",
+    "label": "Crossover High Right Output",
+    "leftPx": 700,
+    "topPx": 449,
+    "widthPx": 19,
+    "heightPx": 21
+  },
+  {
+    "key": "liv023-crossover-mid-l",
+    "label": "Crossover Mid Left Output",
+    "leftPx": 659,
+    "topPx": 476,
+    "widthPx": 18,
+    "heightPx": 21
+  },
+  {
+    "key": "liv023-crossover-mid-r",
+    "label": "Crossover Mid Right Output",
+    "leftPx": 700,
+    "topPx": 478,
+    "widthPx": 18,
+    "heightPx": 18
+  },
+  {
+    "key": "liv023-crossover-low-l",
+    "label": "Crossover Low Left Output",
+    "leftPx": 657,
+    "topPx": 505,
+    "widthPx": 20,
+    "heightPx": 18
+  },
+  {
+    "key": "liv023-crossover-low-r",
+    "label": "Crossover Low Right Output",
+    "leftPx": 701,
+    "topPx": 504,
+    "widthPx": 17,
+    "heightPx": 19
+  },
+  {
+    "key": "liv023-high-amp-l",
+    "label": "High Amp Left Input",
+    "leftPx": 518,
+    "topPx": 581,
+    "widthPx": 20,
+    "heightPx": 22
+  },
+  {
+    "key": "liv023-high-amp-r",
+    "label": "High Amp Right Input",
+    "leftPx": 561,
+    "topPx": 581,
+    "widthPx": 22,
+    "heightPx": 22
+  },
+  {
+    "key": "liv023-mid-amp-l",
+    "label": "Mid Amp Left Input",
+    "leftPx": 516,
+    "topPx": 678,
+    "widthPx": 24,
+    "heightPx": 24
+  },
+  {
+    "key": "liv023-mid-amp-r",
+    "label": "Mid Amp Right Input",
+    "leftPx": 558,
+    "topPx": 679,
+    "widthPx": 24,
+    "heightPx": 23
+  },
+  {
+    "key": "liv023-low-amp-l",
+    "label": "Low Amp Left Input",
+    "leftPx": 516,
+    "topPx": 779,
+    "widthPx": 22,
+    "heightPx": 22
+  },
+  {
+    "key": "liv023-low-amp-r",
+    "label": "Low Amp Right Input",
+    "leftPx": 558,
+    "topPx": 778,
+    "widthPx": 21,
+    "heightPx": 23
+  }
+]

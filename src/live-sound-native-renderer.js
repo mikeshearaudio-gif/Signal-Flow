@@ -1593,6 +1593,62 @@
             { key: "liv021-system-processor-right-output-to-main-amp-right-input", from: "liv021-system-processor-right-output", to: "liv021-main-amp-right-input", checklist: "System Processor Right Output → Main Amp Right Input" }
           ]
         },
+        "LIV-023": {
+          id: "LIV-023",
+          title: "Monitor Console: Vocal Insert, Stereo IEM, and 3-Way PA",
+          processorLabel: "MONITOR CONSOLE: VOCAL INSERT, STEREO IEM, AND 3-WAY PA",
+          panelKinds: ["monitor-console", "stagebox", "compressor", "iem", "crossover", "high-amp", "mid-amp", "low-amp"],
+          sourceOrder: [],
+          generatedJackKeys: [
+            "liv023-lead-vocal-mic",
+            "liv023-keyboard-di-l",
+            "liv023-keyboard-di-r",
+            "liv023-stagebox-input-1",
+            "liv023-stagebox-input-2",
+            "liv023-stagebox-input-3",
+            "liv023-ch1-insert-send",
+            "liv023-ch1-insert-return",
+            "liv023-aux1-l",
+            "liv023-aux1-r",
+            "liv023-main-l",
+            "liv023-main-r",
+            "liv023-compressor-input",
+            "liv023-compressor-output",
+            "liv023-iem-input-l",
+            "liv023-iem-input-r",
+            "liv023-crossover-l-input",
+            "liv023-crossover-r-input",
+            "liv023-crossover-high-l",
+            "liv023-crossover-high-r",
+            "liv023-crossover-mid-l",
+            "liv023-crossover-mid-r",
+            "liv023-crossover-low-l",
+            "liv023-crossover-low-r",
+            "liv023-high-amp-l",
+            "liv023-high-amp-r",
+            "liv023-mid-amp-l",
+            "liv023-mid-amp-r",
+            "liv023-low-amp-l",
+            "liv023-low-amp-r"
+          ],
+          validRoutes: [
+            { key: "liv023-lead-vocal-mic-to-stagebox-input-1", from: "liv023-lead-vocal-mic", to: "liv023-stagebox-input-1", checklist: "Lead Vocal Mic → Stage Box Input 1" },
+            { key: "liv023-keyboard-di-l-to-stagebox-input-2", from: "liv023-keyboard-di-l", to: "liv023-stagebox-input-2", checklist: "Keyboard DI L → Stage Box Input 2", stereoGroup: "liv023-keyboard-di-to-stagebox", stereoSide: "left" },
+            { key: "liv023-keyboard-di-r-to-stagebox-input-3", from: "liv023-keyboard-di-r", to: "liv023-stagebox-input-3", checklist: "Keyboard DI R → Stage Box Input 3", stereoGroup: "liv023-keyboard-di-to-stagebox", stereoSide: "right" },
+            { key: "liv023-ch1-insert-send-to-compressor-input", from: "liv023-ch1-insert-send", to: "liv023-compressor-input", checklist: "Channel 1 Insert Send → Compressor Input" },
+            { key: "liv023-compressor-output-to-ch1-insert-return", from: "liv023-compressor-output", to: "liv023-ch1-insert-return", checklist: "Compressor Output → Channel 1 Insert Return" },
+            { key: "liv023-aux1-l-to-iem-input-l", from: "liv023-aux1-l", to: "liv023-iem-input-l", checklist: "Aux 1 Left Output → IEM A Left Input", stereoGroup: "liv023-aux1-to-iem-a", stereoSide: "left" },
+            { key: "liv023-aux1-r-to-iem-input-r", from: "liv023-aux1-r", to: "liv023-iem-input-r", checklist: "Aux 1 Right Output → IEM A Right Input", stereoGroup: "liv023-aux1-to-iem-a", stereoSide: "right" },
+            { key: "liv023-main-l-to-crossover-l-input", from: "liv023-main-l", to: "liv023-crossover-l-input", checklist: "Main Left Output → Crossover Left Input", stereoGroup: "liv023-main-to-crossover", stereoSide: "left" },
+            { key: "liv023-main-r-to-crossover-r-input", from: "liv023-main-r", to: "liv023-crossover-r-input", checklist: "Main Right Output → Crossover Right Input", stereoGroup: "liv023-main-to-crossover", stereoSide: "right" },
+            { key: "liv023-crossover-high-l-to-high-amp-l", from: "liv023-crossover-high-l", to: "liv023-high-amp-l", checklist: "Crossover High Left Output → High Amp Left Input", stereoGroup: "liv023-crossover-high-to-amp", stereoSide: "left" },
+            { key: "liv023-crossover-high-r-to-high-amp-r", from: "liv023-crossover-high-r", to: "liv023-high-amp-r", checklist: "Crossover High Right Output → High Amp Right Input", stereoGroup: "liv023-crossover-high-to-amp", stereoSide: "right" },
+            { key: "liv023-crossover-mid-l-to-mid-amp-l", from: "liv023-crossover-mid-l", to: "liv023-mid-amp-l", checklist: "Crossover Mid Left Output → Mid Amp Left Input", stereoGroup: "liv023-crossover-mid-to-amp", stereoSide: "left" },
+            { key: "liv023-crossover-mid-r-to-mid-amp-r", from: "liv023-crossover-mid-r", to: "liv023-mid-amp-r", checklist: "Crossover Mid Right Output → Mid Amp Right Input", stereoGroup: "liv023-crossover-mid-to-amp", stereoSide: "right" },
+            { key: "liv023-crossover-low-l-to-low-amp-l", from: "liv023-crossover-low-l", to: "liv023-low-amp-l", checklist: "Crossover Low Left Output → Low Amp Left Input", stereoGroup: "liv023-crossover-low-to-amp", stereoSide: "left" },
+            { key: "liv023-crossover-low-r-to-low-amp-r", from: "liv023-crossover-low-r", to: "liv023-low-amp-r", checklist: "Crossover Low Right Output → Low Amp Right Input", stereoGroup: "liv023-crossover-low-to-amp", stereoSide: "right" }
+          ]
+        },
         "LIV-020": {
           id: "LIV-020",
           title: "Main PA + IEM Monitor Feed",
@@ -3673,12 +3729,47 @@ if (activeNativeLevelId === nextLevelId) return;
     );
   }
 
-  function sfLiv020RouteDecision(fromNode, toNode, baseValid, baseKey) {
-    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") {
-      return {
-        allowed: baseValid,
-        valid: baseValid,
-        key: baseKey,
+	  function sfLiv020RouteDecision(fromNode, toNode, baseValid, baseKey) {
+	    if (LEVEL_ID === "LIV-023") {
+	      const fromKey = fromNode && fromNode.key;
+	      const toKey = toNode && toNode.key;
+	      const fromLiv023 = String(fromKey || "").startsWith("liv023-");
+	      const toLiv023 = String(toKey || "").startsWith("liv023-");
+
+	      if (baseValid) {
+	        return {
+	          allowed: true,
+	          valid: true,
+	          key: baseKey,
+	          from: fromKey,
+	          to: toKey
+	        };
+	      }
+
+	      if (fromKey && toKey && fromKey !== toKey && fromLiv023 && toLiv023) {
+	        return {
+	          allowed: true,
+	          valid: false,
+	          key: baseKey,
+	          from: fromKey,
+	          to: toKey
+	        };
+	      }
+
+	      return {
+	        allowed: false,
+	        valid: false,
+	        key: baseKey,
+	        from: fromKey,
+	        to: toKey
+	      };
+	    }
+
+	    if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") {
+	      return {
+	        allowed: baseValid,
+	        valid: baseValid,
+	        key: baseKey,
         from: fromNode && fromNode.key,
         to: toNode && toNode.key
       };
@@ -9782,7 +9873,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       "object-fit:contain",
       "pointer-events:none",
       "user-select:none",
-      "z-index:10",
+      "z-index:" + (g.zIndex ?? 10),
       "filter:drop-shadow(0 16px 28px rgba(0,0,0,.55))"
     ].join(";");
     layer.appendChild(bg);
@@ -11259,7 +11350,1497 @@ function renderLiv020MainPaAndIem(surface, adapter) {
   }
 
 
+	  function renderLiv023MonitorConsoleStereoPa(surface, adapter) {
+	    const boardWidth = 1400;
+	    const boardHeight = 1500;
+	    const boardTopOffset = 210;
+	    const scrollHeight = boardTopOffset + boardHeight + 130;
+
+	    surface.innerHTML = "";
+	    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+
+	    surface.style.setProperty("position", "relative", "important");
+	    surface.style.removeProperty("height");
+	    surface.style.setProperty("min-height", "0", "important");
+	    surface.style.setProperty("max-height", "min(72vh, 760px)", "important");
+	    surface.style.setProperty("overflow-y", "auto", "important");
+	    surface.style.setProperty("overflow-x", "hidden", "important");
+	    surface.style.setProperty("overscroll-behavior", "contain", "important");
+	    surface.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+	    surface.style.setProperty("touch-action", "pan-y", "important");
+	    surface.style.setProperty("--sf-live-native-board-height", scrollHeight + "px");
+	    surface.classList.add("sf-live-native-scroll-host", "sf-live-native-liv023-scroll-host");
+
+	    Array.from((surface.parentElement || surface).children || []).forEach(function(el) {
+	      if (!el || el === surface) return;
+	      if (
+	        el.id === "cableLayer" ||
+	        el.classList.contains("cable-layer") ||
+	        el.classList.contains("patchbay-bg")
+	      ) {
+	        el.dataset.sfLiv023LegacyHidden = "true";
+	        el.style.setProperty("display", "none", "important");
+	        el.style.setProperty("pointer-events", "none", "important");
+	      }
+	    });
+
+	    const legacyMask = document.createElement("div");
+	    legacyMask.className = "sf-liv023-native-legacy-mask";
+	    legacyMask.setAttribute("aria-hidden", "true");
+	    legacyMask.style.cssText = [
+	      "position:absolute",
+	      "left:0",
+	      "top:0",
+	      "width:" + boardWidth + "px",
+	      "min-width:" + boardWidth + "px",
+	      "height:" + scrollHeight + "px",
+	      "min-height:" + scrollHeight + "px",
+	      "z-index:9980",
+	      "pointer-events:none",
+	      "background:linear-gradient(180deg, rgba(4,8,10,1), rgba(5,10,12,1) 58%, rgba(3,6,7,1))",
+	      "border-radius:16px"
+	    ].join(";");
+
+	    const layer = document.createElement("div");
+	    layer.className = "sf-live-native-layer sf-live-native-level-liv-023";
+	    layer.style.cssText = [
+	      "position:absolute",
+	      "left:0",
+	      "top:" + boardTopOffset + "px",
+	      "width:" + boardWidth + "px",
+	      "min-width:" + boardWidth + "px",
+	      "height:" + boardHeight + "px",
+	      "min-height:" + boardHeight + "px",
+	      "z-index:9990",
+	      "isolation:isolate",
+	      "pointer-events:none",
+	      "overflow:visible",
+	      "background:linear-gradient(180deg, rgba(7,12,16,1), rgba(10,18,22,.99))",
+	      "border:1px solid rgba(245,197,66,.34)",
+	      "box-shadow:inset 0 0 40px rgba(0,0,0,.72)"
+	    ].join(";");
+
+	    function addRackPanel() {
+	      const rack = document.createElement("div");
+	      rack.className = "sf-liv023-rack-zone";
+	      rack.setAttribute("aria-hidden", "true");
+	      rack.style.cssText = [
+	        "position:absolute",
+	        "left:420px",
+	        "top:190px",
+	        "width:470px",
+	        "height:670px",
+	        "box-sizing:border-box",
+	        "border:1px solid rgba(245,197,66,.40)",
+	        "border-radius:8px",
+	        "background:linear-gradient(90deg, rgba(226,180,72,.22) 0 5px, rgba(0,0,0,.28) 5px 34px, transparent 34px calc(100% - 34px), rgba(0,0,0,.28) calc(100% - 34px) calc(100% - 5px), rgba(226,180,72,.22) calc(100% - 5px) 100%), repeating-linear-gradient(180deg, rgba(255,236,172,.06) 0 1px, transparent 1px 92px), linear-gradient(180deg, rgba(13,12,10,.95), rgba(20,15,9,.88) 52%, rgba(8,8,7,.96))",
+	        "box-shadow:inset 0 0 0 1px rgba(255,229,145,.08), inset 0 0 46px rgba(0,0,0,.72), 0 22px 42px rgba(0,0,0,.46)",
+	        "pointer-events:none",
+	        "z-index:3"
+	      ].join(";");
+	      [
+	        { side: "left", x: 12 },
+	        { side: "right", x: 436 }
+	      ].forEach(function(rail) {
+	        const el = document.createElement("div");
+	        el.className = "sf-liv023-rack-rail sf-liv023-rack-rail-" + rail.side;
+	        el.style.cssText = [
+	          "position:absolute",
+	          "left:" + rail.x + "px",
+	          "top:16px",
+	          "width:22px",
+	          "height:638px",
+	          "border-radius:5px",
+	          "background:linear-gradient(180deg, rgba(238,205,116,.22), rgba(54,40,19,.44))",
+	          "box-shadow:inset 0 0 0 1px rgba(255,236,172,.14), inset 0 0 16px rgba(0,0,0,.56)",
+	          "pointer-events:none"
+	        ].join(";");
+	        rack.appendChild(el);
+	      });
+	      [96, 198, 300, 404, 506, 608].forEach(function(y) {
+	        const slot = document.createElement("div");
+	        slot.className = "sf-liv023-rack-slot-line";
+	        slot.style.cssText = [
+	          "position:absolute",
+	          "left:42px",
+	          "top:" + y + "px",
+	          "width:386px",
+	          "height:1px",
+	          "background:linear-gradient(90deg, transparent, rgba(255,236,172,.18), transparent)",
+	          "box-shadow:0 1px 0 rgba(0,0,0,.40)",
+	          "pointer-events:none"
+	        ].join(";");
+	        rack.appendChild(slot);
+	      });
+	      layer.appendChild(rack);
+	    }
+
+		    addRackPanel();
+
+    const gearLayout = [
+      {
+            "key": "liv023-monitor-console",
+            "label": "Monitor Console",
+            "leftPx": 12,
+            "topPx": 17,
+            "widthPx": 837,
+            "zIndex": 0,
+            "src": "assets/live-sound/svg/hardware/Monitor_Console_LIV023.svg"
+      },
+      {
+            "key": "liv023-lead-vocal-mic",
+            "label": "Lead Vocal Mic",
+            "leftPx": -72,
+            "topPx": 331,
+            "widthPx": 295,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/mic nbg.svg"
+      },
+      {
+            "key": "liv023-keyboard",
+            "label": "Keyboard",
+            "leftPx": 157,
+            "topPx": 330,
+            "widthPx": 300,
+            "zIndex": 1,
+            "src": "assets/live-sound/svg/hardware/keys.svg"
+      },
+      {
+            "key": "liv023-stagebox-8",
+            "label": "8 Input Stage Box",
+            "leftPx": 16,
+            "topPx": 210,
+            "widthPx": 360,
+            "zIndex": 9,
+            "src": "assets/live-sound/svg/hardware/stagebox-snake-head.svg"
+      },
+      {
+            "key": "liv023-vocal-compressor",
+            "label": "Vocal Compressor",
+            "leftPx": 498,
+            "topPx": 214,
+            "widthPx": 305,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+      },
+      {
+            "key": "liv023-iem-a",
+            "label": "IEM Transmitter A",
+            "leftPx": 470,
+            "topPx": 318,
+            "widthPx": 360,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg"
+      },
+      {
+            "key": "liv023-crossover",
+            "label": "Stereo 3-Way Crossover",
+            "leftPx": 440,
+            "topPx": 416,
+            "widthPx": 425,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/crossover-liv010-3way.svg"
+      },
+      {
+            "key": "liv023-high-amp",
+            "label": "High Amp",
+            "leftPx": 455,
+            "topPx": 530,
+            "widthPx": 400,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/power-amp-liv010-high.svg"
+      },
+      {
+            "key": "liv023-mid-amp",
+            "label": "Mid Amp",
+            "leftPx": 455,
+            "topPx": 627,
+            "widthPx": 400,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/power-amp-liv010-mid.svg"
+      },
+      {
+            "key": "liv023-low-amp",
+            "label": "Low Amp",
+            "leftPx": 454,
+            "topPx": 727,
+            "widthPx": 400,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
+      },
+      {
+            "key": "liv023-compressor-label",
+            "label": "Compressor Label",
+            "leftPx": 526,
+            "topPx": 225,
+            "widthPx": 250,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/hardware/Compressor label.svg"
+      },
+      {
+            "key": "liv023-normal-cable-01",
+            "label": "Normalization Cable 1",
+            "leftPx": 702,
+            "topPx": 681,
+            "widthPx": 82,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-02",
+            "label": "Normalization Cable 2",
+            "leftPx": 695,
+            "topPx": 782,
+            "widthPx": 92,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-03",
+            "label": "Normalization Cable 3",
+            "leftPx": -102,
+            "topPx": 66,
+            "widthPx": 220,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-04",
+            "label": "Normalization Cable 4",
+            "leftPx": -9,
+            "topPx": 66,
+            "widthPx": 182,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-05",
+            "label": "Normalization Cable 5",
+            "leftPx": 3,
+            "topPx": 61,
+            "widthPx": 232,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-06",
+            "label": "Normalization Cable 6",
+            "leftPx": 660,
+            "topPx": 585,
+            "widthPx": 82,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-07",
+            "label": "Normalization Cable 7",
+            "leftPx": 706,
+            "topPx": 585,
+            "widthPx": 82,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+            "key": "liv023-normal-cable-08",
+            "label": "Normalization Cable 8",
+            "leftPx": 663,
+            "topPx": 680,
+            "widthPx": 82,
+            "zIndex": 10,
+            "src": "assets/live-sound/svg/cables/single-one-end-raised.svg"
+      }
+];
+
+	    gearLayout.forEach(function(g) {
+	      const img = document.createElement("img");
+      img.dataset.sfGearKey = g.key;
+      img.dataset.sfGearId = g.key;
+      img.alt = g.label;
+      img.src = sfRepoUrl(g.src);
+      img.style.cssText = [
+        "position:absolute",
+        "left:" + g.leftPx + "px",
+        "top:" + g.topPx + "px",
+        "width:" + g.widthPx + "px",
+        "height:auto",
+        "z-index:" + (g.zIndex ?? 10),
+        "pointer-events:none",
+        "user-select:none",
+        "filter:drop-shadow(0 10px 18px rgba(0,0,0,.65))"
+      ].join(";");
+	      layer.appendChild(img);
+	    });
+					
+    const goodHitboxes = [
+      {
+            "key": "liv023-lead-vocal-mic",
+            "label": "Lead Vocal Mic",
+            "leftPx": 26,
+            "topPx": 342,
+            "widthPx": 123,
+            "heightPx": 180
+      },
+      {
+            "key": "liv023-keyboard-di-l",
+            "label": "Keyboard DI L",
+            "leftPx": 233,
+            "topPx": 346,
+            "widthPx": 85,
+            "heightPx": 72
+      },
+      {
+            "key": "liv023-keyboard-di-r",
+            "label": "Keyboard DI R",
+            "leftPx": 324,
+            "topPx": 346,
+            "widthPx": 85,
+            "heightPx": 74
+      },
+      {
+            "key": "liv023-stagebox-input-1",
+            "label": "Stage Box Input 1",
+            "leftPx": 58,
+            "topPx": 252,
+            "widthPx": 25,
+            "heightPx": 28
+      },
+      {
+            "key": "liv023-stagebox-input-2",
+            "label": "Stage Box Input 2",
+            "leftPx": 89,
+            "topPx": 253,
+            "widthPx": 25,
+            "heightPx": 27
+      },
+      {
+            "key": "liv023-stagebox-input-3",
+            "label": "Stage Box Input 3",
+            "leftPx": 119,
+            "topPx": 254,
+            "widthPx": 25,
+            "heightPx": 26
+      },
+      {
+            "key": "liv023-ch1-insert-send",
+            "label": "Channel 1 Insert Send",
+            "leftPx": 245,
+            "topPx": 70,
+            "widthPx": 17,
+            "heightPx": 17
+      },
+      {
+            "key": "liv023-ch1-insert-return",
+            "label": "Channel 1 Insert Return",
+            "leftPx": 246,
+            "topPx": 93,
+            "widthPx": 17,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-aux1-l",
+            "label": "Aux 1 Left Output",
+            "leftPx": 422,
+            "topPx": 68,
+            "widthPx": 16,
+            "heightPx": 17
+      },
+      {
+            "key": "liv023-aux1-r",
+            "label": "Aux 1 Right Output",
+            "leftPx": 440,
+            "topPx": 68,
+            "widthPx": 16,
+            "heightPx": 18
+      },
+      {
+            "key": "liv023-main-l",
+            "label": "Main Left Output",
+            "leftPx": 732,
+            "topPx": 68,
+            "widthPx": 30,
+            "heightPx": 27
+      },
+      {
+            "key": "liv023-main-r",
+            "label": "Main Right Output",
+            "leftPx": 771,
+            "topPx": 68,
+            "widthPx": 27,
+            "heightPx": 26
+      },
+      {
+            "key": "liv023-compressor-input",
+            "label": "Compressor Input",
+            "leftPx": 600,
+            "topPx": 275,
+            "widthPx": 23,
+            "heightPx": 24
+      },
+      {
+            "key": "liv023-compressor-output",
+            "label": "Compressor Output",
+            "leftPx": 678,
+            "topPx": 276,
+            "widthPx": 22,
+            "heightPx": 23
+      },
+      {
+            "key": "liv023-iem-input-l",
+            "label": "IEM A Left Input",
+            "leftPx": 552,
+            "topPx": 363,
+            "widthPx": 21,
+            "heightPx": 23
+      },
+      {
+            "key": "liv023-iem-input-r",
+            "label": "IEM A Right Input",
+            "leftPx": 583,
+            "topPx": 362,
+            "widthPx": 21,
+            "heightPx": 23
+      },
+      {
+            "key": "liv023-crossover-l-input",
+            "label": "Crossover Left Input",
+            "leftPx": 504,
+            "topPx": 474,
+            "widthPx": 21,
+            "heightPx": 23
+      },
+      {
+            "key": "liv023-crossover-r-input",
+            "label": "Crossover Right Input",
+            "leftPx": 545,
+            "topPx": 476,
+            "widthPx": 21,
+            "heightPx": 21
+      },
+      {
+            "key": "liv023-crossover-high-l",
+            "label": "Crossover High Left Output",
+            "leftPx": 657,
+            "topPx": 449,
+            "widthPx": 21,
+            "heightPx": 20
+      },
+      {
+            "key": "liv023-crossover-high-r",
+            "label": "Crossover High Right Output",
+            "leftPx": 700,
+            "topPx": 449,
+            "widthPx": 19,
+            "heightPx": 21
+      },
+      {
+            "key": "liv023-crossover-mid-l",
+            "label": "Crossover Mid Left Output",
+            "leftPx": 659,
+            "topPx": 476,
+            "widthPx": 18,
+            "heightPx": 21
+      },
+      {
+            "key": "liv023-crossover-mid-r",
+            "label": "Crossover Mid Right Output",
+            "leftPx": 700,
+            "topPx": 478,
+            "widthPx": 18,
+            "heightPx": 18
+      },
+      {
+            "key": "liv023-crossover-low-l",
+            "label": "Crossover Low Left Output",
+            "leftPx": 657,
+            "topPx": 505,
+            "widthPx": 20,
+            "heightPx": 18
+      },
+      {
+            "key": "liv023-crossover-low-r",
+            "label": "Crossover Low Right Output",
+            "leftPx": 701,
+            "topPx": 504,
+            "widthPx": 17,
+            "heightPx": 19
+      },
+      {
+            "key": "liv023-high-amp-l",
+            "label": "High Amp Left Input",
+            "leftPx": 518,
+            "topPx": 581,
+            "widthPx": 20,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-high-amp-r",
+            "label": "High Amp Right Input",
+            "leftPx": 561,
+            "topPx": 581,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-mid-amp-l",
+            "label": "Mid Amp Left Input",
+            "leftPx": 516,
+            "topPx": 678,
+            "widthPx": 24,
+            "heightPx": 24
+      },
+      {
+            "key": "liv023-mid-amp-r",
+            "label": "Mid Amp Right Input",
+            "leftPx": 558,
+            "topPx": 679,
+            "widthPx": 24,
+            "heightPx": 23
+      },
+      {
+            "key": "liv023-low-amp-l",
+            "label": "Low Amp Left Input",
+            "leftPx": 516,
+            "topPx": 779,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-low-amp-r",
+            "label": "Low Amp Right Input",
+            "leftPx": 558,
+            "topPx": 778,
+            "widthPx": 21,
+            "heightPx": 23
+      }
+];
+
+	  function addNode(hit) {
+	      const btn = document.createElement("button");
+	      btn.type = "button";
+	      btn.className = "sf-native-node sf-native-jack sf-native-liv023-hitbox";
+      btn.dataset.nodeKey = hit.key;
+      btn.dataset.key = hit.key;
+      btn.dataset.sfNativeKey = hit.key;
+      btn.dataset.sfNativeKind = "jack";
+      btn.dataset.sfNativeGhost = "0";
+	      btn.title = hit.label;
+	      btn.setAttribute("aria-label", hit.label);
+	      const defaultShadow = "none";
+	      const point = {
+	        x: hit.leftPx + hit.widthPx / 2,
+	        y: hit.topPx + hit.heightPx / 2
+	      };
+	      btn.dataset.sfNativeDefaultShadow = defaultShadow;
+	      btn.dataset.sfNativePointX = String(point.x);
+	      btn.dataset.sfNativePointY = String(point.y);
+
+	      if (typeof setNativeNodeDomKey === "function") {
+	        setNativeNodeDomKey(btn, hit.key, "jack");
+	      }
+
+      btn.style.cssText = [
+        "position:absolute",
+        "left:" + hit.leftPx + "px",
+        "top:" + hit.topPx + "px",
+        "width:" + hit.widthPx + "px",
+        "height:" + hit.heightPx + "px",
+        "min-width:0",
+        "min-height:0",
+        "max-width:none",
+        "max-height:none",
+        "box-sizing:border-box",
+        "padding:0",
+        "margin:0",
+        "line-height:0",
+        "appearance:none",
+        "-webkit-appearance:none",
+        "border:0",
+	        "border-radius:7px",
+	        "background:rgba(255,255,255,0)",
+	        "box-shadow:" + defaultShadow,
+	        "outline:none",
+	        "z-index:80",
+	        "cursor:pointer",
+	        "pointer-events:auto"
+	      ].join(";");
+
+	      btn.addEventListener("pointerdown", event => {
+	        console.log("[Signal Flow] LIV-023 native jack drag start:", hit.key);
+	        startNativePatchDrag(layer, {
+	          key: hit.key,
+	          el: btn,
+	          defaultShadow,
+	          point
+	        }, event);
+	      }, true);
+
+	      btn.addEventListener("click", event => {
+	        if (Date.now() < suppressNativeClickUntil) {
+	          event.preventDefault();
+	          event.stopPropagation();
+	          event.stopImmediatePropagation();
+	          return;
+	        }
+
+	        event.preventDefault();
+	        event.stopPropagation();
+
+	        console.log("[Signal Flow] LIV-023 native jack clicked:", hit.key);
+	        handleNodeClick(layer, {
+	          key: hit.key,
+	          el: btn,
+	          defaultShadow,
+	          point
+	        });
+	      });
+
+	      layer.appendChild(btn);
+	    }
+
+	    const falseHitboxes = [
+      {
+            "key": "liv023-false-stagebox-mic-line-4",
+            "label": "Stage Box Mic/Line 4",
+            "leftPx": 147,
+            "topPx": 256,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-stagebox-mic-line-5",
+            "label": "Stage Box Mic/Line 5",
+            "leftPx": 178,
+            "topPx": 256,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-stagebox-mic-line-6",
+            "label": "Stage Box Mic/Line 6",
+            "leftPx": 208,
+            "topPx": 256,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-stagebox-mic-line-7",
+            "label": "Stage Box Mic/Line 7",
+            "leftPx": 240,
+            "topPx": 256,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-stagebox-mic-line-8",
+            "label": "Stage Box Mic/Line 8",
+            "leftPx": 270,
+            "topPx": 256,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-stagebox-link-out-1",
+            "label": "Stage Box Link Out 1",
+            "leftPx": 329,
+            "topPx": 255,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-9",
+            "label": "Console Mic/Line In 9",
+            "leftPx": 48,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-10",
+            "label": "Console Mic/Line In 10",
+            "leftPx": 71,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-11",
+            "label": "Console Mic/Line In 11",
+            "leftPx": 95,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-12",
+            "label": "Console Mic/Line In 12",
+            "leftPx": 119,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-13",
+            "label": "Console Mic/Line In 13",
+            "leftPx": 143,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-14",
+            "label": "Console Mic/Line In 14",
+            "leftPx": 166,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-15",
+            "label": "Console Mic/Line In 15",
+            "leftPx": 189,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-16",
+            "label": "Console Mic/Line In 16",
+            "leftPx": 212,
+            "topPx": 116,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-17",
+            "label": "Console Mic/Line In 17",
+            "leftPx": 46,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-18",
+            "label": "Console Mic/Line In 18",
+            "leftPx": 69,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-19",
+            "label": "Console Mic/Line In 19",
+            "leftPx": 94,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-20",
+            "label": "Console Mic/Line In 20",
+            "leftPx": 118,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-21",
+            "label": "Console Mic/Line In 21",
+            "leftPx": 141,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-22",
+            "label": "Console Mic/Line In 22",
+            "leftPx": 165,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-23",
+            "label": "Console Mic/Line In 23",
+            "leftPx": 189,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mic-line-in-24",
+            "label": "Console Mic/Line In 24",
+            "leftPx": 212,
+            "topPx": 166,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-insert-send-2",
+            "label": "Console Insert Send 2",
+            "leftPx": 263,
+            "topPx": 71,
+            "widthPx": 15,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-3",
+            "label": "Console Insert Send 3",
+            "leftPx": 282,
+            "topPx": 71,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-4",
+            "label": "Console Insert Send 4",
+            "leftPx": 300,
+            "topPx": 71,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-5",
+            "label": "Console Insert Send 5",
+            "leftPx": 320,
+            "topPx": 71,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-6",
+            "label": "Console Insert Send 6",
+            "leftPx": 339,
+            "topPx": 71,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-7",
+            "label": "Console Insert Send 7",
+            "leftPx": 356,
+            "topPx": 71,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-8",
+            "label": "Console Insert Send 8",
+            "leftPx": 375,
+            "topPx": 71,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-9",
+            "label": "Console Insert Send 9",
+            "leftPx": 246,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-10",
+            "label": "Console Insert Send 10",
+            "leftPx": 263,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-11",
+            "label": "Console Insert Send 11",
+            "leftPx": 281,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-12",
+            "label": "Console Insert Send 12",
+            "leftPx": 300,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-13",
+            "label": "Console Insert Send 13",
+            "leftPx": 322,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-14",
+            "label": "Console Insert Send 14",
+            "leftPx": 340,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-15",
+            "label": "Console Insert Send 15",
+            "leftPx": 357,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-send-16",
+            "label": "Console Insert Send 16",
+            "leftPx": 378,
+            "topPx": 117,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-2",
+            "label": "Console Insert Return 2",
+            "leftPx": 264,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-3",
+            "label": "Console Insert Return 3",
+            "leftPx": 282,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-4",
+            "label": "Console Insert Return 4",
+            "leftPx": 300,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-5",
+            "label": "Console Insert Return 5",
+            "leftPx": 321,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-6",
+            "label": "Console Insert Return 6",
+            "leftPx": 339,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-7",
+            "label": "Console Insert Return 7",
+            "leftPx": 356,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-8",
+            "label": "Console Insert Return 8",
+            "leftPx": 376,
+            "topPx": 93,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-9",
+            "label": "Console Insert Return 9",
+            "leftPx": 245,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-10",
+            "label": "Console Insert Return 10",
+            "leftPx": 263,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-11",
+            "label": "Console Insert Return 11",
+            "leftPx": 281,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-12",
+            "label": "Console Insert Return 12",
+            "leftPx": 299,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-13",
+            "label": "Console Insert Return 13",
+            "leftPx": 321,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-14",
+            "label": "Console Insert Return 14",
+            "leftPx": 339,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-15",
+            "label": "Console Insert Return 15",
+            "leftPx": 356,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-insert-return-16",
+            "label": "Console Insert Return 16",
+            "leftPx": 375,
+            "topPx": 143,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-3",
+            "label": "Console Aux Out 3",
+            "leftPx": 458,
+            "topPx": 69,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-4",
+            "label": "Console Aux Out 4",
+            "leftPx": 476,
+            "topPx": 69,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-5",
+            "label": "Console Aux Out 5",
+            "leftPx": 498,
+            "topPx": 69,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-6",
+            "label": "Console Aux Out 6",
+            "leftPx": 517,
+            "topPx": 69,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-7",
+            "label": "Console Aux Out 7",
+            "leftPx": 532,
+            "topPx": 69,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-8",
+            "label": "Console Aux Out 8",
+            "leftPx": 552,
+            "topPx": 69,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-9",
+            "label": "Console Aux Out 9",
+            "leftPx": 421,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-10",
+            "label": "Console Aux Out 10",
+            "leftPx": 439,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-11",
+            "label": "Console Aux Out 11",
+            "leftPx": 457,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-12",
+            "label": "Console Aux Out 12",
+            "leftPx": 476,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-13",
+            "label": "Console Aux Out 13",
+            "leftPx": 498,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-14",
+            "label": "Console Aux Out 14",
+            "leftPx": 515,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-15",
+            "label": "Console Aux Out 15",
+            "leftPx": 532,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-16",
+            "label": "Console Aux Out 16",
+            "leftPx": 551,
+            "topPx": 107,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-17",
+            "label": "Console Aux Out 17",
+            "leftPx": 422,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-18",
+            "label": "Console Aux Out 18",
+            "leftPx": 440,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-19",
+            "label": "Console Aux Out 19",
+            "leftPx": 457,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-20",
+            "label": "Console Aux Out 20",
+            "leftPx": 476,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-21",
+            "label": "Console Aux Out 21",
+            "leftPx": 498,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-22",
+            "label": "Console Aux Out 22",
+            "leftPx": 515,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-23",
+            "label": "Console Aux Out 23",
+            "leftPx": 533,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-aux-out-24",
+            "label": "Console Aux Out 24",
+            "leftPx": 551,
+            "topPx": 153,
+            "widthPx": 16,
+            "heightPx": 16
+      },
+      {
+            "key": "liv023-false-console-bus-out-1",
+            "label": "Console Bus Out 1",
+            "leftPx": 604,
+            "topPx": 70,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-2",
+            "label": "Console Bus Out 2",
+            "leftPx": 627,
+            "topPx": 70,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-3",
+            "label": "Console Bus Out 3",
+            "leftPx": 650,
+            "topPx": 70,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-4",
+            "label": "Console Bus Out 4",
+            "leftPx": 674,
+            "topPx": 70,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-5",
+            "label": "Console Bus Out 5",
+            "leftPx": 604,
+            "topPx": 103,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-6",
+            "label": "Console Bus Out 6",
+            "leftPx": 628,
+            "topPx": 103,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-7",
+            "label": "Console Bus Out 7",
+            "leftPx": 652,
+            "topPx": 103,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-8",
+            "label": "Console Bus Out 8",
+            "leftPx": 674,
+            "topPx": 103,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-9",
+            "label": "Console Bus Out 9",
+            "leftPx": 604,
+            "topPx": 136,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-10",
+            "label": "Console Bus Out 10",
+            "leftPx": 628,
+            "topPx": 136,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-11",
+            "label": "Console Bus Out 11",
+            "leftPx": 653,
+            "topPx": 136,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-12",
+            "label": "Console Bus Out 12",
+            "leftPx": 676,
+            "topPx": 136,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-13",
+            "label": "Console Bus Out 13",
+            "leftPx": 605,
+            "topPx": 165,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-14",
+            "label": "Console Bus Out 14",
+            "leftPx": 630,
+            "topPx": 165,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-15",
+            "label": "Console Bus Out 15",
+            "leftPx": 653,
+            "topPx": 165,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-bus-out-16",
+            "label": "Console Bus Out 16",
+            "leftPx": 676,
+            "topPx": 165,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-matrix-1",
+            "label": "Console Matrix 1",
+            "leftPx": 731,
+            "topPx": 129,
+            "widthPx": 12,
+            "heightPx": 12
+      },
+      {
+            "key": "liv023-false-console-matrix-2",
+            "label": "Console Matrix 2",
+            "leftPx": 750,
+            "topPx": 129,
+            "widthPx": 12,
+            "heightPx": 12
+      },
+      {
+            "key": "liv023-false-console-matrix-3",
+            "label": "Console Matrix 3",
+            "leftPx": 769,
+            "topPx": 129,
+            "widthPx": 12,
+            "heightPx": 12
+      },
+      {
+            "key": "liv023-false-console-matrix-4",
+            "label": "Console Matrix 4",
+            "leftPx": 786,
+            "topPx": 129,
+            "widthPx": 12,
+            "heightPx": 12
+      },
+      {
+            "key": "liv023-false-console-talkback",
+            "label": "Console TALKBACK",
+            "leftPx": 720,
+            "topPx": 158,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-aes",
+            "label": "Console AES",
+            "leftPx": 743,
+            "topPx": 158,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-cue",
+            "label": "Console CUE",
+            "leftPx": 767,
+            "topPx": 158,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-console-mon",
+            "label": "Console MON",
+            "leftPx": 790,
+            "topPx": 158,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-iem-b-l",
+            "label": "IEM Unit B L",
+            "leftPx": 643,
+            "topPx": 364,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-iem-b-r",
+            "label": "IEM Unit B R",
+            "leftPx": 675,
+            "topPx": 364,
+            "widthPx": 22,
+            "heightPx": 22
+      },
+      {
+            "key": "liv023-false-iem-phones",
+            "label": "IEM Phones",
+            "leftPx": 755,
+            "topPx": 364,
+            "widthPx": 22,
+            "heightPx": 22
+      }
+];
+
+    falseHitboxes.forEach(addNode);
+
+    goodHitboxes.forEach(addNode);
+
+	    const spacer = document.createElement("div");
+	    spacer.className = "sfLiveNativeSurfaceScrollSpacer sf-liv023-scroll-spacer";
+	    spacer.style.cssText = "position:relative;display:block;opacity:0;pointer-events:none";
+	    spacer.style.setProperty("width", boardWidth + "px", "important");
+	    spacer.style.setProperty("min-width", boardWidth + "px", "important");
+	    spacer.style.setProperty("height", scrollHeight + "px", "important");
+	    spacer.style.setProperty("min-height", scrollHeight + "px", "important");
+
+	    surface.appendChild(legacyMask);
+	    surface.appendChild(layer);
+	    surface.appendChild(spacer);
+	    redrawCables(layer);
+	    installCableDrag(layer);
+
+    console.log("[Signal Flow] LIV-023 native renderer mounted", {
+      gear: gearLayout.length,
+      good: goodHitboxes.length,
+      boardWidth,
+      boardHeight
+    });
+  }
+
+
   function renderNative(surface, adapter) {
+    if (LEVEL_ID === "LIV-023") {
+      renderLiv023MonitorConsoleStereoPa(surface, adapter);
+      return;
+    }
+
     if (LEVEL_ID === "LIV-016") {
       renderLiv016FullBandPngBoard(surface, adapter);
       return;
@@ -11538,7 +13119,9 @@ function mountNative(force) {
 
     installNativeScrollStyle();
     hideLegacyBoard(surface);
-    if (LEVEL_ID === "LIV-018") {
+    if (LEVEL_ID === "LIV-023") {
+      renderLiv023MonitorConsoleStereoPa(surface, adapter);
+    } else if (LEVEL_ID === "LIV-018") {
       renderLiv018TalkbackMonitor(surface, adapter);
     } else if (typeof isLivProcessingFamilyLevel === "function" && isLivProcessingFamilyLevel()) {
       renderLivProcessingFamily(surface, adapter);
