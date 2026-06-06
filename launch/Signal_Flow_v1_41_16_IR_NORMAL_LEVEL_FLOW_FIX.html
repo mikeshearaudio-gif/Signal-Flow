@@ -28647,14 +28647,18 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 <script id="sfv14113-ir-script">
 (function(){
   'use strict';
-  const VERSION = 'v1.41.16';
+  const VERSION = 'v1.41.17';
   const TARGET_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-  const FLUTE_URL = "data:audio/wav;base64,";
-  const SFX_RIGHT = "data:audio/wav;base64,";
-  const SFX_WRONG = "data:audio/wav;base64,";
-  const SFX_COIN = "data:audio/wav;base64,";
-  const SFX_CLICK = "data:audio/wav;base64,";
-  const SFX_WARN = "data:audio/wav;base64,";
+  function sfv14113AudioAsset(path){
+    try { return typeof assetUrl === 'function' ? assetUrl(path) : new URL('../' + path, location.href).href; }
+    catch (_) { return '../' + path; }
+  }
+  const FLUTE_URL = sfv14113AudioAsset("assets/audio/stems/Flute Solo_1(25).wav");
+  const SFX_RIGHT = sfv14113AudioAsset("assets/audio/sfx/right_answer(48).wav");
+  const SFX_WRONG = sfv14113AudioAsset("assets/audio/sfx/wrong_answer(49).wav");
+  const SFX_COIN = sfv14113AudioAsset("assets/audio/sfx/SFcoin(81).wav");
+  const SFX_CLICK = sfv14113AudioAsset("assets/audio/sfx/connection_click(51).mp3");
+  const SFX_WARN = sfv14113AudioAsset("assets/audio/sfx/feedback_warning(51).mp3");
   const IR_LIST = [
     ['vocal_booth','Vocal Booth','small','indoor','dry',1],
     ['bedroom_studio','Bedroom Studio','small','indoor','controlled',2],
@@ -28694,7 +28698,14 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 
   function routeIsPST103(){ return /PST-103/i.test(location.hash || location.href); }
   function esc(s){ return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
-  function playTag(url, vol=.55){ try{ const a=new window.__SignalFlowNoAudio(url); a.volume=vol; a.play().catch(()=>{}); }catch(_){} }
+  function playTag(url, vol=.55){
+    try{
+      if(!url) return;
+      const a = new Audio(url);
+      a.volume = vol;
+      a.play().catch(()=>{});
+    }catch(_){}
+  }
   function setActiveMode(on){
     document.documentElement.classList.toggle('sfv14113-pst103', !!on);
     document.body.classList.toggle('sfv14113-pst103', !!on);
@@ -29627,7 +29638,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </script>
 <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
 
-<script src="../src/live-sound-native-renderer.js?v=6r525liv023falsehitboxbake"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r530liv025matrixalignfix"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r243liv011scoped"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">

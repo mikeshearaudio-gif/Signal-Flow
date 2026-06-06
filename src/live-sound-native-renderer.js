@@ -1306,6 +1306,43 @@
       id: "LIV-025",
       title: "Sub Matrix Feed",
       processorLabel: "CROSSOVER",
+      panelKinds: ["stagebox", "foh", "amp"],
+      sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
+      assetOverrides: {
+        stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
+      },
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "stagebox-link-out",
+        "matrix-2-output",
+        "main-left-output",
+        "main-right-output",
+        "foh-line-out-1",
+        "foh-line-out-3",
+        "foh-line-out-4",
+        "system-processor-left-in",
+        "system-processor-right-in",
+        "sub-processor-input",
+        "processor-output-a",
+        "processor-output-b"
+      ],
       validRoutes: [
         {
           key: "aux-2-to-sub",
@@ -1349,6 +1386,43 @@
       id: "LIV-026",
       title: "Delay Tower Route",
       processorLabel: "DELAY TOWER PROCESSING",
+      panelKinds: ["stagebox", "foh", "amp"],
+      sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
+      assetOverrides: {
+        stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
+      },
+      generatedJackKeys: [
+        "stagebox-input-1",
+        "stagebox-input-2",
+        "stagebox-input-3",
+        "stagebox-input-4",
+        "stagebox-input-5",
+        "stagebox-input-6",
+        "stagebox-input-7",
+        "stagebox-input-8",
+        "stagebox-input-9",
+        "stagebox-input-10",
+        "stagebox-input-11",
+        "stagebox-input-12",
+        "stagebox-input-13",
+        "stagebox-input-14",
+        "stagebox-input-15",
+        "stagebox-input-16",
+        "stagebox-link-out",
+        "aux-3-output",
+        "main-left-output",
+        "main-right-output",
+        "foh-line-out-1",
+        "aux-2-output",
+        "foh-line-out-4",
+        "system-processor-left-in",
+        "system-processor-right-in",
+        "delay-tower-processing-input",
+        "processor-output-a",
+        "processor-output-b"
+      ],
       validRoutes: [
         {
           key: "aux-3-to-delay-processing",
@@ -2438,6 +2512,40 @@ if (activeNativeLevelId === nextLevelId) return;
       };
     }
 
+    if (LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026") {
+      const liv025Rel = {
+        "matrix-2-output": { panel: "foh", x: (LEVEL_ID === "LIV-025" ? 180 : 458) / 1120, y: (LEVEL_ID === "LIV-025" ? 134 : 140) / 260 },
+        "aux-2-output": { panel: "foh", x: 458 / 1120, y: 140 / 260 },
+        "aux-3-output": { panel: "foh", x: 498 / 1120, y: 140 / 260 },
+        "foh-line-out-1": { panel: "foh", x: 418 / 1120, y: 140 / 260 },
+        "foh-line-out-3": { panel: "foh", x: 498 / 1120, y: 140 / 260 },
+        "foh-line-out-4": { panel: "foh", x: 538 / 1120, y: 140 / 260 },
+        "main-left-output": { panel: "foh", x: 975 / 1120, y: 134 / 260 },
+        "main-right-output": { panel: "foh", x: 1045 / 1120, y: 134 / 260 },
+        "system-processor-left-in": { panel: "amp", x: 94 / 940, y: 146 / 260 },
+        "system-processor-right-in": { panel: "amp", x: 214 / 940, y: 146 / 260 },
+        "delay-tower-processing-input": { panel: "amp", x: 470 / 940, y: 146 / 260 },
+        "sub-processor-input": { panel: "amp", x: 704 / 940, y: 146 / 260 },
+        "processor-output-a": { panel: "amp", x: 818 / 940, y: 146 / 260 },
+        "processor-output-b": { panel: "amp", x: 890 / 940, y: 146 / 260 }
+      }[key];
+
+      if (liv025Rel) {
+        const panel = (level.panels || []).find(item => item.id === liv025Rel.panel || item.kind === liv025Rel.panel);
+        if (panel) {
+          const panelAspect = {
+            foh: 260 / 1120,
+            amp: 260 / 940
+          }[panel.kind] || 0.25;
+
+          return {
+            x: panel.x + panel.width * liv025Rel.x,
+            y: panel.y + panel.width * panelAspect * liv025Rel.y
+          };
+        }
+      }
+    }
+
     // LIV-002 uses asset-specific SVG hardware centers.
     // Keep this level-specific so later boards that use different stagebox/console
     // artwork do not inherit these coordinates.
@@ -2486,7 +2594,7 @@ if (activeNativeLevelId === nextLevelId) return;
       const panel = (level.panels || []).find(item => item.id === def.panelRel.panel || item.kind === def.panelRel.panel);
       if (panel) {
         const panelAspect = {
-          stagebox: (LEVEL_ID === "LIV-011" ? 360 / 980 : 260 / 860),
+          stagebox: (["LIV-011", "LIV-025", "LIV-026"].includes(LEVEL_ID) ? 360 / 980 : 260 / 860),
           foh: 260 / 1120,
           monitor: 240 / 850,
           iem: 240 / 900,
@@ -4330,7 +4438,11 @@ function handleNodeClick(layer, node) {
   function updateNativeHintHighlights() {
     const hintNodes = Array.from(document.querySelectorAll(".sf-native-jack")).filter(btn => {
       const key = btn.dataset.nodeKey || btn.dataset.sfNativeKey || btn.getAttribute("data-node-key") || "";
-      return !(LEVEL_ID === "LIV-021" && String(key).startsWith("liv021-false-"));
+      if (LEVEL_ID === "LIV-021" && String(key).startsWith("liv021-false-")) return false;
+      if (LEVEL_ID === "LIV-023" && String(key).startsWith("liv023-false-")) return false;
+      if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeFalseJack === "1") return false;
+      if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeHintable === "0") return false;
+      return true;
     });
 
     if (LEVEL_ID === "LIV-021") {
@@ -4342,6 +4454,20 @@ function handleNodeClick(layer, node) {
     }
 
     hintNodes.forEach(btn => {
+      const nodeKey = btn.dataset.nodeKey || btn.dataset.key || btn.dataset.sfNativeKey || "";
+      const isLiv023False = LEVEL_ID === "LIV-023" && (
+        nodeKey.startsWith("liv023-false-") ||
+        btn.dataset.sfNativeFalseJack === "1" ||
+        btn.dataset.sfNativeHintable === "0"
+      );
+
+      if (isLiv023False) {
+        btn.style.boxShadow = "none";
+        btn.style.outline = "none";
+        btn.style.background = "rgba(255,255,255,0)";
+        return;
+      }
+
       const isGhost = btn.dataset.sfNativeGhost === "1";
 
       if (!nativeHintsVisible) {
@@ -6379,7 +6505,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
     }
 
-    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-015", "LIV-016", "LIV-020", "LIV-021", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-015", "LIV-016", "LIV-020", "LIV-021", "LIV-025", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
 
     if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
       const aux = getNodePoint(adapter, level, "foh-aux-1-output");
@@ -6394,12 +6520,12 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     }
 
     if (LEVEL_ID === "LIV-025") {
-      const aux = pointFromPanel(adapter, level, "foh.lineOut2");
-      const sub = pointFromPanel(adapter, level, "amp.link");
+      const matrix = getNodePoint(adapter, level, "matrix-2-output");
+      const sub = getNodePoint(adapter, level, "sub-processor-input");
 
       // Only relabel the section. Do not cover the jack numbers.
-      mask(aux.x + 4, aux.y - 48, 112, 16);
-      plaque("AUX OUTS", aux.x + 4, aux.y - 48, 92);
+      mask(matrix.x, matrix.y - 43, 124, 16);
+      plaque("MATRIX OUTS", matrix.x, matrix.y - 43, 100);
 
       mask(sub.x, sub.y - 29, 86, 16);
       plaque("SUB INPUT", sub.x, sub.y - 29, 78);
@@ -9701,7 +9827,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
   }
 
   function isLivProcessingFamilyLevel() {
-    return LEVEL_ID === "LIV-015";
+    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026";
   }
 
   function buildLivProcessingFamilyGeometry(surface) {
@@ -9723,9 +9849,9 @@ function renderLiv020MainPaAndIem(surface, adapter) {
         { id: "amp", kind: "amp", x: rect.width * 0.505, y: layoutHeight * 0.180, width: rect.width * 0.410 },
         { id: "paamp", kind: "paamp", x: rect.width * 0.575, y: layoutHeight * 0.600, width: rect.width * 0.315 }
       );
-    } else if (LEVEL_ID === "LIV-015") {
-      // LIV-015: larger no-scroll processing layout.
-      // Keep all equipment inside the fixed processing-family board height.
+    } else if (LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026") {
+      // Processing-family boards: keep sources, stagebox, FOH, and processor
+      // in distinct zones inside the fixed native board height.
       panels.push(
         { id: "stagebox", kind: "stagebox", x: rect.width * 0.045, y: layoutHeight * 0.365, width: rect.width * 0.385 },
         { id: "foh", kind: "foh", x: rect.width * 0.380, y: layoutHeight * 0.115, width: rect.width * 0.585 },
@@ -9745,6 +9871,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
   function renderLivProcessingFamily(surface, adapter) {
     const level = buildLivProcessingFamilyGeometry(surface);
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    const useLockedProcessingSurface = LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026";
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer sf-live-native-processing-family";
@@ -9757,7 +9884,12 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       "pointer-events:none",
       "overflow:hidden",
       "border-radius:16px",
-      "background:radial-gradient(circle at 56% 30%, rgba(18,48,38,.30), rgba(0,0,0,0) 70%)"
+      "background:" + (
+        useLockedProcessingSurface
+          ? "radial-gradient(circle at 52% 22%, rgba(31,72,48,.24), rgba(5,10,7,0) 62%),linear-gradient(180deg,#06100d 0%,#020504 100%)"
+          : "radial-gradient(circle at 56% 30%, rgba(18,48,38,.30), rgba(0,0,0,0) 70%)"
+      ),
+      useLockedProcessingSurface ? "box-shadow:inset 0 0 0 1px rgba(232,196,96,.12),inset 0 -80px 140px rgba(0,0,0,.42)" : ""
     ].join(";");
 
     const activeEndpointKeys = new Set();
@@ -9766,7 +9898,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       activeEndpointKeys.add(route.to);
     });
 
-    createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + " - PROCESSING FAMILY MODE", level.rect.width * 0.03, level.rect.height * 0.055, 12);
+    createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + (useLockedProcessingSurface ? "" : " - PROCESSING FAMILY MODE"), level.rect.width * 0.03, level.rect.height * 0.055, 12);
 
     if (LEVEL_ID === "LIV-020" || LEVEL_ID === "LIV-021") {
       createLabel(layer, "FOH CONSOLE MAIN OUTS", level.rect.width * 0.065, level.rect.height * 0.145, 12);
@@ -9778,7 +9910,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       createLabel(layer, "SOURCE", level.rect.width * 0.060, level.rect.height * 0.100, 12);
       createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.065, level.rect.height * 0.350, 12);
       createLabel(layer, "FOH CONSOLE MATRIX / MAIN OUTS", level.rect.width * 0.420, level.rect.height * 0.095, 12);
-      createLabel(layer, LEVEL_ID === "LIV-015" ? "CROSSOVER + SUB PROCESSING" : "CROSSOVER + DELAY TOWER PROCESSING", level.rect.width * 0.470, level.rect.height * 0.545, 12);
+      createLabel(layer, LEVEL_ID === "LIV-026" ? "DELAY TOWER PROCESSING" : "CROSSOVER + SUB PROCESSING", level.rect.width * 0.470, level.rect.height * 0.545, 12);
     }
 
     level.panels.forEach(panel => {

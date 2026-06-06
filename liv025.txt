@@ -1,0 +1,692 @@
+1-/*
+2- * Signal Flow - Live Sound Native Renderer v6
+3- *
+4- * Scope:
+5: *   LIV-025 - Sub matrix feed
+6- *
+7- * Purpose:
+8- *   Replaces the temporary bridge approach with a native concept-sheet renderer
+9- *   for this board. It owns visual node selection, valid/invalid cables, undo,
+10- *   clear, bad-connect feedback, and front/back visibility for the concept layer.
+11- *
+12- * Required load order:
+13- *   <script src="/src/live-sound-adapter.js"></script>
+14- *   <script src="/src/live-sound-native-renderer.js"></script>
+15- */
+16-(function () {
+17-  "use strict";
+18-
+19-  const SF_REPO_ROOT = new URL("../", document.currentScript?.src || document.baseURI);
+20-
+21-  function sfRepoUrl(path) {
+22-    return new URL(String(path || "").replace(/^\/+/, ""), SF_REPO_ROOT).href;
+23-  }
+24-
+25-  function sfNormalizeLevelId(value) {
+26-    const match = String(value || "").toUpperCase().match(/\b([A-Z]{3})[-_ ]?(\d{1,3})\b/);
+27-    if (!match) return "";
+28-    return match[1] + "-" + String(Number(match[2])).padStart(3, "0");
+29-  }
+30-
+31-
+32-  function sfBroadcastWrapperBoardSync(levelId) {
+33-    // Exterior wrapper controls are dev-only and should not be a gameplay source of truth.
+34-    return;
+35-  }
+36-
+37-  function sfCurrentWrapperBoardId() {
+38-    const values = [];
+39-
+40-    document.querySelectorAll("select, input, [data-board], [data-level-id]").forEach(el => {
+41-      if (el.value) values.push(el.value);
+42-      if (el.dataset) {
+43-        if (el.dataset.board) values.push(el.dataset.board);
+44-        if (el.dataset.levelId) values.push(el.dataset.levelId);
+45-      }
+--
+274-      const nextId = sfNextSequentialLevelId(currentId);
+275-
+276-      if (!nextId) return;
+277-
+278-      event.preventDefault();
+279-      event.stopPropagation();
+280-      event.stopImmediatePropagation();
+281-
+282-      sfClearNativeCompletionOverlay("completion-next");
+283-      console.log("[Signal Flow] Completion Next bridged through wrapper:", currentId, "->", nextId);
+284-      sfLoadBoardThroughWrapper(nextId);
+285-    }, true);
+286-  }
+287-
+288-  sfInstallCompletionNextBridge();
+289-
+290-
+291-
+292-
+293-
+294:  let LEVEL_ID = "LIV-025";
+295-  let activeNativeLevelId = null;
+296-  let nativeLevelCompleteShown = false;
+297-  let nativeSurfaceRetryTimer = null;
+298-  let nativeSurfaceRetryCount = 0;
+299-  let nativeSurfaceRetryLevelId = null;
+300-
+301-  const LIV_028_LAYOUT = {
+302-    sources: {
+303-      x: 0.145,
+304-      firstY: 0.155,
+305-      gap: 44,
+306-      width: 154,
+307-      height: 38
+308-    },
+309-    stagebox: {
+310-      x: 0.045,
+311-      y: 0.535,
+312-      width: 0.410
+313-    },
+314-    foh: {
+315-      x: 0.385,
+316-      y: 0.115,
+317-      width: 0.555
+318-    },
+319-    iem: {
+320-      x: 0.565,
+321-      y: 0.625,
+322-      width: 0.375
+323-    }
+324-  };
+325-
+326-  let selectedNode = null;
+327-  let patchDrag = null;
+328-  let suppressNativeClickUntil = 0;
+329-  let nativeVisible = true;
+330-  let nativeHintsVisible = false;
+331-  let state = {
+332-    routes: [],
+333-    completedValidKeys: new Set()
+334-  };
+--
+1285-        "foh-liv006-bus-6-output",
+1286-        "foh-liv006-bus-7-output",
+1287-        "foh-liv006-bus-8-output",
+1288-        "foh-liv006-main-left-output",
+1289-        "foh-liv006-main-right-output",
+1290-        "liv011-crossover-l-input",
+1291-        "liv011-crossover-r-input"
+1292-      ],
+1293-      validRoutes: [
+1294-        { key: "lead-vocal-mic-to-stagebox-input-11", from: "lead-vocal-mic", to: "stagebox-input-11", checklist: "Lead Vocal Mic \u2192 Stage Box Input 11" },
+1295-        { key: "foh-liv006-main-left-output-to-liv011-crossover-l-input", from: "foh-liv006-main-left-output", to: "liv011-crossover-l-input", checklist: "Main L Output \u2192 Crossover L In", stereoGroup: "liv011-main-to-crossover", stereoSide: "left" },
+1296-        { key: "foh-liv006-main-right-output-to-liv011-crossover-r-input", from: "foh-liv006-main-right-output", to: "liv011-crossover-r-input", checklist: "Main R Output \u2192 Crossover R In", stereoGroup: "liv011-main-to-crossover", stereoSide: "right" },
+1297-        { key: "keys-left-di-to-stagebox-input-7", from: "keys-left-di", to: "stagebox-input-7", checklist: "Keys L DI \u2192 Stage Box Input 7", stereoGroup: "liv011-keys-di-to-stagebox", stereoSide: "left" },
+1298-        { key: "keys-right-di-to-stagebox-input-8", from: "keys-right-di", to: "stagebox-input-8", checklist: "Keys R DI \u2192 Stage Box Input 8", stereoGroup: "liv011-keys-di-to-stagebox", stereoSide: "right" }
+1299-      ]
+1300-    },
+1301-
+1302-
+1303-
+1304-
+1305:"LIV-025": {
+1306:      id: "LIV-025",
+1307-      title: "Sub Matrix Feed",
+1308-      processorLabel: "CROSSOVER",
+1309-      panelKinds: ["stagebox", "foh", "amp"],
+1310-      sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
+1311-      assetOverrides: {
+1312-        stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+1313-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+1314-        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
+1315-      },
+1316-      generatedJackKeys: [
+1317-        "stagebox-input-1",
+1318-        "stagebox-input-2",
+1319-        "stagebox-input-3",
+1320-        "stagebox-input-4",
+1321-        "stagebox-input-5",
+1322-        "stagebox-input-6",
+1323-        "stagebox-input-7",
+1324-        "stagebox-input-8",
+1325-        "stagebox-input-9",
+1326-        "stagebox-input-10",
+1327-        "stagebox-input-11",
+1328-        "stagebox-input-12",
+1329-        "stagebox-input-13",
+1330-        "stagebox-input-14",
+1331-        "stagebox-input-15",
+1332-        "stagebox-input-16",
+1333-        "stagebox-link-out",
+1334-        "matrix-2-output",
+1335-        "main-left-output",
+1336-        "main-right-output",
+1337-        "foh-line-out-1",
+1338-        "foh-line-out-3",
+1339-        "foh-line-out-4",
+1340-        "system-processor-left-in",
+1341-        "system-processor-right-in",
+1342-        "sub-processor-input",
+1343-        "processor-output-a",
+1344-        "processor-output-b"
+1345-      ],
+1346-      validRoutes: [
+--
+2495-        "keys-left-di": 1,
+2496-        "keys-right-di": 2
+2497-      };
+2498-      if (Object.prototype.hasOwnProperty.call(sourceIndex, key)) {
+2499-        return {
+2500-          x: level.rect.width * 0.06 + 85,
+2501-          y: level.rect.height * (0.12 + sourceIndex[key] * 0.06) + 23
+2502-        };
+2503-      }
+2504-    }
+2505-
+2506-    const def = NODE_DEFS[key];
+2507-
+2508-    if (!def) {
+2509-      return {
+2510-        x: level.rect.width * 0.5,
+2511-        y: level.rect.height * 0.5
+2512-      };
+2513-    }
+2514-
+2515:    if (LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026") {
+2516-      const liv025Rel = {
+2517:        "matrix-2-output": { panel: "foh", x: (LEVEL_ID === "LIV-025" ? 180 : 458) / 1120, y: (LEVEL_ID === "LIV-025" ? 134 : 140) / 260 },
+2518-        "aux-2-output": { panel: "foh", x: 458 / 1120, y: 140 / 260 },
+2519-        "aux-3-output": { panel: "foh", x: 498 / 1120, y: 140 / 260 },
+2520-        "foh-line-out-1": { panel: "foh", x: 418 / 1120, y: 140 / 260 },
+2521-        "foh-line-out-3": { panel: "foh", x: 498 / 1120, y: 140 / 260 },
+2522-        "foh-line-out-4": { panel: "foh", x: 538 / 1120, y: 140 / 260 },
+2523-        "main-left-output": { panel: "foh", x: 975 / 1120, y: 134 / 260 },
+2524-        "main-right-output": { panel: "foh", x: 1045 / 1120, y: 134 / 260 },
+2525-        "system-processor-left-in": { panel: "amp", x: 94 / 940, y: 146 / 260 },
+2526-        "system-processor-right-in": { panel: "amp", x: 214 / 940, y: 146 / 260 },
+2527-        "delay-tower-processing-input": { panel: "amp", x: 470 / 940, y: 146 / 260 },
+2528-        "sub-processor-input": { panel: "amp", x: 704 / 940, y: 146 / 260 },
+2529-        "processor-output-a": { panel: "amp", x: 818 / 940, y: 146 / 260 },
+2530-        "processor-output-b": { panel: "amp", x: 890 / 940, y: 146 / 260 }
+2531-      }[key];
+2532-
+2533-      if (liv025Rel) {
+2534-        const panel = (level.panels || []).find(item => item.id === liv025Rel.panel || item.kind === liv025Rel.panel);
+2535-        if (panel) {
+2536-          const panelAspect = {
+2537-            foh: 260 / 1120,
+2538-            amp: 260 / 940
+2539-          }[panel.kind] || 0.25;
+2540-
+2541-          return {
+2542-            x: panel.x + panel.width * liv025Rel.x,
+2543-            y: panel.y + panel.width * panelAspect * liv025Rel.y
+2544-          };
+2545-        }
+2546-      }
+2547-    }
+2548-
+2549-    // LIV-002 uses asset-specific SVG hardware centers.
+2550-    // Keep this level-specific so later boards that use different stagebox/console
+2551-    // artwork do not inherit these coordinates.
+2552-    if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
+2553-      const liv002Rel = {
+2554-        "stagebox-input-1": { panel: "stagebox", x: 130 / 860, y: 135 / 260 },
+2555-        "stagebox-input-2": { panel: "stagebox", x: 202 / 860, y: 135 / 260 },
+2556-        "stagebox-input-3": { panel: "stagebox", x: 274 / 860, y: 135 / 260 },
+2557-        "stagebox-input-4": { panel: "stagebox", x: 346 / 860, y: 135 / 260 },
+--
+2577-        const panel = (level.panels || []).find(item => item.id === liv002Rel.panel || item.kind === liv002Rel.panel);
+2578-        if (panel) {
+2579-          const panelAspect = {
+2580-            stagebox: 260 / 860,
+2581-            foh: 260 / 1120,
+2582-            monitor: 240 / 850
+2583-          }[panel.kind] || 0.25;
+2584-
+2585-          return {
+2586-            x: panel.x + panel.width * liv002Rel.x,
+2587-            y: panel.y + panel.width * panelAspect * liv002Rel.y
+2588-          };
+2589-        }
+2590-      }
+2591-    }
+2592-
+2593-    if (def.panelRel) {
+2594-      const panel = (level.panels || []).find(item => item.id === def.panelRel.panel || item.kind === def.panelRel.panel);
+2595-      if (panel) {
+2596-        const panelAspect = {
+2597:          stagebox: (["LIV-011", "LIV-025", "LIV-026"].includes(LEVEL_ID) ? 360 / 980 : 260 / 860),
+2598-          foh: 260 / 1120,
+2599-          monitor: 240 / 850,
+2600-          iem: 240 / 900,
+2601-          "iem-record": 240 / 900,
+2602-          "iem-station-a": 240 / 900,
+2603-          "iem-station-b": 240 / 900,
+2604-          amp7: 240 / 700,
+2605-          paamp: 240 / 700,
+2606-          amp: 260 / 940,
+2607-          crossover: 250 / 940,
+2608-          "amp-high": 240 / 940,
+2609-          "amp-mid": 240 / 940,
+2610-          "amp-low": 240 / 940,
+2611-          "speaker-left": 620 / 260,
+2612-          "speaker-right": 620 / 260,
+2613-          "pa-visual": 870 / 857
+2614-        }[panel.kind] || 0.25;
+2615-
+2616-        return {
+2617-          x: panel.x + panel.width * def.panelRel.x,
+2618-          y: panel.y + panel.width * panelAspect * def.panelRel.y
+2619-        };
+2620-      }
+2621-    }
+2622-
+2623-    if (def.panelJack) {
+2624-      return pointFromPanel(adapter, level, def.panelJack);
+2625-    }
+2626-
+2627-    const sourceBaseX = level.rect.width * 0.06;
+2628-    const sourceBaseY = level.rect.height * 0.11;
+2629-
+2630-    return {
+2631-      x: sourceBaseX + (def.x || 0),
+2632-      y: sourceBaseY + (def.y || 0)
+2633-    };
+2634-  }
+2635-
+2636-
+2637-
+--
+2680-      "pointer-events:none"
+2681-    ].join(";");
+2682-    layer.appendChild(el);
+2683-  }
+2684-
+2685-  function cableHash(text) {
+2686-    let hash = 0;
+2687-    String(text || "").split("").forEach(ch => {
+2688-      hash = ((hash << 5) - hash) + ch.charCodeAt(0);
+2689-      hash |= 0;
+2690-    });
+2691-    return Math.abs(hash);
+2692-  }
+2693-
+2694-  function defaultCableBend(routeKey, index) {
+2695-    const lanes = [-54, -36, -20, 18, 34, 52, 68];
+2696-    return lanes[(cableHash(routeKey) + index) % lanes.length];
+2697-  }
+2698-
+2699-  function cableD(from, to, bend) {
+2700:    // LIV-025 natural cable feel:
+2701-    // - cables sag downward with gravity
+2702-    // - each route gets a slightly different lane/bow
+2703-    // - near-vertical runs bow sideways instead of stacking on top of each other
+2704-    const dx = to.x - from.x;
+2705-    const dy = to.y - from.y;
+2706-    const span = Math.max(1, Math.hypot(dx, dy));
+2707-    const lane = Number.isFinite(bend) ? bend : 0;
+2708-
+2709-    const sag = Math.max(38, Math.min(190, span * 0.20 + Math.abs(dy) * 0.10));
+2710-    const verticalish = Math.abs(dy) > Math.abs(dx) * 1.35;
+2711-
+2712-    let c1;
+2713-    let c2;
+2714-
+2715-    if (verticalish) {
+2716-      const side = lane || (dx >= 0 ? 38 : -38);
+2717-      c1 = {
+2718-        x: from.x + side,
+2719-        y: from.y + Math.max(40, span * 0.28)
+2720-      };
+2721-      c2 = {
+2722-        x: to.x + side * 0.72,
+2723-        y: to.y - Math.max(32, span * 0.18)
+2724-      };
+2725-    } else {
+2726-      c1 = {
+2727-        x: from.x + dx * 0.34 + lane * 0.20,
+2728-        y: from.y + sag + lane * 0.12
+2729-      };
+2730-      c2 = {
+2731-        x: from.x + dx * 0.66 - lane * 0.20,
+2732-        y: to.y + sag - lane * 0.12
+2733-      };
+2734-    }
+2735-
+2736-    return (
+2737-      "M " + from.x + " " + from.y +
+2738-      " C " + c1.x + " " + c1.y + ", " + c2.x + " " + c2.y + ", " + to.x + " " + to.y
+2739-    );
+2740-  }
+--
+2785-    layer.appendChild(svg);
+2786-    return svg;
+2787-  }
+2788-
+2789-  function cablePointAtMid(from, to, bend) {
+2790-    const dx = Math.abs(to.x - from.x);
+2791-    const dy = Math.abs(to.y - from.y);
+2792-    const lift = Math.max(55, Math.min(150, (dx + dy) * 0.16)) + (bend || 0);
+2793-    const midY = Math.min(from.y, to.y) - lift;
+2794-
+2795-    return cubicPoint(
+2796-      from,
+2797-      { x: from.x, y: midY },
+2798-      { x: to.x, y: midY },
+2799-      to,
+2800-      0.5
+2801-    );
+2802-  }
+2803-
+2804-  function createCableDragHandle(layer, route) {
+2805:    // Disabled: LIV-025 now uses drag-from-endpoint-to-endpoint patching,
+2806-    // not midpoint cable-bend handles.
+2807-    return;
+2808-    const point = cablePointAtMid(route.fromPoint, route.toPoint, route.bend || 0);
+2809-
+2810-    const handle = document.createElement("button");
+2811-    handle.type = "button";
+2812-    handle.className = "sf-cable-drag-handle";
+2813-    handle.setAttribute("aria-label", "Drag cable");
+2814-    handle.dataset.routeKey = route.key;
+2815-
+2816-    handle.style.cssText = [
+2817-      "position:absolute",
+2818-      "left:" + point.x + "px",
+2819-      "top:" + point.y + "px",
+2820-      "width:30px",
+2821-      "height:46px",
+2822-      "transform:translate(-50%,-50%)",
+2823-      "border-radius:50%",
+2824-      "border:2px solid rgba(255,255,255,.82)",
+2825-      "background:rgba(18,32,48,.82)",
+2826-      "box-shadow:0 0 0 2px rgba(0,0,0,.45), 0 0 14px rgba(255,255,255,.20)",
+2827-      "cursor:grab",
+2828-      "pointer-events:auto",
+2829-      "z-index:260",
+2830-      "touch-action:none"
+2831-    ].join(";");
+2832-
+2833-    handle.addEventListener("mouseenter", () => {
+2834-      handle.style.boxShadow = "0 0 0 2px rgba(255,255,255,.35)";
+2835-    });
+2836-
+2837-    handle.addEventListener("mouseleave", () => {
+2838-      handle.style.boxShadow = "";
+2839-    });
+2840-
+2841-    handle.addEventListener("click", event => {
+2842-      console.log("[Signal Flow] Native cable drag handle click swallowed.");
+2843-      event.preventDefault();
+2844-      event.stopPropagation();
+2845-      event.stopImmediatePropagation();
+--
+6488-      el.style.cssText = [
+6489-        "position:absolute",
+6490-        "left:" + x + "px",
+6491-        "top:" + y + "px",
+6492-        "width:" + w + "px",
+6493-        "height:" + h + "px",
+6494-        "transform:translate(-50%,-50%)",
+6495-        "border-radius:4px",
+6496-        "background:rgba(50,52,50,.98)",
+6497-        "box-shadow:none",
+6498-        "pointer-events:none",
+6499-        "z-index:990"
+6500-      ].join(";");
+6501-      layer.appendChild(el);
+6502-    }
+6503-
+6504-    function plaque(text, x, y, w) {
+6505-      createNativeOverlayLabel(layer, text, x, y, { width: w || 80, size: 7, color: "#f4f1dc" });
+6506-    }
+6507-
+6508:    if (!["LIV-003", "LIV-006", "LIV-007", "LIV-015", "LIV-016", "LIV-020", "LIV-021", "LIV-025", "LIV-028"].includes(LEVEL_ID)) createNativePrewireIcons(layer, adapter, level);
+6509-
+6510-    if (LEVEL_ID === "LIV-002" || LEVEL_ID === "LIV-012") {
+6511-      const aux = getNodePoint(adapter, level, "foh-aux-1-output");
+6512-      const foh = (level.panels || []).find(panel => panel.id === "foh" || panel.kind === "foh");
+6513-      const labelX = foh ? foh.x + foh.width * (798 / 1120) : aux.x + 44;
+6514-      const labelY = aux.y - 48;
+6515-
+6516-      // Player-facing terminology: these jacks function as monitor aux outputs
+6517-      // in the LIV-002/LIV-012 wedge boards. Do not rename the shared SVG asset.
+6518-      mask(labelX, labelY, 120, 16);
+6519-      plaque("AUX OUTS", labelX, labelY, 94);
+6520-    }
+6521-
+6522:    if (LEVEL_ID === "LIV-025") {
+6523-      const matrix = getNodePoint(adapter, level, "matrix-2-output");
+6524-      const sub = getNodePoint(adapter, level, "sub-processor-input");
+6525-
+6526-      // Only relabel the section. Do not cover the jack numbers.
+6527-      mask(matrix.x, matrix.y - 43, 124, 16);
+6528-      plaque("MATRIX OUTS", matrix.x, matrix.y - 43, 100);
+6529-
+6530-      mask(sub.x, sub.y - 29, 86, 16);
+6531-      plaque("SUB INPUT", sub.x, sub.y - 29, 78);
+6532-    }
+6533-
+6534-    if (LEVEL_ID === "LIV-026") {
+6535-      const aux = pointFromPanel(adapter, level, "foh.lineOut3");
+6536-      const delay = pointFromPanel(adapter, level, "amp.link");
+6537-
+6538-      // Only relabel the section. Do not cover the jack numbers.
+6539-      mask(aux.x + 2, aux.y - 48, 112, 16);
+6540-      plaque("AUX OUTS", aux.x + 2, aux.y - 48, 92);
+6541-
+6542-      mask(delay.x, delay.y - 35, 86, 16);
+6543-      createNativeAssetLabel(layer, "/assets/live-sound/svg/cable-wrap/delay-cable-wrap-label.svg", delay.x, delay.y - 35, { width: 76, height: 24 });
+6544-    }
+6545-
+6546-    if (LEVEL_ID === "LIV-028") {
+6547-      createNativeStagebox16Overlay(layer, level);
+6548-
+6549-      const talkbackOut = pointFromPanel(adapter, level, "foh.lineOut4");
+6550-
+6551-      createNativeAssetLabel(
+6552-        layer,
+6553-        "/assets/live-sound/svg/cable-wrap/tb-cable-wrap-label.svg",
+6554-        talkbackOut.x,
+6555-        talkbackOut.y + 28,
+6556-        { width: 64, height: 20, rotate: "-2deg", opacity: ".96" }
+6557-      );
+6558-    }
+6559-  }
+6560-
+6561-
+6562-  function sfLiv010AssetPath(kind) {
+--
+9810-    layer.style.setProperty("width", liv018CanvasWidth + "px", "important");
+9811-    layer.style.setProperty("min-width", liv018CanvasWidth + "px", "important");
+9812-    layer.style.setProperty("height", liv018CanvasHeight + "px", "important");
+9813-    layer.style.setProperty("min-height", liv018CanvasHeight + "px", "important");
+9814-    layer.style.setProperty("right", "auto", "important");
+9815-    layer.style.setProperty("overflow", "hidden", "important");
+9816-
+9817-    surface.appendChild(layer);
+9818-    redrawCables(layer);
+9819-    installCableDrag(layer);
+9820-
+9821-    console.log("[Signal Flow] LIV-018 dedicated talkback monitor renderer mounted.", {
+9822-      stage,
+9823-      foh,
+9824-      iem,
+9825-      talkbackOutput: tbOut,
+9826-    });
+9827-  }
+9828-
+9829-  function isLivProcessingFamilyLevel() {
+9830:    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026";
+9831-  }
+9832-
+9833-  function buildLivProcessingFamilyGeometry(surface) {
+9834-    const rect = surface.getBoundingClientRect();
+9835-    const layoutHeight = Math.min(rect.height, 640);
+9836-    const layoutRect = {
+9837-      left: rect.left,
+9838-      top: rect.top,
+9839-      right: rect.right,
+9840-      bottom: rect.top + layoutHeight,
+9841-      width: rect.width,
+9842-      height: layoutHeight
+9843-    };
+9844-
+9845-    const panels = [];
+9846-    if (LEVEL_ID === "LIV-020" || LEVEL_ID === "LIV-021") {
+9847-      panels.push(
+9848-        { id: "foh", kind: "foh", x: rect.width * 0.045, y: layoutHeight * 0.195, width: rect.width * 0.445 },
+9849-        { id: "amp", kind: "amp", x: rect.width * 0.505, y: layoutHeight * 0.180, width: rect.width * 0.410 },
+9850-        { id: "paamp", kind: "paamp", x: rect.width * 0.575, y: layoutHeight * 0.600, width: rect.width * 0.315 }
+9851-      );
+9852:    } else if (LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026") {
+9853-      // Processing-family boards: keep sources, stagebox, FOH, and processor
+9854-      // in distinct zones inside the fixed native board height.
+9855-      panels.push(
+9856-        { id: "stagebox", kind: "stagebox", x: rect.width * 0.045, y: layoutHeight * 0.365, width: rect.width * 0.385 },
+9857-        { id: "foh", kind: "foh", x: rect.width * 0.380, y: layoutHeight * 0.115, width: rect.width * 0.585 },
+9858-        { id: "amp", kind: "amp", x: rect.width * 0.405, y: layoutHeight * 0.595, width: rect.width * 0.540 }
+9859-      );
+9860-    } else {
+9861-      panels.push(
+9862-        { id: "stagebox", kind: "stagebox", x: rect.width * 0.055, y: layoutHeight * 0.400, width: rect.width * 0.330 },
+9863-        { id: "foh", kind: "foh", x: rect.width * 0.405, y: layoutHeight * 0.145, width: rect.width * 0.545 },
+9864-        { id: "amp", kind: "amp", x: rect.width * 0.455, y: layoutHeight * 0.600, width: rect.width * 0.475 }
+9865-      );
+9866-    }
+9867-
+9868-    return { id: LEVEL_ID, rect: layoutRect, panels };
+9869-  }
+9870-
+9871-  function renderLivProcessingFamily(surface, adapter) {
+9872-    const level = buildLivProcessingFamilyGeometry(surface);
+9873-    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+9874:    const useLockedProcessingSurface = LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026";
+9875-
+9876-    const layer = document.createElement("div");
+9877-    layer.className = "sf-live-native-layer sf-live-native-processing-family";
+9878-    layer.classList.add("sf-live-native-level-" + LEVEL_ID.toLowerCase());
+9879-    layer.style.cssText = [
+9880-      "position:absolute",
+9881-      "inset:0",
+9882-      "z-index:9990",
+9883-      "isolation:isolate",
+9884-      "pointer-events:none",
+9885-      "overflow:hidden",
+9886-      "border-radius:16px",
+9887-      "background:" + (
+9888-        useLockedProcessingSurface
+9889-          ? "radial-gradient(circle at 52% 22%, rgba(31,72,48,.24), rgba(5,10,7,0) 62%),linear-gradient(180deg,#06100d 0%,#020504 100%)"
+9890-          : "radial-gradient(circle at 56% 30%, rgba(18,48,38,.30), rgba(0,0,0,0) 70%)"
+9891-      ),
+9892-      useLockedProcessingSurface ? "box-shadow:inset 0 0 0 1px rgba(232,196,96,.12),inset 0 -80px 140px rgba(0,0,0,.42)" : ""
+9893-    ].join(";");
+9894-
+9895-    const activeEndpointKeys = new Set();
+9896-    (LEVEL.validRoutes || []).forEach(route => {
+9897-      activeEndpointKeys.add(route.from);
+9898-      activeEndpointKeys.add(route.to);
+9899-    });
+9900-
+9901-    createLabel(layer, (LEVEL.title || "Live Patch").toUpperCase() + (useLockedProcessingSurface ? "" : " - PROCESSING FAMILY MODE"), level.rect.width * 0.03, level.rect.height * 0.055, 12);
+9902-
+9903-    if (LEVEL_ID === "LIV-020" || LEVEL_ID === "LIV-021") {
+9904-      createLabel(layer, "FOH CONSOLE MAIN OUTS", level.rect.width * 0.065, level.rect.height * 0.145, 12);
+9905-      if (LEVEL_ID !== "LIV-011") {
+9906-        createLabel(layer, "CROSSOVER", level.rect.width * 0.520, level.rect.height * 0.130, 12);
+9907-      }
+9908-      createLabel(layer, "MAIN PA AMPLIFIER", level.rect.width * 0.600, level.rect.height * 0.550, 12);
+9909-    } else {
+9910-      createLabel(layer, "SOURCE", level.rect.width * 0.060, level.rect.height * 0.100, 12);
+9911-      createLabel(layer, "STAGE BOX INPUTS", level.rect.width * 0.065, level.rect.height * 0.350, 12);
+9912-      createLabel(layer, "FOH CONSOLE MATRIX / MAIN OUTS", level.rect.width * 0.420, level.rect.height * 0.095, 12);
+9913-      createLabel(layer, LEVEL_ID === "LIV-026" ? "DELAY TOWER PROCESSING" : "CROSSOVER + SUB PROCESSING", level.rect.width * 0.470, level.rect.height * 0.545, 12);
+9914-    }
+--
+13154-        const activeEndpoint = activeEndpointKeys.has(key);
+13155-        createJackNode(layer, key, point, def.label, !activeEndpoint);
+13156-      });
+13157-
+13158-    surface.appendChild(layer);
+13159-    if (needsNativeScroll) {
+13160-      const spacer = document.createElement("div");
+13161-      spacer.className = "sfLiveNativeSurfaceScrollSpacer";
+13162-      spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
+13163-      spacer.style.setProperty("min-height", boardHeight + "px", "important");
+13164-      spacer.style.setProperty("height", boardHeight + "px", "important");
+13165-      surface.appendChild(spacer);
+13166-    }
+13167-    createNativeBoardTerminologyOverlays(layer, adapter, level);
+13168-    createLiv028TalkbackUnderSources(layer, adapter, level);
+13169-    redrawCables(layer);
+13170-    installCableDrag(layer);
+13171-  }
+13172-
+13173-  function raiseHintOverlays() {
+13174:    // Native LIV-025 layer sits high in the board. Keep hint UI visible above it.
+13175-    Array.from(document.querySelectorAll("div, section, article, aside, dialog"))
+13176-      .forEach(el => {
+13177-        if (!el || !el.isConnected) return;
+13178-        if (el.closest(".sf-live-native-layer")) return;
+13179-
+13180-        const text = normalize(textOf(el));
+13181-        const cls = String(el.className || "").toLowerCase();
+13182-
+13183-        const looksLikeHint =
+13184-          cls.includes("hint") ||
+13185-          text.includes("hint") ||
+13186-          text.includes("show hints") ||
+13187-          text.includes("hide hints");
+13188-
+13189-        if (!looksLikeHint) return;
+13190-
+13191-        const r = el.getBoundingClientRect();
+13192-
+13193-        // Avoid restyling the whole app shell/body.
+13194-        if (r.width > window.innerWidth * 0.95 && r.height > window.innerHeight * 0.75) return;
+13195-
+13196-        el.style.position = getComputedStyle(el).position === "static" ? "relative" : el.style.position;
+13197-        el.style.zIndex = "12000";
+13198-      });
+13199-  }
+13200-
+13201-  function hidePanelToggleControls() {
+13202:    // LIV-025 native recovery: front/back equipment images are not ready yet.
+13203-    // Hide the panel toggle for now so players stay on the stable native board.
+13204-    Array.from(document.querySelectorAll("button, [role='button']")).forEach(button => {
+13205-      const label = normalize([
+13206-        textOf(button),
+13207-        button.getAttribute && button.getAttribute("aria-label"),
+13208-        button.getAttribute && button.getAttribute("title")
+13209-      ].filter(Boolean).join(" "));
+13210-
+13211-      if (
+13212-        label.includes("inspect") ||
+13213-        label.includes("back panel") ||
+13214-        label.includes("front panel") ||
+13215-        label === "front" ||
+13216-        label === "back"
+13217-      ) {
+13218-        button.dataset.sfLivePanelToggleHidden = "true";
+13219-        button.style.display = "none";
+13220-        button.setAttribute("aria-hidden", "true");
+13221-        if ("tabIndex" in button) button.tabIndex = -1;
+13222-      }
+13223-    });
+13224-  }
+13225-
+13226-function mountNative(force) {
+13227-    const adapter = window.SF_LIVE_SOUND_ADAPTER;
+13228-    if (!adapter) {
+13229-      console.warn("[Signal Flow] Native renderer missing adapter.");
+13230-      return;
+13231-    }
+13232-
+13233-    if (!isNativePatchBoardActive()) return;
+13234-    if (!syncActiveLevelSpec() || !nativeVisible) return;
+13235-
+13236-    const surface = findSurface();
+13237-    if (!surface) {
+13238-      scheduleNativeSurfaceRetry(force);
+13239-      return;
+13240-    }
+13241-
+13242-    resetNativeSurfaceRetry();

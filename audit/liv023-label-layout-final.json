@@ -1,0 +1,90 @@
+[
+  {
+    "key": "monitor-console",
+    "text": "MONITOR CONSOLE",
+    "leftPx": 10,
+    "topPx": 14,
+    "fontPx": 10,
+    "visible": false
+  },
+  {
+    "key": "stagebox",
+    "text": "STAGE BOX / SNAKE HEAD",
+    "leftPx": 19,
+    "topPx": 215,
+    "fontPx": 7,
+    "visible": true
+  },
+  {
+    "key": "lead-vocal-mic",
+    "text": "LEAD VOCAL MIC",
+    "leftPx": 78,
+    "topPx": 500,
+    "fontPx": 10,
+    "visible": true
+  },
+  {
+    "key": "keyboard",
+    "text": "KEYBOARD",
+    "leftPx": 330,
+    "topPx": 507,
+    "fontPx": 10,
+    "visible": true
+  },
+  {
+    "key": "processing-rack",
+    "text": "PROCESSING / AMP RACK",
+    "leftPx": 562,
+    "topPx": 200,
+    "fontPx": 10,
+    "visible": true
+  },
+  {
+    "key": "vocal-compressor",
+    "text": "VOCAL COMPRESSOR",
+    "leftPx": 587,
+    "topPx": 222,
+    "fontPx": 8,
+    "visible": true
+  },
+  {
+    "key": "iem-transmitter",
+    "text": "IEM TRANSMITTER",
+    "leftPx": 510,
+    "topPx": 350,
+    "fontPx": 9,
+    "visible": false
+  },
+  {
+    "key": "crossover",
+    "text": "3-WAY CROSSOVER",
+    "leftPx": 500,
+    "topPx": 455,
+    "fontPx": 9,
+    "visible": false
+  },
+  {
+    "key": "high-amp",
+    "text": "HIGH AMP",
+    "leftPx": 520,
+    "topPx": 560,
+    "fontPx": 9,
+    "visible": false
+  },
+  {
+    "key": "mid-amp",
+    "text": "MID AMP",
+    "leftPx": 520,
+    "topPx": 657,
+    "fontPx": 9,
+    "visible": false
+  },
+  {
+    "key": "low-amp",
+    "text": "LOW AMP",
+    "leftPx": 520,
+    "topPx": 757,
+    "fontPx": 9,
+    "visible": false
+  }
+]
