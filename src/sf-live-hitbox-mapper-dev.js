@@ -1,308 +1,397 @@
-(function () {
-  const VERSION = "sf-live-hitbox-mapper-dev-v1-resize";
+(function(){
+  const VERSION = "sf-live-hitbox-mapper-dev-v5-reusable-waiting";
 
-  const qs = new URLSearchParams(location.search);
-  const levelId =
-    window.SF_LIVE_HITBOX_MAPPER_LEVEL_ID ||
-    window.sfLiveHitboxLevel ||
-    qs.get("sfLiveHitboxLevel") ||
-    document.querySelector("[data-current-level-id]")?.dataset.currentLevelId ||
-    "LIV-021";
-
-  const keyPrefix =
-    window.SF_LIVE_HITBOX_MAPPER_KEY_PREFIX ||
-    window.sfLiveHitboxPrefix ||
-    qs.get("sfLiveHitboxPrefix") ||
-    "";
-
-  const layer =
-    document.querySelector(`.sf-live-native-layer.sf-live-native-level-${levelId.toLowerCase()}`) ||
-    document.querySelector(".sf-live-native-layer");
-
-  if (!layer) {
-    console.warn("[Signal Flow] Live hitbox mapper: no native layer found.", { levelId, keyPrefix });
-    return;
+  function param(name) {
+    try {
+      const own = new URLSearchParams(window.location.search || "");
+      if (own.get(name)) return own.get(name);
+      if (window.parent && window.parent !== window) {
+        const parent = new URLSearchParams(window.parent.location.search || "");
+        if (parent.get(name)) return parent.get(name);
+      }
+    } catch (_) {}
+    return "";
   }
 
-  document.querySelectorAll("[data-sf-live-hitbox-dev-handle], [data-sf-live-hitbox-dev-panel]")
-    .forEach(el => el.remove());
+  const cfg = window.SF_LIVE_DEV_CONFIG || {};
+  const LEVEL_ID = String(param("sfLiveDevLevel") || cfg.levelId || "LIV-020").toUpperCase();
+  const layerSelector = cfg.layerSelector || ".sf-live-native-layer.sf-live-native-level-" + LEVEL_ID.toLowerCase();
+  const keyPrefix = param("sfLiveHitboxPrefix") || cfg.keyPrefix || "";
+  let explicitKeys = String(param("sfLiveHitboxKeys") || "")
+    .split(",")
+    .map(s => s.trim())
+    .filter(Boolean);
 
-  const keyOf = n =>
-    n.dataset.nodeKey ||
-    n.dataset.sfNativeKey ||
-    n.getAttribute("data-node-key") ||
-    n.getAttribute("data-sf-native-key") ||
-    "";
+  if (!explicitKeys.length && LEVEL_ID === "LIV-025") {
+    explicitKeys = [
+      "matrix-1-output",
+      "front-fill-processor-input",
+      "front-fill-processor-output",
+      "front-fill-amp-input"
+    ];
+  }
 
-  const px = v => parseFloat(v) || 0;
+  function px(n){ return Math.round(Number(n) * 100) / 100; }
 
-  const nodes = Array.from(layer.querySelectorAll("[data-node-key], [data-sf-native-key], button.sf-native-node"))
-    .filter(n => {
-      const k = keyOf(n);
-      if (!k) return false;
-      if (keyPrefix && !k.startsWith(keyPrefix)) return false;
+  function nodeKey(el) {
+    return (
+      el.getAttribute("data-node-key") ||
+      el.getAttribute("data-sf-native-key") ||
+      el.getAttribute("data-sf-native-node-key") ||
+      el.getAttribute("data-sf-node-key") ||
+      el.getAttribute("data-key") ||
+      el.getAttribute("data-id") ||
+      el.dataset.nodeKey ||
+      el.dataset.sfNativeKey ||
+      el.dataset.sfNativeNodeKey ||
+      el.dataset.sfNodeKey ||
+      el.dataset.key ||
+      el.getAttribute("aria-label") ||
+      el.getAttribute("title") ||
+      ""
+    );
+  }
+
+  function looksInteractive(el) {
+    const cs = getComputedStyle(el);
+    const r = el.getBoundingClientRect();
+    if (r.width < 4 || r.height < 4) return false;
+    if (cs.display === "none" || cs.visibility === "hidden") return false;
+    if (el.classList.contains("sf-native-source")) return false;
+    if (el.getAttribute("data-node-kind") === "source") return false;
+    if (el.matches("button,[role='button'],[tabindex],.sf-native-node,.sf-native-jack,.sf-native-hotspot")) return true;
+    if (cs.pointerEvents !== "none" && (cs.cursor === "pointer" || cs.cursor === "grab" || cs.cursor === "move")) return true;
+    return false;
+  }
+
+  function findTargets(layer) {
+    let nodes = Array.from(layer.querySelectorAll(
+      "[data-node-key], [data-sf-native-key], [data-sf-native-node-key], [data-sf-node-key], [data-key], [data-id], button, [role='button'], [tabindex], .sf-native-node, .sf-native-jack, .sf-native-hotspot"
+    ));
+
+    nodes = nodes.filter(el => {
+      const key = nodeKey(el);
+      if (!key) return false;
+      if (!looksInteractive(el)) return false;
+      if (explicitKeys.length && !explicitKeys.includes(key)) return false;
+      if (keyPrefix && !key.startsWith(keyPrefix)) return false;
       return true;
     });
 
-  if (!nodes.length) {
-    console.warn("[Signal Flow] Live hitbox mapper: no matching nodes found.", { levelId, keyPrefix });
-    return;
-  }
-
-  let selected = 0;
-  let drag = null;
-
-  function nodeRecord(n) {
-    return {
-      key: keyOf(n),
-      label: n.title || n.getAttribute("aria-label") || "",
-      leftPx: px(n.style.left),
-      topPx: px(n.style.top),
-      widthPx: px(n.style.width),
-      heightPx: px(n.style.height)
-    };
-  }
-
-  function updateCableCenter(n) {
-    n.dataset.sfCableCenterX = String(px(n.style.left) + px(n.style.width) / 2);
-    n.dataset.sfCableCenterY = String(px(n.style.top) + px(n.style.height) / 2);
-    n.dataset.sfNativePointX = n.dataset.sfCableCenterX;
-    n.dataset.sfNativePointY = n.dataset.sfCableCenterY;
-  }
-
-  const handles = nodes.map((node, index) => {
-    const h = document.createElement("div");
-    h.dataset.sfLiveHitboxDevHandle = "1";
-    h.dataset.index = String(index);
-    h.dataset.key = keyOf(node);
-    h.title = `${index}: ${keyOf(node)} ${node.title || ""}`;
-
-    h.style.cssText = [
-      "position:absolute",
-      "left:" + node.style.left,
-      "top:" + node.style.top,
-      "width:" + node.style.width,
-      "height:" + node.style.height,
-      "z-index:9500",
-      "background:rgba(255,0,0,.28)",
-      "outline:2px dashed cyan",
-      "cursor:move",
-      "pointer-events:auto",
-      "border-radius:8px",
-      "box-sizing:border-box"
-    ].join(";");
-
-    layer.appendChild(h);
-
-    h.addEventListener("pointerdown", e => {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-
-      select(index);
-      drag = {
-        index,
-        x: e.clientX,
-        y: e.clientY,
-        left: px(node.style.left),
-        top: px(node.style.top)
-      };
-      h.setPointerCapture?.(e.pointerId);
-    }, true);
-
-    return h;
-  });
-
-  const panel = document.createElement("div");
-  panel.dataset.sfLiveHitboxDevPanel = "1";
-  panel.style.cssText = [
-    "position:fixed",
-    "right:12px",
-    "top:80px",
-    "z-index:999999",
-    "background:#111",
-    "color:white",
-    "padding:10px",
-    "border:2px solid #ffc400",
-    "font:12px monospace",
-    "max-width:420px",
-    "box-shadow:0 8px 24px rgba(0,0,0,.5)"
-  ].join(";");
-
-  panel.innerHTML = `
-    <div style="font-weight:bold;margin-bottom:4px">Live Hitbox Mapper</div>
-    <div data-meta style="margin-bottom:6px"></div>
-    <div data-name style="margin-bottom:6px"></div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px">
-      <button data-prev>Prev</button>
-      <button data-next>Next</button>
-      <button data-export>Export</button>
-      <button data-hide>Hide</button>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
-      <span></span><button data-move="up">Up</button><span></span>
-      <button data-move="left">Left</button><button data-move="down">Down</button><button data-move="right">Right</button>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px">
-      <button data-size="w-">W-</button>
-      <button data-size="w+">W+</button>
-      <button data-size="h-">H-</button>
-      <button data-size="h+">H+</button>
-    </div>
-    <div style="opacity:.85">
-      Drag = move. [/] selects. Arrows move. Shift = 10px.
-      Alt/Option + arrows resize. Alt+Shift = 10px resize.
-    </div>
-  `;
-
-  document.body.appendChild(panel);
-
-  function syncHandle(index) {
-    const n = nodes[index];
-    const h = handles[index];
-    h.style.left = n.style.left;
-    h.style.top = n.style.top;
-    h.style.width = n.style.width;
-    h.style.height = n.style.height;
-  }
-
-  function select(index) {
-    selected = Math.max(0, Math.min(nodes.length - 1, Number(index) || 0));
-
-    handles.forEach(h => {
-      h.style.outline = "2px dashed cyan";
-      h.style.background = "rgba(255,0,0,.28)";
+    // De-dupe by resolved key.
+    const seen = new Set();
+    nodes = nodes.filter(el => {
+      const key = nodeKey(el);
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
     });
 
-    handles[selected].style.outline = "4px solid yellow";
-    handles[selected].style.background = "rgba(255,255,0,.45)";
-
-    const r = nodeRecord(nodes[selected]);
-    panel.querySelector("[data-meta]").textContent =
-      `Level: ${levelId} | Prefix: ${keyPrefix || "(all)"} | Count: ${nodes.length}`;
-    panel.querySelector("[data-name]").textContent =
-      `${selected}: ${r.key} | X ${r.leftPx} Y ${r.topPx} W ${r.widthPx} H ${r.heightPx}`;
+    return nodes;
   }
 
-  function move(index, dx, dy) {
-    const n = nodes[index];
-    n.style.left = px(n.style.left) + dx + "px";
-    n.style.top = px(n.style.top) + dy + "px";
-    updateCableCenter(n);
-    syncHandle(index);
-    select(index);
+  function rectFromNode(el) {
+    const left = parseFloat(el.style.left || el.offsetLeft || 0);
+    const top = parseFloat(el.style.top || el.offsetTop || 0);
+    const width = parseFloat(el.style.width || el.offsetWidth || 30);
+    const height = parseFloat(el.style.height || el.offsetHeight || 30);
+    return { left: left - width / 2, top: top - height / 2, width, height };
   }
 
-  function resize(index, dw, dh) {
-    const n = nodes[index];
-    n.style.width = Math.max(4, px(n.style.width) + dw) + "px";
-    n.style.height = Math.max(4, px(n.style.height) + dh) + "px";
-    updateCableCenter(n);
-    syncHandle(index);
-    select(index);
-  }
+  function install(layer) {
+    document.querySelectorAll(".sf-live-hitbox-dev-panel,.sf-live-hitbox-dev-box").forEach(el => el.remove());
 
-  window.addEventListener("pointermove", e => {
-    if (!drag) return;
-    e.preventDefault();
+    let targets = findTargets(layer);
+    const boxes = [];
+    let selected = null;
 
-    const n = nodes[drag.index];
-    n.style.left = Math.round(drag.left + e.clientX - drag.x) + "px";
-    n.style.top = Math.round(drag.top + e.clientY - drag.y) + "px";
-
-    updateCableCenter(n);
-    syncHandle(drag.index);
-    select(drag.index);
-  }, true);
-
-  window.addEventListener("pointerup", () => {
-    drag = null;
-  }, true);
-
-  window.addEventListener("keydown", e => {
-    if (e.key === "]") {
-      e.preventDefault();
-      return select((selected + 1) % nodes.length);
+    if (explicitKeys.length) {
+      targets = explicitKeys.map((key, i) => {
+        const found = targets.find(el => nodeKey(el) === key);
+        if (found) return found;
+        return {
+          __virtualHitbox: true,
+          __key: key,
+          __rect: {
+            left: 120 + i * 70,
+            top: 120,
+            width: 34,
+            height: 34
+          }
+        };
+      });
     }
 
-    if (e.key === "[") {
-      e.preventDefault();
-      return select((selected - 1 + nodes.length) % nodes.length);
+    targets.forEach(node => {
+      const key = node.__virtualHitbox ? node.__key : nodeKey(node);
+      const r = node.__virtualHitbox ? node.__rect : rectFromNode(node);
+
+      const box = document.createElement("div");
+      box.className = "sf-live-hitbox-dev-box";
+      box.dataset.nodeKey = key;
+      box.style.cssText = [
+        "position:absolute",
+        "left:" + r.left + "px",
+        "top:" + r.top + "px",
+        "width:" + r.width + "px",
+        "height:" + r.height + "px",
+        "z-index:8000",
+        "box-sizing:border-box",
+        "border:2px solid rgba(255,215,80,.96)",
+        "background:rgba(255,215,80,.12)",
+        "border-radius:50%",
+        "cursor:move",
+        "pointer-events:auto"
+      ].join(";");
+      box.tabIndex = 0;
+      layer.appendChild(box);
+      boxes.push(box);
+
+      function select() {
+        selected = box;
+        boxes.forEach(b => b.style.outline = "");
+        box.style.outline = "3px solid rgba(90,210,255,.96)";
+        console.log("[Signal Flow] Live hitbox selected", exportOne(box));
+      }
+
+      box.addEventListener("pointerdown", ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        select();
+
+        const startX = ev.clientX;
+        const startY = ev.clientY;
+        const startL = parseFloat(box.style.left);
+        const startT = parseFloat(box.style.top);
+
+        function move(e) {
+          box.style.left = (startL + e.clientX - startX) + "px";
+          box.style.top = (startT + e.clientY - startY) + "px";
+          sync(box);
+        }
+
+        function up() {
+          window.removeEventListener("pointermove", move, true);
+          window.removeEventListener("pointerup", up, true);
+        }
+
+        window.addEventListener("pointermove", move, true);
+        window.addEventListener("pointerup", up, true);
+      }, true);
+
+      box.addEventListener("click", ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        select();
+      }, true);
+    });
+
+    function sync(box) {
+      const key = box.dataset.nodeKey;
+      const node = Array.from(layer.querySelectorAll("*")).find(el => nodeKey(el) === key);
+      if (!node) return;
+
+      const l = parseFloat(box.style.left);
+      const t = parseFloat(box.style.top);
+      const w = parseFloat(box.style.width);
+      const h = parseFloat(box.style.height);
+      const cx = l + w / 2;
+      const cy = t + h / 2;
+
+      node.style.left = cx + "px";
+      node.style.top = cy + "px";
+      node.style.width = w + "px";
+      node.style.height = h + "px";
+      node.dataset.sfNativePointX = String(cx);
+      node.dataset.sfNativePointY = String(cy);
     }
 
-    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) return;
+    function exportOne(box) {
+      return {
+        key: box.dataset.nodeKey,
+        leftPx: px(parseFloat(box.style.left)),
+        topPx: px(parseFloat(box.style.top)),
+        widthPx: px(parseFloat(box.style.width)),
+        heightPx: px(parseFloat(box.style.height))
+      };
+    }
 
-    e.preventDefault();
-    const step = e.shiftKey ? 10 : 1;
+    function exportAll() {
+      const data = boxes.map(exportOne);
+      console.log("[Signal Flow] " + LEVEL_ID + " hitbox export", JSON.stringify(data, null, 2));
+      return data;
+    }
 
-    if (e.altKey) {
-      if (e.key === "ArrowLeft") resize(selected, -step, 0);
-      if (e.key === "ArrowRight") resize(selected, step, 0);
-      if (e.key === "ArrowUp") resize(selected, 0, -step);
-      if (e.key === "ArrowDown") resize(selected, 0, step);
+    function nudge(dx, dy, dw, dh) {
+      if (!selected) return;
+      selected.style.left = (parseFloat(selected.style.left) + dx) + "px";
+      selected.style.top = (parseFloat(selected.style.top) + dy) + "px";
+      selected.style.width = Math.max(6, parseFloat(selected.style.width) + dw) + "px";
+      selected.style.height = Math.max(6, parseFloat(selected.style.height) + dh) + "px";
+      sync(selected);
+    }
+
+    document.addEventListener("keydown", ev => {
+      if (!selected) return;
+      const step = ev.altKey ? 10 : 1;
+      const resize = ev.shiftKey;
+
+      if (ev.key === "ArrowLeft") { ev.preventDefault(); resize ? nudge(0,0,-step,0) : nudge(-step,0,0,0); }
+      if (ev.key === "ArrowRight") { ev.preventDefault(); resize ? nudge(0,0,step,0) : nudge(step,0,0,0); }
+      if (ev.key === "ArrowUp") { ev.preventDefault(); resize ? nudge(0,0,0,-step) : nudge(0,-step,0,0); }
+      if (ev.key === "ArrowDown") { ev.preventDefault(); resize ? nudge(0,0,0,step) : nudge(0,step,0,0); }
+      if (ev.key.toLowerCase() === "e") exportAll();
+    }, true);
+
+    const panel = document.createElement("div");
+    panel.className = "sf-live-hitbox-dev-panel";
+    panel.style.cssText = "position:fixed;right:12px;top:90px;z-index:99999;background:#111;color:#f4f1dc;border:1px solid #ffd75a;border-radius:8px;padding:10px;font:12px system-ui;box-shadow:0 6px 20px rgba(0,0,0,.45)";
+    panel.innerHTML = "<b>" + LEVEL_ID + " Hitboxes</b><br>Drag boxes. Arrows move.<br>Shift+arrows resize. Alt=10px.<br>Press E to export.";
+    document.body.appendChild(panel);
+
+    window.sfLiveHitboxDev = { levelId: LEVEL_ID, boxes, export: exportAll };
+    if (boxes[0]) boxes[0].click();
+
+    console.log("[Signal Flow] Live Hitbox Mapper installed", VERSION, {
+      levelId: LEVEL_ID,
+      layerSelector,
+      targets: boxes.length
+    });
+  }
+
+  let tries = 0;
+  const timer = setInterval(() => {
+    const layer = document.querySelector(layerSelector);
+    tries++;
+    if (layer) {
+      clearInterval(timer);
+      install(layer);
+    } else if (tries === 1) {
+      console.log("[Signal Flow] Live hitbox mapper waiting for native layer.", { levelId: LEVEL_ID, layerSelector });
+    } else if (tries > 100) {
+      clearInterval(timer);
+      console.warn("[Signal Flow] Live hitbox mapper: no usable hitbox targets found after wait.", { levelId: LEVEL_ID, layerSelector, layerFound: !!layer, targetCount: layer ? findTargets(layer).length : 0 });
+    }
+  }, 100);
+})();
+
+
+
+// Reusable hitbox mapper control correction.
+// Keeps the existing mapper UI, but fixes selection + 1px resize.
+// Arrows = move 1px. Alt+arrows = move 10px.
+// Shift+arrows = resize 1px. Shift+Alt+arrows = resize 10px.
+// [ and ] cycle boxes.
+(function installReusableHitboxKeyboardFix(){
+  if (window.sfLiveHitboxKeyboardFixV13) return;
+  window.sfLiveHitboxKeyboardFixV13 = true;
+
+  function boxes(){
+    return Array.from(document.querySelectorAll(".sf-live-hitbox-dev-box"));
+  }
+
+  function selected(){
+    return window.sfLiveHitboxSelectedBox ||
+           window.sfLiveHitboxActiveBox ||
+           boxes().find(el => String(el.style.outline || "").includes("255")) ||
+           boxes()[0] ||
+           null;
+  }
+
+  function selectBox(el){
+    if (!el) return;
+    window.sfLiveHitboxSelectedBox = el;
+    window.sfLiveHitboxActiveBox = el;
+
+    boxes().forEach(box => {
+      box.style.outline = box === el
+        ? "2px solid rgba(255,230,90,.95)"
+        : "1px solid rgba(255,210,95,.55)";
+      box.style.pointerEvents = "auto";
+      box.style.visibility = "visible";
+    });
+
+    console.log("[Signal Flow] Live hitbox selected", {
+      key: el.dataset.nodeKey || el.dataset.sfNativeKey || "",
+      leftPx: parseFloat(el.style.left) || 0,
+      topPx: parseFloat(el.style.top) || 0,
+      widthPx: parseFloat(el.style.width) || 0,
+      heightPx: parseFloat(el.style.height) || 0
+    });
+  }
+
+  function cycle(delta){
+    const list = boxes();
+    if (!list.length) return;
+    const cur = selected();
+    const i = Math.max(0, list.indexOf(cur));
+    selectBox(list[(i + delta + list.length) % list.length]);
+  }
+
+  document.addEventListener("pointerdown", event => {
+    const box = event.target && event.target.closest && event.target.closest(".sf-live-hitbox-dev-box");
+    if (box) selectBox(box);
+  }, true);
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "[") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      cycle(-1);
       return;
     }
 
-    if (e.key === "ArrowLeft") move(selected, -step, 0);
-    if (e.key === "ArrowRight") move(selected, step, 0);
-    if (e.key === "ArrowUp") move(selected, 0, -step);
-    if (e.key === "ArrowDown") move(selected, 0, step);
+    if (event.key === "]") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      cycle(1);
+      return;
+    }
+
+    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
+
+    const el = selected();
+    if (!el) return;
+
+    const amount = event.altKey ? 10 : 1;
+    let dx = 0;
+    let dy = 0;
+
+    if (event.key === "ArrowLeft") dx = -amount;
+    if (event.key === "ArrowRight") dx = amount;
+    if (event.key === "ArrowUp") dy = -amount;
+    if (event.key === "ArrowDown") dy = amount;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    const left = parseFloat(el.style.left) || 0;
+    const top = parseFloat(el.style.top) || 0;
+    const width = parseFloat(el.style.width) || 34;
+    const height = parseFloat(el.style.height) || 34;
+
+    if (event.shiftKey) {
+      el.style.width = Math.max(4, width + dx) + "px";
+      el.style.height = Math.max(4, height + dy) + "px";
+    } else {
+      el.style.left = (left + dx) + "px";
+      el.style.top = (top + dy) + "px";
+    }
+
+    selectBox(el);
   }, true);
 
-  panel.querySelector("[data-prev]").onclick = () => select((selected - 1 + nodes.length) % nodes.length);
-  panel.querySelector("[data-next]").onclick = () => select((selected + 1) % nodes.length);
-  panel.querySelector("[data-hide]").onclick = () => {
-    const hidden = handles[0].style.display !== "none";
-    handles.forEach(h => h.style.display = hidden ? "none" : "block");
-  };
+  const timer = setInterval(() => {
+    const list = boxes();
+    if (!list.length) return;
+    clearInterval(timer);
 
-  panel.querySelectorAll("[data-move]").forEach(btn => {
-    btn.onclick = () => {
-      const dir = btn.dataset.move;
-      if (dir === "up") move(selected, 0, -1);
-      if (dir === "down") move(selected, 0, 1);
-      if (dir === "left") move(selected, -1, 0);
-      if (dir === "right") move(selected, 1, 0);
-    };
-  });
+    document.querySelectorAll(".sf-live-native-layer, #patchbayWrap").forEach(el => {
+      el.style.overflow = "visible";
+    });
 
-  panel.querySelectorAll("[data-size]").forEach(btn => {
-    btn.onclick = () => {
-      const op = btn.dataset.size;
-      if (op === "w-") resize(selected, -1, 0);
-      if (op === "w+") resize(selected, 1, 0);
-      if (op === "h-") resize(selected, 0, -1);
-      if (op === "h+") resize(selected, 0, 1);
-    };
-  });
-
-  window.sfLiveHitboxMapperDev = {
-    version: VERSION,
-    levelId,
-    keyPrefix,
-    count: nodes.length,
-    select,
-    moveSelected(dx, dy) { move(selected, Number(dx) || 0, Number(dy) || 0); },
-    resizeSelected(dw, dh) { resize(selected, Number(dw) || 0, Number(dh) || 0); },
-    export() {
-      const data = nodes.map(nodeRecord);
-      window.__sfLiveHitboxMapperExport = data;
-      console.log(JSON.stringify(data, null, 2));
-      return data;
-    },
-    destroy() {
-      handles.forEach(h => h.remove());
-      panel.remove();
-      delete window.sfLiveHitboxMapperDev;
-    }
-  };
-
-  panel.querySelector("[data-export]").onclick = () => window.sfLiveHitboxMapperDev.export();
-
-  select(0);
-  console.log("[Signal Flow] Live hitbox mapper loaded", VERSION, {
-    levelId,
-    keyPrefix,
-    count: nodes.length
-  });
+    selectBox(list[0]);
+    console.log("[Signal Flow] Reusable hitbox keyboard fix v13 active", { targets: list.length });
+  }, 200);
 })();
