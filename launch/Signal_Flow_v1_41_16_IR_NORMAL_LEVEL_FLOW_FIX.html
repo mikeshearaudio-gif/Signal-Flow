@@ -18656,55 +18656,40 @@ window.SIGNAL_FLOW_V12 = {
     {
       "id": "LIV-026",
       "environment": "live",
-      "title": "Delay tower route",
-      "brief": "Patch Aux 3 to delay.",
+      "title": "Full Zone Processing",
+      "brief": "Build full main, processor, crossover, delay, and fill zone routing.",
       "difficulty": 3,
       "required": [
-        [
-          "Aux 3 Output",
-          "Delay"
-        ],
-        [
-          "Main L Output",
-          "System Processor L In"
-        ],
-        [
-          "Main R Output",
-          "System Processor R In"
-        ],
-        [
-          "Lead Vocal Mic",
-          "Stage Box Input 1"
-        ],
-        [
-          "Keys L DI",
-          "Stage Box Input 7"
-        ],
-        [
-          "Keys R DI",
-          "Stage Box Input 8"
-        ]
+        ["Main L Out", "Processor L In"],
+        ["Main R Out", "Processor R In"],
+        ["Processor L Out", "Crossover L In"],
+        ["Processor R Out", "Crossover R In"],
+        ["Crossover High L Out", "High Amp L In"],
+        ["Crossover High R Out", "High Amp R In"],
+        ["Crossover Mid L Out", "Mid Amp L In"],
+        ["Crossover Mid R Out", "Mid Amp R In"],
+        ["Crossover Low L Out", "Low Amp L In"],
+        ["Crossover Low R Out", "Low Amp R In"],
+        ["FOH Bus 1 Out", "Delay Tower Processor In"],
+        ["Delay Tower Processor L Out", "Stereo Power Amp L In"],
+        ["Delay Tower Processor R Out", "Stereo Power Amp R In"],
+        ["FOH Bus 2 Out", "Front Fill Processor In"],
+        ["Front Fill Processor Out", "Power Amp Left In"]
       ],
-      "forbidden": [
-        [
-          "Main L Output",
-          "Delay"
-        ],
-        [
-          "Main R Output",
-          "Delay"
-        ]
-      ],
+      "forbidden": [],
       "system": [
-        "Delay tower processing gets its own Aux 3 feed.",
-        "Main PA remains on main outputs."
+        "Main outputs feed system processing before crossover.",
+        "Bus 1 feeds mono delay processing; delay processor output is stereo.",
+        "Bus 2 feeds front fill processing."
       ],
       "notes": [
-        "Delay fills should use an aux-fed delay processing path."
+        "Full zone processing separates main PA, delay tower, and front fill feeds."
       ],
       "learning": [
+        "System processing",
+        "Crossover routing",
         "Delay tower",
-        "Aux feed"
+        "Front fill"
       ],
       "time": 280
     },
@@ -29558,6 +29543,44 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
 })();
 </script>
 
+
+
+
+<script>
+(function sfEnsureLiv025OptionObserver(){
+  function shouldPatchSelect(sel){
+    return sel && Array.from(sel.options || []).some(function(o){ return o.value === "LIV-026"; });
+  }
+
+  function install(){
+    document.querySelectorAll("select").forEach(function(sel){
+      if (!shouldPatchSelect(sel)) return;
+      if (sel.querySelector('option[value="LIV-025"]')) return;
+
+      var before = sel.querySelector('option[value="LIV-026"]');
+      if (!before) return;
+
+      var opt = document.createElement("option");
+      opt.value = "LIV-025";
+      opt.textContent = "LIV-025 - Front fill zone feed";
+      sel.insertBefore(opt, before);
+      console.log("[Signal Flow] Restored LIV-025 level option before LIV-026");
+    });
+  }
+
+  install();
+
+  var observer = new MutationObserver(install);
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+
+  window.addEventListener("load", install);
+  setInterval(install, 750);
+})();
+</script>
+
 </body>
 </html>
 
@@ -29610,14 +29633,16 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
     if (!enabled) return;
 
     var toolMap = {
-      gear: "../src/sf-live-gear-mover-dev.js?v=liv020-good-hitbox-important1",
+      gear: "../src/sf-live-gear-mover-dev.js?v=liv026topgearonly1",
+      hitbox: "../src/sf-live-hitbox-mapper-dev.js?v=reusable-hitbox14",
+      label: "../src/sf-live-label-mover-dev.js?v=liv026tapelabel1",
       label: "../src/sf-live-label-mover-dev.js?v=liv020-good-hitbox-important1",
       overlay: "../src/sf-live-overlay-mover-dev.js?v=overlaydev7",
-      hitbox: "../src/sf-live-hitbox-mapper-dev.js?v=reusable-hitbox13",
+      hitbox: "../src/sf-live-hitbox-mapper-dev.js?v=reusable-hitbox14",
       overlay: "../src/sf-live-overlay-mover-dev.js?v=overlaydev7"
     };
 
-    var scripts = ["../src/sf-live-dev-tool-config.js?v=liv020-good-hitbox-important1"];
+    var scripts = ["../src/sf-live-dev-tool-config.js?v=liv026domgear3"];
     if (tool === "all") {
       scripts.push(toolMap.gear, toolMap.label, toolMap.overlay, toolMap.hitbox);
     } else {
@@ -29645,7 +29670,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </script>
 <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
 
-<script src="../src/live-sound-native-renderer.js?v=6r552liv025redfalsecables"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r589liv026hitboxoffset"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r243liv011scoped"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">

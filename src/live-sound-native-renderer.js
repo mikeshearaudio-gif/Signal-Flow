@@ -1327,82 +1327,30 @@
     },
     "LIV-026": {
       id: "LIV-026",
-      title: "Delay Tower Route",
-      processorLabel: "DELAY TOWER PROCESSING",
-      panelKinds: ["stagebox", "foh", "amp"],
-      sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
-      assetOverrides: {
-        stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
-        amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
-      },
-      generatedJackKeys: [
-        "stagebox-input-1",
-        "stagebox-input-2",
-        "stagebox-input-3",
-        "stagebox-input-4",
-        "stagebox-input-5",
-        "stagebox-input-6",
-        "stagebox-input-7",
-        "stagebox-input-8",
-        "stagebox-input-9",
-        "stagebox-input-10",
-        "stagebox-input-11",
-        "stagebox-input-12",
-        "stagebox-input-13",
-        "stagebox-input-14",
-        "stagebox-input-15",
-        "stagebox-input-16",
-        "stagebox-link-out",
-        "aux-3-output",
-        "main-left-output",
-        "main-right-output",
-        "foh-line-out-1",
-        "aux-2-output",
-        "foh-line-out-4",
-        "system-processor-left-in",
-        "system-processor-right-in",
-        "delay-tower-processing-input",
-        "processor-output-a",
-        "processor-output-b"
-      ],
+      title: "Full Zone Processing",
+      processorLabel: "FULL ZONE PROCESSING",
+      panelKinds: [],
+      sourceOrder: [],
+      generatedJackKeys: [],
       validRoutes: [
-        {
-          key: "aux-3-to-delay-processing",
-          from: "aux-3-output",
-          to: "delay-tower-processing-input",
-          checklist: "Aux 3 Output → Delay"
-        },
-        {
-          key: "main-left-to-system-left",
-          from: "main-left-output",
-          to: "system-processor-left-in",
-          checklist: "Main Left Output → System Processor Left In"
-        },
-        {
-          key: "main-right-to-system-right",
-          from: "main-right-output",
-          to: "system-processor-right-in",
-          checklist: "Main Right Output → System Processor Right In"
-        },
-        {
-          key: "lead-vocal-to-stagebox-1",
-          from: "lead-vocal-mic",
-          to: "stagebox-input-1",
-          checklist: "Lead Vocal Microphone → Stage Box Input 1"
-        },
-        {
-          key: "keys-left-to-stagebox-7",
-          from: "keys-left-di",
-          to: "stagebox-input-7",
-          checklist: "Keys Left DI → Stage Box Input 7"
-        },
-        {
-          key: "keys-right-to-stagebox-8",
-          from: "keys-right-di",
-          to: "stagebox-input-8",
-          checklist: "Keys Right DI → Stage Box Input 8"
-        }
+        { key: "liv026-main-l-to-system-l", from: "liv026-main-l-output", to: "liv026-system-processor-l-input", checklist: "Main L Output → System Processor L In", stereoGroup: "liv026-main-to-system", stereoSide: "left" },
+        { key: "liv026-main-r-to-system-r", from: "liv026-main-r-output", to: "liv026-system-processor-r-input", checklist: "Main R Output → System Processor R In", stereoGroup: "liv026-main-to-system", stereoSide: "right" },
+        { key: "liv026-system-l-to-crossover-l", from: "liv026-system-processor-l-output", to: "liv026-crossover-l-input", checklist: "System Processor L Out → Crossover L In", stereoGroup: "liv026-system-to-crossover", stereoSide: "left" },
+        { key: "liv026-system-r-to-crossover-r", from: "liv026-system-processor-r-output", to: "liv026-crossover-r-input", checklist: "System Processor R Out → Crossover R In", stereoGroup: "liv026-system-to-crossover", stereoSide: "right" },
+
+        { key: "liv026-crossover-high-l-to-high-amp-l", from: "liv026-crossover-high-l-output", to: "liv026-high-amp-l-input", checklist: "Crossover High Left Out → High Amp Left In", stereoGroup: "liv026-high-to-amp", stereoSide: "left" },
+        { key: "liv026-crossover-high-r-to-high-amp-r", from: "liv026-crossover-high-r-output", to: "liv026-high-amp-r-input", checklist: "Crossover High Right Out → High Amp Right In", stereoGroup: "liv026-high-to-amp", stereoSide: "right" },
+        { key: "liv026-crossover-mid-l-to-mid-amp-l", from: "liv026-crossover-mid-l-output", to: "liv026-mid-amp-l-input", checklist: "Crossover Mid Left Out → Mid Amp Left In", stereoGroup: "liv026-mid-to-amp", stereoSide: "left" },
+        { key: "liv026-crossover-mid-r-to-mid-amp-r", from: "liv026-crossover-mid-r-output", to: "liv026-mid-amp-r-input", checklist: "Crossover Mid Right Out → Mid Amp Right In", stereoGroup: "liv026-mid-to-amp", stereoSide: "right" },
+        { key: "liv026-crossover-low-l-to-low-amp-l", from: "liv026-crossover-low-l-output", to: "liv026-low-amp-l-input", checklist: "Crossover Low Left Out → Low Amp Left In", stereoGroup: "liv026-low-to-amp", stereoSide: "left" },
+        { key: "liv026-crossover-low-r-to-low-amp-r", from: "liv026-crossover-low-r-output", to: "liv026-low-amp-r-input", checklist: "Crossover Low Right Out → Low Amp Right In", stereoGroup: "liv026-low-to-amp", stereoSide: "right" },
+
+        { key: "liv026-bus1-to-delay-processor", from: "liv026-bus-1-output", to: "liv026-delay-processor-input", checklist: "Front-of-House Bus 1 Out → Delay Tower Processor In" },
+        { key: "liv026-delay-l-to-delay-amp-l", from: "liv026-delay-processor-l-output", to: "liv026-delay-amp-l-input", checklist: "Delay Tower Processor Left Out → Stereo Power Amp Left In", stereoGroup: "liv026-delay-to-amp", stereoSide: "left" },
+        { key: "liv026-delay-r-to-delay-amp-r", from: "liv026-delay-processor-r-output", to: "liv026-delay-amp-r-input", checklist: "Delay Tower Processor Right Out → Stereo Power Amp Right In", stereoGroup: "liv026-delay-to-amp", stereoSide: "right" },
+
+        { key: "liv026-bus2-to-front-fill-processor", from: "liv026-bus-2-output", to: "liv026-front-fill-processor-input", checklist: "Front-of-House Bus 2 Out → Front Fill Processor In" },
+        { key: "liv026-front-fill-processor-to-fill-amp", from: "liv026-front-fill-processor-output", to: "liv026-fill-amp-l-input", checklist: "Front Fill Processor Out → Power Amp Left In" }
       ]
     },
     "LIV-028": {
@@ -5593,7 +5541,272 @@ function renderLiv009DrumStageInputs(surface, adapter) {
         el.dataset.sfLiveDevLabelKey = labelKeyByText[text];
       }
     });
+
+    addLiv026TapeLabel("PROCESSOR RACK", 55, 250, 185, 42, "blank");
+    addLiv026TapeLabel("MAIN PA CROSSOVER", 70, 410, 210, 42, "blank");
+    addLiv026TapeLabel("HIGH AMP", 835, 247, 145, 38, "blank");
+    addLiv026TapeLabel("MID AMP", 835, 367, 145, 38, "blank");
+    addLiv026TapeLabel("LOW AMP", 835, 487, 145, 38, "blank");
+    addLiv026TapeLabel("DELAY TOWER AMP", 300, 572, 205, 42, "delay");
+    addLiv026TapeLabel("FRONT FILL AMP", 790, 587, 195, 42, "blank");
+
+
+
+    const liv026TrueHitboxes = [
+      [
+            "liv026-main-l-output",
+            946.7,
+            125.22,
+            34,
+            34
+      ],
+      [
+            "liv026-main-r-output",
+            1006.4,
+            124.93,
+            34,
+            34
+      ],
+      [
+            "liv026-bus-1-output",
+            726.93,
+            121.1,
+            34,
+            34
+      ],
+      [
+            "liv026-bus-2-output",
+            763.48,
+            118.96,
+            34,
+            34
+      ],
+      [
+            "liv026-system-processor-l-input",
+            87.73,
+            332.63,
+            34,
+            34
+      ],
+      [
+            "liv026-system-processor-r-input",
+            164.4,
+            332.82,
+            34,
+            34
+      ],
+      [
+            "liv026-system-processor-l-output",
+            87.75,
+            372.89,
+            34,
+            34
+      ],
+      [
+            "liv026-system-processor-r-output",
+            168.75,
+            373.92,
+            34,
+            34
+      ],
+      [
+            "liv026-front-fill-processor-input",
+            555.64,
+            331.32,
+            34,
+            34
+      ],
+      [
+            "liv026-front-fill-processor-output",
+            597.81,
+            336.78,
+            34,
+            34
+      ],
+      [
+            "liv026-delay-processor-input",
+            334.66,
+            334.11,
+            34,
+            34
+      ],
+      [
+            "liv026-delay-processor-input-unused",
+            520.71,
+            337.34,
+            34,
+            34
+      ],
+      [
+            "liv026-delay-processor-l-output",
+            270.75,
+            374.8,
+            34,
+            34
+      ],
+      [
+            "liv026-delay-processor-r-output",
+            399.53,
+            374.51,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-l-input",
+            137.9,
+            518.05,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-r-input",
+            191.36,
+            517.18,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-high-l-output",
+            355.63,
+            477.77,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-high-r-output",
+            413.37,
+            476.45,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-mid-l-output",
+            355.06,
+            515.51,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-mid-r-output",
+            412.19,
+            515.04,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-low-l-output",
+            353.71,
+            552.06,
+            34,
+            34
+      ],
+      [
+            "liv026-crossover-low-r-output",
+            412.26,
+            554.54,
+            34,
+            34
+      ],
+      [
+            "liv026-high-amp-l-input",
+            727.68,
+            314.95,
+            34,
+            34
+      ],
+      [
+            "liv026-high-amp-r-input",
+            775.71,
+            311.99,
+            34,
+            34
+      ],
+      [
+            "liv026-mid-amp-l-input",
+            730.61,
+            432.3,
+            34,
+            34
+      ],
+      [
+            "liv026-mid-amp-r-input",
+            778.84,
+            432.21,
+            34,
+            34
+      ],
+      [
+            "liv026-low-amp-l-input",
+            729.94,
+            552.65,
+            34,
+            34
+      ],
+      [
+            "liv026-low-amp-r-input",
+            778.1,
+            552.44,
+            34,
+            34
+      ],
+      [
+            "liv026-delay-amp-l-input",
+            225.55,
+            663.33,
+            34,
+            34
+      ],
+      [
+            "liv026-delay-amp-r-input",
+            275.91,
+            661.19,
+            34,
+            34
+      ],
+      [
+            "liv026-fill-amp-l-input",
+            729.12,
+            665.91,
+            34,
+            34
+      ]
+];
+    liv026TrueHitboxes.forEach(([key,x,y,w,h]) => {
+      const el = layer.querySelector('[data-node-key="' + key + '"]');
+      if (!el) return;
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      el.style.width = w + "px";
+      el.style.height = h + "px";
+      el.style.zIndex = "3100";
+    });
+
+    function tapeLabel(text, x, y, w, h) {
+      const el = document.createElement("div");
+      el.className = "sf-liv026-tape-label";
+      el.dataset.sfGearId = "liv026-label-" + text.toLowerCase().replace(/[^a-z0-9]+/g,"-");
+      el.textContent = text;
+      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;z-index:3300;display:flex;align-items:center;justify-content:center;text-align:center;color:#1b1710;font:900 18px 'Marker Felt','Comic Sans MS','Bradley Hand',cursive;background:#f4eed1;border:1px solid rgba(80,65,30,.35);box-shadow:0 2px 5px rgba(0,0,0,.35);transform:rotate(-1deg);pointer-events:auto;";
+      layer.appendChild(el);
+    }
+    tapeLabel("System Processor",190,270,150,34);
+    tapeLabel("3-Way Crossover",72,458,170,38);
+    tapeLabel("High Amp",832,305,145,38);
+    tapeLabel("Mid Amp",832,420,145,38);
+    tapeLabel("Low Amp",832,550,145,38);
+    tapeLabel("Delay",176,610,117,44);
+    tapeLabel("Fill Amp",704,624,78,28);
+
+
     surface.appendChild(layer);
+
+    const spacer = document.createElement("div");
+    spacer.className = "sfLiveNativeSurfaceScrollSpacer sf-liv026-scroll-spacer";
+    spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
+    spacer.style.setProperty("height", scrollHeight + "px", "important");
+    spacer.style.setProperty("min-height", scrollHeight + "px", "important");
+    surface.appendChild(spacer);
+
     redrawCables(layer);
     installCableDrag(layer);
     sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem");
@@ -9077,7 +9290,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
 
     surface.classList.add("sf-live-native-scroll-host-liv010");
     surface.style.setProperty("overflow-y", "auto", "important");
-    surface.style.setProperty("overflow-x", "hidden", "important");
+    surface.style.setProperty("overflow-x", "auto", "important");
     if (getComputedStyle(surface).position === "static") {
       surface.style.position = "relative";
     }
@@ -9873,7 +10086,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
   }
 
   function isLivProcessingFamilyLevel() {
-    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026";
+    return LEVEL_ID === "LIV-015" || LEVEL_ID === "LIV-025";
   }
 
   function buildLivProcessingFamilyGeometry(surface) {
@@ -11635,7 +11848,285 @@ function renderLiv020MainPaAndIem(surface, adapter) {
   }
 
 
-	  function renderLiv023MonitorConsoleStereoPa(surface, adapter) {
+	
+  function renderLiv026ComplexZones(surface, adapter) {
+    const boardWidth = 1400;
+    const boardHeight = 1260;
+    const scrollHeight = boardHeight + 140;
+
+    surface.innerHTML = "";
+    surface.style.setProperty("position", "relative", "important");
+    surface.style.setProperty("height", "min(72vh, 760px)", "important");
+    surface.style.setProperty("min-height", "520px", "important");
+    surface.style.setProperty("max-height", "min(72vh, 760px)", "important");
+    surface.style.setProperty("display", "block", "important");
+    surface.style.setProperty("overflow-y", "auto", "important");
+    surface.style.setProperty("overflow-x", "auto", "important");
+    surface.style.setProperty("overscroll-behavior", "contain", "important");
+    surface.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+    surface.style.setProperty("--sf-live-native-board-height", scrollHeight + "px");
+    surface.classList.add("sf-live-native-scroll-host", "sf-live-native-liv026-scroll-host");
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-026";
+    layer.style.cssText = "position:absolute;left:0;top:0;width:"+boardWidth+"px;min-width:"+boardWidth+"px;height:"+boardHeight+"px;min-height:"+boardHeight+"px;z-index:9990;pointer-events:none;overflow:visible;background:linear-gradient(180deg,#071016,#0b171b);border:1px solid rgba(245,197,66,.34);border-radius:16px;box-sizing:border-box;";
+
+    function img(id, src, x, y, w) {
+      const el = document.createElement("img");
+      el.dataset.sfGearId = id;
+      el.src = sfRepoUrl(src);
+      el.alt = id;
+      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:auto;pointer-events:none;filter:drop-shadow(0 12px 24px rgba(0,0,0,.70));z-index:"+(id === "liv026-system-delay-processor-asset" ? 14 : 10)+";";
+      layer.appendChild(el);
+    }
+
+    function label(t, x, y) {
+      const el = document.createElement("div");
+      el.textContent = t;
+      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;color:#ffd76a;font:900 12px system-ui;letter-spacing:.08em;z-index:20;pointer-events:none;";
+      layer.appendChild(el);
+    }
+
+    function rack(x, y, w, h) {
+      const el = document.createElement("div");
+      el.className = "sf-liv026-rack-zone sf-liv023-rack-zone";
+      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;border:1px solid rgba(245,197,66,.40);border-radius:8px;background:linear-gradient(90deg,rgba(226,180,72,.22) 0 5px,rgba(0,0,0,.28) 5px 34px,transparent 34px calc(100% - 34px),rgba(0,0,0,.28) calc(100% - 34px) calc(100% - 5px),rgba(226,180,72,.22) calc(100% - 5px) 100%),repeating-linear-gradient(180deg,rgba(255,236,172,.06) 0 1px,transparent 1px 92px),linear-gradient(180deg,rgba(13,12,10,.95),rgba(20,15,9,.88));z-index:3;pointer-events:none;";
+      layer.appendChild(el);
+    }
+
+    function proc(id, text, x, y, stereo) {
+      const el = document.createElement("div");
+      el.textContent = text;
+      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:350px;height:88px;border:1px solid rgba(210,188,120,.42);border-radius:8px;background:linear-gradient(180deg,#252521,#111312);color:#f4f1dc;font:900 10px system-ui;letter-spacing:.08em;text-align:center;padding-top:8px;box-sizing:border-box;z-index:12;pointer-events:none;";
+      layer.appendChild(el);
+      if (stereo) {
+        jack(id+"-l-input", x+72, y+55, text+" L Input");
+        jack(id+"-r-input", x+122, y+55, text+" R Input");
+        jack(id+"-l-output", x+220, y+55, text+" L Output");
+        jack(id+"-r-output", x+270, y+55, text+" R Output");
+      } else {
+        jack(id+"-input", x+90, y+55, text+" Input");
+        jack(id+"-output", x+235, y+55, text+" Output");
+      }
+    }
+
+    function jack(key, x, y, labelText) {
+      createJackNode(layer, key, { x, y }, labelText, false);
+      const el = layer.querySelector('[data-node-key="'+key+'"]');
+      if (el) {
+        el.style.width = "34px";
+        el.style.height = "34px";
+        el.style.zIndex = "2600";
+      }
+    }
+
+    label("LIV-026 MULTI-ZONE PROCESSING", 34, 24);
+
+    function addLiv026RackOutline() {
+      const rack = document.createElement("div");
+      rack.className = "sf-liv026-rack-outline";
+      rack.style.cssText = [
+        "position:absolute",
+        "left:30px",
+        "top:242px",
+        "width:1135px",
+        "height:510px",
+        "box-sizing:border-box",
+        "border:2px solid rgba(245,197,66,.55)",
+        "border-radius:10px",
+        "background:linear-gradient(180deg,rgba(10,14,16,.28),rgba(0,0,0,.12))",
+        "box-shadow:inset 0 0 34px rgba(0,0,0,.45),0 10px 28px rgba(0,0,0,.28)",
+        "z-index:2",
+        "pointer-events:none"
+      ].join(";");
+      layer.appendChild(rack);
+    }
+
+    function addLiv026TapeLabel(text, x, y, w, h, kind) {
+      const wrap = document.createElement("div");
+      wrap.className = "sf-liv026-tape-label";
+      wrap.dataset.sfGearId = "liv026-label-" + text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      wrap.dataset.sfGearLabel = text;
+      wrap.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + w + "px",
+        "height:" + h + "px",
+        "z-index:3200",
+        "opacity:1",
+        "pointer-events:auto",
+        "cursor:move"
+      ].join(";");
+      const src = kind === "delay"
+        ? "/assets/live-sound/svg/handwritten/delay-label-tape-straight.svg"
+        : "/assets/live-sound/svg/blank/tape-blank-medium.svg";
+      wrap.innerHTML =
+        '<img src="' + sfRepoUrl(src) + '" alt="" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">' +
+        '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;color:#1b1305;font:900 10px system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:.04em;text-shadow:0 1px 0 rgba(255,255,255,.35);padding:2px 8px;box-sizing:border-box;">' + text + '</div>';
+      layer.appendChild(wrap);
+    }
+
+    addLiv026RackOutline();
+
+
+    function visibleXlrM(id, labelText, x, y, w, h, z) {
+      const wrap = document.createElement("div");
+      wrap.dataset.sfGearId = id;
+      wrap.dataset.sfGearLabel = labelText;
+      wrap.className = "sf-liv026-movable-xlrm";
+      wrap.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;z-index:"+(z||2700)+";pointer-events:auto;text-align:center;cursor:move;";
+      wrap.innerHTML =
+        '<div style="width:30px;height:30px;margin:0 auto;border-radius:50%;background:#151515;border:2px solid #c9c1a8;box-shadow:0 2px 8px rgba(0,0,0,.65),inset 0 0 0 5px #050505;position:relative;">' +
+        '<span style="position:absolute;left:8px;top:8px;width:4px;height:4px;border-radius:50%;background:#d7d0bb;"></span>' +
+        '<span style="position:absolute;left:18px;top:8px;width:4px;height:4px;border-radius:50%;background:#d7d0bb;"></span>' +
+        '<span style="position:absolute;left:13px;top:18px;width:4px;height:4px;border-radius:50%;background:#d7d0bb;"></span>' +
+        '</div><div style="margin-top:4px;color:#f4f1dc;font:900 8px system-ui;letter-spacing:.06em;text-shadow:0 1px 4px #000;">'+labelText+'</div>';
+      layer.appendChild(wrap);
+    }
+
+    function addLiv026Vu(x, y, w, h, z) {
+      const wrap = document.createElement("div");
+      wrap.dataset.sfGearId = "liv026-vu-meter-" + (layer.querySelectorAll('[data-sf-gear-id^="liv026-vu-meter-"]').length + 1);
+      wrap.dataset.sfGearLabel = "VU Meter";
+      wrap.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;box-sizing:border-box;pointer-events:auto;cursor:move;z-index:"+(z||120)+";";
+      wrap.innerHTML = '<svg viewBox="0 0 180 92" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="176" height="88" rx="10" fill="#120b04" stroke="rgba(255,226,150,.45)" stroke-width="3"/><rect x="18" y="12" width="144" height="66" rx="8" fill="#e0b95e"/><path d="M18 78 Q90 6 162 78 Z" fill="#f4d982"/><path d="M18 78 Q90 30 162 78 Z" fill="#5b3513" opacity=".72"/><text x="38" y="34" font-size="13" font-weight="900" fill="#2b1706">-20</text><text x="72" y="29" font-size="13" font-weight="900" fill="#2b1706">-10</text><text x="103" y="29" font-size="13" font-weight="900" fill="#2b1706">0</text><text x="128" y="35" font-size="13" font-weight="900" fill="#2b1706">+3</text><line x1="90" y1="75" x2="116" y2="28" stroke="#2b1203" stroke-width="4" stroke-linecap="round"/><text x="90" y="66" text-anchor="middle" font-size="21" font-weight="900" fill="#4b2a0a">VU</text></svg>';
+      layer.appendChild(wrap);
+    }
+
+    img("foh", "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", 147, 31, 940);
+    img("liv026-system-delay-processor-asset", "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg", 44, 255, 610);
+    img("crossover", "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg", 47, 432, 605);
+    img("high-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", 657, 257, 470);
+    img("mid-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg", 662, 377, 465);
+    img("low-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg", 662, 497, 465);
+    img("delay-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg", 147, 597, 510);
+    img("fill-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg", 662, 612, 465);
+
+    addLiv026Vu(597, 385, 35, 21, 120);
+    addLiv026Vu(519, 386, 35, 21, 162);
+    addLiv026Vu(557, 477, 60, 34, 120);
+    addLiv026Vu(557, 527, 60, 34, 120);
+    addLiv026Vu(342, 652, 55, 31, 120);
+    addLiv026Vu(417, 652, 55, 31, 120);
+    addLiv026Vu(822, 662, 60, 34, 120);
+    addLiv026Vu(902, 662, 60, 34, 120);
+
+    visibleXlrM("liv026-xlrm-main-out-l", "MAIN OUT L", 70, 374, 70, 40, 2700);
+    visibleXlrM("liv026-xlrm-main-out-r", "MAIN OUT R", 154, 375, 60, 38, 2700);
+    visibleXlrM("liv026-xlrm-delay-out-l", "DELAY OUT L", 256, 375, 65, 43, 2700);
+    visibleXlrM("liv026-xlrm-delay-out-r", "DELAY OUT R", 383, 375, 65, 43, 2700);
+    visibleXlrM("liv026-xlrm-fill-out", "FILL OUT", 590, 339, 49, 42, 2700);
+    visibleXlrM("liv026-xlrm-sub-out", "SUB OUT", 517, 339, 40, 23, 14);
+
+
+    // LIV-026 good/required gameplay jacks - first rough alignment pass.
+    jack("liv026-main-l-output", 948.46, 124.33, "Main L Output");
+    jack("liv026-main-r-output", 1007.77, 127.43, "Main R Output");
+    jack("liv026-bus-1-output", 661, 103, "Bus 1 Output");
+    jack("liv026-bus-2-output", 692.84, 103, "Bus 2 Output");
+
+    jack("liv026-system-processor-l-input", 72, 376, "System Processor L Input");
+    jack("liv026-system-processor-r-input", 156, 377, "System Processor R Input");
+    jack("liv026-system-processor-l-output", 137.23, 514.81, "System Processor L Output");
+    jack("liv026-system-processor-r-output", 194.69, 515.44, "System Processor R Output");
+    jack("liv026-front-fill-processor-input", 557.35, 332.95, "Front Fill Processor Input");
+    jack("liv026-front-fill-processor-output", 598.33, 332.46, "Front Fill Processor Output");
+    jack("liv026-system-processor-l-input", 80, 332, "System Processor L Input");
+    jack("liv026-system-processor-r-input", 126, 332, "System Processor R Input");
+    jack("liv026-system-processor-l-output", 188, 332, "System Processor L Output");
+    jack("liv026-system-processor-r-output", 234, 332, "System Processor R Output");
+
+
+    jack("liv026-delay-processor-input", 332.04, 333.4, "Delay Processor Input");
+    jack("liv026-delay-processor-input-unused", 322, 337, "Unused Delay Processor Jack");
+    jack("liv026-delay-processor-l-output", 273.17, 375.06, "Delay Processor L Output");
+    jack("liv026-delay-processor-r-output", 398.51, 373.74, "Delay Processor R Output");
+
+    jack("liv026-crossover-l-input", 137.23, 514.81, "Crossover L Input");
+    jack("liv026-crossover-r-input", 194.69, 515.44, "Crossover R Input");
+    jack("liv026-crossover-high-l-output", 355.89, 476.36, "Crossover High L Output");
+    jack("liv026-crossover-high-r-output", 411.21, 476.47, "Crossover High R Output");
+    jack("liv026-crossover-mid-l-output", 353.59, 514.04, "Crossover Mid L Output");
+    jack("liv026-crossover-mid-r-output", 413.12, 514.29, "Crossover Mid R Output");
+    jack("liv026-crossover-low-l-output", 354.9, 552.87, "Crossover Low L Output");
+    jack("liv026-crossover-low-r-output", 413.76, 553.91, "Crossover Low R Output");
+
+    jack("liv026-high-amp-l-input", 724.7, 313.64, "High Amp L Input");
+    jack("liv026-high-amp-r-input", 774.11, 314.17, "High Amp R Input");
+    jack("liv026-mid-amp-l-input", 728.9, 431.82, "Mid Amp L Input");
+    jack("liv026-mid-amp-r-input", 777.74, 432.28, "Mid Amp R Input");
+    jack("liv026-low-amp-l-input", 729.61, 551.9, "Low Amp L Input");
+    jack("liv026-low-amp-r-input", 777.25, 553.28, "Low Amp R Input");
+    jack("liv026-delay-amp-l-input", 222.38, 658.43, "Delay Amp L Input");
+    jack("liv026-delay-amp-r-input", 276.26, 658.08, "Delay Amp R Input");
+    jack("liv026-fill-amp-l-input", 728.58, 666.44, "Fill Amp L Input");
+
+
+    function liv026TapeLabel(text, x, y, w, h, rot) {
+      const el = document.createElement("div");
+      el.className = "sf-liv026-tape-label";
+      el.dataset.sfGearId = "liv026-label-" + text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      el.textContent = text;
+      el.style.cssText = [
+        "position:absolute",
+        "left:"+x+"px",
+        "top:"+y+"px",
+        "width:"+w+"px",
+        "height:"+h+"px",
+        "z-index:3600",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "text-align:center",
+        "color:#1c1710",
+        "font:900 18px 'Marker Felt','Bradley Hand','Comic Sans MS',cursive",
+        "letter-spacing:.01em",
+        "background:#f4eed1",
+        "border:1px solid rgba(80,65,30,.36)",
+        "box-shadow:0 2px 5px rgba(0,0,0,.38)",
+        "transform:rotate("+(rot||0)+"deg)",
+        "pointer-events:none"
+      ].join(";");
+      layer.appendChild(el);
+    }
+
+    liv026TapeLabel("System Processor", 190, 270, 150, 34, -1);
+    liv026TapeLabel("3-Way Crossover", 82, 462, 150, 30, -1);
+    liv026TapeLabel("High Amp", 832, 305, 145, 38, -1);
+    liv026TapeLabel("Mid Amp", 832, 420, 145, 38, 1);
+    liv026TapeLabel("Low Amp", 832, 550, 145, 38, -1);
+    liv026TapeLabel("Delay", 176, 610, 117, 44, -2);
+    liv026TapeLabel("Fill Amp", 704, 624, 82, 26, 1);
+
+    surface.appendChild(layer);
+
+    function applyLiv026TrueHitboxes() {
+      const liv026TrueHitboxes = [["liv026-main-l-output", 946.7, 125.22, 34, 34], ["liv026-main-r-output", 1006.4, 124.93, 34, 34], ["liv026-bus-1-output", 726.93, 121.1, 34, 34], ["liv026-bus-2-output", 763.48, 118.96, 34, 34], ["liv026-system-processor-l-input", 87.73, 332.63, 34, 34], ["liv026-system-processor-r-input", 164.4, 332.82, 34, 34], ["liv026-system-processor-l-output", 87.75, 372.89, 34, 34], ["liv026-system-processor-r-output", 168.75, 373.92, 34, 34], ["liv026-front-fill-processor-input", 555.64, 331.32, 34, 34], ["liv026-front-fill-processor-output", 597.81, 336.78, 34, 34], ["liv026-delay-processor-input", 334.66, 334.11, 34, 34], ["liv026-delay-processor-input-unused", 520.71, 337.34, 34, 34], ["liv026-delay-processor-l-output", 270.75, 374.8, 34, 34], ["liv026-delay-processor-r-output", 399.53, 374.51, 34, 34], ["liv026-crossover-l-input", 137.9, 518.05, 34, 34], ["liv026-crossover-r-input", 191.36, 517.18, 34, 34], ["liv026-crossover-high-l-output", 355.63, 477.77, 34, 34], ["liv026-crossover-high-r-output", 413.37, 476.45, 34, 34], ["liv026-crossover-mid-l-output", 355.06, 515.51, 34, 34], ["liv026-crossover-mid-r-output", 412.19, 515.04, 34, 34], ["liv026-crossover-low-l-output", 353.71, 552.06, 34, 34], ["liv026-crossover-low-r-output", 412.26, 554.54, 34, 34], ["liv026-high-amp-l-input", 727.68, 314.95, 34, 34], ["liv026-high-amp-r-input", 775.71, 311.99, 34, 34], ["liv026-mid-amp-l-input", 730.61, 432.3, 34, 34], ["liv026-mid-amp-r-input", 778.84, 432.21, 34, 34], ["liv026-low-amp-l-input", 729.94, 552.65, 34, 34], ["liv026-low-amp-r-input", 778.1, 552.44, 34, 34], ["liv026-delay-amp-l-input", 225.55, 663.33, 34, 34], ["liv026-delay-amp-r-input", 275.91, 661.19, 34, 34], ["liv026-fill-amp-l-input", 729.12, 665.91, 34, 34]];
+      liv026TrueHitboxes.forEach(([key,x,y,w,h]) => {
+        const el = layer.querySelector('[data-node-key="' + key + '"]');
+        if (!el) return;
+        const LIV026_HITBOX_DX = 15;
+        const LIV026_HITBOX_DY = 18;
+        el.style.setProperty("left", (x + LIV026_HITBOX_DX) + "px", "important");
+        el.style.setProperty("top", (y + LIV026_HITBOX_DY) + "px", "important");
+        el.style.setProperty("width", w + "px", "important");
+        el.style.setProperty("height", h + "px", "important");
+        el.style.setProperty("z-index", "3100", "important");
+      });
+      console.log("[Signal Flow] LIV-026 true hitboxes baked/applied", liv026TrueHitboxes.length);
+    }
+    applyLiv026TrueHitboxes();
+    setTimeout(applyLiv026TrueHitboxes, 0);
+    setTimeout(applyLiv026TrueHitboxes, 120);
+
+    redrawCables(layer);
+    installCableDrag(layer);
+    console.log("[Signal Flow] LIV-026 complex zone renderer mounted.");
+  }
+
+
+  function renderLiv023MonitorConsoleStereoPa(surface, adapter) {
 	    const boardWidth = 1400;
 	    const boardHeight = 1500;
 	    const boardTopOffset = 210;
@@ -13121,6 +13612,11 @@ function renderLiv020MainPaAndIem(surface, adapter) {
 
 
   function renderNative(surface, adapter) {
+    if (LEVEL_ID === "LIV-026") {
+      renderLiv026ComplexZones(surface, adapter);
+      return;
+    }
+
     if (LEVEL_ID === "LIV-023") {
       renderLiv023MonitorConsoleStereoPa(surface, adapter);
       return;
