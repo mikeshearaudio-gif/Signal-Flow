@@ -3910,6 +3910,17 @@ if (activeNativeLevelId === nextLevelId) return;
         decision.valid = false;
         decision.from = fromNode.key;
         decision.to = toNode.key;
+      } else if (
+        LEVEL_ID === "LIV-026" &&
+        fromNode.key !== toNode.key &&
+        String(fromNode.key || "").startsWith("liv026-") &&
+        String(toNode.key || "").startsWith("liv026-")
+      ) {
+        decision.allowed = true;
+        decision.valid = false;
+        decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+        decision.from = fromNode.key;
+        decision.to = toNode.key;
       } else {
         console.log("[Signal Flow] Native route blocked:", decision.key);
         flashNode(fromNode);
@@ -5778,7 +5789,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       el.style.top = y + "px";
       el.style.width = w + "px";
       el.style.height = h + "px";
-      el.style.zIndex = "3100";
+      el.style.zIndex = "6500";
     });
 
     function tapeLabel(text, x, y, w, h) {
@@ -5786,7 +5797,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       el.className = "sf-liv026-tape-label";
       el.dataset.sfGearId = "liv026-label-" + text.toLowerCase().replace(/[^a-z0-9]+/g,"-");
       el.textContent = text;
-      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;z-index:3300;display:flex;align-items:center;justify-content:center;text-align:center;color:#1b1710;font:900 18px 'Marker Felt','Comic Sans MS','Bradley Hand',cursive;background:#f4eed1;border:1px solid rgba(80,65,30,.35);box-shadow:0 2px 5px rgba(0,0,0,.35);transform:rotate(-1deg);pointer-events:auto;";
+      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;z-index:3000;display:flex;align-items:center;justify-content:center;text-align:center;color:#1b1710;font:900 18px 'Marker Felt','Comic Sans MS','Bradley Hand',cursive;background:#f4eed1;border:1px solid rgba(80,65,30,.35);box-shadow:0 2px 5px rgba(0,0,0,.35);transform:rotate(-1deg);pointer-events:auto;";
       layer.appendChild(el);
     }
     tapeLabel("System Processor",190,270,150,34);
@@ -5798,6 +5809,33 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     tapeLabel("Fill Amp",704,624,78,28);
 
 
+
+    // LIV-026 safety cleanup: remove duplicate native hitbox nodes.
+    if (LEVEL_ID === "LIV-026") {
+      const seenLiv026Nodes = new Set();
+      Array.from(layer.querySelectorAll("[data-node-key]")).forEach(function(el) {
+        const key = el.getAttribute("data-node-key");
+        if (!key || !key.startsWith("liv026-")) return;
+        if (seenLiv026Nodes.has(key)) el.remove();
+        else seenLiv026Nodes.add(key);
+      });
+    }
+
+
+    // LIV-026 cleanup: remove stale/legacy jack nodes from earlier processor/crossover attempts.
+    [
+      "liv026-processor-l-input",
+      "liv026-processor-r-input",
+      "liv026-processor-l-output",
+      "liv026-processor-r-output",
+      "liv026-delay-processor-input-unused",
+      "liv026-bus-3-output"
+    ].forEach(function(key) {
+      layer.querySelectorAll('[data-node-key="' + key + '"], [data-sf-dev-key="' + key + '"]').forEach(function(el) {
+        el.remove();
+      });
+    });
+
     surface.appendChild(layer);
 
     const spacer = document.createElement("div");
@@ -5807,8 +5845,61 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     spacer.style.setProperty("min-height", scrollHeight + "px", "important");
     surface.appendChild(spacer);
 
+
+    // LIV-026 hard cleanup: remove stale incorrect processor/bus hitboxes.
+    ['liv026-delay-processor-input-unused', 'liv026-processor-l-input', 'liv026-processor-r-input', 'liv026-processor-l-output', 'liv026-processor-r-output', 'liv026-bus-3-output'].forEach(function(key) {
+      layer.querySelectorAll('[data-node-key="' + key + '"], [data-sf-dev-key="' + key + '"], [data-sf-false-key="' + key + '"]').forEach(function(el) {
+        el.remove();
+      });
+    });
+
+
+    // LIV-026 cable stacking: cables must stay above tape labels/XLRM artwork and below active jack nodes.
+    function sfLiv026ForceCableStacking() {
+      if (LEVEL_ID !== "LIV-026") return;
+      const roots = [
+        layer.querySelector("svg"),
+        layer.querySelector(".sf-native-cable-layer"),
+        layer.querySelector("[data-sf-native-cable-layer]"),
+        layer.querySelector(".sf-live-cable-layer"),
+        layer.querySelector("#nativeCableLayer")
+      ].filter(Boolean);
+
+      roots.forEach(function(el) {
+        el.style.setProperty("position", "absolute", "important");
+        el.style.setProperty("z-index", "3350", "important");
+        el.style.setProperty("pointer-events", "none", "important");
+      });
+
+      layer.querySelectorAll("[data-node-key]").forEach(function(el) {
+        el.style.setProperty("z-index", "3600", "important");
+      });
+
+      layer.querySelectorAll(".sf-liv026-tape-label,[data-sf-gear-id^='liv026-label-'],.sf-liv026-movable-xlrm").forEach(function(el) {
+        el.style.setProperty("z-index", "3200", "important");
+        el.style.setProperty("pointer-events", "none", "important");
+      });
+    }
+
     redrawCables(layer);
     installCableDrag(layer);
+
+    // LIV-026 false hitboxes: invisible, clickable, exact baked geometry.
+    layer.querySelectorAll('[data-node-key^="liv026-false-"]').forEach(function(el) {
+      el.dataset.sfFalseJack = "1";
+      el.style.setProperty("opacity", "0", "important");
+      el.style.setProperty("background", "transparent", "important");
+      el.style.setProperty("border", "0", "important");
+      el.style.setProperty("box-shadow", "none", "important");
+      el.style.setProperty("outline", "0", "important");
+      el.style.setProperty("cursor", "pointer", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("z-index", "3600", "important");
+    });
+
+    sfLiv026ForceCableStacking();
+    setTimeout(sfLiv026ForceCableStacking, 0);
+    setTimeout(sfLiv026ForceCableStacking, 120);
     sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem");
     setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-0"); }, 0);
     setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-100"); }, 100);
@@ -12030,19 +12121,12 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     jack("liv026-system-processor-r-input", 156, 377, "System Processor R Input");
     jack("liv026-system-processor-l-output", 137.23, 514.81, "System Processor L Output");
     jack("liv026-system-processor-r-output", 194.69, 515.44, "System Processor R Output");
-    jack("liv026-front-fill-processor-input", 557.35, 332.95, "Front Fill Processor Input");
     jack("liv026-front-fill-processor-output", 598.33, 332.46, "Front Fill Processor Output");
-    jack("liv026-system-processor-l-input", 80, 332, "System Processor L Input");
-    jack("liv026-system-processor-r-input", 126, 332, "System Processor R Input");
-    jack("liv026-system-processor-l-output", 188, 332, "System Processor L Output");
-    jack("liv026-system-processor-r-output", 234, 332, "System Processor R Output");
-
-
-    jack("liv026-delay-processor-input", 332.04, 333.4, "Delay Processor Input");
-    jack("liv026-delay-processor-input-unused", 322, 337, "Unused Delay Processor Jack");
-    jack("liv026-delay-processor-l-output", 273.17, 375.06, "Delay Processor L Output");
-    jack("liv026-delay-processor-r-output", 398.51, 373.74, "Delay Processor R Output");
-
+    jack("liv026-front-fill-processor-input", 555.64, 331.32, "Front Fill Processor Input");
+    jack("liv026-delay-processor-input", 334.66, 334.11, "Delay Processor Input");
+    jack("liv026-delay-processor-l-output", 270.75, 374.8, "Delay Processor L Output");
+    jack("liv026-delay-processor-r-output", 399.53, 374.51, "Delay Processor R Output");
+    // LIV-026: removed duplicate upper processor jack calls; true hitbox bake owns these nodes.
     jack("liv026-crossover-l-input", 137.23, 514.81, "Crossover L Input");
     jack("liv026-crossover-r-input", 194.69, 515.44, "Crossover R Input");
     jack("liv026-crossover-high-l-output", 355.89, 476.36, "Crossover High L Output");
@@ -12074,7 +12158,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
         "top:"+y+"px",
         "width:"+w+"px",
         "height:"+h+"px",
-        "z-index:3600",
+        "z-index:3000",
         "display:flex",
         "align-items:center",
         "justify-content:center",
@@ -12099,6 +12183,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     liv026TapeLabel("Delay", 176, 610, 117, 44, -2);
     liv026TapeLabel("Fill Amp", 704, 624, 82, 26, 1);
 
+
     surface.appendChild(layer);
 
     function applyLiv026TrueHitboxes() {
@@ -12119,8 +12204,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     applyLiv026TrueHitboxes();
     setTimeout(applyLiv026TrueHitboxes, 0);
     setTimeout(applyLiv026TrueHitboxes, 120);
-
-    redrawCables(layer);
+redrawCables(layer);
     installCableDrag(layer);
     console.log("[Signal Flow] LIV-026 complex zone renderer mounted.");
   }
@@ -14412,4 +14496,25 @@ function mountNative(force) {
   });
 
   boot();
+})();
+
+
+/* LIV-026 final stacking + invalid red cable persistence */
+(function(){
+  function applyLiv026CableStack(){
+    if (!/LIV-026/.test(document.body.innerText || "")) return;
+    document.querySelectorAll(
+      '.sf-live-native-level-liv-026 svg, .sf-live-native-level-liv-026 .sf-native-cable-layer, .sf-live-native-level-liv-026 [data-sf-cable-layer]'
+    ).forEach(function(el){
+      el.style.setProperty('z-index','9000','important');
+      el.style.setProperty('position','absolute','important');
+      el.style.setProperty('pointer-events','none','important');
+    });
+    document.querySelectorAll('.sf-live-native-level-liv-026 .sf-liv026-tape-label').forEach(function(el){
+      el.style.setProperty('z-index','3300','important');
+      el.style.setProperty('pointer-events','none','important');
+    });
+  }
+  setInterval(applyLiv026CableStack, 250);
+  window.sfLiv026ApplyCableStack = applyLiv026CableStack;
 })();
