@@ -4437,6 +4437,7 @@ function handleNodeClick(layer, node) {
       const key = btn.dataset.nodeKey || btn.dataset.sfNativeKey || btn.getAttribute("data-node-key") || "";
       if (LEVEL_ID === "LIV-021" && String(key).startsWith("liv021-false-")) return false;
       if (LEVEL_ID === "LIV-025" && String(key).startsWith("liv025-false-")) return false;
+      if (LEVEL_ID === "LIV-026" && String(key).startsWith("liv026-false-")) return false;
       if (LEVEL_ID === "LIV-023" && String(key).startsWith("liv023-false-")) return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeFalseJack === "1") return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeHintable === "0") return false;
@@ -12186,6 +12187,274 @@ function renderLiv020MainPaAndIem(surface, adapter) {
 
     surface.appendChild(layer);
 
+
+    function installLiv026FalseHitboxStyle() {
+      if (document.getElementById("sf-liv026-false-hitbox-style")) return;
+      const style = document.createElement("style");
+      style.id = "sf-liv026-false-hitbox-style";
+      style.textContent = `
+        .sf-live-native-level-liv-026 .sf-liv026-false-jack,
+        .sf-live-native-level-liv-026 .sf-liv026-false-jack:hover,
+        .sf-live-native-level-liv-026 .sf-liv026-false-jack:focus,
+        .sf-live-native-level-liv-026 .sf-liv026-false-jack:focus-visible {
+          opacity: 0 !important;
+          background: transparent !important;
+          border: 0 !important;
+          box-shadow: none !important;
+          outline: 0 !important;
+          color: transparent !important;
+          cursor: pointer !important;
+          pointer-events: auto !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const LIV026_FALSE_HITBOXES = [
+      {
+            "key": "liv026-false-matrix-1",
+            "leftPx": 215,
+            "topPx": 120,
+            "widthPx": 44,
+            "heightPx": 19
+      },
+      {
+            "key": "liv026-false-matrix-2",
+            "leftPx": 280,
+            "topPx": 120,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-matrix-3",
+            "leftPx": 340,
+            "topPx": 120,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-aux-1",
+            "leftPx": 405,
+            "topPx": 120,
+            "widthPx": 44,
+            "heightPx": 24
+      },
+      {
+            "key": "liv026-false-aux-2",
+            "leftPx": 485,
+            "topPx": 125,
+            "widthPx": 24,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-bus-4",
+            "leftPx": 520,
+            "topPx": 125,
+            "widthPx": 24,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-bus-5",
+            "leftPx": 555,
+            "topPx": 125,
+            "widthPx": 24,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-bus-6",
+            "leftPx": 585,
+            "topPx": 125,
+            "widthPx": 24,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010639535",
+            "leftPx": 800,
+            "topPx": 115,
+            "widthPx": 34,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010639834",
+            "leftPx": 620,
+            "topPx": 125,
+            "widthPx": 24,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010640240",
+            "leftPx": 650,
+            "topPx": 125,
+            "widthPx": 34,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010710123",
+            "leftPx": 840,
+            "topPx": 115,
+            "widthPx": 34,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010728364",
+            "leftPx": 725,
+            "topPx": 170,
+            "widthPx": 34,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010742991",
+            "leftPx": 765,
+            "topPx": 170,
+            "widthPx": 34,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010756692",
+            "leftPx": 800,
+            "topPx": 170,
+            "widthPx": 39,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010772123",
+            "leftPx": 840,
+            "topPx": 170,
+            "widthPx": 39,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010794875",
+            "leftPx": 485,
+            "topPx": 330,
+            "widthPx": 29,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010807865",
+            "leftPx": 515,
+            "topPx": 335,
+            "widthPx": 39,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010828368",
+            "leftPx": 970,
+            "topPx": 310,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010841025",
+            "leftPx": 1020,
+            "topPx": 310,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010855266",
+            "leftPx": 975,
+            "topPx": 430,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010877125",
+            "leftPx": 1020,
+            "topPx": 430,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010899810",
+            "leftPx": 490,
+            "topPx": 655,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010911666",
+            "leftPx": 545,
+            "topPx": 655,
+            "widthPx": 44,
+            "heightPx": 34
+      },
+      {
+            "key": "liv026-false-1781010925247",
+            "leftPx": 965,
+            "topPx": 550,
+            "widthPx": 54,
+            "heightPx": 44
+      },
+      {
+            "key": "liv026-false-1781010953316",
+            "leftPx": 1020,
+            "topPx": 545,
+            "widthPx": 49,
+            "heightPx": 44
+      },
+      {
+            "key": "liv026-false-1781010990234",
+            "leftPx": 970,
+            "topPx": 660,
+            "widthPx": 44,
+            "heightPx": 39
+      },
+      {
+            "key": "liv026-false-1781011135566",
+            "leftPx": 1020,
+            "topPx": 660,
+            "widthPx": 44,
+            "heightPx": 29
+      }
+];
+
+    function applyLiv026FalseHitboxes() {
+      installLiv026FalseHitboxStyle();
+
+      LIV026_FALSE_HITBOXES.forEach(function(hb) {
+        let el = layer.querySelector('[data-node-key="' + hb.key + '"]');
+
+        const cx = hb.leftPx + hb.widthPx / 2;
+        const cy = hb.topPx + hb.heightPx / 2;
+
+        if (!el) {
+          createJackNode(layer, hb.key, { x: cx, y: cy }, "False Jack", false);
+          el = layer.querySelector('[data-node-key="' + hb.key + '"]');
+        }
+
+        if (!el) return;
+
+        el.classList.add("sf-liv026-false-jack");
+        el.dataset.sfFalseJack = "1";
+        el.dataset.sfNativeHintable = "0";
+        el.dataset.sfNativeGoodHint = "0";
+        el.dataset.sfNativeGhost = "0";
+        el.dataset.sfNativeDefaultShadow = "none";
+        el.dataset.sfNativePointX = String(cx);
+        el.dataset.sfNativePointY = String(cy);
+        el.setAttribute("aria-label", "False Jack");
+
+        el.style.setProperty("position", "absolute", "important");
+        el.style.setProperty("left", hb.leftPx + "px", "important");
+        el.style.setProperty("top", hb.topPx + "px", "important");
+        el.style.setProperty("width", hb.widthPx + "px", "important");
+        el.style.setProperty("height", hb.heightPx + "px", "important");
+        el.style.setProperty("transform", "none", "important");
+        el.style.setProperty("z-index", "3600", "important");
+        el.style.setProperty("opacity", "0", "important");
+        el.style.setProperty("background", "transparent", "important");
+        el.style.setProperty("border", "0", "important");
+        el.style.setProperty("box-shadow", "none", "important");
+        el.style.setProperty("outline", "0", "important");
+        el.style.setProperty("color", "transparent", "important");
+        el.style.setProperty("cursor", "pointer", "important");
+        el.style.setProperty("pointer-events", "auto", "important");
+      });
+
+      console.log("[Signal Flow] LIV-026 false hitboxes baked/applied", LIV026_FALSE_HITBOXES.length);
+    }
+
     function applyLiv026TrueHitboxes() {
       const liv026TrueHitboxes = [["liv026-main-l-output", 946.7, 125.22, 34, 34], ["liv026-main-r-output", 1006.4, 124.93, 34, 34], ["liv026-bus-1-output", 726.93, 121.1, 34, 34], ["liv026-bus-2-output", 763.48, 118.96, 34, 34], ["liv026-system-processor-l-input", 87.73, 332.63, 34, 34], ["liv026-system-processor-r-input", 164.4, 332.82, 34, 34], ["liv026-system-processor-l-output", 87.75, 372.89, 34, 34], ["liv026-system-processor-r-output", 168.75, 373.92, 34, 34], ["liv026-front-fill-processor-input", 555.64, 331.32, 34, 34], ["liv026-front-fill-processor-output", 597.81, 336.78, 34, 34], ["liv026-delay-processor-input", 334.66, 334.11, 34, 34], ["liv026-delay-processor-input-unused", 520.71, 337.34, 34, 34], ["liv026-delay-processor-l-output", 270.75, 374.8, 34, 34], ["liv026-delay-processor-r-output", 399.53, 374.51, 34, 34], ["liv026-crossover-l-input", 137.9, 518.05, 34, 34], ["liv026-crossover-r-input", 191.36, 517.18, 34, 34], ["liv026-crossover-high-l-output", 355.63, 477.77, 34, 34], ["liv026-crossover-high-r-output", 413.37, 476.45, 34, 34], ["liv026-crossover-mid-l-output", 355.06, 515.51, 34, 34], ["liv026-crossover-mid-r-output", 412.19, 515.04, 34, 34], ["liv026-crossover-low-l-output", 353.71, 552.06, 34, 34], ["liv026-crossover-low-r-output", 412.26, 554.54, 34, 34], ["liv026-high-amp-l-input", 727.68, 314.95, 34, 34], ["liv026-high-amp-r-input", 775.71, 311.99, 34, 34], ["liv026-mid-amp-l-input", 730.61, 432.3, 34, 34], ["liv026-mid-amp-r-input", 778.84, 432.21, 34, 34], ["liv026-low-amp-l-input", 729.94, 552.65, 34, 34], ["liv026-low-amp-r-input", 778.1, 552.44, 34, 34], ["liv026-delay-amp-l-input", 225.55, 663.33, 34, 34], ["liv026-delay-amp-r-input", 275.91, 661.19, 34, 34], ["liv026-fill-amp-l-input", 729.12, 665.91, 34, 34]];
       liv026TrueHitboxes.forEach(([key,x,y,w,h]) => {
@@ -12204,6 +12473,9 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     applyLiv026TrueHitboxes();
     setTimeout(applyLiv026TrueHitboxes, 0);
     setTimeout(applyLiv026TrueHitboxes, 120);
+    applyLiv026FalseHitboxes();
+    setTimeout(applyLiv026FalseHitboxes, 0);
+    setTimeout(applyLiv026FalseHitboxes, 120);
 redrawCables(layer);
     installCableDrag(layer);
     console.log("[Signal Flow] LIV-026 complex zone renderer mounted.");
