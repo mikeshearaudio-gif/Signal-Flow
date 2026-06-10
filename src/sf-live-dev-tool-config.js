@@ -28,7 +28,7 @@
     levelId,
     layerSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug,
     exportPrefix: "[Signal Flow] " + levelId,
-    gearSelector: "img",
+    gearSelector: "img,[data-sf-gear-id]",
     labelSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug + " div, .sf-live-native-layer.sf-live-native-level-" + levelSlug + " span",
     hitboxSelector: "[data-node-key]",
     ignoreHitboxClosest: ".sf-native-liv019-source-panel, .sf-native-liv009-source-panel"

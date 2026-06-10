@@ -74,7 +74,13 @@
     el.style.left = rr.leftPx + "px";
     el.style.top = rr.topPx + "px";
     el.style.width = rr.widthPx + "px";
-    el.style.height = "auto";
+    if (el.tagName && el.tagName.toLowerCase() === "img") {
+      if (el.tagName && el.tagName.toLowerCase() === "img") {
+        el.style.height = "auto";
+      }
+    } else {
+      el.style.height = rr.heightPx + "px";
+    }
     el.style.pointerEvents = "auto";
     el.style.outline = "2px dashed rgba(120,255,190,.45)";
 
@@ -93,8 +99,9 @@
     const gameDoc = found.doc;
     const layer = found.layer;
 
-    const gear = Array.from(layer.querySelectorAll(c.gearSelector || "img"))
-      .filter(el => !el.closest("#sf-live-gear-mover-dev"));
+    const gear = Array.from(layer.querySelectorAll("[data-sf-gear-id]"))
+      .filter(el => !el.closest("#sf-live-gear-mover-dev"))
+      .filter(el => el.closest("[data-sf-gear-id]") === el);
 
     gear.forEach((el, i) => ensureMovable(layer, el, i));
 
@@ -145,17 +152,31 @@
       });
     }
 
-    function size(dw) {
+    function sizeWidth(dw) {
       const el = selected();
       if (!el) return;
 
-      const width = Math.max(40, Math.round(px(el, "width") + dw * step));
+      const width = Math.max(20, Math.round(px(el, "width") + dw * step));
       el.style.width = width + "px";
-      el.style.height = "auto";
 
-      console.log("[Signal Flow] Live dev gear size", {
+      console.log("[Signal Flow] Live dev gear width", {
         key: el.dataset.sfLiveDevGearKey,
         width,
+        step
+      });
+    }
+
+    function sizeHeight(dh) {
+      const el = selected();
+      if (!el) return;
+
+      const current = el.getBoundingClientRect().height || px(el, "height") || 40;
+      const height = Math.max(20, Math.round(current + dh * step));
+      el.style.height = height + "px";
+
+      console.log("[Signal Flow] Live dev gear height", {
+        key: el.dataset.sfLiveDevGearKey,
+        height,
         step
       });
     }
@@ -226,7 +247,7 @@
       <div><b>[</b> previous gear &nbsp; <b>]</b> next gear</div>
       <div><b>Arrow keys</b> move selected gear</div>
       <div><b>Shift + Arrow</b> move 5x faster</div>
-      <div><b>+</b>/<b>-</b> resize selected gear</div>
+      <div><b>-</b>/<b>=</b> width &nbsp; <b>,</b>/<b>.</b> height</div>
       <div><b>Z</b>/<b>X</b> z-index up/down</div>
       <div><b>1</b>/<b>2</b>/<b>5</b>/<b>0</b> step = 1/2/5/20 px</div>
       <div><b>E</b> export gear JSON</div>
@@ -251,8 +272,10 @@
         case "ArrowRight": move(1, 0); break;
         case "[": selectedIndex = (selectedIndex - 1 + gear.length) % gear.length; markSelected(); break;
         case "]": selectedIndex = (selectedIndex + 1) % gear.length; markSelected(); break;
-        case "+": case "=": size(1); break;
-        case "-": case "_": size(-1); break;
+        case "+": case "=": sizeWidth(1); break;
+        case "-": case "_": sizeWidth(-1); break;
+        case ".": case ">": sizeHeight(1); break;
+        case ",": case "<": sizeHeight(-1); break;
         case "z": case "Z": z(1); break;
         case "x": case "X": z(-1); break;
         case "1": step = 1; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
