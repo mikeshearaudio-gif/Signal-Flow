@@ -3921,6 +3921,17 @@ if (activeNativeLevelId === nextLevelId) return;
         decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
         decision.from = fromNode.key;
         decision.to = toNode.key;
+      } else if (
+        LEVEL_ID === "LIV-016" &&
+        fromNode.key &&
+        toNode.key &&
+        fromNode.key !== toNode.key
+      ) {
+        decision.allowed = true;
+        decision.valid = false;
+        decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+        decision.from = fromNode.key;
+        decision.to = toNode.key;
       } else {
         console.log("[Signal Flow] Native route blocked:", decision.key);
         flashNode(fromNode);
@@ -5554,353 +5565,9 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       }
     });
 
-    addLiv026TapeLabel("PROCESSOR RACK", 55, 250, 185, 42, "blank");
-    addLiv026TapeLabel("MAIN PA CROSSOVER", 70, 410, 210, 42, "blank");
-    addLiv026TapeLabel("HIGH AMP", 835, 247, 145, 38, "blank");
-    addLiv026TapeLabel("MID AMP", 835, 367, 145, 38, "blank");
-    addLiv026TapeLabel("LOW AMP", 835, 487, 145, 38, "blank");
-    addLiv026TapeLabel("DELAY TOWER AMP", 300, 572, 205, 42, "delay");
-    addLiv026TapeLabel("FRONT FILL AMP", 790, 587, 195, 42, "blank");
-
-
-
-    const liv026TrueHitboxes = [
-      [
-            "liv026-main-l-output",
-            946.7,
-            125.22,
-            34,
-            34
-      ],
-      [
-            "liv026-main-r-output",
-            1006.4,
-            124.93,
-            34,
-            34
-      ],
-      [
-            "liv026-bus-1-output",
-            726.93,
-            121.1,
-            34,
-            34
-      ],
-      [
-            "liv026-bus-2-output",
-            763.48,
-            118.96,
-            34,
-            34
-      ],
-      [
-            "liv026-system-processor-l-input",
-            87.73,
-            332.63,
-            34,
-            34
-      ],
-      [
-            "liv026-system-processor-r-input",
-            164.4,
-            332.82,
-            34,
-            34
-      ],
-      [
-            "liv026-system-processor-l-output",
-            87.75,
-            372.89,
-            34,
-            34
-      ],
-      [
-            "liv026-system-processor-r-output",
-            168.75,
-            373.92,
-            34,
-            34
-      ],
-      [
-            "liv026-front-fill-processor-input",
-            555.64,
-            331.32,
-            34,
-            34
-      ],
-      [
-            "liv026-front-fill-processor-output",
-            597.81,
-            336.78,
-            34,
-            34
-      ],
-      [
-            "liv026-delay-processor-input",
-            334.66,
-            334.11,
-            34,
-            34
-      ],
-      [
-            "liv026-delay-processor-input-unused",
-            520.71,
-            337.34,
-            34,
-            34
-      ],
-      [
-            "liv026-delay-processor-l-output",
-            270.75,
-            374.8,
-            34,
-            34
-      ],
-      [
-            "liv026-delay-processor-r-output",
-            399.53,
-            374.51,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-l-input",
-            137.9,
-            518.05,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-r-input",
-            191.36,
-            517.18,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-high-l-output",
-            355.63,
-            477.77,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-high-r-output",
-            413.37,
-            476.45,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-mid-l-output",
-            355.06,
-            515.51,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-mid-r-output",
-            412.19,
-            515.04,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-low-l-output",
-            353.71,
-            552.06,
-            34,
-            34
-      ],
-      [
-            "liv026-crossover-low-r-output",
-            412.26,
-            554.54,
-            34,
-            34
-      ],
-      [
-            "liv026-high-amp-l-input",
-            727.68,
-            314.95,
-            34,
-            34
-      ],
-      [
-            "liv026-high-amp-r-input",
-            775.71,
-            311.99,
-            34,
-            34
-      ],
-      [
-            "liv026-mid-amp-l-input",
-            730.61,
-            432.3,
-            34,
-            34
-      ],
-      [
-            "liv026-mid-amp-r-input",
-            778.84,
-            432.21,
-            34,
-            34
-      ],
-      [
-            "liv026-low-amp-l-input",
-            729.94,
-            552.65,
-            34,
-            34
-      ],
-      [
-            "liv026-low-amp-r-input",
-            778.1,
-            552.44,
-            34,
-            34
-      ],
-      [
-            "liv026-delay-amp-l-input",
-            225.55,
-            663.33,
-            34,
-            34
-      ],
-      [
-            "liv026-delay-amp-r-input",
-            275.91,
-            661.19,
-            34,
-            34
-      ],
-      [
-            "liv026-fill-amp-l-input",
-            729.12,
-            665.91,
-            34,
-            34
-      ]
-];
-    liv026TrueHitboxes.forEach(([key,x,y,w,h]) => {
-      const el = layer.querySelector('[data-node-key="' + key + '"]');
-      if (!el) return;
-      el.style.left = x + "px";
-      el.style.top = y + "px";
-      el.style.width = w + "px";
-      el.style.height = h + "px";
-      el.style.zIndex = "6500";
-    });
-
-    function tapeLabel(text, x, y, w, h) {
-      const el = document.createElement("div");
-      el.className = "sf-liv026-tape-label";
-      el.dataset.sfGearId = "liv026-label-" + text.toLowerCase().replace(/[^a-z0-9]+/g,"-");
-      el.textContent = text;
-      el.style.cssText = "position:absolute;left:"+x+"px;top:"+y+"px;width:"+w+"px;height:"+h+"px;z-index:3000;display:flex;align-items:center;justify-content:center;text-align:center;color:#1b1710;font:900 18px 'Marker Felt','Comic Sans MS','Bradley Hand',cursive;background:#f4eed1;border:1px solid rgba(80,65,30,.35);box-shadow:0 2px 5px rgba(0,0,0,.35);transform:rotate(-1deg);pointer-events:auto;";
-      layer.appendChild(el);
-    }
-    tapeLabel("System Processor",190,270,150,34);
-    tapeLabel("3-Way Crossover",72,458,170,38);
-    tapeLabel("High Amp",832,305,145,38);
-    tapeLabel("Mid Amp",832,420,145,38);
-    tapeLabel("Low Amp",832,550,145,38);
-    tapeLabel("Delay",176,610,117,44);
-    tapeLabel("Fill Amp",704,624,78,28);
-
-
-
-    // LIV-026 safety cleanup: remove duplicate native hitbox nodes.
-    if (LEVEL_ID === "LIV-026") {
-      const seenLiv026Nodes = new Set();
-      Array.from(layer.querySelectorAll("[data-node-key]")).forEach(function(el) {
-        const key = el.getAttribute("data-node-key");
-        if (!key || !key.startsWith("liv026-")) return;
-        if (seenLiv026Nodes.has(key)) el.remove();
-        else seenLiv026Nodes.add(key);
-      });
-    }
-
-
-    // LIV-026 cleanup: remove stale/legacy jack nodes from earlier processor/crossover attempts.
-    [
-      "liv026-processor-l-input",
-      "liv026-processor-r-input",
-      "liv026-processor-l-output",
-      "liv026-processor-r-output",
-      "liv026-delay-processor-input-unused",
-      "liv026-bus-3-output"
-    ].forEach(function(key) {
-      layer.querySelectorAll('[data-node-key="' + key + '"], [data-sf-dev-key="' + key + '"]').forEach(function(el) {
-        el.remove();
-      });
-    });
-
     surface.appendChild(layer);
-
-    const spacer = document.createElement("div");
-    spacer.className = "sfLiveNativeSurfaceScrollSpacer sf-liv026-scroll-spacer";
-    spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
-    spacer.style.setProperty("height", scrollHeight + "px", "important");
-    spacer.style.setProperty("min-height", scrollHeight + "px", "important");
-    surface.appendChild(spacer);
-
-
-    // LIV-026 hard cleanup: remove stale incorrect processor/bus hitboxes.
-    ['liv026-delay-processor-input-unused', 'liv026-processor-l-input', 'liv026-processor-r-input', 'liv026-processor-l-output', 'liv026-processor-r-output', 'liv026-bus-3-output'].forEach(function(key) {
-      layer.querySelectorAll('[data-node-key="' + key + '"], [data-sf-dev-key="' + key + '"], [data-sf-false-key="' + key + '"]').forEach(function(el) {
-        el.remove();
-      });
-    });
-
-
-    // LIV-026 cable stacking: cables must stay above tape labels/XLRM artwork and below active jack nodes.
-    function sfLiv026ForceCableStacking() {
-      if (LEVEL_ID !== "LIV-026") return;
-      const roots = [
-        layer.querySelector("svg"),
-        layer.querySelector(".sf-native-cable-layer"),
-        layer.querySelector("[data-sf-native-cable-layer]"),
-        layer.querySelector(".sf-live-cable-layer"),
-        layer.querySelector("#nativeCableLayer")
-      ].filter(Boolean);
-
-      roots.forEach(function(el) {
-        el.style.setProperty("position", "absolute", "important");
-        el.style.setProperty("z-index", "3350", "important");
-        el.style.setProperty("pointer-events", "none", "important");
-      });
-
-      layer.querySelectorAll("[data-node-key]").forEach(function(el) {
-        el.style.setProperty("z-index", "3600", "important");
-      });
-
-      layer.querySelectorAll(".sf-liv026-tape-label,[data-sf-gear-id^='liv026-label-'],.sf-liv026-movable-xlrm").forEach(function(el) {
-        el.style.setProperty("z-index", "3200", "important");
-        el.style.setProperty("pointer-events", "none", "important");
-      });
-    }
-
     redrawCables(layer);
     installCableDrag(layer);
-
-    // LIV-026 false hitboxes: invisible, clickable, exact baked geometry.
-    layer.querySelectorAll('[data-node-key^="liv026-false-"]').forEach(function(el) {
-      el.dataset.sfFalseJack = "1";
-      el.style.setProperty("opacity", "0", "important");
-      el.style.setProperty("background", "transparent", "important");
-      el.style.setProperty("border", "0", "important");
-      el.style.setProperty("box-shadow", "none", "important");
-      el.style.setProperty("outline", "0", "important");
-      el.style.setProperty("cursor", "pointer", "important");
-      el.style.setProperty("pointer-events", "auto", "important");
-      el.style.setProperty("z-index", "3600", "important");
-    });
-
-    sfLiv026ForceCableStacking();
-    setTimeout(sfLiv026ForceCableStacking, 0);
-    setTimeout(sfLiv026ForceCableStacking, 120);
     sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem");
     setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-0"); }, 0);
     setTimeout(function() { sfLiv020ApplyHitboxLayoutLock("after-renderLiv020MainPaAndIem-timeout-100"); }, 100);
@@ -5922,7 +5589,12 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   function renderLiv019IemFxFromLiv009Layout(surface, adapter) {
     const level = buildLevelGeometry(surface);
     const rect = level.rect;
+    const boardHeight = Math.max(760, Math.ceil(rect.height || surface.getBoundingClientRect().height || 0));
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+    surface.classList.add("sf-live-native-scroll-host");
+    surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+    applyNativeViewportContract(surface, boardHeight);
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer sf-live-native-level-liv-019";
@@ -5936,6 +5608,8 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       "border-radius:16px",
       "background:linear-gradient(180deg,rgba(8,24,19,.96),rgba(6,17,15,.98))"
     ].join(";");
+    layer.style.setProperty("height", boardHeight + "px", "important");
+    layer.style.setProperty("min-height", boardHeight + "px", "important");
 
     const width = Math.max(980, rect.width || surface.getBoundingClientRect().width || 980);
 
@@ -6333,6 +6007,12 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     processorJacks("liv019-delay", delay, "Stereo Delay");
 
     surface.appendChild(layer);
+    const spacer = document.createElement("div");
+    spacer.className = "sfLiveNativeSurfaceScrollSpacer sf-liv019-scroll-spacer";
+    spacer.style.cssText = "position:relative;display:block;width:1px;opacity:0;pointer-events:none";
+    spacer.style.setProperty("height", boardHeight + "px", "important");
+    spacer.style.setProperty("min-height", boardHeight + "px", "important");
+    surface.appendChild(spacer);
     redrawCables(layer);
     installCableDrag(layer);
 
@@ -10438,6 +10118,21 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     surface.classList.remove("sf-live-native-scroll-host");
     surface.style.removeProperty("--sf-live-native-board-height");
 
+    if (!document.getElementById("sf-liv016-neutral-hover-style")) {
+      const style = document.createElement("style");
+      style.id = "sf-liv016-neutral-hover-style";
+      style.textContent = `
+        .sf-live-native-level-liv-016 .sf-native-node:not(.sf-native-selected),
+        .sf-live-native-level-liv-016 .sf-native-node:not(.sf-native-selected):hover,
+        .sf-live-native-level-liv-016 .sf-native-node:not(.sf-native-selected):focus,
+        .sf-live-native-level-liv-016 .sf-native-node:not(.sf-native-selected):focus-visible {
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer sf-live-native-level-liv-016 sf-live-native-liv016-png-board";
     layer.style.cssText = [
@@ -10463,7 +10158,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       "object-fit:contain",
       "pointer-events:none",
       "user-select:none",
-      "z-index:" + (g.zIndex ?? 10),
+      "z-index:10",
       "filter:drop-shadow(0 16px 28px rgba(0,0,0,.55))"
     ].join(";");
     layer.appendChild(bg);
@@ -10681,10 +10376,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
     layer.className = "sf-live-native-layer sf-live-native-processing-family sf-live-native-level-liv-021";
     layer.style.cssText = [
       "position:absolute",
-      "left:0",
-      "top:0",
-      "width:" + boardWidth + "px",
-      "min-width:" + boardWidth + "px",
+      "inset:0",
       "height:" + boardHeight + "px",
       "min-height:" + boardHeight + "px",
       "z-index:9990",
