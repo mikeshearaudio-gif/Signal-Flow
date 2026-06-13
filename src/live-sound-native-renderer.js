@@ -652,9 +652,8 @@
       panelKinds: ["foh", "iem"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
-        "front-fill-dsp": "/assets/live-sound/svg/hardware/foh-console-io-panel.svg",
-        "front-fill-amp": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg",
+        iem: "/assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg"
       },
       generatedJackKeys: [
         "foh-mic-line-1-input",
@@ -14228,10 +14227,12 @@ function mountNative(force) {
     } else {
       renderNative(surface, adapter);
     }
-    ensureLiv025GoodGameplayHitboxes();
+    if (LEVEL_ID === "LIV-025") {
+      ensureLiv025GoodGameplayHitboxes();
       ensureLiv025FalseGameplayHitboxes();
-    hidePanelToggleControls();
-    raiseHintOverlays();
+      hidePanelToggleControls();
+      raiseHintOverlays();
+    }
     updateNativeHintHighlights();
 
     console.log("[Signal Flow] " + LEVEL_ID + " native renderer v6 mounted.");
