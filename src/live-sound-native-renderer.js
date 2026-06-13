@@ -551,7 +551,7 @@
       id: "LIV-002",
       title: "Vocal Wedge Mix 2",
       processorLabel: "VOCAL WEDGE",
-      panelKinds: ["foh", "front-fill-dsp", "front-fill-amp"],
+      panelKinds: ["stagebox", "foh", "monitor"],
       sourceOrder: ["lead-vocal-mic"],
       generatedJackKeys: [
         "stagebox-input-1",
