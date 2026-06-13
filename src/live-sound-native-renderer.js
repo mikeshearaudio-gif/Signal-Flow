@@ -5851,12 +5851,15 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     // Final hitboxes should be mapped with the Hitbox Tool after gear placement is locked.
 
     const stageH = stagebox.w * 260 / 860;
-    for (let i = 1; i <= 16; i += 1) {
+    // LIV-019 uses an 8-input drum stagebox. Do not generate the lower false row
+    // from the LIV-009 16-input template; false/trap jacks for this board should
+    // be added separately and remain visually neutral.
+    for (let i = 1; i <= 8; i += 1) {
       const col = (i - 1) % 8;
-      const rel = i <= 8 ? SF_LIV009_STAGEBOX_TOP_REL[col] : SF_LIV009_STAGEBOX_FALSE_REL[col];
+      const rel = SF_LIV009_STAGEBOX_TOP_REL[col];
       const x = stagebox.x + stagebox.w * rel[0];
       const y = stagebox.y + stageH * rel[1];
-      createLiv009StageboxInput(layer, "stagebox-input-" + i, { x, y }, i > 8);
+      createLiv009StageboxInput(layer, "stagebox-input-" + i, { x, y }, false);
     }
 
     // Drum source panel + drum hitboxes from LIV-009.
