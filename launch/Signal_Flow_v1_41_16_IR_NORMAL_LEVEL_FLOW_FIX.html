@@ -29606,8 +29606,8 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
   <script src="../src/signal-flow-ledger.js?v=1"></script>
 
 <!-- SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY
-     Enabled only with ?fresh=liv020-dev-tools or ?sfLiveDevTools=1
-     Optional one-tool mode: ?sfLiveDevTool=gear | label | overlay | hitbox
+     Enabled only with ?fresh=liv020-dev-tools, ?fresh=liv028-dev-tools, or ?sfLiveDevTools=1
+     Optional one-tool mode: ?sfLiveDevTool=gear | cable | label | overlay | hitbox
 -->
 <script>
 (function(){
@@ -29617,14 +29617,14 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
     }
 
     var params = paramsFor(window.location.search);
-    var enabled = params.get("sfLiveDevTools") === "1" || params.get("fresh") === "liv020-dev-tools";
+    var enabled = params.get("sfLiveDevTools") === "1" || (params.get("fresh") === "liv020-dev-tools" || params.get("fresh") === "liv028-dev-tools");
     var tool = params.get("sfLiveDevTool") || "gear";
 
     try {
       if (window.parent && window.parent !== window) {
         var parentParams = paramsFor(window.parent.location.search);
         if (!enabled) {
-          enabled = parentParams.get("sfLiveDevTools") === "1" || parentParams.get("fresh") === "liv020-dev-tools";
+          enabled = parentParams.get("sfLiveDevTools") === "1" || (parentParams.get("fresh") === "liv020-dev-tools" || parentParams.get("fresh") === "liv028-dev-tools");
         }
         tool = parentParams.get("sfLiveDevTool") || tool;
       }
@@ -29633,7 +29633,8 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
     if (!enabled) return;
 
     var toolMap = {
-      gear: "../src/sf-live-gear-mover-dev.js?v=liv026topgearonly1",
+      cable: "../src/sf-liv028-normalled-cable-mover-dev.js?v=liv028cabledev1",
+      gear: "../src/sf-live-gear-mover-dev.js?v=liv028zreactive2",
       hitbox: "../src/sf-liv026-false-hitbox-mapper-dev.js?v=liv026falsemapper2",
       label: "../src/sf-live-label-mover-dev.js?v=liv026tapelabel1",
       label: "../src/sf-live-label-mover-dev.js?v=liv020-good-hitbox-important1",
@@ -29642,7 +29643,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
       overlay: "../src/sf-live-overlay-mover-dev.js?v=overlaydev7"
     };
 
-    var scripts = ["../src/sf-live-dev-tool-config.js?v=liv026domgear3"];
+    var scripts = ["../src/sf-live-dev-tool-config.js?v=liv028geardev4"];
     if (tool === "all") {
       scripts.push(toolMap.gear, toolMap.label, toolMap.overlay, toolMap.hitbox);
     } else {

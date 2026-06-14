@@ -5415,7 +5415,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       "z-index:9990",
       "isolation:isolate",
       "pointer-events:none",
-      "overflow:hidden",
+      "overflow:visible",
       "border-radius:16px",
       "background:linear-gradient(180deg,rgba(8,24,19,.96),rgba(6,17,15,.98))"
     ].join(";");
@@ -5609,7 +5609,19 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
     surface.classList.add("sf-live-native-scroll-host");
     surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+    surface.style.setProperty("overflow", "auto", "important");
+    surface.style.setProperty("overflow-x", "auto", "important");
+    surface.style.setProperty("overflow-y", "auto", "important");
+    surface.style.setProperty("min-width", boardWidth + "px", "important");
     applyNativeViewportContract(surface, boardHeight);
+
+    const viewport = surface.closest(".sf-live-native-viewport") || surface.parentElement;
+    if (viewport) {
+      viewport.style.setProperty("overflow", "auto", "important");
+      viewport.style.setProperty("overflow-x", "auto", "important");
+      viewport.style.setProperty("overflow-y", "auto", "important");
+      viewport.style.setProperty("-webkit-overflow-scrolling", "touch");
+    }
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer sf-live-native-level-liv-019";
@@ -6180,7 +6192,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 
   function installLiv028LayerStackCss(targetLayer) {
-    if (LEVEL_ID !== "LIV-028") return;
+    if (LEVEL_ID !== "LIV-028" || document.querySelector(".sf-liv028-visual-scaffold")) return;
 
     const doc = targetLayer && targetLayer.ownerDocument ? targetLayer.ownerDocument : document;
     if (!doc || !doc.head) return;
@@ -6203,7 +6215,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 
   function syncLiv028JackHitboxesToVisibleHardware(layer) {
-    if (LEVEL_ID !== "LIV-028") return;
+    if (LEVEL_ID !== "LIV-028" || document.querySelector(".sf-liv028-visual-scaffold")) return;
 
     const targetLayer = layer || document.querySelector(".sf-live-native-layer");
     if (!targetLayer) return;
@@ -6331,7 +6343,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
   }
 
   function forceLiv028TalkbackSourceFinal(layer, level) {
-    if (LEVEL_ID !== "LIV-028") return;
+    if (LEVEL_ID !== "LIV-028" || document.querySelector(".sf-liv028-visual-scaffold")) return;
 
     const targetLayer = layer || document.querySelector(".sf-live-native-layer");
     if (!targetLayer) {
@@ -6431,7 +6443,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
 
   function createLiv028TalkbackUnderSources(layer, adapter, level) {
-    if (LEVEL_ID !== "LIV-028") return;
+    if (LEVEL_ID !== "LIV-028" || document.querySelector(".sf-liv028-visual-scaffold")) return;
 
     const layout = LIV_028_LAYOUT.sources;
     const sourceX = level.rect.width * layout.x;
@@ -6501,7 +6513,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
 
   function createNativeStagebox16Overlay(layer, level) {
-    if (LEVEL_ID !== "LIV-028") return;
+    if (LEVEL_ID !== "LIV-028" || document.querySelector(".sf-liv028-visual-scaffold")) return;
 
     const stage = level.panels && level.panels.find && level.panels.find(p => p.id === "stagebox");
     if (!stage) return;
@@ -13685,59 +13697,27 @@ redrawCables(layer);
         "text": "",
         "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
         "alt": "Lead Vocal Mic",
-        "leftPx": 325,
-        "topPx": 26,
-        "widthPx": 285,
-        "zIndex": 263,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-lead-vocal-mic"
+        "label": "Lead Vocal Mic",
+        "leftPx": -5,
+        "topPx": 30,
+        "widthPx": 200,
+        "heightPx": 130,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-leadVocalMic"
     },
     {
-        "key": "talkbackMic",
+        "key": "keyboardVocalMic",
         "tagName": "img",
         "text": "",
         "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
-        "alt": "Talkback Mic",
-        "leftPx": 128,
-        "topPx": 28,
-        "widthPx": 285,
-        "zIndex": 263,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-talkback-mic"
-    },
-    {
-        "key": "label-lead-vocal-mic",
-        "tagName": "div",
-        "text": "LEAD VOCAL MIC",
-        "src": "",
-        "alt": "",
-        "leftPx": 153,
-        "topPx": 111,
-        "widthPx": 80,
-        "zIndex": 320,
-        "className": "sf-liv028-complex-asset-scaffold"
-    },
-    {
-        "key": "label-talkback-mic",
-        "tagName": "div",
-        "text": "TALKBACK MIC",
-        "src": "",
-        "alt": "",
-        "leftPx": 381,
-        "topPx": 111,
-        "widthPx": 80,
-        "zIndex": 320,
-        "className": "sf-liv028-complex-asset-scaffold"
-    },
-    {
-        "key": "keyboard",
-        "tagName": "img",
-        "text": "",
-        "src": "/assets/live-sound/svg/hardware/keys b.svg",
-        "alt": "Keyboard visual",
-        "leftPx": 553,
-        "topPx": 59,
-        "widthPx": 287,
-        "zIndex": 1021,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-keyboard-visual"
+        "alt": "Keyboard Vocal Mic",
+        "label": "Keyboard Vocal Mic",
+        "leftPx": 170,
+        "topPx": 30,
+        "widthPx": 200,
+        "heightPx": 130,
+        "zIndex": 298,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-keyboardVocalMic"
     },
     {
         "key": "keysLDi",
@@ -13745,11 +13725,13 @@ redrawCables(layer);
         "text": "",
         "src": "/assets/live-sound/svg/hardware/DI.svg",
         "alt": "Keys L DI",
-        "leftPx": 546,
-        "topPx": -2,
-        "widthPx": 106,
-        "zIndex": 263,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-keys-l-di"
+        "label": "Keys L DI",
+        "leftPx": 350,
+        "topPx": 32,
+        "widthPx": 70,
+        "heightPx": 38,
+        "zIndex": 347,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-keysLDi"
     },
     {
         "key": "keysRDi",
@@ -13757,131 +13739,209 @@ redrawCables(layer);
         "text": "",
         "src": "/assets/live-sound/svg/hardware/DI.svg",
         "alt": "Keys R DI",
-        "leftPx": 741,
-        "topPx": 0,
-        "widthPx": 96,
-        "zIndex": 263,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-keys-r-di"
+        "label": "Keys R DI",
+        "leftPx": 510,
+        "topPx": 30,
+        "widthPx": 69,
+        "heightPx": 37,
+        "zIndex": 321,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-keysRDi"
     },
     {
-        "key": "label-keys-l-di",
-        "tagName": "div",
-        "text": "KEYS L DI",
-        "src": "",
-        "alt": "",
-        "leftPx": 559,
-        "topPx": 53,
-        "widthPx": 63,
-        "zIndex": 1050,
-        "className": "sf-liv028-complex-asset-scaffold"
+        "key": "keyboard",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/keys b.svg",
+        "alt": "Keyboard",
+        "label": "Keyboard",
+        "leftPx": 345,
+        "topPx": 33,
+        "widthPx": 230,
+        "heightPx": 124,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-keyboard"
     },
     {
-        "key": "label-keys-r-di",
-        "tagName": "div",
-        "text": "KEYS R DI",
-        "src": "",
-        "alt": "",
-        "leftPx": 756,
-        "topPx": 54,
-        "widthPx": 63,
-        "zIndex": 1040,
-        "className": "sf-liv028-complex-asset-scaffold"
+        "key": "stagebox16",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+        "alt": "16 Input Stagebox",
+        "label": "16 Input Stagebox",
+        "leftPx": 590,
+        "topPx": 30,
+        "widthPx": 340,
+        "heightPx": 125,
+        "zIndex": 320,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-stagebox16"
     },
     {
         "key": "fohConsole",
         "tagName": "img",
         "text": "",
         "src": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg",
-        "alt": "FOH console",
-        "leftPx": 166,
-        "topPx": 343,
-        "widthPx": 608,
-        "zIndex": 258,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-foh-console"
+        "alt": "16 Channel FOH Console",
+        "label": "16 Channel FOH Console",
+        "leftPx": 15,
+        "topPx": 165,
+        "widthPx": 850,
+        "heightPx": 189,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-fohConsole"
     },
     {
-        "key": "label-foh-talkback-out-mono-aux-1-5",
-        "tagName": "div",
-        "text": "FOH: TALKBACK OUT + MONO AUX 1-5",
-        "src": "",
-        "alt": "",
-        "leftPx": 3,
-        "topPx": 24,
-        "widthPx": 269,
-        "zIndex": 320,
-        "className": "sf-liv028-complex-asset-scaffold"
-    },
-    {
-        "key": "talkbackMatrix",
-        "tagName": "img",
-        "text": "",
-        "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
-        "alt": "Talkback matrix",
-        "leftPx": 486,
-        "topPx": 488,
-        "widthPx": 365,
-        "zIndex": 302,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-talkback-matrix"
-    },
-    {
-        "key": "talkbackSpliter",
+        "key": "mainSplitter",
         "tagName": "img",
         "text": "",
         "src": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png",
-        "alt": "Talkback splitter",
-        "leftPx": 95,
-        "topPx": 491,
-        "widthPx": 385,
-        "zIndex": 272,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-talkback-splitter"
+        "alt": "FOH Main Splitter",
+        "label": "FOH Main Splitter",
+        "leftPx": 15,
+        "topPx": 360,
+        "widthPx": 460,
+        "heightPx": 92,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-mainSplitter"
     },
     {
-        "key": "wedgeAmp",
+        "key": "recordingFeed",
         "tagName": "img",
         "text": "",
-        "src": "/assets/live-sound/svg/hardware/power-amp-liv028-wedge.svg",
-        "alt": "Wedge amp",
-        "leftPx": 98,
-        "topPx": 570,
-        "widthPx": 381,
-        "zIndex": 272,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-wedge-amp"
+        "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
+        "alt": "Recording Feed",
+        "label": "Recording Feed",
+        "leftPx": 140,
+        "topPx": 525,
+        "widthPx": 215,
+        "heightPx": 57,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-recordingFeed"
     },
     {
-        "key": "iemTransmitters",
+        "key": "broadcastFeedA",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+        "alt": "Broadcast A",
+        "label": "Broadcast A",
+        "leftPx": 15,
+        "topPx": 460,
+        "widthPx": 215,
+        "heightPx": 57,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-broadcastFeedA"
+    },
+    {
+        "key": "broadcastFeedB",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
+        "alt": "Broadcast B",
+        "label": "Broadcast B",
+        "leftPx": 265,
+        "topPx": 460,
+        "widthPx": 215,
+        "heightPx": 57,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-broadcastFeedB"
+    },
+    {
+        "key": "crossover",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+        "alt": "Crossover",
+        "label": "Crossover",
+        "leftPx": 490,
+        "topPx": 355,
+        "widthPx": 370,
+        "heightPx": 98,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-crossover"
+    },
+    {
+        "key": "matrix",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
+        "alt": "Matrix Router",
+        "label": "Matrix Router",
+        "leftPx": 490,
+        "topPx": 455,
+        "widthPx": 370,
+        "heightPx": 92,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-matrix"
+    },
+    {
+        "key": "iemTransmittersAB",
         "tagName": "img",
         "text": "",
         "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
-        "alt": "IEM transmitters",
-        "leftPx": 487,
-        "topPx": 572,
-        "widthPx": 361,
-        "zIndex": 272,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-iem-transmitters"
+        "alt": "IEM A/B",
+        "label": "IEM A/B",
+        "leftPx": 14,
+        "topPx": 590,
+        "widthPx": 275,
+        "heightPx": 73,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-iemTransmittersAB"
     },
     {
-        "key": "label-liv-028-complex-comms-asset-prep-visual-scaffold-only",
-        "tagName": "div",
-        "text": "LIV-028 COMPLEX COMMS ASSET PREP - VISUAL SCAFFOLD ONLY",
-        "src": "",
-        "alt": "",
-        "leftPx": 0,
-        "topPx": 0,
-        "widthPx": 478,
-        "zIndex": 320,
-        "className": "sf-liv028-complex-asset-scaffold"
+        "key": "iemTransmittersCD",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+        "alt": "IEM C/D",
+        "label": "IEM C/D",
+        "leftPx": 217,
+        "topPx": 591,
+        "widthPx": 270,
+        "heightPx": 72,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-iemTransmittersCD"
     },
     {
-        "key": "stagebox16",
-        "tagName": "div",
-        "text": "16 INPUT STAGEBOX",
-        "src": "",
-        "alt": "",
-        "leftPx": 279,
-        "topPx": 209,
-        "widthPx": 356,
-        "zIndex": 1050,
-        "className": "sf-liv028-complex-asset-scaffold sf-liv028-stagebox16-proxy"
+        "key": "powerAmp1",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+        "alt": "Power Amp 1",
+        "label": "Power Amp 1",
+        "leftPx": 490,
+        "topPx": 555,
+        "widthPx": 370,
+        "heightPx": 94,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-powerAmp1"
+    },
+    {
+        "key": "powerAmp2",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+        "alt": "Power Amp 2",
+        "label": "Power Amp 2",
+        "leftPx": 490,
+        "topPx": 650,
+        "widthPx": 370,
+        "heightPx": 94,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-powerAmp2"
+    },
+    {
+        "key": "powerAmp3",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+        "alt": "Power Amp 3",
+        "label": "Power Amp 3",
+        "leftPx": 490,
+        "topPx": 745,
+        "widthPx": 370,
+        "heightPx": 94,
+        "zIndex": 300,
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-powerAmp3"
     }
 ];
 
@@ -13890,8 +13950,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-01",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 1 to FOH Input 1",
-        "leftPx": 61,
-        "topPx": 378,
+        "leftPx": -74,
+        "topPx": 218,
         "widthPx": 156,
         "rotateDeg": 0,
         "zIndex": 1000,
@@ -13901,8 +13961,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-02",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 2 to FOH Input 2",
-        "leftPx": 90,
-        "topPx": 376,
+        "leftPx": -30,
+        "topPx": 216,
         "widthPx": 159,
         "rotateDeg": 1,
         "zIndex": 1000,
@@ -13912,8 +13972,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-03",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 3 to FOH Input 3",
-        "leftPx": 270,
-        "topPx": 420,
+        "leftPx": 5,
+        "topPx": 220,
         "widthPx": 163,
         "rotateDeg": 0,
         "zIndex": 1005,
@@ -13923,8 +13983,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-04",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 4 to FOH Input 4",
-        "leftPx": 175,
-        "topPx": 374,
+        "leftPx": 45,
+        "topPx": 214,
         "widthPx": 166,
         "rotateDeg": 1,
         "zIndex": 1005,
@@ -13934,8 +13994,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-05",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 5 to FOH Input 5",
-        "leftPx": 203,
-        "topPx": 376,
+        "leftPx": 88,
+        "topPx": 216,
         "widthPx": 170,
         "rotateDeg": 0,
         "zIndex": 1005,
@@ -13945,8 +14005,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-06",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 6 to FOH Input 6",
-        "leftPx": 230,
-        "topPx": 374,
+        "leftPx": 125,
+        "topPx": 214,
         "widthPx": 174,
         "rotateDeg": 1,
         "zIndex": 1005,
@@ -13956,8 +14016,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-07",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 7 to FOH Input 7",
-        "leftPx": 254,
-        "topPx": 376,
+        "leftPx": 169,
+        "topPx": 216,
         "widthPx": 177,
         "rotateDeg": 0,
         "zIndex": 1005,
@@ -13967,8 +14027,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-08",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 8 to FOH Input 8",
-        "leftPx": 41,
-        "topPx": 416,
+        "leftPx": 201,
+        "topPx": 216,
         "widthPx": 181,
         "rotateDeg": 1,
         "zIndex": 1000,
@@ -13978,8 +14038,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-09",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 9 to FOH Input 9",
-        "leftPx": 65,
-        "topPx": 419,
+        "leftPx": -105,
+        "topPx": 279,
         "widthPx": 188,
         "rotateDeg": 0,
         "zIndex": 1000,
@@ -13989,8 +14049,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-10",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 10 to FOH Input 10",
-        "leftPx": 94,
-        "topPx": 419,
+        "leftPx": -56,
+        "topPx": 279,
         "widthPx": 184,
         "rotateDeg": 0,
         "zIndex": 1000,
@@ -14000,8 +14060,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-11",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 11 to FOH Input 11",
-        "leftPx": 134,
-        "topPx": 421,
+        "leftPx": -11,
+        "topPx": 281,
         "widthPx": 179,
         "rotateDeg": -1,
         "zIndex": 1000,
@@ -14011,8 +14071,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-12",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 12 to FOH Input 12",
-        "leftPx": 169,
-        "topPx": 417,
+        "leftPx": 39,
+        "topPx": 272,
         "widthPx": 175,
         "rotateDeg": 1,
         "zIndex": 1000,
@@ -14022,8 +14082,8 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-13",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 13 to FOH Input 13",
-        "leftPx": 203,
-        "topPx": 421,
+        "leftPx": 83,
+        "topPx": 276,
         "widthPx": 170,
         "rotateDeg": 0,
         "zIndex": 1000,
@@ -14033,9 +14093,9 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-14",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 14 to FOH Input 14",
-        "leftPx": 238,
-        "topPx": 417,
-        "widthPx": 166,
+        "leftPx": 123,
+        "topPx": 272,
+        "widthPx": 176,
         "rotateDeg": 1,
         "zIndex": 1000,
         "opacity": 1
@@ -14044,9 +14104,9 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-15",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 15 to FOH Input 15",
-        "leftPx": 118,
-        "topPx": 377,
-        "widthPx": 162,
+        "leftPx": 168,
+        "topPx": 272,
+        "widthPx": 177,
         "rotateDeg": 0,
         "zIndex": 1000,
         "opacity": 1
@@ -14055,10 +14115,142 @@ redrawCables(layer);
         "key": "stagebox-foh-normal-16",
         "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
         "alt": "Normalled Stagebox Input 16 to FOH Input 16",
-        "leftPx": 155,
-        "topPx": 377,
-        "widthPx": 157,
+        "leftPx": 205,
+        "topPx": 272,
+        "widthPx": 182,
         "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "crossover-high-l-to-power-amp-1-l",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Crossover High L Output to Power Amp 1 L Input",
+        "leftPx": 875,
+        "topPx": 435,
+        "widthPx": 160,
+        "rotateDeg": 188,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "crossover-high-r-to-power-amp-1-r",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Crossover High R Output to Power Amp 1 R Input",
+        "leftPx": 845,
+        "topPx": 440,
+        "widthPx": 165,
+        "rotateDeg": 190,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "crossover-mid-l-to-power-amp-2-l",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Crossover Mid L Output to Power Amp 2 L Input",
+        "leftPx": 905,
+        "topPx": 425,
+        "widthPx": 230,
+        "rotateDeg": 192,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "crossover-mid-r-to-power-amp-2-r",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Crossover Mid R Output to Power Amp 2 R Input",
+        "leftPx": 900,
+        "topPx": 430,
+        "widthPx": 190,
+        "rotateDeg": 194,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "crossover-low-l-to-power-amp-3-l",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Crossover Low L Output to Power Amp 3 L Input",
+        "leftPx": 945,
+        "topPx": 370,
+        "widthPx": 265,
+        "rotateDeg": 185,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "crossover-low-r-to-power-amp-3-r",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Crossover Low R Output to Power Amp 3 R Input",
+        "leftPx": 970,
+        "topPx": 360,
+        "widthPx": 250,
+        "rotateDeg": 182,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "power-amp-1-l-to-zone-output-a-l",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Power Amp 1 L Output to Balcony / Zone Output A L",
+        "leftPx": 955,
+        "topPx": 640,
+        "widthPx": 180,
+        "rotateDeg": 200,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "power-amp-1-r-to-zone-output-a-r",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Power Amp 1 R Output to Balcony / Zone Output A R",
+        "leftPx": 925,
+        "topPx": 615,
+        "widthPx": 180,
+        "rotateDeg": 190,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "power-amp-2-l-to-zone-output-b-l",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Power Amp 2 L Output to Balcony / Zone Output B L",
+        "leftPx": 925,
+        "topPx": 710,
+        "widthPx": 180,
+        "rotateDeg": 190,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "power-amp-2-r-to-zone-output-b-r",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Power Amp 2 R Output to Balcony / Zone Output B R",
+        "leftPx": 965,
+        "topPx": 710,
+        "widthPx": 180,
+        "rotateDeg": 190,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "power-amp-3-l-to-zone-output-c-l",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Power Amp 3 L Output to Balcony / Zone Output C L",
+        "leftPx": 925,
+        "topPx": 790,
+        "widthPx": 180,
+        "rotateDeg": 185,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "power-amp-3-r-to-zone-output-c-r",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Power Amp 3 R Output to Balcony / Zone Output C R",
+        "leftPx": 965,
+        "topPx": 805,
+        "widthPx": 180,
+        "rotateDeg": 190,
         "zIndex": 1000,
         "opacity": 1
     }
@@ -14067,8 +14259,13 @@ redrawCables(layer);
   function renderLiv028VisualScaffold(surface, adapter) {
     const level = buildLevelGeometry(surface);
     const rect = level.rect;
-    const boardWidth = Math.max(900, Math.ceil(rect.width || surface.getBoundingClientRect().width || 900));
-    const boardHeight = 900;
+    const nativeRect = surface.getBoundingClientRect();
+    const itemMaxX = LIV028_VISUAL_ITEMS.reduce((max, item) => Math.max(max, Number(item.leftPx || 0) + Number(item.widthPx || 0)), 0);
+    const itemMaxY = LIV028_VISUAL_ITEMS.reduce((max, item) => Math.max(max, Number(item.topPx || 0) + Math.max(80, Number(item.heightPx || 0))), 0);
+    const cableMaxX = LIV028_NORMALLED_CABLES.reduce((max, cable) => Math.max(max, Number(cable.leftPx || 0) + Number(cable.widthPx || 0)), 0);
+    const cableMaxY = LIV028_NORMALLED_CABLES.reduce((max, cable) => Math.max(max, Number(cable.topPx || 0) + 80), 0);
+    const boardWidth = Math.max(900, Math.ceil(rect.width || nativeRect.width || 900), itemMaxX + 80, cableMaxX + 80);
+    const boardHeight = Math.max(900, itemMaxY + 120, cableMaxY + 120);
 
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
@@ -14094,7 +14291,7 @@ redrawCables(layer);
     ].join(";");
 
     const title = document.createElement("div");
-    title.textContent = "LIV-028 VISUAL SCAFFOLD - NO GAMEPLAY HITBOXES";
+    title.textContent = "LIV-028 PLACED GEAR SCAFFOLD - NO GAMEPLAY HITBOXES";
     title.style.cssText = [
       "position:absolute",
       "left:16px",
@@ -14113,6 +14310,10 @@ redrawCables(layer);
       const isLabel = item.tagName === "div" || !item.src;
       const el = isLabel ? document.createElement("div") : document.createElement("img");
       el.dataset.liv028VisualKey = item.key;
+      if (!isLabel) {
+        el.dataset.sfGearId = item.key;
+        el.dataset.sfLiveDevGearKey = item.key;
+      }
       el.className = "sf-liv028-visual-item " + (item.className || "");
 
       el.style.cssText = [
@@ -14146,6 +14347,32 @@ redrawCables(layer);
       }
 
       layer.appendChild(el);
+
+      if (!isLabel && item.label) {
+        const badge = document.createElement("div");
+        badge.textContent = item.label;
+        badge.dataset.liv028GearLabelFor = item.key;
+        badge.className = "sf-liv028-dev-gear-label";
+        badge.style.cssText = [
+          "position:absolute",
+          "left:" + Math.round(item.leftPx) + "px",
+          "top:" + Math.round(Number(item.topPx || 0) + 4) + "px",
+          "width:" + Math.round(item.widthPx || 80) + "px",
+          "z-index:" + Math.round((item.zIndex || 100) + 20),
+          "pointer-events:none",
+          "box-sizing:border-box",
+          "color:#ffe66c",
+          "font:900 10px system-ui,-apple-system,Segoe UI,sans-serif",
+          "letter-spacing:.05em",
+          "text-transform:uppercase",
+          "text-align:center",
+          "text-shadow:0 2px 4px rgba(0,0,0,.78)",
+          "background:rgba(0,0,0,.40)",
+          "border-radius:4px",
+          "padding:2px 4px"
+        ].join(";");
+        layer.appendChild(badge);
+      }
     });
 
     LIV028_NORMALLED_CABLES.forEach(cable => {
@@ -14187,7 +14414,7 @@ redrawCables(layer);
     ].join(";");
     surface.appendChild(spacer);
 
-    console.log("[Signal Flow] LIV-028 visual scaffold mounted", {
+    console.log("[Signal Flow] LIV-028 full gear dev scaffold mounted", {
       items: LIV028_VISUAL_ITEMS.length,
       normalledCables: LIV028_NORMALLED_CABLES.length,
       boardWidth,

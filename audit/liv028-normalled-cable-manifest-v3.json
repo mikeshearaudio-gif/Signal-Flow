@@ -1,0 +1,54 @@
+{
+  "levelId": "LIV-028",
+  "version": "v3-liv028-28-normalled-cable-plan",
+  "purpose": "Full visual-only normalled cable manifest for LIV-028. These are background/prewired visual cables, not gameplay routes.",
+  "groups": [
+    {
+      "key": "stagebox-to-foh",
+      "label": "Stagebox Inputs 1-16 normalled to FOH Inputs 1-16",
+      "count": 16
+    },
+    {
+      "key": "crossover-to-amps",
+      "label": "Crossover High/Mid/Low L/R outputs normalled to Power Amp 1/2/3 L/R inputs",
+      "count": 6
+    },
+    {
+      "key": "amps-to-zone-outputs",
+      "label": "Power Amp 1/2/3 L/R outputs normalled toward balcony/zone speaker feeds",
+      "count": 6
+    }
+  ],
+  "cables": [
+    { "key": "stagebox-foh-normal-01", "from": "Stagebox Input 1", "to": "FOH Input 1", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-02", "from": "Stagebox Input 2", "to": "FOH Input 2", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-03", "from": "Stagebox Input 3", "to": "FOH Input 3", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-04", "from": "Stagebox Input 4", "to": "FOH Input 4", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-05", "from": "Stagebox Input 5", "to": "FOH Input 5", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-06", "from": "Stagebox Input 6", "to": "FOH Input 6", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-07", "from": "Stagebox Input 7", "to": "FOH Input 7", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-08", "from": "Stagebox Input 8", "to": "FOH Input 8", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-09", "from": "Stagebox Input 9", "to": "FOH Input 9", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-10", "from": "Stagebox Input 10", "to": "FOH Input 10", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-11", "from": "Stagebox Input 11", "to": "FOH Input 11", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-12", "from": "Stagebox Input 12", "to": "FOH Input 12", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-13", "from": "Stagebox Input 13", "to": "FOH Input 13", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-14", "from": "Stagebox Input 14", "to": "FOH Input 14", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-15", "from": "Stagebox Input 15", "to": "FOH Input 15", "group": "stagebox-to-foh" },
+    { "key": "stagebox-foh-normal-16", "from": "Stagebox Input 16", "to": "FOH Input 16", "group": "stagebox-to-foh" },
+
+    { "key": "crossover-high-l-to-power-amp-1-l", "from": "Crossover High L Output", "to": "Power Amp 1 L Input", "group": "crossover-to-amps" },
+    { "key": "crossover-high-r-to-power-amp-1-r", "from": "Crossover High R Output", "to": "Power Amp 1 R Input", "group": "crossover-to-amps" },
+    { "key": "crossover-mid-l-to-power-amp-2-l", "from": "Crossover Mid L Output", "to": "Power Amp 2 L Input", "group": "crossover-to-amps" },
+    { "key": "crossover-mid-r-to-power-amp-2-r", "from": "Crossover Mid R Output", "to": "Power Amp 2 R Input", "group": "crossover-to-amps" },
+    { "key": "crossover-low-l-to-power-amp-3-l", "from": "Crossover Low L Output", "to": "Power Amp 3 L Input", "group": "crossover-to-amps" },
+    { "key": "crossover-low-r-to-power-amp-3-r", "from": "Crossover Low R Output", "to": "Power Amp 3 R Input", "group": "crossover-to-amps" },
+
+    { "key": "power-amp-1-l-to-zone-output-a-l", "from": "Power Amp 1 L Output", "to": "Balcony / Zone Output A L", "group": "amps-to-zone-outputs" },
+    { "key": "power-amp-1-r-to-zone-output-a-r", "from": "Power Amp 1 R Output", "to": "Balcony / Zone Output A R", "group": "amps-to-zone-outputs" },
+    { "key": "power-amp-2-l-to-zone-output-b-l", "from": "Power Amp 2 L Output", "to": "Balcony / Zone Output B L", "group": "amps-to-zone-outputs" },
+    { "key": "power-amp-2-r-to-zone-output-b-r", "from": "Power Amp 2 R Output", "to": "Balcony / Zone Output B R", "group": "amps-to-zone-outputs" },
+    { "key": "power-amp-3-l-to-zone-output-c-l", "from": "Power Amp 3 L Output", "to": "Balcony / Zone Output C L", "group": "amps-to-zone-outputs" },
+    { "key": "power-amp-3-r-to-zone-output-c-r", "from": "Power Amp 3 R Output", "to": "Balcony / Zone Output C R", "group": "amps-to-zone-outputs" }
+  ]
+}
