@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="240" viewBox="0 0 700 240" role="img" aria-label="LIV-007 system amp main inputs">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#343535"/><stop offset="0.48" stop-color="#222323"/><stop offset="1" stop-color="#111214"/></linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#777"/><stop offset="0.18" stop-color="#272727"/><stop offset="1" stop-color="#060606"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0ddd0"/><stop offset="0.22" stop-color="#71706a"/><stop offset="0.52" stop-color="#202122"/><stop offset="0.83" stop-color="#0b0c0d"/><stop offset="1" stop-color="#7e7a70"/></linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2021"/><stop offset="0.45" stop-color="#060708"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/></filter>
+
+  <style>
+    @keyframes liv007AmpLedPulse {
+      0%, 100% { opacity: .26; }
+      50% { opacity: 1; }
+    }
+    @keyframes liv007AmpLedSweep {
+      0% { transform: translateX(-110px); opacity: .12; }
+      45% { opacity: .75; }
+      100% { transform: translateX(110px); opacity: .12; }
+    }
+    .liv007-amp-led {
+      animation: liv007AmpLedPulse 1.6s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .liv007-amp-led-scan {
+      animation: liv007AmpLedSweep 2.1s linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+  </style>
+
+</defs>
+
+<rect x="4" y="6" width="692" height="228" rx="8" fill="url(#rackEdge)" filter="url(#shadow)"/>
+<rect x="18" y="14" width="664" height="212" rx="5" fill="url(#rackFace)" stroke="#5e5e58" stroke-width="1.2"/>
+<path d="M22 18H678" stroke="#7d7a70" stroke-opacity="0.5"/>
+<path d="M22 222H678" stroke="#000" stroke-opacity="0.8"/>
+<rect x="3" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="685" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+
+<text x="350" y="52" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="14" font-weight="800" fill="#e8e5da">SYSTEM AMP RACK</text>
+
+<g opacity=".72">
+  <rect x="60" y="78" width="580" height="34" rx="4" fill="#090a0b" stroke="#4c4f4e"/>
+  <g stroke="#555b58" stroke-width="2">
+    <path d="M85 94H615"/><path d="M85 102H615"/>
+  </g>
+</g>
+
+<g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" text-anchor="middle" font-size="12" font-weight="800" fill="#e8e5da">
+  <text x="260" y="132">LEFT IN</text>
+  <text x="440" y="132">RIGHT IN</text>
+</g>
+
+<g filter="url(#shadow)">
+  <circle cx="260" cy="168" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="260" cy="168" r="19.78" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="260" cy="168" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="254.5" cy="164.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="265.5" cy="164.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="260" cy="175" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="440" cy="168" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="440" cy="168" r="19.78" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="440" cy="168" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="434.5" cy="164.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="445.5" cy="164.8" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="440" cy="175" r="2.4" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+</g>
+
+<g id="liv007-amp-led-motion">
+  <text x="350" y="82" text-anchor="middle"
+    font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif"
+    font-size="10" font-weight="900" letter-spacing="1.1"
+    fill="#cfd7cd">MAIN BUS ACTIVITY</text>
+  <rect x="146" y="86" width="408" height="32" rx="6" fill="#070909" stroke="#3f4644" opacity=".88"/>
+  <rect class="liv007-amp-led" x="170" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.25" style="animation-delay:0.0s"/><rect class="liv007-amp-led" x="190" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.35" style="animation-delay:0.1s"/><rect class="liv007-amp-led" x="210" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.45" style="animation-delay:0.2s"/><rect class="liv007-amp-led" x="230" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.55" style="animation-delay:0.3s"/><rect class="liv007-amp-led" x="250" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.65" style="animation-delay:0.4s"/><rect class="liv007-amp-led" x="270" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.75" style="animation-delay:0.5s"/><rect class="liv007-amp-led" x="290" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.25" style="animation-delay:0.0s"/><rect class="liv007-amp-led" x="310" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.35" style="animation-delay:0.1s"/><rect class="liv007-amp-led" x="330" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.45" style="animation-delay:0.2s"/><rect class="liv007-amp-led" x="350" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.55" style="animation-delay:0.3s"/><rect class="liv007-amp-led" x="370" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.65" style="animation-delay:0.4s"/><rect class="liv007-amp-led" x="390" y="92" width="11" height="18" rx="2" fill="#58e394" opacity="0.75" style="animation-delay:0.5s"/><rect class="liv007-amp-led" x="410" y="92" width="11" height="18" rx="2" fill="#f1c75b" opacity="0.25" style="animation-delay:0.0s"/><rect class="liv007-amp-led" x="430" y="92" width="11" height="18" rx="2" fill="#f1c75b" opacity="0.35" style="animation-delay:0.1s"/><rect class="liv007-amp-led" x="450" y="92" width="11" height="18" rx="2" fill="#f1c75b" opacity="0.45" style="animation-delay:0.2s"/><rect class="liv007-amp-led" x="470" y="92" width="11" height="18" rx="2" fill="#f1c75b" opacity="0.55" style="animation-delay:0.3s"/><rect class="liv007-amp-led" x="490" y="92" width="11" height="18" rx="2" fill="#f1c75b" opacity="0.65" style="animation-delay:0.4s"/><rect class="liv007-amp-led" x="510" y="92" width="11" height="18" rx="2" fill="#f1c75b" opacity="0.75" style="animation-delay:0.5s"/>
+  <path class="liv007-amp-led-scan" d="M184 88H516" stroke="#d8fff0" stroke-width="2.4" stroke-linecap="round" opacity=".42"/>
+</g>
+
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240" role="img" aria-label="LIV-003 IEM transmitter audio inputs">
+<defs>
+  <linearGradient id="rackFace" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#343535"/><stop offset="0.48" stop-color="#222323"/><stop offset="1" stop-color="#111214"/></linearGradient>
+  <linearGradient id="rackEdge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#777"/><stop offset="0.18" stop-color="#272727"/><stop offset="1" stop-color="#060606"/></linearGradient>
+  <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e0ddd0"/><stop offset="0.22" stop-color="#71706a"/><stop offset="0.52" stop-color="#202122"/><stop offset="0.83" stop-color="#0b0c0d"/><stop offset="1" stop-color="#7e7a70"/></linearGradient>
+  <linearGradient id="jackCup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2021"/><stop offset="0.45" stop-color="#060708"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <linearGradient id="amberLens" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe5a6"/><stop offset="0.38" stop-color="#d99619"/><stop offset="0.72" stop-color="#5d3200"/><stop offset="1" stop-color="#ffbd2d"/></linearGradient>
+  <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.65"/></filter>
+</defs>
+
+<rect x="4" y="6" width="892" height="228" rx="8" fill="url(#rackEdge)" filter="url(#shadow)"/>
+<rect x="18" y="14" width="864" height="212" rx="5" fill="url(#rackFace)" stroke="#5e5e58" stroke-width="1.2"/>
+<path d="M22 18H878" stroke="#7d7a70" stroke-opacity="0.5"/>
+<path d="M22 222H878" stroke="#000" stroke-opacity="0.8"/>
+<rect x="3" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="6" y="28" width="6" height="184" rx="3" fill="url(#metal)" opacity="0.78"/>
+<circle cx="9" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="9" cy="220" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<rect x="885" y="18" width="12" height="204" rx="5" fill="#111" stroke="#4e4e4a"/>
+<rect x="888" y="28" width="6" height="184" rx="3" fill="url(#metal)" opacity="0.78"/>
+<circle cx="891" cy="20" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+<circle cx="891" cy="220" r="4.2" fill="#060606" stroke="#8c8a82" stroke-width="1"/>
+
+<text x="90" y="58" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da">IEM TX</text>
+<text x="270" y="58" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da">PACK A INPUTS</text>
+<text x="500" y="58" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da">PACK B INPUTS</text>
+<text x="740" y="58" text-anchor="middle" font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" font-size="13" font-weight="800" fill="#e8e5da">MONITOR</text>
+
+<path d="M155 55V190" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M385 55V190" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+<path d="M615 55V190" stroke="#9b9b92" stroke-width="1.2" opacity="0.7"/>
+
+<g filter="url(#shadow)">
+  <rect x="42" y="82" width="92" height="82" rx="6" fill="#0b0d0e" stroke="#555"/>
+  <rect x="55" y="96" width="66" height="38" rx="4" fill="#171308" stroke="#3e3220"/>
+  <text x="66" y="116" font-family="'Roboto Mono','SFMono-Regular',Consolas,monospace" font-size="11" font-weight="700" fill="#ffae00">G:01</text>
+  <text x="66" y="132" font-family="'Roboto Mono','SFMono-Regular',Consolas,monospace" font-size="10" font-weight="700" fill="#ffae00">STEREO</text>
+  <rect x="62" y="147" width="48" height="7" fill="#171717" stroke="#534"/>
+  <rect x="66" y="149" width="3" height="3" fill="#ffb300"/><rect x="72" y="149" width="3" height="3" fill="#ffb300"/><rect x="78" y="149" width="3" height="3" fill="#ffb300"/><rect x="84" y="149" width="3" height="3" fill="#ffb300"/><rect x="90" y="149" width="3" height="3" fill="#ffb300"/><rect x="96" y="149" width="3" height="3" fill="#ffb300"/>
+</g>
+
+<g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" text-anchor="middle" font-size="11" font-weight="800" fill="#e8e5da">
+  <text x="230" y="96">LEFT</text><text x="310" y="96">RIGHT</text>
+  <text x="460" y="96">LEFT</text><text x="540" y="96">RIGHT</text>
+  <text x="740" y="96">PHONES</text>
+</g>
+
+<g class="iem-audio-inputs" filter="url(#shadow)">
+  <circle cx="230" cy="140" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="230" cy="140" r="19.78" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="230" cy="140" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="224.3" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="235.7" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="230" cy="147.5" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="310" cy="140" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="310" cy="140" r="19.78" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="310" cy="140" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="304.3" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="315.7" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="310" cy="147.5" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="460" cy="140" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="460" cy="140" r="19.78" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="460" cy="140" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="454.3" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="465.7" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="460" cy="147.5" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="540" cy="140" r="23" fill="url(#metal)" stroke="#050505" stroke-width="1.2"/><circle cx="540" cy="140" r="19.78" fill="#121314" stroke="#817d72" stroke-width=".8"/><circle cx="540" cy="140" r="16.1" fill="url(#jackCup)" stroke="#68645b" stroke-width=".9"/><circle cx="534.3" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="545.7" cy="136.7" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/><circle cx="540" cy="147.5" r="2.7" fill="#050505" stroke="#5d5a52" stroke-width=".7"/>
+  <circle cx="740" cy="140" r="18" fill="url(#metal)" stroke="#050505" stroke-width="1.3"/><circle cx="740" cy="140" r="12.24" fill="#090909" stroke="#c9c3b3" stroke-width="1.3"/><circle cx="740" cy="140" r="6.12" fill="#1d1d1c" stroke="#050505"/>
+</g>
+
+<g font-family="'Arial Narrow','Roboto Condensed','Helvetica Neue',Arial,sans-serif" text-anchor="middle" font-size="12" font-weight="800" fill="#e8e5da">
+  <text x="230" y="196">A L</text><text x="310" y="196">A R</text>
+  <text x="460" y="196">B L</text><text x="540" y="196">B R</text>
+  <text x="740" y="196">PHONES</text>
+</g>
+<g id="liv028-added-labels" pointer-events="none">
+<title>LIV-028 IEM Transmitters</title>
+<style>
+.liv028Label{font-family:system-ui,Arial,sans-serif;font-weight:900;letter-spacing:.06em;fill:#f7e7a4;paint-order:stroke;stroke:#020604;stroke-width:4px;stroke-linejoin:round;}
+.liv028Small{font-size:12px;}
+.liv028Med{font-size:18px;}
+.liv028Big{font-size:26px;}
+</style>
+<text class="liv028Label liv028Big" x="50%" y="12%" text-anchor="middle">IEM TRANSMITTERS</text>
+<text class="liv028Label liv028Small" x="25%" y="79%" text-anchor="middle">A L</text>
+<text class="liv028Label liv028Small" x="34%" y="79%" text-anchor="middle">A R</text>
+<text class="liv028Label liv028Small" x="30%" y="92%" text-anchor="middle">A TB</text>
+<text class="liv028Label liv028Small" x="58%" y="79%" text-anchor="middle">B L</text>
+<text class="liv028Label liv028Small" x="67%" y="79%" text-anchor="middle">B R</text>
+<text class="liv028Label liv028Small" x="62%" y="92%" text-anchor="middle">B TB</text>
+</g>
+</svg>
