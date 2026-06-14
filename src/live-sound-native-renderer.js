@@ -2795,6 +2795,11 @@ if (activeNativeLevelId === nextLevelId) return;
       return sfNativeFinitePoint(fallbackPoint) ? fallbackPoint : null;
     }
 
+    if (isLiv019NativeLayer(layer)) {
+      const livePoint = liv019CablePointFor(layer, nodeKey, null);
+      if (sfNativeFinitePoint(livePoint)) return livePoint;
+    }
+
     const el = layer.querySelector('[data-node-key="' + nodeKey + '"]');
     if (!el) {
       return sfNativeFinitePoint(fallbackPoint) ? fallbackPoint : null;
@@ -3922,6 +3927,17 @@ if (activeNativeLevelId === nextLevelId) return;
         decision.to = toNode.key;
       } else if (
         LEVEL_ID === "LIV-016" &&
+        fromNode.key &&
+        toNode.key &&
+        fromNode.key !== toNode.key
+      ) {
+        decision.allowed = true;
+        decision.valid = false;
+        decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+        decision.from = fromNode.key;
+        decision.to = toNode.key;
+      } else if (
+        LEVEL_ID === "LIV-019" &&
         fromNode.key &&
         toNode.key &&
         fromNode.key !== toNode.key
