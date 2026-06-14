@@ -1,0 +1,129 @@
+{
+  "levelId": "LIV-028",
+  "title": "Front of House Distribution Matrix",
+  "purpose": "Gear manifest for the full LIV-028 36-route distribution board. Used for dev-tool placement before gameplay hitboxes.",
+  "routeFamilies": [
+    "Stage source inputs",
+    "FOH main split",
+    "Splitter to crossover/recording/broadcast",
+    "Bus outputs to matrix inputs",
+    "Matrix outputs to balcony zones",
+    "Aux outputs to IEM A-D"
+  ],
+  "gear": [
+    {
+      "key": "leadVocalMic",
+      "label": "Lead Vocal Mic",
+      "asset": "/assets/live-sound/svg/hardware/mic nbg.svg",
+      "role": "source"
+    },
+    {
+      "key": "keyboardVocalMic",
+      "label": "Keyboard Vocal Mic",
+      "asset": "/assets/live-sound/svg/hardware/mic nbg.svg",
+      "role": "source"
+    },
+    {
+      "key": "keyboard",
+      "label": "Keyboard",
+      "asset": "/assets/live-sound/svg/hardware/keys b.svg",
+      "role": "source visual"
+    },
+    {
+      "key": "keysLDi",
+      "label": "Keys L DI",
+      "asset": "/assets/live-sound/svg/hardware/DI.svg",
+      "role": "source"
+    },
+    {
+      "key": "keysRDi",
+      "label": "Keys R DI",
+      "asset": "/assets/live-sound/svg/hardware/DI.svg",
+      "role": "source"
+    },
+    {
+      "key": "stagebox16",
+      "label": "16 Input Stagebox",
+      "asset": "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "role": "patch equipment"
+    },
+    {
+      "key": "fohConsole",
+      "label": "16 Channel FOH Console",
+      "asset": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg",
+      "role": "patch equipment"
+    },
+    {
+      "key": "mainSplitter",
+      "label": "FOH Main Splitter",
+      "asset": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png",
+      "role": "patch equipment"
+    },
+    {
+      "key": "recordingFeed",
+      "label": "Recording Feed",
+      "asset": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
+      "role": "destination feed"
+    },
+    {
+      "key": "broadcastFeedA",
+      "label": "Broadcast A Feed",
+      "asset": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      "role": "destination feed"
+    },
+    {
+      "key": "broadcastFeedB",
+      "label": "Broadcast B Feed",
+      "asset": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
+      "role": "destination feed"
+    },
+    {
+      "key": "crossover",
+      "label": "Crossover",
+      "asset": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+      "role": "patch equipment"
+    },
+    {
+      "key": "matrix",
+      "label": "Matrix Router",
+      "asset": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
+      "role": "patch equipment"
+    },
+    {
+      "key": "balconyAmpA",
+      "label": "Balcony A Amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "role": "amplifier"
+    },
+    {
+      "key": "balconyAmpB",
+      "label": "Balcony B Amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "role": "amplifier"
+    },
+    {
+      "key": "balconySpeakerInputsA",
+      "label": "Balcony A Speaker Inputs",
+      "asset": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
+      "role": "speaker input panel"
+    },
+    {
+      "key": "balconySpeakerInputsB",
+      "label": "Balcony B Speaker Inputs",
+      "asset": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
+      "role": "speaker input panel"
+    },
+    {
+      "key": "iemTransmittersAB",
+      "label": "IEM A/B Transmitters",
+      "asset": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+      "role": "IEM inputs"
+    },
+    {
+      "key": "iemTransmittersCD",
+      "label": "IEM C/D Transmitters",
+      "asset": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+      "role": "IEM inputs"
+    }
+  ]
+}
