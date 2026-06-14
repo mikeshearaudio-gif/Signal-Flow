@@ -13677,7 +13677,531 @@ redrawCables(layer);
   }
 
 
+
+  const LIV028_VISUAL_ITEMS = [
+    {
+        "key": "leadVocalMic",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
+        "alt": "Lead Vocal Mic",
+        "leftPx": 325,
+        "topPx": 26,
+        "widthPx": 285,
+        "zIndex": 263,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-lead-vocal-mic"
+    },
+    {
+        "key": "talkbackMic",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
+        "alt": "Talkback Mic",
+        "leftPx": 128,
+        "topPx": 28,
+        "widthPx": 285,
+        "zIndex": 263,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-talkback-mic"
+    },
+    {
+        "key": "label-lead-vocal-mic",
+        "tagName": "div",
+        "text": "LEAD VOCAL MIC",
+        "src": "",
+        "alt": "",
+        "leftPx": 153,
+        "topPx": 111,
+        "widthPx": 80,
+        "zIndex": 320,
+        "className": "sf-liv028-complex-asset-scaffold"
+    },
+    {
+        "key": "label-talkback-mic",
+        "tagName": "div",
+        "text": "TALKBACK MIC",
+        "src": "",
+        "alt": "",
+        "leftPx": 381,
+        "topPx": 111,
+        "widthPx": 80,
+        "zIndex": 320,
+        "className": "sf-liv028-complex-asset-scaffold"
+    },
+    {
+        "key": "keyboard",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/keys b.svg",
+        "alt": "Keyboard visual",
+        "leftPx": 553,
+        "topPx": 59,
+        "widthPx": 287,
+        "zIndex": 1021,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-keyboard-visual"
+    },
+    {
+        "key": "keysLDi",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/DI.svg",
+        "alt": "Keys L DI",
+        "leftPx": 546,
+        "topPx": -2,
+        "widthPx": 106,
+        "zIndex": 263,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-keys-l-di"
+    },
+    {
+        "key": "keysRDi",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/DI.svg",
+        "alt": "Keys R DI",
+        "leftPx": 741,
+        "topPx": 0,
+        "widthPx": 96,
+        "zIndex": 263,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-keys-r-di"
+    },
+    {
+        "key": "label-keys-l-di",
+        "tagName": "div",
+        "text": "KEYS L DI",
+        "src": "",
+        "alt": "",
+        "leftPx": 559,
+        "topPx": 53,
+        "widthPx": 63,
+        "zIndex": 1050,
+        "className": "sf-liv028-complex-asset-scaffold"
+    },
+    {
+        "key": "label-keys-r-di",
+        "tagName": "div",
+        "text": "KEYS R DI",
+        "src": "",
+        "alt": "",
+        "leftPx": 756,
+        "topPx": 54,
+        "widthPx": 63,
+        "zIndex": 1040,
+        "className": "sf-liv028-complex-asset-scaffold"
+    },
+    {
+        "key": "fohConsole",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg",
+        "alt": "FOH console",
+        "leftPx": 166,
+        "topPx": 343,
+        "widthPx": 608,
+        "zIndex": 258,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-foh-console"
+    },
+    {
+        "key": "label-foh-talkback-out-mono-aux-1-5",
+        "tagName": "div",
+        "text": "FOH: TALKBACK OUT + MONO AUX 1-5",
+        "src": "",
+        "alt": "",
+        "leftPx": 3,
+        "topPx": 24,
+        "widthPx": 269,
+        "zIndex": 320,
+        "className": "sf-liv028-complex-asset-scaffold"
+    },
+    {
+        "key": "talkbackMatrix",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
+        "alt": "Talkback matrix",
+        "leftPx": 486,
+        "topPx": 488,
+        "widthPx": 365,
+        "zIndex": 302,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-talkback-matrix"
+    },
+    {
+        "key": "talkbackSpliter",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png",
+        "alt": "Talkback splitter",
+        "leftPx": 95,
+        "topPx": 491,
+        "widthPx": 385,
+        "zIndex": 272,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-talkback-splitter"
+    },
+    {
+        "key": "wedgeAmp",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/power-amp-liv028-wedge.svg",
+        "alt": "Wedge amp",
+        "leftPx": 98,
+        "topPx": 570,
+        "widthPx": 381,
+        "zIndex": 272,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-wedge-amp"
+    },
+    {
+        "key": "iemTransmitters",
+        "tagName": "img",
+        "text": "",
+        "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+        "alt": "IEM transmitters",
+        "leftPx": 487,
+        "topPx": 572,
+        "widthPx": 361,
+        "zIndex": 272,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-gear-iem-transmitters"
+    },
+    {
+        "key": "label-liv-028-complex-comms-asset-prep-visual-scaffold-only",
+        "tagName": "div",
+        "text": "LIV-028 COMPLEX COMMS ASSET PREP - VISUAL SCAFFOLD ONLY",
+        "src": "",
+        "alt": "",
+        "leftPx": 0,
+        "topPx": 0,
+        "widthPx": 478,
+        "zIndex": 320,
+        "className": "sf-liv028-complex-asset-scaffold"
+    },
+    {
+        "key": "stagebox16",
+        "tagName": "div",
+        "text": "16 INPUT STAGEBOX",
+        "src": "",
+        "alt": "",
+        "leftPx": 279,
+        "topPx": 209,
+        "widthPx": 356,
+        "zIndex": 1050,
+        "className": "sf-liv028-complex-asset-scaffold sf-liv028-stagebox16-proxy"
+    }
+];
+
+  const LIV028_NORMALLED_CABLES = [
+    {
+        "key": "stagebox-foh-normal-01",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 1 to FOH Input 1",
+        "leftPx": 61,
+        "topPx": 378,
+        "widthPx": 156,
+        "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-02",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 2 to FOH Input 2",
+        "leftPx": 90,
+        "topPx": 376,
+        "widthPx": 159,
+        "rotateDeg": 1,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-03",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 3 to FOH Input 3",
+        "leftPx": 270,
+        "topPx": 420,
+        "widthPx": 163,
+        "rotateDeg": 0,
+        "zIndex": 1005,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-04",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 4 to FOH Input 4",
+        "leftPx": 175,
+        "topPx": 374,
+        "widthPx": 166,
+        "rotateDeg": 1,
+        "zIndex": 1005,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-05",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 5 to FOH Input 5",
+        "leftPx": 203,
+        "topPx": 376,
+        "widthPx": 170,
+        "rotateDeg": 0,
+        "zIndex": 1005,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-06",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 6 to FOH Input 6",
+        "leftPx": 230,
+        "topPx": 374,
+        "widthPx": 174,
+        "rotateDeg": 1,
+        "zIndex": 1005,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-07",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 7 to FOH Input 7",
+        "leftPx": 254,
+        "topPx": 376,
+        "widthPx": 177,
+        "rotateDeg": 0,
+        "zIndex": 1005,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-08",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 8 to FOH Input 8",
+        "leftPx": 41,
+        "topPx": 416,
+        "widthPx": 181,
+        "rotateDeg": 1,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-09",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 9 to FOH Input 9",
+        "leftPx": 65,
+        "topPx": 419,
+        "widthPx": 188,
+        "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-10",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 10 to FOH Input 10",
+        "leftPx": 94,
+        "topPx": 419,
+        "widthPx": 184,
+        "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-11",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 11 to FOH Input 11",
+        "leftPx": 134,
+        "topPx": 421,
+        "widthPx": 179,
+        "rotateDeg": -1,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-12",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 12 to FOH Input 12",
+        "leftPx": 169,
+        "topPx": 417,
+        "widthPx": 175,
+        "rotateDeg": 1,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-13",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 13 to FOH Input 13",
+        "leftPx": 203,
+        "topPx": 421,
+        "widthPx": 170,
+        "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-14",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 14 to FOH Input 14",
+        "leftPx": 238,
+        "topPx": 417,
+        "widthPx": 166,
+        "rotateDeg": 1,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-15",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 15 to FOH Input 15",
+        "leftPx": 118,
+        "topPx": 377,
+        "widthPx": 162,
+        "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    },
+    {
+        "key": "stagebox-foh-normal-16",
+        "src": "/assets/live-sound/svg/cables/single-one-end-raised.svg",
+        "alt": "Normalled Stagebox Input 16 to FOH Input 16",
+        "leftPx": 155,
+        "topPx": 377,
+        "widthPx": 157,
+        "rotateDeg": 0,
+        "zIndex": 1000,
+        "opacity": 1
+    }
+];
+
+  function renderLiv028VisualScaffold(surface, adapter) {
+    const level = buildLevelGeometry(surface);
+    const rect = level.rect;
+    const boardWidth = Math.max(900, Math.ceil(rect.width || surface.getBoundingClientRect().width || 900));
+    const boardHeight = 900;
+
+    surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+    surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+    surface.classList.add("sf-live-native-scroll-host");
+    surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+    applyNativeViewportContract(surface, boardHeight);
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-028 sf-liv028-visual-scaffold";
+    layer.style.cssText = [
+      "position:absolute",
+      "left:0",
+      "top:0",
+      "width:" + boardWidth + "px",
+      "height:" + boardHeight + "px",
+      "min-height:" + boardHeight + "px",
+      "z-index:9990",
+      "isolation:isolate",
+      "pointer-events:none",
+      "overflow:hidden",
+      "border-radius:16px",
+      "background:linear-gradient(180deg,rgba(8,24,19,.96),rgba(6,17,15,.98))"
+    ].join(";");
+
+    const title = document.createElement("div");
+    title.textContent = "LIV-028 VISUAL SCAFFOLD - NO GAMEPLAY HITBOXES";
+    title.style.cssText = [
+      "position:absolute",
+      "left:16px",
+      "top:8px",
+      "z-index:4000",
+      "color:#ffe66c",
+      "font:900 12px system-ui,-apple-system,Segoe UI,sans-serif",
+      "letter-spacing:.08em",
+      "text-transform:uppercase",
+      "text-shadow:0 2px 4px rgba(0,0,0,.75)",
+      "pointer-events:none"
+    ].join(";");
+    layer.appendChild(title);
+
+    LIV028_VISUAL_ITEMS.forEach(item => {
+      const isLabel = item.tagName === "div" || !item.src;
+      const el = isLabel ? document.createElement("div") : document.createElement("img");
+      el.dataset.liv028VisualKey = item.key;
+      el.className = "sf-liv028-visual-item " + (item.className || "");
+
+      el.style.cssText = [
+        "position:absolute",
+        "left:" + Math.round(item.leftPx) + "px",
+        "top:" + Math.round(item.topPx) + "px",
+        "width:" + Math.round(item.widthPx || 80) + "px",
+        "z-index:" + Math.round(item.zIndex || 100),
+        "pointer-events:none",
+        "box-sizing:border-box"
+      ].join(";");
+
+      if (isLabel) {
+        el.textContent = item.text || item.key;
+        el.style.setProperty("color", "#ffe66c");
+        el.style.setProperty("font", "900 10px system-ui,-apple-system,Segoe UI,sans-serif");
+        el.style.setProperty("letter-spacing", ".05em");
+        el.style.setProperty("text-transform", "uppercase");
+        el.style.setProperty("text-align", "center");
+        el.style.setProperty("text-shadow", "0 2px 4px rgba(0,0,0,.78)");
+        el.style.setProperty("background", "rgba(0,0,0,.38)");
+        el.style.setProperty("border-radius", "4px");
+        el.style.setProperty("padding", "2px 4px");
+      } else {
+        el.src = sfRepoUrl(item.src);
+        el.alt = item.alt || item.key;
+        el.style.setProperty("display", "block");
+        el.style.setProperty("height", "auto");
+        el.style.setProperty("object-fit", "contain");
+        el.style.setProperty("filter", "drop-shadow(0 10px 18px rgba(0,0,0,.62))");
+      }
+
+      layer.appendChild(el);
+    });
+
+    LIV028_NORMALLED_CABLES.forEach(cable => {
+      const img = document.createElement("img");
+      img.dataset.liv028NormalledCableKey = cable.key;
+      img.className = "sf-liv028-normalled-cable";
+      img.src = sfRepoUrl(cable.src);
+      img.alt = cable.alt || cable.key;
+      img.style.cssText = [
+        "position:absolute",
+        "left:" + Math.round(cable.leftPx) + "px",
+        "top:" + Math.round(cable.topPx) + "px",
+        "width:" + Math.round(cable.widthPx || 120) + "px",
+        "height:auto",
+        "z-index:" + Math.round(cable.zIndex || 1000),
+        "opacity:" + (Number.isFinite(Number(cable.opacity)) ? Number(cable.opacity) : 1),
+        "transform:rotate(" + (Number(cable.rotateDeg) || 0) + "deg)",
+        "transform-origin:left center",
+        "pointer-events:none",
+        "filter:drop-shadow(0 8px 10px rgba(0,0,0,.55))"
+      ].join(";");
+      layer.appendChild(img);
+    });
+
+    surface.appendChild(layer);
+
+    const spacer = document.createElement("div");
+    spacer.className = "sfLiveNativeSurfaceScrollSpacer sf-liv028-scroll-spacer";
+    spacer.style.cssText = [
+      "position:absolute",
+      "left:0",
+      "top:0",
+      "width:" + boardWidth + "px",
+      "min-width:" + boardWidth + "px",
+      "height:" + boardHeight + "px",
+      "min-height:" + boardHeight + "px",
+      "pointer-events:none",
+      "opacity:0"
+    ].join(";");
+    surface.appendChild(spacer);
+
+    console.log("[Signal Flow] LIV-028 visual scaffold mounted", {
+      items: LIV028_VISUAL_ITEMS.length,
+      normalledCables: LIV028_NORMALLED_CABLES.length,
+      boardWidth,
+      boardHeight
+    });
+  }
+
+
   function renderNative(surface, adapter) {
+    if (LEVEL_ID === "LIV-028") {
+      renderLiv028VisualScaffold(surface, adapter);
+      return;
+    }
+
     if (LEVEL_ID === "LIV-026") {
       renderLiv026ComplexZones(surface, adapter);
       return;
