@@ -1,7 +1,7 @@
 {
   "levelId": "LIV-028",
   "title": "Front of House Distribution Matrix",
-  "purpose": "Gear manifest for the full LIV-028 36-route distribution board. Used for dev-tool placement before gameplay hitboxes.",
+  "purpose": "Corrected gear manifest for full LIV-028 36-route distribution board. No line-array input panels; racks/backplanes added after gear placement.",
   "routeFamilies": [
     "Stage source inputs",
     "FOH main split",
@@ -90,30 +90,6 @@
       "role": "patch equipment"
     },
     {
-      "key": "balconyAmpA",
-      "label": "Balcony A Amp",
-      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
-      "role": "amplifier"
-    },
-    {
-      "key": "balconyAmpB",
-      "label": "Balcony B Amp",
-      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
-      "role": "amplifier"
-    },
-    {
-      "key": "balconySpeakerInputsA",
-      "label": "Balcony A Speaker Inputs",
-      "asset": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
-      "role": "speaker input panel"
-    },
-    {
-      "key": "balconySpeakerInputsB",
-      "label": "Balcony B Speaker Inputs",
-      "asset": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
-      "role": "speaker input panel"
-    },
-    {
       "key": "iemTransmittersAB",
       "label": "IEM A/B Transmitters",
       "asset": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
@@ -124,6 +100,24 @@
       "label": "IEM C/D Transmitters",
       "asset": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
       "role": "IEM inputs"
+    },
+    {
+      "key": "powerAmp1",
+      "label": "Power Amp 1",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "role": "amplifier"
+    },
+    {
+      "key": "powerAmp2",
+      "label": "Power Amp 2",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "role": "amplifier"
+    },
+    {
+      "key": "powerAmp3",
+      "label": "Power Amp 3",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "role": "amplifier"
     }
   ]
 }

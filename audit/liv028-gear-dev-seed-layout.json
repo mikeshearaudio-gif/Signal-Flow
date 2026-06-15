@@ -1,31 +1,169 @@
 {
   "levelId": "LIV-028",
   "tool": "sf-live-gear-mover-dev",
-  "version": "v1-liv028-full-manifest-seed",
+  "version": "v2-liv028-full-manifest-seed-no-line-array",
   "items": [
-    { "key": "leadVocalMic", "label": "Lead Vocal Mic", "src": "/assets/live-sound/svg/hardware/mic nbg.svg", "leftPx": 40, "topPx": 30, "widthPx": 160, "zIndex": 300 },
-    { "key": "keyboardVocalMic", "label": "Keyboard Vocal Mic", "src": "/assets/live-sound/svg/hardware/mic nbg.svg", "leftPx": 210, "topPx": 30, "widthPx": 160, "zIndex": 300 },
-    { "key": "keysLDi", "label": "Keys L DI", "src": "/assets/live-sound/svg/hardware/DI.svg", "leftPx": 400, "topPx": 20, "widthPx": 86, "zIndex": 310 },
-    { "key": "keysRDi", "label": "Keys R DI", "src": "/assets/live-sound/svg/hardware/DI.svg", "leftPx": 500, "topPx": 20, "widthPx": 86, "zIndex": 310 },
-    { "key": "keyboard", "label": "Keyboard", "src": "/assets/live-sound/svg/hardware/keys b.svg", "leftPx": 610, "topPx": 40, "widthPx": 230, "zIndex": 290 },
-
-    { "key": "stagebox16", "label": "16 Input Stagebox", "src": "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", "leftPx": 40, "topPx": 175, "widthPx": 380, "zIndex": 320 },
-    { "key": "fohConsole", "label": "16 Channel FOH Console", "src": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg", "leftPx": 450, "topPx": 155, "widthPx": 540, "zIndex": 300 },
-
-    { "key": "mainSplitter", "label": "FOH Main Splitter", "src": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png", "leftPx": 40, "topPx": 390, "widthPx": 330, "zIndex": 300 },
-    { "key": "recordingFeed", "label": "Recording Feed", "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg", "leftPx": 395, "topPx": 410, "widthPx": 190, "zIndex": 300 },
-    { "key": "broadcastFeedA", "label": "Broadcast A", "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg", "leftPx": 600, "topPx": 410, "widthPx": 190, "zIndex": 300 },
-    { "key": "broadcastFeedB", "label": "Broadcast B", "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg", "leftPx": 805, "topPx": 410, "widthPx": 190, "zIndex": 300 },
-
-    { "key": "crossover", "label": "Crossover", "src": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg", "leftPx": 40, "topPx": 555, "widthPx": 320, "zIndex": 300 },
-    { "key": "matrix", "label": "Matrix Router", "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg", "leftPx": 395, "topPx": 555, "widthPx": 300, "zIndex": 300 },
-
-    { "key": "balconyAmpA", "label": "Balcony A Amp", "src": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", "leftPx": 720, "topPx": 545, "widthPx": 250, "zIndex": 300 },
-    { "key": "balconyAmpB", "label": "Balcony B Amp", "src": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg", "leftPx": 720, "topPx": 640, "widthPx": 250, "zIndex": 300 },
-    { "key": "balconySpeakerInputsA", "label": "Balcony A Inputs", "src": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg", "leftPx": 995, "topPx": 545, "widthPx": 180, "zIndex": 300 },
-    { "key": "balconySpeakerInputsB", "label": "Balcony B Inputs", "src": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg", "leftPx": 995, "topPx": 640, "widthPx": 180, "zIndex": 300 },
-
-    { "key": "iemTransmittersAB", "label": "IEM A/B", "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg", "leftPx": 40, "topPx": 725, "widthPx": 300, "zIndex": 300 },
-    { "key": "iemTransmittersCD", "label": "IEM C/D", "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg", "leftPx": 370, "topPx": 725, "widthPx": 300, "zIndex": 300 }
+    {
+      "key": "leadVocalMic",
+      "label": "Lead Vocal Mic",
+      "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
+      "leftPx": 40,
+      "topPx": 30,
+      "widthPx": 160,
+      "zIndex": 300
+    },
+    {
+      "key": "keyboardVocalMic",
+      "label": "Keyboard Vocal Mic",
+      "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
+      "leftPx": 210,
+      "topPx": 30,
+      "widthPx": 160,
+      "zIndex": 300
+    },
+    {
+      "key": "keysLDi",
+      "label": "Keys L DI",
+      "src": "/assets/live-sound/svg/hardware/DI.svg",
+      "leftPx": 400,
+      "topPx": 20,
+      "widthPx": 86,
+      "zIndex": 310
+    },
+    {
+      "key": "keysRDi",
+      "label": "Keys R DI",
+      "src": "/assets/live-sound/svg/hardware/DI.svg",
+      "leftPx": 500,
+      "topPx": 20,
+      "widthPx": 86,
+      "zIndex": 310
+    },
+    {
+      "key": "keyboard",
+      "label": "Keyboard",
+      "src": "/assets/live-sound/svg/hardware/keys b.svg",
+      "leftPx": 610,
+      "topPx": 40,
+      "widthPx": 230,
+      "zIndex": 290
+    },
+    {
+      "key": "stagebox16",
+      "label": "16 Input Stagebox",
+      "src": "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "leftPx": 40,
+      "topPx": 175,
+      "widthPx": 380,
+      "zIndex": 320
+    },
+    {
+      "key": "fohConsole",
+      "label": "16 Channel FOH Console",
+      "src": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg",
+      "leftPx": 450,
+      "topPx": 155,
+      "widthPx": 540,
+      "zIndex": 300
+    },
+    {
+      "key": "mainSplitter",
+      "label": "FOH Main Splitter",
+      "src": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png",
+      "leftPx": 40,
+      "topPx": 390,
+      "widthPx": 330,
+      "zIndex": 300
+    },
+    {
+      "key": "recordingFeed",
+      "label": "Recording Feed",
+      "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
+      "leftPx": 395,
+      "topPx": 410,
+      "widthPx": 190,
+      "zIndex": 300
+    },
+    {
+      "key": "broadcastFeedA",
+      "label": "Broadcast A",
+      "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      "leftPx": 600,
+      "topPx": 410,
+      "widthPx": 190,
+      "zIndex": 300
+    },
+    {
+      "key": "broadcastFeedB",
+      "label": "Broadcast B",
+      "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
+      "leftPx": 805,
+      "topPx": 410,
+      "widthPx": 190,
+      "zIndex": 300
+    },
+    {
+      "key": "crossover",
+      "label": "Crossover",
+      "src": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+      "leftPx": 40,
+      "topPx": 555,
+      "widthPx": 320,
+      "zIndex": 300
+    },
+    {
+      "key": "matrix",
+      "label": "Matrix Router",
+      "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
+      "leftPx": 395,
+      "topPx": 555,
+      "widthPx": 300,
+      "zIndex": 300
+    },
+    {
+      "key": "iemTransmittersAB",
+      "label": "IEM A/B",
+      "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+      "leftPx": 40,
+      "topPx": 725,
+      "widthPx": 300,
+      "zIndex": 300
+    },
+    {
+      "key": "iemTransmittersCD",
+      "label": "IEM C/D",
+      "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+      "leftPx": 370,
+      "topPx": 725,
+      "widthPx": 300,
+      "zIndex": 300
+    },
+    {
+      "key": "powerAmp1",
+      "label": "Power Amp 1",
+      "src": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "leftPx": 720,
+      "topPx": 530,
+      "widthPx": 250,
+      "zIndex": 300
+    },
+    {
+      "key": "powerAmp2",
+      "label": "Power Amp 2",
+      "src": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "leftPx": 720,
+      "topPx": 625,
+      "widthPx": 250,
+      "zIndex": 300
+    },
+    {
+      "key": "powerAmp3",
+      "label": "Power Amp 3",
+      "src": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "leftPx": 720,
+      "topPx": 720,
+      "widthPx": 250,
+      "zIndex": 300
+    }
   ]
 }

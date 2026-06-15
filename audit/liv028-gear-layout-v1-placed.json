@@ -1,0 +1,187 @@
+{
+  "levelId": "LIV-028",
+  "tool": "sf-live-gear-mover-dev",
+  "version": "v1-liv028-placed-full-gear-no-line-array",
+  "items": [
+    {
+      "key": "leadVocalMic",
+      "leftPx": -5,
+      "topPx": 30,
+      "widthPx": 200,
+      "heightPx": 130,
+      "zIndex": "300",
+      "alt": "Lead Vocal Mic",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/mic%20nbg.svg"
+    },
+    {
+      "key": "keyboardVocalMic",
+      "leftPx": 170,
+      "topPx": 30,
+      "widthPx": 200,
+      "heightPx": 130,
+      "zIndex": "298",
+      "alt": "Keyboard Vocal Mic",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/mic%20nbg.svg"
+    },
+    {
+      "key": "keysLDi",
+      "leftPx": 350,
+      "topPx": 32,
+      "widthPx": 70,
+      "heightPx": 38,
+      "zIndex": "347",
+      "alt": "Keys L DI",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/DI.svg"
+    },
+    {
+      "key": "keysRDi",
+      "leftPx": 510,
+      "topPx": 30,
+      "widthPx": 69,
+      "heightPx": 37,
+      "zIndex": "321",
+      "alt": "Keys R DI",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/DI.svg"
+    },
+    {
+      "key": "keyboard",
+      "leftPx": 345,
+      "topPx": 33,
+      "widthPx": 230,
+      "heightPx": 124,
+      "zIndex": "300",
+      "alt": "Keyboard",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/keys%20b.svg"
+    },
+    {
+      "key": "stagebox16",
+      "leftPx": 590,
+      "topPx": 30,
+      "widthPx": 340,
+      "heightPx": 125,
+      "zIndex": "320",
+      "alt": "16 Input Stagebox",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+    },
+    {
+      "key": "fohConsole",
+      "leftPx": 15,
+      "topPx": 165,
+      "widthPx": 850,
+      "heightPx": 189,
+      "zIndex": "300",
+      "alt": "16 Channel FOH Console",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg"
+    },
+    {
+      "key": "mainSplitter",
+      "leftPx": 15,
+      "topPx": 360,
+      "widthPx": 460,
+      "heightPx": 92,
+      "zIndex": "300",
+      "alt": "FOH Main Splitter",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png"
+    },
+    {
+      "key": "recordingFeed",
+      "leftPx": 140,
+      "topPx": 525,
+      "widthPx": 215,
+      "heightPx": 57,
+      "zIndex": "300",
+      "alt": "Recording Feed",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg"
+    },
+    {
+      "key": "broadcastFeedA",
+      "leftPx": 15,
+      "topPx": 460,
+      "widthPx": 215,
+      "heightPx": 57,
+      "zIndex": "300",
+      "alt": "Broadcast A",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg"
+    },
+    {
+      "key": "broadcastFeedB",
+      "leftPx": 265,
+      "topPx": 460,
+      "widthPx": 215,
+      "heightPx": 57,
+      "zIndex": "300",
+      "alt": "Broadcast B",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg"
+    },
+    {
+      "key": "crossover",
+      "leftPx": 490,
+      "topPx": 355,
+      "widthPx": 370,
+      "heightPx": 98,
+      "zIndex": "300",
+      "alt": "Crossover",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/crossover-liv010-3way.svg"
+    },
+    {
+      "key": "matrix",
+      "leftPx": 490,
+      "topPx": 455,
+      "widthPx": 370,
+      "heightPx": 92,
+      "zIndex": "300",
+      "alt": "Matrix Router",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg"
+    },
+    {
+      "key": "iemTransmittersAB",
+      "leftPx": 14,
+      "topPx": 590,
+      "widthPx": 275,
+      "heightPx": 73,
+      "zIndex": "300",
+      "alt": "IEM A/B",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg"
+    },
+    {
+      "key": "iemTransmittersCD",
+      "leftPx": 217,
+      "topPx": 591,
+      "widthPx": 270,
+      "heightPx": 72,
+      "zIndex": "300",
+      "alt": "IEM C/D",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg"
+    },
+    {
+      "key": "powerAmp1",
+      "leftPx": 490,
+      "topPx": 555,
+      "widthPx": 370,
+      "heightPx": 94,
+      "zIndex": "300",
+      "alt": "Power Amp 1",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/power-amp-liv010-high.svg"
+    },
+    {
+      "key": "powerAmp2",
+      "leftPx": 490,
+      "topPx": 650,
+      "widthPx": 370,
+      "heightPx": 94,
+      "zIndex": "300",
+      "alt": "Power Amp 2",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg"
+    },
+    {
+      "key": "powerAmp3",
+      "leftPx": 490,
+      "topPx": 745,
+      "widthPx": 370,
+      "heightPx": 94,
+      "zIndex": "300",
+      "alt": "Power Amp 3",
+      "src": "http://localhost:8000/assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
+    }
+  ]
+}

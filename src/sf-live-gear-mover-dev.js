@@ -3,11 +3,40 @@
 (function () {
   "use strict";
 
-  const VERSION = "sf-live-gear-mover-dev-v3-keyboard";
+  const VERSION = "sf-live-gear-mover-dev-v4-reactive-z";
   let installed = false;
 
   function cfg() {
     return window.sfLiveDevToolConfig || {};
+  }
+
+  function setImportantStyle(el, prop, value) {
+    if (!el || !el.style) return;
+    el.style.setProperty(prop, String(value), "important");
+  }
+
+  function syncLinkedLiv028Label(el) {
+    if (!el || !el.dataset || !el.dataset.sfLiveDevGearKey) return;
+    const key = el.dataset.sfLiveDevGearKey;
+    const layer = el.closest(".sf-live-native-layer");
+    if (!layer) return;
+    const label = layer.querySelector('[data-liv028-gear-label-for="' + key + '"]');
+    if (!label) return;
+
+    const left = parseFloat(el.style.left || "0") || 0;
+    const top = parseFloat(el.style.top || "0") || 0;
+    const width = parseFloat(el.style.width || "0") || 0;
+    const z = parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || "300", 10) || 300;
+
+    setImportantStyle(label, "left", Math.round(left) + "px");
+    setImportantStyle(label, "top", Math.round(top + 4) + "px");
+    if (width > 0) setImportantStyle(label, "width", Math.round(width) + "px");
+    setImportantStyle(label, "z-index", z + 20);
+  }
+
+  function setGearZ(el, z) {
+    setImportantStyle(el, "z-index", z);
+    syncLinkedLiv028Label(el);
   }
 
   function docsToScan() {
@@ -141,8 +170,9 @@
       const left = Math.round(px(el, "left") + dx * step);
       const top = Math.round(px(el, "top") + dy * step);
 
-      el.style.left = left + "px";
-      el.style.top = top + "px";
+      setImportantStyle(el, "left", left + "px");
+      setImportantStyle(el, "top", top + "px");
+      syncLinkedLiv028Label(el);
 
       console.log("[Signal Flow] Live dev gear move", {
         key: el.dataset.sfLiveDevGearKey,
@@ -157,7 +187,8 @@
       if (!el) return;
 
       const width = Math.max(20, Math.round(px(el, "width") + dw * step));
-      el.style.width = width + "px";
+      setImportantStyle(el, "width", width + "px");
+      syncLinkedLiv028Label(el);
 
       console.log("[Signal Flow] Live dev gear width", {
         key: el.dataset.sfLiveDevGearKey,
@@ -172,7 +203,8 @@
 
       const current = el.getBoundingClientRect().height || px(el, "height") || 40;
       const height = Math.max(20, Math.round(current + dh * step));
-      el.style.height = height + "px";
+      setImportantStyle(el, "height", height + "px");
+      syncLinkedLiv028Label(el);
 
       console.log("[Signal Flow] Live dev gear height", {
         key: el.dataset.sfLiveDevGearKey,
@@ -185,9 +217,10 @@
       const el = selected();
       if (!el) return;
 
-      const current = parseInt(el.style.zIndex || gameDoc.defaultView.getComputedStyle(el).zIndex || "50", 10) || 50;
+      const current = parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || gameDoc.defaultView.getComputedStyle(el).zIndex || "50", 10) || 50;
       const zIndex = current + dz;
-      el.style.zIndex = String(zIndex);
+      setImportantStyle(el, "z-index", zIndex);
+      syncLinkedLiv028Label(el);
 
       console.log("[Signal Flow] Live dev gear z", {
         key: el.dataset.sfLiveDevGearKey,
@@ -282,6 +315,24 @@
         case "2": step = 2; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
         case "5": step = 5; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
         case "0": step = 20; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
+        case "PageUp": {
+          const el = selected();
+          if (el) {
+            const z = (parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || "300", 10) || 300) + step;
+            setGearZ(el, z);
+            console.log("[Signal Flow] Live dev gear z", { key: el.dataset.sfLiveDevGearKey, z });
+          }
+          break;
+        }
+        case "PageDown": {
+          const el = selected();
+          if (el) {
+            const z = (parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || "300", 10) || 300) - step;
+            setGearZ(el, z);
+            console.log("[Signal Flow] Live dev gear z", { key: el.dataset.sfLiveDevGearKey, z });
+          }
+          break;
+        }
         case "e": case "E": exportGear(); break;
         default: used = false;
       }

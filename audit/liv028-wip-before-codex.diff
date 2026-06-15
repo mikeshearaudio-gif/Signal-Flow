@@ -1,0 +1,879 @@
+diff --git a/audit/liv028-gear-dev-seed-layout.json b/audit/liv028-gear-dev-seed-layout.json
+index 6e44048..376fcc5 100644
+--- a/audit/liv028-gear-dev-seed-layout.json
++++ b/audit/liv028-gear-dev-seed-layout.json
+@@ -1,31 +1,169 @@
+ {
+   "levelId": "LIV-028",
+   "tool": "sf-live-gear-mover-dev",
+-  "version": "v1-liv028-full-manifest-seed",
++  "version": "v2-liv028-full-manifest-seed-no-line-array",
+   "items": [
+-    { "key": "leadVocalMic", "label": "Lead Vocal Mic", "src": "/assets/live-sound/svg/hardware/mic nbg.svg", "leftPx": 40, "topPx": 30, "widthPx": 160, "zIndex": 300 },
+-    { "key": "keyboardVocalMic", "label": "Keyboard Vocal Mic", "src": "/assets/live-sound/svg/hardware/mic nbg.svg", "leftPx": 210, "topPx": 30, "widthPx": 160, "zIndex": 300 },
+-    { "key": "keysLDi", "label": "Keys L DI", "src": "/assets/live-sound/svg/hardware/DI.svg", "leftPx": 400, "topPx": 20, "widthPx": 86, "zIndex": 310 },
+-    { "key": "keysRDi", "label": "Keys R DI", "src": "/assets/live-sound/svg/hardware/DI.svg", "leftPx": 500, "topPx": 20, "widthPx": 86, "zIndex": 310 },
+-    { "key": "keyboard", "label": "Keyboard", "src": "/assets/live-sound/svg/hardware/keys b.svg", "leftPx": 610, "topPx": 40, "widthPx": 230, "zIndex": 290 },
+-
+-    { "key": "stagebox16", "label": "16 Input Stagebox", "src": "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", "leftPx": 40, "topPx": 175, "widthPx": 380, "zIndex": 320 },
+-    { "key": "fohConsole", "label": "16 Channel FOH Console", "src": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg", "leftPx": 450, "topPx": 155, "widthPx": 540, "zIndex": 300 },
+-
+-    { "key": "mainSplitter", "label": "FOH Main Splitter", "src": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png", "leftPx": 40, "topPx": 390, "widthPx": 330, "zIndex": 300 },
+-    { "key": "recordingFeed", "label": "Recording Feed", "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg", "leftPx": 395, "topPx": 410, "widthPx": 190, "zIndex": 300 },
+-    { "key": "broadcastFeedA", "label": "Broadcast A", "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg", "leftPx": 600, "topPx": 410, "widthPx": 190, "zIndex": 300 },
+-    { "key": "broadcastFeedB", "label": "Broadcast B", "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg", "leftPx": 805, "topPx": 410, "widthPx": 190, "zIndex": 300 },
+-
+-    { "key": "crossover", "label": "Crossover", "src": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg", "leftPx": 40, "topPx": 555, "widthPx": 320, "zIndex": 300 },
+-    { "key": "matrix", "label": "Matrix Router", "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg", "leftPx": 395, "topPx": 555, "widthPx": 300, "zIndex": 300 },
+-
+-    { "key": "balconyAmpA", "label": "Balcony A Amp", "src": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", "leftPx": 720, "topPx": 545, "widthPx": 250, "zIndex": 300 },
+-    { "key": "balconyAmpB", "label": "Balcony B Amp", "src": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg", "leftPx": 720, "topPx": 640, "widthPx": 250, "zIndex": 300 },
+-    { "key": "balconySpeakerInputsA", "label": "Balcony A Inputs", "src": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg", "leftPx": 995, "topPx": 545, "widthPx": 180, "zIndex": 300 },
+-    { "key": "balconySpeakerInputsB", "label": "Balcony B Inputs", "src": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg", "leftPx": 995, "topPx": 640, "widthPx": 180, "zIndex": 300 },
+-
+-    { "key": "iemTransmittersAB", "label": "IEM A/B", "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg", "leftPx": 40, "topPx": 725, "widthPx": 300, "zIndex": 300 },
+-    { "key": "iemTransmittersCD", "label": "IEM C/D", "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg", "leftPx": 370, "topPx": 725, "widthPx": 300, "zIndex": 300 }
++    {
++      "key": "leadVocalMic",
++      "label": "Lead Vocal Mic",
++      "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
++      "leftPx": 40,
++      "topPx": 30,
++      "widthPx": 160,
++      "zIndex": 300
++    },
++    {
++      "key": "keyboardVocalMic",
++      "label": "Keyboard Vocal Mic",
++      "src": "/assets/live-sound/svg/hardware/mic nbg.svg",
++      "leftPx": 210,
++      "topPx": 30,
++      "widthPx": 160,
++      "zIndex": 300
++    },
++    {
++      "key": "keysLDi",
++      "label": "Keys L DI",
++      "src": "/assets/live-sound/svg/hardware/DI.svg",
++      "leftPx": 400,
++      "topPx": 20,
++      "widthPx": 86,
++      "zIndex": 310
++    },
++    {
++      "key": "keysRDi",
++      "label": "Keys R DI",
++      "src": "/assets/live-sound/svg/hardware/DI.svg",
++      "leftPx": 500,
++      "topPx": 20,
++      "widthPx": 86,
++      "zIndex": 310
++    },
++    {
++      "key": "keyboard",
++      "label": "Keyboard",
++      "src": "/assets/live-sound/svg/hardware/keys b.svg",
++      "leftPx": 610,
++      "topPx": 40,
++      "widthPx": 230,
++      "zIndex": 290
++    },
++    {
++      "key": "stagebox16",
++      "label": "16 Input Stagebox",
++      "src": "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
++      "leftPx": 40,
++      "topPx": 175,
++      "widthPx": 380,
++      "zIndex": 320
++    },
++    {
++      "key": "fohConsole",
++      "label": "16 Channel FOH Console",
++      "src": "/assets/live-sound/svg/hardware/16ch_FOH_console_trimmed_no_background.svg",
++      "leftPx": 450,
++      "topPx": 155,
++      "widthPx": 540,
++      "zIndex": 300
++    },
++    {
++      "key": "mainSplitter",
++      "label": "FOH Main Splitter",
++      "src": "/assets/live-sound/svg/hardware/Spliter_background_removed_cropped_from_svg.png",
++      "leftPx": 40,
++      "topPx": 390,
++      "widthPx": 330,
++      "zIndex": 300
++    },
++    {
++      "key": "recordingFeed",
++      "label": "Recording Feed",
++      "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
++      "leftPx": 395,
++      "topPx": 410,
++      "widthPx": 190,
++      "zIndex": 300
++    },
++    {
++      "key": "broadcastFeedA",
++      "label": "Broadcast A",
++      "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
++      "leftPx": 600,
++      "topPx": 410,
++      "widthPx": 190,
++      "zIndex": 300
++    },
++    {
++      "key": "broadcastFeedB",
++      "label": "Broadcast B",
++      "src": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
++      "leftPx": 805,
++      "topPx": 410,
++      "widthPx": 190,
++      "zIndex": 300
++    },
++    {
++      "key": "crossover",
++      "label": "Crossover",
++      "src": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
++      "leftPx": 40,
++      "topPx": 555,
++      "widthPx": 320,
++      "zIndex": 300
++    },
++    {
++      "key": "matrix",
++      "label": "Matrix Router",
++      "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
++      "leftPx": 395,
++      "topPx": 555,
++      "widthPx": 300,
++      "zIndex": 300
++    },
++    {
++      "key": "iemTransmittersAB",
++      "label": "IEM A/B",
++      "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
++      "leftPx": 40,
++      "topPx": 725,
++      "widthPx": 300,
++      "zIndex": 300
++    },
++    {
++      "key": "iemTransmittersCD",
++      "label": "IEM C/D",
++      "src": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
++      "leftPx": 370,
++      "topPx": 725,
++      "widthPx": 300,
++      "zIndex": 300
++    },
++    {
++      "key": "powerAmp1",
++      "label": "Power Amp 1",
++      "src": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
++      "leftPx": 720,
++      "topPx": 530,
++      "widthPx": 250,
++      "zIndex": 300
++    },
++    {
++      "key": "powerAmp2",
++      "label": "Power Amp 2",
++      "src": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
++      "leftPx": 720,
++      "topPx": 625,
++      "widthPx": 250,
++      "zIndex": 300
++    },
++    {
++      "key": "powerAmp3",
++      "label": "Power Amp 3",
++      "src": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
++      "leftPx": 720,
++      "topPx": 720,
++      "widthPx": 250,
++      "zIndex": 300
++    }
+   ]
+ }
+diff --git a/audit/liv028-required-gear-manifest.json b/audit/liv028-required-gear-manifest.json
+index 3d5109d..96ebf94 100644
+--- a/audit/liv028-required-gear-manifest.json
++++ b/audit/liv028-required-gear-manifest.json
+@@ -1,7 +1,7 @@
+ {
+   "levelId": "LIV-028",
+   "title": "Front of House Distribution Matrix",
+-  "purpose": "Gear manifest for the full LIV-028 36-route distribution board. Used for dev-tool placement before gameplay hitboxes.",
++  "purpose": "Corrected gear manifest for full LIV-028 36-route distribution board. No line-array input panels; racks/backplanes added after gear placement.",
+   "routeFamilies": [
+     "Stage source inputs",
+     "FOH main split",
+@@ -89,30 +89,6 @@
+       "asset": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
+       "role": "patch equipment"
+     },
+-    {
+-      "key": "balconyAmpA",
+-      "label": "Balcony A Amp",
+-      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+-      "role": "amplifier"
+-    },
+-    {
+-      "key": "balconyAmpB",
+-      "label": "Balcony B Amp",
+-      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+-      "role": "amplifier"
+-    },
+-    {
+-      "key": "balconySpeakerInputsA",
+-      "label": "Balcony A Speaker Inputs",
+-      "asset": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg",
+-      "role": "speaker input panel"
+-    },
+-    {
+-      "key": "balconySpeakerInputsB",
+-      "label": "Balcony B Speaker Inputs",
+-      "asset": "/assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg",
+-      "role": "speaker input panel"
+-    },
+     {
+       "key": "iemTransmittersAB",
+       "label": "IEM A/B Transmitters",
+@@ -124,6 +100,24 @@
+       "label": "IEM C/D Transmitters",
+       "asset": "/assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+       "role": "IEM inputs"
++    },
++    {
++      "key": "powerAmp1",
++      "label": "Power Amp 1",
++      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
++      "role": "amplifier"
++    },
++    {
++      "key": "powerAmp2",
++      "label": "Power Amp 2",
++      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
++      "role": "amplifier"
++    },
++    {
++      "key": "powerAmp3",
++      "label": "Power Amp 3",
++      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
++      "role": "amplifier"
+     }
+   ]
+ }
+diff --git a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+index e47771a..4567839 100644
+--- a/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
++++ b/launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html
+@@ -18762,56 +18762,260 @@ window.SIGNAL_FLOW_V12 = {
+       "time": 280
+     },
+     {
+-      "id": "LIV-028",
+-      "environment": "live",
+-      "title": "Talkback to monitor system",
+-      "brief": "Route talkback into the in-ear monitor path without feeding mains.",
+-      "difficulty": 3,
+-      "required": [
+-        [
+-          "Talkback Mic",
+-          "Stage Box Input 14"
+-        ],
+-        [
+-          "Talkback Output",
+-          "In-Ear B In"
+-        ],
+-        [
+-          "Lead Vocal Mic",
+-          "Stage Box Input 1"
+-        ],
+-        [
+-          "Keys L DI",
+-          "Stage Box Input 7"
+-        ],
+-        [
+-          "Keys R DI",
+-          "Stage Box Input 8"
+-        ]
+-      ],
+-      "forbidden": [
+-        [
+-          "Talkback Output",
+-          "Main PA L Input"
+-        ],
+-        [
+-          "Talkback Output",
+-          "Main PA R Input"
+-        ]
+-      ],
+-      "system": [
+-        "Talkback stays in monitor/communication paths.",
+-        "It should not route to public PA outputs."
+-      ],
+-      "notes": [
+-        "Talkback belongs off the main audience mix."
+-      ],
+-      "learning": [
+-        "Talkback",
+-        "Monitor communication"
+-      ],
+-      "time": 280
+-    },
++    id: "LIV-028",
++    title: "Front of House Distribution Matrix",
++    environment: "live-sound",
++    type: "patch",
++    difficulty: 5,
++    brief: "Patch the full FOH distribution system: stage inputs into the console, FOH main split to crossover/record/broadcast feeds, bus outputs into the matrix, matrix feeds to balcony zones, and aux outputs to four IEM mixes.",
++    nodes: [
++    "Aux 1 Out",
++    "Aux 2 Out",
++    "Aux 3 Out",
++    "Aux 4 Out",
++    "Aux 5 Out",
++    "Aux 6 Out",
++    "Aux 7 Out",
++    "Aux 8 Out",
++    "Balcony A Center",
++    "Balcony A Left",
++    "Balcony A Right",
++    "Balcony B Center",
++    "Balcony B Left",
++    "Balcony B Right",
++    "Broadcast A L",
++    "Broadcast A R",
++    "Broadcast B L",
++    "Broadcast B R",
++    "Bus 1 Out",
++    "Bus 2 Out",
++    "Bus 3 Out",
++    "Bus 4 Out",
++    "Bus 5 Out",
++    "Bus 6 Out",
++    "Bus 7 Out",
++    "Bus 8 Out",
++    "Crossover In L",
++    "Crossover In R",
++    "FOH Main Out L",
++    "FOH Main Out R",
++    "IEM A L Input",
++    "IEM A R Input",
++    "IEM B L Input",
++    "IEM B R Input",
++    "IEM C L Input",
++    "IEM C R Input",
++    "IEM D L Input",
++    "IEM D R Input",
++    "Keyboard Vocal Mic",
++    "Keys L DI",
++    "Keys R DI",
++    "Lead Vocal Mic",
++    "Matrix Input 1",
++    "Matrix Input 2",
++    "Matrix Input 3",
++    "Matrix Input 4",
++    "Matrix Input 5",
++    "Matrix Input 6",
++    "Matrix Input 7",
++    "Matrix Input 8",
++    "Matrix Out 1A",
++    "Matrix Out 1B",
++    "Matrix Out 2A",
++    "Matrix Out 2B",
++    "Matrix Out 3A",
++    "Matrix Out 3B",
++    "Recording In L",
++    "Recording In R",
++    "Splitter In 1",
++    "Splitter In 2",
++    "Splitter Out 1 L",
++    "Splitter Out 1 R",
++    "Splitter Out 2 L",
++    "Splitter Out 2 R",
++    "Splitter Out 3 L",
++    "Splitter Out 3 R",
++    "Splitter Out 4 L",
++    "Splitter Out 4 R",
++    "Stage Box Input 1",
++    "Stage Box Input 2",
++    "Stage Box Input 7",
++    "Stage Box Input 8"
++],
++    required: [
++    [
++        "Lead Vocal Mic",
++        "Stage Box Input 1"
++    ],
++    [
++        "Keyboard Vocal Mic",
++        "Stage Box Input 2"
++    ],
++    [
++        "Keys L DI",
++        "Stage Box Input 7"
++    ],
++    [
++        "Keys R DI",
++        "Stage Box Input 8"
++    ],
++    [
++        "FOH Main Out L",
++        "Splitter In 1"
++    ],
++    [
++        "FOH Main Out R",
++        "Splitter In 2"
++    ],
++    [
++        "Splitter Out 1 L",
++        "Crossover In L"
++    ],
++    [
++        "Splitter Out 1 R",
++        "Crossover In R"
++    ],
++    [
++        "Splitter Out 2 L",
++        "Recording In L"
++    ],
++    [
++        "Splitter Out 2 R",
++        "Recording In R"
++    ],
++    [
++        "Splitter Out 3 L",
++        "Broadcast A L"
++    ],
++    [
++        "Splitter Out 3 R",
++        "Broadcast A R"
++    ],
++    [
++        "Splitter Out 4 L",
++        "Broadcast B L"
++    ],
++    [
++        "Splitter Out 4 R",
++        "Broadcast B R"
++    ],
++    [
++        "Bus 1 Out",
++        "Matrix Input 1"
++    ],
++    [
++        "Bus 2 Out",
++        "Matrix Input 2"
++    ],
++    [
++        "Bus 3 Out",
++        "Matrix Input 3"
++    ],
++    [
++        "Bus 4 Out",
++        "Matrix Input 4"
++    ],
++    [
++        "Bus 5 Out",
++        "Matrix Input 5"
++    ],
++    [
++        "Bus 6 Out",
++        "Matrix Input 6"
++    ],
++    [
++        "Bus 7 Out",
++        "Matrix Input 7"
++    ],
++    [
++        "Bus 8 Out",
++        "Matrix Input 8"
++    ],
++    [
++        "Matrix Out 1A",
++        "Balcony A Left"
++    ],
++    [
++        "Matrix Out 2A",
++        "Balcony A Center"
++    ],
++    [
++        "Matrix Out 3A",
++        "Balcony A Right"
++    ],
++    [
++        "Matrix Out 1B",
++        "Balcony B Left"
++    ],
++    [
++        "Matrix Out 2B",
++        "Balcony B Center"
++    ],
++    [
++        "Matrix Out 3B",
++        "Balcony B Right"
++    ],
++    [
++        "Aux 1 Out",
++        "IEM A L Input"
++    ],
++    [
++        "Aux 2 Out",
++        "IEM A R Input"
++    ],
++    [
++        "Aux 3 Out",
++        "IEM B L Input"
++    ],
++    [
++        "Aux 4 Out",
++        "IEM B R Input"
++    ],
++    [
++        "Aux 5 Out",
++        "IEM C L Input"
++    ],
++    [
++        "Aux 6 Out",
++        "IEM C R Input"
++    ],
++    [
++        "Aux 7 Out",
++        "IEM D L Input"
++    ],
++    [
++        "Aux 8 Out",
++        "IEM D R Input"
++    ]
++],
++    forbidden: [],
++    notes: [
++      "Route stage sources into the stagebox and FOH console path before distributing FOH outputs.",
++      "Splitter, matrix, crossover, broadcast, recording, balcony, and IEM feeds are all part of this distribution matrix.",
++      "Stereo pairs must be completed as full left/right groups."
++    ],
++    learning: [
++      "Large FOH systems often split a console feed into several destinations: PA processing, recording, broadcast, matrix zones, and monitor/IEM paths.",
++      "Matrix and aux outputs are separate distribution tools. Matrix feeds usually serve zones; aux feeds usually serve monitor mixes."
++    ],
++    system: [
++      "Complete every required route.",
++      "Left/right stereo groups must be patched as pairs.",
++      "Do not use line-array input panels on this board."
++    ],
++    time: 520,
++    stereoGroups: [
++      ["FOH Main Out L", "FOH Main Out R"],
++      ["Splitter Out 1 L", "Splitter Out 1 R"],
++      ["Splitter Out 2 L", "Splitter Out 2 R"],
++      ["Splitter Out 3 L", "Splitter Out 3 R"],
++      ["Splitter Out 4 L", "Splitter Out 4 R"],
++      ["Aux 1 Out", "Aux 2 Out"],
++      ["Aux 3 Out", "Aux 4 Out"],
++      ["Aux 5 Out", "Aux 6 Out"],
++      ["Aux 7 Out", "Aux 8 Out"]
++    ]
++  },
+         {
+           "id": "LIV-029",
+           "environment": "live",
+@@ -21647,8 +21851,34 @@ function q(id){return document.getElementById(id)}
+ function level(){return DATA.levels[state.levelIndex]}
+ function env(id){return DATA.environments.find(e => e.id === id) || DATA.environments[0]}
+ function edgeKey(a,b){return `${a}|||${b}`}
+-function reqSet(l=level()){return new Set(l.required.map(([a,b]) => edgeKey(a,b)))}
+-function forbSet(l=level()){return new Set((l.forbidden||[]).map(([a,b]) => edgeKey(a,b)))}
++function requiredPairs(l=level()){
++  if(!l) return [];
++  if(Array.isArray(l.required)){
++    return l.required.map(pair => {
++      if(Array.isArray(pair)) return pair;
++      if(pair && typeof pair === 'object') return [pair.from, pair.to];
++      return pair;
++    }).filter(pair => Array.isArray(pair) && pair.length >= 2 && pair[0] != null && pair[1] != null);
++  }
++  if(Array.isArray(l.routes)){
++    return l.routes.map(pair => {
++      if(Array.isArray(pair)) return pair;
++      if(pair && typeof pair === 'object') return [pair.from, pair.to];
++      return pair;
++    }).filter(pair => Array.isArray(pair) && pair.length >= 2 && pair[0] != null && pair[1] != null);
++  }
++  return [];
++}
++function forbiddenPairs(l=level()){
++  if(!l || !Array.isArray(l.forbidden)) return [];
++  return l.forbidden.map(pair => {
++    if(Array.isArray(pair)) return pair;
++    if(pair && typeof pair === 'object') return [pair.from, pair.to];
++    return pair;
++  }).filter(pair => Array.isArray(pair) && pair.length >= 2 && pair[0] != null && pair[1] != null);
++}
++function reqSet(l=level()){return new Set(requiredPairs(l).map(([a,b]) => edgeKey(a,b)))}
++function forbSet(l=level()){return new Set(forbiddenPairs(l).map(([a,b]) => edgeKey(a,b)))}
+ function esc(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+ function cssEsc(s){return window.CSS && CSS.escape ? CSS.escape(s) : String(s).replace(/["\\]/g,'\\$&')}
+ function isDigitalLevel(l=level()){ return l.environment !== 'studio'; }
+@@ -21656,12 +21886,12 @@ function isNodeOccupied(node){ return state.connections.some(c => c.from === nod
+ function isSamePatch(a,b,from,to){ return (a === from && b === to) || (a === to && b === from); }
+ function findUnorderedPair(pairs, from, to){ return (pairs || []).find(([a,b]) => isSamePatch(a,b,from,to)); }
+ function canonicalRequiredEdge(from, to, l=level()){
+-  const pair = findUnorderedPair(l.required, from, to);
++  const pair = findUnorderedPair(requiredPairs(l), from, to);
+   if(!pair) return null;
+   return { from: pair[0], to: pair[1], key: edgeKey(pair[0], pair[1]), reversed: pair[0] !== from };
+ }
+ function canonicalForbiddenEdge(from, to, l=level()){
+-  const pair = findUnorderedPair(l.forbidden || [], from, to);
++  const pair = findUnorderedPair(forbiddenPairs(l), from, to);
+   if(!pair) return null;
+   return { from: pair[0], to: pair[1], key: edgeKey(pair[0], pair[1]), reversed: pair[0] !== from };
+ }
+@@ -24134,7 +24364,7 @@ function renderConnections(){
+ }
+ function renderPaths(){
+   const done = new Set(state.connections.filter(c => c.correct).map(c => connectionScoreKey(c)));
+-  q('paths').innerHTML = level().required.map(([a,b],i) => {
++  q('paths').innerHTML = requiredPairs(level()).map(([a,b],i) => {
+     const complete = done.has(edgeKey(a,b));
+     return `<div class="path-card playful-card ${complete?'done':''}"><div class="path-card-line"><strong>${i+1}.</strong><span>${esc(expandedNodeLabel(a))} → ${esc(expandedNodeLabel(b))}</span>${complete ? '<em class="done-badge">Complete</em>' : '<em class="todo-badge">todo</em>'}</div></div>`;
+   }).join('');
+@@ -24151,7 +24381,7 @@ function testSignal(){
+   if(isComplete()) completeLevel();
+   else status('bad', 'Signal incomplete. Complete all highlighted required external patch points.');
+ }
+-function isComplete(){ return level().required.every(([a,b]) => state.scoredEdges.has(edgeKey(a,b))); }
++function isComplete(){ return requiredPairs(level()).every(([a,b]) => state.scoredEdges.has(edgeKey(a,b))); }
+ function undo(){
+   if(state.gameOver || state.paused) return;
+   const c = state.connections.pop();
+@@ -24193,13 +24423,32 @@ function isEarlyLevel(l){
+   return l.difficulty <= 2 || envIndex >= 0 && envIndex < 2;
+ }
+ function timerMultiplier(l){ return isEarlyLevel(l) ? 2 : 1; }
++function normalizedNodes(l=level()){
++  if(!l) return [];
++  if(Array.isArray(l.nodes)) return l.nodes;
++  const pairs = typeof requiredPairs === "function" ? requiredPairs(l) : [];
++  if(pairs.length){
++    return Array.from(new Set(pairs.flat().filter(Boolean)));
++  }
++  if(Array.isArray(l.routes)){
++    return Array.from(new Set(l.routes.flatMap(pair => {
++      if(Array.isArray(pair)) return pair;
++      if(pair && typeof pair === "object") return [pair.from, pair.to];
++      return [];
++    }).filter(Boolean)));
++  }
++  return [];
++}
++
+ function getInitialTime(l){
++  if(l && !Array.isArray(l.nodes)) l.nodes = normalizedNodes(l);
++
+   if(trainingModeForLevel(l)) return 50;
+-  const base = Math.max(35, 90 - l.difficulty*7 + l.required.length*9);
++  const base = Math.max(35, 90 - (l.difficulty||1)*7 + requiredPairs(l).length*9);
+   return Math.round(base * timerMultiplier(l));
+ }
+ function getConnectionResetTime(l){
+-  const base = Math.max(12, 34 - l.difficulty*3 + Math.max(0, 5-l.required.length));
++  const base = Math.max(12, 34 - (l.difficulty||1)*3 + Math.max(0, 5-requiredPairs(l).length));
+   return Math.round(base * timerMultiplier(l));
+ }
+ function startTimer(){
+@@ -25382,7 +25631,7 @@ function renderLiveStereoPairSection(title, subtitle, nodes, req, cls=''){
+ }
+ function renderPaths(){
+   const done = new Set(state.connections.filter(c => c.correct).map(c => connectionScoreKey(c)));
+-  q('paths').innerHTML = level().required.map(([a,b],i) => {
++  q('paths').innerHTML = requiredPairs(level()).map(([a,b],i) => {
+     const complete = done.has(edgeKey(a,b));
+     return `<div class="path-card playful-card ${complete?'done':''}"><div class="path-card-line"><strong>${i+1}.</strong><span>${esc(sfv170ReadableLabel(a))} → ${esc(sfv170ReadableLabel(b))}</span>${complete ? '<em class="done-badge">Complete</em>' : '<em class="todo-badge">To do</em>'}</div></div>`;
+   }).join('');
+diff --git a/src/live-sound-native-renderer.js b/src/live-sound-native-renderer.js
+index a9e8a82..050aea4 100644
+--- a/src/live-sound-native-renderer.js
++++ b/src/live-sound-native-renderer.js
+@@ -5604,7 +5604,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
+   function renderLiv019IemFxFromLiv009Layout(surface, adapter) {
+     const level = buildLevelGeometry(surface);
+     const rect = level.rect;
+-    const boardHeight = Math.max(760, Math.ceil(rect.height || surface.getBoundingClientRect().height || 0));
++    const boardHeight = LIV028_BOARD_HEIGHT_LOCK;
+     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
+     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+     surface.classList.add("sf-live-native-scroll-host");
+@@ -10399,7 +10399,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
+     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+ 
+     const rect = surface.getBoundingClientRect();
+-    const boardWidth = Math.max(1100, Math.ceil(rect.width || 1100));
++    const boardWidth = LIV028_BOARD_WIDTH_LOCK;
+     const boardHeight = 900;
+ 
+     const layer = document.createElement("div");
+@@ -13690,6 +13690,11 @@ redrawCables(layer);
+ 
+ 
+ 
++  const LIV028_BOARD_OFFSET_X = 140;
++  const LIV028_BOARD_OFFSET_Y = 60;
++  const LIV028_BOARD_WIDTH_LOCK = 1450;
++  const LIV028_BOARD_HEIGHT_LOCK = 1035;
++
+   const LIV028_VISUAL_ITEMS = [
+     {
+         "key": "leadVocalMic",
+diff --git a/src/sf-live-dev-tool-config.js b/src/sf-live-dev-tool-config.js
+index a81211b..1711ddd 100644
+--- a/src/sf-live-dev-tool-config.js
++++ b/src/sf-live-dev-tool-config.js
+@@ -3,14 +3,14 @@
+   "use strict";
+ 
+   const params = new URLSearchParams(window.location.search || "");
+-  let enabled = params.get("sfLiveDevTools") === "1" || params.get("fresh") === "liv020-dev-tools";
++  let enabled = params.get("sfLiveDevTools") === "1" || params.get("fresh") === "liv020-dev-tools" || params.get("fresh") === "liv028-dev-tools";
+   let levelId = params.get("sfLiveDevLevel") || params.get("level") || "";
+ 
+   try {
+     if (window.parent && window.parent !== window) {
+       const parentParams = new URLSearchParams(window.parent.location.search || "");
+       if (!enabled) {
+-        enabled = parentParams.get("sfLiveDevTools") === "1" || parentParams.get("fresh") === "liv020-dev-tools";
++        enabled = parentParams.get("sfLiveDevTools") === "1" || parentParams.get("fresh") === "liv020-dev-tools" || parentParams.get("fresh") === "liv028-dev-tools";
+       }
+       if (!levelId) {
+         levelId = parentParams.get("sfLiveDevLevel") || parentParams.get("level") || "";
+@@ -26,7 +26,7 @@
+   window.sfLiveDevToolConfig = {
+     enabled,
+     levelId,
+-    layerSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug,
++    layerSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug + ", .sf-live-native-layer.sf-live-native-level-" + levelId.toLowerCase(),
+     exportPrefix: "[Signal Flow] " + levelId,
+     gearSelector: "img,[data-sf-gear-id]",
+     labelSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug + " div, .sf-live-native-layer.sf-live-native-level-" + levelSlug + " span",
+diff --git a/src/sf-live-gear-mover-dev.js b/src/sf-live-gear-mover-dev.js
+index 17b2c4f..9d52c24 100644
+--- a/src/sf-live-gear-mover-dev.js
++++ b/src/sf-live-gear-mover-dev.js
+@@ -3,13 +3,42 @@
+ (function () {
+   "use strict";
+ 
+-  const VERSION = "sf-live-gear-mover-dev-v3-keyboard";
++  const VERSION = "sf-live-gear-mover-dev-v4-reactive-z";
+   let installed = false;
+ 
+   function cfg() {
+     return window.sfLiveDevToolConfig || {};
+   }
+ 
++  function setImportantStyle(el, prop, value) {
++    if (!el || !el.style) return;
++    el.style.setProperty(prop, String(value), "important");
++  }
++
++  function syncLinkedLiv028Label(el) {
++    if (!el || !el.dataset || !el.dataset.sfLiveDevGearKey) return;
++    const key = el.dataset.sfLiveDevGearKey;
++    const layer = el.closest(".sf-live-native-layer");
++    if (!layer) return;
++    const label = layer.querySelector('[data-liv028-gear-label-for="' + key + '"]');
++    if (!label) return;
++
++    const left = parseFloat(el.style.left || "0") || 0;
++    const top = parseFloat(el.style.top || "0") || 0;
++    const width = parseFloat(el.style.width || "0") || 0;
++    const z = parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || "300", 10) || 300;
++
++    setImportantStyle(label, "left", Math.round(left) + "px");
++    setImportantStyle(label, "top", Math.round(top + 4) + "px");
++    if (width > 0) setImportantStyle(label, "width", Math.round(width) + "px");
++    setImportantStyle(label, "z-index", z + 20);
++  }
++
++  function setGearZ(el, z) {
++    setImportantStyle(el, "z-index", z);
++    syncLinkedLiv028Label(el);
++  }
++
+   function docsToScan() {
+     const docs = [{ name: "self", doc: document, win: window }];
+     document.querySelectorAll("iframe").forEach((frame, i) => {
+@@ -141,8 +170,9 @@
+       const left = Math.round(px(el, "left") + dx * step);
+       const top = Math.round(px(el, "top") + dy * step);
+ 
+-      el.style.left = left + "px";
+-      el.style.top = top + "px";
++      setImportantStyle(el, "left", left + "px");
++      setImportantStyle(el, "top", top + "px");
++      syncLinkedLiv028Label(el);
+ 
+       console.log("[Signal Flow] Live dev gear move", {
+         key: el.dataset.sfLiveDevGearKey,
+@@ -157,7 +187,8 @@
+       if (!el) return;
+ 
+       const width = Math.max(20, Math.round(px(el, "width") + dw * step));
+-      el.style.width = width + "px";
++      setImportantStyle(el, "width", width + "px");
++      syncLinkedLiv028Label(el);
+ 
+       console.log("[Signal Flow] Live dev gear width", {
+         key: el.dataset.sfLiveDevGearKey,
+@@ -172,7 +203,8 @@
+ 
+       const current = el.getBoundingClientRect().height || px(el, "height") || 40;
+       const height = Math.max(20, Math.round(current + dh * step));
+-      el.style.height = height + "px";
++      setImportantStyle(el, "height", height + "px");
++      syncLinkedLiv028Label(el);
+ 
+       console.log("[Signal Flow] Live dev gear height", {
+         key: el.dataset.sfLiveDevGearKey,
+@@ -185,9 +217,10 @@
+       const el = selected();
+       if (!el) return;
+ 
+-      const current = parseInt(el.style.zIndex || gameDoc.defaultView.getComputedStyle(el).zIndex || "50", 10) || 50;
++      const current = parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || gameDoc.defaultView.getComputedStyle(el).zIndex || "50", 10) || 50;
+       const zIndex = current + dz;
+-      el.style.zIndex = String(zIndex);
++      setImportantStyle(el, "z-index", zIndex);
++      syncLinkedLiv028Label(el);
+ 
+       console.log("[Signal Flow] Live dev gear z", {
+         key: el.dataset.sfLiveDevGearKey,
+@@ -282,6 +315,24 @@
+         case "2": step = 2; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
+         case "5": step = 5; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
+         case "0": step = 20; console.log("[Signal Flow] Live dev gear step", step); used = false; break;
++        case "PageUp": {
++          const el = selected();
++          if (el) {
++            const z = (parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || "300", 10) || 300) + step;
++            setGearZ(el, z);
++            console.log("[Signal Flow] Live dev gear z", { key: el.dataset.sfLiveDevGearKey, z });
++          }
++          break;
++        }
++        case "PageDown": {
++          const el = selected();
++          if (el) {
++            const z = (parseInt(el.style.zIndex || el.style.getPropertyValue("z-index") || "300", 10) || 300) - step;
++            setGearZ(el, z);
++            console.log("[Signal Flow] Live dev gear z", { key: el.dataset.sfLiveDevGearKey, z });
++          }
++          break;
++        }
+         case "e": case "E": exportGear(); break;
+         default: used = false;
+       }

@@ -18614,7 +18614,7 @@ window.SIGNAL_FLOW_V12 = {
       "title": "Front Fill Zone Feed",
       "subtitle": "Matrix-fed venue coverage",
       "description": "Use a console matrix to feed a front fill DSP, then send the DSP output to the front fill amplifier.",
-      "environment": "Sound Reinforcement / Live Sound",
+      "environment": "live",
       "world": "Live Console + Rack World",
       "type": "patch",
       "difficulty": 3,
@@ -18762,56 +18762,260 @@ window.SIGNAL_FLOW_V12 = {
       "time": 280
     },
     {
-      "id": "LIV-028",
-      "environment": "live",
-      "title": "Talkback to monitor system",
-      "brief": "Route talkback into the in-ear monitor path without feeding mains.",
-      "difficulty": 3,
-      "required": [
-        [
-          "Talkback Mic",
-          "Stage Box Input 14"
-        ],
-        [
-          "Talkback Output",
-          "In-Ear B In"
-        ],
-        [
-          "Lead Vocal Mic",
-          "Stage Box Input 1"
-        ],
-        [
-          "Keys L DI",
-          "Stage Box Input 7"
-        ],
-        [
-          "Keys R DI",
-          "Stage Box Input 8"
-        ]
-      ],
-      "forbidden": [
-        [
-          "Talkback Output",
-          "Main PA L Input"
-        ],
-        [
-          "Talkback Output",
-          "Main PA R Input"
-        ]
-      ],
-      "system": [
-        "Talkback stays in monitor/communication paths.",
-        "It should not route to public PA outputs."
-      ],
-      "notes": [
-        "Talkback belongs off the main audience mix."
-      ],
-      "learning": [
-        "Talkback",
-        "Monitor communication"
-      ],
-      "time": 280
-    },
+    id: "LIV-028",
+    title: "Front of House Distribution Matrix",
+    environment: "live-sound",
+    type: "patch",
+    difficulty: 5,
+    brief: "Patch the full FOH distribution system: stage inputs into the console, FOH main split to crossover/record/broadcast feeds, bus outputs into the matrix, matrix feeds to balcony zones, and aux outputs to four IEM mixes.",
+    nodes: [
+    "Aux 1 Out",
+    "Aux 2 Out",
+    "Aux 3 Out",
+    "Aux 4 Out",
+    "Aux 5 Out",
+    "Aux 6 Out",
+    "Aux 7 Out",
+    "Aux 8 Out",
+    "Balcony A Center",
+    "Balcony A Left",
+    "Balcony A Right",
+    "Balcony B Center",
+    "Balcony B Left",
+    "Balcony B Right",
+    "Broadcast A L",
+    "Broadcast A R",
+    "Broadcast B L",
+    "Broadcast B R",
+    "Bus 1 Out",
+    "Bus 2 Out",
+    "Bus 3 Out",
+    "Bus 4 Out",
+    "Bus 5 Out",
+    "Bus 6 Out",
+    "Bus 7 Out",
+    "Bus 8 Out",
+    "Crossover In L",
+    "Crossover In R",
+    "FOH Main Out L",
+    "FOH Main Out R",
+    "IEM A L Input",
+    "IEM A R Input",
+    "IEM B L Input",
+    "IEM B R Input",
+    "IEM C L Input",
+    "IEM C R Input",
+    "IEM D L Input",
+    "IEM D R Input",
+    "Keyboard Vocal Mic",
+    "Keys L DI",
+    "Keys R DI",
+    "Lead Vocal Mic",
+    "Matrix Input 1",
+    "Matrix Input 2",
+    "Matrix Input 3",
+    "Matrix Input 4",
+    "Matrix Input 5",
+    "Matrix Input 6",
+    "Matrix Input 7",
+    "Matrix Input 8",
+    "Matrix Out 1A",
+    "Matrix Out 1B",
+    "Matrix Out 2A",
+    "Matrix Out 2B",
+    "Matrix Out 3A",
+    "Matrix Out 3B",
+    "Recording In L",
+    "Recording In R",
+    "Splitter In 1",
+    "Splitter In 2",
+    "Splitter Out 1 L",
+    "Splitter Out 1 R",
+    "Splitter Out 2 L",
+    "Splitter Out 2 R",
+    "Splitter Out 3 L",
+    "Splitter Out 3 R",
+    "Splitter Out 4 L",
+    "Splitter Out 4 R",
+    "Stage Box Input 1",
+    "Stage Box Input 2",
+    "Stage Box Input 7",
+    "Stage Box Input 8"
+],
+    required: [
+    [
+        "Lead Vocal Mic",
+        "Stage Box Input 1"
+    ],
+    [
+        "Keyboard Vocal Mic",
+        "Stage Box Input 2"
+    ],
+    [
+        "Keys L DI",
+        "Stage Box Input 7"
+    ],
+    [
+        "Keys R DI",
+        "Stage Box Input 8"
+    ],
+    [
+        "FOH Main Out L",
+        "Splitter In 1"
+    ],
+    [
+        "FOH Main Out R",
+        "Splitter In 2"
+    ],
+    [
+        "Splitter Out 1 L",
+        "Crossover In L"
+    ],
+    [
+        "Splitter Out 1 R",
+        "Crossover In R"
+    ],
+    [
+        "Splitter Out 2 L",
+        "Recording In L"
+    ],
+    [
+        "Splitter Out 2 R",
+        "Recording In R"
+    ],
+    [
+        "Splitter Out 3 L",
+        "Broadcast A L"
+    ],
+    [
+        "Splitter Out 3 R",
+        "Broadcast A R"
+    ],
+    [
+        "Splitter Out 4 L",
+        "Broadcast B L"
+    ],
+    [
+        "Splitter Out 4 R",
+        "Broadcast B R"
+    ],
+    [
+        "Bus 1 Out",
+        "Matrix Input 1"
+    ],
+    [
+        "Bus 2 Out",
+        "Matrix Input 2"
+    ],
+    [
+        "Bus 3 Out",
+        "Matrix Input 3"
+    ],
+    [
+        "Bus 4 Out",
+        "Matrix Input 4"
+    ],
+    [
+        "Bus 5 Out",
+        "Matrix Input 5"
+    ],
+    [
+        "Bus 6 Out",
+        "Matrix Input 6"
+    ],
+    [
+        "Bus 7 Out",
+        "Matrix Input 7"
+    ],
+    [
+        "Bus 8 Out",
+        "Matrix Input 8"
+    ],
+    [
+        "Matrix Out 1A",
+        "Balcony A Left"
+    ],
+    [
+        "Matrix Out 2A",
+        "Balcony A Center"
+    ],
+    [
+        "Matrix Out 3A",
+        "Balcony A Right"
+    ],
+    [
+        "Matrix Out 1B",
+        "Balcony B Left"
+    ],
+    [
+        "Matrix Out 2B",
+        "Balcony B Center"
+    ],
+    [
+        "Matrix Out 3B",
+        "Balcony B Right"
+    ],
+    [
+        "Aux 1 Out",
+        "IEM A L Input"
+    ],
+    [
+        "Aux 2 Out",
+        "IEM A R Input"
+    ],
+    [
+        "Aux 3 Out",
+        "IEM B L Input"
+    ],
+    [
+        "Aux 4 Out",
+        "IEM B R Input"
+    ],
+    [
+        "Aux 5 Out",
+        "IEM C L Input"
+    ],
+    [
+        "Aux 6 Out",
+        "IEM C R Input"
+    ],
+    [
+        "Aux 7 Out",
+        "IEM D L Input"
+    ],
+    [
+        "Aux 8 Out",
+        "IEM D R Input"
+    ]
+],
+    forbidden: [],
+    notes: [
+      "Route stage sources into the stagebox and FOH console path before distributing FOH outputs.",
+      "Splitter, matrix, crossover, broadcast, recording, balcony, and IEM feeds are all part of this distribution matrix.",
+      "Stereo pairs must be completed as full left/right groups."
+    ],
+    learning: [
+      "Large FOH systems often split a console feed into several destinations: PA processing, recording, broadcast, matrix zones, and monitor/IEM paths.",
+      "Matrix and aux outputs are separate distribution tools. Matrix feeds usually serve zones; aux feeds usually serve monitor mixes."
+    ],
+    system: [
+      "Complete every required route.",
+      "Left/right stereo groups must be patched as pairs.",
+      "Do not use line-array input panels on this board."
+    ],
+    time: 520,
+    stereoGroups: [
+      ["FOH Main Out L", "FOH Main Out R"],
+      ["Splitter Out 1 L", "Splitter Out 1 R"],
+      ["Splitter Out 2 L", "Splitter Out 2 R"],
+      ["Splitter Out 3 L", "Splitter Out 3 R"],
+      ["Splitter Out 4 L", "Splitter Out 4 R"],
+      ["Aux 1 Out", "Aux 2 Out"],
+      ["Aux 3 Out", "Aux 4 Out"],
+      ["Aux 5 Out", "Aux 6 Out"],
+      ["Aux 7 Out", "Aux 8 Out"]
+    ]
+  },
         {
           "id": "LIV-029",
           "environment": "live",
@@ -21646,9 +21850,40 @@ function renderContextNode(node, req){
 function q(id){return document.getElementById(id)}
 function level(){return DATA.levels[state.levelIndex]}
 function env(id){return DATA.environments.find(e => e.id === id) || DATA.environments[0]}
+function displayEnvironmentId(id){return id === 'live-sound' ? 'live' : id}
+function levelsForEnvironment(id){
+  const bucket = displayEnvironmentId(id);
+  return DATA.levels.filter(l => displayEnvironmentId(l.environment) === bucket);
+}
 function edgeKey(a,b){return `${a}|||${b}`}
-function reqSet(l=level()){return new Set(l.required.map(([a,b]) => edgeKey(a,b)))}
-function forbSet(l=level()){return new Set((l.forbidden||[]).map(([a,b]) => edgeKey(a,b)))}
+function requiredPairs(l=level()){
+  if(!l) return [];
+  if(Array.isArray(l.required)){
+    return l.required.map(pair => {
+      if(Array.isArray(pair)) return pair;
+      if(pair && typeof pair === 'object') return [pair.from, pair.to];
+      return pair;
+    }).filter(pair => Array.isArray(pair) && pair.length >= 2 && pair[0] != null && pair[1] != null);
+  }
+  if(Array.isArray(l.routes)){
+    return l.routes.map(pair => {
+      if(Array.isArray(pair)) return pair;
+      if(pair && typeof pair === 'object') return [pair.from, pair.to];
+      return pair;
+    }).filter(pair => Array.isArray(pair) && pair.length >= 2 && pair[0] != null && pair[1] != null);
+  }
+  return [];
+}
+function forbiddenPairs(l=level()){
+  if(!l || !Array.isArray(l.forbidden)) return [];
+  return l.forbidden.map(pair => {
+    if(Array.isArray(pair)) return pair;
+    if(pair && typeof pair === 'object') return [pair.from, pair.to];
+    return pair;
+  }).filter(pair => Array.isArray(pair) && pair.length >= 2 && pair[0] != null && pair[1] != null);
+}
+function reqSet(l=level()){return new Set(requiredPairs(l).map(([a,b]) => edgeKey(a,b)))}
+function forbSet(l=level()){return new Set(forbiddenPairs(l).map(([a,b]) => edgeKey(a,b)))}
 function esc(s){return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 function cssEsc(s){return window.CSS && CSS.escape ? CSS.escape(s) : String(s).replace(/["\\]/g,'\\$&')}
 function isDigitalLevel(l=level()){ return l.environment !== 'studio'; }
@@ -21656,12 +21891,12 @@ function isNodeOccupied(node){ return state.connections.some(c => c.from === nod
 function isSamePatch(a,b,from,to){ return (a === from && b === to) || (a === to && b === from); }
 function findUnorderedPair(pairs, from, to){ return (pairs || []).find(([a,b]) => isSamePatch(a,b,from,to)); }
 function canonicalRequiredEdge(from, to, l=level()){
-  const pair = findUnorderedPair(l.required, from, to);
+  const pair = findUnorderedPair(requiredPairs(l), from, to);
   if(!pair) return null;
   return { from: pair[0], to: pair[1], key: edgeKey(pair[0], pair[1]), reversed: pair[0] !== from };
 }
 function canonicalForbiddenEdge(from, to, l=level()){
-  const pair = findUnorderedPair(l.forbidden || [], from, to);
+  const pair = findUnorderedPair(forbiddenPairs(l), from, to);
   if(!pair) return null;
   return { from: pair[0], to: pair[1], key: edgeKey(pair[0], pair[1]), reversed: pair[0] !== from };
 }
@@ -22260,7 +22495,7 @@ function renderSplash(){
   const envSelect = q('envSelect');
   const levelSelect = q('levelSelectSplash');
   function fillLevels(){
-    const levels = DATA.levels.filter(l => l.environment === envSelect.value);
+    const levels = levelsForEnvironment(envSelect.value);
     levelSelect.innerHTML = levels.map(l => `<option value="${l.id}">${l.id}${trainingModeShort(l) ? ' [' + trainingModeShort(l) + ']' : ''} - ${esc(l.title)}</option>`).join('');
     if(!levelSelect.value && levels[0]) levelSelect.value = levels[0].id;
   }
@@ -22375,10 +22610,11 @@ function renderLevel(){
   const l = level();
   sfLedgerStartLevel(l.id);
   state.score = sfLedgerScore();
-  const e = env(l.environment);
-  const allInEnv = DATA.levels.filter(x => x.environment === l.environment);
+  const displayEnv = displayEnvironmentId(l.environment);
+  const e = env(displayEnv);
+  const allInEnv = levelsForEnvironment(displayEnv);
   const req = reqSet(l);
-  const rawBay = DATA.patchbays[l.environment] || [];
+  const rawBay = DATA.patchbays[l.environment] || DATA.patchbays[displayEnv] || [];
   const bay = getRenderBay(l, rawBay);
   const uiFlavor = uiFlavorForLevel(l);
   const copy = boardCopy(l.environment, l);
@@ -22391,8 +22627,8 @@ function renderLevel(){
   state.timeLeft = startTime;
   const studioSidebarLayout = l.environment === 'studio';
   const headerToolsMarkup = studioSidebarLayout
-    ? `<select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===l.environment?'selected':''}>${esc(x.name)}</option>`).join('')}</select><select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select>`
-    : `<select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===l.environment?'selected':''}>${esc(x.name)}</option>`).join('')}</select><select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select><div class="meter"><small>Score</small><strong id="scoreText">0</strong></div><div class="meter"><small>Timer</small><strong id="timerText">${Math.ceil(state.timeLeft)}</strong><div class="timer-bar"><span id="timerFill"></span></div></div><button id="audioBtn" class="audio-btn">Sound</button><button id="pauseBtn">Pause</button><button id="homeBtn" class="ghost">Splash</button>`;
+    ? `<select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===displayEnv?'selected':''}>${esc(x.name)}</option>`).join('')}</select><select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select>`
+    : `<select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===displayEnv?'selected':''}>${esc(x.name)}</option>`).join('')}</select><select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select><div class="meter"><small>Score</small><strong id="scoreText">0</strong></div><div class="meter"><small>Timer</small><strong id="timerText">${Math.ceil(state.timeLeft)}</strong><div class="timer-bar"><span id="timerFill"></span></div></div><button id="audioBtn" class="audio-btn">Sound</button><button id="pauseBtn">Pause</button><button id="homeBtn" class="ghost">Splash</button>`;
   const studioSidebarControls = studioSidebarLayout ? `<section class="studio-sidebar-controls"><div class="studio-sidebar-meters"><div class="meter"><small>Score</small><strong id="scoreText">0</strong></div><div class="meter"><small>Timer</small><strong id="timerText">${Math.ceil(state.timeLeft)}</strong><div class="timer-bar"><span id="timerFill"></span></div></div></div><div class="studio-sidebar-actions"><div class="studio-btn-row"><button id="audioBtn" class="audio-btn">Sound</button><button id="pauseBtn">Pause</button><button id="homeBtn" class="ghost">Splash</button></div><div class="studio-btn-row"><button id="inspectBtn">Inspect</button><button id="hintBtn">Show Hints</button><button id="undoBtn">Undo</button><button id="clearBtn" class="danger">Clear</button></div></div></section>` : '';
   const boardTopMarkup = studioSidebarLayout ? '' : `<div class="board-top"><div><h2>${esc(boardTitle)} ${trainingBadgeMarkup(l)}</h2><p>${esc(boardHelp)}</p></div><div class="board-actions"><button id="inspectBtn">Inspect</button><button id="hintBtn">Show Hints</button><button id="undoBtn">Undo</button><button id="clearBtn" class="danger">Clear</button></div></div>`;
   const boardBodyMarkup = studioSidebarLayout
@@ -23867,7 +24103,7 @@ function bindLevelControls(){
   q('retryBtn').onclick = () => { navigateTo(`/level/${encodeURIComponent(level().id)}`); };
   q('gameOverSplashBtn').onclick = () => { navigateTo('/'); };
   q('envJump').onchange = e => {
-    const first = DATA.levels.find(l => l.environment === e.target.value);
+    const first = levelsForEnvironment(e.target.value)[0];
     if(first) navigateTo(`/level/${encodeURIComponent(first.id)}`);
   };
   q('levelJump').onchange = e => { navigateTo(`/level/${encodeURIComponent(e.target.value)}`); };
@@ -24134,7 +24370,7 @@ function renderConnections(){
 }
 function renderPaths(){
   const done = new Set(state.connections.filter(c => c.correct).map(c => connectionScoreKey(c)));
-  q('paths').innerHTML = level().required.map(([a,b],i) => {
+  q('paths').innerHTML = requiredPairs(level()).map(([a,b],i) => {
     const complete = done.has(edgeKey(a,b));
     return `<div class="path-card playful-card ${complete?'done':''}"><div class="path-card-line"><strong>${i+1}.</strong><span>${esc(expandedNodeLabel(a))} → ${esc(expandedNodeLabel(b))}</span>${complete ? '<em class="done-badge">Complete</em>' : '<em class="todo-badge">todo</em>'}</div></div>`;
   }).join('');
@@ -24151,7 +24387,7 @@ function testSignal(){
   if(isComplete()) completeLevel();
   else status('bad', 'Signal incomplete. Complete all highlighted required external patch points.');
 }
-function isComplete(){ return level().required.every(([a,b]) => state.scoredEdges.has(edgeKey(a,b))); }
+function isComplete(){ return requiredPairs(level()).every(([a,b]) => state.scoredEdges.has(edgeKey(a,b))); }
 function undo(){
   if(state.gameOver || state.paused) return;
   const c = state.connections.pop();
@@ -24193,13 +24429,32 @@ function isEarlyLevel(l){
   return l.difficulty <= 2 || envIndex >= 0 && envIndex < 2;
 }
 function timerMultiplier(l){ return isEarlyLevel(l) ? 2 : 1; }
+function normalizedNodes(l=level()){
+  if(!l) return [];
+  if(Array.isArray(l.nodes)) return l.nodes;
+  const pairs = typeof requiredPairs === "function" ? requiredPairs(l) : [];
+  if(pairs.length){
+    return Array.from(new Set(pairs.flat().filter(Boolean)));
+  }
+  if(Array.isArray(l.routes)){
+    return Array.from(new Set(l.routes.flatMap(pair => {
+      if(Array.isArray(pair)) return pair;
+      if(pair && typeof pair === "object") return [pair.from, pair.to];
+      return [];
+    }).filter(Boolean)));
+  }
+  return [];
+}
+
 function getInitialTime(l){
+  if(l && !Array.isArray(l.nodes)) l.nodes = normalizedNodes(l);
+
   if(trainingModeForLevel(l)) return 50;
-  const base = Math.max(35, 90 - l.difficulty*7 + l.required.length*9);
+  const base = Math.max(35, 90 - (l.difficulty||1)*7 + requiredPairs(l).length*9);
   return Math.round(base * timerMultiplier(l));
 }
 function getConnectionResetTime(l){
-  const base = Math.max(12, 34 - l.difficulty*3 + Math.max(0, 5-l.required.length));
+  const base = Math.max(12, 34 - (l.difficulty||1)*3 + Math.max(0, 5-requiredPairs(l).length));
   return Math.round(base * timerMultiplier(l));
 }
 function startTimer(){
@@ -25382,7 +25637,7 @@ function renderLiveStereoPairSection(title, subtitle, nodes, req, cls=''){
 }
 function renderPaths(){
   const done = new Set(state.connections.filter(c => c.correct).map(c => connectionScoreKey(c)));
-  q('paths').innerHTML = level().required.map(([a,b],i) => {
+  q('paths').innerHTML = requiredPairs(level()).map(([a,b],i) => {
     const complete = done.has(edgeKey(a,b));
     return `<div class="path-card playful-card ${complete?'done':''}"><div class="path-card-line"><strong>${i+1}.</strong><span>${esc(sfv170ReadableLabel(a))} → ${esc(sfv170ReadableLabel(b))}</span>${complete ? '<em class="done-badge">Complete</em>' : '<em class="todo-badge">To do</em>'}</div></div>`;
   }).join('');
@@ -29494,20 +29749,52 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   const params = new URLSearchParams(location.search);
   const target = params.get("sfLiveDevLevel");
   if (!target) return;
+  let applied = false;
 
   function fire(sel){
     sel.dispatchEvent(new Event("input", { bubbles:true }));
     sel.dispatchEvent(new Event("change", { bubbles:true }));
   }
 
+  function levelBucket(env){
+    return env === "live-sound" ? "live" : env;
+  }
+
+  function devLevelLabel(level){
+    const training = typeof trainingModeShort === "function" && trainingModeShort(level) ? " [" + trainingModeShort(level) + "]" : "";
+    return level.id + training + " - " + (level.title || level.id);
+  }
+
+  function syncExistingLiveSoundOptions(sel, targetLevel){
+    if (!window.DATA || !Array.isArray(DATA.levels) || !targetLevel || targetLevel.environment !== "live-sound") return;
+    const levels = DATA.levels.filter(level => levelBucket(level.environment) === levelBucket(targetLevel.environment));
+    if (!levels.some(level => level.id === target)) return;
+
+    const nextValues = levels.map(level => level.id).join("|");
+    const currentValues = Array.from(sel.options || []).map(option => option.value).join("|");
+    if (nextValues === currentValues) return;
+
+    sel.innerHTML = levels.map(level => {
+      const option = document.createElement("option");
+      option.value = level.id;
+      option.textContent = devLevelLabel(level);
+      return option.outerHTML;
+    }).join("");
+  }
+
   function trySelect(){
+    if (applied) return true;
     const selects = Array.from(document.querySelectorAll("select"));
+    const targetLevel = window.DATA && Array.isArray(DATA.levels)
+      ? DATA.levels.find(level => level.id === target)
+      : null;
+    const targetEnv = targetLevel ? levelBucket(targetLevel.environment) : "live";
 
     const envSel = selects.find(sel =>
-      Array.from(sel.options || []).some(o => o.value === "live")
+      Array.from(sel.options || []).some(o => o.value === targetEnv)
     );
-    if (envSel && envSel.value !== "live") {
-      envSel.value = "live";
+    if (envSel && envSel.value !== targetEnv) {
+      envSel.value = targetEnv;
       fire(envSel);
     }
 
@@ -29516,22 +29803,18 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     );
     if (!levelSel) return false;
 
-    let opt = Array.from(levelSel.options).find(o => o.value === target);
+    syncExistingLiveSoundOptions(levelSel, targetLevel);
+
+    const opt = Array.from(levelSel.options).find(o => o.value === target);
     if (!opt) {
-      opt = document.createElement("option");
-      opt.value = target;
-      opt.textContent = target + " - Front Fill Zone Feed";
-      
-      const before = Array.from(levelSel.options).find(o => o.value === "LIV-026");
-      if (before) levelSel.insertBefore(opt, before);
-      else levelSel.appendChild(opt);
-      console.log("[Signal Flow] Inserted missing dev level option:", target);
+      return false;
     }
 
     levelSel.value = target;
     fire(levelSel);
 
-    console.log("[Signal Flow] Forced dev level selected:", target);
+    applied = true;
+    console.log("[Signal Flow] Selected existing dev level once:", target);
     return true;
   }
 
@@ -29540,44 +29823,6 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     tries++;
     if (trySelect() || tries > 80) clearInterval(timer);
   }, 150);
-})();
-</script>
-
-
-
-
-<script>
-(function sfEnsureLiv025OptionObserver(){
-  function shouldPatchSelect(sel){
-    return sel && Array.from(sel.options || []).some(function(o){ return o.value === "LIV-026"; });
-  }
-
-  function install(){
-    document.querySelectorAll("select").forEach(function(sel){
-      if (!shouldPatchSelect(sel)) return;
-      if (sel.querySelector('option[value="LIV-025"]')) return;
-
-      var before = sel.querySelector('option[value="LIV-026"]');
-      if (!before) return;
-
-      var opt = document.createElement("option");
-      opt.value = "LIV-025";
-      opt.textContent = "LIV-025 - Front fill zone feed";
-      sel.insertBefore(opt, before);
-      console.log("[Signal Flow] Restored LIV-025 level option before LIV-026");
-    });
-  }
-
-  install();
-
-  var observer = new MutationObserver(install);
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true
-  });
-
-  window.addEventListener("load", install);
-  setInterval(install, 750);
 })();
 </script>
 
@@ -29671,7 +29916,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </script>
 <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
 
-<script src="../src/live-sound-native-renderer.js?v=6r624baselinefixqa"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r626liv028amplabels"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r243liv011scoped"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">

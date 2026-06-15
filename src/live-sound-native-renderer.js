@@ -2030,11 +2030,18 @@ if (activeNativeLevelId === nextLevelId) return;
 
   function findSurface() {
     const explicitBoardSurface = Array.from(document.querySelectorAll(
-      ".board-card #patchbay, #patchbay, .board-card .patchbay-wrap, .patchbay-wrap"
+      LEVEL_ID === "LIV-028"
+        ? "#patchbayWrap, .board-card .patchbay-wrap, .patchbay-wrap, .board-card #patchbay, #patchbay"
+        : ".board-card #patchbay, #patchbay, .board-card .patchbay-wrap, .patchbay-wrap"
     ))
       .filter(isUsableNativeBoardSurface)
       .sort((a, b) => {
-        const score = el => (el.id === "patchbay" ? 3 : el.classList.contains("patchbay-wrap") ? 2 : 1) * 10000000 + areaOf(el);
+        const score = el => {
+          if (LEVEL_ID === "LIV-028") {
+            return (el.id === "patchbayWrap" ? 4 : el.classList.contains("patchbay-wrap") ? 3 : el.id === "patchbay" ? 2 : 1) * 10000000 + areaOf(el);
+          }
+          return (el.id === "patchbay" ? 3 : el.classList.contains("patchbay-wrap") ? 2 : 1) * 10000000 + areaOf(el);
+        };
         return score(b) - score(a);
       })[0];
 
@@ -5607,12 +5614,24 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     const boardHeight = Math.max(760, Math.ceil(rect.height || surface.getBoundingClientRect().height || 0));
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
+
+    // LIV-028 is a full visual scaffold. Remove legacy generated patch rows so
+    // old digital nodes do not visually cover or intercept the scaffold.
+    Array.from(surface.children).forEach(child => {
+      if (
+        child.classList &&
+        !child.classList.contains("sf-live-native-layer") &&
+        !child.classList.contains("sfLiveNativeSurfaceScrollSpacer")
+      ) {
+        child.remove();
+      }
+    });
+
     surface.classList.add("sf-live-native-scroll-host");
     surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
     surface.style.setProperty("overflow", "auto", "important");
     surface.style.setProperty("overflow-x", "auto", "important");
     surface.style.setProperty("overflow-y", "auto", "important");
-    surface.style.setProperty("min-width", boardWidth + "px", "important");
     applyNativeViewportContract(surface, boardHeight);
 
     const viewport = surface.closest(".sf-live-native-viewport") || surface.parentElement;
@@ -5631,7 +5650,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       "z-index:9990",
       "isolation:isolate",
       "pointer-events:none",
-      "overflow:hidden",
+      "overflow:visible",
       "border-radius:16px",
       "background:linear-gradient(180deg,rgba(8,24,19,.96),rgba(6,17,15,.98))"
     ].join(";");
@@ -13688,8 +13707,6 @@ redrawCables(layer);
     });
   }
 
-
-
   const LIV028_VISUAL_ITEMS = [
     {
         "key": "leadVocalMic",
@@ -13907,7 +13924,7 @@ redrawCables(layer);
         "text": "",
         "src": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
         "alt": "Power Amp 1",
-        "label": "Power Amp 1",
+        "label": "BAL A",
         "leftPx": 490,
         "topPx": 555,
         "widthPx": 370,
@@ -13921,7 +13938,7 @@ redrawCables(layer);
         "text": "",
         "src": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
         "alt": "Power Amp 2",
-        "label": "Power Amp 2",
+        "label": "BAL B",
         "leftPx": 490,
         "topPx": 650,
         "widthPx": 370,
@@ -13935,7 +13952,7 @@ redrawCables(layer);
         "text": "",
         "src": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
         "alt": "Power Amp 3",
-        "label": "Power Amp 3",
+        "label": "BAL CENTER",
         "leftPx": 490,
         "topPx": 745,
         "widthPx": 370,
@@ -14260,18 +14277,67 @@ redrawCables(layer);
     const level = buildLevelGeometry(surface);
     const rect = level.rect;
     const nativeRect = surface.getBoundingClientRect();
-    const itemMaxX = LIV028_VISUAL_ITEMS.reduce((max, item) => Math.max(max, Number(item.leftPx || 0) + Number(item.widthPx || 0)), 0);
-    const itemMaxY = LIV028_VISUAL_ITEMS.reduce((max, item) => Math.max(max, Number(item.topPx || 0) + Math.max(80, Number(item.heightPx || 0))), 0);
-    const cableMaxX = LIV028_NORMALLED_CABLES.reduce((max, cable) => Math.max(max, Number(cable.leftPx || 0) + Number(cable.widthPx || 0)), 0);
-    const cableMaxY = LIV028_NORMALLED_CABLES.reduce((max, cable) => Math.max(max, Number(cable.topPx || 0) + 80), 0);
-    const boardWidth = Math.max(900, Math.ceil(rect.width || nativeRect.width || 900), itemMaxX + 80, cableMaxX + 80);
-    const boardHeight = Math.max(900, itemMaxY + 120, cableMaxY + 120);
+    const scaffoldPadding = 180;
+    const offsetPadding = 80;
+    const extents = [...LIV028_VISUAL_ITEMS, ...LIV028_NORMALLED_CABLES].reduce((acc, node) => {
+      const left = Number(node.leftPx || 0);
+      const top = Number(node.topPx || 0);
+      const width = Math.max(1, Number(node.widthPx || 80));
+      const height = Math.max(1, Number(node.heightPx || (node.src ? 80 : 24)));
+      acc.minX = Math.min(acc.minX, left);
+      acc.minY = Math.min(acc.minY, top);
+      acc.maxX = Math.max(acc.maxX, left + width);
+      acc.maxY = Math.max(acc.maxY, top + height);
+      return acc;
+    }, { minX: 0, minY: 0, maxX: 0, maxY: 0 });
+    const rawMinX = Math.floor(extents.minX);
+    const rawMinY = Math.floor(extents.minY);
+    const rawMaxX = Math.ceil(extents.maxX);
+    const rawMaxY = Math.ceil(extents.maxY);
+    const liv028OffsetX = rawMinX < 0 ? Math.ceil(-rawMinX + offsetPadding) : 0;
+    const liv028OffsetY = rawMinY < 0 ? Math.ceil(-rawMinY + offsetPadding) : 0;
+    const boardWidth = Math.max(
+      900,
+      Math.ceil(rect.width || nativeRect.width || 900),
+      rawMaxX + liv028OffsetX + scaffoldPadding
+    );
+    const boardHeight = Math.max(
+      900,
+      rawMaxY + liv028OffsetY + scaffoldPadding
+    );
+    const liv028Left = value => Math.round(Number(value || 0) + liv028OffsetX);
+    const liv028Top = value => Math.round(Number(value || 0) + liv028OffsetY);
+    const liv028AmpTapeLayout = {
+      powerAmp1: { relX: 150, relY: 38, widthPx: 78, heightPx: 30 },
+      powerAmp2: { relX: 128, relY: 38, widthPx: 78, heightPx: 29 },
+      powerAmp3: { relX: 128, relY: 38, widthPx: 118, heightPx: 30 }
+    };
+    const liv028AmpTapeLogs = [];
 
     surface.querySelectorAll(".sf-live-native-layer").forEach(el => el.remove());
     surface.querySelectorAll(".sfLiveNativeSurfaceScrollSpacer").forEach(el => el.remove());
     surface.classList.add("sf-live-native-scroll-host");
     surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
     applyNativeViewportContract(surface, boardHeight);
+
+    const viewport = surface.closest(".sf-live-native-viewport") || surface.parentElement;
+    function applyLiv028ScrollContract() {
+      surface.style.setProperty("overflow", "auto", "important");
+      surface.style.setProperty("overflow-x", "auto", "important");
+      surface.style.setProperty("overflow-y", "auto", "important");
+      surface.style.setProperty("width", "100%", "important");
+      surface.style.setProperty("max-width", "100%", "important");
+      surface.style.removeProperty("min-width");
+      surface.style.setProperty("-webkit-overflow-scrolling", "touch");
+      surface.style.setProperty("overflow-anchor", "none", "important");
+      if (viewport && viewport !== surface) {
+        viewport.style.setProperty("overflow", "auto", "important");
+        viewport.style.setProperty("overflow-x", "auto", "important");
+        viewport.style.setProperty("overflow-y", "auto", "important");
+        viewport.style.setProperty("-webkit-overflow-scrolling", "touch");
+      }
+    }
+    applyLiv028ScrollContract();
 
     const layer = document.createElement("div");
     layer.className = "sf-live-native-layer sf-live-native-level-liv-028 sf-liv028-visual-scaffold";
@@ -14318,8 +14384,8 @@ redrawCables(layer);
 
       el.style.cssText = [
         "position:absolute",
-        "left:" + Math.round(item.leftPx) + "px",
-        "top:" + Math.round(item.topPx) + "px",
+        "left:" + liv028Left(item.leftPx) + "px",
+        "top:" + liv028Top(item.topPx) + "px",
         "width:" + Math.round(item.widthPx || 80) + "px",
         "z-index:" + Math.round(item.zIndex || 100),
         "pointer-events:none",
@@ -14352,11 +14418,38 @@ redrawCables(layer);
         const badge = document.createElement("div");
         badge.textContent = item.label;
         badge.dataset.liv028GearLabelFor = item.key;
-        badge.className = "sf-liv028-dev-gear-label";
-        badge.style.cssText = [
+        const isLiv028AmpTapeLabel = /power[-_]?amp|powerAmp/i.test(item.key || "");
+        const tapeLayout = isLiv028AmpTapeLabel ? liv028AmpTapeLayout[item.key] : null;
+        const tapeLeft = tapeLayout ? liv028Left(Number(item.leftPx || 0) + tapeLayout.relX) : 0;
+        const tapeTop = tapeLayout ? liv028Top(Number(item.topPx || 0) + tapeLayout.relY) : 0;
+        const tapeWidth = tapeLayout ? tapeLayout.widthPx : 118;
+        const tapeHeight = tapeLayout ? tapeLayout.heightPx : 30;
+        badge.className = "sf-liv028-dev-gear-label" + (isLiv028AmpTapeLabel ? " sf-liv028-amp-tape-label" : "");
+        badge.style.cssText = isLiv028AmpTapeLabel ? [
           "position:absolute",
-          "left:" + Math.round(item.leftPx) + "px",
-          "top:" + Math.round(Number(item.topPx || 0) + 4) + "px",
+          "left:" + tapeLeft + "px",
+          "top:" + tapeTop + "px",
+          "width:" + tapeWidth + "px",
+          "height:" + tapeHeight + "px",
+          "z-index:" + Math.round((item.zIndex || 100) + 35),
+          "pointer-events:none",
+          "box-sizing:border-box",
+          "color:#111111",
+          "font:900 14px system-ui,-apple-system,Segoe UI,sans-serif",
+          "letter-spacing:.03em",
+          "text-transform:none",
+          "text-align:center",
+          "text-shadow:0 1px 0 rgba(255,255,255,.35)",
+          "background:linear-gradient(180deg,#f2e9c9,#e1d4ad)",
+          "border:1px solid rgba(74,55,24,.45)",
+          "border-radius:2px",
+          "padding:4px 8px 5px",
+          "box-shadow:0 4px 8px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.55)",
+          "transform:rotate(-1deg)"
+        ].join(";") : [
+          "position:absolute",
+          "left:" + liv028Left(item.leftPx) + "px",
+          "top:" + liv028Top(Number(item.topPx || 0) + 4) + "px",
           "width:" + Math.round(item.widthPx || 80) + "px",
           "z-index:" + Math.round((item.zIndex || 100) + 20),
           "pointer-events:none",
@@ -14372,8 +14465,18 @@ redrawCables(layer);
           "padding:2px 4px"
         ].join(";");
         layer.appendChild(badge);
+        if (isLiv028AmpTapeLabel) {
+          liv028AmpTapeLogs.push({
+            key: item.key,
+            left: badge.style.left,
+            top: badge.style.top,
+            width: badge.style.width,
+            text: badge.textContent
+          });
+        }
       }
     });
+    console.log("[Signal Flow] LIV-028 amp tape labels", liv028AmpTapeLogs);
 
     LIV028_NORMALLED_CABLES.forEach(cable => {
       const img = document.createElement("img");
@@ -14383,8 +14486,8 @@ redrawCables(layer);
       img.alt = cable.alt || cable.key;
       img.style.cssText = [
         "position:absolute",
-        "left:" + Math.round(cable.leftPx) + "px",
-        "top:" + Math.round(cable.topPx) + "px",
+        "left:" + liv028Left(cable.leftPx) + "px",
+        "top:" + liv028Top(cable.topPx) + "px",
         "width:" + Math.round(cable.widthPx || 120) + "px",
         "height:auto",
         "z-index:" + Math.round(cable.zIndex || 1000),
@@ -14413,10 +14516,53 @@ redrawCables(layer);
       "opacity:0"
     ].join(";");
     surface.appendChild(spacer);
+    applyLiv028ScrollContract();
+
+    function resetLiv028ScrollOrigin() {
+      surface.scrollLeft = 0;
+      surface.scrollTop = 0;
+      if (viewport && viewport !== surface) {
+        viewport.scrollLeft = 0;
+        viewport.scrollTop = 0;
+      }
+    }
+
+    resetLiv028ScrollOrigin();
+    requestAnimationFrame(() => {
+      applyLiv028ScrollContract();
+      resetLiv028ScrollOrigin();
+    });
+    setTimeout(() => {
+      applyLiv028ScrollContract();
+      resetLiv028ScrollOrigin();
+    }, 120);
+    setTimeout(resetLiv028ScrollOrigin, 360);
+    setTimeout(resetLiv028ScrollOrigin, 800);
+
+    if (!surface.dataset.liv028HorizontalKeysInstalled) {
+      surface.dataset.liv028HorizontalKeysInstalled = "1";
+      surface.tabIndex = surface.tabIndex >= 0 ? surface.tabIndex : 0;
+      surface.addEventListener("keydown", event => {
+        if (LEVEL_ID !== "LIV-028") return;
+        if (event.key === "ArrowRight") {
+          surface.scrollLeft += 80;
+          event.preventDefault();
+        } else if (event.key === "ArrowLeft") {
+          surface.scrollLeft -= 80;
+          event.preventDefault();
+        }
+      });
+    }
 
     console.log("[Signal Flow] LIV-028 full gear dev scaffold mounted", {
       items: LIV028_VISUAL_ITEMS.length,
       normalledCables: LIV028_NORMALLED_CABLES.length,
+      rawMinX,
+      rawMaxX,
+      rawMinY,
+      rawMaxY,
+      liv028OffsetX,
+      liv028OffsetY,
       boardWidth,
       boardHeight
     });
