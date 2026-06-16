@@ -27417,9 +27417,7 @@ function sfBuildRoomRequiredCost(panel){
 }
 
 function sfBuildRoomBudget(panel){
-  const available = sfBuildRoomAvailableCredits();
-  const requiredCost = sfBuildRoomRequiredCost(panel);
-  return Math.max(available, requiredCost);
+  return sfBuildRoomAvailableCredits();
 }
 
 function sfBuildRoomGearCost(item){
@@ -27615,24 +27613,12 @@ bindTrainingLanePanel = function(){
     const buildScore = 100 + Math.min(25, underBudget);
 
     try{
-      const spendableCredits = Math.max(0, Math.min(selectedCost, sfBuildRoomAvailableCredits ? sfBuildRoomAvailableCredits() : 0));
-      const grantedBudget = Math.max(0, selectedCost - spendableCredits);
-
-      if(spendableCredits > 0){
+      if(selectedCost > 0){
         sfLedgerDispatch({
           type: 'REWARD_SPENT',
           levelId,
           itemId,
-          cost: spendableCredits
-        });
-      }
-
-      if(grantedBudget > 0){
-        console.log('[Signal Flow] Build-a-Room budget grant used:', {
-          levelId,
-          selectedCost,
-          spendableCredits,
-          grantedBudget
+          cost: selectedCost
         });
       }
 
@@ -27891,7 +27877,7 @@ if(!window.sfBuildRoomDelegatedCheckV2){
       availableCredits = typeof sfBuildRoomAvailableCredits === 'function' ? sfBuildRoomAvailableCredits() : 0;
     }catch(_){}
 
-    const budget = Math.max(availableCredits, requiredCost);
+    const budget = availableCredits;
 
     const meter = panel.querySelector('[data-build-room-budget-meter]');
     if(meter){
@@ -27931,25 +27917,12 @@ if(!window.sfBuildRoomDelegatedCheckV2){
     const buildScore = 100 + Math.min(25, underBudget);
 
     try{
-      const spendableCredits = Math.max(0, Math.min(selectedCost, availableCredits || 0));
-      const grantedBudget = Math.max(0, selectedCost - spendableCredits);
-
-      if(typeof sfLedgerDispatch === 'function' && spendableCredits > 0){
+      if(typeof sfLedgerDispatch === 'function' && selectedCost > 0){
         sfLedgerDispatch({
           type: 'REWARD_SPENT',
           levelId,
           itemId,
-          cost: spendableCredits
-        });
-      }
-
-      if(grantedBudget > 0){
-        console.log('[Signal Flow] Build-a-Room budget grant used:', {
-          levelId,
-          selectedCost,
-          availableCredits,
-          spendableCredits,
-          grantedBudget
+          cost: selectedCost
         });
       }
 
@@ -29801,7 +29774,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   <script src="../patch/sf-economy-rules.js?v=6r214"></script>
 
 <!-- Signal Flow Build-a-Room consolidated renderer v6r280 -->
-<script src="../patch/sf-build-room-renderer.js?v=6r280"></script>
+<script src="../patch/sf-build-room-renderer.js?v=6r285buildroombalance"></script>
 <!-- /Signal Flow Build-a-Room consolidated renderer v6r280 -->
   <script src="../patch/sf-v6r249-safe-visual-fixes.js?v=6r249"></script>
   

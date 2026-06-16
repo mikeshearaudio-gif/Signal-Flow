@@ -206,17 +206,18 @@
 
   function estimatedCost(name){
     const n = String(name || '').toLowerCase();
-    if(/cable|loom/.test(n)) return /set|pair/.test(n) ? 20 : 10;
-    if(/di box/.test(n)) return 35;
-    if(/mic stand|mount|wind|foley/.test(n)) return 30;
-    if(/earbud|headphone|earpiece/.test(n)) return 45;
-    if(/dynamic|handheld|broadcast dynamic/.test(n)) return 80;
-    if(/condenser|shotgun|boundary|contact/.test(n)) return 120;
-    if(/interface|recorder|encoder|transmitter|receiver|beltpack/.test(n)) return 130;
-    if(/console|mixer/.test(n)) return /48x|24x/.test(n) ? 500 : /16x/.test(n) ? 320 : 180;
-    if(/speaker|pa|monitor/.test(n)) return 180;
-    if(/reverb|compressor|eq|processor|matrix|crossover|splitter|loudness|downmix|patchbay|broadcast phone/.test(n)) return 140;
-    return 75;
+    if(/cable|loom/.test(n)) return /set|pair/.test(n) ? 10 : 5;
+    if(/di box/.test(n)) return 10;
+    if(/mic stand|mount|wind|foley/.test(n)) return 10;
+    if(/earbud|headphone|earpiece/.test(n)) return 15;
+    if(/dynamic|handheld|broadcast dynamic/.test(n)) return 15;
+    if(/condenser|shotgun|boundary|contact/.test(n)) return 25;
+    if(/interface|recorder|encoder|transmitter|receiver|beltpack/.test(n)) return 30;
+    if(/console|mixer/.test(n)) return /48x|24x/.test(n) ? 120 : /16x/.test(n) ? 50 : 45;
+    if(/speaker|pa|monitor/.test(n)) return 25;
+    if(/stagebox/.test(n)) return 15;
+    if(/reverb|compressor|eq|processor|matrix|crossover|splitter|loudness|downmix|patchbay|broadcast phone/.test(n)) return 25;
+    return 20;
   }
 
   function assetFor(name){
@@ -277,7 +278,7 @@
       if(!raw || !raw.name) return;
       const name = normalizeName(raw.name);
       // refuse to treat endpoints as gear unless normalized above changed them to real gear
-      if(/input|output|return|send|tie line|program bus|channel|\bch\b/i.test(name) && name === raw.name) return;
+      if(/input|output|return|send|tie line|program bus|\bch\b/i.test(name) && name === raw.name) return;
       const slug = slugify(name);
       const entry = bySlug[slug] || {
         name,
@@ -451,12 +452,6 @@
         shell.style.setProperty('overscroll-behavior', 'contain', 'important');
         shell.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
 
-        console.log('[Signal Flow] Build-a-Room viewport contract ' + VERSION, {
-          levelId,
-          clientHeight: shell.clientHeight,
-          scrollHeight: shell.scrollHeight,
-          overflowY: getComputedStyle(shell).overflowY
-        });
 
         Array.from(shell.children).forEach(child => {
           if(child === root) return;
