@@ -1789,6 +1789,7 @@ if (activeNativeLevelId === nextLevelId) return;
     LEVEL.sourceOrder = spec.sourceOrder || null;
     LEVEL.generatedJackKeys = spec.generatedJackKeys || null;
     LEVEL.assetOverrides = spec.assetOverrides || null;
+    syncLiv028ValidRoutesFromData();
 
     return spec;
   }
@@ -2130,6 +2131,70 @@ if (activeNativeLevelId === nextLevelId) return;
       (route.from === a && route.to === b) ||
       (route.from === b && route.to === a)
     ) || null;
+  }
+
+  function liv028SlugEndpoint(endpoint) {
+    return String(endpoint || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function liv028NodeKeyFromEndpoint(endpoint) {
+    const slug = liv028SlugEndpoint(endpoint);
+    return slug ? "liv028-" + slug : "";
+  }
+
+  function liv028ActiveLevelData() {
+    try {
+      const data =
+        (typeof DATA !== "undefined" && DATA) ||
+        (window.DATA && window.DATA) ||
+        null;
+      const levels = data && Array.isArray(data.levels) ? data.levels : [];
+      return levels.find(item => item && String(item.id || "").toUpperCase() === "LIV-028") || null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function liv028ValidRoutesFromData() {
+    const liv028 = liv028ActiveLevelData();
+    const required = liv028 && Array.isArray(liv028.required) ? liv028.required : [];
+
+    return required
+      .map(pair => {
+        if (!Array.isArray(pair) || pair.length < 2) return null;
+        const fromLabel = String(pair[0] || "").trim();
+        const toLabel = String(pair[1] || "").trim();
+        const from = liv028NodeKeyFromEndpoint(fromLabel);
+        const to = liv028NodeKeyFromEndpoint(toLabel);
+        if (!from || !to) return null;
+        return {
+          key: from + "-to-" + liv028SlugEndpoint(toLabel),
+          from,
+          to,
+          checklist: fromLabel + " → " + toLabel,
+          liv028FromEndpoint: fromLabel,
+          liv028ToEndpoint: toLabel
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function syncLiv028ValidRoutesFromData() {
+    if (LEVEL_ID !== "LIV-028") return;
+    const routes = liv028ValidRoutesFromData();
+    if (!routes.length) return;
+    LEVEL.validRoutes = routes;
+  }
+
+  function liv028EndpointLabelForNodeKey(key) {
+    const liv028 = liv028ActiveLevelData();
+    const nodes = liv028 && Array.isArray(liv028.nodes) ? liv028.nodes : [];
+    const nodeKey = String(key || "");
+    return nodes.find(label => liv028NodeKeyFromEndpoint(label) === nodeKey) || nodeKey;
   }
 
   function routeAlreadyExists(routeKey) {
@@ -3948,6 +4013,19 @@ if (activeNativeLevelId === nextLevelId) return;
         fromNode.key &&
         toNode.key &&
         fromNode.key !== toNode.key
+      ) {
+        decision.allowed = true;
+        decision.valid = false;
+        decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+        decision.from = fromNode.key;
+        decision.to = toNode.key;
+      } else if (
+        LEVEL_ID === "LIV-028" &&
+        fromNode.key &&
+        toNode.key &&
+        fromNode.key !== toNode.key &&
+        String(fromNode.key || "").startsWith("liv028-") &&
+        String(toNode.key || "").startsWith("liv028-")
       ) {
         decision.allowed = true;
         decision.valid = false;
@@ -6366,7 +6444,6 @@ function renderLiv009DrumStageInputs(surface, adapter) {
 
     const targetLayer = layer || document.querySelector(".sf-live-native-layer");
     if (!targetLayer) {
-      console.log("[Signal Flow] LIV-028 talkback final helper: no layer");
       return;
     }
 
@@ -14273,6 +14350,81 @@ redrawCables(layer);
     }
 ];
 
+  const LIV028_TRUE_HITBOXES = [
+    {"key":"liv028-aux-1-out","leftPx":608,"topPx":206,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-2-out","leftPx":653,"topPx":207,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-3-out","leftPx":608,"topPx":241,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-4-out","leftPx":653,"topPx":242,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-5-out","leftPx":607,"topPx":272,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-6-out","leftPx":654,"topPx":272,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-7-out","leftPx":608,"topPx":305,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-aux-8-out","leftPx":653,"topPx":305,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-balcony-a-center","leftPx":730,"topPx":791,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-balcony-a-left","leftPx":730,"topPx":601,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-balcony-a-right","leftPx":770,"topPx":600,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-balcony-b-center","leftPx":770,"topPx":790,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-balcony-b-left","leftPx":730,"topPx":695,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-balcony-b-right","leftPx":770,"topPx":695,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-broadcast-a-l","leftPx":271,"topPx":485,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-broadcast-a-r","leftPx":322,"topPx":485,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-broadcast-b-l","leftPx":519,"topPx":485,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-broadcast-b-r","leftPx":572,"topPx":485,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-1-out","leftPx":730,"topPx":210,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-2-out","leftPx":772,"topPx":210,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-3-out","leftPx":812,"topPx":205,"widthPx":29,"heightPx":29,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-4-out","leftPx":856,"topPx":209,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-5-out","leftPx":732,"topPx":251,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-6-out","leftPx":772,"topPx":251,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-7-out","leftPx":815,"topPx":251,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-8-out","leftPx":855,"topPx":251,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-crossover-in-l","leftPx":726,"topPx":403,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-crossover-in-r","leftPx":763,"topPx":403,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-foh-main-out-l","leftPx":923,"topPx":245,"widthPx":34,"heightPx":34,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-foh-main-out-r","leftPx":976,"topPx":245,"widthPx":34,"heightPx":34,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-a-l-input","leftPx":257,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-a-r-input","leftPx":284,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-b-l-input","leftPx":327,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-b-r-input","leftPx":353,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-c-l-input","leftPx":460,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-c-r-input","leftPx":486,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-d-l-input","leftPx":527,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-iem-d-r-input","leftPx":554,"topPx":621,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-keyboard-vocal-mic","leftPx":426,"topPx":42,"widthPx":60,"heightPx":109,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
+    {"key":"liv028-keys-l-di","leftPx":539,"topPx":42,"widthPx":54,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
+    {"key":"liv028-keys-r-di","leftPx":699,"topPx":40,"widthPx":64,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
+    {"key":"liv028-lead-vocal-mic","leftPx":249,"topPx":42,"widthPx":74,"heightPx":114,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
+    {"key":"liv028-matrix-input-1","leftPx":700,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-2","leftPx":723,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-3","leftPx":745,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-4","leftPx":767,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-5","leftPx":790,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-6","leftPx":813,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-7","leftPx":835,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-input-8","leftPx":858,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-out-1a","leftPx":700,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-out-1b","leftPx":725,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-out-2a","leftPx":790,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-out-2b","leftPx":813,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-out-3a","leftPx":889,"topPx":479,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-matrix-out-3b","leftPx":913,"topPx":479,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-recording-in-l","leftPx":394,"topPx":550,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-recording-in-r","leftPx":450,"topPx":550,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-in-1","leftPx":283,"topPx":377,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-in-2","leftPx":315,"topPx":377,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-1-l","leftPx":284,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-1-r","leftPx":316,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-2-l","leftPx":348,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-2-r","leftPx":380,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-3-l","leftPx":413,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-3-r","leftPx":444,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-4-l","leftPx":476,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-splitter-out-4-r","leftPx":509,"topPx":413,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-stage-box-input-1","leftPx":795,"topPx":62,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-stage-box-input-2","leftPx":822,"topPx":62,"widthPx":21,"heightPx":21,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-stage-box-input-7","leftPx":954,"topPx":62,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-stage-box-input-8","leftPx":981,"topPx":62,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"}
+  ];
+
   function renderLiv028VisualScaffold(surface, adapter) {
     const level = buildLevelGeometry(surface);
     const rect = level.rect;
@@ -14500,6 +14652,117 @@ redrawCables(layer);
       layer.appendChild(img);
     });
 
+    LIV028_TRUE_HITBOXES.forEach(hitbox => {
+      const btn = document.createElement("button");
+      const exportedClassName = String(hitbox.className || "");
+      const isSourceHitbox = exportedClassName.indexOf("sf-native-source") !== -1;
+      const isJackHitbox = exportedClassName.indexOf("sf-native-jack") !== -1;
+      const nodeKind = isSourceHitbox ? "source" : "jack";
+      const resolvedEndpoint = liv028EndpointLabelForNodeKey(hitbox.key);
+      const defaultShadow = "none";
+      const point = {
+        x: Math.round((hitbox.leftPx || 0) + (hitbox.widthPx || 24) / 2),
+        y: Math.round((hitbox.topPx || 0) + (hitbox.heightPx || 24) / 2)
+      };
+      btn.type = "button";
+      btn.className = [
+        exportedClassName,
+        exportedClassName.indexOf("sf-native-node") === -1 ? "sf-native-node" : "",
+        exportedClassName.indexOf("sf-native-liv028-true-hitbox") === -1 ? "sf-native-liv028-true-hitbox" : "",
+        !isSourceHitbox && !isJackHitbox ? "sf-native-jack" : ""
+      ].filter(Boolean).join(" ");
+      setNativeNodeDomKey(btn, hitbox.key, nodeKind);
+      btn.dataset.sfNativeKey = hitbox.key;
+      btn.dataset.sfNativeDefaultShadow = defaultShadow;
+      btn.dataset.sfNativePointX = String(point.x);
+      btn.dataset.sfNativePointY = String(point.y);
+      btn.dataset.liv028RouteEndpoint = resolvedEndpoint;
+      btn.dataset.liv028TrueHitbox = "1";
+      btn.dataset.nodeKind = nodeKind;
+      btn.setAttribute("aria-label", resolvedEndpoint);
+      btn.title = resolvedEndpoint;
+      btn.style.cssText = [
+        "position:absolute",
+        "left:" + Math.round(hitbox.leftPx || 0) + "px",
+        "top:" + Math.round(hitbox.topPx || 0) + "px",
+        "width:" + Math.round(hitbox.widthPx || 24) + "px",
+        "height:" + Math.round(hitbox.heightPx || 24) + "px",
+        "min-width:0",
+        "min-height:0",
+        "max-width:none",
+        "max-height:none",
+        "box-sizing:border-box",
+        "padding:0",
+        "margin:0",
+        "line-height:0",
+        "appearance:none",
+        "-webkit-appearance:none",
+        "border:1px solid rgba(0,229,255,.58)",
+        "border-radius:4px",
+        "background:rgba(0,229,255,.10)",
+        "outline:1px dashed rgba(0,229,255,.65)",
+        "outline-offset:1px",
+        "color:transparent",
+        "font-size:0",
+        "text-indent:-9999px",
+        "overflow:hidden",
+        "z-index:5200",
+        "pointer-events:auto",
+        "cursor:crosshair"
+      ].join(";");
+      btn.addEventListener("pointerdown", event => {
+        console.log("[Signal Flow] LIV-028 true hitbox selected", {
+          key: hitbox.key,
+          resolvedRouteEndpoint: resolvedEndpoint
+        });
+        startNativePatchDrag(layer, {
+          key: hitbox.key,
+          el: btn,
+          defaultShadow,
+          point
+        }, event);
+      }, true);
+      btn.addEventListener("click", event => {
+        if (Date.now() < suppressNativeClickUntil) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        console.log("[Signal Flow] LIV-028 true hitbox selected", {
+          key: hitbox.key,
+          resolvedRouteEndpoint: resolvedEndpoint
+        });
+        handleNodeClick(layer, {
+          key: hitbox.key,
+          el: btn,
+          defaultShadow,
+          point
+        });
+      });
+      layer.appendChild(btn);
+    });
+
+    // Runtime player-facing state: true hitboxes remain active but invisible.
+    layer.querySelectorAll(".sf-native-liv028-true-hitbox").forEach(el => {
+      el.style.setProperty("background", "transparent", "important");
+      el.style.setProperty("border", "0", "important");
+      el.style.setProperty("outline", "0", "important");
+      el.style.setProperty("box-shadow", "none", "important");
+      el.style.setProperty("opacity", "1", "important");
+      el.style.setProperty("pointer-events", "auto", "important");
+      el.style.setProperty("cursor", "pointer", "important");
+    });
+
+    console.log("[Signal Flow] LIV-028 true hitboxes mounted", {
+      count: LIV028_TRUE_HITBOXES.length,
+      nodeKeys: LIV028_TRUE_HITBOXES.map(hitbox => hitbox.key)
+    });
+
     surface.appendChild(layer);
 
     const spacer = document.createElement("div");
@@ -14553,6 +14816,199 @@ redrawCables(layer);
         }
       });
     }
+
+
+    // LIV-028 false/trap hitboxes - dev-visible placement pass.
+    // Keep separate from true route endpoints. These should never complete checklist items.
+    const LIV028_FALSE_HITBOX_LAYOUT = [
+      { key: "liv028-false-balcony-a-spare", leftPx: 855, topPx: 295, widthPx: 24, heightPx: 24 },
+      { key: "liv028-false-balcony-b-spare", leftPx: 812, topPx: 295, widthPx: 24, heightPx: 24 },
+      { key: "liv028-false-balcony-center-spare-1", leftPx: 772, topPx: 295, widthPx: 24, heightPx: 24 },
+      { key: "liv028-false-balcony-center-spare-2", leftPx: 731, topPx: 295, widthPx: 24, heightPx: 24 },
+      { key: "liv028-false-broadcast-a-extra", leftPx: 348, topPx: 379, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-broadcast-b-extra", leftPx: 380, topPx: 379, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-crossover-thru-l", leftPx: 749, topPx: 504, widthPx: 15, heightPx: 15 },
+      { key: "liv028-false-crossover-thru-r", leftPx: 770, topPx: 503, widthPx: 17, heightPx: 17 },
+      { key: "liv028-false-foh-line-in-1", leftPx: 904, topPx: 108, widthPx: 17, heightPx: 17 },
+      { key: "liv028-false-foh-line-in-2", leftPx: 927, topPx: 106, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-foh-line-in-3", leftPx: 955, topPx: 106, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-foh-line-in-4", leftPx: 980, topPx: 106, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-foh-main-alt-l", leftPx: 1065, topPx: 60, widthPx: 28, heightPx: 28 },
+      { key: "liv028-false-foh-main-alt-r", leftPx: 1064, topPx: 102, widthPx: 28, heightPx: 28 },
+      { key: "liv028-false-iem-a-phones", leftPx: 963, topPx: 483, widthPx: 15, heightPx: 15 },
+      { key: "liv028-false-iem-b-phones", leftPx: 992, topPx: 483, widthPx: 15, heightPx: 15 },
+      { key: "liv028-false-iem-c-phones", leftPx: 978, topPx: 504, widthPx: 15, heightPx: 15 },
+      { key: "liv028-false-iem-d-phones", leftPx: 1008, topPx: 504, widthPx: 15, heightPx: 15 },
+      { key: "liv028-false-matrix-input-10", leftPx: 835, topPx: 502, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-matrix-input-9", leftPx: 858, topPx: 502, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-matrix-out-4a", leftPx: 936, topPx: 479, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-matrix-out-4b", leftPx: 889, topPx: 502, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-recording-extra-l", leftPx: 412, topPx: 379, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-recording-extra-r", leftPx: 445, topPx: 378, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-splitter-extra-1", leftPx: 478, topPx: 378, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-splitter-extra-2", leftPx: 510, topPx: 378, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-splitter-extra-3", leftPx: 911, topPx: 501, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-splitter-extra-4", leftPx: 936, topPx: 503, widthPx: 17, heightPx: 17 },
+      { key: "liv028-false-stage-box-input-10", leftPx: 822, topPx: 105, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-11", leftPx: 849, topPx: 105, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-12", leftPx: 875, topPx: 105, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-3", leftPx: 849, topPx: 62, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-4", leftPx: 875, topPx: 62, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-5", leftPx: 902, topPx: 62, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-6", leftPx: 928, topPx: 62, widthPx: 22, heightPx: 22 },
+      { key: "liv028-false-stage-box-input-9", leftPx: 795, topPx: 105, widthPx: 22, heightPx: 22 }
+    ];
+
+
+    // LIV-028 dual rack backing panels, modeled after the LIV-023 CSS/DOM rack-box treatment.
+    // Visual-only. Sits behind hardware; hitboxes, routes, and cables stay unchanged.
+    function addLiv028RackBackingPanel(opts) {
+      const rack = document.createElement("div");
+      rack.className = "sf-liv028-rack-backing-panel";
+      rack.setAttribute("aria-hidden", "true");
+      rack.style.cssText = [
+        "position:absolute",
+        "left:" + opts.left + "px",
+        "top:" + opts.top + "px",
+        "width:" + opts.width + "px",
+        "height:" + opts.height + "px",
+        "z-index:70",
+        "pointer-events:none",
+        "border-radius:18px",
+        "background:linear-gradient(180deg, rgba(25,28,34,.96), rgba(9,11,15,.98))",
+        "border:1px solid rgba(255,255,255,.18)",
+        "box-shadow:inset 0 0 0 2px rgba(0,0,0,.72), inset 0 18px 28px rgba(255,255,255,.055), 0 18px 34px rgba(0,0,0,.42)",
+        "overflow:hidden"
+      ].join(";");
+
+      const grill = document.createElement("div");
+      grill.style.cssText = [
+        "position:absolute",
+        "left:34px",
+        "right:34px",
+        "top:14px",
+        "bottom:14px",
+        "border-radius:12px",
+        "background:repeating-linear-gradient(180deg, rgba(255,255,255,.045) 0, rgba(255,255,255,.045) 2px, transparent 2px, transparent 24px)",
+        "opacity:.75"
+      ].join(";");
+
+      const railLeft = document.createElement("div");
+      railLeft.style.cssText = [
+        "position:absolute",
+        "left:12px",
+        "top:10px",
+        "bottom:10px",
+        "width:14px",
+        "border-radius:8px",
+        "background:linear-gradient(180deg, rgba(0,0,0,.76), rgba(42,45,52,.92), rgba(0,0,0,.78))",
+        "box-shadow:inset 0 0 0 1px rgba(255,255,255,.10)"
+      ].join(";");
+
+      const railRight = railLeft.cloneNode(false);
+      railRight.style.left = "auto";
+      railRight.style.right = "12px";
+
+      const label = document.createElement("div");
+      label.textContent = opts.label;
+      label.style.cssText = [
+        "position:absolute",
+        "left:46px",
+        "right:46px",
+        "top:18px",
+        "height:20px",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "border-radius:8px",
+        "background:rgba(255,255,255,.08)",
+        "color:rgba(255,255,255,.76)",
+        "font:700 10px system-ui,-apple-system,Segoe UI,sans-serif",
+        "letter-spacing:.08em",
+        "text-transform:uppercase"
+      ].join(";");
+
+      for (let y = 48; y <= opts.height - 42; y += 48) {
+        const line = document.createElement("div");
+        line.style.cssText = [
+          "position:absolute",
+          "left:34px",
+          "right:34px",
+          "top:" + y + "px",
+          "height:1px",
+          "background:rgba(255,255,255,.11)",
+          "box-shadow:0 1px 0 rgba(0,0,0,.65)"
+        ].join(";");
+        rack.appendChild(line);
+      }
+
+      rack.appendChild(grill);
+      rack.appendChild(railLeft);
+      rack.appendChild(railRight);
+      rack.appendChild(label);
+      layer.appendChild(rack);
+      return rack;
+    }
+
+    addLiv028RackBackingPanel({
+      label: "SPLIT / IEM RACK",
+      left: 190,
+      top: 350,
+      width: 500,
+      height: 320
+    });
+
+    addLiv028RackBackingPanel({
+      label: "PROCESSING / AMP RACK",
+      left: 665,
+      top: 350,
+      width: 390,
+      height: 500
+    });
+
+
+    LIV028_FALSE_HITBOX_LAYOUT.forEach(point => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "sf-native-node sf-native-liv028-false-hitbox sf-native-jack";
+      btn.dataset.nodeKey = point.key;
+      btn.dataset.sfNativeKey = point.key;
+      btn.dataset.key = point.key;
+      btn.dataset.nodeKind = "jack";
+      btn.setAttribute("aria-label", point.key.replace(/^liv028-false-/, "False "));
+      btn.style.cssText = [
+        "position:absolute",
+        "left:" + point.leftPx + "px",
+        "top:" + point.topPx + "px",
+        "width:" + point.widthPx + "px",
+        "height:" + point.heightPx + "px",
+        "z-index:950",
+        "pointer-events:auto",
+        "cursor:pointer",
+        "box-sizing:border-box",
+        "min-width:0",
+        "min-height:0",
+        "max-width:none",
+        "max-height:none",
+        "padding:0",
+        "margin:0",
+        "line-height:0",
+        "appearance:none",
+        "-webkit-appearance:none",
+        "border:0",
+        "border-radius:50%",
+        "background:transparent",
+        "outline:0",
+        "box-shadow:none"
+      ].join(";");
+      layer.appendChild(btn);
+    });
+
+    console.log("[Signal Flow] LIV-028 false hitboxes mounted", {
+      count: LIV028_FALSE_HITBOX_LAYOUT.length,
+      nodeKeys: LIV028_FALSE_HITBOX_LAYOUT.map(point => point.key)
+    });
+
 
     console.log("[Signal Flow] LIV-028 full gear dev scaffold mounted", {
       items: LIV028_VISUAL_ITEMS.length,

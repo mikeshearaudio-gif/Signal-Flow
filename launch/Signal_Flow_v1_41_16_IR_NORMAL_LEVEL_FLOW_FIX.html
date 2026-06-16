@@ -21183,6 +21183,35 @@ window.SIGNAL_FLOW_AUDIO_MANIFEST = {
 </script>
 <script>
 const DATA = window.SIGNAL_FLOW_V12;
+function applyBoardOneTwoOrderSwap(data){
+  if(!data || !Array.isArray(data.levels) || !Array.isArray(data.environments)) return;
+  const firstTwoByEnv = new Map();
+  data.levels.forEach(level => {
+    if(!level || !level.environment) return;
+    const bucket = firstTwoByEnv.get(level.environment) || [];
+    if(bucket.length < 2) bucket.push(level.id);
+    firstTwoByEnv.set(level.environment, bucket);
+  });
+  const swaps = new Map();
+  data.environments.forEach(environment => {
+    const pair = firstTwoByEnv.get(environment.id);
+    if(pair && pair.length === 2) {
+      swaps.set(pair[0], pair[1]);
+      swaps.set(pair[1], pair[0]);
+    }
+  });
+  const originalIndex = new Map(data.levels.map((level, index) => [level.id, index]));
+  data.levels.sort((a, b) => {
+    const aKey = swaps.get(a.id) || a.id;
+    const bKey = swaps.get(b.id) || b.id;
+    const aIndex = originalIndex.has(aKey) ? originalIndex.get(aKey) : originalIndex.get(a.id);
+    const bIndex = originalIndex.has(bKey) ? originalIndex.get(bKey) : originalIndex.get(b.id);
+    return aIndex - bIndex;
+  });
+  data.boardOneTwoOrderSwap = Object.fromEntries(firstTwoByEnv);
+}
+applyBoardOneTwoOrderSwap(DATA);
+window.DATA = DATA;
 const AUDIO = window.SIGNAL_FLOW_AUDIO_MANIFEST || window.SIGNAL_FLOW_AUDIO || {};
 const SCRIPT_URL = document.currentScript && document.currentScript.src ? document.currentScript.src : location.href;
 const GAME_ROOT_URL = (() => { try { return new URL('../', SCRIPT_URL).href; } catch { return './'; } })();
@@ -29459,6 +29488,26 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
   }
 
   function nextSequentialLevelId(levelId) {
+    try {
+      if (typeof DATA !== "undefined" && DATA && Array.isArray(DATA.levels)) {
+        var current = DATA.levels.find(function(level) {
+          return normalizeLevelId(level && level.id) === normalizeLevelId(levelId);
+        });
+
+        if (current) {
+          var envLevels = DATA.levels.filter(function(level) {
+            return level && level.environment === current.environment;
+          });
+          var envIndex = envLevels.findIndex(function(level) {
+            return normalizeLevelId(level && level.id) === normalizeLevelId(levelId);
+          });
+          if (envIndex >= 0 && envIndex + 1 < envLevels.length) {
+            return normalizeLevelId(envLevels[envIndex + 1].id);
+          }
+        }
+      }
+    } catch {}
+
     var match = String(levelId || "").toUpperCase().match(/^([A-Z]{3})-(\d{3})$/);
     if (!match) return "";
     return match[1] + "-" + String(Number(match[2]) + 1).padStart(3, "0");
@@ -29916,7 +29965,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </script>
 <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
 
-<script src="../src/live-sound-native-renderer.js?v=6r626liv028amplabels"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r640liv028nologspam"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r243liv011scoped"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">
