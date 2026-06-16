@@ -22010,6 +22010,31 @@ function trainingModeForLevel(l){
 function trainingModeLabel(mode){
   return {'build-room':'Build the Room','diagnose':'Diagnose Patch','quiz':'Quiz Checkpoint'}[mode] || '';
 }
+
+function sfDisplayLevelId(levelOrId, envLevels){
+  const rawId = typeof levelOrId === 'string' ? levelOrId : (levelOrId && levelOrId.id) || '';
+  const m = String(rawId).match(/^([A-Z]{2,5})-(\d{3})$/);
+  if(!m) return rawId;
+
+  const prefix = m[1];
+  const level = typeof levelOrId === 'string'
+    ? (DATA.levels || []).find(x => x && x.id === rawId)
+    : levelOrId;
+
+  const pool = Array.isArray(envLevels) && envLevels.length
+    ? envLevels
+    : (DATA.levels || []).filter(x => {
+        if(!x || !x.id) return false;
+        if(level && level.environment) return x.environment === level.environment;
+        return String(x.id).startsWith(prefix + '-');
+      });
+
+  const idx = pool.findIndex(x => x && x.id === rawId);
+  if(idx < 0) return rawId;
+
+  return prefix + '-' + String(idx + 1).padStart(3, '0');
+}
+
 function trainingModeShort(l){
   const mode = trainingModeForLevel(l);
   return {'build-room':'BUILD','diagnose':'DIAG','quiz':'QUIZ'}[mode] || '';
@@ -22256,7 +22281,7 @@ function renderTrainingMode(mode='build-room'){
     : safeMode === 'diagnose'
       ? 'Find the broken, unsafe, backwards, or unrealistic patch. This teaches mistake recognition before patching.'
       : 'Answer a short concept checkpoint. This verifies vocabulary and signal-flow reasoning before harder stages.';
-  const levelButtons = levels.map(l => `<button class="training-level-link ${l.id===active?.id?'active':''}" data-level="${esc(l.id)}"><span>${esc(l.id)}</span><strong>${esc(l.title)}</strong><small>${esc(env(l.environment)?.name || l.environment)}</small></button>`).join('');
+  const levelButtons = levels.map(l => `<button class="training-level-link ${l.id===active?.id?'active':''}" data-level="${esc(l.id)}"><span>${esc(sfDisplayLevelId(l, levels))}</span><strong>${esc(l.title)}</strong><small>${esc(env(l.environment)?.name || l.environment)}</small></button>`).join('');
   const panel = active ? trainingLanePanel(active, false).replace('data-training-only="false"', 'data-training-only="false" data-route-training="true"') : '<p>No levels currently use this lane.</p>';
   app.innerHTML = `<main class="training-index-page training-route-page"><section class="training-index-card playful-card training-route-card"><button id="trainingBackBtn" class="ghost">Back</button><p class="eyebrow">Training Lane</p><h1>${esc(trainingModeLabel(safeMode))}</h1><p>${esc(laneCopy)}</p><div class="training-route-layout"><aside class="training-route-list"><strong>Marked levels</strong><div class="training-list">${levelButtons || '<p>No levels currently use this training lane.</p>'}</div></aside><section class="training-route-player"><div class="training-route-current"><p class="eyebrow">Playable lane sample</p><h2>${active ? esc(active.id + ' - ' + active.title) : 'No training level'}</h2><p>${active ? esc(active.brief) : ''}</p>${panel}<div class="training-route-actions"><button id="routeTrainingNextBtn" disabled>Open Next Marked Level</button><button id="routeTrainingPlayBtn" class="primary">Play This Level Fullscreen</button></div></div></section></div></section></main>`;
   q('trainingBackBtn').onclick = () => { navigateTo('/tutorial'); };
@@ -22457,7 +22482,7 @@ function briefNoteColorClass(l=level()){
 function levelIntroOverlayMarkup(l=level(), heading='Level Brief'){
   const goals = (l.learning || []).slice(0,3).map(x => `<span class="chip">${esc(x)}</span>`).join('');
   const colorClass = briefNoteColorClass(l);
-  return `<div id="levelIntroOverlay" class="complete-overlay intro-overlay postit-overlay ${esc(colorClass)} show"><div class="complete-card intro-card postit-brief-card"><p class="eyebrow">${esc(heading)}</p><h2>${esc(l.id)} · ${esc(l.title)}</h2><p class="intro-brief">${esc(l.brief)}</p>${goals ? `<div class="chip-list intro-goals">${goals}</div>` : ''}<div class="complete-actions"><button id="startLevelBtn" class="primary" type="button">Start Level</button><button id="introEduBtn" type="button">Educational Tools</button><button id="introSplashBtn" class="ghost" type="button">Splash</button></div></div></div>`;
+  return `<div id="levelIntroOverlay" class="complete-overlay intro-overlay postit-overlay ${esc(colorClass)} show"><div class="complete-card intro-card postit-brief-card"><p class="eyebrow">${esc(heading)}</p><h2>${esc(sfDisplayLevelId(l))} · ${esc(l.title)}</h2><p class="intro-brief">${esc(l.brief)}</p>${goals ? `<div class="chip-list intro-goals">${goals}</div>` : ''}<div class="complete-actions"><button id="startLevelBtn" class="primary" type="button">Start Level</button><button id="introEduBtn" type="button">Educational Tools</button><button id="introSplashBtn" class="ghost" type="button">Splash</button></div></div></div>`;
 }
 function bindLevelIntroOverlay(){
   const overlay = q('levelIntroOverlay');
@@ -22525,7 +22550,7 @@ function renderSplash(){
   const levelSelect = q('levelSelectSplash');
   function fillLevels(){
     const levels = levelsForEnvironment(envSelect.value);
-    levelSelect.innerHTML = levels.map(l => `<option value="${l.id}">${l.id}${trainingModeShort(l) ? ' [' + trainingModeShort(l) + ']' : ''} - ${esc(l.title)}</option>`).join('');
+    levelSelect.innerHTML = levels.map(l => `<option value="${l.id}">${sfDisplayLevelId(l, levels)}${trainingModeShort(l) ? ' [' + trainingModeShort(l) + ']' : ''} - ${esc(l.title)}</option>`).join('');
     if(!levelSelect.value && levels[0]) levelSelect.value = levels[0].id;
   }
   envSelect.addEventListener('change', fillLevels);
@@ -22558,7 +22583,7 @@ function renderTrainingOnlyLevel(l, e, allInEnv){
   app.innerHTML = `
     <main class="game training-only-game env-${esc(l.environment)} ui-training-only">
       <header class="game-header">
-        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(l.id)} - ${esc(l.title)}</h1><p>${esc(e.name)} · ${esc(modeLabel)} replaces the patch board for this stage.</p></div></div>
+        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(sfDisplayLevelId(l))} - ${esc(l.title)}</h1><p>${esc(e.name)} · ${esc(modeLabel)} replaces the patch board for this stage.</p></div></div>
         <div class="header-tools">
           <select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===l.environment?'selected':''}>${esc(x.name)}</option>`).join('')}</select>
           <select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select>
@@ -22666,7 +22691,7 @@ function renderLevel(){
   app.innerHTML = `
     <main class="game env-${esc(l.environment)} ui-${esc(uiFlavor)} view-front level-${esc(String(l.id).toLowerCase().replace(/[^a-z0-9]+/g,'-'))} ${studioSidebarLayout ? 'studio-sidebar-layout' : ''}">
       <header class="game-header ${studioSidebarLayout ? 'studio-header' : ''}">
-        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(l.id)} - ${esc(l.title)}</h1><p>${esc(e.name)} · ${esc(e.description)}</p></div></div>
+        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(sfDisplayLevelId(l))} - ${esc(l.title)}</h1><p>${esc(e.name)} · ${esc(e.description)}</p></div></div>
         <div class="header-tools ${studioSidebarLayout ? 'studio-header-tools' : ''}">
           ${headerToolsMarkup}
         </div>
@@ -26731,7 +26756,7 @@ function sfv182RenderQuizLevelDirect(l){
   app.innerHTML = `
     <main class="game training-only-game env-${esc(l.environment)} ui-training-only sfv182-quiz-direct">
       <header class="game-header">
-        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(l.id)} - ${esc(l.title)}</h1><p>${esc(e.name || l.environment)} · Quiz Checkpoint</p></div></div>
+        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(sfDisplayLevelId(l))} - ${esc(l.title)}</h1><p>${esc(e.name || l.environment)} · Quiz Checkpoint</p></div></div>
         <div class="header-tools">
           <select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===l.environment?'selected':''}>${esc(x.name)}</option>`).join('')}</select>
           <select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select>
@@ -27036,7 +27061,7 @@ sfv182RenderQuizLevelDirect = function(l){
   app.innerHTML = `
     <main class="game training-only-game env-${esc(l.environment)} ui-training-only sfv182-quiz-direct sfv189-quiz-direct">
       <header class="game-header">
-        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(l.id)} - ${esc(l.title)}</h1><p>${esc(e.name || l.environment)} · Quiz Checkpoint</p></div></div>
+        <div class="game-title"><div class="logo">SF</div><div><h1>${esc(sfDisplayLevelId(l))} - ${esc(l.title)}</h1><p>${esc(e.name || l.environment)} · Quiz Checkpoint</p></div></div>
         <div class="header-tools">
           <select id="envJump">${DATA.environments.map(x => `<option value="${x.id}" ${x.id===l.environment?'selected':''}>${esc(x.name)}</option>`).join('')}</select>
           <select id="levelJump">${allInEnv.map(x => `<option value="${x.id}" ${x.id===l.id?'selected':''}>${x.id}${trainingModeShort(x) ? ' [' + trainingModeShort(x) + ']' : ''}</option>`).join('')}</select>
@@ -29137,7 +29162,7 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     const currentEnvId = currentLevel.environment || 'post';
     const envOptions = (window.DATA?.environments || []).map(x => '<option value="'+esc(x.id)+'" '+(x.id===currentEnvId?'selected':'')+'>'+esc(x.name)+'</option>').join('');
     const allInEnv = (window.DATA?.levels || []).filter(x => x.environment === currentEnvId);
-    const levelOptions = allInEnv.map(x => '<option value="'+esc(x.id)+'" '+(x.id===currentLevel.id?'selected':'')+'>'+esc(x.id)+(typeof trainingModeShort === 'function' && trainingModeShort(x) ? ' ['+esc(trainingModeShort(x))+']' : '')+'</option>').join('');
+    const levelOptions = allInEnv.map(x => '<option value="'+esc(x.id)+'" '+(x.id===currentLevel.id?'selected':'')+'>'+esc(sfDisplayLevelId(x, allInEnv))+(typeof trainingModeShort === 'function' && trainingModeShort(x) ? ' ['+esc(trainingModeShort(x))+']' : '')+'</option>').join('');
     app.innerHTML = '<div class="sfv14113-root"><div class="sfv14113-shell">'
       + '<div class="sfv14113-top"><div class="sfv14113-title"><div class="sfv14113-badge">SF</div><div><h1>PST-103 · Convolution / IR Lab</h1><p>Subjective IR scoring · preview, submit, learn from A/B feedback</p></div></div><div class="sfv14113-actions"><select id="sfv14113-envJump" aria-label="Environment">'+envOptions+'</select><select id="sfv14113-levelJump" aria-label="Level">'+levelOptions+'</select><div class="sfv14113-score" id="sfv14113-score">IR Score '+localScore+'</div><button class="sfv14113-btn audio-btn" id="sfv14113-sound">Sound</button><button class="sfv14113-btn" id="sfv14113-preview">Preview Selected</button><button class="sfv14113-btn primary" id="sfv14113-submit">Submit IR</button><button class="sfv14113-btn gold" id="sfv14113-reset">Reset</button><button class="sfv14113-btn" id="sfv14113-splash">Splash</button></div></div>'
       + '<div class="sfv14113-grid"><section class="sfv14113-card sfv14113-left"><div><p class="sfv14113-eyebrow">Target Space</p><h2>Judge the room, then listen.</h2></div><div class="sfv14113-target"><img alt="Target living room space for IR matching" src="'+TARGET_IMAGE+'"><div class="sfv14113-target-caption">Example space only — choose the IR that fits the size and reflections.</div></div><div class="sfv14113-brief"><div class="sfv14113-note"><strong>Reference</strong>Flute Solo 1 is the listening source.</div><div class="sfv14113-note"><strong>Scoring</strong>⭐⭐⭐ 100 · ⭐⭐ 50 · ⭐ 25.</div><div class="sfv14113-note"><strong>Rule</strong>Plate and Reverse are selectable, but always score 1 star.</div></div></section>'
