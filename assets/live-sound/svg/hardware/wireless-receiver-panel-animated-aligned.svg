@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 380" width="1300" height="380" role="img" aria-label="Signal Flow wireless receiver rack unit">
+  <defs>
+    <filter id="sf-lcd-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.1" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style><![CDATA[
+      .sf-lcd-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        font-weight: 800;
+        fill: #d2943e;
+        filter: url(#sf-lcd-glow);
+        letter-spacing: .8px;
+      }
+      .sf-lcd-cover { fill: #050403; opacity: .96; }
+      .sf-af-cover { fill: #050403; opacity: .88; }
+      .sf-meter-green { fill: #74c84a; animation: sf-meter-green-pulse 1.05s infinite steps(4, end); }
+      .sf-meter-yellow { fill: #e6d24c; animation: sf-meter-yellow-pulse 1.36s infinite steps(5, end); }
+      .sf-meter-red { fill: #b7372d; animation: sf-meter-red-blip 3.8s infinite steps(1, end); }
+      .sf-meter-r { animation-delay: .27s; }
+      .sf-meter-l .sf-meter-green:nth-child(odd), .sf-meter-r .sf-meter-green:nth-child(even) { animation-delay: .13s; }
+      @keyframes sf-meter-green-pulse { 0%,100%{opacity:.42} 25%{opacity:.96} 55%{opacity:.62} 75%{opacity:1} }
+      @keyframes sf-meter-yellow-pulse { 0%,100%{opacity:.20} 35%{opacity:.78} 65%{opacity:.42} }
+      @keyframes sf-meter-red-blip { 0%,88%,100%{opacity:.10} 91%{opacity:.72} }
+      .sf-rfaf-bar { fill:#d2943e; opacity:.55; animation: sf-rfaf-flicker 1.7s infinite steps(5, end); }
+      .sf-rfaf-bar:nth-child(2n) { animation-delay:.16s; }
+      .sf-rfaf-bar:nth-child(3n) { animation-delay:.31s; }
+      @keyframes sf-rfaf-flicker { 0%,100%{opacity:.24} 25%{opacity:.72} 50%{opacity:.43} 80%{opacity:.82} }
+      .sf-jack-hitbox { fill: transparent; pointer-events: auto; }
+    ]]></style>
+  </defs>
+
+  <image href="wireless-receiver-panel-base-transparent.png" x="0" y="0" width="1300" height="380" preserveAspectRatio="none"/>
+
+  <!-- Aligned LCD replacement panel: covers the original flattened text so each rack unit can get its own channel/frequency. -->
+  <rect class="sf-lcd-cover" x="956" y="91" width="225" height="106" rx="4"/>
+  <text class="sf-lcd-text sf-lcd-group" x="971" y="130" font-size="30">G 01</text>
+  <text class="sf-lcd-text sf-lcd-channel" x="1082" y="130" font-size="30">CH01</text>
+  <text class="sf-lcd-text sf-lcd-frequency" x="971" y="172" font-size="28">518.400 MHz</text>
+
+  <!-- Aligned RF/AF activity display cover + flicker bars. Visual-only. -->
+  <rect class="sf-af-cover" x="1028" y="220" width="161" height="36" rx="3"/>
+  <g class="sf-rfaf-overlay" transform="translate(1039 229)">
+    <rect class="sf-rfaf-bar" x="0" y="2" width="8" height="13" rx="1"/>
+    <rect class="sf-rfaf-bar" x="11" y="3" width="8" height="12" rx="1"/>
+    <rect class="sf-rfaf-bar" x="22" y="1" width="8" height="14" rx="1"/>
+    <rect class="sf-rfaf-bar" x="33" y="4" width="8" height="11" rx="1"/>
+    <rect class="sf-rfaf-bar" x="44" y="0" width="8" height="15" rx="1"/>
+    <rect class="sf-rfaf-bar" x="55" y="5" width="8" height="10" rx="1"/>
+    <rect class="sf-rfaf-bar" x="66" y="1" width="8" height="14" rx="1"/>
+    <rect class="sf-rfif-bar sf-rfaf-bar" x="77" y="6" width="8" height="9" rx="1"/>
+    <rect class="sf-rfaf-bar" x="88" y="2" width="8" height="13" rx="1"/>
+    <rect class="sf-rfaf-bar" x="99" y="5" width="8" height="10" rx="1"/>
+    <rect class="sf-rfaf-bar" x="110" y="3" width="8" height="12" rx="1"/>
+    <rect class="sf-rfaf-bar" x="121" y="0" width="8" height="15" rx="1"/>
+    <rect class="sf-rfaf-bar" x="132" y="5" width="8" height="10" rx="1"/>
+  </g>
+
+  <!-- Aligned animated meter overlays. These sit directly over the two visible LED columns. Visual-only. -->
+  <g class="sf-meter-overlay" opacity="0.52">
+    <g class="sf-meter-l">
+      <rect class="sf-meter-green" x="636" y="309" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="636" y="293" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="636" y="277" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="636" y="261" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="636" y="245" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="636" y="229" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="636" y="213" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-yellow" x="636" y="197" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-yellow" x="636" y="181" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-yellow" x="636" y="165" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="636" y="149" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="636" y="133" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="636" y="117" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="636" y="101" width="19" height="11" rx="2"/>
+    </g>
+    <g class="sf-meter-r">
+      <rect class="sf-meter-green" x="711" y="309" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="711" y="293" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="711" y="277" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="711" y="261" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="711" y="245" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="711" y="229" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-green" x="711" y="213" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-yellow" x="711" y="197" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-yellow" x="711" y="181" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-yellow" x="711" y="165" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="711" y="149" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="711" y="133" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="711" y="117" width="19" height="11" rx="2"/>
+      <rect class="sf-meter-red" x="711" y="101" width="19" height="11" rx="2"/>
+    </g>
+  </g>
+
+  <!-- Suggested visual reference hitbox rectangles; runtime should install real button nodes separately. -->
+  <rect id="wireless-rx-output-reference" class="sf-jack-hitbox" x="388" y="126" width="134" height="134"/>
+  <rect id="wireless-rx-input-reference" class="sf-jack-hitbox" x="178" y="126" width="134" height="134"/>
+</svg>
