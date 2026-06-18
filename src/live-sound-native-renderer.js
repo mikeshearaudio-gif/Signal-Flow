@@ -14425,6 +14425,270 @@ redrawCables(layer);
     {"key":"liv028-stage-box-input-8","leftPx":981,"topPx":62,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"}
   ];
 
+
+  function renderLiv029DebatePanelScaffold(surface, adapter) {
+    const boardWidth = 1440;
+    const boardHeight = 920;
+
+    surface.innerHTML = "";
+    surface.style.setProperty("position", "relative", "important");
+    surface.style.setProperty("height", "min(72vh, 760px)", "important");
+    surface.style.setProperty("min-height", "520px", "important");
+    surface.style.setProperty("max-height", "min(72vh, 760px)", "important");
+    surface.style.setProperty("display", "block", "important");
+    surface.style.setProperty("overflow-y", "auto", "important");
+    surface.style.setProperty("overflow-x", "auto", "important");
+    surface.style.setProperty("overscroll-behavior", "contain", "important");
+    surface.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
+    surface.style.setProperty("--sf-live-native-board-height", boardHeight + "px");
+    surface.classList.add("sf-live-native-scroll-host", "sf-live-native-liv029-scroll-host");
+
+    const layer = document.createElement("div");
+    layer.className = "sf-live-native-layer sf-live-native-level-liv-029 sf-liv029-debate-panel-scaffold";
+    layer.style.cssText = [
+      "position:absolute",
+      "left:0",
+      "top:0",
+      "width:" + boardWidth + "px",
+      "min-width:" + boardWidth + "px",
+      "height:" + boardHeight + "px",
+      "min-height:" + boardHeight + "px",
+      "z-index:9990",
+      "pointer-events:none",
+      "overflow:visible",
+      "background:linear-gradient(135deg,rgba(20,22,25,.98),rgba(8,10,13,.96) 55%,rgba(22,20,14,.98))"
+    ].join(";");
+
+    const spacer = document.createElement("div");
+    spacer.className = "sfLiveNativeSurfaceScrollSpacer";
+    spacer.style.cssText = "height:" + (boardHeight + 80) + "px;width:" + boardWidth + "px;pointer-events:none;";
+    surface.appendChild(spacer);
+
+    function repo(src) {
+      return sfRepoUrl ? sfRepoUrl(src) : src;
+    }
+
+    function addGear(key, label, src, x, y, w, extraClass) {
+      const wrap = document.createElement("div");
+      wrap.className = "sf-liv029-gear " + (extraClass || "");
+      wrap.dataset.sfGearId = key;
+      wrap.dataset.liv029GearKey = key;
+      wrap.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + w + "px",
+        "height:auto",
+        "z-index:80",
+        "pointer-events:auto",
+        "filter:drop-shadow(0 14px 24px rgba(0,0,0,.72))"
+      ].join(";");
+
+      const img = document.createElement("img");
+      img.src = repo(src);
+      img.alt = label;
+      img.draggable = false;
+      img.style.cssText = "display:block;width:100%;height:auto;pointer-events:none;user-select:none;";
+      wrap.appendChild(img);
+
+      const tape = document.createElement("div");
+      tape.className = "sf-liv029-gear-label";
+      tape.textContent = label;
+      tape.style.cssText = [
+        "position:absolute",
+        "left:10px",
+        "top:-24px",
+        "min-width:120px",
+        "padding:4px 8px",
+        "border-radius:5px",
+        "background:rgba(12,14,16,.88)",
+        "border:1px solid rgba(255,215,120,.36)",
+        "color:#ffd76a",
+        "font:900 11px/1.1 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+        "letter-spacing:.08em",
+        "text-transform:uppercase",
+        "white-space:nowrap",
+        "pointer-events:none"
+      ].join(";");
+      wrap.appendChild(tape);
+
+      layer.appendChild(wrap);
+      return wrap;
+    }
+
+    function addTextLabel(text, x, y, w) {
+      const el = document.createElement("div");
+      el.textContent = text;
+      el.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + (w || 260) + "px",
+        "z-index:120",
+        "color:#f4e7bd",
+        "font:800 13px/1.25 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+        "letter-spacing:.02em",
+        "text-shadow:0 2px 8px rgba(0,0,0,.85)",
+        "pointer-events:none"
+      ].join(";");
+      layer.appendChild(el);
+      return el;
+    }
+
+    function addPanelBox(key, label, x, y, w, h, subtitle) {
+      const box = document.createElement("div");
+      box.className = "sf-liv029-gear sf-liv029-panel-box";
+      box.dataset.sfGearId = key;
+      box.dataset.liv029GearKey = key;
+      box.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + w + "px",
+        "height:" + h + "px",
+        "z-index:70",
+        "pointer-events:auto",
+        "border:1px solid rgba(227,205,134,.42)",
+        "border-radius:12px",
+        "background:linear-gradient(180deg,#2d2e2a,#111311)",
+        "box-shadow:0 18px 34px rgba(0,0,0,.66), inset 0 0 18px rgba(255,230,150,.05)"
+      ].join(";");
+
+      const title = document.createElement("div");
+      title.textContent = label;
+      title.style.cssText = [
+        "position:absolute",
+        "left:14px",
+        "top:12px",
+        "right:14px",
+        "color:#ffd76a",
+        "font:1000 14px/1.1 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+        "letter-spacing:.10em",
+        "text-transform:uppercase"
+      ].join(";");
+      box.appendChild(title);
+
+      const sub = document.createElement("div");
+      sub.textContent = subtitle || "";
+      sub.style.cssText = [
+        "position:absolute",
+        "left:14px",
+        "top:38px",
+        "right:14px",
+        "color:#d7cda5",
+        "font:800 11px/1.25 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+        "letter-spacing:.05em",
+        "text-transform:uppercase"
+      ].join(";");
+      box.appendChild(sub);
+
+      layer.appendChild(box);
+      return box;
+    }
+
+    addTextLabel("LIV-029 Debate Panel: wireless receivers feed the console; console outputs distribute room PA, press feed, and confidence monitor.", 34, 26, 760);
+
+    addGear(
+      "liv029-rx-1",
+      "Moderator RX",
+      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      48,
+      118,
+      430,
+      "sf-liv029-wireless-rx"
+    );
+    addGear(
+      "liv029-rx-2",
+      "Panelist A RX",
+      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      48,
+      282,
+      430,
+      "sf-liv029-wireless-rx"
+    );
+    addGear(
+      "liv029-rx-3",
+      "Panelist B RX",
+      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      48,
+      446,
+      430,
+      "sf-liv029-wireless-rx"
+    );
+
+    const consoleBox = addPanelBox(
+      "liv029-event-console",
+      "Event FOH Console",
+      560,
+      160,
+      430,
+      470,
+      "Inputs 1-3 / Main L-R / Matrix 1 / Aux 1"
+    );
+
+    const consoleRows = [
+      ["MIC/LINE INPUT 1", 78],
+      ["MIC/LINE INPUT 2", 128],
+      ["MIC/LINE INPUT 3", 178],
+      ["MAIN L OUTPUT", 278],
+      ["MAIN R OUTPUT", 328],
+      ["MATRIX 1 OUTPUT", 378],
+      ["AUX 1 OUTPUT", 428]
+    ];
+    consoleRows.forEach(function(row) {
+      const label = document.createElement("div");
+      label.textContent = row[0];
+      label.style.cssText = "position:absolute;left:28px;top:" + row[1] + "px;color:#f3e9c8;font:900 12px system-ui;letter-spacing:.08em;";
+      consoleBox.appendChild(label);
+      const dot = document.createElement("div");
+      dot.style.cssText = "position:absolute;right:36px;top:" + (row[1] - 4) + "px;width:24px;height:24px;border-radius:50%;border:2px solid rgba(240,220,164,.72);background:radial-gradient(circle at 35% 35%,#1d1f1d,#050605);box-shadow:inset 0 0 6px rgba(0,0,0,.8);";
+      consoleBox.appendChild(dot);
+    });
+
+    addPanelBox(
+      "liv029-room-pa-processor",
+      "Room PA Processor",
+      1080,
+      120,
+      300,
+      170,
+      "L/R inputs for house system"
+    );
+
+    addGear(
+      "liv029-press-recorder",
+      "Press / Recorder Feed",
+      "../assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      1070,
+      384,
+      310,
+      "sf-liv029-press-recorder"
+    );
+
+    addGear(
+      "liv029-wedge-amp",
+      "Confidence Monitor / Wedge Amp",
+      "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      1046,
+      620,
+      350,
+      "sf-liv029-wedge-amp"
+    );
+
+    addTextLabel("PRESS / RECORDER FEED", 1124, 468, 230);
+    addTextLabel("CONFIDENCE MONITOR AMP", 1100, 704, 260);
+
+    surface.appendChild(layer);
+    updateNativeHintHighlights();
+
+    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r642liv029dispatch", {
+      gear: layer.querySelectorAll("[data-sf-gear-id]").length,
+      boardWidth,
+      boardHeight
+    });
+  }
+
+
   function renderLiv028VisualScaffold(surface, adapter) {
     const level = buildLevelGeometry(surface);
     const rect = level.rect;
@@ -15026,6 +15290,11 @@ redrawCables(layer);
 
 
   function renderNative(surface, adapter) {
+    if (LEVEL_ID === "LIV-029") {
+      renderLiv029DebatePanelScaffold(surface, adapter);
+      return;
+    }
+
     if (LEVEL_ID === "LIV-028") {
       renderLiv028VisualScaffold(surface, adapter);
       return;

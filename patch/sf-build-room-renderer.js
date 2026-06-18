@@ -3,7 +3,7 @@
   if(window.sfBuildRoomRendererV6r227Installed) return;
   window.sfBuildRoomRendererV6r227Installed = true;
 
-  const VERSION = '6r280';
+  const VERSION = '6r286buildroombalance';
   const REPO_ROOT = new URL('../', document.currentScript?.src || document.baseURI).href;
   const ASSET_ROOT = new URL('../assets/build-room/', document.currentScript?.src || document.baseURI).href;
   const MANIFEST_URL = ASSET_ROOT + 'build-room-manifest-v4.json?v=' + VERSION;
@@ -100,7 +100,13 @@
   function prepareData(){
     if(!manifest || !manifest.levels) return;
     levelsById = {};
-    manifest.levels.forEach(level => { levelsById[String(level.level_id || '').toUpperCase()] = level; });
+    const envCounts = {};
+    manifest.levels.forEach(level => {
+      const envKey = String(level.environment || '').toLowerCase();
+      envCounts[envKey] = Number(envCounts[envKey] || 0) + 1;
+      const normalized = normalizeTieredLevel(level, envCounts[envKey]);
+      levelsById[String(normalized.level_id || '').toUpperCase()] = normalized;
+    });
     assetBySlug = {};
     aliasToSlug = {};
     (assetMap && assetMap.items || []).forEach(item => {
@@ -151,6 +157,34 @@
       const spentCredits = Number(st.spentCredits || 0);
       return { totalCredits, spentCredits, availableCredits: Math.max(0, totalCredits - spentCredits), totalScore: Number(st.totalScore || 0) };
     }catch(_){ return { totalCredits:0, spentCredits:0, availableCredits:0, totalScore:0 }; }
+  }
+
+  function launchLevels(){
+    try{
+      if(window.DATA && Array.isArray(window.DATA.levels)) return window.DATA.levels;
+    }catch(_){}
+    try{
+      if(window.SIGNAL_FLOW_V12 && Array.isArray(window.SIGNAL_FLOW_V12.levels)) return window.SIGNAL_FLOW_V12.levels;
+    }catch(_){}
+    return [];
+  }
+
+  function priorLedgerCreditsForLevel(levelId){
+    const id = String(levelId || '').toUpperCase();
+    const levels = launchLevels();
+    if(!id || !levels.length) return null;
+    const creditByEnv = {};
+    for(const level of levels){
+      const env = String(level && level.environment || '');
+      const currentCredits = Number(creditByEnv[env] || 0);
+      if(String(level && level.id || '').toUpperCase() === id) return currentCredits;
+      if(!env) continue;
+      creditByEnv[env] = currentCredits + 25;
+      if(level && level.training && String(level.training.type || '').toLowerCase() === 'quiz'){
+        creditByEnv[env] += 25;
+      }
+    }
+    return null;
   }
 
   function loadLocker(){
@@ -218,6 +252,68 @@
     if(/stagebox/.test(n)) return 15;
     if(/reverb|compressor|eq|processor|matrix|crossover|splitter|loudness|downmix|patchbay|broadcast phone/.test(n)) return 25;
     return 20;
+  }
+
+  function itemCost(item){
+    return Number(item && item.cost != null ? item.cost : estimatedCost(item && item.name));
+  }
+
+  function tierStarterAllowed(item){
+    const name = String(item && item.name || '').toLowerCase();
+    const category = String(item && item.category || categoryFor(item && item.name) || '').toLowerCase();
+    if(/processor|matrix|crossover|splitter|loudness|downmix|patchbay|broadcast phone|ifb|iem|speaker|pa|front fill|stage monitor|monitor pair|headphone|earbud|beltpack|reverb|compressor|eq|dolby|renderer|advanced|rack/.test(name)) return false;
+    if(/processors|routing|speakers|monitors|ifb/.test(category)) return false;
+    if(/encoder/.test(name)) return false;
+    if(/boundary|contact/.test(name)) return false;
+    return /cable|loom|trs|xlr|usb|instrument|di box|mic|microphone|preamp|interface|recorder|daw|console|mixer|stagebox|snake|stand|mount|wind|foley|kit/.test(name + ' ' + category);
+  }
+
+  function requiredCost(required){
+    return (required || []).reduce((sum, item) => sum + itemCost(item) * Number(item && item.qty || 1), 0);
+  }
+
+  function normalizeTieredLevel(level, tier){
+    const copy = JSON.parse(JSON.stringify(level || {}));
+    copy.tier = tier;
+    copy.required = (copy.required || []).map(item => Object.assign({}, item, {
+      name: normalizeName(item.name),
+      category: item.category || categoryFor(item.name)
+    }));
+    copy.store = (copy.store || []).map(item => Object.assign({}, item, {
+      name: normalizeName(item.name),
+      category: item.category || categoryFor(item.name)
+    }));
+
+    if(tier !== 1) return copy;
+
+    const priorCredits = priorLedgerCreditsForLevel(copy.level_id);
+    const cap = Number.isFinite(Number(priorCredits)) ? Number(priorCredits) : 100;
+    if(requiredCost(copy.required) <= cap) return copy;
+
+    const selected = [];
+    const demoted = [];
+    let total = 0;
+    copy.required.forEach(item => {
+      const cost = itemCost(item) * Number(item.qty || 1);
+      if(tierStarterAllowed(item) && total + cost <= cap){
+        selected.push(item);
+        total += cost;
+      }else{
+        demoted.push(item);
+      }
+    });
+
+    if(selected.length){
+      copy.required = selected;
+      const demotedSlugs = new Set(demoted.map(item => slugify(item.name)));
+      copy.store = copy.store.map(item => {
+        if(!demotedSlugs.has(slugify(item.name))) return item;
+        return Object.assign({}, item, { role:'distractor', satisfies:'', notes: item.notes || 'Tier 1 optional/overkill gear.' });
+      });
+      copy.tier_normalized = true;
+      copy.tier_prior_credits = cap;
+    }
+    return copy;
   }
 
   function assetFor(name){
@@ -336,6 +432,23 @@
       if(!ok) missing.push(req);
     });
     return { missing, statuses, ok: missing.length === 0 };
+  }
+
+  function wrongSelectionStatus(level, selection, items){
+    const required = level.required || [];
+    const wrong = [];
+    items.forEach(item => {
+      const qty = Number(selection[slugify(item.name)] || 0);
+      if(!qty) return;
+      const satisfiesRequired = required.some(req => {
+        const group = req.need_group || req.satisfies || req.name;
+        const direct = slugify(item.name) === slugify(req.name);
+        const groupMatch = group && item.satisfies && item.satisfies === group && !/distractor|wrong/i.test(item.role || '');
+        return direct || groupMatch;
+      });
+      if(!satisfiesRequired || /distractor|wrong/i.test(item.role || '')) wrong.push(item);
+    });
+    return { wrong, ok: wrong.length === 0 };
   }
 
   function ensureContainer(levelId){
@@ -577,6 +690,7 @@
     const totals = ledgerTotals();
     const money = selectedSpendAndOwned(selection, items);
     const reqStatus = requirementStatus(level, selection, items);
+    const wrongStatus = wrongSelectionStatus(level, selection, items);
     const categories = ['All'].concat(Array.from(new Set(items.map(i => i.category || categoryFor(i.name)))));
     if(!categories.includes(activeCategory)) activeCategory = 'All';
     const visibleItems = activeCategory === 'All' ? items : items.filter(i => (i.category || categoryFor(i.name)) === activeCategory);
@@ -628,7 +742,7 @@
           <span><strong>${money.selectedCount}</strong> selected</span>
           <span><strong>${money.spend}</strong> new credits</span>
           <span><strong>${Math.max(0, totals.availableCredits - money.spend)}</strong> remaining</span>
-          <span><strong>${reqStatus.ok ? 'Ready to submit' : 'Needs gear'}</strong></span>
+          <span><strong>${reqStatus.ok && wrongStatus.ok ? 'Ready to submit' : 'Needs gear'}</strong></span>
         </div>
       </div>`;
 
@@ -702,8 +816,17 @@
     const totals = ledgerTotals();
     const money = selectedSpendAndOwned(selection, items);
     const reqStatus = requirementStatus(level, selection, items);
+    const wrongStatus = wrongSelectionStatus(level, selection, items);
     if(!reqStatus.ok){
       showModal('Room Needs Revision', `<p>Required needs are not satisfied yet.</p><ul>${reqStatus.missing.map(m => `<li>${escapeHtml(m.need_group || m.name)}: ${escapeHtml(m.name)} ×${Number(m.qty||1)}</li>`).join('')}</ul>`, [
+        {label:'Retry Build', cls:'secondary', action:() => { closeAllBuildModals(); clearSelection(level.level_id); renderBuildRoom(); }},
+        {label:'Keep Building', action:closeAllBuildModals}
+      ]);
+      try{ if(typeof playSfx === 'function') playSfx('wrongAnswer'); }catch(_){ }
+      return;
+    }
+    if(!wrongStatus.ok){
+      showModal('Room Needs Revision', `<p>Remove gear that does not belong in this tier of the room build.</p><ul>${wrongStatus.wrong.map(item => `<li>${escapeHtml(item.name)}</li>`).join('')}</ul>`, [
         {label:'Retry Build', cls:'secondary', action:() => { closeAllBuildModals(); clearSelection(level.level_id); renderBuildRoom(); }},
         {label:'Keep Building', action:closeAllBuildModals}
       ]);
