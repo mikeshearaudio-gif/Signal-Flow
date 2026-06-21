@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://signal-flow.local/schemas/live-sound-board.schema.json",
+  "title": "Signal Flow Live Sound Board",
+  "type": "object",
+  "required": [
+    "levelId",
+    "environment",
+    "title",
+    "brief",
+    "requiredRoutes",
+    "stereoGroups",
+    "gear",
+    "labels",
+    "prewiredCables",
+    "hitboxes",
+    "acceptance"
+  ],
+  "properties": {
+    "levelId": { "type": "string", "pattern": "^LIV-[0-9]{3}$" },
+    "environment": { "const": "live" },
+    "title": { "type": "string", "minLength": 1 },
+    "brief": { "type": "string", "minLength": 1 },
+    "processorLabel": { "type": "string" },
+    "requiredRoutes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/route" },
+      "minItems": 1
+    },
+    "forbiddenRoutes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/routePair" }
+    },
+    "stereoGroups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "leftRouteId", "rightRouteId"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "leftRouteId": { "type": "string", "minLength": 1 },
+          "rightRouteId": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "gear": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/gear" },
+      "minItems": 1
+    },
+    "labels": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/label" }
+    },
+    "prewiredCables": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/cable" }
+    },
+    "hitboxes": {
+      "type": "object",
+      "required": ["good", "false"],
+      "properties": {
+        "good": { "type": "array", "items": { "$ref": "#/$defs/hitbox" } },
+        "false": { "type": "array", "items": { "$ref": "#/$defs/hitbox" } }
+      },
+      "additionalProperties": false
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["gearCount", "routeCount", "visualCableCount", "requiredSelectors", "forbiddenText"],
+      "properties": {
+        "gearCount": { "type": "integer", "minimum": 0 },
+        "routeCount": { "type": "integer", "minimum": 0 },
+        "visualCableCount": { "type": "integer", "minimum": 0 },
+        "requiredSelectors": { "type": "array", "items": { "type": "string" } },
+        "forbiddenText": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "rect": {
+      "type": "object",
+      "required": ["x", "y", "w", "h"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "w": { "type": "number", "exclusiveMinimum": 0 },
+        "h": { "type": "number", "exclusiveMinimum": 0 },
+        "z": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "routePair": {
+      "type": "object",
+      "required": ["fromLabel", "toLabel"],
+      "properties": {
+        "fromLabel": { "type": "string", "minLength": 1 },
+        "toLabel": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "route": {
+      "type": "object",
+      "required": ["id", "fromId", "toId", "fromLabel", "toLabel"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "fromId": { "type": "string", "minLength": 1 },
+        "toId": { "type": "string", "minLength": 1 },
+        "fromLabel": { "type": "string", "minLength": 1 },
+        "toLabel": { "type": "string", "minLength": 1 },
+        "stereoGroup": { "type": "string" },
+        "stereoSide": { "enum": ["left", "right"] }
+      },
+      "additionalProperties": false
+    },
+    "gear": {
+      "type": "object",
+      "required": ["id", "label", "asset", "rect"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(?!gear-[0-9]+$)[a-z0-9][a-z0-9-]*$" },
+        "label": { "type": "string", "minLength": 1 },
+        "asset": { "type": "string", "minLength": 1 },
+        "rect": { "$ref": "#/$defs/rect" },
+        "className": { "type": "string" },
+        "render": {
+          "type": "object",
+          "properties": {
+            "squashToHeight": { "type": "number", "exclusiveMinimum": 0 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "label": {
+      "type": "object",
+      "required": ["id", "text", "rect"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(?!label-[0-9]+$)[a-z0-9][a-z0-9-]*$" },
+        "text": { "type": "string" },
+        "rect": { "$ref": "#/$defs/rect" }
+      },
+      "additionalProperties": false
+    },
+    "cable": {
+      "type": "object",
+      "required": ["id", "asset", "rect", "visualOnly"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(?!cable-[0-9]+$)[a-z0-9][a-z0-9-]*$" },
+        "asset": { "type": "string", "minLength": 1 },
+        "rect": { "$ref": "#/$defs/rect" },
+        "rotation": { "type": "number" },
+        "visualOnly": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "hitbox": {
+      "type": "object",
+      "required": ["id", "rect"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(?!hitbox-[0-9]+$)[a-z0-9][a-z0-9-]*$" },
+        "routeId": { "type": "string" },
+        "rect": { "$ref": "#/$defs/rect" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

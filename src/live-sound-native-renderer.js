@@ -718,14 +718,14 @@
       panelKinds: ["foh", "amp"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
         amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
       },
       generatedJackKeys: [
-        "foh-liv006-matrix-1-output",
-        "foh-liv006-matrix-2-output",
-        "foh-liv006-matrix-3-output",
-        "foh-liv006-matrix-4-output",
+        "foh-liv006-bus-1-output",
+        "foh-liv006-bus-2-output",
+        "foh-liv006-bus-3-output",
+        "foh-liv006-bus-4-output",
         "foh-liv006-aux-1-output",
         "foh-liv006-aux-2-output",
         "foh-liv006-aux-3-output",
@@ -750,10 +750,10 @@
       ],
       validRoutes: [
         {
-          key: "foh-liv006-matrix-3-output-to-liv006-delay-tower-processor-input",
-          from: "foh-liv006-matrix-3-output",
+          key: "foh-liv006-bus-3-output-to-liv006-delay-tower-processor-input",
+          from: "foh-liv006-bus-3-output",
           to: "liv006-delay-tower-processor-input",
-          checklist: "Matrix 3 Output → Delay Tower Processor Input"
+          checklist: "Bus 3 Output → Delay Tower Processor Input"
         },
         {
           key: "foh-liv006-main-left-output-to-liv006-system-processor-l-input",
@@ -1089,7 +1089,7 @@
       panelKinds: ["foh", "crossover", "amp-high", "amp-mid", "amp-low", "speaker-left", "speaker-right", "pa-visual"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
         crossover: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
         "amp-high": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
         "amp-mid": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
@@ -1101,10 +1101,10 @@
       generatedJackKeys: [
         "foh-liv010-main-left-output",
         "foh-liv010-main-right-output",
-        "foh-liv006-matrix-1-output",
-        "foh-liv006-matrix-2-output",
-        "foh-liv006-matrix-3-output",
-        "foh-liv006-matrix-4-output",
+        "foh-liv006-bus-1-output",
+        "foh-liv006-bus-2-output",
+        "foh-liv006-bus-3-output",
+        "foh-liv006-bus-4-output",
         "foh-liv006-aux-1-output",
         "foh-liv006-aux-2-output",
         "foh-liv006-aux-3-output",
@@ -1246,7 +1246,7 @@
       sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
       assetOverrides: {
         stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
         amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg"
       },
       generatedJackKeys: [
@@ -1267,10 +1267,10 @@
         "stagebox-input-15",
         "stagebox-input-16",
         "stagebox-link-out",
-        "foh-liv006-matrix-1-output",
-        "foh-liv006-matrix-2-output",
-        "foh-liv006-matrix-3-output",
-        "foh-liv006-matrix-4-output",
+        "foh-liv006-bus-1-output",
+        "foh-liv006-bus-2-output",
+        "foh-liv006-bus-3-output",
+        "foh-liv006-bus-4-output",
         "foh-liv006-aux-1-output",
         "foh-liv006-aux-2-output",
         "foh-liv006-aux-3-output",
@@ -1309,18 +1309,18 @@
       panelKinds: ["foh", "front-fill-dsp", "front-fill-amp"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
         "front-fill-dsp": "/assets/live-sound/svg/hardware/foh-console-io-panel.svg",
         "front-fill-amp": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
       },
       generatedJackKeys: [
-        "matrix-1-output",
+        "bus-1-output",
         "front-fill-processor-input",
         "front-fill-processor-output",
         "front-fill-amp-input"
       ],
       validRoutes: [
-        { key: "matrix-1-to-front-fill-dsp", from: "matrix-1-output", to: "front-fill-processor-input", checklist: "Matrix 1 Output → Front Fill DSP Matrix In" },
+        { key: "bus-1-to-front-fill-dsp", from: "bus-1-output", to: "front-fill-processor-input", checklist: "Bus 1/2 Output → Front Fill DSP Bus In" },
         { key: "front-fill-dsp-to-front-fill-amp", from: "front-fill-processor-output", to: "front-fill-amp-input", checklist: "Front Fill DSP Out → Front Fill Amp Input" }
       ]
     },
@@ -1351,6 +1351,60 @@
         { key: "liv026-bus2-to-front-fill-processor", from: "liv026-bus-2-output", to: "liv026-front-fill-processor-input", checklist: "Front-of-House Bus 2 Out → Front Fill Processor In" },
         { key: "liv026-front-fill-processor-to-fill-amp", from: "liv026-front-fill-processor-output", to: "liv026-fill-amp-l-input", checklist: "Front Fill Processor Out → Power Amp Left In" }
       ]
+    },
+    "LIV-029": {
+      id: "LIV-029",
+      title: "Debate Panel: Wireless Mics, Room PA, Press Feed",
+      processorLabel: "ROOM PA / PRESS / MONITOR DISTRIBUTION",
+      sourceLabels: {
+        "wireless-receiver-1-output": "Wireless Receiver 1 Output",
+        "wireless-receiver-2-output": "Wireless Receiver 2 Output",
+        "wireless-receiver-3-output": "Wireless Receiver 3 Output"
+      },
+      destLabels: {
+        "console-input-1": "Console Mic/Line Input 1",
+        "console-input-2": "Console Mic/Line Input 2",
+        "console-input-3": "Console Mic/Line Input 3",
+        "console-main-l-output": "Console Main L Output",
+        "console-main-r-output": "Console Main R Output",
+        "console-bus-1-output": "Console Bus 1 Output",
+        "console-bus-2-output": "Console Bus 2 Output",
+        "console-aux-1-output": "Console Aux 1 Output",
+        "room-pa-processor-l-input": "Room PA Processor L Input",
+        "room-pa-processor-r-input": "Room PA Processor R Input",
+        "press-recorder-feed-l-input": "Press / Recorder Feed L Input",
+        "press-recorder-feed-r-input": "Press / Recorder Feed R Input",
+        "confidence-monitor-wedge-amp-input": "Confidence Monitor / Wedge Amp Input"
+      },
+      validRoutes: [
+        { key: "liv029-rx-1-to-console-input-1", from: "wireless-receiver-1-output", to: "console-input-1", checklist: "Wireless Receiver 1 Output → Console Mic/Line Input 1" },
+        { key: "liv029-rx-2-to-console-input-2", from: "wireless-receiver-2-output", to: "console-input-2", checklist: "Wireless Receiver 2 Output → Console Mic/Line Input 2" },
+        { key: "liv029-rx-3-to-console-input-3", from: "wireless-receiver-3-output", to: "console-input-3", checklist: "Wireless Receiver 3 Output → Console Mic/Line Input 3" },
+        { key: "liv029-main-l-to-room-pa-l", from: "console-main-l-output", to: "room-pa-processor-l-input", checklist: "Console Main L Output → Room PA Processor L Input", stereoGroup: "liv029-main-to-room-pa", stereoSide: "left" },
+        { key: "liv029-main-r-to-room-pa-r", from: "console-main-r-output", to: "room-pa-processor-r-input", checklist: "Console Main R Output → Room PA Processor R Input", stereoGroup: "liv029-main-to-room-pa", stereoSide: "right" },
+        { key: "liv029-bus-1-to-press-l", from: "console-bus-1-output", to: "press-recorder-feed-l-input", checklist: "Console Bus 1 Output → Press / Recorder Feed L Input", stereoGroup: "liv029-bus-press-feed", stereoSide: "left" },
+        { key: "liv029-bus-2-to-press-r", from: "console-bus-2-output", to: "press-recorder-feed-r-input", checklist: "Console Bus 2 Output → Press / Recorder Feed R Input", stereoGroup: "liv029-bus-press-feed", stereoSide: "right" },
+        { key: "liv029-aux-1-to-wedge-amp", from: "console-aux-1-output", to: "confidence-monitor-wedge-amp-input", checklist: "Console Aux 1 Output → Confidence Monitor / Wedge Amp Input" }
+      ],
+      requiredRoutes: [
+        ["wireless-receiver-1-output", "console-input-1"],
+        ["wireless-receiver-2-output", "console-input-2"],
+        ["wireless-receiver-3-output", "console-input-3"],
+        ["console-main-l-output", "room-pa-processor-l-input"],
+        ["console-main-r-output", "room-pa-processor-r-input"],
+        ["console-bus-1-output", "press-recorder-feed-l-input"],
+        ["console-bus-2-output", "press-recorder-feed-r-input"],
+        ["console-aux-1-output", "confidence-monitor-wedge-amp-input"]
+      ],
+      stereoGroups: [
+        ["console-main-l-output", "console-main-r-output"],
+        ["console-bus-1-output", "console-bus-2-output"]
+      ],
+      assets: {
+        "wireless-receiver": "/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
+        "press-recorder": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+        "wedge-amp": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg"
+      }
     },
     "LIV-028": {
       id: "LIV-028",
@@ -1398,7 +1452,7 @@
           sourceOrder: ["lead-vocal-mic"],
           assetOverrides: {
             stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
             amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259",
             paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
           },
@@ -1420,10 +1474,10 @@
             "stagebox-input-15",
             "stagebox-input-16",
             "stagebox-link-out",
-            "foh-liv006-matrix-1-output",
-            "foh-liv006-matrix-2-output",
-            "foh-liv006-matrix-3-output",
-            "foh-liv006-matrix-4-output",
+            "foh-liv006-bus-1-output",
+            "foh-liv006-bus-2-output",
+            "foh-liv006-bus-3-output",
+            "foh-liv006-bus-4-output",
             "foh-liv006-aux-1-output",
             "foh-liv006-aux-2-output",
             "foh-liv006-aux-3-output",
@@ -1447,7 +1501,7 @@
             "liv006-front-fill-processor-input"
           ],
           validRoutes: [
-            { key: "foh-liv006-matrix-2-output-to-liv006-sub-processor-input", from: "foh-liv006-matrix-2-output", to: "liv006-sub-processor-input", checklist: "Matrix 2 Output → Sub Processor Input" },
+            { key: "foh-liv006-bus-2-output-to-liv006-sub-processor-input", from: "foh-liv006-bus-2-output", to: "liv006-sub-processor-input", checklist: "Bus 2 Output → Sub Processor Input" },
             { key: "foh-liv006-main-left-output-to-liv006-system-processor-l-input", from: "foh-liv006-main-left-output", to: "liv006-system-processor-l-input", checklist: "Main L Output → Crossover L In", stereoGroup: "liv015-main-to-crossover", stereoSide: "left" },
             { key: "foh-liv006-main-right-output-to-liv006-system-processor-r-input", from: "foh-liv006-main-right-output", to: "liv006-system-processor-r-input", checklist: "Main R Output → Crossover R In", stereoGroup: "liv015-main-to-crossover", stereoSide: "right" },
             { key: "lead-vocal-mic-to-stagebox-input-1", from: "lead-vocal-mic", to: "stagebox-input-1", checklist: "Lead Vocal Mic → Stage Box Input 1" }
@@ -1842,7 +1896,7 @@ if (activeNativeLevelId === nextLevelId) return;
     "foh-main-right": { label: "FOH Main Right", kind: "jack", panelJack: "foh.mainRight", ghost: true },
     "main-left-output": { label: "Main Left Output", kind: "jack", panelJack: "foh.mainLeft" },
     "main-right-output": { label: "Main Right Output", kind: "jack", panelJack: "foh.mainRight" },
-    "matrix-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
+    "bus-2-output": { label: "Aux 2 Output", kind: "jack", panelJack: "foh.lineOut2" },
 
     "foh-mic-1": { label: "FOH Mic 1", kind: "jack", panelJack: "foh.mic1", ghost: true },
     "foh-mic-2": { label: "FOH Mic 2", kind: "jack", panelJack: "foh.mic2", ghost: true },
@@ -1865,10 +1919,10 @@ if (activeNativeLevelId === nextLevelId) return;
     "foh-liv007-main-left-output": { label: "Main L Output", kind: "jack", panelRel: { panel: "foh", x: 975 / 1120, y: 134 / 260 } },
     "foh-liv007-main-right-output": { label: "Main R Output", kind: "jack", panelRel: { panel: "foh", x: 1045 / 1120, y: 134 / 260 } },
 
-    "foh-liv006-matrix-1-output": { label: "Matrix 1 Output", kind: "jack", panelRel: { panel: "foh", x: 105 / 1120, y: 134 / 260 }, ghost: true },
-    "foh-liv006-matrix-2-output": { label: "Matrix 2 Output", kind: "jack", panelRel: { panel: "foh", x: 180 / 1120, y: 134 / 260 }, ghost: true },
-    "foh-liv006-matrix-3-output": { label: "Matrix 3 Output", kind: "jack", panelRel: { panel: "foh", x: 255 / 1120, y: 134 / 260 } },
-    "foh-liv006-matrix-4-output": { label: "Matrix 4 Output", kind: "jack", panelRel: { panel: "foh", x: 330 / 1120, y: 134 / 260 }, ghost: true },
+    "foh-liv006-bus-1-output": { label: "Bus 1/2 Output", kind: "jack", panelRel: { panel: "foh", x: 105 / 1120, y: 134 / 260 }, ghost: true },
+    "foh-liv006-bus-2-output": { label: "Bus 2 Output", kind: "jack", panelRel: { panel: "foh", x: 180 / 1120, y: 134 / 260 }, ghost: true },
+    "foh-liv006-bus-3-output": { label: "Bus 3 Output", kind: "jack", panelRel: { panel: "foh", x: 255 / 1120, y: 134 / 260 } },
+    "foh-liv006-bus-4-output": { label: "Bus 4 Output", kind: "jack", panelRel: { panel: "foh", x: 330 / 1120, y: 134 / 260 }, ghost: true },
 
     "foh-liv006-aux-1-output": { label: "Aux 1 Output", kind: "jack", panelRel: { panel: "foh", x: 418 / 1120, y: 140 / 260 }, ghost: true },
     "foh-liv006-aux-2-output": { label: "Aux 2 Output", kind: "jack", panelRel: { panel: "foh", x: 458 / 1120, y: 140 / 260 }, ghost: true },
@@ -2478,8 +2532,8 @@ if (activeNativeLevelId === nextLevelId) return;
 
     if (LEVEL_ID === "LIV-025" || LEVEL_ID === "LIV-026") {
       const liv025Rel = {
-        "matrix-1-output": { panel: "foh", x: 100 / 1120, y: 132 / 260 },
-        "matrix-2-output": { panel: "foh", x: (LEVEL_ID === "LIV-025" ? 174 : 458) / 1120, y: (LEVEL_ID === "LIV-025" ? 134 : 140) / 260 },
+        "bus-1-output": { panel: "foh", x: 100 / 1120, y: 132 / 260 },
+        "bus-2-output": { panel: "foh", x: (LEVEL_ID === "LIV-025" ? 174 : 458) / 1120, y: (LEVEL_ID === "LIV-025" ? 134 : 140) / 260 },
         "aux-2-output": { panel: "foh", x: 458 / 1120, y: 140 / 260 },
         "aux-3-output": { panel: "foh", x: 498 / 1120, y: 140 / 260 },
         "foh-line-out-1": { panel: "foh", x: 418 / 1120, y: 140 / 260 },
@@ -3353,7 +3407,7 @@ if (activeNativeLevelId === nextLevelId) return;
   function markChecklistForCompletedRoute(validRoute) {
     if (!validRoute) return;
 
-    if (LEVEL_ID === "LIV-016" && validRoute.stereoGroup) {
+    if ((LEVEL_ID === "LIV-016" || LEVEL_ID === "LIV-029") && validRoute.stereoGroup) {
       const groupRoutes = LEVEL.validRoutes.filter(route => route.stereoGroup === validRoute.stereoGroup);
       const groupComplete = groupRoutes.every(route => state.completedValidKeys.has(route.key));
 
@@ -4517,7 +4571,7 @@ function handleNodeClick(layer, node) {
     installLiv025HintStyle();
 
     const keys = [
-      "matrix-1-output",
+      "bus-1-output",
       "front-fill-processor-input",
       "front-fill-processor-output",
       "front-fill-amp-input"
@@ -8589,8 +8643,8 @@ function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
     "centerY": 716
   },
   {
-    "key": "liv020-bad-matrix-out-01",
-    "label": "Matrix Out 1",
+    "key": "liv020-bad-bus-out-01",
+    "label": "Bus Out 1",
     "leftPx": 464,
     "topPx": 787,
     "widthPx": 28,
@@ -8599,8 +8653,8 @@ function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
     "centerY": 804
   },
   {
-    "key": "liv020-bad-matrix-out-02",
-    "label": "Matrix Out 2",
+    "key": "liv020-bad-bus-out-02",
+    "label": "Bus Out 2",
     "leftPx": 541,
     "topPx": 785,
     "widthPx": 28,
@@ -8609,8 +8663,8 @@ function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
     "centerY": 802
   },
   {
-    "key": "liv020-bad-matrix-out-03",
-    "label": "Matrix Out 3",
+    "key": "liv020-bad-bus-out-03",
+    "label": "Bus Out 3",
     "leftPx": 196,
     "topPx": 148,
     "widthPx": 28,
@@ -8619,8 +8673,8 @@ function sfLiv020ApplyHitboxLayoutLock(layer, reason) {
     "centerY": 165
   },
   {
-    "key": "liv020-bad-matrix-out-04",
-    "label": "Matrix Out 4",
+    "key": "liv020-bad-bus-out-04",
+    "label": "Bus Out 4",
     "leftPx": 211,
     "topPx": 148,
     "widthPx": 28,
@@ -9252,10 +9306,10 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       sfLiv010CreateJack(layer, key, p(panel, x, y), label || nodeLabel(key), !active.has(key));
     }
 
-    // FOH main outputs plus visible false candidates from the matrix / aux / bus sections.
+    // FOH main outputs plus visible false candidates from the bus / aux / bus sections.
     jack("foh-liv010-main-left-output", panels.foh, 975/1120, 134/260, "Main L Output");
     jack("foh-liv010-main-right-output", panels.foh, 1045/1120, 134/260, "Main R Output");
-    [105,180,255,330].forEach((x, idx) => jack("foh-liv006-matrix-" + (idx + 1) + "-output", panels.foh, x/1120, 134/260, "Matrix " + (idx + 1) + " Output"));
+    [105,180,255,330].forEach((x, idx) => jack("foh-liv006-bus-" + (idx + 1) + "-output", panels.foh, x/1120, 134/260, "Bus " + (idx + 1) + " Output"));
     [418,458,498,538,578,618].forEach((x, idx) => jack("foh-liv006-aux-" + (idx + 1) + "-output", panels.foh, x/1120, 140/260, "Aux " + (idx + 1) + " Output"));
     [710,756,802,848].forEach((x, idx) => jack("foh-liv006-bus-" + (idx + 1) + "-output", panels.foh, x/1120, 126/260, "Bus " + (idx + 1) + " Output"));
     [710,756,802,848].forEach((x, idx) => jack("foh-liv006-bus-" + (idx + 5) + "-output", panels.foh, x/1120, 190/260, "Bus " + (idx + 5) + " Output"));
@@ -10125,7 +10179,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
         return el;
       }
 
-      // Approved LED matrix-style screen overlay.
+      // Approved LED bus-style screen overlay.
       const led = liv025Div(683.415771484375, 217.66925048828125, 100, 110, 80);
       led.innerHTML = [
         '<div style="width:100%;height:100%;box-sizing:border-box;border-radius:7px;',
@@ -10205,7 +10259,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
 
     if (LEVEL_ID === "LIV-025") {
       const liv025GoodHitboxes = [
-        { key: "matrix-1-output", leftPx: 140.06, topPx: 107.16, widthPx: 34, heightPx: 34 },
+        { key: "bus-1-output", leftPx: 140.06, topPx: 107.16, widthPx: 34, heightPx: 34 },
         { key: "front-fill-processor-input", leftPx: 133.51, topPx: 262.7, widthPx: 34, heightPx: 34 },
         { key: "front-fill-processor-output", leftPx: 522.96, topPx: 263.32, widthPx: 34, heightPx: 34 },
         { key: "front-fill-amp-input", leftPx: 232.44, topPx: 430.56, widthPx: 34, heightPx: 34 }
@@ -11615,7 +11669,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
             21
       ],
       [
-            "liv021-false-matrix-1",
+            "liv021-false-bus-1",
             "M1 Output",
             731,
             123,
@@ -11623,7 +11677,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
             13
       ],
       [
-            "liv021-false-matrix-2",
+            "liv021-false-bus-2",
             "M2 Output",
             748,
             124,
@@ -11631,7 +11685,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
             13
       ],
       [
-            "liv021-false-matrix-3",
+            "liv021-false-bus-3",
             "M3 Output",
             764,
             123,
@@ -11639,7 +11693,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
             15
       ],
       [
-            "liv021-false-matrix-4",
+            "liv021-false-bus-4",
             "M4 Output",
             783,
             122,
@@ -11904,7 +11958,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       layer.appendChild(wrap);
     }
 
-    img("foh", "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", 147, 31, 940);
+    img("foh", "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg", 147, 31, 940);
     img("liv026-system-delay-processor-asset", "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg", 44, 255, 610);
     img("crossover", "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg", 47, 432, 605);
     img("high-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", 657, 257, 470);
@@ -12030,21 +12084,21 @@ function renderLiv020MainPaAndIem(surface, adapter) {
 
     const LIV026_FALSE_HITBOXES = [
       {
-            "key": "liv026-false-matrix-1",
+            "key": "liv026-false-bus-1",
             "leftPx": 215,
             "topPx": 120,
             "widthPx": 44,
             "heightPx": 19
       },
       {
-            "key": "liv026-false-matrix-2",
+            "key": "liv026-false-bus-2",
             "leftPx": 280,
             "topPx": 120,
             "widthPx": 44,
             "heightPx": 34
       },
       {
-            "key": "liv026-false-matrix-3",
+            "key": "liv026-false-bus-3",
             "leftPx": 340,
             "topPx": 120,
             "widthPx": 44,
@@ -13669,32 +13723,32 @@ redrawCables(layer);
             "heightPx": 22
       },
       {
-            "key": "liv023-false-console-matrix-1",
-            "label": "Console Matrix 1",
+            "key": "liv023-false-console-bus-1",
+            "label": "Console Bus 1/2",
             "leftPx": 731,
             "topPx": 129,
             "widthPx": 12,
             "heightPx": 12
       },
       {
-            "key": "liv023-false-console-matrix-2",
-            "label": "Console Matrix 2",
+            "key": "liv023-false-console-bus-2",
+            "label": "Console Bus 2",
             "leftPx": 750,
             "topPx": 129,
             "widthPx": 12,
             "heightPx": 12
       },
       {
-            "key": "liv023-false-console-matrix-3",
-            "label": "Console Matrix 3",
+            "key": "liv023-false-console-bus-3",
+            "label": "Console Bus 3",
             "leftPx": 769,
             "topPx": 129,
             "widthPx": 12,
             "heightPx": 12
       },
       {
-            "key": "liv023-false-console-matrix-4",
-            "label": "Console Matrix 4",
+            "key": "liv023-false-console-bus-4",
+            "label": "Console Bus 4",
             "leftPx": 786,
             "topPx": 129,
             "widthPx": 12,
@@ -13954,18 +14008,18 @@ redrawCables(layer);
         "className": "sf-liv028-full-gear-placed sf-liv028-gear-crossover"
     },
     {
-        "key": "matrix",
+        "key": "bus",
         "tagName": "img",
         "text": "",
-        "src": "/assets/live-sound/svg/hardware/Matrix_trimmed_no_background.svg",
-        "alt": "Matrix Router",
-        "label": "Matrix Router",
+        "src": "/assets/live-sound/svg/hardware/Bus_trimmed_no_background.svg",
+        "alt": "Bus Router",
+        "label": "Bus Router",
         "leftPx": 490,
         "topPx": 455,
         "widthPx": 370,
         "heightPx": 92,
         "zIndex": 300,
-        "className": "sf-liv028-full-gear-placed sf-liv028-gear-matrix"
+        "className": "sf-liv028-full-gear-placed sf-liv028-gear-bus"
     },
     {
         "key": "iemTransmittersAB",
@@ -14393,20 +14447,20 @@ redrawCables(layer);
     {"key":"liv028-keys-l-di","leftPx":539,"topPx":42,"widthPx":54,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
     {"key":"liv028-keys-r-di","leftPx":699,"topPx":40,"widthPx":64,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
     {"key":"liv028-lead-vocal-mic","leftPx":249,"topPx":42,"widthPx":74,"heightPx":114,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-source"},
-    {"key":"liv028-matrix-input-1","leftPx":700,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-2","leftPx":723,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-3","leftPx":745,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-4","leftPx":767,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-5","leftPx":790,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-6","leftPx":813,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-7","leftPx":835,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-input-8","leftPx":858,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-out-1a","leftPx":700,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-out-1b","leftPx":725,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-out-2a","leftPx":790,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-out-2b","leftPx":813,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-out-3a","leftPx":889,"topPx":479,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
-    {"key":"liv028-matrix-out-3b","leftPx":913,"topPx":479,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-1","leftPx":700,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-2","leftPx":723,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-3","leftPx":745,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-4","leftPx":767,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-5","leftPx":790,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-6","leftPx":813,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-7","leftPx":835,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-input-8","leftPx":858,"topPx":476,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-out-1a","leftPx":700,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-out-1b","leftPx":725,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-out-2a","leftPx":790,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-out-2b","leftPx":813,"topPx":501,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-out-3a","leftPx":889,"topPx":479,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
+    {"key":"liv028-bus-out-3b","leftPx":913,"topPx":479,"widthPx":20,"heightPx":20,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
     {"key":"liv028-recording-in-l","leftPx":394,"topPx":550,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
     {"key":"liv028-recording-in-r","leftPx":450,"topPx":550,"widthPx":22,"heightPx":22,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
     {"key":"liv028-splitter-in-1","leftPx":283,"topPx":377,"widthPx":24,"heightPx":24,"className":"sf-native-node sf-native-liv028-true-hitbox sf-native-jack"},
@@ -14468,7 +14522,8 @@ redrawCables(layer);
       return sfRepoUrl ? sfRepoUrl(src) : src;
     }
 
-    function addGear(key, label, src, x, y, w, extraClass) {
+    function addGear(key, label, src, x, y, w, extraClass, options) {
+      options = options || {};
       const wrap = document.createElement("div");
       wrap.className = "sf-liv029-gear " + (extraClass || "");
       wrap.dataset.sfGearId = key;
@@ -14478,9 +14533,10 @@ redrawCables(layer);
         "left:" + x + "px",
         "top:" + y + "px",
         "width:" + w + "px",
-        "height:auto",
+        "height:" + (options.height ? options.height + "px" : "auto"),
         "z-index:80",
         "pointer-events:auto",
+        "overflow:visible",
         "filter:drop-shadow(0 14px 24px rgba(0,0,0,.72))"
       ].join(";");
 
@@ -14488,7 +14544,17 @@ redrawCables(layer);
       img.src = repo(src);
       img.alt = label;
       img.draggable = false;
-      img.style.cssText = "display:block;width:100%;height:auto;pointer-events:none;user-select:none;";
+      img.style.cssText = options.squashToHeight
+        ? [
+            "display:block",
+            "width:100%",
+            "height:auto",
+            "pointer-events:none",
+            "user-select:none",
+            "transform:scaleY(" + options.squashToHeight + ")",
+            "transform-origin:left top"
+          ].join(";")
+        : "display:block;width:100%;height:auto;pointer-events:none;user-select:none;";
       wrap.appendChild(img);
 
       const tape = document.createElement("div");
@@ -14514,6 +14580,29 @@ redrawCables(layer);
 
       layer.appendChild(wrap);
       return wrap;
+    }
+
+
+    function addLiv029VisualCable(key, src, x, y, w, h, rotateDeg, z) {
+      const cable = document.createElement("img");
+      cable.setAttribute("data-liv029-visual-cable", key);
+      cable.alt = "";
+      cable.src = repo(src);
+      cable.style.cssText = [
+        "position:absolute",
+        "left:" + x + "px",
+        "top:" + y + "px",
+        "width:" + w + "px",
+        "height:" + h + "px",
+        "object-fit:contain",
+        "z-index:" + (z || 132),
+        "transform:rotate(" + (rotateDeg || 0) + "deg)",
+        "transform-origin:18px 50%",
+        "pointer-events:none",
+        "filter:drop-shadow(0 4px 7px rgba(0,0,0,.55))"
+      ].join(";");
+      layer.appendChild(cable);
+      return cable;
     }
 
     function addTextLabel(text, x, y, w) {
@@ -14588,80 +14677,77 @@ redrawCables(layer);
 
     addTextLabel("LIV-029 Debate Panel: wireless receivers feed the console; console outputs distribute room PA, press feed, and confidence monitor.", 34, 26, 760);
 
+    const liv029GearBakedSizeStyle = document.createElement("style");
+    liv029GearBakedSizeStyle.textContent = [
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-rx-1"]{height:126px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-rx-2"]{height:126px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-rx-3"]{height:126px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"]{height:320px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-room-pa-processor"]{height:132px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-press-recorder"]{height:93px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-wedge-amp"]{height:119px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id]:not([data-sf-gear-id="liv029-event-console"]) > img{width:100%!important;height:100%!important;object-fit:contain!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"] > img{width:100%!important;height:auto!important;object-fit:fill!important;}'
+    ].join("\n");
+    layer.appendChild(liv029GearBakedSizeStyle);
+
+
     addGear(
       "liv029-rx-1",
       "Moderator RX",
-      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
       48,
-      118,
-      430,
+      210,
+      370,
       "sf-liv029-wireless-rx"
     );
     addGear(
       "liv029-rx-2",
       "Panelist A RX",
-      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
       48,
-      282,
-      430,
+      316,
+      370,
       "sf-liv029-wireless-rx"
     );
     addGear(
       "liv029-rx-3",
       "Panelist B RX",
-      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
       48,
-      446,
-      430,
+      422,
+      370,
       "sf-liv029-wireless-rx"
     );
 
-    const consoleBox = addPanelBox(
+    const consoleBox = addGear(
       "liv029-event-console",
       "Event FOH Console",
-      560,
-      160,
-      430,
-      470,
-      "Inputs 1-3 / Main L-R / Matrix 1 / Aux 1"
+      "../assets/live-sound/svg/hardware/16ch FOH console0.svg",
+      -20,
+      -138,
+      940,
+      "sf-liv029-event-console",
+      { height: 320, squashToHeight: 0.63 }
     );
 
-    const consoleRows = [
-      ["MIC/LINE INPUT 1", 78],
-      ["MIC/LINE INPUT 2", 128],
-      ["MIC/LINE INPUT 3", 178],
-      ["MAIN L OUTPUT", 278],
-      ["MAIN R OUTPUT", 328],
-      ["MATRIX 1 OUTPUT", 378],
-      ["AUX 1 OUTPUT", 428]
-    ];
-    consoleRows.forEach(function(row) {
-      const label = document.createElement("div");
-      label.textContent = row[0];
-      label.style.cssText = "position:absolute;left:28px;top:" + row[1] + "px;color:#f3e9c8;font:900 12px system-ui;letter-spacing:.08em;";
-      consoleBox.appendChild(label);
-      const dot = document.createElement("div");
-      dot.style.cssText = "position:absolute;right:36px;top:" + (row[1] - 4) + "px;width:24px;height:24px;border-radius:50%;border:2px solid rgba(240,220,164,.72);background:radial-gradient(circle at 35% 35%,#1d1f1d,#050605);box-shadow:inset 0 0 6px rgba(0,0,0,.8);";
-      consoleBox.appendChild(dot);
-    });
-
-    addPanelBox(
+    const roomPaProcessor = addGear(
       "liv029-room-pa-processor",
       "Room PA Processor",
-      1080,
-      120,
-      300,
-      170,
-      "L/R inputs for house system"
+      "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+      421,
+      426,
+      425,
+      "sf-liv029-room-pa-processor"
     );
 
     addGear(
       "liv029-press-recorder",
       "Press / Recorder Feed",
       "../assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
-      1070,
-      384,
-      310,
+      425,
+      214,
+      410,
       "sf-liv029-press-recorder"
     );
 
@@ -14669,9 +14755,9 @@ redrawCables(layer);
       "liv029-wedge-amp",
       "Confidence Monitor / Wedge Amp",
       "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
-      1046,
-      620,
-      350,
+      426,
+      320,
+      420,
       "sf-liv029-wedge-amp"
     );
 
@@ -14679,9 +14765,31 @@ redrawCables(layer);
     addTextLabel("CONFIDENCE MONITOR AMP", 1100, 704, 260);
 
     surface.appendChild(layer);
+
+    addLiv029VisualCable(
+      "liv029-wedge-normal-output-a",
+      "../assets/live-sound/svg/cables/single-one-end-raised.svg",
+      710,
+      352,
+      150,
+      42,
+      2,
+      132
+    );
+    addLiv029VisualCable(
+      "liv029-wedge-normal-output-b",
+      "../assets/live-sound/svg/cables/single-one-end-raised.svg",
+      710,
+      390,
+      150,
+      42,
+      2,
+      132
+    );
+
     updateNativeHintHighlights();
 
-    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r642liv029dispatch", {
+    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r649liv029busstereo", {
       gear: layer.querySelectorAll("[data-sf-gear-id]").length,
       boardWidth,
       boardHeight
@@ -15103,10 +15211,10 @@ redrawCables(layer);
       { key: "liv028-false-iem-b-phones", leftPx: 992, topPx: 483, widthPx: 15, heightPx: 15 },
       { key: "liv028-false-iem-c-phones", leftPx: 978, topPx: 504, widthPx: 15, heightPx: 15 },
       { key: "liv028-false-iem-d-phones", leftPx: 1008, topPx: 504, widthPx: 15, heightPx: 15 },
-      { key: "liv028-false-matrix-input-10", leftPx: 835, topPx: 502, widthPx: 20, heightPx: 20 },
-      { key: "liv028-false-matrix-input-9", leftPx: 858, topPx: 502, widthPx: 20, heightPx: 20 },
-      { key: "liv028-false-matrix-out-4a", leftPx: 936, topPx: 479, widthPx: 20, heightPx: 20 },
-      { key: "liv028-false-matrix-out-4b", leftPx: 889, topPx: 502, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-bus-input-10", leftPx: 835, topPx: 502, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-bus-input-9", leftPx: 858, topPx: 502, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-bus-out-4a", leftPx: 936, topPx: 479, widthPx: 20, heightPx: 20 },
+      { key: "liv028-false-bus-out-4b", leftPx: 889, topPx: 502, widthPx: 20, heightPx: 20 },
       { key: "liv028-false-recording-extra-l", leftPx: 412, topPx: 379, widthPx: 22, heightPx: 22 },
       { key: "liv028-false-recording-extra-r", leftPx: 445, topPx: 378, widthPx: 22, heightPx: 22 },
       { key: "liv028-false-splitter-extra-1", leftPx: 478, topPx: 378, widthPx: 22, heightPx: 22 },
@@ -15600,7 +15708,7 @@ redrawCables(layer);
     if (LEVEL_ID !== "LIV-025") return;
 
     const keys = [
-      "matrix-1-output",
+      "bus-1-output",
       "front-fill-processor-input",
       "front-fill-processor-output",
       "front-fill-amp-input"
@@ -15645,9 +15753,9 @@ redrawCables(layer);
 
 
   const LIV025_FALSE_HITBOXES = [
-    { key:"liv025-false-matrix-2-output", leftPx:190.48, topPx:109.76, widthPx:24, heightPx:24 },
-    { key:"liv025-false-matrix-3-output", leftPx:238.71, topPx:108.82, widthPx:24, heightPx:24 },
-    { key:"liv025-false-matrix-4-output", leftPx:283.72, topPx:109.93, widthPx:24, heightPx:24 },
+    { key:"liv025-false-bus-2-output", leftPx:190.48, topPx:109.76, widthPx:24, heightPx:24 },
+    { key:"liv025-false-bus-3-output", leftPx:238.71, topPx:108.82, widthPx:24, heightPx:24 },
+    { key:"liv025-false-bus-4-output", leftPx:283.72, topPx:109.93, widthPx:24, heightPx:24 },
     { key:"liv025-false-aux-1-output", leftPx:342.55, topPx:115.25, widthPx:24, heightPx:24 },
     { key:"liv025-false-aux-2-output", leftPx:367.05, topPx:115.18, widthPx:24, heightPx:24 },
     { key:"liv025-false-aux-3-output", leftPx:391.41, topPx:114.88, widthPx:24, heightPx:24 },
@@ -15793,8 +15901,8 @@ redrawCables(layer);
     if (!layer) return;
 
     const hitboxes = [
-      { key: "matrix-1-output", label: "Matrix 1 Output", leftPx: 140.06, topPx: 107.16, widthPx: 34, heightPx: 34 },
-      { key: "front-fill-processor-input", label: "Front Fill DSP Matrix In", leftPx: 133.51, topPx: 262.7, widthPx: 34, heightPx: 34 },
+      { key: "bus-1-output", label: "Bus 1/2 Output", leftPx: 140.06, topPx: 107.16, widthPx: 34, heightPx: 34 },
+      { key: "front-fill-processor-input", label: "Front Fill DSP Bus In", leftPx: 133.51, topPx: 262.7, widthPx: 34, heightPx: 34 },
       { key: "front-fill-processor-output", label: "Front Fill DSP Out", leftPx: 522.96, topPx: 263.32, widthPx: 34, heightPx: 34 },
       { key: "front-fill-amp-input", label: "Front Fill Amp Input", leftPx: 232.44, topPx: 430.56, widthPx: 34, heightPx: 34 }
     ];

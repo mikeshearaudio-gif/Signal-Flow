@@ -19020,7 +19020,7 @@ window.SIGNAL_FLOW_V12 = {
                   "id": "LIV-029",
                   "environment": "live",
                   "title": "Debate Panel: Wireless Mics, Room PA, Press Feed",
-                  "brief": "Route three wireless debate microphones into the console, send the main mix to the room PA, create a separate matrix feed for the press recorder, and send an aux cue to the confidence monitor.",
+                  "brief": "Route three wireless debate microphones into the console, send the main mix to the room PA, create a separate stereo bus feed for the press recorder, and send an aux cue to the confidence monitor.",
                   "difficulty": 4,
                   "required": [
                             [
@@ -19044,8 +19044,12 @@ window.SIGNAL_FLOW_V12 = {
                                       "Room PA Processor R Input"
                             ],
                             [
-                                      "Console Matrix 1 Output",
-                                      "Press / Recorder Feed Input"
+                                      "Console Bus 1 Output",
+                                      "Press / Recorder Feed L Input"
+                            ],
+                            [
+                                      "Console Bus 2 Output",
+                                      "Press / Recorder Feed R Input"
                             ],
                             [
                                       "Console Aux 1 Output",
@@ -19063,22 +19067,30 @@ window.SIGNAL_FLOW_V12 = {
                             ],
                             [
                                       "Wireless Receiver 3 Output",
-                                      "Press / Recorder Feed Input"
+                                      "Press / Recorder Feed L Input"
+                            ],
+                            [
+                                      "Wireless Receiver 3 Output",
+                                      "Press / Recorder Feed R Input"
                             ],
                             [
                                       "Console Main L Output",
-                                      "Press / Recorder Feed Input"
+                                      "Press / Recorder Feed L Input"
                             ],
                             [
                                       "Console Main R Output",
-                                      "Press / Recorder Feed Input"
+                                      "Press / Recorder Feed R Input"
                             ],
                             [
                                       "Console Aux 1 Output",
                                       "Room PA Processor L Input"
                             ],
                             [
-                                      "Console Matrix 1 Output",
+                                      "Console Bus 1 Output",
+                                      "Confidence Monitor / Wedge Amp Input"
+                            ],
+                            [
+                                      "Console Bus 2 Output",
                                       "Confidence Monitor / Wedge Amp Input"
                             ]
                   ],
@@ -19086,12 +19098,16 @@ window.SIGNAL_FLOW_V12 = {
                             [
                                       "Console Main L Output",
                                       "Console Main R Output"
+                            ],
+                            [
+                                      "Console Bus 1 Output",
+                                      "Console Bus 2 Output"
                             ]
                   ],
                   "system": [
                             "Wireless receivers feed console input channels; they do not feed the PA processor directly.",
                             "Main left/right outputs feed the room PA processor as a stereo pair.",
-                            "Matrix outputs are useful for controlled press, recorder, broadcast, or overflow feeds.",
+                            "Bus outputs 1 and 2 create the separate stereo press, recorder, or broadcast feed on this console.",
                             "Aux outputs are useful for monitor and cue feeds such as confidence monitors."
                   ],
                   "notes": [
@@ -19102,7 +19118,7 @@ window.SIGNAL_FLOW_V12 = {
                   "learning": [
                             "Wireless mic receiver outputs",
                             "Speech reinforcement",
-                            "Matrix feeds",
+                            "Stereo bus feeds",
                             "Aux cue feeds",
                             "Room PA stereo routing"
                   ],
@@ -30000,7 +30016,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </script>
 <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
 
-<script src="../src/live-sound-native-renderer.js?v=6r642liv029dispatch"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r649liv029busstereo"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r243liv011scoped"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">
