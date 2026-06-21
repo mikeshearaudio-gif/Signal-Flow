@@ -14524,10 +14524,13 @@ redrawCables(layer);
 
     function addGear(key, label, src, x, y, w, extraClass, options) {
       options = options || {};
+      const renderMode = options.mode || "";
+      const cropFill = renderMode === "crop-fill";
       const wrap = document.createElement("div");
       wrap.className = "sf-liv029-gear " + (extraClass || "");
       wrap.dataset.sfGearId = key;
       wrap.dataset.liv029GearKey = key;
+      if (renderMode) wrap.dataset.sfLiveRenderMode = renderMode;
       wrap.style.cssText = [
         "position:absolute",
         "left:" + x + "px",
@@ -14536,7 +14539,7 @@ redrawCables(layer);
         "height:" + (options.height ? options.height + "px" : "auto"),
         "z-index:80",
         "pointer-events:auto",
-        "overflow:visible",
+        "overflow:" + (cropFill ? "hidden" : "visible"),
         "filter:drop-shadow(0 14px 24px rgba(0,0,0,.72))"
       ].join(";");
 
@@ -14544,7 +14547,17 @@ redrawCables(layer);
       img.src = repo(src);
       img.alt = label;
       img.draggable = false;
-      img.style.cssText = options.squashToHeight
+      img.style.cssText = cropFill
+        ? [
+            "display:block",
+            "width:100%",
+            "height:100%",
+            "object-fit:cover",
+            "object-position:" + (options.objectPosition || "50% 50%"),
+            "pointer-events:none",
+            "user-select:none"
+          ].join(";")
+        : options.squashToHeight
         ? [
             "display:block",
             "width:100%",
@@ -14687,7 +14700,7 @@ redrawCables(layer);
       '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-press-recorder"]{height:93px!important;}',
       '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-wedge-amp"]{height:119px!important;}',
       '.sf-live-native-level-liv-029 [data-sf-gear-id]:not([data-sf-gear-id="liv029-event-console"]) > img{width:100%!important;height:100%!important;object-fit:contain!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"] > img{width:100%!important;height:auto!important;object-fit:fill!important;}'
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"][data-sf-live-render-mode="crop-fill"] > img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 54%!important;transform:none!important;}'
     ].join("\n");
     layer.appendChild(liv029GearBakedSizeStyle);
 
@@ -14724,11 +14737,11 @@ redrawCables(layer);
       "liv029-event-console",
       "Event FOH Console",
       "../assets/live-sound/svg/hardware/16ch FOH console0.svg",
-      -20,
-      -138,
+      0,
+      -96,
       940,
       "sf-liv029-event-console",
-      { height: 320, squashToHeight: 0.63 }
+      { height: 320, mode: "crop-fill", objectPosition: "50% 54%" }
     );
 
     const roomPaProcessor = addGear(
@@ -14789,7 +14802,7 @@ redrawCables(layer);
 
     updateNativeHintHighlights();
 
-    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r649liv029busstereo", {
+    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r655liv029fohstable", {
       gear: layer.querySelectorAll("[data-sf-gear-id]").length,
       boardWidth,
       boardHeight

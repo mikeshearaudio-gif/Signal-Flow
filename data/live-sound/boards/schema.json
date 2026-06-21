@@ -128,7 +128,8 @@
         "render": {
           "type": "object",
           "properties": {
-            "squashToHeight": { "type": "number", "exclusiveMinimum": 0 }
+            "mode": { "enum": ["crop-fill"] },
+            "objectPosition": { "type": "string", "minLength": 1 }
           },
           "additionalProperties": false
         }

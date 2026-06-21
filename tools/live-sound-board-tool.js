@@ -7,7 +7,7 @@ const path = require("path");
 const repoRoot = path.resolve(__dirname, "..");
 const DEFAULT_RENDERER = path.join(repoRoot, "src/live-sound-native-renderer.js");
 const DEFAULT_LAUNCHER = path.join(repoRoot, "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html");
-const DEFAULT_CACHE_KEY = "6r649liv029busstereo";
+const DEFAULT_CACHE_KEY = "6r655liv029fohstable";
 
 function usage() {
   console.log([
@@ -64,6 +64,13 @@ function validateBoard(board) {
     assert(item.id && !/^gear-\d+$/i.test(item.id), "gear uses a fallback id: " + (item.id || "(missing)"), errors);
     assert(item.rect && item.rect.w > 0 && item.rect.h > 0, "gear " + item.id + " must have positive rect w/h", errors);
     assert(Boolean(item.asset), "gear " + item.id + " missing asset", errors);
+    if (item.render) {
+      const allowedRenderKeys = new Set(["mode", "objectPosition"]);
+      Object.keys(item.render).forEach(key => {
+        assert(allowedRenderKeys.has(key), "gear " + item.id + " has unsupported render key " + key, errors);
+      });
+      assert(!item.render.mode || item.render.mode === "crop-fill", "gear " + item.id + " has unsupported render mode " + item.render.mode, errors);
+    }
   }
 
   for (const label of board.labels || []) {

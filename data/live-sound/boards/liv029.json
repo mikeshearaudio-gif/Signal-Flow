@@ -119,9 +119,9 @@
       "id": "liv029-event-console",
       "label": "Event FOH Console",
       "asset": "../assets/live-sound/svg/hardware/16ch FOH console0.svg",
-      "rect": { "x": -20, "y": -138, "w": 940, "h": 320 },
+      "rect": { "x": 0, "y": -96, "w": 940, "h": 320 },
       "className": "sf-liv029-event-console",
-      "render": { "squashToHeight": 0.63 }
+      "render": { "mode": "crop-fill", "objectPosition": "50% 54%" }
     },
     {
       "id": "liv029-room-pa-processor",
