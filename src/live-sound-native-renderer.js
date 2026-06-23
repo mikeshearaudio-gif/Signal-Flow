@@ -718,7 +718,7 @@
       panelKinds: ["foh", "amp"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
         amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
       },
       generatedJackKeys: [
@@ -1089,7 +1089,7 @@
       panelKinds: ["foh", "crossover", "amp-high", "amp-mid", "amp-low", "speaker-left", "speaker-right", "pa-visual"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
         crossover: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
         "amp-high": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
         "amp-mid": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
@@ -1246,7 +1246,7 @@
       sourceOrder: ["lead-vocal-mic", "keys-left-di", "keys-right-di"],
       assetOverrides: {
         stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
         amp: "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg"
       },
       generatedJackKeys: [
@@ -1309,7 +1309,7 @@
       panelKinds: ["foh", "front-fill-dsp", "front-fill-amp"],
       sourceOrder: [],
       assetOverrides: {
-        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
+        foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
         "front-fill-dsp": "/assets/live-sound/svg/hardware/foh-console-io-panel.svg",
         "front-fill-amp": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
       },
@@ -1452,7 +1452,7 @@
           sourceOrder: ["lead-vocal-mic"],
           assetOverrides: {
             stagebox: "/assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
-            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg",
+            foh: "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
             amp: "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259",
             paamp: "/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
           },
@@ -4597,6 +4597,85 @@ function handleNodeClick(layer, node) {
     layer.classList.toggle("sf-native-hints-visible", !!nativeHintsVisible);
   }
 
+
+  function normalizeNativeRequiredHintRings() {
+    const levelId = String(LEVEL_ID || getLevelId() || activeNativeLevelId || "").toUpperCase();
+    const spec = LIVE_NATIVE_PATCH_SPECS && LIVE_NATIVE_PATCH_SPECS[levelId];
+    if (!spec) return;
+
+    const requiredKeys = new Set();
+
+    function addKey(value) {
+      const key = String(value || "").trim();
+      if (key) requiredKeys.add(key);
+    }
+
+    function readRouteEndpointKeys(route) {
+      if (!route) return;
+
+      if (Array.isArray(route)) {
+        addKey(route[0]);
+        addKey(route[1]);
+        return;
+      }
+
+      if (typeof route === "object") {
+        addKey(route.fromKey);
+        addKey(route.toKey);
+        addKey(route.from);
+        addKey(route.to);
+        addKey(route.sourceKey);
+        addKey(route.destinationKey);
+        addKey(route.src);
+        addKey(route.dst);
+      }
+    }
+
+    [
+      spec.validRoutes,
+      spec.requiredRoutes,
+      spec.routes
+    ].forEach(list => {
+      if (!Array.isArray(list)) return;
+      list.forEach(readRouteEndpointKeys);
+    });
+
+    if (!requiredKeys.size && Array.isArray(spec.toDoRoutes)) {
+      spec.toDoRoutes.forEach(readRouteEndpointKeys);
+    }
+
+    const layers = Array.from(document.querySelectorAll(".sf-live-native-layer"));
+    layers.forEach(layer => {
+      if (!layer.classList.contains("sf-live-native-level-" + levelId.toLowerCase())) return;
+
+      const hintsOn =
+        !!nativeHintsVisible ||
+        layer.classList.contains("sf-native-hints-visible") ||
+        document.body.classList.contains("sf-native-hints-visible");
+
+      Array.from(layer.querySelectorAll(".sf-native-jack")).forEach(btn => {
+        const key = String(btn.dataset.nodeKey || btn.getAttribute("data-node-key") || "");
+        const isRequiredEndpoint = requiredKeys.has(key);
+
+        btn.classList.toggle("sf-native-required-hint", hintsOn && isRequiredEndpoint);
+
+        if (!hintsOn || !isRequiredEndpoint) {
+          btn.style.setProperty("box-shadow", "none", "important");
+          btn.style.setProperty("background", "rgba(255,255,255,0)", "important");
+          btn.style.setProperty("border-color", "rgba(255,255,255,0)", "important");
+          btn.style.setProperty("outline", "none", "important");
+          return;
+        }
+
+        btn.style.setProperty("box-shadow", "0 0 0 3px rgba(255,210,95,.95), 0 0 18px rgba(255,210,95,.50)", "important");
+        btn.style.setProperty("background", "rgba(255,210,95,.10)", "important");
+        btn.style.setProperty("border-color", "rgba(255,210,95,.95)", "important");
+        btn.style.setProperty("outline", "none", "important");
+      });
+    });
+  }
+
+
   function updateNativeHintHighlights() {
     const hintNodes = Array.from(document.querySelectorAll(".sf-native-jack")).filter(btn => {
       const key = btn.dataset.nodeKey || btn.dataset.sfNativeKey || btn.getAttribute("data-node-key") || "";
@@ -4628,7 +4707,12 @@ function handleNodeClick(layer, node) {
       });
     }
 
+    document.querySelectorAll(".sf-native-jack.sf-native-required-hint").forEach(btn => {
+      btn.classList.remove("sf-native-required-hint");
+    });
+
     hintNodes.forEach(btn => {
+      // Required hint class is assigned only by normalizeNativeRequiredHintRings().
       const nodeKey = btn.dataset.nodeKey || btn.dataset.key || btn.dataset.sfNativeKey || "";
       const isLiv023False = LEVEL_ID === "LIV-023" && (
         nodeKey.startsWith("liv023-false-") ||
@@ -4659,7 +4743,7 @@ function handleNodeClick(layer, node) {
       }
 
       if (isGhost) {
-        btn.style.boxShadow = "0 0 0 2px rgba(255,255,255,.10)";
+        btn.style.boxShadow = "none";
         btn.style.outline = "none";
         btn.style.background = "rgba(255,255,255,0)";
       } else {
@@ -4681,6 +4765,7 @@ function handleNodeClick(layer, node) {
     nativeHintsVisible = !!visible;
     console.log("[Signal Flow] Native jack hints visible:", nativeHintsVisible);
     updateNativeHintHighlights();
+    normalizeNativeRequiredHintRings();
     raiseHintOverlays();
   }
 
@@ -11958,7 +12043,7 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       layer.appendChild(wrap);
     }
 
-    img("foh", "/assets/live-sound/svg/hardware/foh-console-liv006-bus-main-outs.svg", 147, 31, 940);
+    img("foh", "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", 147, 31, 940);
     img("liv026-system-delay-processor-asset", "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg", 44, 255, 610);
     img("crossover", "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg", 47, 432, 605);
     img("high-amp", "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg", 657, 257, 470);
@@ -14802,7 +14887,7 @@ redrawCables(layer);
 
     updateNativeHintHighlights();
 
-    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r655liv029fohstable", {
+    console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r662requiredhintorder", {
       gear: layer.querySelectorAll("[data-sf-gear-id]").length,
       boardWidth,
       boardHeight
@@ -15997,6 +16082,8 @@ function mountNative(force) {
     }
     updateNativeHintHighlights();
 
+    markNativeLiveMounted(surface);
+    installNativeGreyRingSuppressStyle();
     console.log("[Signal Flow] " + LEVEL_ID + " native renderer v6 mounted.");
   }
 
@@ -16005,6 +16092,80 @@ function mountNative(force) {
     nativeSurfaceRetryTimer = null;
     nativeSurfaceRetryCount = 0;
     nativeSurfaceRetryLevelId = null;
+  }
+
+
+  function installNativeLiveLegacyUnderlayHide() {
+    if (document.getElementById("sf-native-live-legacy-underlay-hide-style")) return;
+    const style = document.createElement("style");
+    style.id = "sf-native-live-legacy-underlay-hide-style";
+    style.textContent = `
+      #patchbay.sf-native-live-mounted .device-card,
+      #patchbay.sf-native-live-mounted .sf-live-skinned-card,
+      #patchbay.sf-native-live-mounted .live-ui-card,
+      #patchbay.sf-native-live-mounted .live-ui-jack,
+      #patchbay.sf-native-live-mounted .sf-live-connector-node,
+      #patchbay.sf-native-live-mounted .sf-live-connector-art,
+      #patchbay.sf-native-live-mounted .sf-live-section-bg,
+      #patchbay.sf-native-live-mounted .device-icon {
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      #patchbay.sf-native-live-mounted .sf-live-native-layer,
+      #patchbay.sf-native-live-mounted .sf-live-native-layer *,
+      #patchbay.sf-native-live-mounted .sf-live-native-viewport,
+      #patchbay.sf-native-live-mounted .sf-live-native-viewport *,
+      #patchbay.sf-native-live-mounted .sf-live-native-scroll-host,
+      #patchbay.sf-native-live-mounted .sf-live-native-scroll-host * {
+        visibility: visible !important;
+      }
+
+      #patchbay.sf-native-live-mounted .sf-live-native-layer .sf-native-node,
+      #patchbay.sf-native-live-mounted .sf-live-native-layer .sf-native-jack {
+        pointer-events: auto !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function markNativeLiveMounted(surface) {
+    installNativeLiveLegacyUnderlayHide();
+    const patchbay = document.getElementById("patchbay");
+    if (patchbay) patchbay.classList.add("sf-native-live-mounted");
+    if (surface && surface.classList) surface.classList.add("sf-native-live-surface-mounted");
+  }
+
+
+  function installNativeGreyRingSuppressStyle() {
+    if (document.getElementById("sf-native-grey-ring-suppress-style")) return;
+    const style = document.createElement("style");
+    style.id = "sf-native-grey-ring-suppress-style";
+    style.textContent = `
+      /*
+        Native grey-ring suppress:
+        Hide default/inactive native jack button rings.
+        Preserve required/yellow hint rings and active route feedback.
+      */
+
+      #patchbay.sf-native-live-mounted .sf-live-native-layer .sf-native-jack:not(.sf-native-required-hint):not(.required):not([data-required="true"]):not([data-sf-required="true"]):not(.is-valid):not(.is-invalid):not(.sf-native-valid):not(.sf-native-invalid) {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        background: transparent !important;
+      }
+
+      #patchbay.sf-native-live-mounted .sf-live-native-layer .sf-native-jack:not(.sf-native-required-hint):not(.required):not([data-required="true"]):not([data-sf-required="true"]):not(.is-valid):not(.is-invalid):not(.sf-native-valid):not(.sf-native-invalid):hover,
+      #patchbay.sf-native-live-mounted .sf-live-native-layer .sf-native-jack:not(.sf-native-required-hint):not(.required):not([data-required="true"]):not([data-sf-required="true"]):not(.is-valid):not(.is-invalid):not(.sf-native-valid):not(.sf-native-invalid):focus,
+      #patchbay.sf-native-live-mounted .sf-live-native-layer .sf-native-jack:not(.sf-native-required-hint):not(.required):not([data-required="true"]):not([data-sf-required="true"]):not(.is-valid):not(.is-invalid):not(.sf-native-valid):not(.sf-native-invalid):focus-visible {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        background: transparent !important;
+      }
+    `;
+    document.head.appendChild(style);
   }
 
   function scheduleNativeSurfaceRetry(force) {
