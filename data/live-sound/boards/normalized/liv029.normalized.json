@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-029",
+  "environment": "live",
+  "title": "Debate Panel: Wireless Mics, Room PA, Press Feed",
+  "brief": "Route three wireless debate microphones into the console, send the main mix to the room PA, create a separate stereo bus feed for the press recorder, and send an aux cue to the confidence monitor.",
+  "processorLabel": "ROOM PA / PRESS / MONITOR DISTRIBUTION",
+  "routeCount": 8,
+  "routes": [
+    {
+      "key": "liv029-rx-1-to-console-input-1",
+      "from": "wireless-receiver-1-output",
+      "to": "console-input-1",
+      "checklist": "Wireless Receiver 1 Output → Console Mic/Line Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv029-rx-2-to-console-input-2",
+      "from": "wireless-receiver-2-output",
+      "to": "console-input-2",
+      "checklist": "Wireless Receiver 2 Output → Console Mic/Line Input 2",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv029-rx-3-to-console-input-3",
+      "from": "wireless-receiver-3-output",
+      "to": "console-input-3",
+      "checklist": "Wireless Receiver 3 Output → Console Mic/Line Input 3",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv029-main-l-to-room-pa-l",
+      "from": "console-main-l-output",
+      "to": "room-pa-processor-l-input",
+      "checklist": "Console Main L Output → Room PA Processor L Input",
+      "stereoGroup": "liv029-main-to-room-pa",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv029-main-r-to-room-pa-r",
+      "from": "console-main-r-output",
+      "to": "room-pa-processor-r-input",
+      "checklist": "Console Main R Output → Room PA Processor R Input",
+      "stereoGroup": "liv029-main-to-room-pa",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv029-bus-1-to-press-l",
+      "from": "console-bus-1-output",
+      "to": "press-recorder-feed-l-input",
+      "checklist": "Console Bus 1 Output → Press / Recorder Feed L Input",
+      "stereoGroup": "liv029-bus-press-feed",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv029-bus-2-to-press-r",
+      "from": "console-bus-2-output",
+      "to": "press-recorder-feed-r-input",
+      "checklist": "Console Bus 2 Output → Press / Recorder Feed R Input",
+      "stereoGroup": "liv029-bus-press-feed",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv029-aux-1-to-wedge-amp",
+      "from": "console-aux-1-output",
+      "to": "confidence-monitor-wedge-amp-input",
+      "checklist": "Console Aux 1 Output → Confidence Monitor / Wedge Amp Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "confidence-monitor-wedge-amp-input",
+      "console-aux-1-output",
+      "console-bus-1-output",
+      "console-bus-2-output",
+      "console-input-1",
+      "console-input-2",
+      "console-input-3",
+      "console-main-l-output",
+      "console-main-r-output",
+      "press-recorder-feed-l-input",
+      "press-recorder-feed-r-input",
+      "room-pa-processor-l-input",
+      "room-pa-processor-r-input",
+      "wireless-receiver-1-output",
+      "wireless-receiver-2-output",
+      "wireless-receiver-3-output"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv029-main-to-room-pa",
+      "leftRouteId": "liv029-main-l-to-room-pa-l",
+      "rightRouteId": "liv029-main-r-to-room-pa-r"
+    },
+    {
+      "id": "liv029-bus-press-feed",
+      "leftRouteId": "liv029-bus-1-to-press-l",
+      "rightRouteId": "liv029-bus-2-to-press-r"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv029-rx-1",
+      "label": "Moderator RX",
+      "asset": "assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
+      "rect": {
+        "x": 48,
+        "y": 210,
+        "w": 370,
+        "h": 126
+      },
+      "className": "sf-liv029-wireless-rx",
+      "render": null
+    },
+    {
+      "id": "liv029-rx-2",
+      "label": "Panelist A RX",
+      "asset": "assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
+      "rect": {
+        "x": 48,
+        "y": 316,
+        "w": 370,
+        "h": 126
+      },
+      "className": "sf-liv029-wireless-rx",
+      "render": null
+    },
+    {
+      "id": "liv029-rx-3",
+      "label": "Panelist B RX",
+      "asset": "assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
+      "rect": {
+        "x": 48,
+        "y": 422,
+        "w": 370,
+        "h": 126
+      },
+      "className": "sf-liv029-wireless-rx",
+      "render": null
+    },
+    {
+      "id": "liv029-event-console",
+      "label": "Event FOH Console",
+      "asset": "assets/live-sound/svg/hardware/16ch FOH console0.svg",
+      "rect": {
+        "x": 0,
+        "y": -96,
+        "w": 940,
+        "h": 320
+      },
+      "className": "sf-liv029-event-console",
+      "render": {
+        "mode": "crop-fill",
+        "objectPosition": "50% 54%"
+      }
+    },
+    {
+      "id": "liv029-room-pa-processor",
+      "label": "Room PA Processor",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+      "rect": {
+        "x": 421,
+        "y": 426,
+        "w": 425,
+        "h": 132
+      },
+      "className": "sf-liv029-room-pa-processor",
+      "render": null
+    },
+    {
+      "id": "liv029-press-recorder",
+      "label": "Press / Recorder Feed",
+      "asset": "assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      "rect": {
+        "x": 425,
+        "y": 214,
+        "w": 410,
+        "h": 93
+      },
+      "className": "sf-liv029-press-recorder",
+      "render": null
+    },
+    {
+      "id": "liv029-wedge-amp",
+      "label": "Confidence Monitor / Wedge Amp",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "rect": {
+        "x": 426,
+        "y": 320,
+        "w": 420,
+        "h": 119
+      },
+      "className": "sf-liv029-wedge-amp",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv029-title-note",
+      "text": "LIV-029 Debate Panel: wireless receivers feed the console; console outputs distribute room PA, press feed, and confidence monitor.",
+      "rect": {
+        "x": 34,
+        "y": 26,
+        "w": 760,
+        "h": 42,
+        "z": 120
+      }
+    },
+    {
+      "id": "liv029-press-label",
+      "text": "PRESS / RECORDER FEED",
+      "rect": {
+        "x": 1124,
+        "y": 468,
+        "w": 230,
+        "h": 24,
+        "z": 120
+      }
+    },
+    {
+      "id": "liv029-wedge-label",
+      "text": "CONFIDENCE MONITOR AMP",
+      "rect": {
+        "x": 1100,
+        "y": 704,
+        "w": 260,
+        "h": 24,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [
+    {
+      "id": "liv029-wedge-normal-output-a",
+      "asset": "assets/live-sound/svg/cables/single-one-end-raised.svg",
+      "rect": {
+        "x": 710,
+        "y": 352,
+        "w": 150,
+        "h": 42,
+        "z": 132
+      },
+      "rotation": 2,
+      "visualOnly": true
+    },
+    {
+      "id": "liv029-wedge-normal-output-b",
+      "asset": "assets/live-sound/svg/cables/single-one-end-raised.svg",
+      "rect": {
+        "x": 710,
+        "y": 390,
+        "w": 150,
+        "h": 42,
+        "z": 132
+      },
+      "rotation": 2,
+      "visualOnly": true
+    }
+  ],
+  "hitboxes": {
+    "good": [],
+    "false": []
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/cables/single-one-end-raised.svg",
+    "assets/live-sound/svg/hardware/16ch FOH console0.svg",
+    "assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+    "assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg"
+  ],
+  "acceptance": {
+    "gearCount": 7,
+    "routeCount": 8,
+    "visualCableCount": 2,
+    "requiredSelectors": [
+      ".sf-live-native-level-liv-029",
+      "[data-sf-gear-id=\"liv029-event-console\"]",
+      "[data-liv029-visual-cable=\"liv029-wedge-normal-output-a\"]",
+      "[data-liv029-visual-cable=\"liv029-wedge-normal-output-b\"]"
+    ],
+    "forbiddenText": [
+      "Console Matrix 1 Output",
+      "Press / Recorder Feed Input"
+    ]
+  }
+}
