@@ -23,12 +23,17 @@
 
   const levelSlug = levelId.toLowerCase();
 
+  const gearSelector =
+    params.get("sfLiveGearSelector") ||
+    (typeof parentParams !== "undefined" && parentParams ? parentParams.get("sfLiveGearSelector") : "") ||
+    "img,[data-sf-gear-id]";
+
   window.sfLiveDevToolConfig = {
     enabled,
     levelId,
     layerSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug + ", .sf-live-native-layer.sf-live-native-level-" + levelId.toLowerCase(),
     exportPrefix: "[Signal Flow] " + levelId,
-    gearSelector: "img,[data-sf-gear-id]",
+    gearSelector,
     labelSelector: ".sf-live-native-layer.sf-live-native-level-" + levelSlug + " div, .sf-live-native-layer.sf-live-native-level-" + levelSlug + " span",
     hitboxSelector: "[data-node-key]",
     ignoreHitboxClosest: ".sf-native-liv019-source-panel, .sf-native-liv009-source-panel"

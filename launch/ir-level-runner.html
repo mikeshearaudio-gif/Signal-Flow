@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self'; form-action 'self'; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob:; font-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <meta name="referrer" content="no-referrer">
   <title>Signal Flow IR Level Runner</title>
   <style>
     :root{--bg:#07101f;--panel:#0e1b31;--ink:#f8fbff;--muted:#9eb4d6;--cyan:#00f5ff;--yellow:#ffd76a;--good:#64ff9e;--line:rgba(255,255,255,.15)}
@@ -103,7 +105,7 @@
       document.getElementById('submitBtn').disabled = true;
       document.getElementById('resetBtn').disabled = true;
       actions.classList.add('show');
-      window.parent.postMessage({ type:'sf-ir-complete', levelId:id, points:r.points, stars:r.stars, selected, target:level.space }, parentMessageOrigin());
+      safeParentPostMessage({ type:'sf-ir-complete', levelId:id, points:r.points, stars:r.stars, selected, target:level.space });
       if(r.points < 100) audio.playCompare(selected, level.space, data.IR_META); else audio.playIR(selected, data.IR_META);
     });
     function inWrapper(){
@@ -111,6 +113,13 @@
     }
     function parentMessageOrigin(){
       return location.protocol === 'file:' ? '*' : location.origin;
+    }
+    const SF_IR_PARENT_MESSAGE_TYPES = new Set(['sf-ir-complete','sf-ir-next','sf-ir-choose']);
+    function safeParentPostMessage(message){
+      if(!inWrapper() || !message || typeof message !== 'object') return;
+      if(!SF_IR_PARENT_MESSAGE_TYPES.has(String(message.type || ''))) return;
+      if(message.levelId != null && !/^(REC|LIV|BRD|PST|GAM)-IR-\d{2}$/i.test(String(message.levelId))) return;
+      window.parent.postMessage(message, parentMessageOrigin());
     }
     function nextPublicBoard(){
       const match = String(publicBoard || '').match(/^(REC|LIV|BRD|PST|GAM)-(\d{3})$/);
@@ -126,11 +135,11 @@
       location.href = 'Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html#/level/' + encodeURIComponent(next);
     }
     document.getElementById('nextBtn').addEventListener('click', () => {
-      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-next', levelId:id }, parentMessageOrigin());
+      if(inWrapper()) safeParentPostMessage({ type:'sf-ir-next', levelId:id });
       else goNextBoard();
     });
     document.getElementById('chooseBtn').addEventListener('click', () => {
-      if(inWrapper()) window.parent.postMessage({ type:'sf-ir-choose', levelId:id }, parentMessageOrigin());
+      if(inWrapper()) safeParentPostMessage({ type:'sf-ir-choose', levelId:id });
       else goChooseBoard();
     });
   })();

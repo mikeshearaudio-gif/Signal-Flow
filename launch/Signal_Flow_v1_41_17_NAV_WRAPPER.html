@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self'; form-action 'self'; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob:; font-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <meta name="referrer" content="no-referrer">
   <title>Signal Flow v1.41.17 Navigation Wrapper</title>
   <style>
     :root{
@@ -70,7 +72,7 @@
       <div class="sf-hint">Persistent nav wrapper · v1.41.17</div>
     </nav>
     <main class="sf-frame-wrap">
-      <iframe id="gameFrame" title="Signal Flow Game" src="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html#/level/PST-103"></iframe>
+      <iframe id="gameFrame" title="Signal Flow Game" src="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html#/level/PST-103" sandbox="allow-scripts allow-same-origin allow-downloads" referrerpolicy="no-referrer"></iframe>
     </main>
   </div>
   <script>

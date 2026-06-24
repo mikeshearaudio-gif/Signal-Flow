@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'self'; form-action 'self'; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob:; font-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <meta name="referrer" content="no-referrer">
   <title>Signal Flow v1.41.18 Navigation Wrapper</title>
   <style>
     :root{--sf-bg:#07101f;--sf-panel:#0f1d34;--sf-ink:#f8fbff;--sf-muted:#9fb4d8;--sf-cyan:#00f5ff;--sf-yellow:#ffd76a;--sf-line:rgba(255,255,255,.16)}
@@ -176,7 +178,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
       <a class="secondary" id="openRaw" href="Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html" target="_blank" rel="noopener">Open Raw Build</a>
       <div class="sf-hint">v1.41.18 distributed IR wrapper · diagnosis GUI v6r213</div>
     </nav>
-    <main class="sf-frame-wrap"><iframe id="gameFrame" title="Signal Flow Game"></iframe></main>
+    <main class="sf-frame-wrap"><iframe id="gameFrame" title="Signal Flow Game" sandbox="allow-scripts allow-same-origin allow-downloads" referrerpolicy="no-referrer"></iframe></main>
   </div>
   <script>
   (function(){
@@ -365,9 +367,21 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
     document.getElementById('loadBtn').addEventListener('click',()=>loadLevel(manualLevel.value));
     manualLevel.addEventListener('keydown',ev=>{ if(ev.key==='Enter') loadLevel(manualLevel.value); });
     const TRUSTED_MESSAGE_ORIGIN = location.protocol === 'file:' ? '*' : location.origin;
+    const ALLOWED_WRAPPER_MESSAGE_TYPES = new Set(['sf-wrapper-load-level','sf-ir-complete','sf-ir-next','sf-ir-choose']);
+    function isAllowedWrapperMessage(msg){
+      if(!msg || typeof msg !== 'object') return false;
+      if(!ALLOWED_WRAPPER_MESSAGE_TYPES.has(String(msg.type || ''))) return false;
+      if(msg.levelId != null && !internalId(msg.levelId)) return false;
+      if(msg.points != null){
+        const points = Number(msg.points);
+        if(!Number.isFinite(points) || points < 0 || points > 1000) return false;
+      }
+      return true;
+    }
     function isTrustedFrameMessage(ev){
       if(ev.source !== frame.contentWindow) return false;
-      return TRUSTED_MESSAGE_ORIGIN === '*' || ev.origin === TRUSTED_MESSAGE_ORIGIN;
+      if(!(TRUSTED_MESSAGE_ORIGIN === '*' || ev.origin === TRUSTED_MESSAGE_ORIGIN)) return false;
+      return isAllowedWrapperMessage(ev.data);
     }
     function loadSplash(){
       updateScore(0);
@@ -377,7 +391,7 @@ main.game .level-shell .panel #paths > .path-card:has(.todo-badge):not(.done):no
       frame.src = GAME + '?v=' + encodeURIComponent(GAME_CACHE);
     }
     document.getElementById('homeBtn').addEventListener('click', loadSplash);
-    window.addEventListener('message',ev=>{ if(!isTrustedFrameMessage(ev)) return; const msg=ev.data||{}; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
+    window.addEventListener('message',ev=>{ if(!isTrustedFrameMessage(ev)) return; const msg=ev.data; if(msg.type==='sf-wrapper-load-level'){ loadLevel(msg.levelId); } if(msg.type==='sf-ir-complete'){ updateScore(msg.points); recordCompletion(msg.levelId); } if(msg.type==='sf-ir-next') nextLevel(); if(msg.type==='sf-ir-choose'){ envSelect.focus(); } });
     loadSplash();
   })();
   </script>
