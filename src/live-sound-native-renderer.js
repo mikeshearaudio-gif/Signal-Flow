@@ -2187,6 +2187,12 @@ if (activeNativeLevelId === nextLevelId) return;
     ) || null;
   }
 
+  function shouldCommitLiv015InvalidCable(fromKey, toKey) {
+    if (LEVEL_ID !== "LIV-015") return false;
+    if (!fromKey || !toKey || fromKey === toKey) return false;
+    return true;
+  }
+
   function liv028SlugEndpoint(endpoint) {
     return String(endpoint || "")
       .toLowerCase()
@@ -2616,7 +2622,9 @@ if (activeNativeLevelId === nextLevelId) return;
       const panel = (level.panels || []).find(item => item.id === def.panelRel.panel || item.kind === def.panelRel.panel);
       if (panel) {
         const panelAspect = {
-          stagebox: (["LIV-011", "LIV-025", "LIV-026"].includes(LEVEL_ID) ? 360 / 980 : 260 / 860),
+          // LIV-015 renders the 980x360 AES stagebox asset; using the older
+          // 860x260 stagebox aspect pulls clickable targets above the jacks.
+          stagebox: (["LIV-011", "LIV-015", "LIV-025", "LIV-026"].includes(LEVEL_ID) ? 360 / 980 : 260 / 860),
           foh: 260 / 1120,
           monitor: 240 / 850,
           iem: 240 / 900,
@@ -4081,6 +4089,12 @@ if (activeNativeLevelId === nextLevelId) return;
         String(fromNode.key || "").startsWith("liv028-") &&
         String(toNode.key || "").startsWith("liv028-")
       ) {
+        decision.allowed = true;
+        decision.valid = false;
+        decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+        decision.from = fromNode.key;
+        decision.to = toNode.key;
+      } else if (shouldCommitLiv015InvalidCable(fromNode.key, toNode.key)) {
         decision.allowed = true;
         decision.valid = false;
         decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");

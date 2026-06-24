@@ -17424,7 +17424,7 @@ window.SIGNAL_FLOW_V12 = {
       "difficulty": 1,
       "required": [
         [
-          "Matrix 2 Output",
+          "Bus 2 Output",
           "Sub Processor Input"
         ],
         [
@@ -17438,7 +17438,7 @@ window.SIGNAL_FLOW_V12 = {
       ],
       "forbidden": [
         [
-          "Matrix 2 Output",
+          "Bus 2 Output",
           "Front Fill Processor Input"
         ]
       ],
@@ -17462,7 +17462,7 @@ window.SIGNAL_FLOW_V12 = {
                "difficulty": 1,
                "required": [
                  [
-                   "Matrix 3 Output",
+                   "Bus 3 Output",
                    "Delay Tower Processor Input"
                  ],
                  [
@@ -17969,7 +17969,7 @@ window.SIGNAL_FLOW_V12 = {
       "difficulty": 2,
       "required": [
         [
-          "Matrix 2 Output",
+          "Bus 2 Output",
           "Sub Processor Input"
         ],
         [
@@ -17987,7 +17987,7 @@ window.SIGNAL_FLOW_V12 = {
       ],
       "forbidden": [
         [
-          "Matrix 2 Output",
+          "Bus 2 Output",
           "Front Fill Processor Input"
         ]
       ],
@@ -18631,7 +18631,7 @@ window.SIGNAL_FLOW_V12 = {
       "forbidden": [
         ["Main Left Output", "Front Fill DSP Matrix In"],
         ["Main Right Output", "Front Fill DSP Matrix In"],
-        ["Matrix 2 Output", "Front Fill DSP Matrix In"]
+        ["Bus 2 Output", "Front Fill DSP Matrix In"]
       ],
       "system": [
         "Matrix 1 carries a zone-specific mix for the front fill speakers.",
@@ -19436,7 +19436,7 @@ window.SIGNAL_FLOW_V12 = {
       "difficulty": 4,
       "required": [
         [
-          "Matrix 2 Output",
+          "Bus 2 Output",
           "Sub Processor Input"
         ],
         [
@@ -19462,7 +19462,7 @@ window.SIGNAL_FLOW_V12 = {
       ],
       "forbidden": [
         [
-          "Matrix 2 Output",
+          "Bus 2 Output",
           "Front Fill Processor Input"
         ]
       ],
@@ -19487,7 +19487,7 @@ window.SIGNAL_FLOW_V12 = {
       "difficulty": 4,
       "required": [
         [
-          "Matrix 3 Output",
+          "Bus 3 Output",
           "Delay Tower Processor Input"
         ],
         [
@@ -20061,7 +20061,7 @@ window.SIGNAL_FLOW_V12 = {
           "difficulty": 5,
           "required": [
             [
-              "Matrix 2 Output",
+              "Bus 2 Output",
               "Sub Processor Input"
             ],
             [
@@ -20099,7 +20099,7 @@ window.SIGNAL_FLOW_V12 = {
           ],
           "forbidden": [
             [
-              "Matrix 2 Output",
+              "Bus 2 Output",
               "Front Fill Processor Input"
             ]
           ],
@@ -20144,7 +20144,7 @@ window.SIGNAL_FLOW_V12 = {
       "difficulty": 5,
       "required": [
         [
-          "Matrix 3 Output",
+          "Bus 3 Output",
           "Delay Tower Processor Input"
         ],
         [
@@ -21105,8 +21105,8 @@ window.SIGNAL_FLOW_V12 = {
           "FOH Aux 6 L Output",
           "FOH Aux 6 R Output",
           "Matrix 1 Output",
-          "Matrix 2 Output",
-          "Matrix 3 Output",
+          "Bus 2 Output",
+          "Bus 3 Output",
           "Matrix 4 Output",
           "Talkback Output",
           "Record Out L",
@@ -23278,7 +23278,7 @@ const LIVE_PANEL_BASE_NODES = (() => {
     'Main L Output','Main R Output',
     'FOH Aux 1 Output','FOH Aux 2 Output',
     'FOH Aux 5 L Output','FOH Aux 5 R Output',
-    'Matrix 1 Output','Matrix 2 Output','Matrix 3 Output',
+    'Matrix 1 Output','Bus 2 Output','Bus 3 Output',
     'Record Out L','Record Out R',
     'Broadcast Split L','Broadcast Split R',
     'Talkback Output'
@@ -23471,11 +23471,11 @@ function livePhotoAnnotations(panel, visibleNodes=[]){
       add(35.4, 57.0, 'Matrix 1');
       add(35.4, 61.6, 'Output', 'sub');
     }
-    if(has(/^Matrix 2 Output$/i)){
+    if(has(/^Bus 2 Output$/i)){
       add(49.5, 57.0, 'Matrix 2');
       add(49.5, 61.6, 'Output', 'sub');
     }
-    if(has(/^Matrix 3 Output$/i)){
+    if(has(/^Bus 3 Output$/i)){
       add(57.2, 57.0, 'Matrix 3');
       add(57.2, 61.6, 'Output', 'sub');
     }
@@ -30016,7 +30016,7 @@ main.level-liv-006 .patchbay-wrap.front-panel-view .sf-live-native-layer {
 </script>
 <!-- /SIGNAL FLOW LIVE SOUND DEV TOOLS - DEV ONLY -->
 
-<script src="../src/live-sound-native-renderer.js?v=6r662requiredhintorder"></script>
+<script src="../src/live-sound-native-renderer.js?v=6r669liv015hitboxaspect"></script>
   <script src="../patch/sf-liv011-native-cleanup.js?v=6r243liv011scoped"></script>
 
 <script id="sf-semantic-todo-highlight-script-v1">
