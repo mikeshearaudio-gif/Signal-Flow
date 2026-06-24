@@ -5,20 +5,23 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..");
-const DEFAULT_RENDERER = path.join(repoRoot, "src/live-sound-native-renderer.js");
-const DEFAULT_LAUNCHER = path.join(repoRoot, "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html");
-const DEFAULT_CACHE_KEY = "6r655liv029fohstable";
+const DEFAULT_BUILD_DIR = path.join(repoRoot, "data/live-sound/boards/normalized");
 
 function usage() {
   console.log([
     "Usage:",
     "  node tools/live-sound-board-tool.js validate data/live-sound/boards/liv029.json",
-    "  node tools/live-sound-board-tool.js bake data/live-sound/boards/liv029.json [--write] [--cache-key key]",
+    "  node tools/live-sound-board-tool.js summary data/live-sound/boards/liv029.json",
+    "  node tools/live-sound-board-tool.js bake data/live-sound/boards/liv029.json [--write] [--out path]",
     "",
     "Commands:",
     "  validate   Check board JSON shape and Signal Flow invariants.",
-    "  bake       Build renderer and launcher changes for one target level. Dry-run unless --write is present.",
-    "  summary    Print a compact board summary."
+    "  summary    Print a compact board summary.",
+    "  bake       Produce a renderer-ready normalized JSON manifest. Dry-run unless --write is present.",
+    "",
+    "Notes:",
+    "  The bake command is intentionally not wired into gameplay yet.",
+    "  It never edits src/live-sound-native-renderer.js or launch/*.html."
   ].join("\n"));
 }
 
@@ -30,10 +33,72 @@ function assert(condition, message, errors) {
   if (!condition) errors.push(message);
 }
 
+function assetCandidatePaths(assetPath) {
+  const raw = String(assetPath || "").split("?")[0].trim();
+  if (!raw) return [];
+
+  const withoutLeadingSlash = raw.replace(/^\/+/, "");
+  const repoRelative = withoutLeadingSlash.replace(/^(\.\.\/)+/, "");
+
+  return Array.from(new Set([
+    path.resolve(repoRoot, raw),
+    path.resolve(repoRoot, withoutLeadingSlash),
+    path.resolve(repoRoot, repoRelative)
+  ]));
+}
+
+function assetExists(assetPath) {
+  return assetCandidatePaths(assetPath).some(candidate => fs.existsSync(candidate));
+}
+
+function normalizedAssetPath(assetPath) {
+  const raw = String(assetPath || "").trim();
+  if (!raw) return "";
+  const [filePart, queryPart] = raw.split("?");
+  const normalized = filePart
+    .replace(/^\/+/, "")
+    .replace(/^(\.\.\/)+/, "");
+  return queryPart ? normalized + "?" + queryPart : normalized;
+}
+
+function uniqueSorted(values) {
+  return Array.from(new Set(values.filter(Boolean))).sort();
+}
+
+function collectEndpointIds(board) {
+  const ids = [];
+  for (const route of board.requiredRoutes || []) {
+    ids.push(route.fromId, route.toId);
+  }
+  return uniqueSorted(ids);
+}
+
+function collectFalseJackIds(board) {
+  const ids = [];
+  for (const hitbox of (board.hitboxes && board.hitboxes.false) || []) {
+    ids.push(hitbox.id);
+    if (hitbox.routeId) ids.push(hitbox.routeId);
+  }
+  return uniqueSorted(ids);
+}
+
+function labelTokenOverlap(route) {
+  const labelTokens = String(route.fromLabel + " " + route.toLabel)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .split(/\s+/)
+    .filter(token => token.length > 2);
+
+  const id = String(route.id || "").toLowerCase();
+  return labelTokens.some(token => id.includes(token));
+}
+
 function validateBoard(board) {
   const errors = [];
+  const warnings = [];
   assert(/^LIV-\d{3}$/.test(board.levelId || ""), "levelId must look like LIV-029", errors);
   assert(board.environment === "live", "environment must be live", errors);
+  assert(typeof board.title === "string" && board.title.trim().length > 0, "title must be present", errors);
   assert(Array.isArray(board.requiredRoutes) && board.requiredRoutes.length > 0, "requiredRoutes must be non-empty", errors);
   assert(Array.isArray(board.gear) && board.gear.length > 0, "gear must be non-empty", errors);
   assert(board.hitboxes && Array.isArray(board.hitboxes.good) && Array.isArray(board.hitboxes.false), "hitboxes.good and hitboxes.false are required arrays", errors);
@@ -41,14 +106,20 @@ function validateBoard(board) {
 
   const routeIds = new Set();
   const endpointIds = new Set();
+  const validEndpointIds = new Set();
   for (const route of board.requiredRoutes || []) {
     assert(route.id && !routeIds.has(route.id), "route ids must be present and unique: " + (route.id || "(missing)"), errors);
     routeIds.add(route.id);
     ["fromId", "toId", "fromLabel", "toLabel"].forEach(key => {
       assert(Boolean(route[key]), "route " + (route.id || "(missing)") + " missing " + key, errors);
     });
+    if (route.id && route.fromLabel && route.toLabel && !labelTokenOverlap(route)) {
+      warnings.push("route label/key mismatch is suspicious: " + route.id + " (" + route.fromLabel + " -> " + route.toLabel + ")");
+    }
     endpointIds.add(route.fromId);
     endpointIds.add(route.toId);
+    validEndpointIds.add(route.fromId);
+    validEndpointIds.add(route.toId);
   }
 
   for (const group of board.stereoGroups || []) {
@@ -60,10 +131,23 @@ function validateBoard(board) {
     assert(right && right.stereoGroup === group.id && right.stereoSide === "right", "stereo group " + group.id + " right route must be tagged right", errors);
   }
 
+  const groupedRoutes = new Map();
+  for (const route of board.requiredRoutes || []) {
+    if (!route.stereoGroup) continue;
+    if (!groupedRoutes.has(route.stereoGroup)) groupedRoutes.set(route.stereoGroup, []);
+    groupedRoutes.get(route.stereoGroup).push(route);
+  }
+
+  for (const [groupId, routes] of groupedRoutes.entries()) {
+    const sides = new Set(routes.map(route => route.stereoSide));
+    assert(sides.has("left") && sides.has("right"), "stereo group " + groupId + " must include both left and right routes", errors);
+  }
+
   for (const item of board.gear || []) {
     assert(item.id && !/^gear-\d+$/i.test(item.id), "gear uses a fallback id: " + (item.id || "(missing)"), errors);
     assert(item.rect && item.rect.w > 0 && item.rect.h > 0, "gear " + item.id + " must have positive rect w/h", errors);
     assert(Boolean(item.asset), "gear " + item.id + " missing asset", errors);
+    if (item.asset) assert(assetExists(item.asset), "gear " + item.id + " asset does not exist: " + item.asset, errors);
     if (item.render) {
       const allowedRenderKeys = new Set(["mode", "objectPosition"]);
       Object.keys(item.render).forEach(key => {
@@ -80,13 +164,22 @@ function validateBoard(board) {
   for (const cable of board.prewiredCables || []) {
     assert(cable.id && !/^cable-\d+$/i.test(cable.id), "cable uses a fallback id: " + (cable.id || "(missing)"), errors);
     assert(cable.visualOnly === true, "prewired cable " + cable.id + " must be visualOnly true", errors);
+    assert(Boolean(cable.asset), "prewired cable " + (cable.id || "(missing)") + " missing asset", errors);
+    if (cable.asset) assert(assetExists(cable.asset), "prewired cable " + cable.id + " asset does not exist: " + cable.asset, errors);
   }
 
+  const declaredNodeIds = new Set();
   for (const kind of ["good", "false"]) {
     for (const hitbox of (board.hitboxes && board.hitboxes[kind]) || []) {
       assert(hitbox.id && !/^hitbox-\d+$/i.test(hitbox.id), kind + " hitbox uses a fallback id: " + (hitbox.id || "(missing)"), errors);
+      assert(!declaredNodeIds.has(hitbox.id), "duplicate node/hitbox key: " + hitbox.id, errors);
+      declaredNodeIds.add(hitbox.id);
       assert(hitbox.rect && hitbox.rect.w > 0 && hitbox.rect.h > 0, kind + " hitbox " + hitbox.id + " must have positive rect w/h", errors);
     }
+  }
+
+  for (const falseId of collectFalseJackIds(board)) {
+    assert(!validEndpointIds.has(falseId), "false/trap jack is also listed as a valid route endpoint: " + falseId, errors);
   }
 
   if (board.acceptance) {
@@ -95,7 +188,13 @@ function validateBoard(board) {
     assert(board.acceptance.visualCableCount === (board.prewiredCables || []).length, "acceptance.visualCableCount does not match prewiredCables length", errors);
   }
 
-  return { ok: errors.length === 0, errors, endpointIds: Array.from(endpointIds).sort() };
+  return {
+    ok: errors.length === 0,
+    errors,
+    warnings,
+    endpointIds: Array.from(endpointIds).sort(),
+    falseJackIds: collectFalseJackIds(board)
+  };
 }
 
 function jsString(value) {
@@ -244,37 +343,81 @@ function braceRange(source, start) {
   throw new Error("Unclosed object starting at " + start);
 }
 
+function normalizedManifest(board) {
+  const endpointIds = collectEndpointIds(board);
+  const falseJackIds = collectFalseJackIds(board);
+  const assets = uniqueSorted([
+    ...(board.gear || []).map(item => item.asset),
+    ...(board.prewiredCables || []).map(item => item.asset)
+  ].map(normalizedAssetPath));
+
+  return {
+    schemaVersion: 1,
+    generatedBy: "tools/live-sound-board-tool.js",
+    levelId: board.levelId,
+    environment: board.environment,
+    title: board.title,
+    brief: board.brief,
+    processorLabel: board.processorLabel || "",
+    routeCount: (board.requiredRoutes || []).length,
+    routes: (board.requiredRoutes || []).map(route => ({
+      key: route.id,
+      from: route.fromId,
+      to: route.toId,
+      checklist: route.fromLabel + " \u2192 " + route.toLabel,
+      stereoGroup: route.stereoGroup || null,
+      stereoSide: route.stereoSide || null
+    })),
+    nodes: {
+      validEndpointKeys: endpointIds,
+      falseTrapKeys: falseJackIds
+    },
+    stereoGroups: board.stereoGroups || [],
+    gear: (board.gear || []).map(item => ({
+      id: item.id,
+      label: item.label,
+      asset: normalizedAssetPath(item.asset),
+      rect: item.rect,
+      className: item.className || "",
+      render: item.render || null
+    })),
+    labels: board.labels || [],
+    prewiredCables: (board.prewiredCables || []).map(item => ({
+      id: item.id,
+      asset: normalizedAssetPath(item.asset),
+      rect: item.rect,
+      rotation: item.rotation || 0,
+      visualOnly: true
+    })),
+    hitboxes: board.hitboxes || { good: [], false: [] },
+    requiredAssets: assets,
+    acceptance: board.acceptance || null
+  };
+}
+
+function defaultBakeOutPath(board) {
+  const filename = String(board.levelId || "board").toLowerCase().replace(/-/g, "");
+  return path.join(DEFAULT_BUILD_DIR, filename + ".normalized.json");
+}
+
 function bake(board, options) {
-  const rendererPath = options.renderer || DEFAULT_RENDERER;
-  const launcherPath = options.launcher || DEFAULT_LAUNCHER;
-  const cacheKey = options.cacheKey || DEFAULT_CACHE_KEY;
-  let renderer = fs.readFileSync(rendererPath, "utf8");
-  let launcher = fs.readFileSync(launcherPath, "utf8");
-
-  const rendererRange = findJsObjectByQuotedKey(renderer, '"' + board.levelId + '"');
-  renderer = renderer.slice(0, rendererRange.start) + rendererLevelSpec(board) + renderer.slice(rendererRange.end);
-
-  const launcherRange = findLauncherLevelObject(launcher, board.levelId);
-  const launcherJson = JSON.stringify(launcherLevelObject(board), null, 18).replace(/^/gm, "                  ");
-  launcher = launcher.slice(0, launcherRange.start) + launcherJson.trimStart() + launcher.slice(launcherRange.end);
-
-  launcher = launcher.replace(
-    /<script src="\.\.\/src\/live-sound-native-renderer\.js\?v=[^"]+"><\/script>/,
-    '<script src="../src/live-sound-native-renderer.js?v=' + cacheKey + '"></script>'
-  );
+  const manifest = normalizedManifest(board);
+  const outPath = options.out ? path.resolve(repoRoot, options.out) : defaultBakeOutPath(board);
 
   if (options.write) {
-    fs.writeFileSync(rendererPath, renderer);
-    fs.writeFileSync(launcherPath, launcher);
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2) + "\n");
   }
 
   return {
-    rendererPath,
-    launcherPath,
-    cacheKey,
-    write: options.write,
-    rendererBytes: renderer.length,
-    launcherBytes: launcher.length
+    write: !!options.write,
+    outputPath: outPath,
+    routeCount: manifest.routeCount,
+    validEndpointCount: manifest.nodes.validEndpointKeys.length,
+    falseTrapJackCount: manifest.nodes.falseTrapKeys.length,
+    gearCount: manifest.gear.length,
+    requiredAssets: manifest.requiredAssets,
+    manifest
   };
 }
 
@@ -283,9 +426,7 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === "--write") out.write = true;
-    else if (arg === "--cache-key") out.cacheKey = argv[++i];
-    else if (arg === "--renderer") out.renderer = path.resolve(repoRoot, argv[++i]);
-    else if (arg === "--launcher") out.launcher = path.resolve(repoRoot, argv[++i]);
+    else if (arg === "--out") out.out = argv[++i];
     else out._.push(arg);
   }
   return out;
@@ -309,6 +450,7 @@ function main() {
 
   if (command === "validate") {
     console.log("Board validation passed:", board.levelId, "routes=" + board.requiredRoutes.length, "gear=" + board.gear.length);
+    result.warnings.forEach(warning => console.warn("Warning:", warning));
     return;
   }
 
@@ -316,11 +458,18 @@ function main() {
     console.log(JSON.stringify({
       levelId: board.levelId,
       title: board.title,
-      routes: board.requiredRoutes.length,
-      stereoGroups: board.stereoGroups.length,
-      gear: board.gear.length,
-      visualOnlyCables: board.prewiredCables.length,
-      endpoints: result.endpointIds
+      routeCount: board.requiredRoutes.length,
+      validEndpointCount: result.endpointIds.length,
+      falseTrapJackCount: result.falseJackIds.length,
+      gearCount: board.gear.length,
+      visualOnlyCableCount: board.prewiredCables.length,
+      requiredAssets: uniqueSorted([
+        ...board.gear.map(item => normalizedAssetPath(item.asset)),
+        ...board.prewiredCables.map(item => normalizedAssetPath(item.asset))
+      ]),
+      stereoGroups: board.stereoGroups.map(group => group.id),
+      endpoints: result.endpointIds,
+      falseTrapJacks: result.falseJackIds
     }, null, 2));
     return;
   }
