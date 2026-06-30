@@ -14847,23 +14847,23 @@ redrawCables(layer);
     { key: "pa-processor-amp-r-input", label: "PA Processor/Amp R In", tag: "PA R IN", kind: "jack", x: 455, y: 385, w: 28, h: 28 },
     { key: "pa-processor-amp-l-output", label: "PA Processor/Amp L Out", tag: "AMP L OUT", kind: "source", x: 548, y: 385, w: 28, h: 28 },
     { key: "pa-processor-amp-r-output", label: "PA Processor/Amp R Out", tag: "AMP R OUT", kind: "source", x: 593, y: 385, w: 28, h: 28 },
-    { key: "left-speaker-input", label: "Left Speaker In", tag: "L SPK IN", kind: "jack", x: 780, y: 482, w: 30, h: 30 },
-    { key: "right-speaker-input", label: "Right Speaker In", tag: "R SPK IN", kind: "jack", x: 890, y: 482, w: 30, h: 30 },
+    { key: "left-speaker-input", label: "Left Speaker In", tag: "L SPK IN", kind: "jack", x: 770, y: 482, w: 30, h: 30 },
+    { key: "right-speaker-input", label: "Right Speaker In", tag: "R SPK IN", kind: "jack", x: 870, y: 482, w: 30, h: 30 },
     { key: "press-recorder-l-input", label: "Press/Recorder L In", tag: "PRESS L IN", kind: "jack", x: 150, y: 430, w: 26, h: 26 },
     { key: "press-recorder-r-input", label: "Press/Recorder R In", tag: "PRESS R IN", kind: "jack", x: 200, y: 430, w: 26, h: 26 },
-    { key: "moderator-wedge-input", label: "Moderator Wedge In", tag: "WEDGE IN", kind: "jack", x: 750, y: 525, w: 30, h: 30 },
+    { key: "moderator-wedge-input", label: "Moderator Wedge In", tag: "WEDGE IN", kind: "jack", x: 708, y: 530, w: 30, h: 30 },
     { key: "wireless-receiver-antenna-a", label: "Wireless Receiver Antenna A", tag: "ANT A RF", kind: "source", x: 52, y: 160, w: 30, h: 30, falseTrap: true },
     { key: "wireless-receiver-antenna-b", label: "Wireless Receiver Antenna B", tag: "ANT B RF", kind: "source", x: 52, y: 280, w: 30, h: 30, falseTrap: true },
     { key: "pa-speaker-output-trap", label: "PA Amp Speaker Output Trap", tag: "SPKR OUT", kind: "source", x: 635, y: 386, w: 26, h: 26, falseTrap: true },
     { key: "press-recorder-output", label: "Press Recorder Output", tag: "REC OUT", kind: "source", x: 255, y: 430, w: 26, h: 26, falseTrap: true },
-    { key: "left-speaker-thru", label: "Left Speaker Thru", tag: "L THRU", kind: "source", x: 805, y: 510, w: 28, h: 28, falseTrap: true },
-    { key: "right-speaker-thru", label: "Right Speaker Thru", tag: "R THRU", kind: "source", x: 915, y: 510, w: 28, h: 28, falseTrap: true },
+    { key: "left-speaker-thru", label: "Left Speaker Thru", tag: "L THRU", kind: "source", x: 795, y: 510, w: 28, h: 28, falseTrap: true },
+    { key: "right-speaker-thru", label: "Right Speaker Thru", tag: "R THRU", kind: "source", x: 895, y: 510, w: 28, h: 28, falseTrap: true },
     { key: "console-main-l-wedge-trap", label: "Main L Wedge Trap", tag: "MAIN?", kind: "source", x: 865, y: 212, w: 24, h: 24, falseTrap: true },
     { key: "console-aux-pa-trap", label: "Aux To PA Trap", tag: "AUX?", kind: "source", x: 665, y: 212, w: 24, h: 24, falseTrap: true }
   ];
 
   function renderLiv029DebatePanelScaffold(surface, adapter) {
-    const boardWidth = 960;
+    const boardWidth = 1000;
     const boardHeight = 610;
 
     surface.innerHTML = "";
@@ -14952,26 +14952,28 @@ redrawCables(layer);
         : "display:block;width:100%;height:auto;pointer-events:none;user-select:none;";
       wrap.appendChild(img);
 
-      const tape = document.createElement("div");
-      tape.className = "sf-liv029-gear-label";
-      tape.textContent = label;
-      tape.style.cssText = [
-        "position:absolute",
-        "left:10px",
-        "top:-24px",
-        "min-width:120px",
-        "padding:4px 8px",
-        "border-radius:5px",
-        "background:rgba(12,14,16,.88)",
-        "border:1px solid rgba(255,215,120,.36)",
-        "color:#ffd76a",
-        "font:900 11px/1.1 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
-        "letter-spacing:.08em",
-        "text-transform:uppercase",
-        "white-space:nowrap",
-        "pointer-events:none"
-      ].join(";");
-      wrap.appendChild(tape);
+      if (options.showLabel !== false) {
+        const tape = document.createElement("div");
+        tape.className = "sf-liv029-gear-label";
+        tape.textContent = label;
+        tape.style.cssText = [
+          "position:absolute",
+          "left:" + (options.labelLeft == null ? 10 : options.labelLeft) + "px",
+          "top:" + (options.labelTop == null ? -24 : options.labelTop) + "px",
+          "max-width:" + (options.labelWidth || Math.max(120, w - 20)) + "px",
+          "padding:4px 8px",
+          "border-radius:5px",
+          "background:rgba(12,14,16,.88)",
+          "border:1px solid rgba(255,215,120,.36)",
+          "color:#ffd76a",
+          "font:900 10px/1.08 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+          "letter-spacing:.06em",
+          "text-transform:uppercase",
+          "white-space:normal",
+          "pointer-events:none"
+        ].join(";");
+        wrap.appendChild(tape);
+      }
 
       layer.appendChild(wrap);
       return wrap;
@@ -15225,29 +15227,30 @@ redrawCables(layer);
       360,
       345,
       280,
-      "sf-liv029-pa-processor-amp"
+      "sf-liv029-pa-processor-amp",
+      { showLabel: false }
     );
 
     addGear(
       "liv029-left-speaker",
       "Left Speaker",
       "/assets/live-sound/svg/hardware/line-array-liv010-left-image.svg",
-      735,
+      725,
       330,
       95,
       "sf-liv029-left-speaker",
-      { height: 205 }
+      { height: 205, labelTop: -22, labelWidth: 92 }
     );
 
     addGear(
       "liv029-right-speaker",
       "Right Speaker",
       "/assets/live-sound/svg/hardware/line-array-liv010-right-image.svg",
-      850,
+      825,
       330,
       95,
       "sf-liv029-right-speaker",
-      { height: 205 }
+      { height: 205, labelTop: -22, labelWidth: 96 }
     );
 
     addGear(
@@ -15264,20 +15267,20 @@ redrawCables(layer);
       "liv029-moderator-wedge",
       "Moderator Wedge",
       "/assets/build-room/svg/gear/stage monitor.svg",
-      660,
-      470,
-      210,
+      620,
+      480,
+      190,
       "sf-liv029-moderator-wedge",
-      { height: 115 }
+      { height: 105, showLabel: false }
     );
 
     addTextLabel("RF antenna jacks are traps, not audio outputs.", 38, 334, 300);
     addTextLabel("CONSOLE INPUTS 1-4", 390, 174, 170);
     addTextLabel("AUX / RECORD / MAIN OUTS", 625, 174, 260);
     addTextLabel("PRESS / RECORD FEED", 72, 370, 230);
-    addTextLabel("PA PROCESSOR / AMP PATH", 380, 322, 270);
-    addTextLabel("LEFT / RIGHT PA SPEAKERS", 722, 304, 230);
-    addTextLabel("MODERATOR MONITOR", 658, 448, 230);
+    addTextLabel("PA PROCESSOR / AMP PATH", 382, 322, 240);
+    addTextLabel("LEFT / RIGHT PA SPEAKERS", 710, 304, 220);
+    addTextLabel("MODERATOR MONITOR", 632, 456, 190);
 
     surface.appendChild(layer);
     LIV029_HITBOXES.forEach(addLiv029Hitbox);
