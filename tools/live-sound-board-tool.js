@@ -82,6 +82,61 @@ function collectFalseJackIds(board) {
   return uniqueSorted(ids);
 }
 
+function collectKnownNodeIds(board) {
+  const ids = [];
+  for (const route of board.requiredRoutes || []) {
+    ids.push(route.fromId, route.toId);
+  }
+  for (const kind of ["good", "false"]) {
+    for (const hitbox of (board.hitboxes && board.hitboxes[kind]) || []) {
+      ids.push(hitbox.id);
+      if (hitbox.routeId) ids.push(hitbox.routeId);
+    }
+  }
+  return new Set(uniqueSorted(ids));
+}
+
+function routePairKey(from, to) {
+  return String(from || "") + "->" + String(to || "");
+}
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+const PUZZLE_MODES = new Set([
+  "basic-build",
+  "constrained-build",
+  "trap-recognition",
+  "troubleshooting",
+  "signal-type",
+  "redundancy-failure",
+  "capstone-system"
+]);
+
+const ROUTE_LIST_VISIBILITIES = new Set([
+  "full",
+  "partial",
+  "objective-only",
+  "hidden-until-hint",
+  "diagnostic-partial"
+]);
+
+const TRAP_SEVERITIES = new Set([
+  "teach",
+  "warning",
+  "unsafe",
+  "feedback-risk"
+]);
+
+const COMPLETION_EXPLANATION_MODES = new Set([
+  "constrained-build",
+  "troubleshooting",
+  "signal-type",
+  "redundancy-failure",
+  "capstone-system"
+]);
+
 function labelTokenOverlap(route) {
   const labelTokens = String(route.fromLabel + " " + route.toLabel)
     .toLowerCase()
@@ -91,6 +146,109 @@ function labelTokenOverlap(route) {
 
   const id = String(route.id || "").toLowerCase();
   return labelTokens.some(token => id.includes(token));
+}
+
+function validatePuzzleMetadata(board, errors) {
+  const puzzle = board.puzzle;
+  if (puzzle === undefined || puzzle === null) return;
+
+  assert(isPlainObject(puzzle), "puzzle must be an object when present", errors);
+  if (!isPlainObject(puzzle)) return;
+
+  assert(PUZZLE_MODES.has(puzzle.puzzleMode), "puzzle.puzzleMode must be one of: " + Array.from(PUZZLE_MODES).join(", "), errors);
+  assert(typeof puzzle.scenario === "string" && puzzle.scenario.trim().length > 0, "puzzle.scenario must be a non-empty string", errors);
+  assert(typeof puzzle.objective === "string" && puzzle.objective.trim().length > 0, "puzzle.objective must be a non-empty string", errors);
+  assert(ROUTE_LIST_VISIBILITIES.has(puzzle.routeListVisibility), "puzzle.routeListVisibility must be one of: " + Array.from(ROUTE_LIST_VISIBILITIES).join(", "), errors);
+  assert(Number.isInteger(puzzle.difficulty) && puzzle.difficulty >= 1 && puzzle.difficulty <= 7, "puzzle.difficulty must be an integer from 1 through 7", errors);
+  assert(Array.isArray(puzzle.conceptTags) && puzzle.conceptTags.length > 0 && puzzle.conceptTags.every(tag => typeof tag === "string" && tag.trim().length > 0), "puzzle.conceptTags must be a non-empty array of strings", errors);
+
+  if (puzzle.constraints !== undefined) {
+    assert(Array.isArray(puzzle.constraints), "puzzle.constraints must be an array when present", errors);
+  }
+  if (puzzle.trapRoutes !== undefined) {
+    assert(Array.isArray(puzzle.trapRoutes), "puzzle.trapRoutes must be an array when present", errors);
+  }
+  if (puzzle.educationalFeedback !== undefined) {
+    assert(isPlainObject(puzzle.educationalFeedback), "puzzle.educationalFeedback must be an object when present", errors);
+  }
+  if (puzzle.completionExplanation !== undefined) {
+    assert(typeof puzzle.completionExplanation === "string" && puzzle.completionExplanation.trim().length > 0, "puzzle.completionExplanation must be a non-empty string when present", errors);
+  }
+
+  if (COMPLETION_EXPLANATION_MODES.has(puzzle.puzzleMode)) {
+    assert(typeof puzzle.completionExplanation === "string" && puzzle.completionExplanation.trim().length > 0, "puzzle.completionExplanation is required for puzzleMode " + puzzle.puzzleMode, errors);
+  }
+
+  const trapRoutes = Array.isArray(puzzle.trapRoutes) ? puzzle.trapRoutes : [];
+  if (trapRoutes.length > 0) {
+    assert(isPlainObject(puzzle.educationalFeedback), "puzzle.educationalFeedback is required when puzzle.trapRoutes is non-empty", errors);
+  }
+
+  validateEducationalFeedback(puzzle.educationalFeedback, collectKnownNodeIds(board), errors);
+  validateTrapRoutes(board, trapRoutes, errors);
+}
+
+function validateEducationalFeedback(feedback, knownNodeIds, errors) {
+  if (feedback === undefined || feedback === null || !isPlainObject(feedback)) return;
+
+  if (feedback.defaultWrongRoute !== undefined) {
+    assert(typeof feedback.defaultWrongRoute === "string", "puzzle.educationalFeedback.defaultWrongRoute must be a string when present", errors);
+  }
+
+  for (const key of ["routePairs", "concepts", "endpointTypes"]) {
+    if (feedback[key] !== undefined) {
+      assert(isPlainObject(feedback[key]), "puzzle.educationalFeedback." + key + " must be an object when present", errors);
+    }
+  }
+
+  if (isPlainObject(feedback.routePairs)) {
+    for (const key of Object.keys(feedback.routePairs)) {
+      assert(/^[^-\s][\s\S]*->[^\s].*$/.test(key), "puzzle.educationalFeedback.routePairs key must look like from->to: " + key, errors);
+      const [from, to] = key.split("->");
+      if (from && to) {
+        assert(knownNodeIds.has(from), "puzzle.educationalFeedback.routePairs " + key + " from endpoint is unknown: " + from, errors);
+        assert(knownNodeIds.has(to), "puzzle.educationalFeedback.routePairs " + key + " to endpoint is unknown: " + to, errors);
+      }
+      assert(typeof feedback.routePairs[key] === "string", "puzzle.educationalFeedback.routePairs " + key + " must be a string", errors);
+    }
+  }
+
+  for (const key of ["concepts", "endpointTypes"]) {
+    if (!isPlainObject(feedback[key])) continue;
+    for (const feedbackKey of Object.keys(feedback[key])) {
+      assert(typeof feedback[key][feedbackKey] === "string", "puzzle.educationalFeedback." + key + " " + feedbackKey + " must be a string", errors);
+    }
+  }
+}
+
+function validateTrapRoutes(board, trapRoutes, errors) {
+  const knownNodeIds = collectKnownNodeIds(board);
+  const validRoutePairs = new Set((board.requiredRoutes || []).map(route => routePairKey(route.fromId, route.toId)));
+  const seenTrapPairs = new Set();
+
+  trapRoutes.forEach((trap, index) => {
+    const prefix = "puzzle.trapRoutes[" + index + "]";
+    assert(isPlainObject(trap), prefix + " must be an object", errors);
+    if (!isPlainObject(trap)) return;
+
+    assert(typeof trap.from === "string" && trap.from.trim().length > 0, prefix + ".from is required", errors);
+    assert(typeof trap.to === "string" && trap.to.trim().length > 0, prefix + ".to is required", errors);
+    assert(typeof trap.concept === "string" && trap.concept.trim().length > 0, prefix + ".concept is required", errors);
+    assert(TRAP_SEVERITIES.has(trap.severity), prefix + ".severity must be one of: " + Array.from(TRAP_SEVERITIES).join(", "), errors);
+    assert(typeof trap.message === "string" && trap.message.trim().length > 0, prefix + ".message is required", errors);
+
+    if (typeof trap.from === "string" && trap.from.trim()) {
+      assert(knownNodeIds.has(trap.from), prefix + ".from references unknown endpoint: " + trap.from, errors);
+    }
+    if (typeof trap.to === "string" && trap.to.trim()) {
+      assert(knownNodeIds.has(trap.to), prefix + ".to references unknown endpoint: " + trap.to, errors);
+    }
+
+    const pair = routePairKey(trap.from, trap.to);
+    assert(!validRoutePairs.has(pair), prefix + " duplicates a required valid route: " + pair, errors);
+    assert(!seenTrapPairs.has(pair), "duplicate trap route: " + pair, errors);
+    seenTrapPairs.add(pair);
+  });
 }
 
 function validateBoard(board) {
@@ -187,6 +345,8 @@ function validateBoard(board) {
     assert(board.acceptance.routeCount === (board.requiredRoutes || []).length, "acceptance.routeCount does not match requiredRoutes length", errors);
     assert(board.acceptance.visualCableCount === (board.prewiredCables || []).length, "acceptance.visualCableCount does not match prewiredCables length", errors);
   }
+
+  validatePuzzleMetadata(board, errors);
 
   return {
     ok: errors.length === 0,
@@ -390,6 +550,8 @@ function normalizedManifest(board) {
       visualOnly: true
     })),
     hitboxes: board.hitboxes || { good: [], false: [] },
+    educationalFeedback: board.educationalFeedback || {},
+    ...(board.puzzle ? { puzzle: board.puzzle } : {}),
     requiredAssets: assets,
     acceptance: board.acceptance || null
   };

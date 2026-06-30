@@ -549,7 +549,7 @@
   const LIVE_NATIVE_PATCH_SPECS = {
     "LIV-002": {
       id: "LIV-002",
-      title: "Vocal Wedge Mix 2",
+      title: "Vocal Wedge Mix",
       processorLabel: "VOCAL WEDGE",
       panelKinds: ["stagebox", "foh", "monitor"],
       sourceOrder: ["lead-vocal-mic"],
@@ -1354,54 +1354,67 @@
     },
     "LIV-029": {
       id: "LIV-029",
-      title: "Debate Panel: Wireless Mics, Room PA, Press Feed",
-      processorLabel: "ROOM PA / PRESS / MONITOR DISTRIBUTION",
+      title: "Debate Panel Signal Flow",
+      processorLabel: "DEBATE PANEL PA / PRESS / MODERATOR MONITOR",
       sourceLabels: {
-        "wireless-receiver-1-output": "Wireless Receiver 1 Output",
-        "wireless-receiver-2-output": "Wireless Receiver 2 Output",
-        "wireless-receiver-3-output": "Wireless Receiver 3 Output"
+        "wireless-receiver-ch1-audio-out": "Moderator Lav Audio Out",
+        "wireless-receiver-ch2-audio-out": "Panelist 1 Lav Audio Out",
+        "wireless-receiver-ch3-audio-out": "Panelist 2 Lav Audio Out",
+        "wireless-receiver-ch4-audio-out": "Audience Q&A Handheld Audio Out"
       },
       destLabels: {
-        "console-input-1": "Console Mic/Line Input 1",
-        "console-input-2": "Console Mic/Line Input 2",
-        "console-input-3": "Console Mic/Line Input 3",
-        "console-main-l-output": "Console Main L Output",
-        "console-main-r-output": "Console Main R Output",
-        "console-bus-1-output": "Console Bus 1 Output",
-        "console-bus-2-output": "Console Bus 2 Output",
-        "console-aux-1-output": "Console Aux 1 Output",
-        "room-pa-processor-l-input": "Room PA Processor L Input",
-        "room-pa-processor-r-input": "Room PA Processor R Input",
-        "press-recorder-feed-l-input": "Press / Recorder Feed L Input",
-        "press-recorder-feed-r-input": "Press / Recorder Feed R Input",
-        "confidence-monitor-wedge-amp-input": "Confidence Monitor / Wedge Amp Input"
+        "console-input-1": "Console Input 1",
+        "console-input-2": "Console Input 2",
+        "console-input-3": "Console Input 3",
+        "console-input-4": "Console Input 4",
+        "console-main-l-output": "Console Main L Out",
+        "console-main-r-output": "Console Main R Out",
+        "console-matrix-record-l-output": "Console Matrix/Record L Out",
+        "console-matrix-record-r-output": "Console Matrix/Record R Out",
+        "console-aux-1-output": "Console Aux 1 Out",
+        "pa-processor-amp-l-input": "PA Processor/Amp L In",
+        "pa-processor-amp-r-input": "PA Processor/Amp R In",
+        "pa-processor-amp-l-output": "PA Processor/Amp L Out",
+        "pa-processor-amp-r-output": "PA Processor/Amp R Out",
+        "left-speaker-input": "Left Speaker In",
+        "right-speaker-input": "Right Speaker In",
+        "press-recorder-l-input": "Press/Recorder L In",
+        "press-recorder-r-input": "Press/Recorder R In",
+        "moderator-wedge-input": "Moderator Wedge In"
       },
       validRoutes: [
-        { key: "liv029-rx-1-to-console-input-1", from: "wireless-receiver-1-output", to: "console-input-1", checklist: "Wireless Receiver 1 Output → Console Mic/Line Input 1" },
-        { key: "liv029-rx-2-to-console-input-2", from: "wireless-receiver-2-output", to: "console-input-2", checklist: "Wireless Receiver 2 Output → Console Mic/Line Input 2" },
-        { key: "liv029-rx-3-to-console-input-3", from: "wireless-receiver-3-output", to: "console-input-3", checklist: "Wireless Receiver 3 Output → Console Mic/Line Input 3" },
-        { key: "liv029-main-l-to-room-pa-l", from: "console-main-l-output", to: "room-pa-processor-l-input", checklist: "Console Main L Output → Room PA Processor L Input", stereoGroup: "liv029-main-to-room-pa", stereoSide: "left" },
-        { key: "liv029-main-r-to-room-pa-r", from: "console-main-r-output", to: "room-pa-processor-r-input", checklist: "Console Main R Output → Room PA Processor R Input", stereoGroup: "liv029-main-to-room-pa", stereoSide: "right" },
-        { key: "liv029-bus-1-to-press-l", from: "console-bus-1-output", to: "press-recorder-feed-l-input", checklist: "Console Bus 1 Output → Press / Recorder Feed L Input", stereoGroup: "liv029-bus-press-feed", stereoSide: "left" },
-        { key: "liv029-bus-2-to-press-r", from: "console-bus-2-output", to: "press-recorder-feed-r-input", checklist: "Console Bus 2 Output → Press / Recorder Feed R Input", stereoGroup: "liv029-bus-press-feed", stereoSide: "right" },
-        { key: "liv029-aux-1-to-wedge-amp", from: "console-aux-1-output", to: "confidence-monitor-wedge-amp-input", checklist: "Console Aux 1 Output → Confidence Monitor / Wedge Amp Input" }
+        { key: "liv029-rx-ch1-to-console-input-1", from: "wireless-receiver-ch1-audio-out", to: "console-input-1", checklist: "Moderator Lav Audio Out → Console Input 1" },
+        { key: "liv029-rx-ch2-to-console-input-2", from: "wireless-receiver-ch2-audio-out", to: "console-input-2", checklist: "Panelist 1 Lav Audio Out → Console Input 2" },
+        { key: "liv029-rx-ch3-to-console-input-3", from: "wireless-receiver-ch3-audio-out", to: "console-input-3", checklist: "Panelist 2 Lav Audio Out → Console Input 3" },
+        { key: "liv029-rx-ch4-to-console-input-4", from: "wireless-receiver-ch4-audio-out", to: "console-input-4", checklist: "Audience Q&A Handheld Audio Out → Console Input 4" },
+        { key: "liv029-main-l-to-pa-l-input", from: "console-main-l-output", to: "pa-processor-amp-l-input", checklist: "Console Main L Out → PA Processor/Amp L In", stereoGroup: "liv029-main-to-pa-inputs", stereoSide: "left" },
+        { key: "liv029-main-r-to-pa-r-input", from: "console-main-r-output", to: "pa-processor-amp-r-input", checklist: "Console Main R Out → PA Processor/Amp R In", stereoGroup: "liv029-main-to-pa-inputs", stereoSide: "right" },
+        { key: "liv029-pa-l-output-to-left-speaker", from: "pa-processor-amp-l-output", to: "left-speaker-input", checklist: "PA Processor/Amp L Out → Left Speaker In", stereoGroup: "liv029-pa-outputs-to-speakers", stereoSide: "left" },
+        { key: "liv029-pa-r-output-to-right-speaker", from: "pa-processor-amp-r-output", to: "right-speaker-input", checklist: "PA Processor/Amp R Out → Right Speaker In", stereoGroup: "liv029-pa-outputs-to-speakers", stereoSide: "right" },
+        { key: "liv029-record-l-to-press-l", from: "console-matrix-record-l-output", to: "press-recorder-l-input", checklist: "Console Matrix/Record L Out → Press/Recorder L In", stereoGroup: "liv029-record-to-press-feed", stereoSide: "left" },
+        { key: "liv029-record-r-to-press-r", from: "console-matrix-record-r-output", to: "press-recorder-r-input", checklist: "Console Matrix/Record R Out → Press/Recorder R In", stereoGroup: "liv029-record-to-press-feed", stereoSide: "right" },
+        { key: "liv029-aux-1-to-moderator-wedge", from: "console-aux-1-output", to: "moderator-wedge-input", checklist: "Console Aux 1 Out → Moderator Wedge In" }
       ],
       requiredRoutes: [
-        ["wireless-receiver-1-output", "console-input-1"],
-        ["wireless-receiver-2-output", "console-input-2"],
-        ["wireless-receiver-3-output", "console-input-3"],
-        ["console-main-l-output", "room-pa-processor-l-input"],
-        ["console-main-r-output", "room-pa-processor-r-input"],
-        ["console-bus-1-output", "press-recorder-feed-l-input"],
-        ["console-bus-2-output", "press-recorder-feed-r-input"],
-        ["console-aux-1-output", "confidence-monitor-wedge-amp-input"]
+        ["wireless-receiver-ch1-audio-out", "console-input-1"],
+        ["wireless-receiver-ch2-audio-out", "console-input-2"],
+        ["wireless-receiver-ch3-audio-out", "console-input-3"],
+        ["wireless-receiver-ch4-audio-out", "console-input-4"],
+        ["console-main-l-output", "pa-processor-amp-l-input"],
+        ["console-main-r-output", "pa-processor-amp-r-input"],
+        ["pa-processor-amp-l-output", "left-speaker-input"],
+        ["pa-processor-amp-r-output", "right-speaker-input"],
+        ["console-matrix-record-l-output", "press-recorder-l-input"],
+        ["console-matrix-record-r-output", "press-recorder-r-input"],
+        ["console-aux-1-output", "moderator-wedge-input"]
       ],
       stereoGroups: [
         ["console-main-l-output", "console-main-r-output"],
-        ["console-bus-1-output", "console-bus-2-output"]
+        ["pa-processor-amp-l-output", "pa-processor-amp-r-output"],
+        ["console-matrix-record-l-output", "console-matrix-record-r-output"]
       ],
       assets: {
-        "wireless-receiver": "/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
+        "wireless-receiver": "/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
         "press-recorder": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
         "wedge-amp": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg"
       }
@@ -2808,7 +2821,7 @@ if (activeNativeLevelId === nextLevelId) return;
     svg.style.cssText = [
       "position:absolute",
       "inset:0",
-      (LEVEL_ID === "LIV-019" || layer.classList.contains("sf-live-native-level-liv-019")) ? "z-index:2147483600" : "z-index:1800",
+      "z-index:2147483600",
       "pointer-events:none",
       "overflow:visible"
     ].join(";");
@@ -3038,13 +3051,12 @@ if (activeNativeLevelId === nextLevelId) return;
 
     const svg = layer.querySelector(".sf-native-cables");
     if (svg && svg.parentNode) {
-      if (LEVEL_ID === "LIV-019" || layer.classList.contains("sf-live-native-level-liv-019")) {
-        svg.dataset.sfLiv019NativeGameCables = "top-layer";
-        svg.style.setProperty("z-index", "2147483600", "important");
-        svg.style.setProperty("display", "block", "important");
-        svg.style.setProperty("visibility", "visible", "important");
-        svg.style.setProperty("opacity", "1", "important");
-      }
+      svg.dataset.sfNativeCableLayer = "top-board-layer";
+      svg.style.setProperty("z-index", "2147483600", "important");
+      svg.style.setProperty("display", "block", "important");
+      svg.style.setProperty("visibility", "visible", "important");
+      svg.style.setProperty("opacity", "1", "important");
+      svg.style.setProperty("pointer-events", "none", "important");
       svg.parentNode.appendChild(svg);
     }
 
@@ -3831,6 +3843,52 @@ if (activeNativeLevelId === nextLevelId) return;
     return fromKey + "-to-" + toKey;
   }
 
+  function liv029FeedbackForPair(aKey, bKey) {
+    if (LEVEL_ID !== "LIV-029") return "";
+    const a = String(aKey || "");
+    const b = String(bKey || "");
+    return LIV029_EDUCATIONAL_FEEDBACK[a + "->" + b] ||
+      LIV029_EDUCATIONAL_FEEDBACK[b + "->" + a] ||
+      "";
+  }
+
+  function showLiv029EducationalFeedback(message) {
+    if (!message) return;
+
+    let toast = document.querySelector(".sf-liv029-educational-feedback");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.className = "sf-liv029-educational-feedback";
+      toast.style.cssText = [
+        "position:fixed",
+        "left:50%",
+        "bottom:22px",
+        "transform:translateX(-50%)",
+        "max-width:min(560px, calc(100vw - 28px))",
+        "padding:12px 15px",
+        "border-radius:10px",
+        "border:1px solid rgba(255,118,92,.55)",
+        "background:linear-gradient(180deg, rgba(52,20,16,.98), rgba(20,12,10,.98))",
+        "box-shadow:0 18px 42px rgba(0,0,0,.46), 0 0 18px rgba(255,118,92,.20)",
+        "color:#ffe9d8",
+        "font:800 13px/1.35 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+        "letter-spacing:0",
+        "z-index:2147483200",
+        "pointer-events:none",
+        "opacity:0",
+        "transition:opacity .18s ease"
+      ].join(";");
+      document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.style.opacity = "1";
+    clearTimeout(toast._sfLiv029FeedbackTimer);
+    toast._sfLiv029FeedbackTimer = setTimeout(() => {
+      toast.style.opacity = "0";
+    }, 3400);
+  }
+
   function sfLiv020FalseRoutePair(fromNode, toNode) {
     if (LEVEL_ID !== "LIV-020" || LEVEL_ID === "LIV-021") return null;
 
@@ -4082,6 +4140,17 @@ if (activeNativeLevelId === nextLevelId) return;
         decision.from = fromNode.key;
         decision.to = toNode.key;
       } else if (
+        LEVEL_ID === "LIV-029" &&
+        fromNode.key &&
+        toNode.key &&
+        fromNode.key !== toNode.key
+      ) {
+        decision.allowed = true;
+        decision.valid = false;
+        decision.key = "invalid:" + [fromNode.key, toNode.key].sort().join("--");
+        decision.from = fromNode.key;
+        decision.to = toNode.key;
+      } else if (
         LEVEL_ID === "LIV-028" &&
         fromNode.key &&
         toNode.key &&
@@ -4133,6 +4202,7 @@ if (activeNativeLevelId === nextLevelId) return;
       playGoodConnect();
     } else {
       dispatchNativeWrongAttempt(key);
+      showLiv029EducationalFeedback(liv029FeedbackForPair(decision.from || fromNode.key, decision.to || toNode.key));
       playBadConnect();
       flashNode(fromNode);
       flashNode(toNode);
@@ -4699,6 +4769,8 @@ function handleNodeClick(layer, node) {
       if (LEVEL_ID === "LIV-023" && String(key).startsWith("liv023-false-")) return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeFalseJack === "1") return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeHintable === "0") return false;
+      if (LEVEL_ID === "LIV-029" && btn.dataset.sfNativeFalseJack === "1") return false;
+      if (LEVEL_ID === "LIV-029" && btn.dataset.sfNativeHintable === "0") return false;
       return true;
     });
 
@@ -6102,11 +6174,16 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       [iem2, "IEM 3", "IEM 4"],
       [iem3, "IEM 5", "IEM 6"]
     ].forEach(([unit, aLabel, bLabel], idx) => {
+      gearText(unit.wrap, aLabel + " INPUT", 28, 64, { width: 82, size: 7, color: "#ffffff" });
+      gearText(unit.wrap, bLabel + " INPUT", 72, 64, { width: 82, size: 7, color: "#ffffff" });
       gearText(unit.wrap, "INPUT A", 28, 74, { width: 58 });
       gearText(unit.wrap, "INPUT B", 72, 74, { width: 58 });
       gearText(unit.wrap, aLabel, 28, 88, { width: 52, size: 8, color: "#bdeaff" });
       gearText(unit.wrap, bLabel, 72, 88, { width: 52, size: 8, color: "#bdeaff" });
     });
+
+    gearText(foh.wrap, "AUX SENDS", 52, 36, { width: 90, size: 8, background: "rgba(0,0,0,.88)" });
+    gearText(foh.wrap, "BUS OUTS", 70, 36, { width: 86, size: 8, background: "rgba(0,0,0,.88)" });
 
     processorLedRingRecolor(reverb.wrap, "#4cb7ff");
     gearText(reverb.wrap, "REVERB", 50, 24, { width: 80, size: 10, background: "rgba(0,20,50,.86)", color: "#a9d6ff" });
@@ -10179,9 +10256,9 @@ function renderLiv020MainPaAndIem(surface, adapter) {
       // Processing-family boards: keep sources, stagebox, FOH, and processor
       // in distinct zones inside the fixed native board height.
       panels.push(
-        { id: "stagebox", kind: "stagebox", x: rect.width * 0.045, y: layoutHeight * 0.365, width: rect.width * 0.385 },
-        { id: "foh", kind: "foh", x: rect.width * 0.380, y: layoutHeight * 0.115, width: rect.width * 0.585 },
-        { id: "amp", kind: "amp", x: rect.width * 0.405, y: layoutHeight * 0.595, width: rect.width * 0.540 }
+        { id: "stagebox", kind: "stagebox", x: rect.width * 0.045, y: layoutHeight * 0.330, width: rect.width * 0.330 },
+        { id: "foh", kind: "foh", x: rect.width * 0.445, y: layoutHeight * 0.075, width: rect.width * 0.500 },
+        { id: "amp", kind: "amp", x: rect.width * 0.420, y: layoutHeight * 0.650, width: rect.width * 0.500 }
       );
     } else {
       panels.push(
@@ -14579,6 +14656,57 @@ redrawCables(layer);
   ];
 
 
+  const LIV029_HITBOXES = [
+    { key: "wireless-receiver-ch1-audio-out", label: "Moderator Lav Audio Out", kind: "source", x: 332, y: 222, w: 28, h: 28 },
+    { key: "wireless-receiver-ch2-audio-out", label: "Panelist 1 Lav Audio Out", kind: "source", x: 332, y: 255, w: 28, h: 28 },
+    { key: "wireless-receiver-ch3-audio-out", label: "Panelist 2 Lav Audio Out", kind: "source", x: 332, y: 288, w: 28, h: 28 },
+    { key: "wireless-receiver-ch4-audio-out", label: "Audience Q&A Handheld Audio Out", kind: "source", x: 332, y: 321, w: 28, h: 28 },
+    { key: "console-input-1", label: "Console Input 1", kind: "jack", x: 612, y: 252, w: 24, h: 24 },
+    { key: "console-input-2", label: "Console Input 2", kind: "jack", x: 648, y: 252, w: 24, h: 24 },
+    { key: "console-input-3", label: "Console Input 3", kind: "jack", x: 684, y: 252, w: 24, h: 24 },
+    { key: "console-input-4", label: "Console Input 4", kind: "jack", x: 720, y: 252, w: 24, h: 24 },
+    { key: "console-aux-1-output", label: "Console Aux 1 Out", kind: "source", x: 914, y: 258, w: 26, h: 26 },
+    { key: "console-matrix-record-l-output", label: "Console Matrix/Record L Out", kind: "source", x: 990, y: 258, w: 26, h: 26 },
+    { key: "console-matrix-record-r-output", label: "Console Matrix/Record R Out", kind: "source", x: 1028, y: 258, w: 26, h: 26 },
+    { key: "console-main-l-output", label: "Console Main L Out", kind: "source", x: 1088, y: 258, w: 28, h: 28 },
+    { key: "console-main-r-output", label: "Console Main R Out", kind: "source", x: 1130, y: 258, w: 28, h: 28 },
+    { key: "pa-processor-amp-l-input", label: "PA Processor/Amp L In", kind: "jack", x: 602, y: 500, w: 28, h: 28 },
+    { key: "pa-processor-amp-r-input", label: "PA Processor/Amp R In", kind: "jack", x: 654, y: 500, w: 28, h: 28 },
+    { key: "pa-processor-amp-l-output", label: "PA Processor/Amp L Out", kind: "source", x: 790, y: 500, w: 28, h: 28 },
+    { key: "pa-processor-amp-r-output", label: "PA Processor/Amp R Out", kind: "source", x: 842, y: 500, w: 28, h: 28 },
+    { key: "left-speaker-input", label: "Left Speaker In", kind: "jack", x: 1008, y: 612, w: 30, h: 30 },
+    { key: "right-speaker-input", label: "Right Speaker In", kind: "jack", x: 1230, y: 612, w: 30, h: 30 },
+    { key: "press-recorder-l-input", label: "Press/Recorder L In", kind: "jack", x: 190, y: 536, w: 26, h: 26 },
+    { key: "press-recorder-r-input", label: "Press/Recorder R In", kind: "jack", x: 252, y: 536, w: 26, h: 26 },
+    { key: "moderator-wedge-input", label: "Moderator Wedge In", kind: "jack", x: 292, y: 730, w: 30, h: 30 },
+    { key: "wireless-receiver-antenna-a", label: "Wireless Receiver Antenna A", kind: "source", x: 74, y: 220, w: 30, h: 30, falseTrap: true },
+    { key: "wireless-receiver-antenna-b", label: "Wireless Receiver Antenna B", kind: "source", x: 74, y: 316, w: 30, h: 30, falseTrap: true },
+    { key: "pa-speaker-output-trap", label: "PA Amp Speaker Output Trap", kind: "source", x: 894, y: 502, w: 26, h: 26, falseTrap: true },
+    { key: "press-recorder-output", label: "Press Recorder Output", kind: "source", x: 322, y: 536, w: 26, h: 26, falseTrap: true },
+    { key: "left-speaker-thru", label: "Left Speaker Thru", kind: "source", x: 1050, y: 640, w: 28, h: 28, falseTrap: true },
+    { key: "right-speaker-thru", label: "Right Speaker Thru", kind: "source", x: 1272, y: 640, w: 28, h: 28, falseTrap: true },
+    { key: "console-main-l-wedge-trap", label: "Main L Wedge Trap", kind: "source", x: 1174, y: 258, w: 24, h: 24, falseTrap: true },
+    { key: "console-aux-pa-trap", label: "Aux To PA Trap", kind: "source", x: 950, y: 258, w: 24, h: 24, falseTrap: true }
+  ];
+
+  const LIV029_EDUCATIONAL_FEEDBACK = {
+    "wireless-receiver-antenna-a->console-input-1": "This is RF, not audio. Use the receiver's audio output.",
+    "wireless-receiver-antenna-b->console-input-2": "This is RF, not audio. Use the receiver's audio output.",
+    "wireless-receiver-ch1-audio-out->left-speaker-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+    "wireless-receiver-ch2-audio-out->pa-processor-amp-l-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+    "pa-processor-amp-l-output->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
+    "pa-processor-amp-r-output->press-recorder-r-input": "This is speaker-level output and can overload or damage recording inputs.",
+    "pa-speaker-output-trap->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
+    "console-main-l-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+    "console-main-r-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+    "console-main-l-wedge-trap->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+    "console-aux-1-output->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
+    "console-aux-pa-trap->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
+    "press-recorder-output->console-input-4": "This reverses the signal direction. The recorder should receive a feed from the console.",
+    "left-speaker-thru->console-input-1": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+  };
+
+
   function renderLiv029DebatePanelScaffold(surface, adapter) {
     const boardWidth = 1440;
     const boardHeight = 920;
@@ -14736,6 +14864,85 @@ redrawCables(layer);
       return el;
     }
 
+    function addLiv029Hitbox(item) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "sf-native-node sf-native-" + (item.kind === "source" ? "source" : "jack") + " sf-native-liv029-hitbox";
+      if (item.falseTrap) {
+        btn.className += " sf-native-liv029-false-hitbox";
+        btn.dataset.sfNativeFalseJack = "1";
+        btn.dataset.sfNativeHintable = "0";
+      } else {
+        btn.dataset.sfNativeHintable = "1";
+        btn.dataset.sfNativeGoodHint = "1";
+      }
+      setNativeNodeDomKey(btn, item.key, item.kind || "jack");
+      btn.dataset.sfNativeKey = item.key;
+      btn.dataset.label = item.label;
+      btn.title = item.label;
+      btn.setAttribute("aria-label", item.label);
+
+      const defaultShadow = "none";
+      const centerX = item.x + item.w / 2;
+      const centerY = item.y + item.h / 2;
+      btn.dataset.sfNativeDefaultShadow = defaultShadow;
+      btn.dataset.sfNativePointX = String(centerX);
+      btn.dataset.sfNativePointY = String(centerY);
+      btn.style.cssText = [
+        "position:absolute",
+        "left:" + item.x + "px",
+        "top:" + item.y + "px",
+        "width:" + item.w + "px",
+        "height:" + item.h + "px",
+        "min-width:0",
+        "min-height:0",
+        "box-sizing:border-box",
+        "padding:0",
+        "margin:0",
+        "border:0",
+        "border-radius:8px",
+        "background:transparent",
+        "box-shadow:" + defaultShadow,
+        "opacity:0",
+        "z-index:2600",
+        "pointer-events:auto",
+        "cursor:pointer",
+        "touch-action:none"
+      ].join(";");
+
+      btn.addEventListener("pointerdown", event => {
+        startNativePatchDrag(layer, {
+          key: item.key,
+          label: item.label,
+          el: btn,
+          defaultShadow,
+          point: pointForNativeNode(layer, btn)
+        }, event);
+      }, true);
+
+      btn.addEventListener("click", event => {
+        if (Date.now() < suppressNativeClickUntil) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        handleNodeClick(layer, {
+          key: item.key,
+          label: item.label,
+          el: btn,
+          defaultShadow,
+          point: pointForNativeNode(layer, btn)
+        });
+      });
+
+      layer.appendChild(btn);
+      return btn;
+    }
+
     function addPanelBox(key, label, x, y, w, h, subtitle) {
       const box = document.createElement("div");
       box.className = "sf-liv029-gear sf-liv029-panel-box";
@@ -14787,17 +14994,17 @@ redrawCables(layer);
       return box;
     }
 
-    addTextLabel("LIV-029 Debate Panel: wireless receivers feed the console; console outputs distribute room PA, press feed, and confidence monitor.", 34, 26, 760);
+    addTextLabel("Debate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.", 34, 26, 760);
 
     const liv029GearBakedSizeStyle = document.createElement("style");
     liv029GearBakedSizeStyle.textContent = [
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-rx-1"]{height:126px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-rx-2"]{height:126px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-rx-3"]{height:126px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"]{height:320px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-room-pa-processor"]{height:132px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-press-recorder"]{height:93px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-wedge-amp"]{height:119px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-wireless-rack"]{height:162px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"]{height:300px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-pa-processor-amp"]{height:132px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-left-speaker"]{height:320px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-right-speaker"]{height:320px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-press-recorder"]{height:98px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-moderator-wedge"]{height:150px!important;}',
       '.sf-live-native-level-liv-029 [data-sf-gear-id]:not([data-sf-gear-id="liv029-event-console"]) > img{width:100%!important;height:100%!important;object-fit:contain!important;}',
       '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"][data-sf-live-render-mode="crop-fill"] > img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 54%!important;transform:none!important;}'
     ].join("\n");
@@ -14805,104 +15012,91 @@ redrawCables(layer);
 
 
     addGear(
-      "liv029-rx-1",
-      "Moderator RX",
-      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
-      48,
-      210,
-      370,
-      "sf-liv029-wireless-rx"
-    );
-    addGear(
-      "liv029-rx-2",
-      "Panelist A RX",
-      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
-      48,
-      316,
-      370,
-      "sf-liv029-wireless-rx"
-    );
-    addGear(
-      "liv029-rx-3",
-      "Panelist B RX",
-      "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
-      48,
-      422,
-      370,
-      "sf-liv029-wireless-rx"
+      "liv029-wireless-rack",
+      "4-Channel Wireless Receiver Rack",
+      "/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      40,
+      200,
+      430,
+      "sf-liv029-wireless-rack"
     );
 
     const consoleBox = addGear(
       "liv029-event-console",
-      "Event FOH Console",
-      "../assets/live-sound/svg/hardware/16ch FOH console0.svg",
-      0,
-      -96,
-      940,
+      "FOH Console",
+      "/assets/live-sound/svg/hardware/16ch FOH console0.svg",
+      500,
+      42,
+      900,
       "sf-liv029-event-console",
-      { height: 320, mode: "crop-fill", objectPosition: "50% 54%" }
+      { height: 300, mode: "crop-fill", objectPosition: "50% 54%" }
     );
 
     const roomPaProcessor = addGear(
-      "liv029-room-pa-processor",
-      "Room PA Processor",
-      "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
-      421,
-      426,
-      425,
-      "sf-liv029-room-pa-processor"
+      "liv029-pa-processor-amp",
+      "PA Processor / Amp Rack",
+      "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      520,
+      430,
+      410,
+      "sf-liv029-pa-processor-amp"
+    );
+
+    addGear(
+      "liv029-left-speaker",
+      "Left Speaker",
+      "/assets/live-sound/svg/hardware/line-array-liv010-left-image.svg",
+      972,
+      390,
+      160,
+      "sf-liv029-left-speaker",
+      { height: 320 }
+    );
+
+    addGear(
+      "liv029-right-speaker",
+      "Right Speaker",
+      "/assets/live-sound/svg/hardware/line-array-liv010-right-image.svg",
+      1190,
+      390,
+      160,
+      "sf-liv029-right-speaker",
+      { height: 320 }
     );
 
     addGear(
       "liv029-press-recorder",
-      "Press / Recorder Feed",
-      "../assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
-      425,
-      214,
-      410,
+      "Press / Recorder Feed Box",
+      "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      46,
+      480,
+      390,
       "sf-liv029-press-recorder"
     );
 
     addGear(
-      "liv029-wedge-amp",
-      "Confidence Monitor / Wedge Amp",
-      "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
-      426,
-      320,
-      420,
-      "sf-liv029-wedge-amp"
+      "liv029-moderator-wedge",
+      "Moderator Wedge",
+      "/assets/build-room/svg/gear/stage monitor.svg",
+      160,
+      650,
+      250,
+      "sf-liv029-moderator-wedge",
+      { height: 150 }
     );
 
-    addTextLabel("PRESS / RECORDER FEED", 1124, 468, 230);
-    addTextLabel("CONFIDENCE MONITOR AMP", 1100, 704, 260);
+    addTextLabel("RF antenna jacks are traps, not audio outputs.", 58, 370, 360);
+    addTextLabel("PRESS / RECORD", 80, 454, 230);
+    addTextLabel("MODERATOR MONITOR", 176, 628, 260);
 
     surface.appendChild(layer);
-
-    addLiv029VisualCable(
-      "liv029-wedge-normal-output-a",
-      "../assets/live-sound/svg/cables/single-one-end-raised.svg",
-      710,
-      352,
-      150,
-      42,
-      2,
-      132
-    );
-    addLiv029VisualCable(
-      "liv029-wedge-normal-output-b",
-      "../assets/live-sound/svg/cables/single-one-end-raised.svg",
-      710,
-      390,
-      150,
-      42,
-      2,
-      132
-    );
+    LIV029_HITBOXES.forEach(addLiv029Hitbox);
 
     updateNativeHintHighlights();
 
     console.log("[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r662requiredhintorder", {
       gear: layer.querySelectorAll("[data-sf-gear-id]").length,
+      hitboxes: layer.querySelectorAll(".sf-native-liv029-hitbox").length,
       boardWidth,
       boardHeight
     });

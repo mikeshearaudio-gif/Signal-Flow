@@ -8324,7 +8324,7 @@ main.level-liv-010 .patchbay-wrap.front-panel-view::-webkit-scrollbar-track {
   <link rel="stylesheet" href="../patch/sf-v6r249-safe-visual-fixes.css?v=6r249" />
 
 <script>
-window.__SignalFlowNoAudio = window.__SignalFlowNoAudio || function(){
+window.__SignalFlowNoAudio = window.Audio || window.__SignalFlowNoAudio || function(){
   return {
     volume: 0,
     loop: false,
@@ -8342,10 +8342,8 @@ window.__SignalFlowNoAudio = window.__SignalFlowNoAudio || function(){
 
 
 <script>
-window.__sfMusicDisabled = true;
-window.__SignalFlowNoAudio = window.__SignalFlowNoAudio || function(){
+window.__SignalFlowNoAudio = window.Audio || window.__SignalFlowNoAudio || function(){
   return {
-    role: "disabled",
     volume: 0,
     loop: false,
     currentTime: 0,
@@ -17286,7 +17284,7 @@ window.SIGNAL_FLOW_V12 = {
              {
                "id": "LIV-002",
                "environment": "live",
-               "title": "Vocal wedge mix 2",
+               "title": "Vocal wedge mix",
                "brief": "Patch a vocal monitor aux to the wedge input.",
                "difficulty": 1,
                "required": [
@@ -19019,108 +19017,133 @@ window.SIGNAL_FLOW_V12 = {
                 {
                   "id": "LIV-029",
                   "environment": "live",
-                  "title": "Debate Panel: Wireless Mics, Room PA, Press Feed",
-                  "brief": "Route three wireless debate microphones into the console, send the main mix to the room PA, create a separate stereo bus feed for the press recorder, and send an aux cue to the confidence monitor.",
+                  "title": "Debate Panel Signal Flow",
+                  "brief": "Build a panel discussion system. Get the moderator, panelists, and audience Q&A mic into the console. Feed the PA, create a press/recording feed, and send a separate monitor feed to the moderator wedge. Avoid confusing RF antenna jacks with audio outputs.",
                   "difficulty": 4,
                   "required": [
                             [
-                                      "Wireless Receiver 1 Output",
-                                      "Console Mic/Line Input 1"
+                                      "Moderator Lav Audio Out",
+                                      "Console Input 1"
                             ],
                             [
-                                      "Wireless Receiver 2 Output",
-                                      "Console Mic/Line Input 2"
+                                      "Panelist 1 Lav Audio Out",
+                                      "Console Input 2"
                             ],
                             [
-                                      "Wireless Receiver 3 Output",
-                                      "Console Mic/Line Input 3"
+                                      "Panelist 2 Lav Audio Out",
+                                      "Console Input 3"
                             ],
                             [
-                                      "Console Main L Output",
-                                      "Room PA Processor L Input"
+                                      "Audience Q&A Handheld Audio Out",
+                                      "Console Input 4"
                             ],
                             [
-                                      "Console Main R Output",
-                                      "Room PA Processor R Input"
+                                      "Console Main L Out",
+                                      "PA Processor/Amp L In"
                             ],
                             [
-                                      "Console Bus 1 Output",
-                                      "Press / Recorder Feed L Input"
+                                      "Console Main R Out",
+                                      "PA Processor/Amp R In"
                             ],
                             [
-                                      "Console Bus 2 Output",
-                                      "Press / Recorder Feed R Input"
+                                      "PA Processor/Amp L Out",
+                                      "Left Speaker In"
                             ],
                             [
-                                      "Console Aux 1 Output",
-                                      "Confidence Monitor / Wedge Amp Input"
+                                      "PA Processor/Amp R Out",
+                                      "Right Speaker In"
+                            ],
+                            [
+                                      "Console Matrix/Record L Out",
+                                      "Press/Recorder L In"
+                            ],
+                            [
+                                      "Console Matrix/Record R Out",
+                                      "Press/Recorder R In"
+                            ],
+                            [
+                                      "Console Aux 1 Out",
+                                      "Moderator Wedge In"
                             ]
                   ],
                   "forbidden": [
                             [
-                                      "Wireless Receiver 1 Output",
-                                      "Room PA Processor L Input"
+                                      "Wireless Receiver Antenna A",
+                                      "Console Input 1"
                             ],
                             [
-                                      "Wireless Receiver 2 Output",
-                                      "Room PA Processor R Input"
+                                      "Wireless Receiver Antenna B",
+                                      "Console Input 2"
                             ],
                             [
-                                      "Wireless Receiver 3 Output",
-                                      "Press / Recorder Feed L Input"
+                                      "Moderator Lav Audio Out",
+                                      "Left Speaker In"
                             ],
                             [
-                                      "Wireless Receiver 3 Output",
-                                      "Press / Recorder Feed R Input"
+                                      "Panelist 1 Lav Audio Out",
+                                      "PA Processor/Amp L In"
                             ],
                             [
-                                      "Console Main L Output",
-                                      "Press / Recorder Feed L Input"
+                                      "PA Processor/Amp L Out",
+                                      "Press/Recorder L In"
                             ],
                             [
-                                      "Console Main R Output",
-                                      "Press / Recorder Feed R Input"
+                                      "PA Processor/Amp R Out",
+                                      "Press/Recorder R In"
                             ],
                             [
-                                      "Console Aux 1 Output",
-                                      "Room PA Processor L Input"
+                                      "Console Main L Out",
+                                      "Moderator Wedge In"
                             ],
                             [
-                                      "Console Bus 1 Output",
-                                      "Confidence Monitor / Wedge Amp Input"
+                                      "Console Main R Out",
+                                      "Moderator Wedge In"
                             ],
                             [
-                                      "Console Bus 2 Output",
-                                      "Confidence Monitor / Wedge Amp Input"
+                                      "Console Aux 1 Out",
+                                      "PA Processor/Amp L In"
+                            ],
+                            [
+                                      "Press Recorder Output",
+                                      "Console Input 4"
+                            ],
+                            [
+                                      "Left Speaker Thru",
+                                      "Console Input 1"
                             ]
                   ],
                   "stereoGroups": [
                             [
-                                      "Console Main L Output",
-                                      "Console Main R Output"
+                                      "Console Main L Out",
+                                      "Console Main R Out"
                             ],
                             [
-                                      "Console Bus 1 Output",
-                                      "Console Bus 2 Output"
+                                      "PA Processor/Amp L Out",
+                                      "PA Processor/Amp R Out"
+                            ],
+                            [
+                                      "Console Matrix/Record L Out",
+                                      "Console Matrix/Record R Out"
                             ]
                   ],
                   "system": [
-                            "Wireless receivers feed console input channels; they do not feed the PA processor directly.",
-                            "Main left/right outputs feed the room PA processor as a stereo pair.",
-                            "Bus outputs 1 and 2 create the separate stereo press, recorder, or broadcast feed on this console.",
-                            "Aux outputs are useful for monitor and cue feeds such as confidence monitors."
+                            "Wireless receiver audio outputs feed console input channels; RF antenna jacks do not carry audio.",
+                            "Console main left/right outputs feed the PA processor or amp as a stereo pair.",
+                            "PA processor or amp outputs feed speaker inputs; do not send speaker-level outputs to recording inputs.",
+                            "Matrix/record outputs create the separate stereo press or recorder feed.",
+                            "Aux 1 feeds the moderator wedge as a separate monitor mix."
                   ],
                   "notes": [
-                            "This board introduces speech-first reinforcement and event distribution rather than another music-stage patch.",
-                            "Keep the press/recorder feed separate from the house PA mix.",
-                            "Keep the confidence monitor feed separate from the press feed."
+                            "This board introduces a speech-first panel workflow instead of another music-stage patch.",
+                            "Keep RF, line-level, and speaker-level connections conceptually separate.",
+                            "Follow signal direction: microphones and receivers feed the console; console outputs distribute mixes."
                   ],
                   "learning": [
-                            "Wireless mic receiver outputs",
-                            "Speech reinforcement",
-                            "Stereo bus feeds",
-                            "Aux cue feeds",
-                            "Room PA stereo routing"
+                            "Wireless receiver audio vs RF antenna",
+                            "Panel discussion input routing",
+                            "Main PA distribution",
+                            "Press/record matrix feed",
+                            "Moderator monitor aux feed"
                   ],
                   "time": 420
         },
@@ -22544,7 +22567,7 @@ function bindLevelIntroOverlay(){
     overlay.classList.remove('show');
     overlay.remove?.();
     state.paused = false;
-    if(state.audioEnabled){ await unlockAudio(); startLevelMusic(); }
+    if(state.audioEnabled){ await primeAudioAndStartMusic(); }
     startBoardTimer(level());
     updateAudioButton();
   });
@@ -24693,8 +24716,10 @@ function playSfx(name){
   const a=src.cloneNode(); a.volume=src.volume; a.play().catch(()=>{});
 }
 async function primeAudioAndStartMusic(){
-  window.__sfMusicDisabled = true;
-  return Promise.resolve();
+  if(!state.audioUnlocked) await unlockAudio();
+  state.audioEnabled = true;
+  ensureLevelMusic();
+  updateAudioButton();
 }
 async function toggleAudioFromButton(){
   if(state.view !== 'level') return;
@@ -24710,8 +24735,11 @@ async function toggleAudioFromButton(){
   updateAudioButton();
 }
 function ensureLevelMusic(){
-  window.__sfMusicDisabled = true;
-  return null;
+  if(!state.audioEnabled || !state.audioUnlocked){ updateAudioButton(); return null; }
+  const current = state.musicEls.find(a => a && !a.paused && !a.ended);
+  if(current) return current;
+  startLevelMusic();
+  return state.musicEls[0] || null;
 }
 function musicPath(name){
   return name;
@@ -24784,8 +24812,37 @@ function musicChoiceLabel(file){
   return 'Cue A';
 }
 function startLevelMusic(){
-  window.__sfMusicDisabled = true;
-  return null;
+  stopMusic();
+  if(!state.audioEnabled || !state.audioUnlocked){ updateAudioButton(); return null; }
+  const file = musicForLevel();
+  const a = new window.__SignalFlowNoAudio(assetUrl('assets/audio/' + file));
+  a.loop = true;
+  a.preload = 'auto';
+  a.volume = .38;
+  a.dataset.role = 'gameplay_music_loop';
+  a.dataset.cue = musicChoiceLabel(file);
+  try{
+    const offset = musicStartOffsetForLevel();
+    if(Number.isFinite(offset)) a.currentTime = offset;
+  }catch{}
+  state.musicEls = [a];
+  const played = a.play();
+  if(played && typeof played.then === 'function'){
+    played.then(()=>{
+      state.musicPending = false;
+      state.musicStarted = true;
+      updateAudioButton();
+    }).catch(()=>{
+      state.musicPending = true;
+      state.musicStarted = false;
+      updateAudioButton();
+    });
+  } else {
+    state.musicPending = false;
+    state.musicStarted = true;
+    updateAudioButton();
+  }
+  return a;
 }
 function startKnownGoodMusicFallback(){
   stopMusic();
@@ -29237,13 +29294,24 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
     if(EMBEDDED_AUDIO[lower]) return EMBEDDED_AUDIO[lower];
     // Extension repair aliases for legacy manifest entries.
     const repairs = {
-      'assets/audio/sfx/connection_click.wav':'assets/audio/sfx/connection_click.mp3',
-      'assets/audio/sfx/wrong_patch_blip.wav':'assets/audio/sfx/wrong_patch_blip.mp3',
-      'assets/audio/sfx/feedback_warning.wav':'assets/audio/sfx/feedback_warning.mp3',
-      'assets/audio/sfx/success_soft_hit.wav':'assets/audio/sfx/success_soft_hit.mp3'
+      'assets/audio/sfx/connection_click.wav':'assets/audio/sfx/connection_click(51).mp3',
+      'assets/audio/sfx/connection_click.mp3':'assets/audio/sfx/connection_click(51).mp3',
+      'assets/audio/sfx/wrong_patch_blip.wav':'assets/audio/sfx/wrong_patch_blip(51).mp3',
+      'assets/audio/sfx/wrong_patch_blip.mp3':'assets/audio/sfx/wrong_patch_blip(51).mp3',
+      'assets/audio/sfx/feedback_warning.wav':'assets/audio/sfx/feedback_warning(51).mp3',
+      'assets/audio/sfx/feedback_warning.mp3':'assets/audio/sfx/feedback_warning(51).mp3',
+      'assets/audio/sfx/success_soft_hit.wav':'assets/audio/sfx/success_soft_hit(51).mp3',
+      'assets/audio/sfx/success_soft_hit.mp3':'assets/audio/sfx/success_soft_hit(51).mp3',
+      'assets/audio/sfx/SFcoin.wav':'assets/audio/sfx/SFcoin(81).wav',
+      'assets/audio/sfx/right_answer.wav':'assets/audio/sfx/right_answer(48).wav',
+      'assets/audio/sfx/wrong_answer.wav':'assets/audio/sfx/wrong_answer(49).wav',
+      'assets/audio/music/bg_music_original_full.mp3':'assets/audio/music/bg_music_original_full(94).mp3',
+      'assets/audio/music/after_party.mp3':'assets/audio/music/after_party(93).mp3',
+      'assets/audio/music/after_party_2.mp3':'assets/audio/music/after_party_2(93).mp3',
+      'assets/audio/music/big_saw_bass_1.mp3':'assets/audio/music/big_saw_bass_1(94).mp3'
     };
-    if(repairs[p] && EMBEDDED_AUDIO[repairs[p]]) return EMBEDDED_AUDIO[repairs[p]];
-    if(repairs[lower] && EMBEDDED_AUDIO[repairs[lower]]) return EMBEDDED_AUDIO[repairs[lower]];
+    if(repairs[p]) return previousAssetUrl ? previousAssetUrl(repairs[p]) : repairs[p];
+    if(repairs[lower]) return previousAssetUrl ? previousAssetUrl(repairs[lower]) : repairs[lower];
     return previousAssetUrl ? previousAssetUrl(path) : path;
   };
   // Correct the runtime manifest so new window.__SignalFlowNoAudio() asks for the files that actually exist.
@@ -29298,6 +29366,12 @@ setTimeout(sfv176AutoLaunchQuiz, 0);
         if(!state.audioUnlocked){
           state.audioEnabled = true;
           await unlockAudio();
+          try{ ensureLevelMusic(); }catch(e){}
+          try{ updateAudioButton(); }catch(e){}
+          return;
+        }
+        if(!state.musicEls || !state.musicEls.length || state.musicPending || !state.musicStarted){
+          state.audioEnabled = true;
           try{ ensureLevelMusic(); }catch(e){}
           try{ updateAudioButton(); }catch(e){}
           return;

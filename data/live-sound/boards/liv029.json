@@ -1,200 +1,268 @@
 {
   "levelId": "LIV-029",
   "environment": "live",
-  "title": "Debate Panel: Wireless Mics, Room PA, Press Feed",
-  "brief": "Route three wireless debate microphones into the console, send the main mix to the room PA, create a separate stereo bus feed for the press recorder, and send an aux cue to the confidence monitor.",
-  "processorLabel": "ROOM PA / PRESS / MONITOR DISTRIBUTION",
+  "title": "Debate Panel Signal Flow",
+  "brief": "Build a panel discussion system. Get the moderator, panelists, and audience Q&A mic into the console. Feed the PA, create a press/recording feed, and send a separate monitor feed to the moderator wedge. Avoid confusing RF antenna jacks with audio outputs.",
+  "processorLabel": "DEBATE PANEL PA / PRESS / MODERATOR MONITOR",
   "requiredRoutes": [
     {
-      "id": "liv029-rx-1-to-console-input-1",
-      "fromId": "wireless-receiver-1-output",
+      "id": "liv029-rx-ch1-to-console-input-1",
+      "fromId": "wireless-receiver-ch1-audio-out",
       "toId": "console-input-1",
-      "fromLabel": "Wireless Receiver 1 Output",
-      "toLabel": "Console Mic/Line Input 1"
+      "fromLabel": "Moderator Lav Audio Out",
+      "toLabel": "Console Input 1"
     },
     {
-      "id": "liv029-rx-2-to-console-input-2",
-      "fromId": "wireless-receiver-2-output",
+      "id": "liv029-rx-ch2-to-console-input-2",
+      "fromId": "wireless-receiver-ch2-audio-out",
       "toId": "console-input-2",
-      "fromLabel": "Wireless Receiver 2 Output",
-      "toLabel": "Console Mic/Line Input 2"
+      "fromLabel": "Panelist 1 Lav Audio Out",
+      "toLabel": "Console Input 2"
     },
     {
-      "id": "liv029-rx-3-to-console-input-3",
-      "fromId": "wireless-receiver-3-output",
+      "id": "liv029-rx-ch3-to-console-input-3",
+      "fromId": "wireless-receiver-ch3-audio-out",
       "toId": "console-input-3",
-      "fromLabel": "Wireless Receiver 3 Output",
-      "toLabel": "Console Mic/Line Input 3"
+      "fromLabel": "Panelist 2 Lav Audio Out",
+      "toLabel": "Console Input 3"
     },
     {
-      "id": "liv029-main-l-to-room-pa-l",
+      "id": "liv029-rx-ch4-to-console-input-4",
+      "fromId": "wireless-receiver-ch4-audio-out",
+      "toId": "console-input-4",
+      "fromLabel": "Audience Q&A Handheld Audio Out",
+      "toLabel": "Console Input 4"
+    },
+    {
+      "id": "liv029-main-l-to-pa-l-input",
       "fromId": "console-main-l-output",
-      "toId": "room-pa-processor-l-input",
-      "fromLabel": "Console Main L Output",
-      "toLabel": "Room PA Processor L Input",
-      "stereoGroup": "liv029-main-to-room-pa",
+      "toId": "pa-processor-amp-l-input",
+      "fromLabel": "Console Main L Out",
+      "toLabel": "PA Processor/Amp L In",
+      "stereoGroup": "liv029-main-to-pa-inputs",
       "stereoSide": "left"
     },
     {
-      "id": "liv029-main-r-to-room-pa-r",
+      "id": "liv029-main-r-to-pa-r-input",
       "fromId": "console-main-r-output",
-      "toId": "room-pa-processor-r-input",
-      "fromLabel": "Console Main R Output",
-      "toLabel": "Room PA Processor R Input",
-      "stereoGroup": "liv029-main-to-room-pa",
+      "toId": "pa-processor-amp-r-input",
+      "fromLabel": "Console Main R Out",
+      "toLabel": "PA Processor/Amp R In",
+      "stereoGroup": "liv029-main-to-pa-inputs",
       "stereoSide": "right"
     },
     {
-      "id": "liv029-bus-1-to-press-l",
-      "fromId": "console-bus-1-output",
-      "toId": "press-recorder-feed-l-input",
-      "fromLabel": "Console Bus 1 Output",
-      "toLabel": "Press / Recorder Feed L Input",
-      "stereoGroup": "liv029-bus-press-feed",
+      "id": "liv029-pa-l-output-to-left-speaker",
+      "fromId": "pa-processor-amp-l-output",
+      "toId": "left-speaker-input",
+      "fromLabel": "PA Processor/Amp L Out",
+      "toLabel": "Left Speaker In",
+      "stereoGroup": "liv029-pa-outputs-to-speakers",
       "stereoSide": "left"
     },
     {
-      "id": "liv029-bus-2-to-press-r",
-      "fromId": "console-bus-2-output",
-      "toId": "press-recorder-feed-r-input",
-      "fromLabel": "Console Bus 2 Output",
-      "toLabel": "Press / Recorder Feed R Input",
-      "stereoGroup": "liv029-bus-press-feed",
+      "id": "liv029-pa-r-output-to-right-speaker",
+      "fromId": "pa-processor-amp-r-output",
+      "toId": "right-speaker-input",
+      "fromLabel": "PA Processor/Amp R Out",
+      "toLabel": "Right Speaker In",
+      "stereoGroup": "liv029-pa-outputs-to-speakers",
       "stereoSide": "right"
     },
     {
-      "id": "liv029-aux-1-to-wedge-amp",
+      "id": "liv029-record-l-to-press-l",
+      "fromId": "console-matrix-record-l-output",
+      "toId": "press-recorder-l-input",
+      "fromLabel": "Console Matrix/Record L Out",
+      "toLabel": "Press/Recorder L In",
+      "stereoGroup": "liv029-record-to-press-feed",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv029-record-r-to-press-r",
+      "fromId": "console-matrix-record-r-output",
+      "toId": "press-recorder-r-input",
+      "fromLabel": "Console Matrix/Record R Out",
+      "toLabel": "Press/Recorder R In",
+      "stereoGroup": "liv029-record-to-press-feed",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv029-aux-1-to-moderator-wedge",
       "fromId": "console-aux-1-output",
-      "toId": "confidence-monitor-wedge-amp-input",
-      "fromLabel": "Console Aux 1 Output",
-      "toLabel": "Confidence Monitor / Wedge Amp Input"
+      "toId": "moderator-wedge-input",
+      "fromLabel": "Console Aux 1 Out",
+      "toLabel": "Moderator Wedge In"
     }
   ],
   "forbiddenRoutes": [
-    { "fromLabel": "Wireless Receiver 1 Output", "toLabel": "Room PA Processor L Input" },
-    { "fromLabel": "Wireless Receiver 2 Output", "toLabel": "Room PA Processor R Input" },
-    { "fromLabel": "Wireless Receiver 3 Output", "toLabel": "Press / Recorder Feed L Input" },
-    { "fromLabel": "Wireless Receiver 3 Output", "toLabel": "Press / Recorder Feed R Input" },
-    { "fromLabel": "Console Main L Output", "toLabel": "Press / Recorder Feed L Input" },
-    { "fromLabel": "Console Main R Output", "toLabel": "Press / Recorder Feed R Input" },
-    { "fromLabel": "Console Aux 1 Output", "toLabel": "Room PA Processor L Input" },
-    { "fromLabel": "Console Bus 1 Output", "toLabel": "Confidence Monitor / Wedge Amp Input" },
-    { "fromLabel": "Console Bus 2 Output", "toLabel": "Confidence Monitor / Wedge Amp Input" }
+    { "fromLabel": "Wireless Receiver Antenna A", "toLabel": "Console Input 1" },
+    { "fromLabel": "Wireless Receiver Antenna B", "toLabel": "Console Input 2" },
+    { "fromLabel": "Moderator Lav Audio Out", "toLabel": "Left Speaker In" },
+    { "fromLabel": "Panelist 1 Lav Audio Out", "toLabel": "PA Processor/Amp L In" },
+    { "fromLabel": "PA Processor/Amp L Out", "toLabel": "Press/Recorder L In" },
+    { "fromLabel": "PA Processor/Amp R Out", "toLabel": "Press/Recorder R In" },
+    { "fromLabel": "Console Main L Out", "toLabel": "Moderator Wedge In" },
+    { "fromLabel": "Console Main R Out", "toLabel": "Moderator Wedge In" },
+    { "fromLabel": "Console Aux 1 Out", "toLabel": "PA Processor/Amp L In" },
+    { "fromLabel": "Press Recorder Output", "toLabel": "Console Input 4" },
+    { "fromLabel": "Left Speaker Thru", "toLabel": "Console Input 1" }
   ],
+  "educationalFeedback": {
+    "wireless-receiver-antenna-a->console-input-1": "This is RF, not audio. Use the receiver's audio output.",
+    "wireless-receiver-antenna-b->console-input-2": "This is RF, not audio. Use the receiver's audio output.",
+    "wireless-receiver-ch1-audio-out->left-speaker-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+    "wireless-receiver-ch2-audio-out->pa-processor-amp-l-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+    "pa-processor-amp-l-output->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
+    "pa-processor-amp-r-output->press-recorder-r-input": "This is speaker-level output and can overload or damage recording inputs.",
+    "console-main-l-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+    "console-main-r-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+    "console-aux-1-output->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
+    "press-recorder-output->console-input-4": "This reverses the signal direction. The recorder should receive a feed from the console.",
+    "left-speaker-thru->console-input-1": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+  },
   "stereoGroups": [
     {
-      "id": "liv029-main-to-room-pa",
-      "leftRouteId": "liv029-main-l-to-room-pa-l",
-      "rightRouteId": "liv029-main-r-to-room-pa-r"
+      "id": "liv029-main-to-pa-inputs",
+      "leftRouteId": "liv029-main-l-to-pa-l-input",
+      "rightRouteId": "liv029-main-r-to-pa-r-input"
     },
     {
-      "id": "liv029-bus-press-feed",
-      "leftRouteId": "liv029-bus-1-to-press-l",
-      "rightRouteId": "liv029-bus-2-to-press-r"
+      "id": "liv029-pa-outputs-to-speakers",
+      "leftRouteId": "liv029-pa-l-output-to-left-speaker",
+      "rightRouteId": "liv029-pa-r-output-to-right-speaker"
+    },
+    {
+      "id": "liv029-record-to-press-feed",
+      "leftRouteId": "liv029-record-l-to-press-l",
+      "rightRouteId": "liv029-record-r-to-press-r"
     }
   ],
   "gear": [
     {
-      "id": "liv029-rx-1",
-      "label": "Moderator RX",
-      "asset": "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
-      "rect": { "x": 48, "y": 210, "w": 370, "h": 126 },
-      "className": "sf-liv029-wireless-rx"
-    },
-    {
-      "id": "liv029-rx-2",
-      "label": "Panelist A RX",
-      "asset": "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
-      "rect": { "x": 48, "y": 316, "w": 370, "h": 126 },
-      "className": "sf-liv029-wireless-rx"
-    },
-    {
-      "id": "liv029-rx-3",
-      "label": "Panelist B RX",
-      "asset": "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-composite.svg",
-      "rect": { "x": 48, "y": 422, "w": 370, "h": 126 },
-      "className": "sf-liv029-wireless-rx"
+      "id": "liv029-wireless-rack",
+      "label": "4-Channel Wireless Receiver Rack",
+      "asset": "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "rect": { "x": 40, "y": 200, "w": 430, "h": 162 },
+      "className": "sf-liv029-wireless-rack"
     },
     {
       "id": "liv029-event-console",
-      "label": "Event FOH Console",
+      "label": "FOH Console",
       "asset": "../assets/live-sound/svg/hardware/16ch FOH console0.svg",
-      "rect": { "x": 0, "y": -96, "w": 940, "h": 320 },
+      "rect": { "x": 500, "y": 42, "w": 900, "h": 300 },
       "className": "sf-liv029-event-console",
       "render": { "mode": "crop-fill", "objectPosition": "50% 54%" }
     },
     {
-      "id": "liv029-room-pa-processor",
-      "label": "Room PA Processor",
-      "asset": "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
-      "rect": { "x": 421, "y": 426, "w": 425, "h": 132 },
-      "className": "sf-liv029-room-pa-processor"
+      "id": "liv029-pa-processor-amp",
+      "label": "PA Processor / Amp Rack",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "rect": { "x": 520, "y": 430, "w": 410, "h": 132 },
+      "className": "sf-liv029-pa-processor-amp"
+    },
+    {
+      "id": "liv029-left-speaker",
+      "label": "Left Speaker",
+      "asset": "../assets/live-sound/svg/hardware/line-array-liv010-left-image.svg",
+      "rect": { "x": 972, "y": 390, "w": 160, "h": 320 },
+      "className": "sf-liv029-left-speaker"
+    },
+    {
+      "id": "liv029-right-speaker",
+      "label": "Right Speaker",
+      "asset": "../assets/live-sound/svg/hardware/line-array-liv010-right-image.svg",
+      "rect": { "x": 1190, "y": 390, "w": 160, "h": 320 },
+      "className": "sf-liv029-right-speaker"
     },
     {
       "id": "liv029-press-recorder",
-      "label": "Press / Recorder Feed",
+      "label": "Press / Recorder Feed Box",
       "asset": "../assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
-      "rect": { "x": 425, "y": 214, "w": 410, "h": 93 },
+      "rect": { "x": 46, "y": 480, "w": 390, "h": 98 },
       "className": "sf-liv029-press-recorder"
     },
     {
-      "id": "liv029-wedge-amp",
-      "label": "Confidence Monitor / Wedge Amp",
-      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
-      "rect": { "x": 426, "y": 320, "w": 420, "h": 119 },
-      "className": "sf-liv029-wedge-amp"
+      "id": "liv029-moderator-wedge",
+      "label": "Moderator Wedge",
+      "asset": "../assets/build-room/svg/gear/stage monitor.svg",
+      "rect": { "x": 160, "y": 650, "w": 250, "h": 150 },
+      "className": "sf-liv029-moderator-wedge"
     }
   ],
   "labels": [
     {
       "id": "liv029-title-note",
-      "text": "LIV-029 Debate Panel: wireless receivers feed the console; console outputs distribute room PA, press feed, and confidence monitor.",
+      "text": "Debate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.",
       "rect": { "x": 34, "y": 26, "w": 760, "h": 42, "z": 120 }
     },
     {
+      "id": "liv029-rf-warning-label",
+      "text": "RF antenna jacks are traps, not audio outputs.",
+      "rect": { "x": 58, "y": 370, "w": 360, "h": 24, "z": 120 }
+    },
+    {
       "id": "liv029-press-label",
-      "text": "PRESS / RECORDER FEED",
-      "rect": { "x": 1124, "y": 468, "w": 230, "h": 24, "z": 120 }
+      "text": "PRESS / RECORD",
+      "rect": { "x": 80, "y": 454, "w": 230, "h": 24, "z": 120 }
     },
     {
       "id": "liv029-wedge-label",
-      "text": "CONFIDENCE MONITOR AMP",
-      "rect": { "x": 1100, "y": 704, "w": 260, "h": 24, "z": 120 }
+      "text": "MODERATOR MONITOR",
+      "rect": { "x": 176, "y": 628, "w": 260, "h": 24, "z": 120 }
     }
   ],
-  "prewiredCables": [
-    {
-      "id": "liv029-wedge-normal-output-a",
-      "asset": "../assets/live-sound/svg/cables/single-one-end-raised.svg",
-      "rect": { "x": 710, "y": 352, "w": 150, "h": 42, "z": 132 },
-      "rotation": 2,
-      "visualOnly": true
-    },
-    {
-      "id": "liv029-wedge-normal-output-b",
-      "asset": "../assets/live-sound/svg/cables/single-one-end-raised.svg",
-      "rect": { "x": 710, "y": 390, "w": 150, "h": 42, "z": 132 },
-      "rotation": 2,
-      "visualOnly": true
-    }
-  ],
+  "prewiredCables": [],
   "hitboxes": {
-    "good": [],
-    "false": []
+    "good": [
+      { "id": "wireless-receiver-ch1-audio-out", "label": "Moderator Lav Audio Out", "kind": "source", "rect": { "x": 332, "y": 222, "w": 28, "h": 28 } },
+      { "id": "wireless-receiver-ch2-audio-out", "label": "Panelist 1 Lav Audio Out", "kind": "source", "rect": { "x": 332, "y": 255, "w": 28, "h": 28 } },
+      { "id": "wireless-receiver-ch3-audio-out", "label": "Panelist 2 Lav Audio Out", "kind": "source", "rect": { "x": 332, "y": 288, "w": 28, "h": 28 } },
+      { "id": "wireless-receiver-ch4-audio-out", "label": "Audience Q&A Handheld Audio Out", "kind": "source", "rect": { "x": 332, "y": 321, "w": 28, "h": 28 } },
+      { "id": "console-input-1", "label": "Console Input 1", "kind": "jack", "rect": { "x": 612, "y": 252, "w": 24, "h": 24 } },
+      { "id": "console-input-2", "label": "Console Input 2", "kind": "jack", "rect": { "x": 648, "y": 252, "w": 24, "h": 24 } },
+      { "id": "console-input-3", "label": "Console Input 3", "kind": "jack", "rect": { "x": 684, "y": 252, "w": 24, "h": 24 } },
+      { "id": "console-input-4", "label": "Console Input 4", "kind": "jack", "rect": { "x": 720, "y": 252, "w": 24, "h": 24 } },
+      { "id": "console-main-l-output", "label": "Console Main L Out", "kind": "source", "rect": { "x": 1088, "y": 258, "w": 28, "h": 28 } },
+      { "id": "console-main-r-output", "label": "Console Main R Out", "kind": "source", "rect": { "x": 1130, "y": 258, "w": 28, "h": 28 } },
+      { "id": "pa-processor-amp-l-input", "label": "PA Processor/Amp L In", "kind": "jack", "rect": { "x": 602, "y": 500, "w": 28, "h": 28 } },
+      { "id": "pa-processor-amp-r-input", "label": "PA Processor/Amp R In", "kind": "jack", "rect": { "x": 654, "y": 500, "w": 28, "h": 28 } },
+      { "id": "pa-processor-amp-l-output", "label": "PA Processor/Amp L Out", "kind": "source", "rect": { "x": 790, "y": 500, "w": 28, "h": 28 } },
+      { "id": "pa-processor-amp-r-output", "label": "PA Processor/Amp R Out", "kind": "source", "rect": { "x": 842, "y": 500, "w": 28, "h": 28 } },
+      { "id": "left-speaker-input", "label": "Left Speaker In", "kind": "jack", "rect": { "x": 1008, "y": 612, "w": 30, "h": 30 } },
+      { "id": "right-speaker-input", "label": "Right Speaker In", "kind": "jack", "rect": { "x": 1230, "y": 612, "w": 30, "h": 30 } },
+      { "id": "console-matrix-record-l-output", "label": "Console Matrix/Record L Out", "kind": "source", "rect": { "x": 990, "y": 258, "w": 26, "h": 26 } },
+      { "id": "console-matrix-record-r-output", "label": "Console Matrix/Record R Out", "kind": "source", "rect": { "x": 1028, "y": 258, "w": 26, "h": 26 } },
+      { "id": "press-recorder-l-input", "label": "Press/Recorder L In", "kind": "jack", "rect": { "x": 190, "y": 536, "w": 26, "h": 26 } },
+      { "id": "press-recorder-r-input", "label": "Press/Recorder R In", "kind": "jack", "rect": { "x": 252, "y": 536, "w": 26, "h": 26 } },
+      { "id": "console-aux-1-output", "label": "Console Aux 1 Out", "kind": "source", "rect": { "x": 914, "y": 258, "w": 26, "h": 26 } },
+      { "id": "moderator-wedge-input", "label": "Moderator Wedge In", "kind": "jack", "rect": { "x": 292, "y": 730, "w": 30, "h": 30 } }
+    ],
+    "false": [
+      { "id": "wireless-receiver-antenna-a", "label": "Wireless Receiver Antenna A", "kind": "source", "rect": { "x": 74, "y": 220, "w": 30, "h": 30 }, "message": "This is RF, not audio. Use the receiver's audio output." },
+      { "id": "wireless-receiver-antenna-b", "label": "Wireless Receiver Antenna B", "kind": "source", "rect": { "x": 74, "y": 316, "w": 30, "h": 30 }, "message": "This is RF, not audio. Use the receiver's audio output." },
+      { "id": "pa-speaker-output-trap", "label": "PA Amp Speaker Output Trap", "kind": "source", "rect": { "x": 894, "y": 502, "w": 26, "h": 26 }, "message": "This is speaker-level output and can overload or damage recording inputs." },
+      { "id": "press-recorder-output", "label": "Press Recorder Output", "kind": "source", "rect": { "x": 322, "y": 536, "w": 26, "h": 26 }, "message": "This reverses the signal direction. The recorder should receive a feed from the console." },
+      { "id": "left-speaker-thru", "label": "Left Speaker Thru", "kind": "source", "rect": { "x": 1050, "y": 640, "w": 28, "h": 28 }, "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker." },
+      { "id": "right-speaker-thru", "label": "Right Speaker Thru", "kind": "source", "rect": { "x": 1272, "y": 640, "w": 28, "h": 28 }, "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker." },
+      { "id": "console-main-l-wedge-trap", "label": "Main L Wedge Trap", "kind": "source", "rect": { "x": 1174, "y": 258, "w": 24, "h": 24 }, "message": "The wedge should receive a monitor/aux mix, not the main audience mix." },
+      { "id": "console-aux-pa-trap", "label": "Aux To PA Trap", "kind": "source", "rect": { "x": 950, "y": 258, "w": 24, "h": 24 }, "message": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix." }
+    ]
   },
   "acceptance": {
     "gearCount": 7,
-    "routeCount": 8,
-    "visualCableCount": 2,
+    "routeCount": 11,
+    "visualCableCount": 0,
     "requiredSelectors": [
       ".sf-live-native-level-liv-029",
-      "[data-sf-gear-id=\"liv029-event-console\"]",
-      "[data-liv029-visual-cable=\"liv029-wedge-normal-output-a\"]",
-      "[data-liv029-visual-cable=\"liv029-wedge-normal-output-b\"]"
+      "[data-sf-gear-id=\"liv029-wireless-rack\"]",
+      "[data-node-key=\"wireless-receiver-ch4-audio-out\"]",
+      "[data-node-key=\"wireless-receiver-antenna-a\"]"
     ],
     "forbiddenText": [
-      "Console Matrix 1 Output",
-      "Press / Recorder Feed Input"
+      "Drum Kit Stage Inputs",
+      "Keyboard DI",
+      "Wireless Receiver 1 Output"
     ]
   }
 }
