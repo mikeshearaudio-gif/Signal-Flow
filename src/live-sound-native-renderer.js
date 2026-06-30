@@ -2817,6 +2817,27 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function defaultCableBend(routeKey, index) {
+    if (LEVEL_ID === "LIV-029") {
+      const liv029Bends = {
+        "liv029-rx-ch1-to-console-input-1": -28,
+        "liv029-rx-ch2-to-console-input-2": -14,
+        "liv029-rx-ch3-to-console-input-3": 14,
+        "liv029-rx-ch4-to-console-input-4": 28,
+        "liv029-main-l-to-pa-l-input": 92,
+        "liv029-main-r-to-pa-r-input": 116,
+        "liv029-pa-l-output-to-left-speaker": -18,
+        "liv029-pa-r-output-to-right-speaker": 24,
+        "liv029-record-l-to-press-l": 118,
+        "liv029-record-r-to-press-r": 142,
+        "liv029-aux-1-to-moderator-wedge": 88
+      };
+      if (Object.prototype.hasOwnProperty.call(liv029Bends, routeKey)) {
+        return liv029Bends[routeKey];
+      }
+      if (String(routeKey || "").startsWith("invalid:")) {
+        return -72;
+      }
+    }
     const lanes = [-54, -36, -20, 18, 34, 52, 68];
     return lanes[(cableHash(routeKey) + index) % lanes.length];
   }
@@ -3058,6 +3079,7 @@ if (activeNativeLevelId === nextLevelId) return;
     const endpointKeys = sfNativeRouteEndpointKeys(route);
     const fromPoint = sfNativeCablePointFromNode(layer, endpointKeys.from, route.fromPoint);
     const toPoint = sfNativeCablePointFromNode(layer, endpointKeys.to, route.toPoint);
+    const isLiv029Layer = !!(layer && layer.classList && layer.classList.contains("sf-live-native-level-liv-029"));
 
     if (!sfNativeFinitePoint(fromPoint) || !sfNativeFinitePoint(toPoint)) {
       console.warn("[Signal Flow] Native cable skipped invalid points", {
@@ -3084,7 +3106,7 @@ if (activeNativeLevelId === nextLevelId) return;
     shadow.classList.add("sf-cable-shadow");
     shadow.setAttribute("fill", "none");
     shadow.setAttribute("stroke", "rgba(0,0,0,.62)");
-    shadow.setAttribute("stroke-width", "10");
+    shadow.setAttribute("stroke-width", isLiv029Layer ? "7" : "10");
     shadow.setAttribute("stroke-linecap", "round");
     shadow.setAttribute("d", cableD(fromPoint, toPoint, route.bend || 0));
     group.appendChild(shadow);
@@ -3093,25 +3115,25 @@ if (activeNativeLevelId === nextLevelId) return;
     line.classList.add("sf-cable-line");
     line.setAttribute("fill", "none");
     line.setAttribute("stroke", color);
-    line.setAttribute("stroke-width", "5");
+    line.setAttribute("stroke-width", isLiv029Layer ? "4" : "5");
     line.setAttribute("stroke-linecap", "round");
-    line.setAttribute("opacity", "0.96");
+    line.setAttribute("opacity", isLiv029Layer ? "0.88" : "0.96");
     line.setAttribute("d", cableD(fromPoint, toPoint, route.bend || 0));
-    line.style.filter = "drop-shadow(0 0 10px " + glow + ")";
+    line.style.filter = "drop-shadow(0 0 " + (isLiv029Layer ? "7px " : "10px ") + glow + ")";
     group.appendChild(line);
 
     [fromPoint, toPoint].forEach(point => {
       const dotShadow = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       dotShadow.setAttribute("cx", point.x);
       dotShadow.setAttribute("cy", point.y);
-      dotShadow.setAttribute("r", "7");
+      dotShadow.setAttribute("r", isLiv029Layer ? "5.5" : "7");
       dotShadow.setAttribute("fill", "rgba(0,0,0,.62)");
       group.appendChild(dotShadow);
 
       const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       dot.setAttribute("cx", point.x);
       dot.setAttribute("cy", point.y);
-      dot.setAttribute("r", "5");
+      dot.setAttribute("r", isLiv029Layer ? "4" : "5");
       dot.setAttribute("fill", color);
       group.appendChild(dot);
     });
