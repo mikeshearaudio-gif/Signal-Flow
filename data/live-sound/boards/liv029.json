@@ -121,6 +121,177 @@
     "press-recorder-output->console-input-4": "This reverses the signal direction. The recorder should receive a feed from the console.",
     "left-speaker-thru->console-input-1": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
   },
+  "puzzle": {
+    "puzzleMode": "signal-type",
+    "scenario": "You are wiring a four-person debate panel with wireless lavs, an audience Q&A handheld, a room PA, a moderator wedge, and a press recorder feed.",
+    "objective": "Route each wireless receiver audio output into the console, feed the room PA through the processor/amp path, send a clean stereo press feed, and provide a separate moderator monitor feed.",
+    "constraints": [
+      {
+        "id": "rf-is-not-audio",
+        "text": "Wireless receiver antenna jacks carry RF, not console-ready audio.",
+        "concept": "rf-vs-audio",
+        "appliesTo": ["wireless", "console-input"]
+      },
+      {
+        "id": "press-feed-is-line-level",
+        "text": "The press recorder needs a line-level matrix/record feed, not a speaker-level amplifier output.",
+        "concept": "speaker-level-unsafe",
+        "appliesTo": ["press-feed", "speaker-level"]
+      },
+      {
+        "id": "moderator-monitor-uses-aux",
+        "text": "The moderator wedge should receive a monitor aux feed instead of the main audience mix.",
+        "concept": "wrong-bus",
+        "appliesTo": ["monitor-aux", "main-pa"]
+      },
+      {
+        "id": "pa-path-uses-main-outs",
+        "text": "The PA processor/amp path should receive the console main L/R mix before driving the speakers.",
+        "concept": "processor-chain",
+        "appliesTo": ["main-pa", "processor-chain"]
+      }
+    ],
+    "routeListVisibility": "full",
+    "educationalFeedback": {
+      "defaultWrongRoute": "Trace the signal type and direction first: receiver audio to console input, console bus output to downstream input, processor output to speaker input.",
+      "routePairs": {
+        "wireless-receiver-antenna-a->console-input-1": "This is RF, not audio. Use the receiver's audio output.",
+        "wireless-receiver-antenna-b->console-input-2": "This is RF, not audio. Use the receiver's audio output.",
+        "wireless-receiver-ch1-audio-out->left-speaker-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+        "wireless-receiver-ch2-audio-out->pa-processor-amp-l-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+        "pa-processor-amp-l-output->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
+        "pa-processor-amp-r-output->press-recorder-r-input": "This is speaker-level output and can overload or damage recording inputs.",
+        "console-main-l-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+        "console-main-r-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+        "console-aux-1-output->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
+        "press-recorder-output->console-input-4": "This reverses the signal direction. The recorder should receive a feed from the console.",
+        "left-speaker-thru->console-input-1": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+      },
+      "concepts": {
+        "rf-vs-audio": "RF antenna jacks are not balanced audio outputs. Use the receiver's audio output after the wireless receiver converts RF to audio.",
+        "wrong-signal-type": "Match the signal level and type before patching: mic/line, bus output, processor input, amplifier output, or speaker input.",
+        "wrong-bus": "Choose the console bus that matches the destination. Main outputs feed the audience PA, auxes feed monitor mixes, and matrix/record outputs feed press or recorder paths.",
+        "wrong-direction": "Follow the signal direction from source to console to destination. Outputs feed inputs.",
+        "speaker-level-unsafe": "Speaker-level outputs belong at speakers and can overload line-level recorder or console inputs.",
+        "processor-chain": "The room PA path runs from console main outputs into the processor/amp inputs, then from amp outputs to speaker inputs."
+      },
+      "endpointTypes": {
+        "rf-output->line-input": "RF outputs are not line-level audio inputs. Patch from the receiver audio output instead.",
+        "speaker-output->line-input": "Speaker-level output should not feed a line-level recorder or console input.",
+        "main-output->monitor-input": "A monitor wedge should receive an aux/monitor output, not the main audience mix."
+      }
+    },
+    "trapRoutes": [
+      {
+        "from": "wireless-receiver-antenna-a",
+        "to": "console-input-1",
+        "concept": "rf-vs-audio",
+        "severity": "teach",
+        "message": "This is RF, not audio. Use the receiver's audio output."
+      },
+      {
+        "from": "wireless-receiver-antenna-b",
+        "to": "console-input-2",
+        "concept": "rf-vs-audio",
+        "severity": "teach",
+        "message": "This is RF, not audio. Use the receiver's audio output."
+      },
+      {
+        "from": "wireless-receiver-ch1-audio-out",
+        "to": "left-speaker-input",
+        "concept": "wrong-destination",
+        "severity": "teach",
+        "message": "Receiver output is line-level and needs the console/mix path before the PA."
+      },
+      {
+        "from": "wireless-receiver-ch2-audio-out",
+        "to": "pa-processor-amp-l-input",
+        "concept": "processor-bypass",
+        "severity": "teach",
+        "message": "Receiver output is line-level and needs the console/mix path before the PA."
+      },
+      {
+        "from": "pa-processor-amp-l-output",
+        "to": "press-recorder-l-input",
+        "concept": "speaker-level-unsafe",
+        "severity": "unsafe",
+        "message": "This is speaker-level output and can overload or damage recording inputs."
+      },
+      {
+        "from": "pa-processor-amp-r-output",
+        "to": "press-recorder-r-input",
+        "concept": "speaker-level-unsafe",
+        "severity": "unsafe",
+        "message": "This is speaker-level output and can overload or damage recording inputs."
+      },
+      {
+        "from": "console-main-l-output",
+        "to": "moderator-wedge-input",
+        "concept": "wrong-bus",
+        "severity": "warning",
+        "message": "The wedge should receive a monitor/aux mix, not the main audience mix."
+      },
+      {
+        "from": "console-main-r-output",
+        "to": "moderator-wedge-input",
+        "concept": "wrong-bus",
+        "severity": "warning",
+        "message": "The wedge should receive a monitor/aux mix, not the main audience mix."
+      },
+      {
+        "from": "console-aux-1-output",
+        "to": "pa-processor-amp-l-input",
+        "concept": "wrong-bus",
+        "severity": "warning",
+        "message": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix."
+      },
+      {
+        "from": "press-recorder-output",
+        "to": "console-input-4",
+        "concept": "wrong-direction",
+        "severity": "teach",
+        "message": "This reverses the signal direction. The recorder should receive a feed from the console."
+      },
+      {
+        "from": "left-speaker-thru",
+        "to": "console-input-1",
+        "concept": "speaker-level-unsafe",
+        "severity": "unsafe",
+        "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+      },
+      {
+        "from": "right-speaker-thru",
+        "to": "console-input-2",
+        "concept": "speaker-level-unsafe",
+        "severity": "unsafe",
+        "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+      },
+      {
+        "from": "pa-speaker-output-trap",
+        "to": "press-recorder-l-input",
+        "concept": "speaker-level-unsafe",
+        "severity": "unsafe",
+        "message": "This is speaker-level output and can overload or damage recording inputs."
+      },
+      {
+        "from": "console-main-l-wedge-trap",
+        "to": "moderator-wedge-input",
+        "concept": "wrong-bus",
+        "severity": "warning",
+        "message": "The wedge should receive a monitor/aux mix, not the main audience mix."
+      },
+      {
+        "from": "console-aux-pa-trap",
+        "to": "pa-processor-amp-l-input",
+        "concept": "wrong-bus",
+        "severity": "warning",
+        "message": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix."
+      }
+    ],
+    "completionExplanation": "The receiver audio outputs feed console inputs, the console main L/R outputs feed the PA processor/amp, the amp outputs drive the speakers, the matrix/record outputs feed the press recorder, and Aux 1 feeds the moderator wedge. RF antenna jacks, speaker-level outputs, and reversed recorder paths are intentionally avoided.",
+    "difficulty": 4,
+    "conceptTags": ["wireless", "rf-vs-audio", "press-feed", "monitor-aux", "main-pa", "signal-direction"]
+  },
   "stereoGroups": [
     {
       "id": "liv029-main-to-pa-inputs",

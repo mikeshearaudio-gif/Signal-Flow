@@ -7,10 +7,11 @@ import { spawnSync } from "node:child_process";
 const repoRoot = process.cwd();
 const toolPath = path.join(repoRoot, "tools/live-sound-board-tool.js");
 const sourceBoard = JSON.parse(fs.readFileSync(path.join(repoRoot, "data/live-sound/boards/liv029.json"), "utf8"));
+const normalizedBoard = JSON.parse(fs.readFileSync(path.join(repoRoot, "data/live-sound/boards/normalized/liv029.normalized.json"), "utf8"));
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));
 
 function validPuzzle() {
-  return {
+  return structuredClone(sourceBoard.puzzle || {
     puzzleMode: "signal-type",
     scenario: "You are wiring a four-person debate panel with wireless lavs, PA, moderator wedge, and press recorder feed.",
     objective: "Route receiver audio to the console, feed the PA, provide the moderator monitor, and send a stereo press feed.",
@@ -53,8 +54,8 @@ function validPuzzle() {
     ],
     completionExplanation: "Receivers convert RF to audio, and the console distributes audio to PA, monitor, and press buses.",
     difficulty: 4,
-    conceptTags: ["wireless", "rf-vs-audio", "press-feed", "monitor-aux", "main-pa"]
-  };
+    conceptTags: ["wireless", "rf-vs-audio", "press-feed", "monitor-aux", "main-pa", "signal-direction"]
+  });
 }
 
 function writeBoard(name, mutate) {
@@ -82,6 +83,17 @@ function assertValidateFails(file, expectedText, message) {
   assert.notEqual(result.status, 0, `${message} should fail validation`);
   assert.match(result.stderr, expectedText, `${message}\nSTDERR:\n${result.stderr}`);
 }
+
+assert(sourceBoard.puzzle, "LIV-029 source board should contain top-level puzzle metadata");
+assert.equal(sourceBoard.puzzle.puzzleMode, "signal-type", "LIV-029 puzzleMode should be signal-type");
+assert.equal(sourceBoard.puzzle.routeListVisibility, "full", "LIV-029 should preserve current full visible route-list gameplay");
+for (const tag of ["wireless", "rf-vs-audio", "press-feed", "monitor-aux", "main-pa", "signal-direction"]) {
+  assert(sourceBoard.puzzle.conceptTags.includes(tag), `LIV-029 puzzle conceptTags should include ${tag}`);
+}
+
+const realLiv029Result = runTool(["validate", "data/live-sound/boards/liv029.json"]);
+assert.equal(realLiv029Result.status, 0, `real LIV-029 puzzle metadata should validate\nSTDOUT:\n${realLiv029Result.stdout}\nSTDERR:\n${realLiv029Result.stderr}`);
+assert.deepEqual(normalizedBoard.puzzle, sourceBoard.puzzle, "normalized LIV-029 manifest should preserve source puzzle metadata");
 
 const legacyBoard = writeBoard("legacy", board => {
   delete board.puzzle;
