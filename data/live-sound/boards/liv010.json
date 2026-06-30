@@ -1,0 +1,103 @@
+{
+  "levelId": "LIV-010",
+  "environment": "live",
+  "title": "3-Way Crossover PA Feed",
+  "brief": "Build the main PA chain from FOH main outputs through crossover processing and amplifiers to the left and right speaker inputs.",
+  "processorLabel": "3-WAY CROSSOVER PA",
+  "requiredRoutes": [
+    { "id": "foh-liv010-main-left-output-to-liv010-crossover-left-input", "fromId": "foh-liv010-main-left-output", "toId": "liv010-crossover-left-input", "fromLabel": "Main L Output", "toLabel": "Crossover L Input", "stereoGroup": "liv010-main-to-crossover", "stereoSide": "left" },
+    { "id": "foh-liv010-main-right-output-to-liv010-crossover-right-input", "fromId": "foh-liv010-main-right-output", "toId": "liv010-crossover-right-input", "fromLabel": "Main R Output", "toLabel": "Crossover R Input", "stereoGroup": "liv010-main-to-crossover", "stereoSide": "right" },
+    { "id": "liv010-crossover-high-left-output-to-liv010-high-amp-left-input", "fromId": "liv010-crossover-high-left-output", "toId": "liv010-high-amp-left-input", "fromLabel": "Crossover High L Output", "toLabel": "High Amp L Input", "stereoGroup": "liv010-crossover-high-to-amp", "stereoSide": "left" },
+    { "id": "liv010-crossover-high-right-output-to-liv010-high-amp-right-input", "fromId": "liv010-crossover-high-right-output", "toId": "liv010-high-amp-right-input", "fromLabel": "Crossover High R Output", "toLabel": "High Amp R Input", "stereoGroup": "liv010-crossover-high-to-amp", "stereoSide": "right" },
+    { "id": "liv010-crossover-mid-left-output-to-liv010-mid-amp-left-input", "fromId": "liv010-crossover-mid-left-output", "toId": "liv010-mid-amp-left-input", "fromLabel": "Crossover Mid L Output", "toLabel": "Mid Amp L Input", "stereoGroup": "liv010-crossover-mid-to-amp", "stereoSide": "left" },
+    { "id": "liv010-crossover-mid-right-output-to-liv010-mid-amp-right-input", "fromId": "liv010-crossover-mid-right-output", "toId": "liv010-mid-amp-right-input", "fromLabel": "Crossover Mid R Output", "toLabel": "Mid Amp R Input", "stereoGroup": "liv010-crossover-mid-to-amp", "stereoSide": "right" },
+    { "id": "liv010-crossover-low-left-output-to-liv010-low-amp-left-input", "fromId": "liv010-crossover-low-left-output", "toId": "liv010-low-amp-left-input", "fromLabel": "Crossover Low L Output", "toLabel": "Low Amp L Input", "stereoGroup": "liv010-crossover-low-to-amp", "stereoSide": "left" },
+    { "id": "liv010-crossover-low-right-output-to-liv010-low-amp-right-input", "fromId": "liv010-crossover-low-right-output", "toId": "liv010-low-amp-right-input", "fromLabel": "Crossover Low R Output", "toLabel": "Low Amp R Input", "stereoGroup": "liv010-crossover-low-to-amp", "stereoSide": "right" },
+    { "id": "liv010-high-amp-left-output-to-liv010-left-line-array-high-input", "fromId": "liv010-high-amp-left-output", "toId": "liv010-left-line-array-high-input", "fromLabel": "High Amp L Output", "toLabel": "Left Line Array High Input", "stereoGroup": "liv010-high-amp-to-array", "stereoSide": "left" },
+    { "id": "liv010-high-amp-right-output-to-liv010-right-line-array-high-input", "fromId": "liv010-high-amp-right-output", "toId": "liv010-right-line-array-high-input", "fromLabel": "High Amp R Output", "toLabel": "Right Line Array High Input", "stereoGroup": "liv010-high-amp-to-array", "stereoSide": "right" },
+    { "id": "liv010-mid-amp-left-output-to-liv010-left-line-array-mid-input", "fromId": "liv010-mid-amp-left-output", "toId": "liv010-left-line-array-mid-input", "fromLabel": "Mid Amp L Output", "toLabel": "Left Line Array Mid Input", "stereoGroup": "liv010-mid-amp-to-array", "stereoSide": "left" },
+    { "id": "liv010-mid-amp-right-output-to-liv010-right-line-array-mid-input", "fromId": "liv010-mid-amp-right-output", "toId": "liv010-right-line-array-mid-input", "fromLabel": "Mid Amp R Output", "toLabel": "Right Line Array Mid Input", "stereoGroup": "liv010-mid-amp-to-array", "stereoSide": "right" },
+    { "id": "liv010-low-amp-left-output-to-liv010-left-line-array-low-input", "fromId": "liv010-low-amp-left-output", "toId": "liv010-left-line-array-low-input", "fromLabel": "Low Amp L Output", "toLabel": "Left Line Array Low Input", "stereoGroup": "liv010-low-amp-to-array", "stereoSide": "left" },
+    { "id": "liv010-low-amp-right-output-to-liv010-right-line-array-low-input", "fromId": "liv010-low-amp-right-output", "toId": "liv010-right-line-array-low-input", "fromLabel": "Low Amp R Output", "toLabel": "Right Line Array Low Input", "stereoGroup": "liv010-low-amp-to-array", "stereoSide": "right" }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are building the main left/right PA path for a venue with a 3-way crossover and separate high, mid, and low amplifiers.",
+    "objective": "Patch console main outputs into the crossover, route each crossover band to its matching amplifier input, then send each amplifier output to the matching speaker input.",
+    "constraints": [
+      {
+        "id": "pa-signal-path-order",
+        "text": "The PA signal must move from console main outputs to crossover processing, then amplifiers, then speaker inputs.",
+        "concept": "processor-chain",
+        "appliesTo": ["main-pa", "processor-chain", "amplifier", "speaker-level"]
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The console main L/R outputs feed the crossover inputs, the crossover splits high, mid, and low bands into the matching amplifier inputs, and the amplifier outputs drive the matching left/right speaker inputs.",
+    "difficulty": 3,
+    "conceptTags": ["signal-direction", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right"]
+  },
+  "stereoGroups": [
+    { "id": "liv010-main-to-crossover", "leftRouteId": "foh-liv010-main-left-output-to-liv010-crossover-left-input", "rightRouteId": "foh-liv010-main-right-output-to-liv010-crossover-right-input" },
+    { "id": "liv010-crossover-high-to-amp", "leftRouteId": "liv010-crossover-high-left-output-to-liv010-high-amp-left-input", "rightRouteId": "liv010-crossover-high-right-output-to-liv010-high-amp-right-input" },
+    { "id": "liv010-crossover-mid-to-amp", "leftRouteId": "liv010-crossover-mid-left-output-to-liv010-mid-amp-left-input", "rightRouteId": "liv010-crossover-mid-right-output-to-liv010-mid-amp-right-input" },
+    { "id": "liv010-crossover-low-to-amp", "leftRouteId": "liv010-crossover-low-left-output-to-liv010-low-amp-left-input", "rightRouteId": "liv010-crossover-low-right-output-to-liv010-low-amp-right-input" },
+    { "id": "liv010-high-amp-to-array", "leftRouteId": "liv010-high-amp-left-output-to-liv010-left-line-array-high-input", "rightRouteId": "liv010-high-amp-right-output-to-liv010-right-line-array-high-input" },
+    { "id": "liv010-mid-amp-to-array", "leftRouteId": "liv010-mid-amp-left-output-to-liv010-left-line-array-mid-input", "rightRouteId": "liv010-mid-amp-right-output-to-liv010-right-line-array-mid-input" },
+    { "id": "liv010-low-amp-to-array", "leftRouteId": "liv010-low-amp-left-output-to-liv010-left-line-array-low-input", "rightRouteId": "liv010-low-amp-right-output-to-liv010-right-line-array-low-input" }
+  ],
+  "gear": [
+    { "id": "liv010-foh-console", "label": "FOH Console", "asset": "../assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", "rect": { "x": 42, "y": 72, "w": 520, "h": 210 }, "className": "sf-liv010-foh-console" },
+    { "id": "liv010-crossover", "label": "3-Way Crossover", "asset": "../assets/live-sound/svg/hardware/crossover-liv010-3way.svg", "rect": { "x": 610, "y": 72, "w": 440, "h": 170 }, "className": "sf-liv010-crossover" },
+    { "id": "liv010-high-amp", "label": "High Amp", "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg", "rect": { "x": 610, "y": 286, "w": 360, "h": 112 }, "className": "sf-liv010-high-amp" },
+    { "id": "liv010-mid-amp", "label": "Mid Amp", "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-mid.svg", "rect": { "x": 610, "y": 424, "w": 360, "h": 112 }, "className": "sf-liv010-mid-amp" },
+    { "id": "liv010-low-amp", "label": "Low Amp", "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-low.svg", "rect": { "x": 610, "y": 562, "w": 360, "h": 112 }, "className": "sf-liv010-low-amp" },
+    { "id": "liv010-left-line-array", "label": "Left Line Array", "asset": "../assets/live-sound/svg/hardware/line-array-input-panel-liv010-left.svg", "rect": { "x": 1090, "y": 244, "w": 170, "h": 360 }, "className": "sf-liv010-left-line-array" },
+    { "id": "liv010-right-line-array", "label": "Right Line Array", "asset": "../assets/live-sound/svg/hardware/line-array-input-panel-liv010-right.svg", "rect": { "x": 1280, "y": 244, "w": 170, "h": 360 }, "className": "sf-liv010-right-line-array" }
+  ],
+  "labels": [
+    { "id": "liv010-title-note", "text": "3-Way Crossover PA Feed: console mains to crossover, amplifiers, then speakers.", "rect": { "x": 40, "y": 30, "w": 900, "h": 42, "z": 120 } }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "foh-liv010-main-left-output", "label": "Main L Output", "kind": "source", "rect": { "x": 410, "y": 170, "w": 28, "h": 28 } },
+      { "id": "foh-liv010-main-right-output", "label": "Main R Output", "kind": "source", "rect": { "x": 456, "y": 170, "w": 28, "h": 28 } },
+      { "id": "liv010-crossover-left-input", "label": "Crossover L Input", "kind": "jack", "rect": { "x": 650, "y": 138, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-right-input", "label": "Crossover R Input", "kind": "jack", "rect": { "x": 696, "y": 138, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-high-left-output", "label": "Crossover High L Output", "kind": "source", "rect": { "x": 850, "y": 118, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-high-right-output", "label": "Crossover High R Output", "kind": "source", "rect": { "x": 896, "y": 118, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-mid-left-output", "label": "Crossover Mid L Output", "kind": "source", "rect": { "x": 850, "y": 160, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-mid-right-output", "label": "Crossover Mid R Output", "kind": "source", "rect": { "x": 896, "y": 160, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-low-left-output", "label": "Crossover Low L Output", "kind": "source", "rect": { "x": 850, "y": 202, "w": 26, "h": 26 } },
+      { "id": "liv010-crossover-low-right-output", "label": "Crossover Low R Output", "kind": "source", "rect": { "x": 896, "y": 202, "w": 26, "h": 26 } },
+      { "id": "liv010-high-amp-left-input", "label": "High Amp L Input", "kind": "jack", "rect": { "x": 650, "y": 328, "w": 26, "h": 26 } },
+      { "id": "liv010-high-amp-right-input", "label": "High Amp R Input", "kind": "jack", "rect": { "x": 696, "y": 328, "w": 26, "h": 26 } },
+      { "id": "liv010-mid-amp-left-input", "label": "Mid Amp L Input", "kind": "jack", "rect": { "x": 650, "y": 466, "w": 26, "h": 26 } },
+      { "id": "liv010-mid-amp-right-input", "label": "Mid Amp R Input", "kind": "jack", "rect": { "x": 696, "y": 466, "w": 26, "h": 26 } },
+      { "id": "liv010-low-amp-left-input", "label": "Low Amp L Input", "kind": "jack", "rect": { "x": 650, "y": 604, "w": 26, "h": 26 } },
+      { "id": "liv010-low-amp-right-input", "label": "Low Amp R Input", "kind": "jack", "rect": { "x": 696, "y": 604, "w": 26, "h": 26 } },
+      { "id": "liv010-high-amp-left-output", "label": "High Amp L Output", "kind": "source", "rect": { "x": 866, "y": 328, "w": 26, "h": 26 } },
+      { "id": "liv010-high-amp-right-output", "label": "High Amp R Output", "kind": "source", "rect": { "x": 912, "y": 328, "w": 26, "h": 26 } },
+      { "id": "liv010-mid-amp-left-output", "label": "Mid Amp L Output", "kind": "source", "rect": { "x": 866, "y": 466, "w": 26, "h": 26 } },
+      { "id": "liv010-mid-amp-right-output", "label": "Mid Amp R Output", "kind": "source", "rect": { "x": 912, "y": 466, "w": 26, "h": 26 } },
+      { "id": "liv010-low-amp-left-output", "label": "Low Amp L Output", "kind": "source", "rect": { "x": 866, "y": 604, "w": 26, "h": 26 } },
+      { "id": "liv010-low-amp-right-output", "label": "Low Amp R Output", "kind": "source", "rect": { "x": 912, "y": 604, "w": 26, "h": 26 } },
+      { "id": "liv010-left-line-array-high-input", "label": "Left Line Array High Input", "kind": "jack", "rect": { "x": 1130, "y": 318, "w": 28, "h": 28 } },
+      { "id": "liv010-right-line-array-high-input", "label": "Right Line Array High Input", "kind": "jack", "rect": { "x": 1320, "y": 318, "w": 28, "h": 28 } },
+      { "id": "liv010-left-line-array-mid-input", "label": "Left Line Array Mid Input", "kind": "jack", "rect": { "x": 1130, "y": 426, "w": 28, "h": 28 } },
+      { "id": "liv010-right-line-array-mid-input", "label": "Right Line Array Mid Input", "kind": "jack", "rect": { "x": 1320, "y": 426, "w": 28, "h": 28 } },
+      { "id": "liv010-left-line-array-low-input", "label": "Left Line Array Low Input", "kind": "jack", "rect": { "x": 1130, "y": 534, "w": 28, "h": 28 } },
+      { "id": "liv010-right-line-array-low-input", "label": "Right Line Array Low Input", "kind": "jack", "rect": { "x": 1320, "y": 534, "w": 28, "h": 28 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 7,
+    "routeCount": 14,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

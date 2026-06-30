@@ -24,6 +24,22 @@ const beginnerBoards = [
     puzzleMode: "basic-build",
     difficulty: 2,
     conceptTags: ["signal-direction", "iem-stereo", "aux-send", "stereo-pair", "left-right"]
+  },
+  {
+    levelId: "LIV-009",
+    file: "data/live-sound/boards/liv009.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv009.normalized.json",
+    puzzleMode: "basic-build",
+    difficulty: 2,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "drum-inputs", "channel-order"]
+  },
+  {
+    levelId: "LIV-010",
+    file: "data/live-sound/boards/liv010.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv010.normalized.json",
+    puzzleMode: "constrained-build",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right"]
   }
 ];
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));
@@ -121,6 +137,10 @@ for (const beginner of beginnerBoards) {
   assert.equal(board.puzzle.routeListVisibility, "full", `${beginner.levelId} should keep full route-list visibility`);
   assert.equal(board.puzzle.difficulty, beginner.difficulty, `${beginner.levelId} should have expected beginner difficulty`);
   assert(!Array.isArray(board.puzzle.trapRoutes) || board.puzzle.trapRoutes.length === 0, `${beginner.levelId} should not add trap routes yet`);
+  if (beginner.puzzleMode === "constrained-build") {
+    assert.equal(typeof board.puzzle.completionExplanation, "string", `${beginner.levelId} constrained-build puzzle should include completionExplanation`);
+    assert(board.puzzle.completionExplanation.trim().length > 0, `${beginner.levelId} completionExplanation should be non-empty`);
+  }
   for (const tag of beginner.conceptTags) {
     assert(board.puzzle.conceptTags.includes(tag), `${beginner.levelId} puzzle conceptTags should include ${tag}`);
   }

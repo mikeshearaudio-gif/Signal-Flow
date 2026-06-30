@@ -1,0 +1,365 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-009",
+  "environment": "live",
+  "title": "Drum Kit Stage Inputs",
+  "brief": "Patch each drum kit source into the intended stagebox input in channel order.",
+  "processorLabel": "DRUM INPUTS",
+  "routeCount": 8,
+  "routes": [
+    {
+      "key": "kick-to-stagebox-input-1",
+      "from": "kick",
+      "to": "stagebox-input-1",
+      "checklist": "Kick → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "snare-to-stagebox-input-2",
+      "from": "snare",
+      "to": "stagebox-input-2",
+      "checklist": "Snare → Stage Box Input 2",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "hi-hat-to-stagebox-input-3",
+      "from": "hi-hat",
+      "to": "stagebox-input-3",
+      "checklist": "Hi-hat → Stage Box Input 3",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "high-rack-tom-to-stagebox-input-4",
+      "from": "high-rack-tom",
+      "to": "stagebox-input-4",
+      "checklist": "Rack Tom 1 → Stage Box Input 4",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "low-rack-tom-to-stagebox-input-5",
+      "from": "low-rack-tom",
+      "to": "stagebox-input-5",
+      "checklist": "Rack Tom 2 → Stage Box Input 5",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "floor-tom-to-stagebox-input-6",
+      "from": "floor-tom",
+      "to": "stagebox-input-6",
+      "checklist": "Floor Tom → Stage Box Input 6",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "overhead-left-crash-to-stagebox-input-7",
+      "from": "overhead-left-crash",
+      "to": "stagebox-input-7",
+      "checklist": "OH L → Stage Box Input 7",
+      "stereoGroup": "drum-overheads",
+      "stereoSide": "left"
+    },
+    {
+      "key": "overhead-right-ride-to-stagebox-input-8",
+      "from": "overhead-right-ride",
+      "to": "stagebox-input-8",
+      "checklist": "OH R → Stage Box Input 8",
+      "stereoGroup": "drum-overheads",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "floor-tom",
+      "hi-hat",
+      "high-rack-tom",
+      "kick",
+      "low-rack-tom",
+      "overhead-left-crash",
+      "overhead-right-ride",
+      "snare",
+      "stagebox-input-1",
+      "stagebox-input-2",
+      "stagebox-input-3",
+      "stagebox-input-4",
+      "stagebox-input-5",
+      "stagebox-input-6",
+      "stagebox-input-7",
+      "stagebox-input-8"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "drum-overheads",
+      "leftRouteId": "overhead-left-crash-to-stagebox-input-7",
+      "rightRouteId": "overhead-right-ride-to-stagebox-input-8"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv009-drum-sources",
+      "label": "Drum Kit Sources",
+      "asset": "assets/live-sound/svg/panels/section-stagebox.svg",
+      "rect": {
+        "x": 44,
+        "y": 92,
+        "w": 440,
+        "h": 430
+      },
+      "className": "sf-liv009-drum-sources",
+      "render": null
+    },
+    {
+      "id": "liv009-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 560,
+        "y": 132,
+        "w": 520,
+        "h": 310
+      },
+      "className": "sf-liv009-stagebox",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv009-title-note",
+      "text": "Drum Kit Stage Inputs: patch each drum source to the matching stagebox input.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 820,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "kick",
+        "label": "Kick",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 140,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "snare",
+        "label": "Snare",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 186,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "hi-hat",
+        "label": "Hi-hat",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 232,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "high-rack-tom",
+        "label": "Rack Tom 1",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 278,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "low-rack-tom",
+        "label": "Rack Tom 2",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 324,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "floor-tom",
+        "label": "Floor Tom",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 370,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "overhead-left-crash",
+        "label": "OH L",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 416,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "overhead-right-ride",
+        "label": "OH R",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 462,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 650,
+          "y": 176,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-2",
+        "label": "Stage Box Input 2",
+        "kind": "jack",
+        "rect": {
+          "x": 696,
+          "y": 176,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-3",
+        "label": "Stage Box Input 3",
+        "kind": "jack",
+        "rect": {
+          "x": 742,
+          "y": 176,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-4",
+        "label": "Stage Box Input 4",
+        "kind": "jack",
+        "rect": {
+          "x": 788,
+          "y": 176,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-5",
+        "label": "Stage Box Input 5",
+        "kind": "jack",
+        "rect": {
+          "x": 650,
+          "y": 230,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-6",
+        "label": "Stage Box Input 6",
+        "kind": "jack",
+        "rect": {
+          "x": 696,
+          "y": 230,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 742,
+          "y": 230,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 788,
+          "y": 230,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "basic-build",
+    "scenario": "You are patching a drum kit into the stagebox before soundcheck.",
+    "objective": "Connect each drum source to its intended stagebox input so the console channel order matches the stage plot.",
+    "constraints": [
+      {
+        "id": "drum-input-channel-order",
+        "text": "Keep the drum inputs in the expected channel order from kick through overheads.",
+        "concept": "channel-order",
+        "appliesTo": [
+          "drum-inputs",
+          "stagebox",
+          "source-to-input"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "difficulty": 2,
+    "conceptTags": [
+      "signal-direction",
+      "source-to-input",
+      "stagebox",
+      "drum-inputs",
+      "channel-order"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+    "assets/live-sound/svg/panels/section-stagebox.svg"
+  ],
+  "acceptance": {
+    "gearCount": 2,
+    "routeCount": 8,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
