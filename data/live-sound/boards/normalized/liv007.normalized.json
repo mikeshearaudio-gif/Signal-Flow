@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-007",
+  "environment": "live",
+  "title": "Broadcast Split",
+  "brief": "Use Aux Outs 1-3 as broadcast stereo splits, then keep Main L/R feeding the system amp rack.",
+  "processorLabel": "BROADCAST FEEDS",
+  "routeCount": 8,
+  "routes": [
+    {
+      "key": "foh-aux-1-l-output-to-liv007-record-feed-left-input",
+      "from": "foh-aux-1-l-output",
+      "to": "liv007-record-feed-left-input",
+      "checklist": "Aux 1 L / Split 1 L → Record Feed L",
+      "stereoGroup": "liv007-split-1-record",
+      "stereoSide": "left"
+    },
+    {
+      "key": "foh-aux-1-r-output-to-liv007-record-feed-right-input",
+      "from": "foh-aux-1-r-output",
+      "to": "liv007-record-feed-right-input",
+      "checklist": "Aux 1 R / Split 1 R → Record Feed R",
+      "stereoGroup": "liv007-split-1-record",
+      "stereoSide": "right"
+    },
+    {
+      "key": "foh-aux-2-l-output-to-liv007-station-a-feed-left-input",
+      "from": "foh-aux-2-l-output",
+      "to": "liv007-station-a-feed-left-input",
+      "checklist": "Aux 2 L / Split 2 L → Station A L",
+      "stereoGroup": "liv007-split-2-station-a",
+      "stereoSide": "left"
+    },
+    {
+      "key": "foh-aux-2-r-output-to-liv007-station-a-feed-right-input",
+      "from": "foh-aux-2-r-output",
+      "to": "liv007-station-a-feed-right-input",
+      "checklist": "Aux 2 R / Split 2 R → Station A R",
+      "stereoGroup": "liv007-split-2-station-a",
+      "stereoSide": "right"
+    },
+    {
+      "key": "foh-aux-3-l-output-to-liv007-station-b-feed-left-input",
+      "from": "foh-aux-3-l-output",
+      "to": "liv007-station-b-feed-left-input",
+      "checklist": "Aux 3 L / Split 3 L → Station B L",
+      "stereoGroup": "liv007-split-3-station-b",
+      "stereoSide": "left"
+    },
+    {
+      "key": "foh-aux-3-r-output-to-liv007-station-b-feed-right-input",
+      "from": "foh-aux-3-r-output",
+      "to": "liv007-station-b-feed-right-input",
+      "checklist": "Aux 3 R / Split 3 R → Station B R",
+      "stereoGroup": "liv007-split-3-station-b",
+      "stereoSide": "right"
+    },
+    {
+      "key": "foh-liv007-main-left-output-to-liv007-system-amp-left-input",
+      "from": "foh-liv007-main-left-output",
+      "to": "liv007-system-amp-left-input",
+      "checklist": "Main L Output → System Amp L In",
+      "stereoGroup": "liv007-main-amp",
+      "stereoSide": "left"
+    },
+    {
+      "key": "foh-liv007-main-right-output-to-liv007-system-amp-right-input",
+      "from": "foh-liv007-main-right-output",
+      "to": "liv007-system-amp-right-input",
+      "checklist": "Main R Output → System Amp R In",
+      "stereoGroup": "liv007-main-amp",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "foh-aux-1-l-output",
+      "foh-aux-1-r-output",
+      "foh-aux-2-l-output",
+      "foh-aux-2-r-output",
+      "foh-aux-3-l-output",
+      "foh-aux-3-r-output",
+      "foh-liv007-main-left-output",
+      "foh-liv007-main-right-output",
+      "liv007-record-feed-left-input",
+      "liv007-record-feed-right-input",
+      "liv007-station-a-feed-left-input",
+      "liv007-station-a-feed-right-input",
+      "liv007-station-b-feed-left-input",
+      "liv007-station-b-feed-right-input",
+      "liv007-system-amp-left-input",
+      "liv007-system-amp-right-input"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv007-split-1-record",
+      "leftRouteId": "foh-aux-1-l-output-to-liv007-record-feed-left-input",
+      "rightRouteId": "foh-aux-1-r-output-to-liv007-record-feed-right-input"
+    },
+    {
+      "id": "liv007-split-2-station-a",
+      "leftRouteId": "foh-aux-2-l-output-to-liv007-station-a-feed-left-input",
+      "rightRouteId": "foh-aux-2-r-output-to-liv007-station-a-feed-right-input"
+    },
+    {
+      "id": "liv007-split-3-station-b",
+      "leftRouteId": "foh-aux-3-l-output-to-liv007-station-b-feed-left-input",
+      "rightRouteId": "foh-aux-3-r-output-to-liv007-station-b-feed-right-input"
+    },
+    {
+      "id": "liv007-main-amp",
+      "leftRouteId": "foh-liv007-main-left-output-to-liv007-system-amp-left-input",
+      "rightRouteId": "foh-liv007-main-right-output-to-liv007-system-amp-right-input"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv007-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg",
+      "rect": {
+        "x": 42,
+        "y": 72,
+        "w": 820,
+        "h": 230
+      },
+      "className": "sf-liv007-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv007-record-feed",
+      "label": "Record Feed",
+      "asset": "assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
+      "rect": {
+        "x": 60,
+        "y": 380,
+        "w": 330,
+        "h": 110
+      },
+      "className": "sf-liv007-record-feed",
+      "render": null
+    },
+    {
+      "id": "liv007-station-a-feed",
+      "label": "Station A Feed",
+      "asset": "assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      "rect": {
+        "x": 460,
+        "y": 380,
+        "w": 330,
+        "h": 110
+      },
+      "className": "sf-liv007-station-a-feed",
+      "render": null
+    },
+    {
+      "id": "liv007-station-b-feed",
+      "label": "Station B Feed",
+      "asset": "assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
+      "rect": {
+        "x": 60,
+        "y": 540,
+        "w": 330,
+        "h": 110
+      },
+      "className": "sf-liv007-station-b-feed",
+      "render": null
+    },
+    {
+      "id": "liv007-system-amp",
+      "label": "System Amp",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg",
+      "rect": {
+        "x": 460,
+        "y": 540,
+        "w": 330,
+        "h": 110
+      },
+      "className": "sf-liv007-system-amp",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv007-title-note",
+      "text": "Broadcast Split: create separate stereo record and station feeds while preserving the main PA feed.",
+      "rect": {
+        "x": 40,
+        "y": 30,
+        "w": 900,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "foh-aux-1-l-output",
+        "label": "Aux 1 L / Split 1 L",
+        "kind": "source",
+        "rect": {
+          "x": 132,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-1-r-output",
+        "label": "Aux 1 R / Split 1 R",
+        "kind": "source",
+        "rect": {
+          "x": 178,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-2-l-output",
+        "label": "Aux 2 L / Split 2 L",
+        "kind": "source",
+        "rect": {
+          "x": 224,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-2-r-output",
+        "label": "Aux 2 R / Split 2 R",
+        "kind": "source",
+        "rect": {
+          "x": 270,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-3-l-output",
+        "label": "Aux 3 L / Split 3 L",
+        "kind": "source",
+        "rect": {
+          "x": 316,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-3-r-output",
+        "label": "Aux 3 R / Split 3 R",
+        "kind": "source",
+        "rect": {
+          "x": 362,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-liv007-main-left-output",
+        "label": "Main L Output",
+        "kind": "source",
+        "rect": {
+          "x": 706,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-liv007-main-right-output",
+        "label": "Main R Output",
+        "kind": "source",
+        "rect": {
+          "x": 758,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-record-feed-left-input",
+        "label": "Record Feed L",
+        "kind": "jack",
+        "rect": {
+          "x": 124,
+          "y": 422,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-record-feed-right-input",
+        "label": "Record Feed R",
+        "kind": "jack",
+        "rect": {
+          "x": 176,
+          "y": 422,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-station-a-feed-left-input",
+        "label": "Station A L",
+        "kind": "jack",
+        "rect": {
+          "x": 524,
+          "y": 422,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-station-a-feed-right-input",
+        "label": "Station A R",
+        "kind": "jack",
+        "rect": {
+          "x": 576,
+          "y": 422,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-station-b-feed-left-input",
+        "label": "Station B L",
+        "kind": "jack",
+        "rect": {
+          "x": 124,
+          "y": 582,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-station-b-feed-right-input",
+        "label": "Station B R",
+        "kind": "jack",
+        "rect": {
+          "x": 176,
+          "y": 582,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-system-amp-left-input",
+        "label": "System Amp L In",
+        "kind": "jack",
+        "rect": {
+          "x": 524,
+          "y": 582,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv007-system-amp-right-input",
+        "label": "System Amp R In",
+        "kind": "jack",
+        "rect": {
+          "x": 576,
+          "y": 582,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "signal-type",
+    "scenario": "You are creating separate broadcast, recording, and station feeds from FOH while keeping the main PA feed intact.",
+    "objective": "Patch each stereo split output to the correct record or station feed destination, then keep the console main L/R outputs feeding the main system amp inputs.",
+    "constraints": [
+      {
+        "id": "split-feeds-serve-record-and-stations",
+        "text": "Aux/split outputs create dedicated record and station feeds instead of replacing the main PA feed.",
+        "concept": "broadcast-split",
+        "appliesTo": [
+          "broadcast-split",
+          "record-feed",
+          "matrix-feed"
+        ]
+      },
+      {
+        "id": "main-pa-feed-remains-separate",
+        "text": "The main L/R outputs still feed the audience PA system and should not be repurposed for record destinations.",
+        "concept": "main-pa",
+        "appliesTo": [
+          "main-pa",
+          "left-right",
+          "signal-direction"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "Aux 1 feeds the stereo record input, Aux 2 feeds Station A, Aux 3 feeds Station B, and the main L/R outputs continue feeding the system amp inputs for the main PA.",
+    "difficulty": 3,
+    "conceptTags": [
+      "signal-direction",
+      "broadcast-split",
+      "record-feed",
+      "matrix-feed",
+      "main-pa",
+      "left-right"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg",
+    "assets/live-sound/svg/hardware/iem-feed-liv007-record.svg",
+    "assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+    "assets/live-sound/svg/hardware/iem-feed-liv007-station-b.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+  ],
+  "acceptance": {
+    "gearCount": 5,
+    "routeCount": 8,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

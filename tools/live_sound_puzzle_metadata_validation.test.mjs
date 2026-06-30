@@ -26,6 +26,22 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "iem-stereo", "aux-send", "stereo-pair", "left-right"]
   },
   {
+    levelId: "LIV-006",
+    file: "data/live-sound/boards/liv006.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv006.normalized.json",
+    puzzleMode: "constrained-build",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "matrix-feed", "delay-tower", "processor-chain", "main-pa", "left-right"]
+  },
+  {
+    levelId: "LIV-007",
+    file: "data/live-sound/boards/liv007.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv007.normalized.json",
+    puzzleMode: "signal-type",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "broadcast-split", "record-feed", "matrix-feed", "main-pa", "left-right"]
+  },
+  {
     levelId: "LIV-009",
     file: "data/live-sound/boards/liv009.json",
     normalizedFile: "data/live-sound/boards/normalized/liv009.normalized.json",
@@ -137,8 +153,8 @@ for (const beginner of beginnerBoards) {
   assert.equal(board.puzzle.routeListVisibility, "full", `${beginner.levelId} should keep full route-list visibility`);
   assert.equal(board.puzzle.difficulty, beginner.difficulty, `${beginner.levelId} should have expected beginner difficulty`);
   assert(!Array.isArray(board.puzzle.trapRoutes) || board.puzzle.trapRoutes.length === 0, `${beginner.levelId} should not add trap routes yet`);
-  if (beginner.puzzleMode === "constrained-build") {
-    assert.equal(typeof board.puzzle.completionExplanation, "string", `${beginner.levelId} constrained-build puzzle should include completionExplanation`);
+  if (["constrained-build", "troubleshooting", "signal-type", "redundancy-failure", "capstone-system"].includes(beginner.puzzleMode)) {
+    assert.equal(typeof board.puzzle.completionExplanation, "string", `${beginner.levelId} ${beginner.puzzleMode} puzzle should include completionExplanation`);
     assert(board.puzzle.completionExplanation.trim().length > 0, `${beginner.levelId} completionExplanation should be non-empty`);
   }
   for (const tag of beginner.conceptTags) {

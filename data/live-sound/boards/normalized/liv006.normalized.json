@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-006",
+  "environment": "live",
+  "title": "Delay Tower Route",
+  "brief": "Patch a matrix output to the delay tower processor while keeping the main PA on main outputs.",
+  "processorLabel": "FRONT FILL DSP",
+  "routeCount": 3,
+  "routes": [
+    {
+      "key": "foh-liv006-bus-3-output-to-liv006-delay-tower-processor-input",
+      "from": "foh-liv006-bus-3-output",
+      "to": "liv006-delay-tower-processor-input",
+      "checklist": "Bus 3 Output → Delay Tower Processor Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "foh-liv006-main-left-output-to-liv006-system-processor-l-input",
+      "from": "foh-liv006-main-left-output",
+      "to": "liv006-system-processor-l-input",
+      "checklist": "Main L Output → Crossover L In",
+      "stereoGroup": "liv006-main-to-system",
+      "stereoSide": "left"
+    },
+    {
+      "key": "foh-liv006-main-right-output-to-liv006-system-processor-r-input",
+      "from": "foh-liv006-main-right-output",
+      "to": "liv006-system-processor-r-input",
+      "checklist": "Main R Output → Crossover R In",
+      "stereoGroup": "liv006-main-to-system",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "foh-liv006-bus-3-output",
+      "foh-liv006-main-left-output",
+      "foh-liv006-main-right-output",
+      "liv006-delay-tower-processor-input",
+      "liv006-system-processor-l-input",
+      "liv006-system-processor-r-input"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv006-main-to-system",
+      "leftRouteId": "foh-liv006-main-left-output-to-liv006-system-processor-l-input",
+      "rightRouteId": "foh-liv006-main-right-output-to-liv006-system-processor-r-input"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv006-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 42,
+        "y": 72,
+        "w": 820,
+        "h": 230
+      },
+      "className": "sf-liv006-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv006-system-delay-processor",
+      "label": "System + Delay Processor Rack",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259",
+      "rect": {
+        "x": 90,
+        "y": 390,
+        "w": 820,
+        "h": 210
+      },
+      "className": "sf-liv006-system-delay-processor",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv006-title-note",
+      "text": "Delay Tower Route: keep main PA on main outputs and send Bus 3 to the delay tower processor.",
+      "rect": {
+        "x": 40,
+        "y": 30,
+        "w": 900,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "foh-liv006-bus-3-output",
+        "label": "Bus 3 Output",
+        "kind": "source",
+        "rect": {
+          "x": 384,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-liv006-main-left-output",
+        "label": "Main L Output",
+        "kind": "source",
+        "rect": {
+          "x": 706,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-liv006-main-right-output",
+        "label": "Main R Output",
+        "kind": "source",
+        "rect": {
+          "x": 758,
+          "y": 170,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv006-system-processor-l-input",
+        "label": "Crossover L In",
+        "kind": "jack",
+        "rect": {
+          "x": 190,
+          "y": 470,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv006-system-processor-r-input",
+        "label": "Crossover R In",
+        "kind": "jack",
+        "rect": {
+          "x": 242,
+          "y": 470,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv006-delay-tower-processor-input",
+        "label": "Delay Tower Processor Input",
+        "kind": "jack",
+        "rect": {
+          "x": 512,
+          "y": 470,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are building a main PA plus a delay tower feed for a live venue.",
+    "objective": "Patch the main left and right console outputs to the system processor inputs, then send the matrix/delay bus output to the delay tower processor input.",
+    "constraints": [
+      {
+        "id": "main-pa-stays-on-main-outs",
+        "text": "The main PA feed should stay on the console main L/R outputs into the system processor.",
+        "concept": "main-pa",
+        "appliesTo": [
+          "main-pa",
+          "left-right",
+          "processor-chain"
+        ]
+      },
+      {
+        "id": "delay-tower-uses-matrix-feed",
+        "text": "The delay tower processor needs its own matrix/bus feed rather than the main PA L/R feed.",
+        "concept": "matrix-feed",
+        "appliesTo": [
+          "matrix-feed",
+          "delay-tower",
+          "processor-chain"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The main L/R outputs feed the system processor for the main PA, while Bus 3 provides a separate matrix-style feed to the delay tower processor input.",
+    "difficulty": 3,
+    "conceptTags": [
+      "signal-direction",
+      "matrix-feed",
+      "delay-tower",
+      "processor-chain",
+      "main-pa",
+      "left-right"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259"
+  ],
+  "acceptance": {
+    "gearCount": 2,
+    "routeCount": 3,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
