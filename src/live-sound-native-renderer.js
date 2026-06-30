@@ -1937,6 +1937,7 @@ if (activeNativeLevelId === nextLevelId) return;
     LEVEL.sourceOrder = spec.sourceOrder || null;
     LEVEL.generatedJackKeys = spec.generatedJackKeys || null;
     LEVEL.assetOverrides = spec.assetOverrides || null;
+    LEVEL.puzzle = spec.puzzle || null;
     syncLiv028ValidRoutesFromData();
 
     return spec;
@@ -4879,6 +4880,14 @@ function handleNodeClick(layer, node) {
         btn.classList.toggle("sf-native-required-hint", hintsOn && isRequiredEndpoint);
 
         if (!hintsOn || !isRequiredEndpoint) {
+          if (LEVEL_ID === "LIV-029" && btn.classList.contains("sf-native-liv029-hitbox")) {
+            btn.style.setProperty("box-shadow", btn.dataset.sfNativeDefaultShadow || "0 0 0 2px rgba(123,255,190,.72)", "important");
+            btn.style.setProperty("background", "rgba(70,255,165,.18)", "important");
+            btn.style.setProperty("border-color", "rgba(186,255,216,.85)", "important");
+            btn.style.setProperty("opacity", ".92", "important");
+            btn.style.setProperty("outline", "none", "important");
+            return;
+          }
           btn.style.setProperty("box-shadow", "none", "important");
           btn.style.setProperty("background", "rgba(255,255,255,0)", "important");
           btn.style.setProperty("border-color", "rgba(255,255,255,0)", "important");
@@ -4950,6 +4959,14 @@ function handleNodeClick(layer, node) {
       const isGhost = btn.dataset.sfNativeGhost === "1";
 
       if (!nativeHintsVisible) {
+        if (LEVEL_ID === "LIV-029" && btn.classList.contains("sf-native-liv029-hitbox")) {
+          btn.style.setProperty("box-shadow", btn.dataset.sfNativeDefaultShadow || "0 0 0 2px rgba(123,255,190,.72)", "important");
+          btn.style.setProperty("outline", "none", "important");
+          btn.style.setProperty("background", "rgba(70,255,165,.18)", "important");
+          btn.style.setProperty("border-color", "rgba(186,255,216,.85)", "important");
+          btn.style.setProperty("opacity", ".92", "important");
+          return;
+        }
         btn.style.boxShadow = "none";
         btn.style.outline = "none";
         btn.style.background = "rgba(255,255,255,0)";
@@ -14791,47 +14808,47 @@ redrawCables(layer);
 
 
   const LIV029_HITBOXES = [
-    { key: "wireless-receiver-ch1-audio-out", label: "Moderator Lav Audio Out", kind: "source", x: 332, y: 222, w: 28, h: 28 },
-    { key: "wireless-receiver-ch2-audio-out", label: "Panelist 1 Lav Audio Out", kind: "source", x: 332, y: 255, w: 28, h: 28 },
-    { key: "wireless-receiver-ch3-audio-out", label: "Panelist 2 Lav Audio Out", kind: "source", x: 332, y: 288, w: 28, h: 28 },
-    { key: "wireless-receiver-ch4-audio-out", label: "Audience Q&A Handheld Audio Out", kind: "source", x: 332, y: 321, w: 28, h: 28 },
-    { key: "console-input-1", label: "Console Input 1", kind: "jack", x: 612, y: 252, w: 24, h: 24 },
-    { key: "console-input-2", label: "Console Input 2", kind: "jack", x: 648, y: 252, w: 24, h: 24 },
-    { key: "console-input-3", label: "Console Input 3", kind: "jack", x: 684, y: 252, w: 24, h: 24 },
-    { key: "console-input-4", label: "Console Input 4", kind: "jack", x: 720, y: 252, w: 24, h: 24 },
-    { key: "console-aux-1-output", label: "Console Aux 1 Out", kind: "source", x: 914, y: 258, w: 26, h: 26 },
-    { key: "console-matrix-record-l-output", label: "Console Matrix/Record L Out", kind: "source", x: 990, y: 258, w: 26, h: 26 },
-    { key: "console-matrix-record-r-output", label: "Console Matrix/Record R Out", kind: "source", x: 1028, y: 258, w: 26, h: 26 },
-    { key: "console-main-l-output", label: "Console Main L Out", kind: "source", x: 1088, y: 258, w: 28, h: 28 },
-    { key: "console-main-r-output", label: "Console Main R Out", kind: "source", x: 1130, y: 258, w: 28, h: 28 },
-    { key: "pa-processor-amp-l-input", label: "PA Processor/Amp L In", kind: "jack", x: 602, y: 500, w: 28, h: 28 },
-    { key: "pa-processor-amp-r-input", label: "PA Processor/Amp R In", kind: "jack", x: 654, y: 500, w: 28, h: 28 },
-    { key: "pa-processor-amp-l-output", label: "PA Processor/Amp L Out", kind: "source", x: 790, y: 500, w: 28, h: 28 },
-    { key: "pa-processor-amp-r-output", label: "PA Processor/Amp R Out", kind: "source", x: 842, y: 500, w: 28, h: 28 },
-    { key: "left-speaker-input", label: "Left Speaker In", kind: "jack", x: 1008, y: 612, w: 30, h: 30 },
-    { key: "right-speaker-input", label: "Right Speaker In", kind: "jack", x: 1230, y: 612, w: 30, h: 30 },
-    { key: "press-recorder-l-input", label: "Press/Recorder L In", kind: "jack", x: 190, y: 536, w: 26, h: 26 },
-    { key: "press-recorder-r-input", label: "Press/Recorder R In", kind: "jack", x: 252, y: 536, w: 26, h: 26 },
-    { key: "moderator-wedge-input", label: "Moderator Wedge In", kind: "jack", x: 292, y: 730, w: 30, h: 30 },
-    { key: "wireless-receiver-antenna-a", label: "Wireless Receiver Antenna A", kind: "source", x: 74, y: 220, w: 30, h: 30, falseTrap: true },
-    { key: "wireless-receiver-antenna-b", label: "Wireless Receiver Antenna B", kind: "source", x: 74, y: 316, w: 30, h: 30, falseTrap: true },
-    { key: "pa-speaker-output-trap", label: "PA Amp Speaker Output Trap", kind: "source", x: 894, y: 502, w: 26, h: 26, falseTrap: true },
-    { key: "press-recorder-output", label: "Press Recorder Output", kind: "source", x: 322, y: 536, w: 26, h: 26, falseTrap: true },
-    { key: "left-speaker-thru", label: "Left Speaker Thru", kind: "source", x: 1050, y: 640, w: 28, h: 28, falseTrap: true },
-    { key: "right-speaker-thru", label: "Right Speaker Thru", kind: "source", x: 1272, y: 640, w: 28, h: 28, falseTrap: true },
-    { key: "console-main-l-wedge-trap", label: "Main L Wedge Trap", kind: "source", x: 1174, y: 258, w: 24, h: 24, falseTrap: true },
-    { key: "console-aux-pa-trap", label: "Aux To PA Trap", kind: "source", x: 950, y: 258, w: 24, h: 24, falseTrap: true }
+    { key: "wireless-receiver-ch1-audio-out", label: "CH1 Moderator Lav Audio Out", tag: "CH1 MOD OUT", kind: "source", x: 278, y: 166, w: 28, h: 28 },
+    { key: "wireless-receiver-ch2-audio-out", label: "CH2 Panelist 1 Lav Audio Out", tag: "CH2 P1 OUT", kind: "source", x: 278, y: 205, w: 28, h: 28 },
+    { key: "wireless-receiver-ch3-audio-out", label: "CH3 Panelist 2 Lav Audio Out", tag: "CH3 P2 OUT", kind: "source", x: 278, y: 244, w: 28, h: 28 },
+    { key: "wireless-receiver-ch4-audio-out", label: "CH4 Audience Q&A Audio Out", tag: "CH4 Q&A OUT", kind: "source", x: 278, y: 283, w: 28, h: 28 },
+    { key: "console-input-1", label: "Console Input 1", tag: "IN 1", kind: "jack", x: 395, y: 206, w: 24, h: 24 },
+    { key: "console-input-2", label: "Console Input 2", tag: "IN 2", kind: "jack", x: 435, y: 206, w: 24, h: 24 },
+    { key: "console-input-3", label: "Console Input 3", tag: "IN 3", kind: "jack", x: 475, y: 206, w: 24, h: 24 },
+    { key: "console-input-4", label: "Console Input 4", tag: "IN 4", kind: "jack", x: 515, y: 206, w: 24, h: 24 },
+    { key: "console-aux-1-output", label: "Console Aux 1 Out", tag: "AUX 1", kind: "source", x: 635, y: 212, w: 26, h: 26 },
+    { key: "console-matrix-record-l-output", label: "Console Matrix/Record L Out", tag: "REC L", kind: "source", x: 700, y: 212, w: 26, h: 26 },
+    { key: "console-matrix-record-r-output", label: "Console Matrix/Record R Out", tag: "REC R", kind: "source", x: 735, y: 212, w: 26, h: 26 },
+    { key: "console-main-l-output", label: "Console Main L Out", tag: "MAIN L", kind: "source", x: 785, y: 212, w: 28, h: 28 },
+    { key: "console-main-r-output", label: "Console Main R Out", tag: "MAIN R", kind: "source", x: 825, y: 212, w: 28, h: 28 },
+    { key: "pa-processor-amp-l-input", label: "PA Processor/Amp L In", tag: "PA L IN", kind: "jack", x: 410, y: 385, w: 28, h: 28 },
+    { key: "pa-processor-amp-r-input", label: "PA Processor/Amp R In", tag: "PA R IN", kind: "jack", x: 455, y: 385, w: 28, h: 28 },
+    { key: "pa-processor-amp-l-output", label: "PA Processor/Amp L Out", tag: "AMP L OUT", kind: "source", x: 548, y: 385, w: 28, h: 28 },
+    { key: "pa-processor-amp-r-output", label: "PA Processor/Amp R Out", tag: "AMP R OUT", kind: "source", x: 593, y: 385, w: 28, h: 28 },
+    { key: "left-speaker-input", label: "Left Speaker In", tag: "L SPK IN", kind: "jack", x: 780, y: 482, w: 30, h: 30 },
+    { key: "right-speaker-input", label: "Right Speaker In", tag: "R SPK IN", kind: "jack", x: 890, y: 482, w: 30, h: 30 },
+    { key: "press-recorder-l-input", label: "Press/Recorder L In", tag: "PRESS L IN", kind: "jack", x: 150, y: 430, w: 26, h: 26 },
+    { key: "press-recorder-r-input", label: "Press/Recorder R In", tag: "PRESS R IN", kind: "jack", x: 200, y: 430, w: 26, h: 26 },
+    { key: "moderator-wedge-input", label: "Moderator Wedge In", tag: "WEDGE IN", kind: "jack", x: 750, y: 525, w: 30, h: 30 },
+    { key: "wireless-receiver-antenna-a", label: "Wireless Receiver Antenna A", tag: "ANT A RF", kind: "source", x: 52, y: 160, w: 30, h: 30, falseTrap: true },
+    { key: "wireless-receiver-antenna-b", label: "Wireless Receiver Antenna B", tag: "ANT B RF", kind: "source", x: 52, y: 280, w: 30, h: 30, falseTrap: true },
+    { key: "pa-speaker-output-trap", label: "PA Amp Speaker Output Trap", tag: "SPKR OUT", kind: "source", x: 635, y: 386, w: 26, h: 26, falseTrap: true },
+    { key: "press-recorder-output", label: "Press Recorder Output", tag: "REC OUT", kind: "source", x: 255, y: 430, w: 26, h: 26, falseTrap: true },
+    { key: "left-speaker-thru", label: "Left Speaker Thru", tag: "L THRU", kind: "source", x: 805, y: 510, w: 28, h: 28, falseTrap: true },
+    { key: "right-speaker-thru", label: "Right Speaker Thru", tag: "R THRU", kind: "source", x: 915, y: 510, w: 28, h: 28, falseTrap: true },
+    { key: "console-main-l-wedge-trap", label: "Main L Wedge Trap", tag: "MAIN?", kind: "source", x: 865, y: 212, w: 24, h: 24, falseTrap: true },
+    { key: "console-aux-pa-trap", label: "Aux To PA Trap", tag: "AUX?", kind: "source", x: 665, y: 212, w: 24, h: 24, falseTrap: true }
   ];
 
   function renderLiv029DebatePanelScaffold(surface, adapter) {
-    const boardWidth = 1440;
-    const boardHeight = 920;
+    const boardWidth = 960;
+    const boardHeight = 610;
 
     surface.innerHTML = "";
     surface.style.setProperty("position", "relative", "important");
-    surface.style.setProperty("height", "min(72vh, 760px)", "important");
+    surface.style.setProperty("height", "min(74vh, 620px)", "important");
     surface.style.setProperty("min-height", "520px", "important");
-    surface.style.setProperty("max-height", "min(72vh, 760px)", "important");
+    surface.style.setProperty("max-height", "min(74vh, 620px)", "important");
     surface.style.setProperty("display", "block", "important");
     surface.style.setProperty("overflow-y", "auto", "important");
     surface.style.setProperty("overflow-x", "auto", "important");
@@ -14858,7 +14875,7 @@ redrawCables(layer);
 
     const spacer = document.createElement("div");
     spacer.className = "sfLiveNativeSurfaceScrollSpacer";
-    spacer.style.cssText = "height:" + (boardHeight + 80) + "px;width:" + boardWidth + "px;pointer-events:none;";
+    spacer.style.cssText = "height:" + (boardHeight + 40) + "px;width:" + boardWidth + "px;pointer-events:none;";
     surface.appendChild(spacer);
 
     function repo(src) {
@@ -14980,6 +14997,34 @@ redrawCables(layer);
       return el;
     }
 
+    function addPortTag(item) {
+      const tag = document.createElement("div");
+      tag.className = "sf-liv029-port-tag" + (item.falseTrap ? " sf-liv029-port-tag-trap" : "");
+      tag.textContent = item.tag || item.label;
+      tag.style.cssText = [
+        "position:absolute",
+        "left:" + Math.max(4, item.x - 5) + "px",
+        "top:" + (item.y + item.h + 4) + "px",
+        "min-width:" + Math.max(44, item.w + 16) + "px",
+        "max-width:116px",
+        "padding:2px 5px",
+        "border-radius:4px",
+        "background:" + (item.falseTrap ? "rgba(54,58,62,.72)" : "rgba(17,25,23,.92)"),
+        "border:1px solid " + (item.falseTrap ? "rgba(185,190,192,.24)" : "rgba(127,255,190,.48)"),
+        "color:" + (item.falseTrap ? "rgba(225,229,229,.74)" : "#baffd8"),
+        "font:900 9px/1.08 system-ui,-apple-system,BlinkMacSystemFont,sans-serif",
+        "letter-spacing:.04em",
+        "text-transform:uppercase",
+        "text-align:center",
+        "text-shadow:0 1px 5px rgba(0,0,0,.85)",
+        "z-index:2550",
+        "pointer-events:none",
+        "white-space:normal"
+      ].join(";");
+      layer.appendChild(tag);
+      return tag;
+    }
+
     function addLiv029Hitbox(item) {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -14998,7 +15043,9 @@ redrawCables(layer);
       btn.title = item.label;
       btn.setAttribute("aria-label", item.label);
 
-      const defaultShadow = "none";
+      const defaultShadow = item.falseTrap
+        ? "0 0 0 1px rgba(205,210,212,.26), inset 0 0 0 2px rgba(0,0,0,.38)"
+        : "0 0 0 2px rgba(123,255,190,.72), 0 0 14px rgba(123,255,190,.26), inset 0 0 0 2px rgba(0,0,0,.42)";
       const centerX = item.x + item.w / 2;
       const centerY = item.y + item.h / 2;
       btn.dataset.sfNativeDefaultShadow = defaultShadow;
@@ -15015,11 +15062,11 @@ redrawCables(layer);
         "box-sizing:border-box",
         "padding:0",
         "margin:0",
-        "border:0",
+        "border:1px solid " + (item.falseTrap ? "rgba(200,205,207,.22)" : "rgba(186,255,216,.85)"),
         "border-radius:8px",
-        "background:transparent",
+        "background:" + (item.falseTrap ? "rgba(160,165,168,.10)" : "rgba(70,255,165,.18)"),
         "box-shadow:" + defaultShadow,
-        "opacity:0",
+        "opacity:" + (item.falseTrap ? ".42" : ".92"),
         "z-index:2600",
         "pointer-events:auto",
         "cursor:pointer",
@@ -15056,6 +15103,7 @@ redrawCables(layer);
       });
 
       layer.appendChild(btn);
+      addPortTag(item);
       return btn;
     }
 
@@ -15114,13 +15162,13 @@ redrawCables(layer);
 
     const liv029GearBakedSizeStyle = document.createElement("style");
     liv029GearBakedSizeStyle.textContent = [
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-wireless-rack"]{height:162px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"]{height:300px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-pa-processor-amp"]{height:132px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-left-speaker"]{height:320px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-right-speaker"]{height:320px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-press-recorder"]{height:98px!important;}',
-      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-moderator-wedge"]{height:150px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-wireless-rack"]{height:190px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"]{height:250px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-pa-processor-amp"]{height:100px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-left-speaker"]{height:205px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-right-speaker"]{height:205px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-press-recorder"]{height:80px!important;}',
+      '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-moderator-wedge"]{height:115px!important;}',
       '.sf-live-native-level-liv-029 [data-sf-gear-id]:not([data-sf-gear-id="liv029-event-console"]) > img{width:100%!important;height:100%!important;object-fit:contain!important;}',
       '.sf-live-native-level-liv-029 [data-sf-gear-id="liv029-event-console"][data-sf-live-render-mode="crop-fill"] > img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 54%!important;transform:none!important;}'
     ].join("\n");
@@ -15131,9 +15179,9 @@ redrawCables(layer);
       "liv029-wireless-rack",
       "4-Channel Wireless Receiver Rack",
       "/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
-      40,
-      200,
-      430,
+      35,
+      125,
+      285,
       "sf-liv029-wireless-rack"
     );
 
@@ -15141,20 +15189,20 @@ redrawCables(layer);
       "liv029-event-console",
       "FOH Console",
       "/assets/live-sound/svg/hardware/16ch FOH console0.svg",
-      500,
-      42,
-      900,
+      340,
+      55,
+      570,
       "sf-liv029-event-console",
-      { height: 300, mode: "crop-fill", objectPosition: "50% 54%" }
+      { height: 250, mode: "crop-fill", objectPosition: "50% 54%" }
     );
 
     const roomPaProcessor = addGear(
       "liv029-pa-processor-amp",
       "PA Processor / Amp Rack",
       "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
-      520,
-      430,
-      410,
+      360,
+      345,
+      280,
       "sf-liv029-pa-processor-amp"
     );
 
@@ -15162,31 +15210,31 @@ redrawCables(layer);
       "liv029-left-speaker",
       "Left Speaker",
       "/assets/live-sound/svg/hardware/line-array-liv010-left-image.svg",
-      972,
-      390,
-      160,
+      735,
+      330,
+      95,
       "sf-liv029-left-speaker",
-      { height: 320 }
+      { height: 205 }
     );
 
     addGear(
       "liv029-right-speaker",
       "Right Speaker",
       "/assets/live-sound/svg/hardware/line-array-liv010-right-image.svg",
-      1190,
-      390,
-      160,
+      850,
+      330,
+      95,
       "sf-liv029-right-speaker",
-      { height: 320 }
+      { height: 205 }
     );
 
     addGear(
       "liv029-press-recorder",
       "Press / Recorder Feed Box",
       "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
-      46,
-      480,
-      390,
+      50,
+      395,
+      270,
       "sf-liv029-press-recorder"
     );
 
@@ -15194,16 +15242,20 @@ redrawCables(layer);
       "liv029-moderator-wedge",
       "Moderator Wedge",
       "/assets/build-room/svg/gear/stage monitor.svg",
-      160,
-      650,
-      250,
+      660,
+      470,
+      210,
       "sf-liv029-moderator-wedge",
-      { height: 150 }
+      { height: 115 }
     );
 
-    addTextLabel("RF antenna jacks are traps, not audio outputs.", 58, 370, 360);
-    addTextLabel("PRESS / RECORD", 80, 454, 230);
-    addTextLabel("MODERATOR MONITOR", 176, 628, 260);
+    addTextLabel("RF antenna jacks are traps, not audio outputs.", 38, 334, 300);
+    addTextLabel("CONSOLE INPUTS 1-4", 390, 174, 170);
+    addTextLabel("AUX / RECORD / MAIN OUTS", 625, 174, 260);
+    addTextLabel("PRESS / RECORD FEED", 72, 370, 230);
+    addTextLabel("PA PROCESSOR / AMP PATH", 380, 322, 270);
+    addTextLabel("LEFT / RIGHT PA SPEAKERS", 722, 304, 230);
+    addTextLabel("MODERATOR MONITOR", 658, 448, 230);
 
     surface.appendChild(layer);
     LIV029_HITBOXES.forEach(addLiv029Hitbox);

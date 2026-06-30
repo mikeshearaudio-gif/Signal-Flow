@@ -22089,6 +22089,7 @@ function trainingModeLabel(mode){
 
 function sfDisplayLevelId(levelOrId, envLevels){
   const rawId = typeof levelOrId === 'string' ? levelOrId : (levelOrId && levelOrId.id) || '';
+  if(rawId === 'LIV-029') return rawId;
   const m = String(rawId).match(/^([A-Z]{2,5})-(\d{3})$/);
   if(!m) return rawId;
 
