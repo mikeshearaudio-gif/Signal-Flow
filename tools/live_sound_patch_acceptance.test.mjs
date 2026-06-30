@@ -42,7 +42,15 @@ assert(liv029Normalized.nodes.falseTrapKeys.includes("wireless-receiver-antenna-
 
 assert(/title: "Debate Panel Signal Flow"/.test(renderer), "native LIV-029 title should match the educational puzzle identity");
 assert(/wireless-receiver-panel-animated-aligned\.svg/.test(renderer), "native LIV-029 should use the corrected aligned receiver asset");
-assert(/LIV029_EDUCATIONAL_FEEDBACK/.test(renderer), "native renderer should include LIV-029 curated educational feedback");
+assert(liv029Board.puzzle && liv029Board.puzzle.puzzleMode === "signal-type", "LIV-029 source board should carry canonical puzzle metadata");
+assert(liv029Normalized.puzzle && liv029Normalized.puzzle.puzzleMode === "signal-type", "LIV-029 normalized manifest should preserve canonical puzzle metadata");
+assert(/function getLiveSoundPuzzleSpec/.test(renderer), "native renderer should expose a generic puzzle metadata reader");
+assert(/function resolveLiveSoundPuzzleFeedback/.test(renderer), "native renderer should resolve feedback from generic puzzle metadata");
+assert(/function showLiveSoundEducationalFeedback/.test(renderer), "native renderer should reuse a generic educational feedback toast");
+assert(!/const LIV029_EDUCATIONAL_FEEDBACK/.test(renderer), "native renderer should not hard-code LIV-029 educational feedback as a board-specific constant");
+assert(/puzzle:\s*\{[\s\S]*puzzleMode:\s*"signal-type"[\s\S]*rf-vs-audio/.test(renderer), "native LIV-029 spec should include top-level puzzle metadata");
+assert(/resolveLiveSoundPuzzleFeedback\(getLiveSoundPuzzleSpec/.test(renderer), "native wrong-route path should resolve feedback through puzzle metadata");
+assert(/function isLiveSoundPuzzleHintExcluded/.test(renderer), "native hint filtering should use a generic puzzle-aware exclusion helper");
 assert(/LEVEL_ID === "LIV-029"[\s\S]*decision\.allowed = true/.test(renderer), "native route engine should commit LIV-029 invalid/trap routes for feedback");
 
 const liv029LaunchBlock = launch.match(/"id": "LIV-029"[\s\S]*?"id": "LIV-030"/);

@@ -1417,6 +1417,87 @@
         "wireless-receiver": "/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
         "press-recorder": "/assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
         "wedge-amp": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg"
+      },
+      puzzle: {
+        puzzleMode: "signal-type",
+        scenario: "You are wiring a four-person debate panel with wireless lavs, an audience Q&A handheld, a room PA, a moderator wedge, and a press recorder feed.",
+        objective: "Route each wireless receiver audio output into the console, feed the room PA through the processor/amp path, send a clean stereo press feed, and provide a separate moderator monitor feed.",
+        constraints: [
+          {
+            id: "rf-is-not-audio",
+            text: "Wireless receiver antenna jacks carry RF, not console-ready audio.",
+            concept: "rf-vs-audio",
+            appliesTo: ["wireless", "console-input"]
+          },
+          {
+            id: "press-feed-is-line-level",
+            text: "The press recorder needs a line-level matrix/record feed, not a speaker-level amplifier output.",
+            concept: "speaker-level-unsafe",
+            appliesTo: ["press-feed", "speaker-level"]
+          },
+          {
+            id: "moderator-monitor-uses-aux",
+            text: "The moderator wedge should receive a monitor aux feed instead of the main audience mix.",
+            concept: "wrong-bus",
+            appliesTo: ["monitor-aux", "main-pa"]
+          },
+          {
+            id: "pa-path-uses-main-outs",
+            text: "The PA processor/amp path should receive the console main L/R mix before driving the speakers.",
+            concept: "processor-chain",
+            appliesTo: ["main-pa", "processor-chain"]
+          }
+        ],
+        routeListVisibility: "full",
+        educationalFeedback: {
+          defaultWrongRoute: "Trace the signal type and direction first: receiver audio to console input, console bus output to downstream input, processor output to speaker input.",
+          routePairs: {
+            "wireless-receiver-antenna-a->console-input-1": "This is RF, not audio. Use the receiver's audio output.",
+            "wireless-receiver-antenna-b->console-input-2": "This is RF, not audio. Use the receiver's audio output.",
+            "wireless-receiver-ch1-audio-out->left-speaker-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+            "wireless-receiver-ch2-audio-out->pa-processor-amp-l-input": "Receiver output is line-level and needs the console/mix path before the PA.",
+            "pa-processor-amp-l-output->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
+            "pa-processor-amp-r-output->press-recorder-r-input": "This is speaker-level output and can overload or damage recording inputs.",
+            "console-main-l-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+            "console-main-r-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
+            "console-aux-1-output->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
+            "press-recorder-output->console-input-4": "This reverses the signal direction. The recorder should receive a feed from the console.",
+            "left-speaker-thru->console-input-1": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+          },
+          concepts: {
+            "rf-vs-audio": "RF antenna jacks are not balanced audio outputs. Use the receiver's audio output after the wireless receiver converts RF to audio.",
+            "wrong-signal-type": "Match the signal level and type before patching: mic/line, bus output, processor input, amplifier output, or speaker input.",
+            "wrong-bus": "Choose the console bus that matches the destination. Main outputs feed the audience PA, auxes feed monitor mixes, and matrix/record outputs feed press or recorder paths.",
+            "wrong-direction": "Follow the signal direction from source to console to destination. Outputs feed inputs.",
+            "speaker-level-unsafe": "Speaker-level outputs belong at speakers and can overload line-level recorder or console inputs.",
+            "processor-chain": "The room PA path runs from console main outputs into the processor/amp inputs, then from amp outputs to speaker inputs."
+          },
+          endpointTypes: {
+            "rf-output->line-input": "RF outputs are not line-level audio inputs. Patch from the receiver audio output instead.",
+            "speaker-output->line-input": "Speaker-level output should not feed a line-level recorder or console input.",
+            "main-output->monitor-input": "A monitor wedge should receive an aux/monitor output, not the main audience mix."
+          }
+        },
+        trapRoutes: [
+          { from: "wireless-receiver-antenna-a", to: "console-input-1", concept: "rf-vs-audio", severity: "teach", message: "This is RF, not audio. Use the receiver's audio output." },
+          { from: "wireless-receiver-antenna-b", to: "console-input-2", concept: "rf-vs-audio", severity: "teach", message: "This is RF, not audio. Use the receiver's audio output." },
+          { from: "wireless-receiver-ch1-audio-out", to: "left-speaker-input", concept: "wrong-destination", severity: "teach", message: "Receiver output is line-level and needs the console/mix path before the PA." },
+          { from: "wireless-receiver-ch2-audio-out", to: "pa-processor-amp-l-input", concept: "processor-bypass", severity: "teach", message: "Receiver output is line-level and needs the console/mix path before the PA." },
+          { from: "pa-processor-amp-l-output", to: "press-recorder-l-input", concept: "speaker-level-unsafe", severity: "unsafe", message: "This is speaker-level output and can overload or damage recording inputs." },
+          { from: "pa-processor-amp-r-output", to: "press-recorder-r-input", concept: "speaker-level-unsafe", severity: "unsafe", message: "This is speaker-level output and can overload or damage recording inputs." },
+          { from: "console-main-l-output", to: "moderator-wedge-input", concept: "wrong-bus", severity: "warning", message: "The wedge should receive a monitor/aux mix, not the main audience mix." },
+          { from: "console-main-r-output", to: "moderator-wedge-input", concept: "wrong-bus", severity: "warning", message: "The wedge should receive a monitor/aux mix, not the main audience mix." },
+          { from: "console-aux-1-output", to: "pa-processor-amp-l-input", concept: "wrong-bus", severity: "warning", message: "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix." },
+          { from: "press-recorder-output", to: "console-input-4", concept: "wrong-direction", severity: "teach", message: "This reverses the signal direction. The recorder should receive a feed from the console." },
+          { from: "left-speaker-thru", to: "console-input-1", concept: "speaker-level-unsafe", severity: "unsafe", message: "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker." },
+          { from: "right-speaker-thru", to: "console-input-2", concept: "speaker-level-unsafe", severity: "unsafe", message: "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker." },
+          { from: "pa-speaker-output-trap", to: "press-recorder-l-input", concept: "speaker-level-unsafe", severity: "unsafe", message: "This is speaker-level output and can overload or damage recording inputs." },
+          { from: "console-main-l-wedge-trap", to: "moderator-wedge-input", concept: "wrong-bus", severity: "warning", message: "The wedge should receive a monitor/aux mix, not the main audience mix." },
+          { from: "console-aux-pa-trap", to: "pa-processor-amp-l-input", concept: "wrong-bus", severity: "warning", message: "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix." }
+        ],
+        completionExplanation: "The receiver audio outputs feed console inputs, the console main L/R outputs feed the PA processor/amp, the amp outputs drive the speakers, the matrix/record outputs feed the press recorder, and Aux 1 feeds the moderator wedge. RF antenna jacks, speaker-level outputs, and reversed recorder paths are intentionally avoided.",
+        difficulty: 4,
+        conceptTags: ["wireless", "rf-vs-audio", "press-feed", "monitor-aux", "main-pa", "signal-direction"]
       }
     },
     "LIV-028": {
@@ -3843,22 +3924,71 @@ if (activeNativeLevelId === nextLevelId) return;
     return fromKey + "-to-" + toKey;
   }
 
-  function liv029FeedbackForPair(aKey, bKey) {
-    if (LEVEL_ID !== "LIV-029") return "";
-    const a = String(aKey || "");
-    const b = String(bKey || "");
-    return LIV029_EDUCATIONAL_FEEDBACK[a + "->" + b] ||
-      LIV029_EDUCATIONAL_FEEDBACK[b + "->" + a] ||
-      "";
+  function getLiveSoundPuzzleSpec(board, levelId) {
+    const source = board || LEVEL;
+    if (!source || !source.puzzle || typeof source.puzzle !== "object") return null;
+    if (source.id && levelId && source.id !== levelId) return null;
+    return source.puzzle;
   }
 
-  function showLiv029EducationalFeedback(message) {
+  function liveSoundPuzzlePairKey(fromKey, toKey) {
+    return String(fromKey || "") + "->" + String(toKey || "");
+  }
+
+  function liveSoundPuzzleEndpointType(key) {
+    key = String(key || "").toLowerCase();
+    if (key.includes("antenna") || key.includes("rf-")) return "rf-output";
+    if (key.includes("speaker") || key.includes("thru") || key.includes("amp") && key.includes("output")) return "speaker-output";
+    if (key.includes("main") && key.includes("output")) return "main-output";
+    if (key.includes("input") || key.includes("recorder")) return "line-input";
+    if (key.includes("output") || key.includes("out")) return "line-output";
+    return "endpoint";
+  }
+
+  function resolveLiveSoundPuzzleFeedback(puzzle, fromKey, toKey) {
+    if (!puzzle || typeof puzzle !== "object") return "";
+    const a = String(fromKey || "");
+    const b = String(toKey || "");
+    const directKey = liveSoundPuzzlePairKey(a, b);
+    const reverseKey = liveSoundPuzzlePairKey(b, a);
+    const feedback = puzzle.educationalFeedback || {};
+
+    const traps = Array.isArray(puzzle.trapRoutes) ? puzzle.trapRoutes : [];
+    const exactTrap = traps.find(trap =>
+      trap &&
+      (
+        (trap.from === a && trap.to === b) ||
+        (trap.from === b && trap.to === a)
+      )
+    );
+    if (exactTrap && exactTrap.message) return exactTrap.message;
+
+    if (feedback.routePairs && typeof feedback.routePairs === "object") {
+      if (feedback.routePairs[directKey]) return feedback.routePairs[directKey];
+      if (feedback.routePairs[reverseKey]) return feedback.routePairs[reverseKey];
+    }
+
+    if (exactTrap && exactTrap.concept && feedback.concepts && feedback.concepts[exactTrap.concept]) {
+      return feedback.concepts[exactTrap.concept];
+    }
+
+    if (feedback.endpointTypes && typeof feedback.endpointTypes === "object") {
+      const directType = liveSoundPuzzleEndpointType(a) + "->" + liveSoundPuzzleEndpointType(b);
+      const reverseType = liveSoundPuzzleEndpointType(b) + "->" + liveSoundPuzzleEndpointType(a);
+      if (feedback.endpointTypes[directType]) return feedback.endpointTypes[directType];
+      if (feedback.endpointTypes[reverseType]) return feedback.endpointTypes[reverseType];
+    }
+
+    return typeof feedback.defaultWrongRoute === "string" ? feedback.defaultWrongRoute : "";
+  }
+
+  function showLiveSoundEducationalFeedback(message) {
     if (!message) return;
 
     let toast = document.querySelector(".sf-liv029-educational-feedback");
     if (!toast) {
       toast = document.createElement("div");
-      toast.className = "sf-liv029-educational-feedback";
+      toast.className = "sf-live-sound-educational-feedback sf-liv029-educational-feedback";
       toast.style.cssText = [
         "position:fixed",
         "left:50%",
@@ -3887,6 +4017,11 @@ if (activeNativeLevelId === nextLevelId) return;
     toast._sfLiv029FeedbackTimer = setTimeout(() => {
       toast.style.opacity = "0";
     }, 3400);
+  }
+
+  function isLiveSoundPuzzleHintExcluded(puzzle, btn) {
+    if (!puzzle || !btn || !btn.dataset) return false;
+    return btn.dataset.sfNativeFalseJack === "1" || btn.dataset.sfNativeHintable === "0";
   }
 
   function sfLiv020FalseRoutePair(fromNode, toNode) {
@@ -4202,7 +4337,7 @@ if (activeNativeLevelId === nextLevelId) return;
       playGoodConnect();
     } else {
       dispatchNativeWrongAttempt(key);
-      showLiv029EducationalFeedback(liv029FeedbackForPair(decision.from || fromNode.key, decision.to || toNode.key));
+      showLiveSoundEducationalFeedback(resolveLiveSoundPuzzleFeedback(getLiveSoundPuzzleSpec(LEVEL, LEVEL_ID), decision.from || fromNode.key, decision.to || toNode.key));
       playBadConnect();
       flashNode(fromNode);
       flashNode(toNode);
@@ -4769,8 +4904,7 @@ function handleNodeClick(layer, node) {
       if (LEVEL_ID === "LIV-023" && String(key).startsWith("liv023-false-")) return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeFalseJack === "1") return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeHintable === "0") return false;
-      if (LEVEL_ID === "LIV-029" && btn.dataset.sfNativeFalseJack === "1") return false;
-      if (LEVEL_ID === "LIV-029" && btn.dataset.sfNativeHintable === "0") return false;
+      if (isLiveSoundPuzzleHintExcluded(getLiveSoundPuzzleSpec(LEVEL, LEVEL_ID), btn)) return false;
       return true;
     });
 
@@ -14688,24 +14822,6 @@ redrawCables(layer);
     { key: "console-main-l-wedge-trap", label: "Main L Wedge Trap", kind: "source", x: 1174, y: 258, w: 24, h: 24, falseTrap: true },
     { key: "console-aux-pa-trap", label: "Aux To PA Trap", kind: "source", x: 950, y: 258, w: 24, h: 24, falseTrap: true }
   ];
-
-  const LIV029_EDUCATIONAL_FEEDBACK = {
-    "wireless-receiver-antenna-a->console-input-1": "This is RF, not audio. Use the receiver's audio output.",
-    "wireless-receiver-antenna-b->console-input-2": "This is RF, not audio. Use the receiver's audio output.",
-    "wireless-receiver-ch1-audio-out->left-speaker-input": "Receiver output is line-level and needs the console/mix path before the PA.",
-    "wireless-receiver-ch2-audio-out->pa-processor-amp-l-input": "Receiver output is line-level and needs the console/mix path before the PA.",
-    "pa-processor-amp-l-output->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
-    "pa-processor-amp-r-output->press-recorder-r-input": "This is speaker-level output and can overload or damage recording inputs.",
-    "pa-speaker-output-trap->press-recorder-l-input": "This is speaker-level output and can overload or damage recording inputs.",
-    "console-main-l-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
-    "console-main-r-output->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
-    "console-main-l-wedge-trap->moderator-wedge-input": "The wedge should receive a monitor/aux mix, not the main audience mix.",
-    "console-aux-1-output->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
-    "console-aux-pa-trap->pa-processor-amp-l-input": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix.",
-    "press-recorder-output->console-input-4": "This reverses the signal direction. The recorder should receive a feed from the console.",
-    "left-speaker-thru->console-input-1": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
-  };
-
 
   function renderLiv029DebatePanelScaffold(surface, adapter) {
     const boardWidth = 1440;
