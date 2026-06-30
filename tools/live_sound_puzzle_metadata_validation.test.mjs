@@ -8,6 +8,24 @@ const repoRoot = process.cwd();
 const toolPath = path.join(repoRoot, "tools/live-sound-board-tool.js");
 const sourceBoard = JSON.parse(fs.readFileSync(path.join(repoRoot, "data/live-sound/boards/liv029.json"), "utf8"));
 const normalizedBoard = JSON.parse(fs.readFileSync(path.join(repoRoot, "data/live-sound/boards/normalized/liv029.normalized.json"), "utf8"));
+const beginnerBoards = [
+  {
+    levelId: "LIV-002",
+    file: "data/live-sound/boards/liv002.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv002.normalized.json",
+    puzzleMode: "basic-build",
+    difficulty: 1,
+    conceptTags: ["signal-direction", "aux-send", "monitor-wedge", "console-output"]
+  },
+  {
+    levelId: "LIV-003",
+    file: "data/live-sound/boards/liv003.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv003.normalized.json",
+    puzzleMode: "basic-build",
+    difficulty: 2,
+    conceptTags: ["signal-direction", "iem-stereo", "aux-send", "stereo-pair", "left-right"]
+  }
+];
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));
 
 function validPuzzle() {
@@ -94,6 +112,23 @@ for (const tag of ["wireless", "rf-vs-audio", "press-feed", "monitor-aux", "main
 const realLiv029Result = runTool(["validate", "data/live-sound/boards/liv029.json"]);
 assert.equal(realLiv029Result.status, 0, `real LIV-029 puzzle metadata should validate\nSTDOUT:\n${realLiv029Result.stdout}\nSTDERR:\n${realLiv029Result.stderr}`);
 assert.deepEqual(normalizedBoard.puzzle, sourceBoard.puzzle, "normalized LIV-029 manifest should preserve source puzzle metadata");
+
+for (const beginner of beginnerBoards) {
+  const board = JSON.parse(fs.readFileSync(path.join(repoRoot, beginner.file), "utf8"));
+  const normalized = JSON.parse(fs.readFileSync(path.join(repoRoot, beginner.normalizedFile), "utf8"));
+  assert(board.puzzle, `${beginner.levelId} source board should contain top-level puzzle metadata`);
+  assert.equal(board.puzzle.puzzleMode, beginner.puzzleMode, `${beginner.levelId} puzzleMode should be ${beginner.puzzleMode}`);
+  assert.equal(board.puzzle.routeListVisibility, "full", `${beginner.levelId} should keep full route-list visibility`);
+  assert.equal(board.puzzle.difficulty, beginner.difficulty, `${beginner.levelId} should have expected beginner difficulty`);
+  assert(!Array.isArray(board.puzzle.trapRoutes) || board.puzzle.trapRoutes.length === 0, `${beginner.levelId} should not add trap routes yet`);
+  for (const tag of beginner.conceptTags) {
+    assert(board.puzzle.conceptTags.includes(tag), `${beginner.levelId} puzzle conceptTags should include ${tag}`);
+  }
+
+  const validation = runTool(["validate", beginner.file]);
+  assert.equal(validation.status, 0, `${beginner.levelId} puzzle metadata should validate\nSTDOUT:\n${validation.stdout}\nSTDERR:\n${validation.stderr}`);
+  assert.deepEqual(normalized.puzzle, board.puzzle, `${beginner.levelId} normalized manifest should preserve source puzzle metadata`);
+}
 
 const legacyBoard = writeBoard("legacy", board => {
   delete board.puzzle;

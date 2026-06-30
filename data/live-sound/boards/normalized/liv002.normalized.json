@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-002",
+  "environment": "live",
+  "title": "Vocal Wedge Mix",
+  "brief": "Patch the lead vocal source into the stagebox and send a simple FOH aux monitor feed to the vocal wedge.",
+  "processorLabel": "VOCAL WEDGE",
+  "routeCount": 2,
+  "routes": [
+    {
+      "key": "lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-1",
+      "checklist": "Lead Vocal Mic → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "foh-aux-1-output-to-vocal-wedge-input",
+      "from": "foh-aux-1-output",
+      "to": "vocal-wedge-input",
+      "checklist": "FOH Aux 1 Output → Vocal Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "foh-aux-1-output",
+      "lead-vocal-mic",
+      "stagebox-input-1",
+      "vocal-wedge-input"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [],
+  "gear": [
+    {
+      "id": "liv002-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head.svg",
+      "rect": {
+        "x": 56,
+        "y": 144,
+        "w": 360,
+        "h": 220
+      },
+      "className": "sf-liv002-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv002-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-io-panel.svg",
+      "rect": {
+        "x": 500,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv002-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv002-vocal-wedge",
+      "label": "Vocal Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 520,
+        "y": 444,
+        "w": 420,
+        "h": 180
+      },
+      "className": "sf-liv002-vocal-wedge",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv002-title-note",
+      "text": "Vocal Wedge Mix: send the singer's mic to the console and Aux 1 to the wedge.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 760,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "kind": "source",
+        "rect": {
+          "x": 86,
+          "y": 96,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 190,
+          "y": 214,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-1-output",
+        "label": "FOH Aux 1 Output",
+        "kind": "source",
+        "rect": {
+          "x": 840,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "vocal-wedge-input",
+        "label": "Vocal Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 590,
+          "y": 536,
+          "w": 30,
+          "h": 30
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "basic-build",
+    "scenario": "You are setting up a simple vocal monitor wedge for a singer on stage.",
+    "objective": "Patch the lead vocal mic into the stagebox, then send the console's Aux 1 monitor output to the vocal wedge input.",
+    "constraints": [
+      {
+        "id": "aux-send-feeds-monitor",
+        "text": "Use the console aux/monitor output for the wedge feed.",
+        "concept": "aux-send",
+        "appliesTo": [
+          "aux-send",
+          "monitor-wedge",
+          "console-output"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "difficulty": 1,
+    "conceptTags": [
+      "signal-direction",
+      "aux-send",
+      "monitor-wedge",
+      "console-output"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-io-panel.svg",
+    "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 2,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": [
+      "Vocal wedge mix 2"
+    ]
+  }
+}

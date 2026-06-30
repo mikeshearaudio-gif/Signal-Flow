@@ -1,0 +1,91 @@
+{
+  "levelId": "LIV-003",
+  "environment": "live",
+  "title": "Stereo IEM Send 1",
+  "brief": "Patch the left and right sides of a stereo FOH aux send into the matching IEM transmitter inputs.",
+  "processorLabel": "IEM TRANSMITTER",
+  "requiredRoutes": [
+    {
+      "id": "foh-aux-5-l-output-to-iem-tx-a-left-input",
+      "fromId": "foh-aux-5-l-output",
+      "toId": "iem-tx-a-left-input",
+      "fromLabel": "FOH Aux 5 L Output",
+      "toLabel": "IEM TX A Left Input",
+      "stereoGroup": "foh-aux-5-to-iem-tx-a",
+      "stereoSide": "left"
+    },
+    {
+      "id": "foh-aux-5-r-output-to-iem-tx-a-right-input",
+      "fromId": "foh-aux-5-r-output",
+      "toId": "iem-tx-a-right-input",
+      "fromLabel": "FOH Aux 5 R Output",
+      "toLabel": "IEM TX A Right Input",
+      "stereoGroup": "foh-aux-5-to-iem-tx-a",
+      "stereoSide": "right"
+    }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "basic-build",
+    "scenario": "You are building a stereo in-ear monitor feed for a performer using IEM transmitter A.",
+    "objective": "Patch both sides of the stereo Aux 5 monitor send: left output to the transmitter's left input, and right output to the right input.",
+    "constraints": [
+      {
+        "id": "stereo-pair-stays-matched",
+        "text": "A stereo IEM feed needs both left and right sides patched to the matching transmitter inputs.",
+        "concept": "stereo-pair",
+        "appliesTo": ["iem-stereo", "left-right", "aux-send"]
+      }
+    ],
+    "routeListVisibility": "full",
+    "difficulty": 2,
+    "conceptTags": ["signal-direction", "iem-stereo", "aux-send", "stereo-pair", "left-right"]
+  },
+  "stereoGroups": [
+    {
+      "id": "foh-aux-5-to-iem-tx-a",
+      "leftRouteId": "foh-aux-5-l-output-to-iem-tx-a-left-input",
+      "rightRouteId": "foh-aux-5-r-output-to-iem-tx-a-right-input"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv003-foh-console",
+      "label": "FOH Console",
+      "asset": "../assets/live-sound/svg/hardware/foh-console-liv003-game-style.svg",
+      "rect": { "x": 64, "y": 96, "w": 780, "h": 270 },
+      "className": "sf-liv003-foh-console"
+    },
+    {
+      "id": "liv003-iem-transmitter",
+      "label": "IEM Transmitter A",
+      "asset": "../assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg",
+      "rect": { "x": 210, "y": 452, "w": 720, "h": 210 },
+      "className": "sf-liv003-iem-transmitter"
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv003-title-note",
+      "text": "Stereo IEM Send 1: patch Aux 5 left and right to IEM transmitter A.",
+      "rect": { "x": 40, "y": 32, "w": 760, "h": 42, "z": 120 }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "foh-aux-5-l-output", "label": "FOH Aux 5 L Output", "kind": "source", "rect": { "x": 548, "y": 238, "w": 28, "h": 28 } },
+      { "id": "foh-aux-5-r-output", "label": "FOH Aux 5 R Output", "kind": "source", "rect": { "x": 594, "y": 238, "w": 28, "h": 28 } },
+      { "id": "iem-tx-a-left-input", "label": "IEM TX A Left Input", "kind": "jack", "rect": { "x": 394, "y": 574, "w": 30, "h": 30 } },
+      { "id": "iem-tx-a-right-input", "label": "IEM TX A Right Input", "kind": "jack", "rect": { "x": 458, "y": 574, "w": 30, "h": 30 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 2,
+    "routeCount": 2,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
