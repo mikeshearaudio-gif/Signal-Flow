@@ -44,7 +44,7 @@
       ]
     },
     "LIV-015": {
-      "status": "needs-review",
+      "status": "apply-ready",
       "taskMode": "signal-type",
       "scenario": "You are creating a dedicated low-frequency, front-fill, or local zone feed while preserving the main PA path.",
       "objective": "Use the appropriate bus or matrix-style output for the dedicated zone processor, while keeping the main L/R processor feed separate.",
@@ -76,7 +76,7 @@
         "zone-feed",
         "processor-chain"
       ],
-      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap labels this as Sub Matrix Feed, while current renderer evidence frames the level as Front Fill Zone Feed."
+      "migrationNotes": "Promoted after source-route audit: launch data, roadmap intent, and renderer routes confirm a sub/matrix zone-feed board with Bus 2 to Sub Processor Input, Main L/R to system processor inputs, and Lead Vocal Mic to Stage Box Input 1. The renderer title still says Front Fill Zone Feed, but the route data is unambiguous and LIV-025 owns the dedicated front-fill board."
     },
     "LIV-016": {
       "status": "apply-ready",
