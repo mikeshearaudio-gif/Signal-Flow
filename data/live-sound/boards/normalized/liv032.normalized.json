@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-032",
+  "environment": "live",
+  "title": "Vocal Wedge Mix 4",
+  "brief": "Patch a larger monitor/wedge aux-routing setup with multiple console outputs feeding the intended wedge destinations.",
+  "processorLabel": "MONITOR WEDGES",
+  "routeCount": 4,
+  "routes": [
+    {
+      "key": "liv032-aux-1-output-to-lead-vocal-wedge-input",
+      "from": "liv032-aux-1-output",
+      "to": "liv032-lead-vocal-wedge-input",
+      "checklist": "Aux 1 Output → Lead Vocal Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv032-aux-2-output-to-guitar-wedge-input",
+      "from": "liv032-aux-2-output",
+      "to": "liv032-guitar-wedge-input",
+      "checklist": "Aux 2 Output → Guitar Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv032-aux-3-output-to-keys-wedge-input",
+      "from": "liv032-aux-3-output",
+      "to": "liv032-keys-wedge-input",
+      "checklist": "Aux 3 Output → Keys Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv032-aux-4-output-to-drum-wedge-input",
+      "from": "liv032-aux-4-output",
+      "to": "liv032-drum-wedge-input",
+      "checklist": "Aux 4 Output → Drum Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "liv032-aux-1-output",
+      "liv032-aux-2-output",
+      "liv032-aux-3-output",
+      "liv032-aux-4-output",
+      "liv032-drum-wedge-input",
+      "liv032-guitar-wedge-input",
+      "liv032-keys-wedge-input",
+      "liv032-lead-vocal-wedge-input"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [],
+  "gear": [
+    {
+      "id": "liv032-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 48,
+        "y": 88,
+        "w": 620,
+        "h": 260
+      },
+      "className": "sf-liv032-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv032-lead-vocal-wedge",
+      "label": "Lead Vocal Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 740,
+        "y": 86,
+        "w": 320,
+        "h": 132
+      },
+      "className": "sf-liv032-lead-vocal-wedge",
+      "render": null
+    },
+    {
+      "id": "liv032-guitar-wedge",
+      "label": "Guitar Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 740,
+        "y": 240,
+        "w": 320,
+        "h": 132
+      },
+      "className": "sf-liv032-guitar-wedge",
+      "render": null
+    },
+    {
+      "id": "liv032-keys-wedge",
+      "label": "Keys Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 740,
+        "y": 394,
+        "w": 320,
+        "h": 132
+      },
+      "className": "sf-liv032-keys-wedge",
+      "render": null
+    },
+    {
+      "id": "liv032-drum-wedge",
+      "label": "Drum Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 740,
+        "y": 548,
+        "w": 320,
+        "h": 132
+      },
+      "className": "sf-liv032-drum-wedge",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv032-title-note",
+      "text": "Vocal Wedge Mix 4: route each aux output to its matching stage monitor wedge.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 900,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "liv032-aux-1-output",
+        "label": "Aux 1 Output",
+        "kind": "source",
+        "rect": {
+          "x": 174,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv032-aux-2-output",
+        "label": "Aux 2 Output",
+        "kind": "source",
+        "rect": {
+          "x": 220,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv032-aux-3-output",
+        "label": "Aux 3 Output",
+        "kind": "source",
+        "rect": {
+          "x": 266,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv032-aux-4-output",
+        "label": "Aux 4 Output",
+        "kind": "source",
+        "rect": {
+          "x": 312,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv032-lead-vocal-wedge-input",
+        "label": "Lead Vocal Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 806,
+          "y": 136,
+          "w": 30,
+          "h": 30
+        }
+      },
+      {
+        "id": "liv032-guitar-wedge-input",
+        "label": "Guitar Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 806,
+          "y": 290,
+          "w": 30,
+          "h": 30
+        }
+      },
+      {
+        "id": "liv032-keys-wedge-input",
+        "label": "Keys Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 806,
+          "y": 444,
+          "w": 30,
+          "h": 30
+        }
+      },
+      {
+        "id": "liv032-drum-wedge-input",
+        "label": "Drum Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 806,
+          "y": 598,
+          "w": 30,
+          "h": 30
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are wiring a larger stage monitor setup where each performer wedge needs its own console aux mix.",
+    "objective": "Route each console aux output to the matching wedge destination so the vocal, guitar, keys, and drum monitor feeds stay separated.",
+    "constraints": [
+      {
+        "id": "one-aux-per-monitor-mix",
+        "text": "Each wedge needs the correct aux output so performers receive their intended monitor mix.",
+        "concept": "monitor-mix",
+        "appliesTo": [
+          "aux-send",
+          "monitor-wedge",
+          "multi-route"
+        ]
+      },
+      {
+        "id": "console-outputs-feed-wedges",
+        "text": "The signal direction runs from console aux outputs to wedge inputs.",
+        "concept": "signal-direction",
+        "appliesTo": [
+          "signal-direction",
+          "console-output",
+          "monitor-wedge"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "trapRoutes": [],
+    "completionExplanation": "Aux 1 feeds the lead vocal wedge, Aux 2 feeds the guitar wedge, Aux 3 feeds the keys wedge, and Aux 4 feeds the drum wedge, preserving separate monitor mixes for each performer.",
+    "difficulty": 4,
+    "conceptTags": [
+      "signal-direction",
+      "aux-send",
+      "monitor-wedge",
+      "monitor-mix",
+      "console-output",
+      "multi-route"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg"
+  ],
+  "acceptance": {
+    "gearCount": 5,
+    "routeCount": 4,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

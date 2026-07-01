@@ -58,6 +58,14 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right"]
   },
   {
+    levelId: "LIV-012",
+    file: "data/live-sound/boards/liv012.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv012.normalized.json",
+    puzzleMode: "trap-recognition",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "aux-send", "monitor-wedge", "console-output", "monitor-mix"]
+  },
+  {
     levelId: "LIV-025",
     file: "data/live-sound/boards/liv025.json",
     normalizedFile: "data/live-sound/boards/normalized/liv025.normalized.json",
@@ -72,6 +80,14 @@ const beginnerBoards = [
     puzzleMode: "signal-type",
     difficulty: 4,
     conceptTags: ["signal-direction", "matrix-feed", "front-fill", "zone-feed", "left-right", "processor-chain"]
+  },
+  {
+    levelId: "LIV-032",
+    file: "data/live-sound/boards/liv032.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv032.normalized.json",
+    puzzleMode: "constrained-build",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "aux-send", "monitor-wedge", "monitor-mix", "console-output", "multi-route"]
   }
 ];
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));

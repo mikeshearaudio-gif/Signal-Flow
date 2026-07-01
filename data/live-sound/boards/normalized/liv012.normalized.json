@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-012",
+  "environment": "live",
+  "title": "Vocal Wedge Mix 4",
+  "brief": "Patch a vocal wedge/monitor mix from the correct FOH aux output while also landing the stage inputs in the intended stagebox channels.",
+  "processorLabel": "VOCAL WEDGE",
+  "routeCount": 4,
+  "routes": [
+    {
+      "key": "liv012-lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-1",
+      "checklist": "Lead Vocal Microphone → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv012-foh-aux-1-output-to-vocal-wedge-input",
+      "from": "foh-aux-1-output",
+      "to": "vocal-wedge-input",
+      "checklist": "Front-of-House Auxiliary 1 Output → Vocal Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv012-keys-left-di-to-stagebox-input-7",
+      "from": "keys-left-di",
+      "to": "stagebox-input-7",
+      "checklist": "Keys Left DI → Stage Box Input 7",
+      "stereoGroup": "liv012-keys-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv012-keys-right-di-to-stagebox-input-8",
+      "from": "keys-right-di",
+      "to": "stagebox-input-8",
+      "checklist": "Keys Right DI → Stage Box Input 8",
+      "stereoGroup": "liv012-keys-di-to-stagebox",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "foh-aux-1-output",
+      "keys-left-di",
+      "keys-right-di",
+      "lead-vocal-mic",
+      "stagebox-input-1",
+      "stagebox-input-7",
+      "stagebox-input-8",
+      "vocal-wedge-input"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv012-keys-di-to-stagebox",
+      "leftRouteId": "liv012-keys-left-di-to-stagebox-input-7",
+      "rightRouteId": "liv012-keys-right-di-to-stagebox-input-8"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv012-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 56,
+        "y": 144,
+        "w": 420,
+        "h": 250
+      },
+      "className": "sf-liv012-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv012-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 560,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv012-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv012-vocal-wedge",
+      "label": "Vocal Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 560,
+        "y": 444,
+        "w": 420,
+        "h": 180
+      },
+      "className": "sf-liv012-vocal-wedge",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv012-title-note",
+      "text": "Vocal Wedge Mix 4: patch stage inputs and send Aux 1 to the vocal wedge.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 860,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Microphone",
+        "kind": "source",
+        "rect": {
+          "x": 86,
+          "y": 96,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-left-di",
+        "label": "Keys Left DI",
+        "kind": "source",
+        "rect": {
+          "x": 126,
+          "y": 96,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-right-di",
+        "label": "Keys Right DI",
+        "kind": "source",
+        "rect": {
+          "x": 166,
+          "y": 96,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 172,
+          "y": 214,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 316,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-1-output",
+        "label": "Front-of-House Auxiliary 1 Output",
+        "kind": "source",
+        "rect": {
+          "x": 824,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "vocal-wedge-input",
+        "label": "Vocal Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 630,
+          "y": 536,
+          "w": 30,
+          "h": 30
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "trap-recognition",
+    "scenario": "You are patching a vocal monitor wedge during soundcheck, and the singer needs the correct console aux/monitor output feeding the wedge input.",
+    "objective": "Use the intended Aux 1 monitor output for the vocal wedge input while keeping the vocal mic and stereo keys DI sources on their assigned stagebox inputs.",
+    "constraints": [
+      {
+        "id": "wedge-feed-uses-aux-output",
+        "text": "A stage wedge should receive the designated aux/monitor output, not an unrelated console output.",
+        "concept": "aux-send",
+        "appliesTo": [
+          "aux-send",
+          "monitor-wedge",
+          "console-output"
+        ]
+      },
+      {
+        "id": "monitor-mix-is-separate",
+        "text": "The monitor mix is its own console output path even when it depends on stage input sources.",
+        "concept": "monitor-mix",
+        "appliesTo": [
+          "monitor-mix",
+          "signal-direction",
+          "monitor-wedge"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "trapRoutes": [],
+    "completionExplanation": "The vocal mic and keys DI sources land on the stagebox, while the FOH Aux 1 output carries the separate monitor mix to the vocal wedge input.",
+    "difficulty": 3,
+    "conceptTags": [
+      "signal-direction",
+      "aux-send",
+      "monitor-wedge",
+      "console-output",
+      "monitor-mix"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 4,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
