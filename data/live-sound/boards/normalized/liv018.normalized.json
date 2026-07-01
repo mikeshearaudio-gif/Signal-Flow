@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-018",
+  "environment": "live",
+  "title": "Talkback to Monitor System",
+  "brief": "Patch talkback into the monitor/IEM path while keeping stage sources on their intended stagebox inputs.",
+  "processorLabel": "IN-EAR MONITORING",
+  "routeCount": 5,
+  "routes": [
+    {
+      "key": "liv018-talkback-mic-to-stagebox-input-14",
+      "from": "talkback-mic",
+      "to": "stagebox-input-14",
+      "checklist": "Talkback Microphone → Stage Box Input 14",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv018-talkback-output-to-in-ear-b-input",
+      "from": "talkback-output",
+      "to": "in-ear-b-input",
+      "checklist": "Talkback Output → In-Ear B Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv018-lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-1",
+      "checklist": "Lead Vocal Microphone → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv018-keys-left-di-to-stagebox-input-7",
+      "from": "keys-left-di",
+      "to": "stagebox-input-7",
+      "checklist": "Keys Left DI → Stage Box Input 7",
+      "stereoGroup": "liv018-keys-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv018-keys-right-di-to-stagebox-input-8",
+      "from": "keys-right-di",
+      "to": "stagebox-input-8",
+      "checklist": "Keys Right DI → Stage Box Input 8",
+      "stereoGroup": "liv018-keys-di-to-stagebox",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "in-ear-b-input",
+      "keys-left-di",
+      "keys-right-di",
+      "lead-vocal-mic",
+      "stagebox-input-1",
+      "stagebox-input-14",
+      "stagebox-input-7",
+      "stagebox-input-8",
+      "talkback-mic",
+      "talkback-output"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv018-keys-di-to-stagebox",
+      "leftRouteId": "liv018-keys-left-di-to-stagebox-input-7",
+      "rightRouteId": "liv018-keys-right-di-to-stagebox-input-8"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv018-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 56,
+        "y": 150,
+        "w": 420,
+        "h": 250
+      },
+      "className": "sf-liv018-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv018-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 540,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv018-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv018-iem-rack",
+      "label": "In-Ear Monitoring",
+      "asset": "assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+      "rect": {
+        "x": 590,
+        "y": 430,
+        "w": 440,
+        "h": 170
+      },
+      "className": "sf-liv018-iem-rack",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv018-title-note",
+      "text": "Talkback to Monitor System: route talkback to the IEM path, not the PA.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 900,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "talkback-mic",
+        "label": "Talkback Microphone",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Microphone",
+        "kind": "source",
+        "rect": {
+          "x": 132,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-left-di",
+        "label": "Keys Left DI",
+        "kind": "source",
+        "rect": {
+          "x": 176,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-right-di",
+        "label": "Keys Right DI",
+        "kind": "source",
+        "rect": {
+          "x": 220,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 172,
+          "y": 214,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 316,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-14",
+        "label": "Stage Box Input 14",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 322,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "talkback-output",
+        "label": "Talkback Output",
+        "kind": "source",
+        "rect": {
+          "x": 824,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "in-ear-b-input",
+        "label": "In-Ear B Input",
+        "kind": "jack",
+        "rect": {
+          "x": 652,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "troubleshooting",
+    "scenario": "You are routing talkback so the production team can communicate with monitors without sending talkback to the audience PA.",
+    "objective": "Patch talkback and related sources to their intended inputs and route the talkback output to the monitor/IEM destination only.",
+    "constraints": [
+      {
+        "id": "talkback-monitor-only",
+        "text": "Talkback should feed the monitor path, not the audience-facing main PA.",
+        "concept": "talkback"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch keeps talkback in the monitor communication path while other sources land on their assigned FOH inputs.",
+    "difficulty": 4,
+    "conceptTags": [
+      "signal-direction",
+      "talkback",
+      "source-to-input",
+      "stagebox",
+      "monitor-mix",
+      "diagnostic-reasoning"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 5,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

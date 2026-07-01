@@ -1,0 +1,477 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-021",
+  "environment": "live",
+  "title": "Lead Vocal Input + Channel Insert Compressor",
+  "brief": "Patch the vocal mic, compressor insert loop, monitor wedge feed, and main PA processor feed.",
+  "processorLabel": "LEAD VOCAL INPUT + CHANNEL INSERT COMPRESSOR",
+  "routeCount": 9,
+  "routes": [
+    {
+      "key": "liv021-lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "liv021-stagebox-input-1",
+      "checklist": "Lead Vocal Microphone → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv021-insert-send-to-compressor-input",
+      "from": "liv021-ch1-insert-send",
+      "to": "liv021-compressor-input",
+      "checklist": "Channel 1 Insert Send → Vocal Compressor Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv021-compressor-output-to-insert-return",
+      "from": "liv021-compressor-output",
+      "to": "liv021-ch1-insert-return",
+      "checklist": "Vocal Compressor Output → Channel 1 Insert Return",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv021-aux1-to-vocal-wedge-amp-input",
+      "from": "liv021-aux-1-output",
+      "to": "liv021-vocal-wedge-amp-input",
+      "checklist": "Auxiliary 1 Output → Vocal Wedge Amp Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv021-vocal-wedge-amp-output-to-wedge-input",
+      "from": "liv021-vocal-wedge-amp-output",
+      "to": "liv021-vocal-wedge-input",
+      "checklist": "Vocal Wedge Amp Output → Vocal Wedge Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv021-main-left-to-system-processor-left-input",
+      "from": "liv021-main-left-output",
+      "to": "liv021-system-processor-left-input",
+      "checklist": "Main Left Output → System Processor Left Input",
+      "stereoGroup": "liv021-main-to-system",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv021-main-right-to-system-processor-right-input",
+      "from": "liv021-main-right-output",
+      "to": "liv021-system-processor-right-input",
+      "checklist": "Main Right Output → System Processor Right Input",
+      "stereoGroup": "liv021-main-to-system",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv021-system-processor-left-output-to-main-amp-left-input",
+      "from": "liv021-system-processor-left-output",
+      "to": "liv021-main-amp-left-input",
+      "checklist": "System Processor Left Output → Main Amp Left Input",
+      "stereoGroup": "liv021-system-to-main-amp",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv021-system-processor-right-output-to-main-amp-right-input",
+      "from": "liv021-system-processor-right-output",
+      "to": "liv021-main-amp-right-input",
+      "checklist": "System Processor Right Output → Main Amp Right Input",
+      "stereoGroup": "liv021-system-to-main-amp",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "lead-vocal-mic",
+      "liv021-aux-1-output",
+      "liv021-ch1-insert-return",
+      "liv021-ch1-insert-send",
+      "liv021-compressor-input",
+      "liv021-compressor-output",
+      "liv021-main-amp-left-input",
+      "liv021-main-amp-right-input",
+      "liv021-main-left-output",
+      "liv021-main-right-output",
+      "liv021-stagebox-input-1",
+      "liv021-system-processor-left-input",
+      "liv021-system-processor-left-output",
+      "liv021-system-processor-right-input",
+      "liv021-system-processor-right-output",
+      "liv021-vocal-wedge-amp-input",
+      "liv021-vocal-wedge-amp-output",
+      "liv021-vocal-wedge-input"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv021-main-to-system",
+      "leftRouteId": "liv021-main-left-to-system-processor-left-input",
+      "rightRouteId": "liv021-main-right-to-system-processor-right-input"
+    },
+    {
+      "id": "liv021-system-to-main-amp",
+      "leftRouteId": "liv021-system-processor-left-output-to-main-amp-left-input",
+      "rightRouteId": "liv021-system-processor-right-output-to-main-amp-right-input"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv021-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 44,
+        "y": 118,
+        "w": 330,
+        "h": 196
+      },
+      "className": "sf-liv021-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv021-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 430,
+        "y": 76,
+        "w": 560,
+        "h": 250
+      },
+      "className": "sf-liv021-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv021-compressor",
+      "label": "Vocal Compressor",
+      "asset": "assets/live-sound/svg/hardware/Compressor label.svg",
+      "rect": {
+        "x": 430,
+        "y": 384,
+        "w": 300,
+        "h": 120
+      },
+      "className": "sf-liv021-compressor",
+      "render": null
+    },
+    {
+      "id": "liv021-system-processor",
+      "label": "System Processor",
+      "asset": "assets/live-sound/svg/hardware/system-utility-rack.svg",
+      "rect": {
+        "x": 1040,
+        "y": 92,
+        "w": 300,
+        "h": 140
+      },
+      "className": "sf-liv021-system-processor",
+      "render": null
+    },
+    {
+      "id": "liv021-main-amp",
+      "label": "Main Amp",
+      "asset": "assets/live-sound/svg/hardware/power-amplifier.svg",
+      "rect": {
+        "x": 1040,
+        "y": 280,
+        "w": 300,
+        "h": 120
+      },
+      "className": "sf-liv021-main-amp",
+      "render": null
+    },
+    {
+      "id": "liv021-vocal-wedge-amp",
+      "label": "Vocal Wedge Amp",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv028-wedge.svg",
+      "rect": {
+        "x": 430,
+        "y": 548,
+        "w": 300,
+        "h": 110
+      },
+      "className": "sf-liv021-vocal-wedge-amp",
+      "render": null
+    },
+    {
+      "id": "liv021-vocal-wedge",
+      "label": "Vocal Wedge",
+      "asset": "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+      "rect": {
+        "x": 804,
+        "y": 548,
+        "w": 300,
+        "h": 120
+      },
+      "className": "sf-liv021-vocal-wedge",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv021-title-note",
+      "text": "Lead Vocal Input + Channel Insert Compressor: repair input, insert, monitor, and PA paths.",
+      "rect": {
+        "x": 40,
+        "y": 30,
+        "w": 1080,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Microphone",
+        "kind": "source",
+        "rect": {
+          "x": 84,
+          "y": 80,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "liv021-stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 172,
+          "y": 184,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-ch1-insert-send",
+        "label": "Channel 1 Insert Send",
+        "kind": "source",
+        "rect": {
+          "x": 632,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-ch1-insert-return",
+        "label": "Channel 1 Insert Return",
+        "kind": "jack",
+        "rect": {
+          "x": 682,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-aux-1-output",
+        "label": "Auxiliary 1 Output",
+        "kind": "source",
+        "rect": {
+          "x": 732,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-main-left-output",
+        "label": "Main Left Output",
+        "kind": "source",
+        "rect": {
+          "x": 832,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-main-right-output",
+        "label": "Main Right Output",
+        "kind": "source",
+        "rect": {
+          "x": 882,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-compressor-input",
+        "label": "Vocal Compressor Input",
+        "kind": "jack",
+        "rect": {
+          "x": 486,
+          "y": 436,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-compressor-output",
+        "label": "Vocal Compressor Output",
+        "kind": "source",
+        "rect": {
+          "x": 648,
+          "y": 436,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-vocal-wedge-amp-input",
+        "label": "Vocal Wedge Amp Input",
+        "kind": "jack",
+        "rect": {
+          "x": 486,
+          "y": 590,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-vocal-wedge-amp-output",
+        "label": "Vocal Wedge Amp Output",
+        "kind": "source",
+        "rect": {
+          "x": 648,
+          "y": 590,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-vocal-wedge-input",
+        "label": "Vocal Wedge Input",
+        "kind": "jack",
+        "rect": {
+          "x": 874,
+          "y": 592,
+          "w": 30,
+          "h": 30
+        }
+      },
+      {
+        "id": "liv021-system-processor-left-input",
+        "label": "System Processor Left Input",
+        "kind": "jack",
+        "rect": {
+          "x": 1090,
+          "y": 138,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-system-processor-right-input",
+        "label": "System Processor Right Input",
+        "kind": "jack",
+        "rect": {
+          "x": 1140,
+          "y": 138,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-system-processor-left-output",
+        "label": "System Processor Left Output",
+        "kind": "source",
+        "rect": {
+          "x": 1204,
+          "y": 138,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-system-processor-right-output",
+        "label": "System Processor Right Output",
+        "kind": "source",
+        "rect": {
+          "x": 1254,
+          "y": 138,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-main-amp-left-input",
+        "label": "Main Amp Left Input",
+        "kind": "jack",
+        "rect": {
+          "x": 1090,
+          "y": 324,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv021-main-amp-right-input",
+        "label": "Main Amp Right Input",
+        "kind": "jack",
+        "rect": {
+          "x": 1140,
+          "y": 324,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "troubleshooting",
+    "scenario": "You are repairing a lead vocal chain that needs a correct mic input, channel insert compressor loop, PA feed, and monitor wedge feed.",
+    "objective": "Patch the vocal mic input, complete the insert send/return through the compressor, and keep the monitor and main PA paths correct.",
+    "constraints": [
+      {
+        "id": "insert-send-return-direction",
+        "text": "The insert send must feed the compressor input, and the compressor output must return to the insert return.",
+        "concept": "insert-direction"
+      },
+      {
+        "id": "monitor-and-pa-separated",
+        "text": "The monitor wedge and main PA are related outputs, but they are not interchangeable destinations.",
+        "concept": "monitor-wedge"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch restores the vocal input, places the compressor in the insert loop, and feeds both monitor and PA destinations through their intended outputs.",
+    "difficulty": 5,
+    "conceptTags": [
+      "signal-direction",
+      "source-to-input",
+      "insert-direction",
+      "processor-chain",
+      "aux-send",
+      "monitor-wedge",
+      "main-pa",
+      "left-right",
+      "diagnostic-reasoning"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/Compressor label.svg",
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/monitor-wedge-input-panel.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv028-wedge.svg",
+    "assets/live-sound/svg/hardware/power-amplifier.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+    "assets/live-sound/svg/hardware/system-utility-rack.svg"
+  ],
+  "acceptance": {
+    "gearCount": 7,
+    "routeCount": 9,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

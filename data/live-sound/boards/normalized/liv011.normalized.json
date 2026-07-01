@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-011",
+  "environment": "live",
+  "title": "Lead Vocal Mic to FOH",
+  "brief": "Patch lead vocal and stereo keys into the stagebox, then send the FOH main left/right outputs to the crossover inputs.",
+  "processorLabel": "FRONT FILL DSP",
+  "routeCount": 5,
+  "routes": [
+    {
+      "key": "lead-vocal-mic-to-stagebox-input-11",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-11",
+      "checklist": "Lead Vocal Mic → Stage Box Input 11",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "foh-liv006-main-left-output-to-liv011-crossover-l-input",
+      "from": "foh-liv006-main-left-output",
+      "to": "liv011-crossover-l-input",
+      "checklist": "Main L Output → Crossover L In",
+      "stereoGroup": "liv011-main-to-crossover",
+      "stereoSide": "left"
+    },
+    {
+      "key": "foh-liv006-main-right-output-to-liv011-crossover-r-input",
+      "from": "foh-liv006-main-right-output",
+      "to": "liv011-crossover-r-input",
+      "checklist": "Main R Output → Crossover R In",
+      "stereoGroup": "liv011-main-to-crossover",
+      "stereoSide": "right"
+    },
+    {
+      "key": "keys-left-di-to-stagebox-input-7",
+      "from": "keys-left-di",
+      "to": "stagebox-input-7",
+      "checklist": "Keys L DI → Stage Box Input 7",
+      "stereoGroup": "liv011-keys-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "key": "keys-right-di-to-stagebox-input-8",
+      "from": "keys-right-di",
+      "to": "stagebox-input-8",
+      "checklist": "Keys R DI → Stage Box Input 8",
+      "stereoGroup": "liv011-keys-di-to-stagebox",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "foh-liv006-main-left-output",
+      "foh-liv006-main-right-output",
+      "keys-left-di",
+      "keys-right-di",
+      "lead-vocal-mic",
+      "liv011-crossover-l-input",
+      "liv011-crossover-r-input",
+      "stagebox-input-11",
+      "stagebox-input-7",
+      "stagebox-input-8"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv011-main-to-crossover",
+      "leftRouteId": "foh-liv006-main-left-output-to-liv011-crossover-l-input",
+      "rightRouteId": "foh-liv006-main-right-output-to-liv011-crossover-r-input"
+    },
+    {
+      "id": "liv011-keys-di-to-stagebox",
+      "leftRouteId": "keys-left-di-to-stagebox-input-7",
+      "rightRouteId": "keys-right-di-to-stagebox-input-8"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv011-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 56,
+        "y": 150,
+        "w": 420,
+        "h": 250
+      },
+      "className": "sf-liv011-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv011-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 540,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv011-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv011-crossover",
+      "label": "Crossover Rack",
+      "asset": "assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+      "rect": {
+        "x": 590,
+        "y": 430,
+        "w": 440,
+        "h": 170
+      },
+      "className": "sf-liv011-crossover",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv011-title-note",
+      "text": "Lead Vocal Mic to FOH: patch stage inputs and send main L/R to the crossover.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 900,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-left-di",
+        "label": "Keys L DI",
+        "kind": "source",
+        "rect": {
+          "x": 132,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-right-di",
+        "label": "Keys R DI",
+        "kind": "source",
+        "rect": {
+          "x": 176,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 316,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-11",
+        "label": "Stage Box Input 11",
+        "kind": "jack",
+        "rect": {
+          "x": 222,
+          "y": 322,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-liv006-main-left-output",
+        "label": "Main L Output",
+        "kind": "source",
+        "rect": {
+          "x": 908,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-liv006-main-right-output",
+        "label": "Main R Output",
+        "kind": "source",
+        "rect": {
+          "x": 958,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv011-crossover-l-input",
+        "label": "Crossover L In",
+        "kind": "jack",
+        "rect": {
+          "x": 646,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv011-crossover-r-input",
+        "label": "Crossover R In",
+        "kind": "jack",
+        "rect": {
+          "x": 696,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are patching a lead vocal and stereo keyboard source into FOH while also building the main left/right system feed.",
+    "objective": "Route each source to its intended stagebox input, then patch console main L/R outputs to the matching crossover inputs.",
+    "constraints": [
+      {
+        "id": "source-input-order",
+        "text": "Sources must land on their assigned stagebox inputs rather than any open input.",
+        "concept": "source-to-input"
+      },
+      {
+        "id": "main-lr-consistency",
+        "text": "Main L and Main R must stay on the matching left/right processor inputs.",
+        "concept": "left-right"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch puts vocal and stereo keys into FOH inputs and sends the console main L/R outputs into the system processor path in the correct left/right order.",
+    "difficulty": 3,
+    "conceptTags": [
+      "signal-direction",
+      "source-to-input",
+      "stagebox",
+      "main-pa",
+      "processor-chain",
+      "left-right",
+      "stereo-pair"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 5,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

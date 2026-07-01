@@ -18,7 +18,7 @@ const result = runTool(["report"]);
 assert.equal(result.status, 0, `report command should pass\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
 assert.match(result.stdout, /Signal Flow actionable puzzle metadata report/, "report should have a clear title");
 assert.match(result.stdout, /Recommended next batch/, "report should recommend a next batch");
-assert.match(result.stdout, /LIV-011/, "report should include an actionable live-sound candidate from the patch-board roadmap");
+assert.match(result.stdout, /LIV-015/, "report should include an actionable live-sound candidate from the patch-board roadmap");
 assert.match(result.stdout, /Needs source board manifests/, "report should identify levels blocked on source manifests");
 assert.match(result.stdout, /Embedded\/JS-only coverage gaps/, "report should identify embedded coverage gaps");
 assert.match(result.stdout, /Batch map files to create/, "report should name batch map files to create");
@@ -70,7 +70,7 @@ assert.equal(dryRunResult.status, 0, `apply-map --dry-run should pass\nSTDOUT:\n
 assert.match(dryRunResult.stdout, /Signal Flow apply-map dry run/, "dry-run should have a clear title");
 assert.match(dryRunResult.stdout, /Apply-ready:/, "dry-run should list apply-ready levels");
 assert.match(dryRunResult.stdout, /LIV-011/, "dry-run should include apply-ready levels");
-assert.match(dryRunResult.stdout, /source-missing-create-required/, "dry-run should classify missing source manifests");
+assert.match(dryRunResult.stdout, /already-has-source-and-metadata/, "dry-run should classify completed source manifests");
 assert.match(dryRunResult.stdout, /Skipped \/ needs review:/, "dry-run should list skipped needs-review levels");
 assert.match(dryRunResult.stdout, /LIV-015/, "dry-run should include needs-review levels");
 assert.match(dryRunResult.stdout, /Would write files:\n0, because this is dry-run only\./, "dry-run should report zero writes");
@@ -89,7 +89,7 @@ assert.equal(dryRunJson.summary.needsReview, 6, "JSON dry-run should count needs
 assert.equal(dryRunJson.summary.wouldWrite, 0, "JSON dry-run should never write");
 const liv011Action = dryRunJson.actions.find(item => item.levelId === "LIV-011");
 assert.equal(liv011Action.status, "apply-ready", "JSON dry-run should preserve apply-ready status");
-assert.equal(liv011Action.action, "source-missing-create-required", "LIV-011 should require a source manifest before applying metadata");
+assert.equal(liv011Action.action, "already-has-source-and-metadata", "LIV-011 should be recognized as already covered after source manifest creation");
 const liv015Action = dryRunJson.actions.find(item => item.levelId === "LIV-015");
 assert.equal(liv015Action.action, "needs-review-skip", "needs-review levels should be skipped");
 

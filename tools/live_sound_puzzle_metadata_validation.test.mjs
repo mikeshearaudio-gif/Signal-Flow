@@ -88,6 +88,38 @@ const beginnerBoards = [
     puzzleMode: "constrained-build",
     difficulty: 4,
     conceptTags: ["signal-direction", "aux-send", "monitor-wedge", "monitor-mix", "console-output", "multi-route"]
+  },
+  {
+    levelId: "LIV-011",
+    file: "data/live-sound/boards/liv011.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv011.normalized.json",
+    puzzleMode: "constrained-build",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "main-pa", "processor-chain", "left-right", "stereo-pair"]
+  },
+  {
+    levelId: "LIV-018",
+    file: "data/live-sound/boards/liv018.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv018.normalized.json",
+    puzzleMode: "troubleshooting",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "talkback", "source-to-input", "stagebox", "monitor-mix", "diagnostic-reasoning"]
+  },
+  {
+    levelId: "LIV-021",
+    file: "data/live-sound/boards/liv021.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv021.normalized.json",
+    puzzleMode: "troubleshooting",
+    difficulty: 5,
+    conceptTags: ["signal-direction", "source-to-input", "insert-direction", "processor-chain", "aux-send", "monitor-wedge", "main-pa", "left-right", "diagnostic-reasoning"]
+  },
+  {
+    levelId: "LIV-028",
+    file: "data/live-sound/boards/liv028.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv028.normalized.json",
+    puzzleMode: "troubleshooting",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "talkback", "source-to-input", "stagebox", "monitor-mix", "iem-stereo", "diagnostic-reasoning"]
   }
 ];
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));
