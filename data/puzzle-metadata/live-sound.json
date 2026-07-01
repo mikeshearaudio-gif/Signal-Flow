@@ -79,7 +79,7 @@
       "migrationNotes": "Needs manual curriculum review before apply-map: roadmap labels this as Sub Matrix Feed, while current renderer evidence frames the level as Front Fill Zone Feed."
     },
     "LIV-016": {
-      "status": "needs-review",
+      "status": "apply-ready",
       "taskMode": "constrained-build",
       "scenario": "You are wiring a full stage input list into a front-of-house stagebox and preserving the main PA processor feed.",
       "objective": "Patch sources into the intended stagebox channel order and keep main L/R outputs routed to the correct processor inputs.",
@@ -118,7 +118,7 @@
         "stagebox",
         "multi-route"
       ],
-      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap describes a delay-tower route, while current renderer evidence shows a 16-channel stagebox-to-FOH board."
+      "migrationNotes": "Promoted after source-route audit: renderer, launch data, and LIV-016 repair handoff confirm the current board is 16-channel Stage Box to Front-of-House with 16 source-to-stagebox routes plus main L/R to crossover inputs. The older delay-tower roadmap entry is stale."
     },
     "LIV-018": {
       "status": "apply-ready",

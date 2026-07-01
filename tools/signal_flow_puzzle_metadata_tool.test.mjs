@@ -86,24 +86,27 @@ const dryRunJson = JSON.parse(dryRunJsonResult.stdout);
 assert.equal(dryRunJson.mode, "dry-run", "JSON dry-run should declare dry-run mode");
 assert.equal(dryRunJson.mapFile, "data/puzzle-metadata/live-sound.json", "JSON dry-run should include map path");
 assert.equal(dryRunJson.summary.levelsInMap, 10, "JSON dry-run should count all map levels");
-assert.equal(dryRunJson.summary.applyReady, 4, "JSON dry-run should count apply-ready levels");
-assert.equal(dryRunJson.summary.needsReview, 6, "JSON dry-run should count needs-review levels");
+assert.equal(dryRunJson.summary.applyReady, 5, "JSON dry-run should count apply-ready levels");
+assert.equal(dryRunJson.summary.needsReview, 5, "JSON dry-run should count needs-review levels");
 assert.equal(dryRunJson.summary.wouldWrite, 0, "JSON dry-run should never write");
 const liv011Action = dryRunJson.actions.find(item => item.levelId === "LIV-011");
 assert.equal(liv011Action.status, "apply-ready", "JSON dry-run should preserve apply-ready status");
 assert.equal(liv011Action.action, "already-has-source-and-metadata", "LIV-011 should be recognized as already covered after source manifest creation");
 const liv015Action = dryRunJson.actions.find(item => item.levelId === "LIV-015");
 assert.equal(liv015Action.action, "needs-review-skip", "needs-review levels should be skipped");
+const liv016Action = dryRunJson.actions.find(item => item.levelId === "LIV-016");
+assert.equal(liv016Action.status, "apply-ready", "LIV-016 should be promoted after source-route audit");
+assert.equal(liv016Action.action, "source-missing-create-required", "LIV-016 should still require a source manifest before metadata can be applied");
 
 const triageResult = runTool(["triage", "data/puzzle-metadata/live-sound.json"]);
 
 assert.equal(triageResult.status, 0, `triage command should pass\nSTDOUT:\n${triageResult.stdout}\nSTDERR:\n${triageResult.stderr}`);
 assert.match(triageResult.stdout, /Signal Flow needs-review triage/, "triage should have a clear title");
-for (const levelId of ["LIV-015", "LIV-016", "LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
+for (const levelId of ["LIV-015", "LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
   assert.match(triageResult.stdout, new RegExp(levelId), `triage should include ${levelId}`);
 }
+assert.doesNotMatch(triageResult.stdout, /LIV-016/, "triage should omit LIV-016 after promotion to apply-ready");
 assert.match(triageResult.stdout, /requires-manual-curriculum-decision/, "triage should identify manual curriculum decisions");
-assert.match(triageResult.stdout, /requires-source-route-audit/, "triage should identify source route audits");
 assert.match(triageResult.stdout, /keep-needs-review/, "triage should preserve capstone review holds");
 assert.match(triageResult.stdout, /No files were modified/, "triage should state read-only behavior");
 
