@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "environment": "live-sound",
+  "levels": {
+    "LIV-011": {
+      "status": "apply-ready",
+      "taskMode": "constrained-build",
+      "scenario": "You are patching a lead vocal and stereo keyboard source into FOH while also building the main left/right system feed.",
+      "objective": "Route each source to its intended stagebox input, then patch console main L/R outputs to the matching crossover inputs.",
+      "taskVisibility": "full",
+      "difficulty": 3,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "main-pa",
+        "processor-chain",
+        "left-right",
+        "stereo-pair"
+      ],
+      "constraints": [
+        {
+          "id": "source-input-order",
+          "text": "Sources must land on their assigned stagebox inputs rather than any open input.",
+          "concept": "source-to-input"
+        },
+        {
+          "id": "main-lr-consistency",
+          "text": "Main L and Main R must stay on the matching left/right processor inputs.",
+          "concept": "left-right"
+        }
+      ],
+      "completionExplanation": "The completed patch puts vocal and stereo keys into FOH inputs and sends the console main L/R outputs into the system processor path in the correct left/right order.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "input-vs-output",
+        "source-to-input"
+      ],
+      "assessedConcepts": [
+        "source-to-input",
+        "main-pa",
+        "processor-chain",
+        "left-right"
+      ]
+    },
+    "LIV-015": {
+      "status": "needs-review",
+      "taskMode": "signal-type",
+      "scenario": "You are creating a dedicated low-frequency, front-fill, or local zone feed while preserving the main PA path.",
+      "objective": "Use the appropriate bus or matrix-style output for the dedicated zone processor, while keeping the main L/R processor feed separate.",
+      "taskVisibility": "full",
+      "difficulty": 3,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "matrix-feed",
+        "zone-feed",
+        "main-pa",
+        "processor-chain"
+      ],
+      "constraints": [
+        {
+          "id": "zone-feed-not-main-feed",
+          "text": "The zone processor should receive the dedicated bus/matrix feed rather than a duplicated main PA output.",
+          "concept": "matrix-feed"
+        }
+      ],
+      "completionExplanation": "The completed patch separates the main PA processor path from the dedicated zone/sub/front-fill processor feed.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "console-output",
+        "main-pa"
+      ],
+      "assessedConcepts": [
+        "matrix-feed",
+        "zone-feed",
+        "processor-chain"
+      ],
+      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap labels this as Sub Matrix Feed, while current renderer evidence frames the level as Front Fill Zone Feed."
+    },
+    "LIV-016": {
+      "status": "needs-review",
+      "taskMode": "constrained-build",
+      "scenario": "You are wiring a full stage input list into a front-of-house stagebox and preserving the main PA processor feed.",
+      "objective": "Patch sources into the intended stagebox channel order and keep main L/R outputs routed to the correct processor inputs.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "channel-order",
+        "main-pa",
+        "processor-chain",
+        "left-right",
+        "multi-route"
+      ],
+      "constraints": [
+        {
+          "id": "channel-order-preserved",
+          "text": "Input order matters; do not treat the stagebox as interchangeable open jacks.",
+          "concept": "channel-order"
+        },
+        {
+          "id": "main-lr-preserved",
+          "text": "The main PA processor path must keep left and right consistent.",
+          "concept": "left-right"
+        }
+      ],
+      "completionExplanation": "The completed patch keeps the stage input list in order and sends the stereo main mix into the PA processor path.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "source-to-input",
+        "left-right"
+      ],
+      "assessedConcepts": [
+        "channel-order",
+        "stagebox",
+        "multi-route"
+      ],
+      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap describes a delay-tower route, while current renderer evidence shows a 16-channel stagebox-to-FOH board."
+    },
+    "LIV-018": {
+      "status": "apply-ready",
+      "taskMode": "troubleshooting",
+      "scenario": "You are routing talkback so the production team can communicate with monitors without sending talkback to the audience PA.",
+      "objective": "Patch talkback and related sources to their intended inputs and route the talkback output to the monitor/IEM destination only.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "talkback",
+        "source-to-input",
+        "stagebox",
+        "monitor-mix",
+        "diagnostic-reasoning"
+      ],
+      "constraints": [
+        {
+          "id": "talkback-monitor-only",
+          "text": "Talkback should feed the monitor path, not the audience-facing main PA.",
+          "concept": "talkback"
+        }
+      ],
+      "completionExplanation": "The completed patch keeps talkback in the monitor communication path while other sources land on their assigned FOH inputs.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "source-to-input",
+        "monitor-mix"
+      ],
+      "assessedConcepts": [
+        "talkback",
+        "diagnostic-reasoning",
+        "monitor-mix"
+      ]
+    },
+    "LIV-019": {
+      "status": "needs-review",
+      "taskMode": "capstone-system",
+      "scenario": "You are assembling a compact show patch that combines drum inputs, stereo IEM sends, and effects returns.",
+      "objective": "Keep input channels, monitor sends, and return paths separated so the full show patch works as an integrated system.",
+      "taskVisibility": "full",
+      "difficulty": 5,
+      "conceptTags": [
+        "signal-direction",
+        "drum-inputs",
+        "source-to-input",
+        "iem-stereo",
+        "fx-return",
+        "monitor-mix",
+        "stereo-pair",
+        "multi-route"
+      ],
+      "constraints": [
+        {
+          "id": "inputs-sends-returns-separated",
+          "text": "Inputs, monitor sends, and FX returns serve different signal-flow roles.",
+          "concept": "input-vs-output"
+        }
+      ],
+      "completionExplanation": "The completed patch keeps drum inputs, stereo monitor sends, and FX returns in their correct signal-flow roles.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "source-to-input",
+        "stereo-pair"
+      ],
+      "assessedConcepts": [
+        "drum-inputs",
+        "iem-stereo",
+        "fx-return",
+        "multi-route"
+      ],
+      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this locked native board as a capstone after generic puzzle behavior is stable."
+    },
+    "LIV-020": {
+      "status": "needs-review",
+      "taskMode": "capstone-system",
+      "scenario": "You are building a main PA processor/amplifier chain while also feeding an IEM monitor path.",
+      "objective": "Complete the main L/R PA route through processing and amplification, and keep the monitor/IEM feed on its own correct path.",
+      "taskVisibility": "full",
+      "difficulty": 5,
+      "conceptTags": [
+        "signal-direction",
+        "main-pa",
+        "processor-chain",
+        "amplifier",
+        "speaker-level",
+        "iem-stereo",
+        "monitor-mix",
+        "left-right",
+        "multi-route"
+      ],
+      "constraints": [
+        {
+          "id": "pa-before-speakers",
+          "text": "Main PA outputs must pass through the processor/amplifier path before reaching speakers.",
+          "concept": "processor-chain"
+        },
+        {
+          "id": "monitor-path-separated",
+          "text": "The monitor/IEM feed should not be confused with the audience PA chain.",
+          "concept": "monitor-mix"
+        }
+      ],
+      "completionExplanation": "The completed patch separates audience PA routing from monitor routing while preserving the processor and amplifier order.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "main-pa",
+        "monitor-mix"
+      ],
+      "assessedConcepts": [
+        "processor-chain",
+        "speaker-level",
+        "iem-stereo",
+        "multi-route"
+      ],
+      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this board as a mid-late capstone."
+    },
+    "LIV-021": {
+      "status": "apply-ready",
+      "taskMode": "troubleshooting",
+      "scenario": "You are repairing a lead vocal chain that needs a correct mic input, channel insert compressor loop, PA feed, and monitor wedge feed.",
+      "objective": "Patch the vocal mic input, complete the insert send/return through the compressor, and keep the monitor and main PA paths correct.",
+      "taskVisibility": "full",
+      "difficulty": 5,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "insert-direction",
+        "processor-chain",
+        "aux-send",
+        "monitor-wedge",
+        "main-pa",
+        "left-right",
+        "diagnostic-reasoning"
+      ],
+      "constraints": [
+        {
+          "id": "insert-send-return-direction",
+          "text": "The insert send must feed the compressor input, and the compressor output must return to the insert return.",
+          "concept": "insert-direction"
+        },
+        {
+          "id": "monitor-and-pa-separated",
+          "text": "The monitor wedge and main PA are related outputs, but they are not interchangeable destinations.",
+          "concept": "monitor-wedge"
+        }
+      ],
+      "completionExplanation": "The completed patch restores the vocal input, places the compressor in the insert loop, and feeds both monitor and PA destinations through their intended outputs.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "source-to-input",
+        "processor-chain"
+      ],
+      "assessedConcepts": [
+        "insert-direction",
+        "monitor-wedge",
+        "main-pa",
+        "diagnostic-reasoning"
+      ]
+    },
+    "LIV-023": {
+      "status": "needs-review",
+      "taskMode": "capstone-system",
+      "scenario": "You are completing an advanced monitor-console patch with a vocal insert, stereo IEM feed, and multi-way PA system.",
+      "objective": "Keep the insert loop, stereo IEM route, and speaker-processing chain distinct while completing the full system.",
+      "taskVisibility": "full",
+      "difficulty": 6,
+      "conceptTags": [
+        "signal-direction",
+        "insert-direction",
+        "iem-stereo",
+        "stereo-pair",
+        "main-pa",
+        "processor-chain",
+        "amplifier",
+        "speaker-level",
+        "multi-route"
+      ],
+      "constraints": [
+        {
+          "id": "subsystems-distinct",
+          "text": "Insert, monitor, and PA-processing routes belong to different subsystems and should not be collapsed into one cable-matching task.",
+          "concept": "multi-route"
+        }
+      ],
+      "completionExplanation": "The completed patch integrates insert processing, stereo monitoring, and PA processing without confusing their signal types or destinations.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "insert-direction",
+        "iem-stereo",
+        "processor-chain"
+      ],
+      "assessedConcepts": [
+        "multi-route",
+        "speaker-level",
+        "stereo-pair"
+      ],
+      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this as an advanced capstone with partial route visibility later."
+    },
+    "LIV-026": {
+      "status": "needs-review",
+      "taskMode": "capstone-system",
+      "scenario": "You are routing multiple audience zones through processing and amplification, including main PA, delay, and front-fill style feeds.",
+      "objective": "Patch each zone feed through the correct processor and amplifier path while maintaining left/right consistency where applicable.",
+      "taskVisibility": "full",
+      "difficulty": 6,
+      "conceptTags": [
+        "signal-direction",
+        "matrix-feed",
+        "zone-feed",
+        "delay-tower",
+        "front-fill",
+        "main-pa",
+        "processor-chain",
+        "amplifier",
+        "speaker-level",
+        "left-right",
+        "multi-route"
+      ],
+      "constraints": [
+        {
+          "id": "zone-specific-processing",
+          "text": "Each zone feed needs its own processor/amplifier path rather than sharing a generic output.",
+          "concept": "zone-feed"
+        }
+      ],
+      "completionExplanation": "The completed patch sends main, delay, and fill zones through their intended processing and amplification chains.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "matrix-feed",
+        "processor-chain",
+        "left-right"
+      ],
+      "assessedConcepts": [
+        "zone-feed",
+        "delay-tower",
+        "front-fill",
+        "speaker-level",
+        "multi-route"
+      ],
+      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this as a processing capstone after simpler zone-feed boards are stable."
+    },
+    "LIV-028": {
+      "status": "apply-ready",
+      "taskMode": "troubleshooting",
+      "scenario": "You are solving a more complex talkback-to-monitor routing problem with several nearby stage and monitoring endpoints.",
+      "objective": "Route talkback to the intended monitor/IEM destination while keeping source inputs and stereo monitoring paths in their correct roles.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "talkback",
+        "source-to-input",
+        "stagebox",
+        "monitor-mix",
+        "iem-stereo",
+        "diagnostic-reasoning"
+      ],
+      "constraints": [
+        {
+          "id": "talkback-not-pa",
+          "text": "Talkback belongs in the monitor communication path, not the main PA.",
+          "concept": "talkback"
+        },
+        {
+          "id": "monitor-path-consistency",
+          "text": "Monitor/IEM endpoints should be treated as monitor destinations, not general console inputs.",
+          "concept": "monitor-mix"
+        }
+      ],
+      "completionExplanation": "The completed patch keeps talkback and monitoring routes isolated from audience-facing outputs while preserving source-input routing.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "talkback",
+        "monitor-mix"
+      ],
+      "assessedConcepts": [
+        "talkback",
+        "iem-stereo",
+        "diagnostic-reasoning"
+      ]
+    }
+  }
+}

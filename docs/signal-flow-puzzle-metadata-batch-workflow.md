@@ -57,6 +57,11 @@ Each environment map should be keyed by level ID:
    - Validate enum values.
    - Validate `conceptTags`, `prerequisiteConcepts`, and `assessedConcepts` against `concept-vocabulary.json`.
    - Validate environment-specific extensions without requiring renderer adoption.
+   - Run the read-only batch-map validator before any future apply-map command exists:
+
+```bash
+node tools/signal-flow-puzzle-metadata-tool.js validate-map data/puzzle-metadata/live-sound.json
+```
 
 4. Normalize generated/runtime files
    - For JSON-backed live-sound boards, run the existing board bake process.
@@ -83,9 +88,12 @@ node tools/signal-flow-puzzle-metadata-tool.js audit
 node tools/signal-flow-puzzle-metadata-tool.js coverage
 node tools/signal-flow-puzzle-metadata-tool.js report
 node tools/signal-flow-puzzle-metadata-tool.js validate-all
+node tools/signal-flow-puzzle-metadata-tool.js validate-map data/puzzle-metadata/live-sound.json
 ```
 
 Use `report` as the planning command before batch work. It summarizes coverage, lists the recommended next live-sound batch, separates levels that need source manifests first, identifies embedded/JS-only gaps, and names the batch map files that still need to be created.
+
+Use `validate-map` after drafting an environment map and before any future apply-map command. It is read-only and rejects board route/layout/render fields so batch metadata cannot accidentally become a gameplay or renderer migration.
 
 Future write commands should require explicit flags:
 

@@ -42,6 +42,43 @@ const TRAP_SEVERITIES = new Set([
   "feedback-risk"
 ]);
 
+const MAP_STATUSES = new Set([
+  "apply-ready",
+  "needs-review",
+  "draft"
+]);
+
+const FORBIDDEN_MAP_FIELDS = new Set([
+  "gear",
+  "hitboxes",
+  "routes",
+  "requiredRoutes",
+  "validRoutes",
+  "forbiddenRoutes",
+  "routeDefinitions",
+  "prewiredCables",
+  "cables",
+  "scoring",
+  "score",
+  "hints",
+  "hintBehavior",
+  "completionBehavior",
+  "layout",
+  "rect",
+  "x",
+  "y",
+  "w",
+  "h",
+  "svg",
+  "asset",
+  "assets",
+  "renderer",
+  "render",
+  "generatedJackKeys",
+  "panelKinds",
+  "sourceOrder"
+]);
+
 const PATCH_BOARD_ROADMAP_ORDER = [
   "LIV-002",
   "LIV-003",
@@ -88,12 +125,14 @@ function usage() {
     "  node tools/signal-flow-puzzle-metadata-tool.js coverage",
     "  node tools/signal-flow-puzzle-metadata-tool.js report",
     "  node tools/signal-flow-puzzle-metadata-tool.js validate-all",
+    "  node tools/signal-flow-puzzle-metadata-tool.js validate-map <map.json>",
     "",
     "Read-only scaffold:",
     "  audit         Summarize discovered level sources and migration blockers.",
     "  coverage      Report known levels and curriculum/puzzle metadata coverage.",
     "  report        Print prioritized next work for batch metadata rollout.",
     "  validate-all  Validate discoverable curriculum/puzzle metadata.",
+    "  validate-map  Validate a read-only batch metadata map.",
     "",
     "Future write commands, intentionally not implemented yet:",
     "  apply-map     Apply metadata map files with an explicit --write flag.",
@@ -128,6 +167,10 @@ function listFiles(dir, predicate) {
 
 function unique(values) {
   return Array.from(new Set(values.filter(Boolean))).sort();
+}
+
+function isPlainObject(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
 }
 
 function extractIds(text) {
@@ -298,6 +341,36 @@ function validateTrapRoutes(data, errors) {
   });
 }
 
+function validateConstraintArray(value, vocab, errors, label) {
+  if (value === undefined) return;
+  if (!Array.isArray(value)) {
+    errors.push(label + " must be an array when present");
+    return;
+  }
+  value.forEach((constraint, index) => {
+    const prefix = label + "[" + index + "]";
+    if (!isPlainObject(constraint)) {
+      errors.push(prefix + " must be an object");
+      return;
+    }
+    validateString(constraint.id, prefix + ".id", errors);
+    validateString(constraint.text, prefix + ".text", errors);
+    validateString(constraint.concept, prefix + ".concept", errors);
+    if (constraint.concept && !vocab.has(constraint.concept)) {
+      errors.push(prefix + ".concept contains unknown concept tag: " + constraint.concept);
+    }
+    if (constraint.appliesTo !== undefined) {
+      if (!Array.isArray(constraint.appliesTo) || constraint.appliesTo.some(item => typeof item !== "string" || item.trim().length === 0)) {
+        errors.push(prefix + ".appliesTo must be an array of non-empty strings when present");
+      } else {
+        for (const tag of constraint.appliesTo) {
+          if (!vocab.has(tag)) errors.push(prefix + ".appliesTo contains unknown concept tag: " + tag);
+        }
+      }
+    }
+  });
+}
+
 function validateMetadataObject(item, vocab) {
   const errors = [];
   const data = item.data;
@@ -331,6 +404,124 @@ function validateMetadataObject(item, vocab) {
   validateTrapRoutes(data, errors);
 
   return errors;
+}
+
+function parseJsonForValidation(file, errors) {
+  try {
+    return readJson(file);
+  } catch (error) {
+    errors.push("file must parse as JSON: " + error.message);
+    return null;
+  }
+}
+
+function validateStableLevelId(levelId, errors) {
+  if (typeof levelId !== "string" || levelId.trim().length === 0) {
+    errors.push("level ID must be a non-empty string");
+    return;
+  }
+  if (!/^(?:LIV-\d{3}|[A-Z]{3}-[A-Z0-9]+(?:-[A-Z0-9]+)*)$/.test(levelId)) {
+    errors.push(levelId + ": level ID should be a stable uppercase ID such as LIV-011 or REC-IR-01");
+  }
+}
+
+function validateNoForbiddenMapFields(value, levelId, errors, trail = []) {
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => validateNoForbiddenMapFields(item, levelId, errors, trail.concat(String(index))));
+    return;
+  }
+  if (!isPlainObject(value)) return;
+
+  for (const key of Object.keys(value)) {
+    if (FORBIDDEN_MAP_FIELDS.has(key)) {
+      const fieldPath = trail.concat(key).join(".");
+      errors.push(levelId + ": forbidden render/route field: " + fieldPath);
+    }
+    validateNoForbiddenMapFields(value[key], levelId, errors, trail.concat(key));
+  }
+}
+
+function validateBatchMapLevel(levelId, level, vocab, errors) {
+  validateStableLevelId(levelId, errors);
+  if (!isPlainObject(level)) {
+    errors.push(levelId + ": level metadata must be an object");
+    return;
+  }
+
+  validateNoForbiddenMapFields(level, levelId, errors);
+
+  if (level.status !== undefined && !MAP_STATUSES.has(level.status)) {
+    errors.push(levelId + ": status must be one of: " + Array.from(MAP_STATUSES).join(", "));
+  }
+  if (!TASK_MODES.has(level.taskMode)) {
+    errors.push(levelId + ": taskMode must be one of: " + Array.from(TASK_MODES).join(", "));
+  }
+  validateString(level.scenario, levelId + ": scenario", errors);
+  validateString(level.objective, levelId + ": objective", errors);
+  if (!VISIBILITIES.has(level.taskVisibility)) {
+    errors.push(levelId + ": taskVisibility must be one of: " + Array.from(VISIBILITIES).join(", "));
+  }
+  if (!Number.isInteger(level.difficulty) || level.difficulty < 1 || level.difficulty > 7) {
+    errors.push(levelId + ": difficulty must be an integer from 1 through 7");
+  }
+  if (!Array.isArray(level.conceptTags) || level.conceptTags.length === 0) {
+    errors.push(levelId + ": conceptTags must be a non-empty array");
+  }
+  validateConceptArray(level, "conceptTags", vocab, errors);
+  validateConceptArray(level, "prerequisiteConcepts", vocab, errors);
+  validateConceptArray(level, "assessedConcepts", vocab, errors);
+  validateConstraintArray(level.constraints, vocab, errors, levelId + ": constraints");
+  if (level.completionExplanation !== undefined) validateString(level.completionExplanation, levelId + ": completionExplanation", errors);
+  if (level.migrationNotes !== undefined) validateString(level.migrationNotes, levelId + ": migrationNotes", errors);
+}
+
+function validateBatchMap(fileArg) {
+  const errors = [];
+  if (!fileArg) {
+    console.error("validate-map requires a map JSON path.");
+    process.exitCode = 1;
+    return;
+  }
+
+  const file = path.resolve(repoRoot, fileArg);
+  const map = parseJsonForValidation(file, errors);
+  const vocab = loadVocabulary();
+
+  if (map) {
+    if (!isPlainObject(map)) {
+      errors.push("map root must be an object");
+    } else {
+      if (map.schemaVersion === undefined) errors.push("schemaVersion is required");
+      if (map.environment === undefined) errors.push("environment is required");
+      else validateString(map.environment, "environment", errors);
+      if (!isPlainObject(map.levels)) {
+        errors.push("levels must be an object");
+      } else {
+        for (const [levelId, level] of Object.entries(map.levels)) {
+          validateBatchMapLevel(levelId, level, vocab, errors);
+        }
+      }
+    }
+  }
+
+  if (errors.length) {
+    console.error("Batch puzzle metadata map validation failed:");
+    for (const error of errors) console.error("  - " + error);
+    process.exitCode = 1;
+    return;
+  }
+
+  const levelEntries = Object.entries(map.levels);
+  const readyCount = levelEntries.filter(([, level]) => level.status === "apply-ready").length;
+  const reviewCount = levelEntries.filter(([, level]) => level.status === "needs-review").length;
+  console.log("Batch puzzle metadata map validation passed");
+  console.log("Map:", rel(file));
+  console.log("Environment:", map.environment);
+  console.log("Schema version:", map.schemaVersion);
+  console.log("Levels validated:", levelEntries.length);
+  console.log("Apply-ready levels:", readyCount);
+  console.log("Needs-review levels:", reviewCount);
+  console.log("No files were modified by validate-map.");
 }
 
 function printAudit() {
@@ -518,6 +709,8 @@ if (!command || command === "help" || command === "--help" || command === "-h") 
   printReport();
 } else if (command === "validate-all") {
   validateAll();
+} else if (command === "validate-map") {
+  validateBatchMap(process.argv[3]);
 } else if (command === "apply-map" || command === "normalize-all") {
   console.error(command + " is documented for the future but is not implemented in this read-only scaffold.");
   process.exitCode = 1;

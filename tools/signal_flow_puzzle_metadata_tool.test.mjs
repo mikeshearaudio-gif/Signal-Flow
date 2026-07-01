@@ -1,10 +1,19 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { spawnSync } from "node:child_process";
 
-const result = spawnSync(process.execPath, ["tools/signal-flow-puzzle-metadata-tool.js", "report"], {
-  cwd: process.cwd(),
-  encoding: "utf8"
-});
+const cwd = process.cwd();
+
+function runTool(args) {
+  return spawnSync(process.execPath, ["tools/signal-flow-puzzle-metadata-tool.js", ...args], {
+    cwd,
+    encoding: "utf8"
+  });
+}
+
+const result = runTool(["report"]);
 
 assert.equal(result.status, 0, `report command should pass\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
 assert.match(result.stdout, /Signal Flow actionable puzzle metadata report/, "report should have a clear title");
@@ -16,4 +25,37 @@ assert.match(result.stdout, /Batch map files to create/, "report should name bat
 assert.match(result.stdout, /data\/puzzle-metadata\/live-sound\.json/, "report should point to the live-sound batch map");
 assert.match(result.stdout, /No files were modified/, "report should state read-only behavior");
 
-console.log("signal flow puzzle metadata tool report checks passed");
+const liveSoundMapPath = path.join(cwd, "data/puzzle-metadata/live-sound.json");
+const beforeStat = fs.statSync(liveSoundMapPath);
+const validMapResult = runTool(["validate-map", "data/puzzle-metadata/live-sound.json"]);
+
+assert.equal(validMapResult.status, 0, `validate-map should accept live-sound map\nSTDOUT:\n${validMapResult.stdout}\nSTDERR:\n${validMapResult.stderr}`);
+assert.match(validMapResult.stdout, /Batch puzzle metadata map validation passed/, "validate-map should report success");
+assert.match(validMapResult.stdout, /Levels validated: 10/, "validate-map should validate the full first batch");
+const afterStat = fs.statSync(liveSoundMapPath);
+assert.equal(afterStat.mtimeMs, beforeStat.mtimeMs, "validate-map should not modify the map file");
+
+const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-map-"));
+const malformedMapPath = path.join(tempDir, "bad-live-sound.json");
+fs.writeFileSync(malformedMapPath, JSON.stringify({
+  schemaVersion: 1,
+  environment: "live-sound",
+  levels: {
+    "LIV-999": {
+      taskMode: "basic-build",
+      scenario: "Malformed map for test.",
+      objective: "This should fail because it includes route data.",
+      taskVisibility: "full",
+      difficulty: 1,
+      conceptTags: ["signal-direction"],
+      routes: []
+    }
+  }
+}, null, 2));
+
+const malformedResult = runTool(["validate-map", malformedMapPath]);
+
+assert.notEqual(malformedResult.status, 0, "validate-map should reject malformed maps");
+assert.match(malformedResult.stderr, /forbidden render\/route field: routes/, "validate-map should reject route/layout fields");
+
+console.log("signal flow puzzle metadata tool checks passed");
