@@ -1,0 +1,66 @@
+{
+  "levelId": "LIV-015",
+  "environment": "live",
+  "title": "Sub Matrix Feed",
+  "brief": "Patch the dedicated sub matrix feed to the sub processor while preserving the main L/R system processor path and lead vocal stage input.",
+  "processorLabel": "CROSSOVER / SUB PROCESSING",
+  "requiredRoutes": [
+    { "id": "foh-liv006-bus-2-output-to-liv006-sub-processor-input", "fromId": "foh-liv006-bus-2-output", "toId": "liv006-sub-processor-input", "fromLabel": "Bus 2 Output", "toLabel": "Sub Processor Input" },
+    { "id": "foh-liv006-main-left-output-to-liv006-system-processor-l-input", "fromId": "foh-liv006-main-left-output", "toId": "liv006-system-processor-l-input", "fromLabel": "Main L Output", "toLabel": "System Processor L In", "stereoGroup": "liv015-main-to-crossover", "stereoSide": "left" },
+    { "id": "foh-liv006-main-right-output-to-liv006-system-processor-r-input", "fromId": "foh-liv006-main-right-output", "toId": "liv006-system-processor-r-input", "fromLabel": "Main R Output", "toLabel": "System Processor R In", "stereoGroup": "liv015-main-to-crossover", "stereoSide": "right" },
+    { "id": "lead-vocal-mic-to-stagebox-input-1", "fromId": "lead-vocal-mic", "toId": "stagebox-input-1", "fromLabel": "Lead Vocal Mic", "toLabel": "Stage Box Input 1" }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "signal-type",
+    "scenario": "You are creating a dedicated low-frequency, front-fill, or local zone feed while preserving the main PA path.",
+    "objective": "Use the appropriate bus or matrix-style output for the dedicated zone processor, while keeping the main L/R processor feed separate.",
+    "constraints": [
+      {
+        "id": "zone-feed-not-main-feed",
+        "text": "The zone processor should receive the dedicated bus/matrix feed rather than a duplicated main PA output.",
+        "concept": "matrix-feed"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch separates the main PA processor path from the dedicated zone/sub/front-fill processor feed.",
+    "difficulty": 3,
+    "conceptTags": ["signal-direction", "source-to-input", "matrix-feed", "zone-feed", "main-pa", "processor-chain"]
+  },
+  "stereoGroups": [
+    { "id": "liv015-main-to-crossover", "leftRouteId": "foh-liv006-main-left-output-to-liv006-system-processor-l-input", "rightRouteId": "foh-liv006-main-right-output-to-liv006-system-processor-r-input" }
+  ],
+  "gear": [
+    { "id": "liv015-stagebox", "label": "Stagebox", "asset": "../assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", "rect": { "x": 54, "y": 211, "w": 396, "h": 146 }, "className": "sf-liv015-stagebox" },
+    { "id": "liv015-foh-console", "label": "FOH Console", "asset": "../assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", "rect": { "x": 534, "y": 48, "w": 600, "h": 139 }, "className": "sf-liv015-foh-console" },
+    { "id": "liv015-processor-rack", "label": "System/Sub Processor Rack", "asset": "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259", "rect": { "x": 504, "y": 416, "w": 600, "h": 166 }, "className": "sf-liv015-processor-rack" }
+  ],
+  "labels": [
+    { "id": "liv015-title-note", "text": "Sub Matrix Feed: use the dedicated Bus 2 zone feed while keeping main L/R on the system processor.", "rect": { "x": 36, "y": 28, "w": 1040, "h": 42, "z": 120 } },
+    { "id": "liv015-source-label", "text": "Source", "rect": { "x": 72, "y": 64, "w": 110, "h": 30, "z": 120 } },
+    { "id": "liv015-stagebox-label", "text": "Stage Box Inputs", "rect": { "x": 78, "y": 224, "w": 160, "h": 30, "z": 120 } },
+    { "id": "liv015-foh-label", "text": "FOH Console Matrix / Main Outs", "rect": { "x": 504, "y": 61, "w": 280, "h": 30, "z": 120 } },
+    { "id": "liv015-processing-label", "text": "Crossover + Sub Processing", "rect": { "x": 564, "y": 349, "w": 250, "h": 30, "z": 120 } }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "lead-vocal-mic", "label": "Lead Vocal Mic", "kind": "source", "rect": { "x": 58, "y": 86, "w": 34, "h": 34 } },
+      { "id": "stagebox-input-1", "label": "Stage Box Input 1", "kind": "jack", "rect": { "x": 112, "y": 266, "w": 28, "h": 28 } },
+      { "id": "foh-liv006-bus-2-output", "label": "Bus 2 Output", "kind": "source", "rect": { "x": 742, "y": 120, "w": 28, "h": 28 } },
+      { "id": "foh-liv006-main-left-output", "label": "Main L Output", "kind": "source", "rect": { "x": 922, "y": 120, "w": 28, "h": 28 } },
+      { "id": "foh-liv006-main-right-output", "label": "Main R Output", "kind": "source", "rect": { "x": 974, "y": 120, "w": 28, "h": 28 } },
+      { "id": "liv006-system-processor-l-input", "label": "System Processor L In", "kind": "jack", "rect": { "x": 564, "y": 506, "w": 28, "h": 28 } },
+      { "id": "liv006-system-processor-r-input", "label": "System Processor R In", "kind": "jack", "rect": { "x": 640, "y": 506, "w": 28, "h": 28 } },
+      { "id": "liv006-sub-processor-input", "label": "Sub Processor Input", "kind": "jack", "rect": { "x": 952, "y": 506, "w": 28, "h": 28 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 4,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

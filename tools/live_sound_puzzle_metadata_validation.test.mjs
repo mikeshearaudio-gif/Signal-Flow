@@ -98,6 +98,14 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "source-to-input", "stagebox", "main-pa", "processor-chain", "left-right", "stereo-pair"]
   },
   {
+    levelId: "LIV-015",
+    file: "data/live-sound/boards/liv015.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv015.normalized.json",
+    puzzleMode: "signal-type",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "source-to-input", "matrix-feed", "zone-feed", "main-pa", "processor-chain"]
+  },
+  {
     levelId: "LIV-016",
     file: "data/live-sound/boards/liv016.json",
     normalizedFile: "data/live-sound/boards/normalized/liv016.normalized.json",

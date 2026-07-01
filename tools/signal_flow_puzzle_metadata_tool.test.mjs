@@ -18,7 +18,7 @@ const result = runTool(["report"]);
 assert.equal(result.status, 0, `report command should pass\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
 assert.match(result.stdout, /Signal Flow actionable puzzle metadata report/, "report should have a clear title");
 assert.match(result.stdout, /Recommended next batch/, "report should recommend a next batch");
-assert.match(result.stdout, /LIV-015/, "report should include an actionable live-sound candidate from the patch-board roadmap");
+assert.match(result.stdout, /LIV-019/, "report should include an actionable live-sound candidate from the patch-board roadmap");
 assert.match(result.stdout, /Needs source board manifests/, "report should identify levels blocked on source manifests");
 assert.match(result.stdout, /Embedded\/JS-only coverage gaps/, "report should identify embedded coverage gaps");
 assert.match(result.stdout, /Batch map status/, "report should summarize batch map state");
@@ -94,7 +94,7 @@ assert.equal(liv011Action.status, "apply-ready", "JSON dry-run should preserve a
 assert.equal(liv011Action.action, "already-has-source-and-metadata", "LIV-011 should be recognized as already covered after source manifest creation");
 const liv015Action = dryRunJson.actions.find(item => item.levelId === "LIV-015");
 assert.equal(liv015Action.status, "apply-ready", "LIV-015 should be promoted after source-route audit");
-assert.equal(liv015Action.action, "source-missing-create-required", "LIV-015 should still require a source manifest before metadata can be applied");
+assert.equal(liv015Action.action, "already-has-source-and-metadata", "LIV-015 should be recognized as already covered after source manifest creation");
 const liv016Action = dryRunJson.actions.find(item => item.levelId === "LIV-016");
 assert.equal(liv016Action.status, "apply-ready", "LIV-016 should be promoted after source-route audit");
 assert.equal(liv016Action.action, "already-has-source-and-metadata", "LIV-016 should be recognized as already covered after source manifest creation");
