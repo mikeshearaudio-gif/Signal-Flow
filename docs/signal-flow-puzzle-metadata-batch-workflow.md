@@ -63,16 +63,26 @@ Each environment map should be keyed by level ID:
 node tools/signal-flow-puzzle-metadata-tool.js validate-map data/puzzle-metadata/live-sound.json
 ```
 
-4. Normalize generated/runtime files
+4. Preview apply-map actions
+   - Run the read-only dry run to classify each level before any source files are created or edited.
+   - Treat `needs-review` levels as skips until their curriculum intent is confirmed.
+   - Use JSON output when batch planning needs stable machine-readable action lists.
+
+```bash
+node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --dry-run
+node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --dry-run --json
+```
+
+5. Normalize generated/runtime files
    - For JSON-backed live-sound boards, run the existing board bake process.
    - For future environment JSON, add equivalent non-destructive normalizers.
    - Do not rewrite JS/HTML embedded levels until a specific migration plan exists.
 
-5. Compare source and normalized metadata
+6. Compare source and normalized metadata
    - Confirm generated files preserve curriculum metadata exactly.
    - Report missing or divergent metadata.
 
-6. Report blockers
+7. Report blockers
    - Missing source manifests.
    - Levels still embedded in JS/HTML.
    - Unknown concept tags.
@@ -89,11 +99,14 @@ node tools/signal-flow-puzzle-metadata-tool.js coverage
 node tools/signal-flow-puzzle-metadata-tool.js report
 node tools/signal-flow-puzzle-metadata-tool.js validate-all
 node tools/signal-flow-puzzle-metadata-tool.js validate-map data/puzzle-metadata/live-sound.json
+node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --dry-run
 ```
 
 Use `report` as the planning command before batch work. It summarizes coverage, lists the recommended next live-sound batch, separates levels that need source manifests first, identifies embedded/JS-only gaps, and names the batch map files that still need to be created.
 
 Use `validate-map` after drafting an environment map and before any future apply-map command. It is read-only and rejects board route/layout/render fields so batch metadata cannot accidentally become a gameplay or renderer migration.
+
+Use `apply-map --dry-run` after validation to preview per-level actions. It validates the map first, classifies each level, and writes nothing. `--json` is available for stable automation output.
 
 Future write commands should require explicit flags:
 
@@ -101,6 +114,8 @@ Future write commands should require explicit flags:
 node tools/signal-flow-puzzle-metadata-tool.js normalize-all --write
 node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --write
 ```
+
+`apply-map --write` is still not implemented.
 
 ## Safety Rules
 

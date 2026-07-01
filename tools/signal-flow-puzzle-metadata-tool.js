@@ -126,6 +126,7 @@ function usage() {
     "  node tools/signal-flow-puzzle-metadata-tool.js report",
     "  node tools/signal-flow-puzzle-metadata-tool.js validate-all",
     "  node tools/signal-flow-puzzle-metadata-tool.js validate-map <map.json>",
+    "  node tools/signal-flow-puzzle-metadata-tool.js apply-map <map.json> --dry-run [--json]",
     "",
     "Read-only scaffold:",
     "  audit         Summarize discovered level sources and migration blockers.",
@@ -133,9 +134,10 @@ function usage() {
     "  report        Print prioritized next work for batch metadata rollout.",
     "  validate-all  Validate discoverable curriculum/puzzle metadata.",
     "  validate-map  Validate a read-only batch metadata map.",
+    "  apply-map     Preview map actions with --dry-run. --write is not implemented.",
     "",
     "Future write commands, intentionally not implemented yet:",
-    "  apply-map     Apply metadata map files with an explicit --write flag.",
+    "  apply-map --write  Apply metadata map files with an explicit --write flag.",
     "  normalize-all Normalize generated/runtime metadata with an explicit --write flag."
   ].join("\n"));
 }
@@ -475,12 +477,10 @@ function validateBatchMapLevel(levelId, level, vocab, errors) {
   if (level.migrationNotes !== undefined) validateString(level.migrationNotes, levelId + ": migrationNotes", errors);
 }
 
-function validateBatchMap(fileArg) {
+function loadAndValidateBatchMap(fileArg) {
   const errors = [];
   if (!fileArg) {
-    console.error("validate-map requires a map JSON path.");
-    process.exitCode = 1;
-    return;
+    return { file: null, map: null, errors: ["map JSON path is required"] };
   }
 
   const file = path.resolve(repoRoot, fileArg);
@@ -504,24 +504,195 @@ function validateBatchMap(fileArg) {
     }
   }
 
-  if (errors.length) {
-    console.error("Batch puzzle metadata map validation failed:");
-    for (const error of errors) console.error("  - " + error);
+  return { file, map, errors };
+}
+
+function validateBatchMap(fileArg) {
+  const result = loadAndValidateBatchMap(fileArg);
+
+  if (!fileArg) {
+    console.error("validate-map requires a map JSON path.");
     process.exitCode = 1;
     return;
   }
 
+  if (result.errors.length) {
+    console.error("Batch puzzle metadata map validation failed:");
+    for (const error of result.errors) console.error("  - " + error);
+    process.exitCode = 1;
+    return;
+  }
+
+  const map = result.map;
   const levelEntries = Object.entries(map.levels);
   const readyCount = levelEntries.filter(([, level]) => level.status === "apply-ready").length;
   const reviewCount = levelEntries.filter(([, level]) => level.status === "needs-review").length;
   console.log("Batch puzzle metadata map validation passed");
-  console.log("Map:", rel(file));
+  console.log("Map:", rel(result.file));
   console.log("Environment:", map.environment);
   console.log("Schema version:", map.schemaVersion);
   console.log("Levels validated:", levelEntries.length);
   console.log("Apply-ready levels:", readyCount);
   console.log("Needs-review levels:", reviewCount);
   console.log("No files were modified by validate-map.");
+}
+
+function classifyApplyMapAction(levelId, level, sources) {
+  const sourceRecord = sources.liveSources.find(item => item.id === levelId);
+  const kinds = sourceKindsForId(sources, levelId);
+
+  if (level.status === "needs-review") {
+    return {
+      levelId,
+      status: level.status,
+      action: "needs-review-skip",
+      reason: "Level is marked needs-review in the batch map.",
+      sources: kinds
+    };
+  }
+
+  if (level.status !== "apply-ready") {
+    return {
+      levelId,
+      status: level.status || "unspecified",
+      action: "invalid-skip",
+      reason: "Level is not marked apply-ready.",
+      sources: kinds
+    };
+  }
+
+  if (sourceRecord && (sourceRecord.hasPuzzle || sourceRecord.hasCurriculum)) {
+    return {
+      levelId,
+      status: level.status,
+      action: "already-has-source-and-metadata",
+      reason: "Source board JSON already has puzzle/curriculum metadata.",
+      sources: kinds
+    };
+  }
+
+  if (sourceRecord) {
+    return {
+      levelId,
+      status: level.status,
+      action: "source-exists-add-metadata",
+      reason: "Source board JSON exists and would receive curriculum metadata in a future write mode.",
+      sources: kinds
+    };
+  }
+
+  if (kinds.length) {
+    return {
+      levelId,
+      status: level.status,
+      action: "source-missing-create-required",
+      reason: "No source board JSON exists yet.",
+      sources: kinds
+    };
+  }
+
+  return {
+    levelId,
+    status: level.status,
+    action: "unknown-level-skip",
+    reason: "Level ID was not discovered in current Signal Flow sources.",
+    sources: []
+  };
+}
+
+function buildApplyMapDryRun(file, map) {
+  const sources = discoverSources();
+  const levelEntries = Object.entries(map.levels);
+  const actions = levelEntries.map(([levelId, level]) => classifyApplyMapAction(levelId, level, sources));
+
+  return {
+    mode: "dry-run",
+    mapFile: rel(file),
+    summary: {
+      levelsInMap: levelEntries.length,
+      applyReady: levelEntries.filter(([, level]) => level.status === "apply-ready").length,
+      needsReview: levelEntries.filter(([, level]) => level.status === "needs-review").length,
+      wouldWrite: 0
+    },
+    actions
+  };
+}
+
+function printApplyMapDryRun(plan) {
+  const applyReady = plan.actions.filter(item => item.status === "apply-ready");
+  const skipped = plan.actions.filter(item => item.status !== "apply-ready" || item.action.endsWith("-skip"));
+
+  console.log("Signal Flow apply-map dry run");
+  console.log("Map:", plan.mapFile);
+  console.log("");
+
+  console.log("Apply-ready:");
+  if (applyReady.length) {
+    for (const item of applyReady) {
+      console.log("  [ ] " + item.levelId + " - " + item.action + " - " + item.reason);
+    }
+  } else {
+    console.log("  none");
+  }
+  console.log("");
+
+  console.log("Skipped / needs review:");
+  if (skipped.length) {
+    for (const item of skipped) {
+      console.log("  [ ] " + item.levelId + " - " + item.action + " - " + item.reason);
+    }
+  } else {
+    console.log("  none");
+  }
+  console.log("");
+
+  console.log("Would write files:");
+  console.log("0, because this is dry-run only.");
+  console.log("");
+  console.log("No files were modified by apply-map --dry-run.");
+}
+
+function applyMapCommand(args) {
+  const mapArg = args[0];
+  const flags = new Set(args.slice(1));
+
+  if (!mapArg) {
+    console.error("apply-map requires a map JSON path and --dry-run.");
+    process.exitCode = 1;
+    return;
+  }
+  if (flags.has("--write")) {
+    console.error("apply-map --write is not implemented yet. Use --dry-run to preview actions.");
+    process.exitCode = 1;
+    return;
+  }
+  if (!flags.has("--dry-run")) {
+    console.error("apply-map requires --dry-run. Write mode is not implemented.");
+    process.exitCode = 1;
+    return;
+  }
+
+  const unsupported = Array.from(flags).filter(flag => flag !== "--dry-run" && flag !== "--json");
+  if (unsupported.length) {
+    console.error("Unsupported apply-map flag(s): " + unsupported.join(", "));
+    process.exitCode = 1;
+    return;
+  }
+
+  const validation = loadAndValidateBatchMap(mapArg);
+  if (validation.errors.length) {
+    console.error("Batch puzzle metadata map validation failed:");
+    for (const error of validation.errors) console.error("  - " + error);
+    process.exitCode = 1;
+    return;
+  }
+
+  const plan = buildApplyMapDryRun(validation.file, validation.map);
+  if (flags.has("--json")) {
+    console.log(JSON.stringify(plan, null, 2));
+  } else {
+    printApplyMapDryRun(plan);
+  }
 }
 
 function printAudit() {
@@ -711,7 +882,9 @@ if (!command || command === "help" || command === "--help" || command === "-h") 
   validateAll();
 } else if (command === "validate-map") {
   validateBatchMap(process.argv[3]);
-} else if (command === "apply-map" || command === "normalize-all") {
+} else if (command === "apply-map") {
+  applyMapCommand(process.argv.slice(3));
+} else if (command === "normalize-all") {
   console.error(command + " is documented for the future but is not implemented in this read-only scaffold.");
   process.exitCode = 1;
 } else {
