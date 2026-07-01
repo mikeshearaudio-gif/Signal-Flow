@@ -96,7 +96,7 @@ const liv015Action = dryRunJson.actions.find(item => item.levelId === "LIV-015")
 assert.equal(liv015Action.action, "needs-review-skip", "needs-review levels should be skipped");
 const liv016Action = dryRunJson.actions.find(item => item.levelId === "LIV-016");
 assert.equal(liv016Action.status, "apply-ready", "LIV-016 should be promoted after source-route audit");
-assert.equal(liv016Action.action, "source-missing-create-required", "LIV-016 should still require a source manifest before metadata can be applied");
+assert.equal(liv016Action.action, "already-has-source-and-metadata", "LIV-016 should be recognized as already covered after source manifest creation");
 
 const triageResult = runTool(["triage", "data/puzzle-metadata/live-sound.json"]);
 

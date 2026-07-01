@@ -1,0 +1,119 @@
+{
+  "levelId": "LIV-016",
+  "environment": "live",
+  "title": "16-channel Stage Box to Front-of-House",
+  "brief": "Patch the full band into the 16-channel stagebox, then feed FOH main outputs to the crossover.",
+  "processorLabel": "FULL BAND STAGEBOX",
+  "requiredRoutes": [
+    { "id": "liv016-lead-vocal-mic-to-stagebox-input-1", "fromId": "lead-vocal-mic", "toId": "stagebox-input-1", "fromLabel": "Lead Vocal Microphone", "toLabel": "Stage Box Input 1" },
+    { "id": "liv016-bass-di-to-stagebox-input-2", "fromId": "bass-di", "toId": "stagebox-input-2", "fromLabel": "Bass DI", "toLabel": "Stage Box Input 2" },
+    { "id": "liv016-guitar-1-left-to-stagebox-input-3", "fromId": "guitar-1-left", "toId": "stagebox-input-3", "fromLabel": "Guitar 1 Left", "toLabel": "Stage Box Input 3", "stereoGroup": "liv016-guitar-1-to-stagebox", "stereoSide": "left" },
+    { "id": "liv016-guitar-1-right-to-stagebox-input-4", "fromId": "guitar-1-right", "toId": "stagebox-input-4", "fromLabel": "Guitar 1 Right", "toLabel": "Stage Box Input 4", "stereoGroup": "liv016-guitar-1-to-stagebox", "stereoSide": "right" },
+    { "id": "liv016-guitar-2-left-to-stagebox-input-5", "fromId": "guitar-2-left", "toId": "stagebox-input-5", "fromLabel": "Guitar 2 Left", "toLabel": "Stage Box Input 5", "stereoGroup": "liv016-guitar-2-to-stagebox", "stereoSide": "left" },
+    { "id": "liv016-guitar-2-right-to-stagebox-input-6", "fromId": "guitar-2-right", "toId": "stagebox-input-6", "fromLabel": "Guitar 2 Right", "toLabel": "Stage Box Input 6", "stereoGroup": "liv016-guitar-2-to-stagebox", "stereoSide": "right" },
+    { "id": "liv016-keys-left-di-to-stagebox-input-7", "fromId": "keys-left-di", "toId": "stagebox-input-7", "fromLabel": "Keys Left DI", "toLabel": "Stage Box Input 7", "stereoGroup": "liv016-keys-to-stagebox", "stereoSide": "left" },
+    { "id": "liv016-keys-right-di-to-stagebox-input-8", "fromId": "keys-right-di", "toId": "stagebox-input-8", "fromLabel": "Keys Right DI", "toLabel": "Stage Box Input 8", "stereoGroup": "liv016-keys-to-stagebox", "stereoSide": "right" },
+    { "id": "liv016-kick-to-stagebox-input-9", "fromId": "kick", "toId": "stagebox-input-9", "fromLabel": "Kick", "toLabel": "Stage Box Input 9" },
+    { "id": "liv016-snare-to-stagebox-input-10", "fromId": "snare", "toId": "stagebox-input-10", "fromLabel": "Snare", "toLabel": "Stage Box Input 10" },
+    { "id": "liv016-hi-hat-to-stagebox-input-11", "fromId": "hi-hat", "toId": "stagebox-input-11", "fromLabel": "Hi-hat", "toLabel": "Stage Box Input 11" },
+    { "id": "liv016-rack-tom-1-to-stagebox-input-12", "fromId": "high-rack-tom", "toId": "stagebox-input-12", "fromLabel": "Rack Tom 1", "toLabel": "Stage Box Input 12" },
+    { "id": "liv016-rack-tom-2-to-stagebox-input-13", "fromId": "low-rack-tom", "toId": "stagebox-input-13", "fromLabel": "Rack Tom 2", "toLabel": "Stage Box Input 13" },
+    { "id": "liv016-floor-tom-to-stagebox-input-14", "fromId": "floor-tom", "toId": "stagebox-input-14", "fromLabel": "Floor Tom", "toLabel": "Stage Box Input 14" },
+    { "id": "liv016-overhead-left-to-stagebox-input-15", "fromId": "overhead-left-crash", "toId": "stagebox-input-15", "fromLabel": "OH Left", "toLabel": "Stage Box Input 15", "stereoGroup": "liv016-overheads-to-stagebox", "stereoSide": "left" },
+    { "id": "liv016-overhead-right-to-stagebox-input-16", "fromId": "overhead-right-ride", "toId": "stagebox-input-16", "fromLabel": "OH Right", "toLabel": "Stage Box Input 16", "stereoGroup": "liv016-overheads-to-stagebox", "stereoSide": "right" },
+    { "id": "liv016-main-left-output-to-crossover-left-input", "fromId": "foh-liv006-main-left-output", "toId": "liv242-crossover-l-input", "fromLabel": "Main Left Output", "toLabel": "Crossover Left In", "stereoGroup": "liv016-main-to-crossover", "stereoSide": "left" },
+    { "id": "liv016-main-right-output-to-crossover-right-input", "fromId": "foh-liv006-main-right-output", "toId": "liv242-crossover-r-input", "fromLabel": "Main Right Output", "toLabel": "Crossover Right In", "stereoGroup": "liv016-main-to-crossover", "stereoSide": "right" }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are wiring a full stage input list into a front-of-house stagebox and preserving the main PA processor feed.",
+    "objective": "Patch sources into the intended stagebox channel order and keep main L/R outputs routed to the correct processor inputs.",
+    "constraints": [
+      {
+        "id": "channel-order-preserved",
+        "text": "Input order matters; do not treat the stagebox as interchangeable open jacks.",
+        "concept": "channel-order"
+      },
+      {
+        "id": "main-lr-preserved",
+        "text": "The main PA processor path must keep left and right consistent.",
+        "concept": "left-right"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch keeps the stage input list in order and sends the stereo main mix into the PA processor path.",
+    "difficulty": 4,
+    "conceptTags": ["signal-direction", "source-to-input", "stagebox", "channel-order", "main-pa", "processor-chain", "left-right", "multi-route"]
+  },
+  "stereoGroups": [
+    { "id": "liv016-guitar-1-to-stagebox", "leftRouteId": "liv016-guitar-1-left-to-stagebox-input-3", "rightRouteId": "liv016-guitar-1-right-to-stagebox-input-4" },
+    { "id": "liv016-guitar-2-to-stagebox", "leftRouteId": "liv016-guitar-2-left-to-stagebox-input-5", "rightRouteId": "liv016-guitar-2-right-to-stagebox-input-6" },
+    { "id": "liv016-keys-to-stagebox", "leftRouteId": "liv016-keys-left-di-to-stagebox-input-7", "rightRouteId": "liv016-keys-right-di-to-stagebox-input-8" },
+    { "id": "liv016-overheads-to-stagebox", "leftRouteId": "liv016-overhead-left-to-stagebox-input-15", "rightRouteId": "liv016-overhead-right-to-stagebox-input-16" },
+    { "id": "liv016-main-to-crossover", "leftRouteId": "liv016-main-left-output-to-crossover-left-input", "rightRouteId": "liv016-main-right-output-to-crossover-right-input" }
+  ],
+  "gear": [
+    { "id": "liv016-full-band-stagebox-board", "label": "Full Band Stagebox Board", "asset": "../assets/live-sound/png/liv016v20-board-only.png", "rect": { "x": 0, "y": 0, "w": 3024, "h": 1512 }, "className": "sf-liv016-full-band-stagebox-board" }
+  ],
+  "labels": [
+    { "id": "liv016-title-note", "text": "16-channel Stage Box to Front-of-House: patch the full band to the stagebox, then send main L/R to the crossover.", "rect": { "x": 40, "y": 30, "w": 1180, "h": 42, "z": 120 } },
+    { "id": "liv016-stagebox-inputs-label", "text": "Stage Box Inputs", "rect": { "x": 2358, "y": 98, "w": 176, "h": 34, "z": 155 } },
+    { "id": "liv016-stagebox-1-8-label", "text": "Stage Box 1-8", "rect": { "x": 2358, "y": 168, "w": 126, "h": 34, "z": 155 } },
+    { "id": "liv016-stagebox-9-16-label", "text": "Stage Box 9-16", "rect": { "x": 2358, "y": 302, "w": 132, "h": 34, "z": 155 } },
+    { "id": "liv016-foh-console-label", "text": "FOH Console", "rect": { "x": 2208, "y": 474, "w": 150, "h": 34, "z": 155 } },
+    { "id": "liv016-foh-main-label", "text": "FOH Main L/R", "rect": { "x": 2862, "y": 594, "w": 126, "h": 34, "z": 155 } },
+    { "id": "liv016-crossover-label", "text": "Crossover", "rect": { "x": 2388, "y": 872, "w": 118, "h": 34, "z": 155 } },
+    { "id": "liv016-crossover-inputs-label", "text": "Crossover Inputs", "rect": { "x": 2190, "y": 936, "w": 154, "h": 34, "z": 155 } },
+    { "id": "liv016-crossover-outputs-label", "text": "Crossover Outputs", "rect": { "x": 2580, "y": 842, "w": 164, "h": 34, "z": 155 } }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "guitar-1-left", "routeId": "liv016-guitar-1-left-to-stagebox-input-3", "rect": { "x": 227, "y": 228, "w": 34, "h": 34 } },
+      { "id": "guitar-1-right", "routeId": "liv016-guitar-1-right-to-stagebox-input-4", "rect": { "x": 444, "y": 216, "w": 34, "h": 34 } },
+      { "id": "lead-vocal-mic", "routeId": "liv016-lead-vocal-mic-to-stagebox-input-1", "rect": { "x": 958, "y": 61, "w": 152, "h": 152 } },
+      { "id": "guitar-2-left", "routeId": "liv016-guitar-2-left-to-stagebox-input-5", "rect": { "x": 344, "y": 760, "w": 34, "h": 34 } },
+      { "id": "guitar-2-right", "routeId": "liv016-guitar-2-right-to-stagebox-input-6", "rect": { "x": 668, "y": 754, "w": 34, "h": 34 } },
+      { "id": "bass-di", "routeId": "liv016-bass-di-to-stagebox-input-2", "rect": { "x": 1254, "y": 1269, "w": 34, "h": 34 } },
+      { "id": "keys-left-di", "routeId": "liv016-keys-left-di-to-stagebox-input-7", "rect": { "x": 1648, "y": 1167, "w": 34, "h": 34 } },
+      { "id": "keys-right-di", "routeId": "liv016-keys-right-di-to-stagebox-input-8", "rect": { "x": 1928, "y": 1167, "w": 34, "h": 34 } },
+      { "id": "overhead-left-crash", "routeId": "liv016-overhead-left-to-stagebox-input-15", "rect": { "x": 306, "y": 1068, "w": 40, "h": 40 } },
+      { "id": "overhead-right-ride", "routeId": "liv016-overhead-right-to-stagebox-input-16", "rect": { "x": 877, "y": 1100, "w": 40, "h": 40 } },
+      { "id": "hi-hat", "routeId": "liv016-hi-hat-to-stagebox-input-11", "rect": { "x": 206, "y": 1220, "w": 40, "h": 40 } },
+      { "id": "high-rack-tom", "routeId": "liv016-rack-tom-1-to-stagebox-input-12", "rect": { "x": 434, "y": 1162, "w": 40, "h": 40 } },
+      { "id": "low-rack-tom", "routeId": "liv016-rack-tom-2-to-stagebox-input-13", "rect": { "x": 622, "y": 1162, "w": 40, "h": 40 } },
+      { "id": "snare", "routeId": "liv016-snare-to-stagebox-input-10", "rect": { "x": 366, "y": 1330, "w": 40, "h": 40 } },
+      { "id": "kick", "routeId": "liv016-kick-to-stagebox-input-9", "rect": { "x": 532, "y": 1352, "w": 40, "h": 40 } },
+      { "id": "floor-tom", "routeId": "liv016-floor-tom-to-stagebox-input-14", "rect": { "x": 722, "y": 1362, "w": 40, "h": 40 } },
+      { "id": "stagebox-input-1", "routeId": "liv016-lead-vocal-mic-to-stagebox-input-1", "rect": { "x": 2065, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-2", "routeId": "liv016-bass-di-to-stagebox-input-2", "rect": { "x": 2145, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-3", "routeId": "liv016-guitar-1-left-to-stagebox-input-3", "rect": { "x": 2225, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-4", "routeId": "liv016-guitar-1-right-to-stagebox-input-4", "rect": { "x": 2305, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-5", "routeId": "liv016-guitar-2-left-to-stagebox-input-5", "rect": { "x": 2385, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-6", "routeId": "liv016-guitar-2-right-to-stagebox-input-6", "rect": { "x": 2465, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-7", "routeId": "liv016-keys-left-di-to-stagebox-input-7", "rect": { "x": 2545, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-8", "routeId": "liv016-keys-right-di-to-stagebox-input-8", "rect": { "x": 2625, "y": 190, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-9", "routeId": "liv016-kick-to-stagebox-input-9", "rect": { "x": 2065, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-10", "routeId": "liv016-snare-to-stagebox-input-10", "rect": { "x": 2145, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-11", "routeId": "liv016-hi-hat-to-stagebox-input-11", "rect": { "x": 2225, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-12", "routeId": "liv016-rack-tom-1-to-stagebox-input-12", "rect": { "x": 2305, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-13", "routeId": "liv016-rack-tom-2-to-stagebox-input-13", "rect": { "x": 2385, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-14", "routeId": "liv016-floor-tom-to-stagebox-input-14", "rect": { "x": 2465, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-15", "routeId": "liv016-overhead-left-to-stagebox-input-15", "rect": { "x": 2545, "y": 325, "w": 30, "h": 30 } },
+      { "id": "stagebox-input-16", "routeId": "liv016-overhead-right-to-stagebox-input-16", "rect": { "x": 2625, "y": 325, "w": 30, "h": 30 } },
+      { "id": "foh-liv006-main-left-output", "routeId": "liv016-main-left-output-to-crossover-left-input", "rect": { "x": 2794, "y": 618, "w": 40, "h": 40 } },
+      { "id": "foh-liv006-main-right-output", "routeId": "liv016-main-right-output-to-crossover-right-input", "rect": { "x": 2908, "y": 618, "w": 40, "h": 40 } },
+      { "id": "liv242-crossover-l-input", "routeId": "liv016-main-left-output-to-crossover-left-input", "rect": { "x": 2122, "y": 972, "w": 36, "h": 36 } },
+      { "id": "liv242-crossover-r-input", "routeId": "liv016-main-right-output-to-crossover-right-input", "rect": { "x": 2222, "y": 972, "w": 36, "h": 36 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 1,
+    "routeCount": 18,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
