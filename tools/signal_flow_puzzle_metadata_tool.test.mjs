@@ -21,8 +21,10 @@ assert.match(result.stdout, /Recommended next batch/, "report should recommend a
 assert.match(result.stdout, /LIV-015/, "report should include an actionable live-sound candidate from the patch-board roadmap");
 assert.match(result.stdout, /Needs source board manifests/, "report should identify levels blocked on source manifests");
 assert.match(result.stdout, /Embedded\/JS-only coverage gaps/, "report should identify embedded coverage gaps");
-assert.match(result.stdout, /Batch map files to create/, "report should name batch map files to create");
-assert.match(result.stdout, /data\/puzzle-metadata\/live-sound\.json/, "report should point to the live-sound batch map");
+assert.match(result.stdout, /Batch map status/, "report should summarize batch map state");
+assert.match(result.stdout, /data\/puzzle-metadata\/live-sound\.json - exists and validates/, "report should show the live-sound map as existing and valid");
+assert.doesNotMatch(result.stdout, /Batch map files to create:[\s\S]*data\/puzzle-metadata\/live-sound\.json/, "report should not list existing live-sound map as a file to create");
+assert.match(result.stdout, /Needs-review triage/, "report should include needs-review triage guidance");
 assert.match(result.stdout, /No files were modified/, "report should state read-only behavior");
 
 const liveSoundMapPath = path.join(cwd, "data/puzzle-metadata/live-sound.json");
@@ -92,5 +94,17 @@ assert.equal(liv011Action.status, "apply-ready", "JSON dry-run should preserve a
 assert.equal(liv011Action.action, "already-has-source-and-metadata", "LIV-011 should be recognized as already covered after source manifest creation");
 const liv015Action = dryRunJson.actions.find(item => item.levelId === "LIV-015");
 assert.equal(liv015Action.action, "needs-review-skip", "needs-review levels should be skipped");
+
+const triageResult = runTool(["triage", "data/puzzle-metadata/live-sound.json"]);
+
+assert.equal(triageResult.status, 0, `triage command should pass\nSTDOUT:\n${triageResult.stdout}\nSTDERR:\n${triageResult.stderr}`);
+assert.match(triageResult.stdout, /Signal Flow needs-review triage/, "triage should have a clear title");
+for (const levelId of ["LIV-015", "LIV-016", "LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
+  assert.match(triageResult.stdout, new RegExp(levelId), `triage should include ${levelId}`);
+}
+assert.match(triageResult.stdout, /requires-manual-curriculum-decision/, "triage should identify manual curriculum decisions");
+assert.match(triageResult.stdout, /requires-source-route-audit/, "triage should identify source route audits");
+assert.match(triageResult.stdout, /keep-needs-review/, "triage should preserve capstone review holds");
+assert.match(triageResult.stdout, /No files were modified/, "triage should state read-only behavior");
 
 console.log("signal flow puzzle metadata tool checks passed");

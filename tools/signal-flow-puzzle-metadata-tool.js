@@ -127,6 +127,7 @@ function usage() {
     "  node tools/signal-flow-puzzle-metadata-tool.js validate-all",
     "  node tools/signal-flow-puzzle-metadata-tool.js validate-map <map.json>",
     "  node tools/signal-flow-puzzle-metadata-tool.js apply-map <map.json> --dry-run [--json]",
+    "  node tools/signal-flow-puzzle-metadata-tool.js triage <map.json>",
     "",
     "Read-only scaffold:",
     "  audit         Summarize discovered level sources and migration blockers.",
@@ -135,6 +136,7 @@ function usage() {
     "  validate-all  Validate discoverable curriculum/puzzle metadata.",
     "  validate-map  Validate a read-only batch metadata map.",
     "  apply-map     Preview map actions with --dry-run. --write is not implemented.",
+    "  triage        List needs-review map entries with evidence and next decisions.",
     "",
     "Future write commands, intentionally not implemented yet:",
     "  apply-map --write  Apply metadata map files with an explicit --write flag.",
@@ -507,6 +509,37 @@ function loadAndValidateBatchMap(fileArg) {
   return { file, map, errors };
 }
 
+function batchMapStatus(file) {
+  const absolute = path.resolve(repoRoot, file);
+  if (!fs.existsSync(absolute)) {
+    return {
+      file,
+      state: file === "data/puzzle-metadata/live-sound.json" ? "missing" : "not applicable yet",
+      detail: file === "data/puzzle-metadata/live-sound.json" ? "missing" : "missing; no validated batch selected"
+    };
+  }
+
+  const validation = loadAndValidateBatchMap(file);
+  if (validation.errors.length) {
+    return {
+      file,
+      state: "exists but invalid",
+      detail: validation.errors[0],
+      errors: validation.errors
+    };
+  }
+
+  const levels = Object.entries(validation.map.levels);
+  const applyReady = levels.filter(([, level]) => level.status === "apply-ready").length;
+  const needsReview = levels.filter(([, level]) => level.status === "needs-review").length;
+  return {
+    file,
+    state: "exists and validates",
+    detail: "levels=" + levels.length + ", apply-ready=" + applyReady + ", needs-review=" + needsReview,
+    map: validation.map
+  };
+}
+
 function validateBatchMap(fileArg) {
   const result = loadAndValidateBatchMap(fileArg);
 
@@ -535,6 +568,70 @@ function validateBatchMap(fileArg) {
   console.log("Apply-ready levels:", readyCount);
   console.log("Needs-review levels:", reviewCount);
   console.log("No files were modified by validate-map.");
+}
+
+function recommendedTriageDecision(level, kinds) {
+  const notes = String(level.migrationNotes || "").toLowerCase();
+  if (notes.includes("reserves") || notes.includes("reserved")) return "keep-needs-review";
+  if (notes.includes("roadmap describes")) return "requires-source-route-audit";
+  if (notes.includes("roadmap labels") || notes.includes("differs")) return "requires-manual-curriculum-decision";
+  if (kinds.includes("source-json")) return "promote-to-apply-ready";
+  if (kinds.includes("native-renderer") || kinds.includes("launcher") || kinds.includes("adapter/allowlist")) return "requires-source-route-audit";
+  return "requires-manual-curriculum-decision";
+}
+
+function buildNeedsReviewTriage(file, map) {
+  const sources = discoverSources();
+  return Object.entries(map.levels)
+    .filter(([, level]) => level.status === "needs-review")
+    .map(([levelId, level]) => {
+      const kinds = sourceKindsForId(sources, levelId);
+      return {
+        levelId,
+        status: level.status,
+        migrationNotes: level.migrationNotes || "",
+        evidence: kinds,
+        recommendedDecision: recommendedTriageDecision(level, kinds)
+      };
+    });
+}
+
+function printTriageItems(items) {
+  if (!items.length) {
+    console.log("  none");
+    return;
+  }
+  for (const item of items) {
+    console.log("  " + item.levelId);
+    console.log("    status: " + item.status);
+    console.log("    evidence: " + (item.evidence.length ? item.evidence.join(", ") : "not discovered"));
+    console.log("    recommended next decision: " + item.recommendedDecision);
+    if (item.migrationNotes) console.log("    migrationNotes: " + item.migrationNotes);
+  }
+}
+
+function triageCommand(fileArg) {
+  if (!fileArg) {
+    console.error("triage requires a map JSON path.");
+    process.exitCode = 1;
+    return;
+  }
+
+  const validation = loadAndValidateBatchMap(fileArg);
+  if (validation.errors.length) {
+    console.error("Batch puzzle metadata map validation failed:");
+    for (const error of validation.errors) console.error("  - " + error);
+    process.exitCode = 1;
+    return;
+  }
+
+  const items = buildNeedsReviewTriage(validation.file, validation.map);
+  console.log("Signal Flow needs-review triage");
+  console.log("Map:", rel(validation.file));
+  console.log("");
+  printTriageItems(items);
+  console.log("");
+  console.log("No files were modified by triage.");
 }
 
 function classifyApplyMapAction(levelId, level, sources) {
@@ -830,15 +927,33 @@ function printReport() {
   }
   console.log("");
 
+  const mapStatuses = BATCH_MAP_FILES.map(batchMapStatus);
+  console.log("Batch map status:");
+  for (const status of mapStatuses) {
+    console.log("  " + status.file + " - " + status.state + (status.detail ? " (" + status.detail + ")" : ""));
+  }
+  console.log("");
+
+  const mapsToCreate = mapStatuses.filter(status => status.state === "missing");
   console.log("Batch map files to create:");
-  for (const file of BATCH_MAP_FILES) console.log("  " + file);
+  console.log(mapsToCreate.map(status => "  " + status.file).join("\n") || "  none for current live-sound batch");
+  console.log("");
+
+  const triageStatus = mapStatuses.find(status => status.file === "data/puzzle-metadata/live-sound.json" && status.state === "exists and validates");
+  console.log("Needs-review triage:");
+  if (triageStatus) {
+    printTriageItems(buildNeedsReviewTriage(path.resolve(repoRoot, triageStatus.file), triageStatus.map));
+  } else {
+    console.log("  validate data/puzzle-metadata/live-sound.json before needs-review triage");
+  }
   console.log("");
 
   console.log("Suggested order:");
-  console.log("  1. Create source manifests for the recommended live-sound batch where missing.");
-  console.log("  2. Draft data/puzzle-metadata/live-sound.json from those manifests.");
-  console.log("  3. Validate concepts against data/puzzle-metadata/concept-vocabulary.json.");
-  console.log("  4. Keep renderer integration paused until metadata coverage and normalization are stable.");
+  console.log("  1. Validate the existing live-sound batch map.");
+  console.log("  2. Triage needs-review entries before changing any statuses.");
+  console.log("  3. Promote specific levels from needs-review to apply-ready only when curriculum/source evidence is clear.");
+  console.log("  4. Create source manifests only for apply-ready entries.");
+  console.log("  5. Keep renderer integration paused until metadata coverage and normalization are stable.");
   console.log("");
   console.log("No files were modified by this report command.");
 }
@@ -884,6 +999,8 @@ if (!command || command === "help" || command === "--help" || command === "-h") 
   validateBatchMap(process.argv[3]);
 } else if (command === "apply-map") {
   applyMapCommand(process.argv.slice(3));
+} else if (command === "triage") {
+  triageCommand(process.argv[3]);
 } else if (command === "normalize-all") {
   console.error(command + " is documented for the future but is not implemented in this read-only scaffold.");
   process.exitCode = 1;

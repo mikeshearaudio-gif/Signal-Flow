@@ -73,16 +73,30 @@ node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/li
 node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --dry-run --json
 ```
 
-5. Normalize generated/runtime files
+5. Triage needs-review entries
+   - Review migration notes, discovered source evidence, and the recommended next decision.
+   - Keep uncertain levels in `needs-review`.
+   - Promote a level to `apply-ready` only after curriculum intent and source route evidence are clear.
+
+```bash
+node tools/signal-flow-puzzle-metadata-tool.js triage data/puzzle-metadata/live-sound.json
+```
+
+6. Create manifests or apply metadata only for apply-ready entries
+   - Create source manifests only when the dry run and triage show the level is ready.
+   - Do not use needs-review entries as source-manifest instructions.
+   - `apply-map --write` is still not implemented.
+
+7. Normalize generated/runtime files
    - For JSON-backed live-sound boards, run the existing board bake process.
    - For future environment JSON, add equivalent non-destructive normalizers.
    - Do not rewrite JS/HTML embedded levels until a specific migration plan exists.
 
-6. Compare source and normalized metadata
+8. Compare source and normalized metadata
    - Confirm generated files preserve curriculum metadata exactly.
    - Report missing or divergent metadata.
 
-7. Report blockers
+9. Report blockers
    - Missing source manifests.
    - Levels still embedded in JS/HTML.
    - Unknown concept tags.
@@ -100,13 +114,16 @@ node tools/signal-flow-puzzle-metadata-tool.js report
 node tools/signal-flow-puzzle-metadata-tool.js validate-all
 node tools/signal-flow-puzzle-metadata-tool.js validate-map data/puzzle-metadata/live-sound.json
 node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --dry-run
+node tools/signal-flow-puzzle-metadata-tool.js triage data/puzzle-metadata/live-sound.json
 ```
 
-Use `report` as the planning command before batch work. It summarizes coverage, lists the recommended next live-sound batch, separates levels that need source manifests first, identifies embedded/JS-only gaps, and names the batch map files that still need to be created.
+Use `report` as the planning command before batch work. It summarizes coverage, lists the recommended next live-sound batch, separates levels that need source manifests first, identifies embedded/JS-only gaps, reports whether batch maps are missing, invalid, valid, or not applicable yet, and includes a needs-review triage summary.
 
 Use `validate-map` after drafting an environment map and before any future apply-map command. It is read-only and rejects board route/layout/render fields so batch metadata cannot accidentally become a gameplay or renderer migration.
 
 Use `apply-map --dry-run` after validation to preview per-level actions. It validates the map first, classifies each level, and writes nothing. `--json` is available for stable automation output.
+
+Use `triage` after dry-run to review needs-review entries. It is read-only and reports migration notes, discovered source evidence, and a recommended next decision such as `keep-needs-review`, `requires-manual-curriculum-decision`, or `requires-source-route-audit`.
 
 Future write commands should require explicit flags:
 
