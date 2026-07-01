@@ -56,6 +56,22 @@ const beginnerBoards = [
     puzzleMode: "constrained-build",
     difficulty: 3,
     conceptTags: ["signal-direction", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right"]
+  },
+  {
+    levelId: "LIV-025",
+    file: "data/live-sound/boards/liv025.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv025.normalized.json",
+    puzzleMode: "signal-type",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "matrix-feed", "front-fill", "zone-feed", "main-pa", "processor-chain"]
+  },
+  {
+    levelId: "LIV-034",
+    file: "data/live-sound/boards/liv034.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv034.normalized.json",
+    puzzleMode: "signal-type",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "matrix-feed", "front-fill", "zone-feed", "left-right", "processor-chain"]
   }
 ];
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));

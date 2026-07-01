@@ -1,0 +1,62 @@
+{
+  "levelId": "LIV-025",
+  "environment": "live",
+  "title": "Front Fill Zone Feed",
+  "brief": "Patch a dedicated front-fill zone feed from the console bus through DSP into the front-fill amplifier.",
+  "processorLabel": "FRONT FILL DSP",
+  "requiredRoutes": [
+    { "id": "bus-1-to-front-fill-dsp", "fromId": "bus-1-output", "toId": "front-fill-processor-input", "fromLabel": "Bus 1/2 Output", "toLabel": "Front Fill DSP Bus In" },
+    { "id": "front-fill-dsp-to-front-fill-amp", "fromId": "front-fill-processor-output", "toId": "front-fill-amp-input", "fromLabel": "Front Fill DSP Out", "toLabel": "Front Fill Amp Input" }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "signal-type",
+    "scenario": "You are feeding a front-fill speaker zone that needs its own local bus path instead of simply sharing the main PA or monitor send.",
+    "objective": "Create the dedicated zone feed by routing the correct console bus output into the front-fill DSP, then route the DSP output into the front-fill amplifier input.",
+    "constraints": [
+      {
+        "id": "front-fill-uses-zone-feed",
+        "text": "The front-fill zone should use a dedicated bus/matrix-style feed so it can be balanced separately from the main PA.",
+        "concept": "zone-feed",
+        "appliesTo": ["matrix-feed", "front-fill", "zone-feed"]
+      },
+      {
+        "id": "processor-before-amplifier",
+        "text": "The zone signal should pass through front-fill DSP before it reaches the amplifier input.",
+        "concept": "processor-chain",
+        "appliesTo": ["front-fill", "processor-chain", "main-pa"]
+      }
+    ],
+    "routeListVisibility": "full",
+    "trapRoutes": [],
+    "completionExplanation": "The console bus output creates an independent front-fill zone feed, the front-fill DSP shapes that zone, and the DSP output feeds the front-fill amplifier input.",
+    "difficulty": 3,
+    "conceptTags": ["signal-direction", "matrix-feed", "front-fill", "zone-feed", "main-pa", "processor-chain"]
+  },
+  "stereoGroups": [],
+  "gear": [
+    { "id": "liv025-foh-console", "label": "FOH Console", "asset": "../assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", "rect": { "x": 42, "y": 72, "w": 820, "h": 230 }, "className": "sf-liv025-foh-console" },
+    { "id": "liv025-front-fill-dsp", "label": "Front Fill DSP", "asset": "../assets/live-sound/svg/hardware/foh-console-io-panel.svg", "rect": { "x": 88, "y": 354, "w": 520, "h": 150 }, "className": "sf-liv025-front-fill-dsp" },
+    { "id": "liv025-front-fill-amp", "label": "Front Fill Amp", "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-low.svg", "rect": { "x": 650, "y": 354, "w": 360, "h": 112 }, "className": "sf-liv025-front-fill-amp" }
+  ],
+  "labels": [
+    { "id": "liv025-title-note", "text": "Front Fill Zone Feed: send the dedicated bus feed through DSP before the front-fill amplifier.", "rect": { "x": 40, "y": 30, "w": 900, "h": 42, "z": 120 } }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "bus-1-output", "label": "Bus 1/2 Output", "kind": "source", "rect": { "x": 112, "y": 188, "w": 28, "h": 28 } },
+      { "id": "front-fill-processor-input", "label": "Front Fill DSP Bus In", "kind": "jack", "rect": { "x": 162, "y": 408, "w": 28, "h": 28 } },
+      { "id": "front-fill-processor-output", "label": "Front Fill DSP Out", "kind": "source", "rect": { "x": 480, "y": 408, "w": 28, "h": 28 } },
+      { "id": "front-fill-amp-input", "label": "Front Fill Amp Input", "kind": "jack", "rect": { "x": 720, "y": 396, "w": 28, "h": 28 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 2,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

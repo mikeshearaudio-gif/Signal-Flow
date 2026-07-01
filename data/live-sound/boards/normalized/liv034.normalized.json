@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-034",
+  "environment": "live",
+  "title": "Front Fill Matrix",
+  "brief": "Patch a harder stereo front-fill matrix feed through processing while keeping left and right zone paths consistent.",
+  "processorLabel": "FRONT FILL MATRIX",
+  "routeCount": 4,
+  "routes": [
+    {
+      "key": "liv034-matrix-left-output-to-front-fill-left-processor-input",
+      "from": "liv034-matrix-left-output",
+      "to": "liv034-front-fill-left-processor-input",
+      "checklist": "Matrix Front Fill L Output → Front Fill Processor L Input",
+      "stereoGroup": "liv034-matrix-to-front-fill-processor",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv034-matrix-right-output-to-front-fill-right-processor-input",
+      "from": "liv034-matrix-right-output",
+      "to": "liv034-front-fill-right-processor-input",
+      "checklist": "Matrix Front Fill R Output → Front Fill Processor R Input",
+      "stereoGroup": "liv034-matrix-to-front-fill-processor",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv034-front-fill-left-processor-output-to-front-fill-left-amp-input",
+      "from": "liv034-front-fill-left-processor-output",
+      "to": "liv034-front-fill-left-amp-input",
+      "checklist": "Front Fill Processor L Output → Front Fill Amp L Input",
+      "stereoGroup": "liv034-front-fill-processor-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv034-front-fill-right-processor-output-to-front-fill-right-amp-input",
+      "from": "liv034-front-fill-right-processor-output",
+      "to": "liv034-front-fill-right-amp-input",
+      "checklist": "Front Fill Processor R Output → Front Fill Amp R Input",
+      "stereoGroup": "liv034-front-fill-processor-to-amp",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "liv034-front-fill-left-amp-input",
+      "liv034-front-fill-left-processor-input",
+      "liv034-front-fill-left-processor-output",
+      "liv034-front-fill-right-amp-input",
+      "liv034-front-fill-right-processor-input",
+      "liv034-front-fill-right-processor-output",
+      "liv034-matrix-left-output",
+      "liv034-matrix-right-output"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv034-matrix-to-front-fill-processor",
+      "leftRouteId": "liv034-matrix-left-output-to-front-fill-left-processor-input",
+      "rightRouteId": "liv034-matrix-right-output-to-front-fill-right-processor-input"
+    },
+    {
+      "id": "liv034-front-fill-processor-to-amp",
+      "leftRouteId": "liv034-front-fill-left-processor-output-to-front-fill-left-amp-input",
+      "rightRouteId": "liv034-front-fill-right-processor-output-to-front-fill-right-amp-input"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv034-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 42,
+        "y": 72,
+        "w": 820,
+        "h": 230
+      },
+      "className": "sf-liv034-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv034-front-fill-processor",
+      "label": "Front Fill Processor",
+      "asset": "assets/live-sound/svg/hardware/foh-console-io-panel.svg",
+      "rect": {
+        "x": 88,
+        "y": 354,
+        "w": 520,
+        "h": 150
+      },
+      "className": "sf-liv034-front-fill-processor",
+      "render": null
+    },
+    {
+      "id": "liv034-front-fill-amp",
+      "label": "Front Fill Amp",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "rect": {
+        "x": 650,
+        "y": 354,
+        "w": 360,
+        "h": 112
+      },
+      "className": "sf-liv034-front-fill-amp",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv034-title-note",
+      "text": "Front Fill Matrix: keep the matrix L/R zone feed aligned through processing and amplification.",
+      "rect": {
+        "x": 40,
+        "y": 30,
+        "w": 940,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "liv034-matrix-left-output",
+        "label": "Matrix Front Fill L Output",
+        "kind": "source",
+        "rect": {
+          "x": 146,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-matrix-right-output",
+        "label": "Matrix Front Fill R Output",
+        "kind": "source",
+        "rect": {
+          "x": 198,
+          "y": 188,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-front-fill-left-processor-input",
+        "label": "Front Fill Processor L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 162,
+          "y": 392,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-front-fill-right-processor-input",
+        "label": "Front Fill Processor R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 214,
+          "y": 392,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-front-fill-left-processor-output",
+        "label": "Front Fill Processor L Output",
+        "kind": "source",
+        "rect": {
+          "x": 480,
+          "y": 392,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-front-fill-right-processor-output",
+        "label": "Front Fill Processor R Output",
+        "kind": "source",
+        "rect": {
+          "x": 532,
+          "y": 392,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-front-fill-left-amp-input",
+        "label": "Front Fill Amp L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 720,
+          "y": 396,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv034-front-fill-right-amp-input",
+        "label": "Front Fill Amp R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 772,
+          "y": 396,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "signal-type",
+    "scenario": "You are setting up a front-fill matrix system that needs a dedicated stereo zone feed through processing before the amplifier inputs.",
+    "objective": "Select the correct front-fill matrix outputs, patch them into the matching processor inputs, then keep the left and right processor outputs aligned into the front-fill amplifier inputs.",
+    "constraints": [
+      {
+        "id": "front-fill-matrix-not-main",
+        "text": "The front-fill zone uses matrix/front-fill outputs rather than borrowing the main PA feed.",
+        "concept": "matrix-feed",
+        "appliesTo": [
+          "matrix-feed",
+          "front-fill",
+          "zone-feed"
+        ]
+      },
+      {
+        "id": "front-fill-left-right-consistency",
+        "text": "Left and right front-fill paths should stay paired through the processor and amplifier stages.",
+        "concept": "left-right",
+        "appliesTo": [
+          "left-right",
+          "processor-chain",
+          "front-fill"
+        ]
+      }
+    ],
+    "routeListVisibility": "full",
+    "trapRoutes": [],
+    "completionExplanation": "The matrix front-fill L/R outputs feed the matching processor inputs, and the processor L/R outputs continue into the matching front-fill amplifier inputs without crossing the stereo pair.",
+    "difficulty": 4,
+    "conceptTags": [
+      "signal-direction",
+      "matrix-feed",
+      "front-fill",
+      "zone-feed",
+      "left-right",
+      "processor-chain"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-io-panel.svg",
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 4,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
