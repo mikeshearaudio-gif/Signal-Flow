@@ -198,8 +198,8 @@
     "LIV-020": {
       "status": "needs-review",
       "taskMode": "capstone-system",
-      "scenario": "You are building a main PA processor/amplifier chain while also feeding an IEM monitor path.",
-      "objective": "Complete the main L/R PA route through processing and amplification, and keep the monitor/IEM feed on its own correct path.",
+      "scenario": "You are building a three-way main PA processor/amplifier chain while also feeding five aux monitor sends to IEM pack inputs.",
+      "objective": "Patch Main L/R through the crossover, route high/mid/low crossover outputs through matching amplifiers to matching line-array inputs, and keep Aux 1-5 on the intended IEM pack input path.",
       "taskVisibility": "full",
       "difficulty": 5,
       "conceptTags": [
@@ -208,7 +208,8 @@
         "processor-chain",
         "amplifier",
         "speaker-level",
-        "iem-stereo",
+        "aux-send",
+        "monitor-aux",
         "monitor-mix",
         "left-right",
         "multi-route"
@@ -221,23 +222,25 @@
         },
         {
           "id": "monitor-path-separated",
-          "text": "The monitor/IEM feed should not be confused with the audience PA chain.",
+          "text": "The five aux-to-IEM routes should not be confused with the audience PA chain.",
           "concept": "monitor-mix"
         }
       ],
-      "completionExplanation": "The completed patch separates audience PA routing from monitor routing while preserving the processor and amplifier order.",
+      "completionExplanation": "The completed patch keeps Main L/R feeding the crossover first, routes each high/mid/low crossover band through the matching left/right amplifier and line-array input, and keeps Aux 1-5 on the intended IEM pack inputs.",
       "prerequisiteConcepts": [
         "signal-direction",
         "main-pa",
+        "aux-send",
         "monitor-mix"
       ],
       "assessedConcepts": [
         "processor-chain",
         "speaker-level",
-        "iem-stereo",
+        "aux-send",
+        "monitor-aux",
         "multi-route"
       ],
-      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this board as a mid-late capstone."
+      "migrationNotes": "Corrected after source-route audit: current LIV-020 is a locked Main PA + IEM Monitor Feed board with 14 stereo-grouped PA processor/amplifier/speaker routes and five mono Aux-to-IEM input routes. It remains needs-review because the board has locked gear, label, hitbox, false-jack, bad-route, and vertical layout behavior that must be preserved before any source manifest is created."
     },
     "LIV-021": {
       "status": "apply-ready",
