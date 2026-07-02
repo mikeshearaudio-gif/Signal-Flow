@@ -333,8 +333,8 @@
     "LIV-026": {
       "status": "needs-review",
       "taskMode": "capstone-system",
-      "scenario": "You are routing multiple audience zones through processing and amplification, including main PA, delay, and front-fill style feeds.",
-      "objective": "Patch each zone feed through the correct processor and amplifier path while maintaining left/right consistency where applicable.",
+      "scenario": "You are routing a full-zone processing rig: Main L/R through system processing and crossover, Bus 1 to a delay tower chain, and Bus 2 to a front-fill chain.",
+      "objective": "Patch Main L/R through the system processor and crossover to the high, mid, and low amp inputs, route Bus 1 through the delay tower processor to the stereo delay amp, and route Bus 2 through the front-fill processor to the fill amp.",
       "taskVisibility": "full",
       "difficulty": 6,
       "conceptTags": [
@@ -353,11 +353,11 @@
       "constraints": [
         {
           "id": "zone-specific-processing",
-          "text": "Each zone feed needs its own processor/amplifier path rather than sharing a generic output.",
+          "text": "Main L/R, Bus 1, and Bus 2 serve different zone-processing paths and should not be collapsed into one generic PA output.",
           "concept": "zone-feed"
         }
       ],
-      "completionExplanation": "The completed patch sends main, delay, and fill zones through their intended processing and amplification chains.",
+      "completionExplanation": "The completed patch sends Main L/R through system processing, crossover, and high/mid/low amplifier inputs; sends Bus 1 through delay processing to the stereo delay amp; and sends Bus 2 through front-fill processing to the fill amp.",
       "prerequisiteConcepts": [
         "signal-direction",
         "matrix-feed",
@@ -368,10 +368,12 @@
         "zone-feed",
         "delay-tower",
         "front-fill",
+        "processor-chain",
         "speaker-level",
+        "left-right",
         "multi-route"
       ],
-      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this as a processing capstone after simpler zone-feed boards are stable."
+      "migrationNotes": "Corrected after source-route audit: current LIV-026 is the locked Full Zone Processing board with 15 required routes, 28 false hitboxes, baked true hitboxes, and six stereo groups across main/system, system/crossover, high/mid/low amp, and delay amp pairs. It remains reserved as needs-review until a manifest pass can preserve the custom scroll host, false-jack behavior, stack guard, processor-deco cleanup, broad invalid-route behavior, and existing route/checklist semantics."
     },
     "LIV-028": {
       "status": "apply-ready",
