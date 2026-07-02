@@ -77,27 +77,34 @@ node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/li
    - Review migration notes, discovered source evidence, and the recommended next decision.
    - Keep uncertain levels in `needs-review`.
    - Promote a level to `apply-ready` only after curriculum intent and source route evidence are clear.
+   - Treat locked/custom boards as `preservation-plan-required`; do not create manifests for them until behavior parity is defined.
 
 ```bash
 node tools/signal-flow-puzzle-metadata-tool.js triage data/puzzle-metadata/live-sound.json
 ```
 
-6. Create manifests or apply metadata only for apply-ready entries
+6. Preserve locked boards before manifest work
+   - Use `docs/live-sound-locked-board-preservation-plan.md` for locked needs-review boards.
+   - Capture route, good-hitbox, false/trap-hitbox, wrong-route, hint, cable, scroll, label, score, and completion behavior before creating source manifests.
+   - Locked boards remain visible in reports, but they are not ordinary source-manifest candidates.
+
+7. Create manifests or apply metadata only for apply-ready entries
    - Create source manifests only when the dry run and triage show the level is ready.
    - Do not use needs-review entries as source-manifest instructions.
    - `apply-map --write` is still not implemented.
 
-7. Normalize generated/runtime files
+8. Normalize generated/runtime files
    - For JSON-backed live-sound boards, run the existing board bake process.
    - For future environment JSON, add equivalent non-destructive normalizers.
    - Do not rewrite JS/HTML embedded levels until a specific migration plan exists.
 
-8. Compare source and normalized metadata
+9. Compare source and normalized metadata
    - Confirm generated files preserve curriculum metadata exactly.
    - Report missing or divergent metadata.
 
-9. Report blockers
+10. Report blockers
    - Missing source manifests.
+   - Locked boards waiting on preservation parity.
    - Levels still embedded in JS/HTML.
    - Unknown concept tags.
    - Levels that use board-specific renderer state.
@@ -117,13 +124,15 @@ node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/li
 node tools/signal-flow-puzzle-metadata-tool.js triage data/puzzle-metadata/live-sound.json
 ```
 
-Use `report` as the planning command before batch work. It summarizes coverage, lists the recommended next live-sound batch, separates levels that need source manifests first, identifies embedded/JS-only gaps, reports whether batch maps are missing, invalid, valid, or not applicable yet, and includes a needs-review triage summary.
+Use `report` as the planning command before batch work. It summarizes coverage, lists the recommended next live-sound batch, separates locked boards that need preservation planning before manifests, separates ordinary levels that need source manifests first, identifies embedded/JS-only gaps, reports whether batch maps are missing, invalid, valid, or not applicable yet, and includes a needs-review triage summary.
 
 Use `validate-map` after drafting an environment map and before any future apply-map command. It is read-only and rejects board route/layout/render fields so batch metadata cannot accidentally become a gameplay or renderer migration.
 
 Use `apply-map --dry-run` after validation to preview per-level actions. It validates the map first, classifies each level, and writes nothing. `--json` is available for stable automation output.
 
 Use `triage` after dry-run to review needs-review entries. It is read-only and reports migration notes, discovered source evidence, and a recommended next decision such as `keep-needs-review`, `requires-manual-curriculum-decision`, or `requires-source-route-audit`.
+
+Use the preservation-plan-required state for locked/custom boards whose route evidence is clear but whose renderer behavior must be preserved before manifest work. These boards should stay in `needs-review` until their route evidence, good hitboxes, false/trap hitboxes, wrong-route behavior, hint exclusions, cable/scroll/label behavior, score behavior, and completion behavior have explicit parity requirements.
 
 Future write commands should require explicit flags:
 
@@ -138,6 +147,7 @@ node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/li
 
 - No command modifies files unless it includes an explicit write/apply mode.
 - `apply-map` must refuse to touch JS/HTML embedded levels until a source JSON manifest exists.
+- Locked/custom `needs-review` boards must not be treated as ordinary source-manifest candidates.
 - Generated files must preserve source metadata exactly.
 - Unknown concept tags should fail validation unless they are first added to the vocabulary.
 - Existing live-sound top-level `puzzle` metadata remains valid during the transition.

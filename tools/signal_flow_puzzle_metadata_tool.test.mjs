@@ -13,12 +13,23 @@ function runTool(args) {
   });
 }
 
+function section(stdout, heading, nextHeading) {
+  const start = stdout.indexOf(heading);
+  assert.notEqual(start, -1, `missing report section: ${heading}`);
+  const fromHeading = stdout.slice(start);
+  if (!nextHeading) return fromHeading;
+  const end = fromHeading.indexOf(nextHeading);
+  assert.notEqual(end, -1, `missing next report section: ${nextHeading}`);
+  return fromHeading.slice(0, end);
+}
+
 const result = runTool(["report"]);
 
 assert.equal(result.status, 0, `report command should pass\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
 assert.match(result.stdout, /Signal Flow actionable puzzle metadata report/, "report should have a clear title");
 assert.match(result.stdout, /Recommended next batch/, "report should recommend a next batch");
-assert.match(result.stdout, /LIV-019/, "report should include an actionable live-sound candidate from the patch-board roadmap");
+assert.match(result.stdout, /LIV-030/, "report should include a non-locked live-sound candidate from the patch-board roadmap");
+assert.match(result.stdout, /Preservation-plan-required locked boards/, "report should identify locked boards that need preservation planning");
 assert.match(result.stdout, /Needs source board manifests/, "report should identify levels blocked on source manifests");
 assert.match(result.stdout, /Embedded\/JS-only coverage gaps/, "report should identify embedded coverage gaps");
 assert.match(result.stdout, /Batch map status/, "report should summarize batch map state");
@@ -26,6 +37,15 @@ assert.match(result.stdout, /data\/puzzle-metadata\/live-sound\.json - exists an
 assert.doesNotMatch(result.stdout, /Batch map files to create:[\s\S]*data\/puzzle-metadata\/live-sound\.json/, "report should not list existing live-sound map as a file to create");
 assert.match(result.stdout, /Needs-review triage/, "report should include needs-review triage guidance");
 assert.match(result.stdout, /No files were modified/, "report should state read-only behavior");
+
+const recommendedSection = section(result.stdout, "Recommended next batch:", "Preservation-plan-required locked boards:");
+const preservationSection = section(result.stdout, "Preservation-plan-required locked boards:", "Needs source board manifests:");
+const sourceManifestSection = section(result.stdout, "Needs source board manifests:", "Source JSON without metadata:");
+for (const levelId of ["LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
+  assert.match(preservationSection, new RegExp(levelId + " - locked-needs-review"), `${levelId} should be in the locked/preservation-needed bucket`);
+  assert.doesNotMatch(recommendedSection, new RegExp(levelId), `${levelId} should not be presented as an ordinary recommended source-manifest candidate`);
+  assert.doesNotMatch(sourceManifestSection, new RegExp(levelId), `${levelId} should not be presented as an ordinary source-manifest gap`);
+}
 
 const liveSoundMapPath = path.join(cwd, "data/puzzle-metadata/live-sound.json");
 const beforeStat = fs.statSync(liveSoundMapPath);
@@ -98,6 +118,11 @@ assert.equal(liv015Action.action, "already-has-source-and-metadata", "LIV-015 sh
 const liv016Action = dryRunJson.actions.find(item => item.levelId === "LIV-016");
 assert.equal(liv016Action.status, "apply-ready", "LIV-016 should be promoted after source-route audit");
 assert.equal(liv016Action.action, "already-has-source-and-metadata", "LIV-016 should be recognized as already covered after source manifest creation");
+for (const levelId of ["LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
+  const action = dryRunJson.actions.find(item => item.levelId === levelId);
+  assert.equal(action.status, "needs-review", `${levelId} should remain needs-review in apply-map dry-run`);
+  assert.equal(action.action, "needs-review-skip", `${levelId} should still be skipped by apply-map dry-run`);
+}
 
 const triageResult = runTool(["triage", "data/puzzle-metadata/live-sound.json"]);
 

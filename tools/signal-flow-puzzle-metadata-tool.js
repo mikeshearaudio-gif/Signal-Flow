@@ -861,6 +861,27 @@ function actionForLevel(sources, id, metadataIds, sourceIds) {
   return "audit source location before metadata";
 }
 
+function needsPreservationPlan(level) {
+  if (!level || level.status !== "needs-review") return false;
+  const notes = String(level.migrationNotes || "").toLowerCase();
+  return (
+    notes.includes("locked") ||
+    notes.includes("custom") ||
+    notes.includes("preserve") ||
+    notes.includes("false-jack") ||
+    notes.includes("false hitbox") ||
+    notes.includes("stack guard") ||
+    notes.includes("scroll host")
+  );
+}
+
+function preservationPlanRequiredIds(map) {
+  if (!map || !map.levels) return [];
+  return Object.entries(map.levels)
+    .filter(([, level]) => needsPreservationPlan(level))
+    .map(([levelId]) => levelId);
+}
+
 function printReport() {
   const sources = discoverSources();
   const liveMeta = sources.liveSources.filter(item => item.hasPuzzle || item.hasCurriculum);
@@ -868,11 +889,15 @@ function printReport() {
   const sourceIds = new Set(sources.liveSources.map(item => item.id));
   const knownIds = sources.sourceIds;
   const coverage = knownIds.length ? Math.round((metadataIds.size / knownIds.length) * 1000) / 10 : 0;
+  const mapStatuses = BATCH_MAP_FILES.map(batchMapStatus);
+  const triageStatus = mapStatuses.find(status => status.file === "data/puzzle-metadata/live-sound.json" && status.state === "exists and validates");
+  const preservationIds = new Set(triageStatus ? preservationPlanRequiredIds(triageStatus.map) : []);
   const roadmapMissing = PATCH_BOARD_ROADMAP_ORDER.filter(id => !metadataIds.has(id));
-  const sourceManifestGaps = roadmapMissing.filter(id => !sourceIds.has(id));
+  const ordinaryRoadmapMissing = roadmapMissing.filter(id => !preservationIds.has(id));
+  const sourceManifestGaps = ordinaryRoadmapMissing.filter(id => !sourceIds.has(id));
   const sourceJsonWithoutMetadata = sources.liveSources.filter(item => !metadataIds.has(item.id)).map(item => item.id);
-  const embeddedOnly = knownIds.filter(id => !sourceIds.has(id) && !metadataIds.has(id));
-  const recommended = roadmapMissing.slice(0, 10).map(id => ({
+  const embeddedOnly = knownIds.filter(id => !sourceIds.has(id) && !metadataIds.has(id) && !preservationIds.has(id));
+  const recommended = ordinaryRoadmapMissing.slice(0, 10).map(id => ({
     id,
     action: actionForLevel(sources, id, metadataIds, sourceIds),
     sources: sourceKindsForId(sources, id)
@@ -893,6 +918,17 @@ function printReport() {
     for (const item of recommended) {
       const sourceText = item.sources.length ? item.sources.join(", ") : "not discovered";
       console.log("  " + item.id + " - " + item.action + " [" + sourceText + "]");
+    }
+  } else {
+    console.log("  none");
+  }
+  console.log("");
+
+  console.log("Preservation-plan-required locked boards:");
+  if (preservationIds.size) {
+    for (const id of Array.from(preservationIds)) {
+      const kinds = sourceKindsForId(sources, id);
+      console.log("  " + id + " - locked-needs-review before source manifest [" + (kinds.length ? kinds.join(", ") : "not discovered") + "]");
     }
   } else {
     console.log("  none");
@@ -927,7 +963,6 @@ function printReport() {
   }
   console.log("");
 
-  const mapStatuses = BATCH_MAP_FILES.map(batchMapStatus);
   console.log("Batch map status:");
   for (const status of mapStatuses) {
     console.log("  " + status.file + " - " + status.state + (status.detail ? " (" + status.detail + ")" : ""));
@@ -939,7 +974,6 @@ function printReport() {
   console.log(mapsToCreate.map(status => "  " + status.file).join("\n") || "  none for current live-sound batch");
   console.log("");
 
-  const triageStatus = mapStatuses.find(status => status.file === "data/puzzle-metadata/live-sound.json" && status.state === "exists and validates");
   console.log("Needs-review triage:");
   if (triageStatus) {
     printTriageItems(buildNeedsReviewTriage(path.resolve(repoRoot, triageStatus.file), triageStatus.map));
@@ -950,9 +984,9 @@ function printReport() {
 
   console.log("Suggested order:");
   console.log("  1. Validate the existing live-sound batch map.");
-  console.log("  2. Triage needs-review entries before changing any statuses.");
-  console.log("  3. Promote specific levels from needs-review to apply-ready only when curriculum/source evidence is clear.");
-  console.log("  4. Create source manifests only for apply-ready entries.");
+  console.log("  2. Complete the preservation plan for locked needs-review boards.");
+  console.log("  3. Do not create manifests for locked boards until behavior parity requirements are satisfied.");
+  console.log("  4. Continue with next non-locked roadmap candidates when source evidence is clear.");
   console.log("  5. Keep renderer integration paused until metadata coverage and normalization are stable.");
   console.log("");
   console.log("No files were modified by this report command.");
