@@ -288,12 +288,14 @@
     "LIV-023": {
       "status": "needs-review",
       "taskMode": "capstone-system",
-      "scenario": "You are completing an advanced monitor-console patch with a vocal insert, stereo IEM feed, and multi-way PA system.",
-      "objective": "Keep the insert loop, stereo IEM route, and speaker-processing chain distinct while completing the full system.",
+      "scenario": "You are completing an advanced monitor-console patch with vocal and keyboard stage inputs, a vocal insert loop, a stereo IEM feed, and a multi-way PA system.",
+      "objective": "Patch the vocal and keyboard inputs, complete the Channel 1 insert compressor loop, route the stereo IEM feed, and keep the main PA crossover and amplifier chain in correct left/right order.",
       "taskVisibility": "full",
       "difficulty": 6,
       "conceptTags": [
         "signal-direction",
+        "source-to-input",
+        "stagebox",
         "insert-direction",
         "iem-stereo",
         "stereo-pair",
@@ -310,19 +312,23 @@
           "concept": "multi-route"
         }
       ],
-      "completionExplanation": "The completed patch integrates insert processing, stereo monitoring, and PA processing without confusing their signal types or destinations.",
+      "completionExplanation": "The completed patch lands the vocal and keyboard sources on the stagebox, completes the vocal compressor insert loop, feeds the stereo IEM transmitter from Aux 1 L/R, and routes Main L/R through the crossover to the matching high, mid, and low amplifier inputs.",
       "prerequisiteConcepts": [
         "signal-direction",
+        "source-to-input",
         "insert-direction",
         "iem-stereo",
         "processor-chain"
       ],
       "assessedConcepts": [
+        "insert-direction",
+        "iem-stereo",
+        "processor-chain",
         "multi-route",
         "speaker-level",
         "stereo-pair"
       ],
-      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this as an advanced capstone with partial route visibility later."
+      "migrationNotes": "Corrected after source-route audit: current LIV-023 is a locked Monitor Console: Vocal Insert, Stereo IEM, and 3-Way PA board with 15 required routes, 30 good hitboxes, 101 false hitboxes, and six stereo groups. It remains needs-review because the board has custom scroll, legacy masking, gear, label, hitbox, false-jack, and broad invalid-route behavior that must be preserved before any source manifest is created."
     },
     "LIV-026": {
       "status": "needs-review",
