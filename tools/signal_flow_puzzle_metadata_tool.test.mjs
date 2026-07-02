@@ -53,7 +53,7 @@ const validMapResult = runTool(["validate-map", "data/puzzle-metadata/live-sound
 
 assert.equal(validMapResult.status, 0, `validate-map should accept live-sound map\nSTDOUT:\n${validMapResult.stdout}\nSTDERR:\n${validMapResult.stderr}`);
 assert.match(validMapResult.stdout, /Batch puzzle metadata map validation passed/, "validate-map should report success");
-assert.match(validMapResult.stdout, /Levels validated: 10/, "validate-map should validate the full first batch");
+assert.match(validMapResult.stdout, /Levels validated: 15/, "validate-map should validate the expanded live-sound batch");
 const afterStat = fs.statSync(liveSoundMapPath);
 assert.equal(afterStat.mtimeMs, beforeStat.mtimeMs, "validate-map should not modify the map file");
 
@@ -105,8 +105,8 @@ assert.equal(dryRunJsonResult.status, 0, `apply-map --dry-run --json should pass
 const dryRunJson = JSON.parse(dryRunJsonResult.stdout);
 assert.equal(dryRunJson.mode, "dry-run", "JSON dry-run should declare dry-run mode");
 assert.equal(dryRunJson.mapFile, "data/puzzle-metadata/live-sound.json", "JSON dry-run should include map path");
-assert.equal(dryRunJson.summary.levelsInMap, 10, "JSON dry-run should count all map levels");
-assert.equal(dryRunJson.summary.applyReady, 6, "JSON dry-run should count apply-ready levels");
+assert.equal(dryRunJson.summary.levelsInMap, 15, "JSON dry-run should count all map levels");
+assert.equal(dryRunJson.summary.applyReady, 11, "JSON dry-run should count apply-ready levels");
 assert.equal(dryRunJson.summary.needsReview, 4, "JSON dry-run should count needs-review levels");
 assert.equal(dryRunJson.summary.wouldWrite, 0, "JSON dry-run should never write");
 const liv011Action = dryRunJson.actions.find(item => item.levelId === "LIV-011");
@@ -122,6 +122,11 @@ for (const levelId of ["LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
   const action = dryRunJson.actions.find(item => item.levelId === levelId);
   assert.equal(action.status, "needs-review", `${levelId} should remain needs-review in apply-map dry-run`);
   assert.equal(action.action, "needs-review-skip", `${levelId} should still be skipped by apply-map dry-run`);
+}
+for (const levelId of ["LIV-030", "LIV-033", "LIV-037", "LIV-038", "LIV-039"]) {
+  const action = dryRunJson.actions.find(item => item.levelId === levelId);
+  assert.equal(action.status, "apply-ready", `${levelId} should be apply-ready after ordinary batch audit`);
+  assert.equal(action.action, "source-missing-create-required", `${levelId} should require a source manifest before metadata can be applied`);
 }
 
 const triageResult = runTool(["triage", "data/puzzle-metadata/live-sound.json"]);

@@ -414,6 +414,222 @@
         "iem-stereo",
         "diagnostic-reasoning"
       ]
+    },
+    "LIV-030": {
+      "status": "apply-ready",
+      "taskMode": "constrained-build",
+      "scenario": "You are building the main PA amp feed for a show where the console mains must pass through system processing before reaching the PA amplifier inputs.",
+      "objective": "Patch Main L/R outputs to the matching system processor inputs, patch processor outputs to the matching main PA amp inputs, and keep the lead vocal source on Stage Box Input 1.",
+      "taskVisibility": "full",
+      "difficulty": 3,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "main-pa",
+        "processor-chain",
+        "amplifier",
+        "speaker-level",
+        "left-right"
+      ],
+      "constraints": [
+        {
+          "id": "processor-before-amplifier",
+          "text": "The PA amplifier should receive processor outputs, not raw console main outputs or processor inputs.",
+          "concept": "processor-chain"
+        },
+        {
+          "id": "main-lr-consistency",
+          "text": "Main L and Main R must stay on the matching left/right processor and PA amp inputs.",
+          "concept": "left-right"
+        }
+      ],
+      "completionExplanation": "The completed patch sends the lead vocal to Stage Box Input 1, routes Main L/R into system processing, and routes processor L/R outputs to the matching main PA amplifier inputs.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "input-vs-output",
+        "main-pa"
+      ],
+      "assessedConcepts": [
+        "processor-chain",
+        "amplifier",
+        "speaker-level",
+        "left-right"
+      ],
+      "migrationNotes": "Added after next ordinary batch audit: launcher and canonical route evidence agree on a 5-route Main PA amp feed board with no native renderer or locked behavior. Apply-ready means future source manifest creation can proceed from launcher/canonical route evidence."
+    },
+    "LIV-033": {
+      "status": "apply-ready",
+      "taskMode": "signal-type",
+      "scenario": "You are building a stereo IEM transmitter feed while keeping stage sources on their intended stagebox inputs.",
+      "objective": "Patch FOH Aux 5 L/R to IEM Transmitter A left/right inputs and patch the vocal, keys, and talkback sources to their assigned stagebox inputs.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "aux-send",
+        "monitor-aux",
+        "monitor-mix",
+        "iem-stereo",
+        "stereo-pair",
+        "left-right"
+      ],
+      "constraints": [
+        {
+          "id": "iem-uses-monitor-aux",
+          "text": "The IEM transmitter should receive the stereo aux mix, not the main PA output.",
+          "concept": "monitor-aux"
+        },
+        {
+          "id": "iem-lr-consistency",
+          "text": "Aux 5 L and Aux 5 R must land on the matching IEM transmitter left/right inputs.",
+          "concept": "left-right"
+        }
+      ],
+      "completionExplanation": "The completed patch sends the stereo Aux 5 monitor mix to IEM Transmitter A and keeps vocal, keys, and talkback sources on the intended stagebox channels.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "aux-send",
+        "left-right"
+      ],
+      "assessedConcepts": [
+        "iem-stereo",
+        "monitor-aux",
+        "stereo-pair",
+        "source-to-input"
+      ],
+      "migrationNotes": "Added after next ordinary batch audit: launcher, roadmap, and canonical route evidence agree on a stereo IEM plus stagebox-input board. No native renderer or locked behavior was found."
+    },
+    "LIV-037": {
+      "status": "apply-ready",
+      "taskMode": "redundancy-failure",
+      "scenario": "You are preparing a stereo broadcast or record split while preserving the stage input routing that feeds the show.",
+      "objective": "Patch Broadcast Split L/R to the matching Record Out L/R destinations and keep vocal, keys, and talkback sources on their assigned stagebox inputs.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "broadcast-split",
+        "record-feed",
+        "stereo-pair",
+        "left-right"
+      ],
+      "constraints": [
+        {
+          "id": "record-feed-not-main-output",
+          "text": "The recorder should receive the dedicated broadcast split, not a crossed or generic main output.",
+          "concept": "record-feed"
+        },
+        {
+          "id": "broadcast-lr-consistency",
+          "text": "Broadcast Split L/R must preserve left/right order at the recorder.",
+          "concept": "left-right"
+        }
+      ],
+      "completionExplanation": "The completed patch preserves stage input order and sends the stereo broadcast split to the recorder in correct left/right order.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "source-to-input",
+        "left-right"
+      ],
+      "assessedConcepts": [
+        "broadcast-split",
+        "record-feed",
+        "stereo-pair",
+        "left-right"
+      ],
+      "migrationNotes": "Added after next ordinary batch audit: launcher and canonical route evidence agree on a 6-route broadcast split/record-feed board. Roadmap intent is broader, but current source evidence is clear and no locked behavior was found."
+    },
+    "LIV-038": {
+      "status": "apply-ready",
+      "taskMode": "troubleshooting",
+      "scenario": "You are routing talkback for monitor communication while keeping it out of the audience PA and preserving the basic stage/main system paths.",
+      "objective": "Patch Talkback Mic to Stage Box Input 14, route Talkback Output to In-Ear B Input, and keep vocal, keys, and Main L/R routes on their intended destinations.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "talkback",
+        "monitor-mix",
+        "main-pa",
+        "processor-chain",
+        "left-right",
+        "diagnostic-reasoning"
+      ],
+      "constraints": [
+        {
+          "id": "talkback-monitor-only",
+          "text": "Talkback should feed the monitor/communication path and must not be routed to main PA destinations.",
+          "concept": "talkback"
+        },
+        {
+          "id": "main-path-still-valid",
+          "text": "Main L/R still need to feed the matching system processor inputs.",
+          "concept": "main-pa"
+        }
+      ],
+      "completionExplanation": "The completed patch sends talkback to the monitor system only, keeps stage sources on their assigned inputs, and preserves the main L/R processor feed.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "talkback",
+        "source-to-input"
+      ],
+      "assessedConcepts": [
+        "talkback",
+        "monitor-mix",
+        "diagnostic-reasoning",
+        "main-pa"
+      ],
+      "migrationNotes": "Added after next ordinary batch audit: launcher and canonical route evidence agree on a 7-route talkback-to-monitor board with explicit forbidden PA destinations. No native renderer or locked behavior was found."
+    },
+    "LIV-039": {
+      "status": "apply-ready",
+      "taskMode": "constrained-build",
+      "scenario": "You are patching stereo keyboard DIs into adjacent stagebox inputs while keeping supporting vocal, talkback, and main system routes in place.",
+      "objective": "Patch Keys L/R DI to Stage Box Inputs 7/8 in the correct order, patch Lead Vocal and Talkback Mic to their assigned inputs, and keep Main L/R on the matching system processor inputs.",
+      "taskVisibility": "full",
+      "difficulty": 4,
+      "conceptTags": [
+        "signal-direction",
+        "source-to-input",
+        "stagebox",
+        "channel-order",
+        "stereo-pair",
+        "left-right",
+        "main-pa",
+        "processor-chain"
+      ],
+      "constraints": [
+        {
+          "id": "keyboard-lr-channel-order",
+          "text": "Keys L and Keys R must not be crossed on adjacent stagebox inputs.",
+          "concept": "channel-order"
+        },
+        {
+          "id": "main-lr-consistency",
+          "text": "Main L/R must stay on the matching system processor inputs.",
+          "concept": "left-right"
+        }
+      ],
+      "completionExplanation": "The completed patch keeps stereo keys in left/right stagebox order, preserves vocal and talkback source inputs, and maintains the main L/R processor feed.",
+      "prerequisiteConcepts": [
+        "signal-direction",
+        "source-to-input",
+        "left-right"
+      ],
+      "assessedConcepts": [
+        "channel-order",
+        "stereo-pair",
+        "stagebox",
+        "left-right"
+      ],
+      "migrationNotes": "Added after next ordinary batch audit: launcher brief, required routes, roadmap, and canonical manifest show the current task is keyboard stereo inputs even though the launcher title says Drum Kit Stage Inputs. Route evidence is clear and no locked behavior was found; future manifest work should preserve or deliberately correct the title after review."
     }
   }
 }
