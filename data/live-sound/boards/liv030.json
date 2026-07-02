@@ -1,0 +1,72 @@
+{
+  "levelId": "LIV-030",
+  "environment": "live",
+  "title": "Main PA Amp Feed",
+  "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
+  "processorLabel": "MAIN PA AMP FEED",
+  "requiredRoutes": [
+    { "id": "liv030-main-l-output-to-system-processor-l-in", "fromId": "liv030-main-l-output", "toId": "liv030-system-processor-l-input", "fromLabel": "Main L Output", "toLabel": "System Processor L In", "stereoGroup": "liv030-main-to-processor", "stereoSide": "left" },
+    { "id": "liv030-main-r-output-to-system-processor-r-in", "fromId": "liv030-main-r-output", "toId": "liv030-system-processor-r-input", "fromLabel": "Main R Output", "toLabel": "System Processor R In", "stereoGroup": "liv030-main-to-processor", "stereoSide": "right" },
+    { "id": "liv030-system-processor-l-out-to-main-pa-l-input", "fromId": "liv030-system-processor-l-output", "toId": "liv030-main-pa-l-input", "fromLabel": "System Processor L Out", "toLabel": "Main PA L Input", "stereoGroup": "liv030-processor-to-main-pa", "stereoSide": "left" },
+    { "id": "liv030-system-processor-r-out-to-main-pa-r-input", "fromId": "liv030-system-processor-r-output", "toId": "liv030-main-pa-r-input", "fromLabel": "System Processor R Out", "toLabel": "Main PA R Input", "stereoGroup": "liv030-processor-to-main-pa", "stereoSide": "right" },
+    { "id": "liv030-lead-vocal-mic-to-stagebox-input-1", "fromId": "lead-vocal-mic", "toId": "stagebox-input-1", "fromLabel": "Lead Vocal Mic", "toLabel": "Stage Box Input 1" }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are building the main PA amp feed for a show where the console mains must pass through system processing before reaching the PA amplifier inputs.",
+    "objective": "Patch Main L/R outputs to the matching system processor inputs, patch processor outputs to the matching main PA amp inputs, and keep the lead vocal source on Stage Box Input 1.",
+    "constraints": [
+      {
+        "id": "processor-before-amplifier",
+        "text": "The PA amplifier should receive processor outputs, not raw console main outputs or processor inputs.",
+        "concept": "processor-chain"
+      },
+      {
+        "id": "main-lr-consistency",
+        "text": "Main L and Main R must stay on the matching left/right processor and PA amp inputs.",
+        "concept": "left-right"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch sends the lead vocal to Stage Box Input 1, routes Main L/R into system processing, and routes processor L/R outputs to the matching main PA amplifier inputs.",
+    "difficulty": 3,
+    "conceptTags": ["signal-direction", "source-to-input", "stagebox", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right"]
+  },
+  "stereoGroups": [
+    { "id": "liv030-main-to-processor", "leftRouteId": "liv030-main-l-output-to-system-processor-l-in", "rightRouteId": "liv030-main-r-output-to-system-processor-r-in" },
+    { "id": "liv030-processor-to-main-pa", "leftRouteId": "liv030-system-processor-l-out-to-main-pa-l-input", "rightRouteId": "liv030-system-processor-r-out-to-main-pa-r-input" }
+  ],
+  "gear": [
+    { "id": "liv030-stagebox", "label": "Stagebox", "asset": "../assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", "rect": { "x": 54, "y": 198, "w": 396, "h": 146 }, "className": "sf-liv030-stagebox" },
+    { "id": "liv030-foh-console", "label": "FOH Console", "asset": "../assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", "rect": { "x": 520, "y": 48, "w": 600, "h": 139 }, "className": "sf-liv030-foh-console" },
+    { "id": "liv030-system-processor", "label": "System Processor", "asset": "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259", "rect": { "x": 500, "y": 338, "w": 600, "h": 166 }, "className": "sf-liv030-system-processor" },
+    { "id": "liv030-main-pa-amp", "label": "Main PA Amplifier", "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg", "rect": { "x": 500, "y": 548, "w": 520, "h": 134 }, "className": "sf-liv030-main-pa-amp" }
+  ],
+  "labels": [
+    { "id": "liv030-title-note", "text": "Main PA Amp Feed: console mains feed system processing before PA amplifier inputs.", "rect": { "x": 36, "y": 28, "w": 1040, "h": 42, "z": 120 } }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "lead-vocal-mic", "label": "Lead Vocal Mic", "kind": "source", "rect": { "x": 58, "y": 86, "w": 34, "h": 34 } },
+      { "id": "stagebox-input-1", "label": "Stage Box Input 1", "kind": "jack", "rect": { "x": 112, "y": 254, "w": 28, "h": 28 } },
+      { "id": "liv030-main-l-output", "label": "Main L Output", "kind": "source", "rect": { "x": 900, "y": 120, "w": 28, "h": 28 } },
+      { "id": "liv030-main-r-output", "label": "Main R Output", "kind": "source", "rect": { "x": 952, "y": 120, "w": 28, "h": 28 } },
+      { "id": "liv030-system-processor-l-input", "label": "System Processor L In", "kind": "jack", "rect": { "x": 568, "y": 428, "w": 28, "h": 28 } },
+      { "id": "liv030-system-processor-r-input", "label": "System Processor R In", "kind": "jack", "rect": { "x": 644, "y": 428, "w": 28, "h": 28 } },
+      { "id": "liv030-system-processor-l-output", "label": "System Processor L Out", "kind": "source", "rect": { "x": 820, "y": 428, "w": 28, "h": 28 } },
+      { "id": "liv030-system-processor-r-output", "label": "System Processor R Out", "kind": "source", "rect": { "x": 896, "y": 428, "w": 28, "h": 28 } },
+      { "id": "liv030-main-pa-l-input", "label": "Main PA L Input", "kind": "jack", "rect": { "x": 572, "y": 604, "w": 28, "h": 28 } },
+      { "id": "liv030-main-pa-r-input", "label": "Main PA R Input", "kind": "jack", "rect": { "x": 648, "y": 604, "w": 28, "h": 28 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 4,
+    "routeCount": 5,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

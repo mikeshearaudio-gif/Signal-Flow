@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-039",
+  "environment": "live",
+  "title": "Keyboard Stereo Inputs",
+  "brief": "Patch stereo keyboard DIs into adjacent stagebox inputs.",
+  "processorLabel": "KEYBOARD STEREO INPUTS",
+  "routeCount": 6,
+  "routes": [
+    {
+      "key": "liv039-keys-l-di-to-stagebox-input-7",
+      "from": "keys-left-di",
+      "to": "stagebox-input-7",
+      "checklist": "Keys L DI → Stage Box Input 7",
+      "stereoGroup": "liv039-keys-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv039-keys-r-di-to-stagebox-input-8",
+      "from": "keys-right-di",
+      "to": "stagebox-input-8",
+      "checklist": "Keys R DI → Stage Box Input 8",
+      "stereoGroup": "liv039-keys-di-to-stagebox",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv039-lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-1",
+      "checklist": "Lead Vocal Mic → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv039-talkback-mic-to-stagebox-input-14",
+      "from": "talkback-mic",
+      "to": "stagebox-input-14",
+      "checklist": "Talkback Mic → Stage Box Input 14",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv039-main-l-output-to-system-processor-l-in",
+      "from": "liv039-main-l-output",
+      "to": "liv039-system-processor-l-input",
+      "checklist": "Main L Output → System Processor L In",
+      "stereoGroup": "liv039-main-to-processor",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv039-main-r-output-to-system-processor-r-in",
+      "from": "liv039-main-r-output",
+      "to": "liv039-system-processor-r-input",
+      "checklist": "Main R Output → System Processor R In",
+      "stereoGroup": "liv039-main-to-processor",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "keys-left-di",
+      "keys-right-di",
+      "lead-vocal-mic",
+      "liv039-main-l-output",
+      "liv039-main-r-output",
+      "liv039-system-processor-l-input",
+      "liv039-system-processor-r-input",
+      "stagebox-input-1",
+      "stagebox-input-14",
+      "stagebox-input-7",
+      "stagebox-input-8",
+      "talkback-mic"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv039-keys-di-to-stagebox",
+      "leftRouteId": "liv039-keys-l-di-to-stagebox-input-7",
+      "rightRouteId": "liv039-keys-r-di-to-stagebox-input-8"
+    },
+    {
+      "id": "liv039-main-to-processor",
+      "leftRouteId": "liv039-main-l-output-to-system-processor-l-in",
+      "rightRouteId": "liv039-main-r-output-to-system-processor-r-in"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv039-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 56,
+        "y": 150,
+        "w": 420,
+        "h": 250
+      },
+      "className": "sf-liv039-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv039-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 540,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv039-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv039-system-processor",
+      "label": "System Processor",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259",
+      "rect": {
+        "x": 590,
+        "y": 430,
+        "w": 440,
+        "h": 170
+      },
+      "className": "sf-liv039-system-processor",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv039-title-note",
+      "text": "Keyboard Stereo Inputs: keep keys L/R in adjacent stagebox order.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 1000,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "keys-left-di",
+        "label": "Keys L DI",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-right-di",
+        "label": "Keys R DI",
+        "kind": "source",
+        "rect": {
+          "x": 132,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "kind": "source",
+        "rect": {
+          "x": 176,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "talkback-mic",
+        "label": "Talkback Mic",
+        "kind": "source",
+        "rect": {
+          "x": 220,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 172,
+          "y": 214,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 316,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-14",
+        "label": "Stage Box Input 14",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 322,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv039-main-l-output",
+        "label": "Main L Output",
+        "kind": "source",
+        "rect": {
+          "x": 912,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv039-main-r-output",
+        "label": "Main R Output",
+        "kind": "source",
+        "rect": {
+          "x": 964,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv039-system-processor-l-input",
+        "label": "System Processor L In",
+        "kind": "jack",
+        "rect": {
+          "x": 652,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "liv039-system-processor-r-input",
+        "label": "System Processor R In",
+        "kind": "jack",
+        "rect": {
+          "x": 704,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "constrained-build",
+    "scenario": "You are patching stereo keyboard DIs into adjacent stagebox inputs while keeping supporting vocal, talkback, and main system routes in place.",
+    "objective": "Patch Keys L/R DI to Stage Box Inputs 7/8 in the correct order, patch Lead Vocal and Talkback Mic to their assigned inputs, and keep Main L/R on the matching system processor inputs.",
+    "constraints": [
+      {
+        "id": "keyboard-lr-channel-order",
+        "text": "Keys L and Keys R must not be crossed on adjacent stagebox inputs.",
+        "concept": "channel-order"
+      },
+      {
+        "id": "main-lr-consistency",
+        "text": "Main L/R must stay on the matching system processor inputs.",
+        "concept": "left-right"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch keeps stereo keys in left/right stagebox order, preserves vocal and talkback source inputs, and maintains the main L/R processor feed.",
+    "difficulty": 4,
+    "conceptTags": [
+      "signal-direction",
+      "source-to-input",
+      "stagebox",
+      "channel-order",
+      "stereo-pair",
+      "left-right",
+      "main-pa",
+      "processor-chain"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 6,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

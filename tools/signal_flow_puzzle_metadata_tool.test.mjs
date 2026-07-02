@@ -28,9 +28,10 @@ const result = runTool(["report"]);
 assert.equal(result.status, 0, `report command should pass\nSTDOUT:\n${result.stdout}\nSTDERR:\n${result.stderr}`);
 assert.match(result.stdout, /Signal Flow actionable puzzle metadata report/, "report should have a clear title");
 assert.match(result.stdout, /Recommended next batch/, "report should recommend a next batch");
-assert.match(result.stdout, /LIV-030/, "report should include a non-locked live-sound candidate from the patch-board roadmap");
+assert.match(result.stdout, /Recommended next batch:\n  none/, "report should have no ordinary source-manifest candidates after the ordinary batch manifests are created");
 assert.match(result.stdout, /Preservation-plan-required locked boards/, "report should identify locked boards that need preservation planning");
 assert.match(result.stdout, /Needs source board manifests/, "report should identify levels blocked on source manifests");
+assert.match(result.stdout, /Needs source board manifests:\n  none/, "report should show no ordinary source-manifest gaps after the ordinary batch manifests are created");
 assert.match(result.stdout, /Embedded\/JS-only coverage gaps/, "report should identify embedded coverage gaps");
 assert.match(result.stdout, /Batch map status/, "report should summarize batch map state");
 assert.match(result.stdout, /data\/puzzle-metadata\/live-sound\.json - exists and validates/, "report should show the live-sound map as existing and valid");
@@ -126,7 +127,7 @@ for (const levelId of ["LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
 for (const levelId of ["LIV-030", "LIV-033", "LIV-037", "LIV-038", "LIV-039"]) {
   const action = dryRunJson.actions.find(item => item.levelId === levelId);
   assert.equal(action.status, "apply-ready", `${levelId} should be apply-ready after ordinary batch audit`);
-  assert.equal(action.action, "source-missing-create-required", `${levelId} should require a source manifest before metadata can be applied`);
+  assert.equal(action.action, "already-has-source-and-metadata", `${levelId} should be recognized as already covered after source manifest creation`);
 }
 
 const triageResult = runTool(["triage", "data/puzzle-metadata/live-sound.json"]);

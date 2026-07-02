@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-033",
+  "environment": "live",
+  "title": "Stereo IEM Send 1",
+  "brief": "Patch stereo aux outputs into the IEM transmitter.",
+  "processorLabel": "STEREO IEM SEND",
+  "routeCount": 6,
+  "routes": [
+    {
+      "key": "liv033-foh-aux-5-l-output-to-iem-tx-a-left-input",
+      "from": "foh-aux-5-l-output",
+      "to": "iem-tx-a-left-input",
+      "checklist": "FOH Aux 5 L Output → IEM TX A Left Input",
+      "stereoGroup": "liv033-aux5-to-iem-a",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv033-foh-aux-5-r-output-to-iem-tx-a-right-input",
+      "from": "foh-aux-5-r-output",
+      "to": "iem-tx-a-right-input",
+      "checklist": "FOH Aux 5 R Output → IEM TX A Right Input",
+      "stereoGroup": "liv033-aux5-to-iem-a",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv033-lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-1",
+      "checklist": "Lead Vocal Mic → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv033-keys-l-di-to-stagebox-input-7",
+      "from": "keys-left-di",
+      "to": "stagebox-input-7",
+      "checklist": "Keys L DI → Stage Box Input 7",
+      "stereoGroup": "liv033-keys-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv033-keys-r-di-to-stagebox-input-8",
+      "from": "keys-right-di",
+      "to": "stagebox-input-8",
+      "checklist": "Keys R DI → Stage Box Input 8",
+      "stereoGroup": "liv033-keys-di-to-stagebox",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv033-talkback-mic-to-stagebox-input-14",
+      "from": "talkback-mic",
+      "to": "stagebox-input-14",
+      "checklist": "Talkback Mic → Stage Box Input 14",
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "foh-aux-5-l-output",
+      "foh-aux-5-r-output",
+      "iem-tx-a-left-input",
+      "iem-tx-a-right-input",
+      "keys-left-di",
+      "keys-right-di",
+      "lead-vocal-mic",
+      "stagebox-input-1",
+      "stagebox-input-14",
+      "stagebox-input-7",
+      "stagebox-input-8",
+      "talkback-mic"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv033-aux5-to-iem-a",
+      "leftRouteId": "liv033-foh-aux-5-l-output-to-iem-tx-a-left-input",
+      "rightRouteId": "liv033-foh-aux-5-r-output-to-iem-tx-a-right-input"
+    },
+    {
+      "id": "liv033-keys-di-to-stagebox",
+      "leftRouteId": "liv033-keys-l-di-to-stagebox-input-7",
+      "rightRouteId": "liv033-keys-r-di-to-stagebox-input-8"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv033-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 56,
+        "y": 150,
+        "w": 420,
+        "h": 250
+      },
+      "className": "sf-liv033-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv033-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 540,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv033-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv033-iem-transmitter",
+      "label": "IEM Transmitter A",
+      "asset": "assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg",
+      "rect": {
+        "x": 590,
+        "y": 430,
+        "w": 440,
+        "h": 170
+      },
+      "className": "sf-liv033-iem-transmitter",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv033-title-note",
+      "text": "Stereo IEM Send 1: Aux 5 L/R feeds IEM Transmitter A while sources stay on stagebox inputs.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 1000,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-left-di",
+        "label": "Keys L DI",
+        "kind": "source",
+        "rect": {
+          "x": 132,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-right-di",
+        "label": "Keys R DI",
+        "kind": "source",
+        "rect": {
+          "x": 176,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "talkback-mic",
+        "label": "Talkback Mic",
+        "kind": "source",
+        "rect": {
+          "x": 220,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 172,
+          "y": 214,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 316,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-14",
+        "label": "Stage Box Input 14",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 322,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-5-l-output",
+        "label": "FOH Aux 5 L Output",
+        "kind": "source",
+        "rect": {
+          "x": 732,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "foh-aux-5-r-output",
+        "label": "FOH Aux 5 R Output",
+        "kind": "source",
+        "rect": {
+          "x": 784,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "iem-tx-a-left-input",
+        "label": "IEM TX A Left Input",
+        "kind": "jack",
+        "rect": {
+          "x": 652,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "iem-tx-a-right-input",
+        "label": "IEM TX A Right Input",
+        "kind": "jack",
+        "rect": {
+          "x": 704,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "signal-type",
+    "scenario": "You are building a stereo IEM transmitter feed while keeping stage sources on their intended stagebox inputs.",
+    "objective": "Patch FOH Aux 5 L/R to IEM Transmitter A left/right inputs and patch the vocal, keys, and talkback sources to their assigned stagebox inputs.",
+    "constraints": [
+      {
+        "id": "iem-uses-monitor-aux",
+        "text": "The IEM transmitter should receive the stereo aux mix, not the main PA output.",
+        "concept": "monitor-aux"
+      },
+      {
+        "id": "iem-lr-consistency",
+        "text": "Aux 5 L and Aux 5 R must land on the matching IEM transmitter left/right inputs.",
+        "concept": "left-right"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch sends the stereo Aux 5 monitor mix to IEM Transmitter A and keeps vocal, keys, and talkback sources on the intended stagebox channels.",
+    "difficulty": 4,
+    "conceptTags": [
+      "signal-direction",
+      "source-to-input",
+      "stagebox",
+      "aux-send",
+      "monitor-aux",
+      "monitor-mix",
+      "iem-stereo",
+      "stereo-pair",
+      "left-right"
+    ]
+  },
+  "requiredAssets": [
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 6,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

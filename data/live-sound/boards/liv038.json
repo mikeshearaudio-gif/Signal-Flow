@@ -1,0 +1,78 @@
+{
+  "levelId": "LIV-038",
+  "environment": "live",
+  "title": "Talkback to Monitor System",
+  "brief": "Route talkback into the monitor send path without feeding mains.",
+  "processorLabel": "TALKBACK MONITOR SYSTEM",
+  "requiredRoutes": [
+    { "id": "liv038-talkback-mic-to-stagebox-input-14", "fromId": "talkback-mic", "toId": "stagebox-input-14", "fromLabel": "Talkback Mic", "toLabel": "Stage Box Input 14" },
+    { "id": "liv038-talkback-output-to-in-ear-b-input", "fromId": "talkback-output", "toId": "in-ear-b-input", "fromLabel": "Talkback Output", "toLabel": "In-Ear B Input" },
+    { "id": "liv038-lead-vocal-mic-to-stagebox-input-1", "fromId": "lead-vocal-mic", "toId": "stagebox-input-1", "fromLabel": "Lead Vocal Mic", "toLabel": "Stage Box Input 1" },
+    { "id": "liv038-keys-l-di-to-stagebox-input-7", "fromId": "keys-left-di", "toId": "stagebox-input-7", "fromLabel": "Keys L DI", "toLabel": "Stage Box Input 7", "stereoGroup": "liv038-keys-di-to-stagebox", "stereoSide": "left" },
+    { "id": "liv038-keys-r-di-to-stagebox-input-8", "fromId": "keys-right-di", "toId": "stagebox-input-8", "fromLabel": "Keys R DI", "toLabel": "Stage Box Input 8", "stereoGroup": "liv038-keys-di-to-stagebox", "stereoSide": "right" },
+    { "id": "liv038-main-l-output-to-system-processor-l-in", "fromId": "liv038-main-l-output", "toId": "liv038-system-processor-l-input", "fromLabel": "Main L Output", "toLabel": "System Processor L In", "stereoGroup": "liv038-main-to-processor", "stereoSide": "left" },
+    { "id": "liv038-main-r-output-to-system-processor-r-in", "fromId": "liv038-main-r-output", "toId": "liv038-system-processor-r-input", "fromLabel": "Main R Output", "toLabel": "System Processor R In", "stereoGroup": "liv038-main-to-processor", "stereoSide": "right" }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "troubleshooting",
+    "scenario": "You are routing talkback for monitor communication while keeping it out of the audience PA and preserving the basic stage/main system paths.",
+    "objective": "Patch Talkback Mic to Stage Box Input 14, route Talkback Output to In-Ear B Input, and keep vocal, keys, and Main L/R routes on their intended destinations.",
+    "constraints": [
+      {
+        "id": "talkback-monitor-only",
+        "text": "Talkback should feed the monitor/communication path and must not be routed to main PA destinations.",
+        "concept": "talkback"
+      },
+      {
+        "id": "main-path-still-valid",
+        "text": "Main L/R still need to feed the matching system processor inputs.",
+        "concept": "main-pa"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch sends talkback to the monitor system only, keeps stage sources on their assigned inputs, and preserves the main L/R processor feed.",
+    "difficulty": 4,
+    "conceptTags": ["signal-direction", "source-to-input", "stagebox", "talkback", "monitor-mix", "main-pa", "processor-chain", "left-right", "diagnostic-reasoning"]
+  },
+  "stereoGroups": [
+    { "id": "liv038-keys-di-to-stagebox", "leftRouteId": "liv038-keys-l-di-to-stagebox-input-7", "rightRouteId": "liv038-keys-r-di-to-stagebox-input-8" },
+    { "id": "liv038-main-to-processor", "leftRouteId": "liv038-main-l-output-to-system-processor-l-in", "rightRouteId": "liv038-main-r-output-to-system-processor-r-in" }
+  ],
+  "gear": [
+    { "id": "liv038-stagebox", "label": "Stagebox", "asset": "../assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg", "rect": { "x": 56, "y": 150, "w": 420, "h": 250 }, "className": "sf-liv038-stagebox" },
+    { "id": "liv038-foh-console", "label": "FOH Console", "asset": "../assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg", "rect": { "x": 540, "y": 88, "w": 560, "h": 260 }, "className": "sf-liv038-foh-console" },
+    { "id": "liv038-iem-rack", "label": "In-Ear Monitoring", "asset": "../assets/live-sound/svg/hardware/iem-transmitter-liv028-talkback.svg", "rect": { "x": 590, "y": 430, "w": 440, "h": 170 }, "className": "sf-liv038-iem-rack" },
+    { "id": "liv038-system-processor", "label": "System Processor", "asset": "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg?v=6r259", "rect": { "x": 590, "y": 620, "w": 440, "h": 122 }, "className": "sf-liv038-system-processor" }
+  ],
+  "labels": [
+    { "id": "liv038-title-note", "text": "Talkback to Monitor System: route talkback to monitors, not the audience PA.", "rect": { "x": 40, "y": 32, "w": 1000, "h": 42, "z": 120 } }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      { "id": "talkback-mic", "label": "Talkback Mic", "kind": "source", "rect": { "x": 88, "y": 98, "w": 34, "h": 34 } },
+      { "id": "lead-vocal-mic", "label": "Lead Vocal Mic", "kind": "source", "rect": { "x": 132, "y": 98, "w": 34, "h": 34 } },
+      { "id": "keys-left-di", "label": "Keys L DI", "kind": "source", "rect": { "x": 176, "y": 98, "w": 34, "h": 34 } },
+      { "id": "keys-right-di", "label": "Keys R DI", "kind": "source", "rect": { "x": 220, "y": 98, "w": 34, "h": 34 } },
+      { "id": "stagebox-input-1", "label": "Stage Box Input 1", "kind": "jack", "rect": { "x": 172, "y": 214, "w": 28, "h": 28 } },
+      { "id": "stagebox-input-7", "label": "Stage Box Input 7", "kind": "jack", "rect": { "x": 316, "y": 268, "w": 28, "h": 28 } },
+      { "id": "stagebox-input-8", "label": "Stage Box Input 8", "kind": "jack", "rect": { "x": 362, "y": 268, "w": 28, "h": 28 } },
+      { "id": "stagebox-input-14", "label": "Stage Box Input 14", "kind": "jack", "rect": { "x": 362, "y": 322, "w": 28, "h": 28 } },
+      { "id": "talkback-output", "label": "Talkback Output", "kind": "source", "rect": { "x": 824, "y": 210, "w": 28, "h": 28 } },
+      { "id": "in-ear-b-input", "label": "In-Ear B Input", "kind": "jack", "rect": { "x": 652, "y": 500, "w": 28, "h": 28 } },
+      { "id": "liv038-main-l-output", "label": "Main L Output", "kind": "source", "rect": { "x": 912, "y": 210, "w": 28, "h": 28 } },
+      { "id": "liv038-main-r-output", "label": "Main R Output", "kind": "source", "rect": { "x": 964, "y": 210, "w": 28, "h": 28 } },
+      { "id": "liv038-system-processor-l-input", "label": "System Processor L In", "kind": "jack", "rect": { "x": 652, "y": 676, "w": 28, "h": 28 } },
+      { "id": "liv038-system-processor-r-input", "label": "System Processor R In", "kind": "jack", "rect": { "x": 704, "y": 676, "w": 28, "h": 28 } }
+    ],
+    "false": []
+  },
+  "acceptance": {
+    "gearCount": 4,
+    "routeCount": 7,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

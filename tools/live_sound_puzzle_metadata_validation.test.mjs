@@ -136,6 +136,46 @@ const beginnerBoards = [
     puzzleMode: "troubleshooting",
     difficulty: 4,
     conceptTags: ["signal-direction", "talkback", "source-to-input", "stagebox", "monitor-mix", "iem-stereo", "diagnostic-reasoning"]
+  },
+  {
+    levelId: "LIV-030",
+    file: "data/live-sound/boards/liv030.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv030.normalized.json",
+    puzzleMode: "constrained-build",
+    difficulty: 3,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right"]
+  },
+  {
+    levelId: "LIV-033",
+    file: "data/live-sound/boards/liv033.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv033.normalized.json",
+    puzzleMode: "signal-type",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "aux-send", "monitor-aux", "monitor-mix", "iem-stereo", "stereo-pair", "left-right"]
+  },
+  {
+    levelId: "LIV-037",
+    file: "data/live-sound/boards/liv037.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv037.normalized.json",
+    puzzleMode: "redundancy-failure",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "broadcast-split", "record-feed", "stereo-pair", "left-right"]
+  },
+  {
+    levelId: "LIV-038",
+    file: "data/live-sound/boards/liv038.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv038.normalized.json",
+    puzzleMode: "troubleshooting",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "talkback", "monitor-mix", "main-pa", "processor-chain", "left-right", "diagnostic-reasoning"]
+  },
+  {
+    levelId: "LIV-039",
+    file: "data/live-sound/boards/liv039.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv039.normalized.json",
+    puzzleMode: "constrained-build",
+    difficulty: 4,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "channel-order", "stereo-pair", "left-right", "main-pa", "processor-chain"]
   }
 ];
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "sf-puzzle-metadata-"));

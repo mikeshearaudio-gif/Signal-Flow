@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-037",
+  "environment": "live",
+  "title": "Broadcast Split",
+  "brief": "Patch broadcast split outputs for a recorder or stream feed.",
+  "processorLabel": "BROADCAST SPLIT",
+  "routeCount": 6,
+  "routes": [
+    {
+      "key": "liv037-broadcast-split-l-to-record-out-l",
+      "from": "broadcast-split-l",
+      "to": "record-out-l",
+      "checklist": "Broadcast Split L → Record Out L",
+      "stereoGroup": "liv037-broadcast-to-record",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv037-broadcast-split-r-to-record-out-r",
+      "from": "broadcast-split-r",
+      "to": "record-out-r",
+      "checklist": "Broadcast Split R → Record Out R",
+      "stereoGroup": "liv037-broadcast-to-record",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv037-lead-vocal-mic-to-stagebox-input-1",
+      "from": "lead-vocal-mic",
+      "to": "stagebox-input-1",
+      "checklist": "Lead Vocal Mic → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv037-keys-l-di-to-stagebox-input-7",
+      "from": "keys-left-di",
+      "to": "stagebox-input-7",
+      "checklist": "Keys L DI → Stage Box Input 7",
+      "stereoGroup": "liv037-keys-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv037-keys-r-di-to-stagebox-input-8",
+      "from": "keys-right-di",
+      "to": "stagebox-input-8",
+      "checklist": "Keys R DI → Stage Box Input 8",
+      "stereoGroup": "liv037-keys-di-to-stagebox",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv037-talkback-mic-to-stagebox-input-14",
+      "from": "talkback-mic",
+      "to": "stagebox-input-14",
+      "checklist": "Talkback Mic → Stage Box Input 14",
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "broadcast-split-l",
+      "broadcast-split-r",
+      "keys-left-di",
+      "keys-right-di",
+      "lead-vocal-mic",
+      "record-out-l",
+      "record-out-r",
+      "stagebox-input-1",
+      "stagebox-input-14",
+      "stagebox-input-7",
+      "stagebox-input-8",
+      "talkback-mic"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv037-broadcast-to-record",
+      "leftRouteId": "liv037-broadcast-split-l-to-record-out-l",
+      "rightRouteId": "liv037-broadcast-split-r-to-record-out-r"
+    },
+    {
+      "id": "liv037-keys-di-to-stagebox",
+      "leftRouteId": "liv037-keys-l-di-to-stagebox-input-7",
+      "rightRouteId": "liv037-keys-r-di-to-stagebox-input-8"
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv037-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 56,
+        "y": 150,
+        "w": 420,
+        "h": 250
+      },
+      "className": "sf-liv037-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv037-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 540,
+        "y": 88,
+        "w": 560,
+        "h": 260
+      },
+      "className": "sf-liv037-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv037-record-feed",
+      "label": "Record / Broadcast Feed",
+      "asset": "assets/broadcast/svg/panels/section-destinations.svg",
+      "rect": {
+        "x": 590,
+        "y": 430,
+        "w": 440,
+        "h": 170
+      },
+      "className": "sf-liv037-record-feed",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv037-title-note",
+      "text": "Broadcast Split: keep the stereo broadcast split in order for the recorder.",
+      "rect": {
+        "x": 40,
+        "y": 32,
+        "w": 1000,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "kind": "source",
+        "rect": {
+          "x": 88,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-left-di",
+        "label": "Keys L DI",
+        "kind": "source",
+        "rect": {
+          "x": 132,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "keys-right-di",
+        "label": "Keys R DI",
+        "kind": "source",
+        "rect": {
+          "x": 176,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "talkback-mic",
+        "label": "Talkback Mic",
+        "kind": "source",
+        "rect": {
+          "x": 220,
+          "y": 98,
+          "w": 34,
+          "h": 34
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 172,
+          "y": 214,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 316,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 268,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "stagebox-input-14",
+        "label": "Stage Box Input 14",
+        "kind": "jack",
+        "rect": {
+          "x": 362,
+          "y": 322,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "broadcast-split-l",
+        "label": "Broadcast Split L",
+        "kind": "source",
+        "rect": {
+          "x": 720,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "broadcast-split-r",
+        "label": "Broadcast Split R",
+        "kind": "source",
+        "rect": {
+          "x": 772,
+          "y": 210,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "record-out-l",
+        "label": "Record Out L",
+        "kind": "jack",
+        "rect": {
+          "x": 652,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      },
+      {
+        "id": "record-out-r",
+        "label": "Record Out R",
+        "kind": "jack",
+        "rect": {
+          "x": 704,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "redundancy-failure",
+    "scenario": "You are preparing a stereo broadcast or record split while preserving the stage input routing that feeds the show.",
+    "objective": "Patch Broadcast Split L/R to the matching Record Out L/R destinations and keep vocal, keys, and talkback sources on their assigned stagebox inputs.",
+    "constraints": [
+      {
+        "id": "record-feed-not-main-output",
+        "text": "The recorder should receive the dedicated broadcast split, not a crossed or generic main output.",
+        "concept": "record-feed"
+      },
+      {
+        "id": "broadcast-lr-consistency",
+        "text": "Broadcast Split L/R must preserve left/right order at the recorder.",
+        "concept": "left-right"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch preserves stage input order and sends the stereo broadcast split to the recorder in correct left/right order.",
+    "difficulty": 4,
+    "conceptTags": [
+      "signal-direction",
+      "source-to-input",
+      "stagebox",
+      "broadcast-split",
+      "record-feed",
+      "stereo-pair",
+      "left-right"
+    ]
+  },
+  "requiredAssets": [
+    "assets/broadcast/svg/panels/section-destinations.svg",
+    "assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 3,
+    "routeCount": 6,
+    "visualCableCount": 0,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}
