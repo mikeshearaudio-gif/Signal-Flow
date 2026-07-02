@@ -157,15 +157,16 @@
     "LIV-019": {
       "status": "needs-review",
       "taskMode": "capstone-system",
-      "scenario": "You are assembling a compact show patch that combines drum inputs, stereo IEM sends, and effects returns.",
-      "objective": "Keep input channels, monitor sends, and return paths separated so the full show patch works as an integrated system.",
+      "scenario": "You are assembling a compact show patch that combines drum inputs, five mono aux-to-IEM monitor feeds, stereo FX sends, and stereo FX returns.",
+      "objective": "Patch the drum mics to stagebox inputs 1-8, route Aux 1-5 to IEM inputs 1-5, send Bus 1-4 to reverb and delay inputs in stereo pairs, and return both FX processors to FOH inputs 9-12.",
       "taskVisibility": "full",
       "difficulty": 5,
       "conceptTags": [
         "signal-direction",
         "drum-inputs",
         "source-to-input",
-        "iem-stereo",
+        "stagebox",
+        "aux-send",
         "fx-return",
         "monitor-mix",
         "stereo-pair",
@@ -178,19 +179,21 @@
           "concept": "input-vs-output"
         }
       ],
-      "completionExplanation": "The completed patch keeps drum inputs, stereo monitor sends, and FX returns in their correct signal-flow roles.",
+      "completionExplanation": "The completed patch keeps drum inputs on stagebox inputs 1-8, five mono aux monitor feeds on IEM inputs 1-5, stereo bus sends on the reverb and delay inputs, and stereo FX returns on FOH inputs 9-12.",
       "prerequisiteConcepts": [
         "signal-direction",
         "source-to-input",
+        "aux-send",
         "stereo-pair"
       ],
       "assessedConcepts": [
         "drum-inputs",
-        "iem-stereo",
+        "aux-send",
+        "monitor-mix",
         "fx-return",
         "multi-route"
       ],
-      "migrationNotes": "Needs manual curriculum review before apply-map: roadmap reserves this locked native board as a capstone after generic puzzle behavior is stable."
+      "migrationNotes": "Corrected after source-route audit: LIV-019 uses 8 drum mic stagebox routes, five mono Aux-to-IEM monitor feeds, stereo reverb/delay sends, and stereo FX returns. It remains needs-review because the board has locked scroll, label, hitbox, stagebox, finalizer, and native cable behavior that must be preserved before any source manifest is created."
     },
     "LIV-020": {
       "status": "needs-review",
