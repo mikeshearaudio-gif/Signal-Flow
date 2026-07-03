@@ -18,8 +18,10 @@ assert(/sfNativeCableLayer = "top-board-layer"/.test(renderer), "redrawn native 
 
 assert(/gearText\(foh\.wrap, "AUX SENDS"/.test(renderer), "LIV-019 FOH should have an Aux section label");
 assert(/gearText\(foh\.wrap, "BUS OUTS"/.test(renderer), "LIV-019 FOH should have a Bus section label");
-assert(/gearText\(unit\.wrap, aLabel \+ " INPUT"/.test(renderer), "LIV-019 IEM units should label each input jack");
-assert(/gearText\(unit\.wrap, bLabel \+ " INPUT"/.test(renderer), "LIV-019 IEM units should label each input jack");
+assert(/iemInputJack\(iem1, "a", "liv019-iem-1-input", "IEM 1 Input", false\)/.test(renderer), "LIV-019 should keep the IEM 1 input jack label");
+assert(/iemInputJack\(iem3, "a", "liv019-iem-5-input", "IEM 5 Input", false\)/.test(renderer), "LIV-019 should keep the IEM 5 input jack label");
+assert(!/gearText\(unit\.wrap, aLabel \+ " INPUT"/.test(renderer), "LIV-019 should not render duplicate generic IEM input overlays");
+assert(!/gearText\(unit\.wrap, bLabel \+ " INPUT"/.test(renderer), "LIV-019 should not render duplicate generic IEM input overlays");
 
 assert(/kind: "stagebox", x: rect\.width \* 0\.045, y: layoutHeight \* 0\.330, width: rect\.width \* 0\.330/.test(renderer), "LIV-015 stagebox should use the spread layout");
 assert(/kind: "foh", x: rect\.width \* 0\.445, y: layoutHeight \* 0\.075, width: rect\.width \* 0\.500/.test(renderer), "LIV-015 FOH should use the spread layout");

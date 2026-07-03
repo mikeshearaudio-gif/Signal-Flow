@@ -6347,8 +6347,7 @@ function renderLiv009DrumStageInputs(surface, adapter) {
       [iem2, "IEM 3", "IEM 4"],
       [iem3, "IEM 5", "IEM 6"]
     ].forEach(([unit, aLabel, bLabel], idx) => {
-      gearText(unit.wrap, aLabel + " INPUT", 28, 64, { width: 82, size: 7, color: "#ffffff" });
-      gearText(unit.wrap, bLabel + " INPUT", 72, 64, { width: 82, size: 7, color: "#ffffff" });
+      // The jack buttons carry the numbered IEM input names; avoid duplicate generic overlays.
       gearText(unit.wrap, "INPUT A", 28, 74, { width: 58 });
       gearText(unit.wrap, "INPUT B", 72, 74, { width: 58 });
       gearText(unit.wrap, aLabel, 28, 88, { width: 52, size: 8, color: "#bdeaff" });
