@@ -1,0 +1,1843 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tools/live-sound-board-tool.js",
+  "levelId": "LIV-019",
+  "environment": "live",
+  "title": "Drum Inputs, IEM Sends and FX Returns",
+  "brief": "Patch the full drum kit into stagebox inputs 1-8, patch five FOH aux outputs to five IEM inputs, send two stereo bus pairs to reverb and delay, then return the stereo effects to FOH input channels 9-12.",
+  "processorLabel": "DRUMS / IEM / FX",
+  "routeCount": 21,
+  "routes": [
+    {
+      "key": "liv019-kick-to-stagebox-input-1",
+      "from": "kick",
+      "to": "stagebox-input-1",
+      "checklist": "Kick Mic → Stage Box Input 1",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-snare-to-stagebox-input-2",
+      "from": "snare",
+      "to": "stagebox-input-2",
+      "checklist": "Snare Mic → Stage Box Input 2",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-hi-hat-to-stagebox-input-3",
+      "from": "hi-hat",
+      "to": "stagebox-input-3",
+      "checklist": "Hi-Hat Mic → Stage Box Input 3",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-rack-tom-1-to-stagebox-input-4",
+      "from": "high-rack-tom",
+      "to": "stagebox-input-4",
+      "checklist": "Rack Tom 1 Mic → Stage Box Input 4",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-rack-tom-2-to-stagebox-input-5",
+      "from": "low-rack-tom",
+      "to": "stagebox-input-5",
+      "checklist": "Rack Tom 2 Mic → Stage Box Input 5",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-floor-tom-to-stagebox-input-6",
+      "from": "floor-tom",
+      "to": "stagebox-input-6",
+      "checklist": "Floor Tom Mic → Stage Box Input 6",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-oh-left-to-stagebox-input-7",
+      "from": "overhead-left-crash",
+      "to": "stagebox-input-7",
+      "checklist": "Overhead Left Mic → Stage Box Input 7",
+      "stereoGroup": "liv019-drum-overheads",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv019-oh-right-to-stagebox-input-8",
+      "from": "overhead-right-ride",
+      "to": "stagebox-input-8",
+      "checklist": "Overhead Right Mic → Stage Box Input 8",
+      "stereoGroup": "liv019-drum-overheads",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv019-aux-1-to-iem-1",
+      "from": "foh-liv019-aux-1-output",
+      "to": "liv019-iem-1-input",
+      "checklist": "FOH Aux 1 Output → IEM 1 Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-aux-2-to-iem-2",
+      "from": "foh-liv019-aux-2-output",
+      "to": "liv019-iem-2-input",
+      "checklist": "FOH Aux 2 Output → IEM 2 Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-aux-3-to-iem-3",
+      "from": "foh-liv019-aux-3-output",
+      "to": "liv019-iem-3-input",
+      "checklist": "FOH Aux 3 Output → IEM 3 Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-aux-4-to-iem-4",
+      "from": "foh-liv019-aux-4-output",
+      "to": "liv019-iem-4-input",
+      "checklist": "FOH Aux 4 Output → IEM 4 Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-aux-5-to-iem-5",
+      "from": "foh-liv019-aux-5-output",
+      "to": "liv019-iem-5-input",
+      "checklist": "FOH Aux 5 Output → IEM 5 Input",
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "key": "liv019-bus-1-l-to-reverb-l-in",
+      "from": "foh-liv019-bus-1-output",
+      "to": "liv019-reverb-left-input",
+      "checklist": "FOH Bus 1 Output → Stereo Reverb L Input",
+      "stereoGroup": "liv019-bus-1-to-reverb",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv019-bus-1-r-to-reverb-r-in",
+      "from": "foh-liv019-bus-2-output",
+      "to": "liv019-reverb-right-input",
+      "checklist": "FOH Bus 2 Output → Stereo Reverb R Input",
+      "stereoGroup": "liv019-bus-1-to-reverb",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv019-bus-2-l-to-delay-l-in",
+      "from": "foh-liv019-bus-3-output",
+      "to": "liv019-delay-left-input",
+      "checklist": "FOH Bus 3 Output → Stereo Delay L Input",
+      "stereoGroup": "liv019-bus-2-to-delay",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv019-bus-2-r-to-delay-r-in",
+      "from": "foh-liv019-bus-4-output",
+      "to": "liv019-delay-right-input",
+      "checklist": "FOH Bus 4 Output → Stereo Delay R Input",
+      "stereoGroup": "liv019-bus-2-to-delay",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv019-reverb-l-out-to-foh-input-9",
+      "from": "liv019-reverb-left-output",
+      "to": "foh-liv019-input-9",
+      "checklist": "Stereo Reverb L Output → FOH Input Channel 9",
+      "stereoGroup": "liv019-reverb-return",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv019-reverb-r-out-to-foh-input-10",
+      "from": "liv019-reverb-right-output",
+      "to": "foh-liv019-input-10",
+      "checklist": "Stereo Reverb R Output → FOH Input Channel 10",
+      "stereoGroup": "liv019-reverb-return",
+      "stereoSide": "right"
+    },
+    {
+      "key": "liv019-delay-l-out-to-foh-input-11",
+      "from": "liv019-delay-left-output",
+      "to": "foh-liv019-input-11",
+      "checklist": "Stereo Delay L Output → FOH Input Channel 11",
+      "stereoGroup": "liv019-delay-return",
+      "stereoSide": "left"
+    },
+    {
+      "key": "liv019-delay-r-out-to-foh-input-12",
+      "from": "liv019-delay-right-output",
+      "to": "foh-liv019-input-12",
+      "checklist": "Stereo Delay R Output → FOH Input Channel 12",
+      "stereoGroup": "liv019-delay-return",
+      "stereoSide": "right"
+    }
+  ],
+  "nodes": {
+    "validEndpointKeys": [
+      "floor-tom",
+      "foh-liv019-aux-1-output",
+      "foh-liv019-aux-2-output",
+      "foh-liv019-aux-3-output",
+      "foh-liv019-aux-4-output",
+      "foh-liv019-aux-5-output",
+      "foh-liv019-bus-1-output",
+      "foh-liv019-bus-2-output",
+      "foh-liv019-bus-3-output",
+      "foh-liv019-bus-4-output",
+      "foh-liv019-input-10",
+      "foh-liv019-input-11",
+      "foh-liv019-input-12",
+      "foh-liv019-input-9",
+      "hi-hat",
+      "high-rack-tom",
+      "kick",
+      "liv019-delay-left-input",
+      "liv019-delay-left-output",
+      "liv019-delay-right-input",
+      "liv019-delay-right-output",
+      "liv019-iem-1-input",
+      "liv019-iem-2-input",
+      "liv019-iem-3-input",
+      "liv019-iem-4-input",
+      "liv019-iem-5-input",
+      "liv019-reverb-left-input",
+      "liv019-reverb-left-output",
+      "liv019-reverb-right-input",
+      "liv019-reverb-right-output",
+      "low-rack-tom",
+      "overhead-left-crash",
+      "overhead-right-ride",
+      "snare",
+      "stagebox-input-1",
+      "stagebox-input-2",
+      "stagebox-input-3",
+      "stagebox-input-4",
+      "stagebox-input-5",
+      "stagebox-input-6",
+      "stagebox-input-7",
+      "stagebox-input-8"
+    ],
+    "falseTrapKeys": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv019-drum-overheads",
+      "leftRouteId": "liv019-oh-left-to-stagebox-input-7",
+      "rightRouteId": "liv019-oh-right-to-stagebox-input-8",
+      "purpose": "Preserve overhead left/right drum input order into stagebox inputs 7-8."
+    },
+    {
+      "id": "liv019-bus-1-to-reverb",
+      "leftRouteId": "liv019-bus-1-l-to-reverb-l-in",
+      "rightRouteId": "liv019-bus-1-r-to-reverb-r-in",
+      "purpose": "Preserve stereo reverb send left/right order from FOH Bus 1/2 to reverb inputs."
+    },
+    {
+      "id": "liv019-bus-2-to-delay",
+      "leftRouteId": "liv019-bus-2-l-to-delay-l-in",
+      "rightRouteId": "liv019-bus-2-r-to-delay-r-in",
+      "purpose": "Preserve stereo delay send left/right order from FOH Bus 3/4 to delay inputs."
+    },
+    {
+      "id": "liv019-reverb-return",
+      "leftRouteId": "liv019-reverb-l-out-to-foh-input-9",
+      "rightRouteId": "liv019-reverb-r-out-to-foh-input-10",
+      "purpose": "Preserve stereo reverb return left/right order into FOH inputs 9-10."
+    },
+    {
+      "id": "liv019-delay-return",
+      "leftRouteId": "liv019-delay-l-out-to-foh-input-11",
+      "rightRouteId": "liv019-delay-r-out-to-foh-input-12",
+      "purpose": "Preserve stereo delay return left/right order into FOH inputs 11-12."
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv019-stagebox",
+      "label": "Stagebox",
+      "asset": "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg",
+      "rect": {
+        "x": 620,
+        "y": 495,
+        "w": 300,
+        "h": 118
+      },
+      "className": "sf-liv019-stagebox",
+      "render": null
+    },
+    {
+      "id": "liv019-foh-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/16ch FOH console0.svg",
+      "rect": {
+        "x": 820,
+        "y": 28,
+        "w": 350,
+        "h": 185
+      },
+      "className": "sf-liv019-foh-console",
+      "render": null
+    },
+    {
+      "id": "liv019-drum-kit",
+      "label": "Drum Kit",
+      "asset": "assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg",
+      "rect": {
+        "x": 92,
+        "y": 172,
+        "w": 420,
+        "h": 300
+      },
+      "className": "sf-liv019-drum-kit",
+      "render": null
+    },
+    {
+      "id": "liv019-iem-rack-1",
+      "label": "IEM Rack 1",
+      "asset": "assets/live-sound/svg/hardware/iem-wireless-rack-front.svg",
+      "rect": {
+        "x": 700,
+        "y": 250,
+        "w": 190,
+        "h": 86
+      },
+      "className": "sf-liv019-iem-rack",
+      "render": null
+    },
+    {
+      "id": "liv019-iem-rack-2",
+      "label": "IEM Rack 2",
+      "asset": "assets/live-sound/svg/hardware/iem-wireless-rack-front.svg",
+      "rect": {
+        "x": 700,
+        "y": 352,
+        "w": 190,
+        "h": 86
+      },
+      "className": "sf-liv019-iem-rack",
+      "render": null
+    },
+    {
+      "id": "liv019-iem-rack-3",
+      "label": "IEM Rack 3",
+      "asset": "assets/live-sound/svg/hardware/iem-wireless-rack-front.svg",
+      "rect": {
+        "x": 700,
+        "y": 454,
+        "w": 190,
+        "h": 86
+      },
+      "className": "sf-liv019-iem-rack",
+      "render": null
+    },
+    {
+      "id": "liv019-reverb",
+      "label": "Stereo Reverb",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+      "rect": {
+        "x": 930,
+        "y": 250,
+        "w": 260,
+        "h": 100
+      },
+      "className": "sf-liv019-reverb",
+      "render": null
+    },
+    {
+      "id": "liv019-delay",
+      "label": "Stereo Delay",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+      "rect": {
+        "x": 930,
+        "y": 390,
+        "w": 260,
+        "h": 100
+      },
+      "className": "sf-liv019-delay",
+      "render": null
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv019-title-note",
+      "text": "Drum Inputs, IEM Sends and FX Returns: preserve locked LIV-019 route, hitbox, scroll, label, and cable behavior.",
+      "rect": {
+        "x": 40,
+        "y": 24,
+        "w": 1140,
+        "h": 42,
+        "z": 120
+      }
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "floor-tom",
+        "label": "Floor Tom Mic",
+        "kind": "source",
+        "rect": {
+          "x": 350,
+          "y": 364,
+          "w": 76,
+          "h": 60
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 349.97,
+          "centerY": 363.57,
+          "layerRelX": 26.513,
+          "layerRelY": 44.338,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-1-output",
+        "label": "FOH Aux 1 Output",
+        "kind": "source",
+        "rect": {
+          "x": 868,
+          "y": 46,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 867.99,
+          "centerY": 46,
+          "layerRelX": 65.757,
+          "layerRelY": 5.61,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-2-output",
+        "label": "FOH Aux 2 Output",
+        "kind": "source",
+        "rect": {
+          "x": 907,
+          "y": 46,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 907,
+          "centerY": 46,
+          "layerRelX": 68.712,
+          "layerRelY": 5.61,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-3-output",
+        "label": "FOH Aux 3 Output",
+        "kind": "source",
+        "rect": {
+          "x": 869,
+          "y": 75,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 868.99,
+          "centerY": 75,
+          "layerRelX": 65.833,
+          "layerRelY": 9.146,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-4-output",
+        "label": "FOH Aux 4 Output",
+        "kind": "source",
+        "rect": {
+          "x": 907,
+          "y": 74,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 907,
+          "centerY": 73.99,
+          "layerRelX": 68.712,
+          "layerRelY": 9.024,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-5-output",
+        "label": "FOH Aux 5 Output",
+        "kind": "source",
+        "rect": {
+          "x": 869,
+          "y": 101,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 868.99,
+          "centerY": 101,
+          "layerRelX": 65.833,
+          "layerRelY": 12.317,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-6-output",
+        "label": "FOH Aux 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 907,
+          "y": 101,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "generated-inactive-or-ghost-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 907,
+          "centerY": 101,
+          "layerRelX": 68.712,
+          "layerRelY": 12.317,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-7-output",
+        "label": "FOH Aux 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 868,
+          "y": 128,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 867.99,
+          "centerY": 127.99,
+          "layerRelX": 65.757,
+          "layerRelY": 15.609,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-aux-8-output",
+        "label": "FOH Aux 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 907,
+          "y": 128,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 907,
+          "centerY": 127.99,
+          "layerRelX": 68.712,
+          "layerRelY": 15.609,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-1-output",
+        "label": "FOH Bus 1 Output",
+        "kind": "source",
+        "rect": {
+          "x": 972,
+          "y": 48,
+          "w": 24,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 972,
+          "centerY": 47.99,
+          "layerRelX": 73.636,
+          "layerRelY": 5.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-10-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1008,
+          "y": 121,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1007.99,
+          "centerY": 121,
+          "layerRelX": 76.363,
+          "layerRelY": 14.756,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-11-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1043,
+          "y": 121,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1042.99,
+          "centerY": 121,
+          "layerRelX": 79.015,
+          "layerRelY": 14.756,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-12-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1078,
+          "y": 121,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1077.99,
+          "centerY": 121,
+          "layerRelX": 81.666,
+          "layerRelY": 14.756,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-2-output",
+        "label": "FOH Bus 2 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1009,
+          "y": 49,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1008.99,
+          "centerY": 48.99,
+          "layerRelX": 76.439,
+          "layerRelY": 5.975,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-3-output",
+        "label": "FOH Bus 3 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1044,
+          "y": 49,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1043.99,
+          "centerY": 48.99,
+          "layerRelX": 79.09,
+          "layerRelY": 5.975,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-4-output",
+        "label": "FOH Bus 4 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1078,
+          "y": 49,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1077.99,
+          "centerY": 48.99,
+          "layerRelX": 81.666,
+          "layerRelY": 5.975,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-5-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 973,
+          "y": 85,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 972.99,
+          "centerY": 85,
+          "layerRelX": 73.712,
+          "layerRelY": 10.366,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-6-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1007,
+          "y": 85,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1007,
+          "centerY": 85,
+          "layerRelX": 76.288,
+          "layerRelY": 10.366,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-7-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1044,
+          "y": 85,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1043.99,
+          "centerY": 85,
+          "layerRelX": 79.09,
+          "layerRelY": 10.366,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-8-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 1078,
+          "y": 85,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1077.99,
+          "centerY": 85,
+          "layerRelX": 81.666,
+          "layerRelY": 10.366,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-bus-9-output",
+        "label": "FOH Bus 019 Output",
+        "kind": "source",
+        "rect": {
+          "x": 973,
+          "y": 121,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 972.99,
+          "centerY": 121,
+          "layerRelX": 73.712,
+          "layerRelY": 14.756,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-1",
+        "label": "FOH Input Channel 1",
+        "kind": "jack",
+        "rect": {
+          "x": 567,
+          "y": 59,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 567,
+          "centerY": 58.99,
+          "layerRelX": 42.954,
+          "layerRelY": 7.194,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-10",
+        "label": "FOH Input Channel 10",
+        "kind": "jack",
+        "rect": {
+          "x": 604,
+          "y": 108,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 603.99,
+          "centerY": 107.99,
+          "layerRelX": 45.757,
+          "layerRelY": 13.17,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-11",
+        "label": "FOH Input Channel 11",
+        "kind": "jack",
+        "rect": {
+          "x": 640,
+          "y": 109,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 640,
+          "centerY": 108.99,
+          "layerRelX": 48.485,
+          "layerRelY": 13.292,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-12",
+        "label": "FOH Input Channel 12",
+        "kind": "jack",
+        "rect": {
+          "x": 676,
+          "y": 109,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 676,
+          "centerY": 108.99,
+          "layerRelX": 51.212,
+          "layerRelY": 13.292,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-13",
+        "label": "FOH Input Channel 13",
+        "kind": "jack",
+        "rect": {
+          "x": 711,
+          "y": 109,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "generated-inactive-or-ghost-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 711,
+          "centerY": 108.99,
+          "layerRelX": 53.863,
+          "layerRelY": 13.292,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-14",
+        "label": "FOH Input Channel 14",
+        "kind": "jack",
+        "rect": {
+          "x": 747,
+          "y": 110,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "generated-inactive-or-ghost-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 747,
+          "centerY": 110,
+          "layerRelX": 56.591,
+          "layerRelY": 13.415,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-15",
+        "label": "FOH Input Channel 15",
+        "kind": "jack",
+        "rect": {
+          "x": 784,
+          "y": 108,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 783.99,
+          "centerY": 107.99,
+          "layerRelX": 59.393,
+          "layerRelY": 13.17,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-16",
+        "label": "FOH Input Channel 16",
+        "kind": "jack",
+        "rect": {
+          "x": 819,
+          "y": 109,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 818.99,
+          "centerY": 108.99,
+          "layerRelX": 62.045,
+          "layerRelY": 13.292,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-2",
+        "label": "FOH Input Channel 2",
+        "kind": "jack",
+        "rect": {
+          "x": 603,
+          "y": 58,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 602.99,
+          "centerY": 57.99,
+          "layerRelX": 45.681,
+          "layerRelY": 7.073,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-3",
+        "label": "FOH Input Channel 3",
+        "kind": "jack",
+        "rect": {
+          "x": 640,
+          "y": 58,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 640,
+          "centerY": 57.99,
+          "layerRelX": 48.485,
+          "layerRelY": 7.073,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-4",
+        "label": "FOH Input Channel 4",
+        "kind": "jack",
+        "rect": {
+          "x": 675,
+          "y": 59,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 675,
+          "centerY": 58.99,
+          "layerRelX": 51.136,
+          "layerRelY": 7.194,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-5",
+        "label": "FOH Input Channel 5",
+        "kind": "jack",
+        "rect": {
+          "x": 712,
+          "y": 59,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 712,
+          "centerY": 58.99,
+          "layerRelX": 53.939,
+          "layerRelY": 7.194,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-6",
+        "label": "FOH Input Channel 6",
+        "kind": "jack",
+        "rect": {
+          "x": 748,
+          "y": 59,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 747.99,
+          "centerY": 58.99,
+          "layerRelX": 56.666,
+          "layerRelY": 7.194,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-7",
+        "label": "FOH Input Channel 7",
+        "kind": "jack",
+        "rect": {
+          "x": 784,
+          "y": 59,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 783.99,
+          "centerY": 58.99,
+          "layerRelX": 59.393,
+          "layerRelY": 7.194,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-8",
+        "label": "FOH Input Channel 8",
+        "kind": "jack",
+        "rect": {
+          "x": 819,
+          "y": 58,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 818.99,
+          "centerY": 57.99,
+          "layerRelX": 62.045,
+          "layerRelY": 7.073,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-input-9",
+        "label": "FOH Input Channel 9",
+        "kind": "jack",
+        "rect": {
+          "x": 567,
+          "y": 109,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 567,
+          "centerY": 108.99,
+          "layerRelX": 42.954,
+          "layerRelY": 13.292,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-main-left-output",
+        "label": "foh liv019 main left output",
+        "kind": "source",
+        "rect": {
+          "x": 1138,
+          "y": 84,
+          "w": 36,
+          "h": 36
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1137.99,
+          "centerY": 83.99,
+          "layerRelX": 86.212,
+          "layerRelY": 10.243,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "foh-liv019-main-right-output",
+        "label": "foh liv019 main right output",
+        "kind": "source",
+        "rect": {
+          "x": 1184,
+          "y": 83,
+          "w": 36,
+          "h": 36
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1183.99,
+          "centerY": 82.99,
+          "layerRelX": 89.696,
+          "layerRelY": 10.121,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "hi-hat",
+        "label": "Hi-Hat Mic",
+        "kind": "source",
+        "rect": {
+          "x": 126,
+          "y": 317,
+          "w": 86,
+          "h": 66
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 125.66,
+          "centerY": 316.55,
+          "layerRelX": 9.52,
+          "layerRelY": 38.604,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "high-rack-tom",
+        "label": "Rack Tom 1 Mic",
+        "kind": "source",
+        "rect": {
+          "x": 219,
+          "y": 299,
+          "w": 56,
+          "h": 45
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 219.19,
+          "centerY": 298.6,
+          "layerRelX": 16.606,
+          "layerRelY": 36.415,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "kick",
+        "label": "Kick Mic",
+        "kind": "source",
+        "rect": {
+          "x": 270,
+          "y": 351,
+          "w": 81,
+          "h": 77
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 270.43,
+          "centerY": 351.38,
+          "layerRelX": 20.487,
+          "layerRelY": 42.851,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-delay-left-input",
+        "label": "Stereo Delay L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 933,
+          "y": 465,
+          "w": 4,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 932.99,
+          "centerY": 465,
+          "layerRelX": 70.681,
+          "layerRelY": 56.707,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-delay-left-output",
+        "label": "Stereo Delay L Output",
+        "kind": "source",
+        "rect": {
+          "x": 1135,
+          "y": 465,
+          "w": 24,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1135,
+          "centerY": 465,
+          "layerRelX": 85.985,
+          "layerRelY": 56.707,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-delay-link",
+        "label": "liv019 delay link",
+        "kind": "jack",
+        "rect": {
+          "x": 1058,
+          "y": 465,
+          "w": 24,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1057.99,
+          "centerY": 465,
+          "layerRelX": 80.151,
+          "layerRelY": 56.707,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-delay-right-input",
+        "label": "Stereo Delay R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 971,
+          "y": 465,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 971,
+          "centerY": 465,
+          "layerRelX": 73.56,
+          "layerRelY": 56.707,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-delay-right-output",
+        "label": "Stereo Delay R Output",
+        "kind": "source",
+        "rect": {
+          "x": 1174,
+          "y": 465,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1173.99,
+          "centerY": 465,
+          "layerRelX": 88.939,
+          "layerRelY": 56.707,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-iem-1-input",
+        "label": "IEM 1 Input",
+        "kind": "jack",
+        "rect": {
+          "x": 600,
+          "y": 243,
+          "w": 28,
+          "h": 28
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 600,
+          "centerY": 242.99,
+          "layerRelX": 45.455,
+          "layerRelY": 29.634,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-iem-2-input",
+        "label": "IEM 2 Input",
+        "kind": "jack",
+        "rect": {
+          "x": 846,
+          "y": 242,
+          "w": 28,
+          "h": 28
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 846,
+          "centerY": 242,
+          "layerRelX": 64.091,
+          "layerRelY": 29.512,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-iem-3-input",
+        "label": "IEM 3 Input",
+        "kind": "jack",
+        "rect": {
+          "x": 915,
+          "y": 242,
+          "w": 28,
+          "h": 28
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 915,
+          "centerY": 242,
+          "layerRelX": 69.318,
+          "layerRelY": 29.512,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-iem-4-input",
+        "label": "IEM 4 Input",
+        "kind": "jack",
+        "rect": {
+          "x": 1160,
+          "y": 241,
+          "w": 28,
+          "h": 28
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1160,
+          "centerY": 241,
+          "layerRelX": 87.879,
+          "layerRelY": 29.39,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-iem-5-input",
+        "label": "IEM 5 Input",
+        "kind": "jack",
+        "rect": {
+          "x": 780,
+          "y": 335,
+          "w": 28,
+          "h": 28
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 780,
+          "centerY": 335,
+          "layerRelX": 59.091,
+          "layerRelY": 40.854,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-iem-6-input",
+        "label": "IEM 019 Input",
+        "kind": "jack",
+        "rect": {
+          "x": 1026,
+          "y": 335,
+          "w": 33,
+          "h": 33
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 1026,
+          "centerY": 335,
+          "layerRelX": 77.727,
+          "layerRelY": 40.854,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-reverb-left-input",
+        "label": "Stereo Reverb L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 605,
+          "y": 457,
+          "w": 29,
+          "h": 29
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 605,
+          "centerY": 457,
+          "layerRelX": 45.833,
+          "layerRelY": 55.731,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-reverb-left-output",
+        "label": "Stereo Reverb L Output",
+        "kind": "source",
+        "rect": {
+          "x": 812,
+          "y": 455,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 812,
+          "centerY": 455,
+          "layerRelX": 61.515,
+          "layerRelY": 55.488,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-reverb-link",
+        "label": "liv019 reverb link",
+        "kind": "jack",
+        "rect": {
+          "x": 733,
+          "y": 456,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "locked-extra-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 732.99,
+          "centerY": 456,
+          "layerRelX": 55.53,
+          "layerRelY": 55.61,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-reverb-right-input",
+        "label": "Stereo Reverb R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 647,
+          "y": 456,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 647,
+          "centerY": 456,
+          "layerRelX": 49.015,
+          "layerRelY": 55.61,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "liv019-reverb-right-output",
+        "label": "Stereo Reverb R Output",
+        "kind": "source",
+        "rect": {
+          "x": 849,
+          "y": 456,
+          "w": 24,
+          "h": 24
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 848.99,
+          "centerY": 456,
+          "layerRelX": 64.318,
+          "layerRelY": 55.61,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "low-rack-tom",
+        "label": "Rack Tom 2 Mic",
+        "kind": "source",
+        "rect": {
+          "x": 289,
+          "y": 294,
+          "w": 66,
+          "h": 50
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 288.62,
+          "centerY": 293.9,
+          "layerRelX": 21.865,
+          "layerRelY": 35.841,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "overhead-left-crash",
+        "label": "Overhead Left Mic",
+        "kind": "source",
+        "rect": {
+          "x": 163,
+          "y": 255,
+          "w": 86,
+          "h": 80
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 162.86,
+          "centerY": 254.54,
+          "layerRelX": 12.338,
+          "layerRelY": 31.041,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "overhead-right-ride",
+        "label": "Overhead Right Mic",
+        "kind": "source",
+        "rect": {
+          "x": 407,
+          "y": 293,
+          "w": 96,
+          "h": 90
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 407.31,
+          "centerY": 293.49,
+          "layerRelX": 30.857,
+          "layerRelY": 35.791,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "snare",
+        "label": "Snare Mic",
+        "kind": "source",
+        "rect": {
+          "x": 204,
+          "y": 366,
+          "w": 71,
+          "h": 60
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 204.08,
+          "centerY": 365.56,
+          "layerRelX": 15.461,
+          "layerRelY": 44.581,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "kind": "jack",
+        "rect": {
+          "x": 85,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 102,
+          "centerY": 88.99,
+          "layerRelX": 7.727,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-2",
+        "label": "Stage Box Input 2",
+        "kind": "jack",
+        "rect": {
+          "x": 124,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 140.99,
+          "centerY": 88.99,
+          "layerRelX": 10.681,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-3",
+        "label": "Stage Box Input 3",
+        "kind": "jack",
+        "rect": {
+          "x": 163,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 179.99,
+          "centerY": 88.99,
+          "layerRelX": 13.636,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-4",
+        "label": "Stage Box Input 4",
+        "kind": "jack",
+        "rect": {
+          "x": 202,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 218.99,
+          "centerY": 88.99,
+          "layerRelX": 16.59,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-5",
+        "label": "Stage Box Input 5",
+        "kind": "jack",
+        "rect": {
+          "x": 241,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 257.99,
+          "centerY": 88.99,
+          "layerRelX": 19.545,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-6",
+        "label": "Stage Box Input 6",
+        "kind": "jack",
+        "rect": {
+          "x": 279,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 295.99,
+          "centerY": 88.99,
+          "layerRelX": 22.423,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7",
+        "kind": "jack",
+        "rect": {
+          "x": 318,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 334.99,
+          "centerY": 88.99,
+          "layerRelX": 25.378,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      },
+      {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8",
+        "kind": "jack",
+        "rect": {
+          "x": 357,
+          "y": 72,
+          "w": 34,
+          "h": 34
+        },
+        "preservation": {
+          "classification": "required-route-endpoint",
+          "coordinateSystem": "LIV-019 locked native layer pixels plus layer-relative percentages",
+          "centerX": 373.99,
+          "centerY": 88.99,
+          "layerRelX": 28.333,
+          "layerRelY": 10.853,
+          "gearRel": null
+        }
+      }
+    ],
+    "false": []
+  },
+  "educationalFeedback": {},
+  "puzzle": {
+    "puzzleMode": "capstone-system",
+    "scenario": "You are assembling a compact show patch that combines drum inputs, five mono aux-to-IEM monitor feeds, stereo FX sends, and stereo FX returns.",
+    "objective": "Patch the drum mics to stagebox inputs 1-8, route Aux 1-5 to IEM inputs 1-5, send Bus 1-4 to reverb and delay inputs in stereo pairs, and return both FX processors to FOH inputs 9-12.",
+    "constraints": [
+      {
+        "id": "inputs-sends-returns-separated",
+        "text": "Inputs, monitor sends, and FX returns serve different signal-flow roles.",
+        "concept": "input-vs-output"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch keeps drum inputs on stagebox inputs 1-8, five mono aux monitor feeds on IEM inputs 1-5, stereo bus sends on the reverb and delay inputs, and stereo FX returns on FOH inputs 9-12.",
+    "difficulty": 5,
+    "conceptTags": [
+      "signal-direction",
+      "drum-inputs",
+      "source-to-input",
+      "stagebox",
+      "aux-send",
+      "fx-return",
+      "monitor-mix",
+      "stereo-pair",
+      "multi-route"
+    ],
+    "prerequisiteConcepts": [
+      "signal-direction",
+      "source-to-input",
+      "aux-send",
+      "stereo-pair"
+    ],
+    "assessedConcepts": [
+      "drum-inputs",
+      "aux-send",
+      "monitor-mix",
+      "fx-return",
+      "multi-route"
+    ],
+    "migrationNotes": "Corrected after source-route audit: LIV-019 uses 8 drum mic stagebox routes, five mono Aux-to-IEM monitor feeds, stereo reverb/delay sends, and stereo FX returns. It remains needs-review because the board has locked scroll, label, hitbox, stagebox, finalizer, and native cable behavior that must be preserved before any source manifest is created."
+  },
+  "requiredAssets": [
+    "assets/drums/svg/drum-kit-5-piece-8-hitboxes.svg",
+    "assets/live-sound/svg/hardware/16ch FOH console0.svg",
+    "assets/live-sound/svg/hardware/iem-wireless-rack-front.svg",
+    "assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+    "assets/live-sound/svg/hardware/stagebox-snake-head-16x2-aes.svg"
+  ],
+  "acceptance": {
+    "gearCount": 8,
+    "routeCount": 21,
+    "visualCableCount": 0,
+    "stereoGroupCount": 5,
+    "goodHitboxCount": 70,
+    "falseHitboxCount": 0,
+    "wrongRouteEvidenceCount": 6,
+    "requiredSelectors": [],
+    "forbiddenText": []
+  }
+}

@@ -122,6 +122,14 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "talkback", "source-to-input", "stagebox", "monitor-mix", "diagnostic-reasoning"]
   },
   {
+    levelId: "LIV-019",
+    file: "data/live-sound/boards/liv019.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv019.normalized.json",
+    puzzleMode: "capstone-system",
+    difficulty: 5,
+    conceptTags: ["signal-direction", "drum-inputs", "source-to-input", "stagebox", "aux-send", "fx-return", "monitor-mix", "stereo-pair", "multi-route"]
+  },
+  {
     levelId: "LIV-021",
     file: "data/live-sound/boards/liv021.json",
     normalizedFile: "data/live-sound/boards/normalized/liv021.normalized.json",

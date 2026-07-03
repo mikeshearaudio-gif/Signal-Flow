@@ -35,8 +35,11 @@ const wrongRoutePairs = readJson("audit/liv019-preservation-snapshot/wrong-route
 const lockedBehavior = readJson("audit/liv019-preservation-snapshot/locked-behavior.json");
 
 assert(fs.existsSync(snapshotDir), "Missing snapshot directory: audit/liv019-preservation-snapshot");
-assert(!fs.existsSync(sourceManifestPath), "Runtime source manifest already exists: data/live-sound/boards/liv019.json");
-assert(!fs.existsSync(normalizedManifestPath), "Runtime normalized manifest already exists: data/live-sound/boards/normalized/liv019.normalized.json");
+const sourceManifestExists = fs.existsSync(sourceManifestPath);
+const normalizedManifestExists = fs.existsSync(normalizedManifestPath);
+if (sourceManifestExists || normalizedManifestExists) {
+  assert(sourceManifestExists && normalizedManifestExists, "LIV-019 source and normalized manifests must either both exist or both be absent");
+}
 assert(!fs.existsSync(path.join(snapshotDir, "liv019.draft.json")), "Temporary draft manifest exists; readiness gate expects no audit/liv019-preservation-snapshot/liv019.draft.json");
 
 if (routes) {
@@ -104,8 +107,8 @@ const summary = {
   levelId: "LIV-019",
   mode: "read-only",
   readyForControlledManifestCreation: failures.length === 0,
-  runtimeManifestExists: fs.existsSync(sourceManifestPath),
-  normalizedManifestExists: fs.existsSync(normalizedManifestPath),
+  runtimeManifestExists: sourceManifestExists,
+  normalizedManifestExists,
   counts: {
     routes: routes?.routeCount ?? null,
     stereoGroups: stereoGroups?.stereoGroupCount ?? null,
