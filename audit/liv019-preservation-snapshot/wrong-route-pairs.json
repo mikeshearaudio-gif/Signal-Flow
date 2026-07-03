@@ -1,0 +1,50 @@
+{
+  "levelId": "LIV-019",
+  "source": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+  "canonicalTrapMetadataFound": false,
+  "wrongRoutePairCount": 6,
+  "wrongRoutePairs": [
+    {
+      "id": "liv019-launch-forbidden-1",
+      "sourceLabel": "Overhead Left Mic",
+      "destinationLabel": "Stage Box Input 8",
+      "evidenceSource": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+      "note": "Launch-level forbidden example. Not canonical top-level puzzle trap metadata yet."
+    },
+    {
+      "id": "liv019-launch-forbidden-2",
+      "sourceLabel": "Overhead Right Mic",
+      "destinationLabel": "Stage Box Input 7",
+      "evidenceSource": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+      "note": "Launch-level forbidden example. Not canonical top-level puzzle trap metadata yet."
+    },
+    {
+      "id": "liv019-launch-forbidden-3",
+      "sourceLabel": "FOH Aux 6 Output",
+      "destinationLabel": "IEM 5 Input",
+      "evidenceSource": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+      "note": "Launch-level forbidden example. Not canonical top-level puzzle trap metadata yet."
+    },
+    {
+      "id": "liv019-launch-forbidden-4",
+      "sourceLabel": "FOH Bus 3 L Output",
+      "destinationLabel": "Stereo Reverb L Input",
+      "evidenceSource": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+      "note": "Launch-level forbidden example. Not canonical top-level puzzle trap metadata yet."
+    },
+    {
+      "id": "liv019-launch-forbidden-5",
+      "sourceLabel": "Stereo Reverb L Output",
+      "destinationLabel": "FOH Input Channel 11",
+      "evidenceSource": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+      "note": "Launch-level forbidden example. Not canonical top-level puzzle trap metadata yet."
+    },
+    {
+      "id": "liv019-launch-forbidden-6",
+      "sourceLabel": "Stereo Delay L Output",
+      "destinationLabel": "FOH Input Channel 9",
+      "evidenceSource": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html LIV-019 forbidden list",
+      "note": "Launch-level forbidden example. Not canonical top-level puzzle trap metadata yet."
+    }
+  ]
+}

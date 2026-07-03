@@ -1,0 +1,386 @@
+{
+  "levelId": "LIV-019",
+  "title": "Drum Inputs, IEM Sends and FX Returns",
+  "source": "src/live-sound-native-renderer.js LIV-019 validRoutes",
+  "routeCount": 21,
+  "routes": [
+    {
+      "id": "liv019-kick-to-stagebox-input-1",
+      "source": {
+        "id": "kick",
+        "label": "Kick Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-1",
+        "label": "Stage Box Input 1"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Kick Mic → Stage Box Input 1"
+    },
+    {
+      "id": "liv019-snare-to-stagebox-input-2",
+      "source": {
+        "id": "snare",
+        "label": "Snare Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-2",
+        "label": "Stage Box Input 2"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Snare Mic → Stage Box Input 2"
+    },
+    {
+      "id": "liv019-hi-hat-to-stagebox-input-3",
+      "source": {
+        "id": "hi-hat",
+        "label": "Hi-Hat Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-3",
+        "label": "Stage Box Input 3"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Hi-Hat Mic → Stage Box Input 3"
+    },
+    {
+      "id": "liv019-rack-tom-1-to-stagebox-input-4",
+      "source": {
+        "id": "high-rack-tom",
+        "label": "Rack Tom 1 Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-4",
+        "label": "Stage Box Input 4"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Rack Tom 1 Mic → Stage Box Input 4"
+    },
+    {
+      "id": "liv019-rack-tom-2-to-stagebox-input-5",
+      "source": {
+        "id": "low-rack-tom",
+        "label": "Rack Tom 2 Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-5",
+        "label": "Stage Box Input 5"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Rack Tom 2 Mic → Stage Box Input 5"
+    },
+    {
+      "id": "liv019-floor-tom-to-stagebox-input-6",
+      "source": {
+        "id": "floor-tom",
+        "label": "Floor Tom Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-6",
+        "label": "Stage Box Input 6"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Floor Tom Mic → Stage Box Input 6"
+    },
+    {
+      "id": "liv019-oh-left-to-stagebox-input-7",
+      "source": {
+        "id": "overhead-left-crash",
+        "label": "Overhead Left Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-7",
+        "label": "Stage Box Input 7"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-drum-overheads",
+        "side": "left"
+      },
+      "checklist": "Overhead Left Mic → Stage Box Input 7"
+    },
+    {
+      "id": "liv019-oh-right-to-stagebox-input-8",
+      "source": {
+        "id": "overhead-right-ride",
+        "label": "Overhead Right Mic"
+      },
+      "destination": {
+        "id": "stagebox-input-8",
+        "label": "Stage Box Input 8"
+      },
+      "routeFamily": "drum-inputs-to-stagebox",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-drum-overheads",
+        "side": "right"
+      },
+      "checklist": "Overhead Right Mic → Stage Box Input 8"
+    },
+    {
+      "id": "liv019-aux-1-to-iem-1",
+      "source": {
+        "id": "foh-liv019-aux-1-output",
+        "label": "FOH Aux 1 Output"
+      },
+      "destination": {
+        "id": "liv019-iem-1-input",
+        "label": "IEM 1 Input"
+      },
+      "routeFamily": "mono-aux-to-iem",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "FOH Aux 1 Output → IEM 1 Input"
+    },
+    {
+      "id": "liv019-aux-2-to-iem-2",
+      "source": {
+        "id": "foh-liv019-aux-2-output",
+        "label": "FOH Aux 2 Output"
+      },
+      "destination": {
+        "id": "liv019-iem-2-input",
+        "label": "IEM 2 Input"
+      },
+      "routeFamily": "mono-aux-to-iem",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "FOH Aux 2 Output → IEM 2 Input"
+    },
+    {
+      "id": "liv019-aux-3-to-iem-3",
+      "source": {
+        "id": "foh-liv019-aux-3-output",
+        "label": "FOH Aux 3 Output"
+      },
+      "destination": {
+        "id": "liv019-iem-3-input",
+        "label": "IEM 3 Input"
+      },
+      "routeFamily": "mono-aux-to-iem",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "FOH Aux 3 Output → IEM 3 Input"
+    },
+    {
+      "id": "liv019-aux-4-to-iem-4",
+      "source": {
+        "id": "foh-liv019-aux-4-output",
+        "label": "FOH Aux 4 Output"
+      },
+      "destination": {
+        "id": "liv019-iem-4-input",
+        "label": "IEM 4 Input"
+      },
+      "routeFamily": "mono-aux-to-iem",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "FOH Aux 4 Output → IEM 4 Input"
+    },
+    {
+      "id": "liv019-aux-5-to-iem-5",
+      "source": {
+        "id": "foh-liv019-aux-5-output",
+        "label": "FOH Aux 5 Output"
+      },
+      "destination": {
+        "id": "liv019-iem-5-input",
+        "label": "IEM 5 Input"
+      },
+      "routeFamily": "mono-aux-to-iem",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "FOH Aux 5 Output → IEM 5 Input"
+    },
+    {
+      "id": "liv019-bus-1-l-to-reverb-l-in",
+      "source": {
+        "id": "foh-liv019-bus-1-output",
+        "label": "FOH Bus 1 Output"
+      },
+      "destination": {
+        "id": "liv019-reverb-left-input",
+        "label": "Stereo Reverb L Input"
+      },
+      "routeFamily": "stereo-reverb-send",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-bus-1-to-reverb",
+        "side": "left"
+      },
+      "checklist": "FOH Bus 1 Output → Stereo Reverb L Input"
+    },
+    {
+      "id": "liv019-bus-1-r-to-reverb-r-in",
+      "source": {
+        "id": "foh-liv019-bus-2-output",
+        "label": "FOH Bus 2 Output"
+      },
+      "destination": {
+        "id": "liv019-reverb-right-input",
+        "label": "Stereo Reverb R Input"
+      },
+      "routeFamily": "stereo-reverb-send",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-bus-1-to-reverb",
+        "side": "right"
+      },
+      "checklist": "FOH Bus 2 Output → Stereo Reverb R Input"
+    },
+    {
+      "id": "liv019-bus-2-l-to-delay-l-in",
+      "source": {
+        "id": "foh-liv019-bus-3-output",
+        "label": "FOH Bus 3 Output"
+      },
+      "destination": {
+        "id": "liv019-delay-left-input",
+        "label": "Stereo Delay L Input"
+      },
+      "routeFamily": "stereo-delay-send",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-bus-2-to-delay",
+        "side": "left"
+      },
+      "checklist": "FOH Bus 3 Output → Stereo Delay L Input"
+    },
+    {
+      "id": "liv019-bus-2-r-to-delay-r-in",
+      "source": {
+        "id": "foh-liv019-bus-4-output",
+        "label": "FOH Bus 4 Output"
+      },
+      "destination": {
+        "id": "liv019-delay-right-input",
+        "label": "Stereo Delay R Input"
+      },
+      "routeFamily": "stereo-delay-send",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-bus-2-to-delay",
+        "side": "right"
+      },
+      "checklist": "FOH Bus 4 Output → Stereo Delay R Input"
+    },
+    {
+      "id": "liv019-reverb-l-out-to-foh-input-9",
+      "source": {
+        "id": "liv019-reverb-left-output",
+        "label": "Stereo Reverb L Output"
+      },
+      "destination": {
+        "id": "foh-liv019-input-9",
+        "label": "FOH Input Channel 9"
+      },
+      "routeFamily": "stereo-reverb-return",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-reverb-return",
+        "side": "left"
+      },
+      "checklist": "Stereo Reverb L Output → FOH Input Channel 9"
+    },
+    {
+      "id": "liv019-reverb-r-out-to-foh-input-10",
+      "source": {
+        "id": "liv019-reverb-right-output",
+        "label": "Stereo Reverb R Output"
+      },
+      "destination": {
+        "id": "foh-liv019-input-10",
+        "label": "FOH Input Channel 10"
+      },
+      "routeFamily": "stereo-reverb-return",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-reverb-return",
+        "side": "right"
+      },
+      "checklist": "Stereo Reverb R Output → FOH Input Channel 10"
+    },
+    {
+      "id": "liv019-delay-l-out-to-foh-input-11",
+      "source": {
+        "id": "liv019-delay-left-output",
+        "label": "Stereo Delay L Output"
+      },
+      "destination": {
+        "id": "foh-liv019-input-11",
+        "label": "FOH Input Channel 11"
+      },
+      "routeFamily": "stereo-delay-return",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-delay-return",
+        "side": "left"
+      },
+      "checklist": "Stereo Delay L Output → FOH Input Channel 11"
+    },
+    {
+      "id": "liv019-delay-r-out-to-foh-input-12",
+      "source": {
+        "id": "liv019-delay-right-output",
+        "label": "Stereo Delay R Output"
+      },
+      "destination": {
+        "id": "foh-liv019-input-12",
+        "label": "FOH Input Channel 12"
+      },
+      "routeFamily": "stereo-delay-return",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv019-delay-return",
+        "side": "right"
+      },
+      "checklist": "Stereo Delay R Output → FOH Input Channel 12"
+    }
+  ]
+}

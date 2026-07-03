@@ -1,0 +1,117 @@
+{
+  "levelId": "LIV-019",
+  "source": "src/live-sound-native-renderer.js LIV-019 validRoutes stereoGroup fields",
+  "stereoGroupCount": 5,
+  "stereoGroups": [
+    {
+      "id": "liv019-drum-overheads",
+      "label": "Preserve overhead left/right drum input order into stagebox inputs 7-8.",
+      "routeIds": [
+        "liv019-oh-left-to-stagebox-input-7",
+        "liv019-oh-right-to-stagebox-input-8"
+      ],
+      "routes": [
+        {
+          "id": "liv019-oh-left-to-stagebox-input-7",
+          "side": "left",
+          "from": "overhead-left-crash",
+          "to": "stagebox-input-7"
+        },
+        {
+          "id": "liv019-oh-right-to-stagebox-input-8",
+          "side": "right",
+          "from": "overhead-right-ride",
+          "to": "stagebox-input-8"
+        }
+      ]
+    },
+    {
+      "id": "liv019-bus-1-to-reverb",
+      "label": "Preserve stereo reverb send left/right order from FOH Bus 1/2 to reverb inputs.",
+      "routeIds": [
+        "liv019-bus-1-l-to-reverb-l-in",
+        "liv019-bus-1-r-to-reverb-r-in"
+      ],
+      "routes": [
+        {
+          "id": "liv019-bus-1-l-to-reverb-l-in",
+          "side": "left",
+          "from": "foh-liv019-bus-1-output",
+          "to": "liv019-reverb-left-input"
+        },
+        {
+          "id": "liv019-bus-1-r-to-reverb-r-in",
+          "side": "right",
+          "from": "foh-liv019-bus-2-output",
+          "to": "liv019-reverb-right-input"
+        }
+      ]
+    },
+    {
+      "id": "liv019-bus-2-to-delay",
+      "label": "Preserve stereo delay send left/right order from FOH Bus 3/4 to delay inputs.",
+      "routeIds": [
+        "liv019-bus-2-l-to-delay-l-in",
+        "liv019-bus-2-r-to-delay-r-in"
+      ],
+      "routes": [
+        {
+          "id": "liv019-bus-2-l-to-delay-l-in",
+          "side": "left",
+          "from": "foh-liv019-bus-3-output",
+          "to": "liv019-delay-left-input"
+        },
+        {
+          "id": "liv019-bus-2-r-to-delay-r-in",
+          "side": "right",
+          "from": "foh-liv019-bus-4-output",
+          "to": "liv019-delay-right-input"
+        }
+      ]
+    },
+    {
+      "id": "liv019-reverb-return",
+      "label": "Preserve stereo reverb return left/right order into FOH inputs 9-10.",
+      "routeIds": [
+        "liv019-reverb-l-out-to-foh-input-9",
+        "liv019-reverb-r-out-to-foh-input-10"
+      ],
+      "routes": [
+        {
+          "id": "liv019-reverb-l-out-to-foh-input-9",
+          "side": "left",
+          "from": "liv019-reverb-left-output",
+          "to": "foh-liv019-input-9"
+        },
+        {
+          "id": "liv019-reverb-r-out-to-foh-input-10",
+          "side": "right",
+          "from": "liv019-reverb-right-output",
+          "to": "foh-liv019-input-10"
+        }
+      ]
+    },
+    {
+      "id": "liv019-delay-return",
+      "label": "Preserve stereo delay return left/right order into FOH inputs 11-12.",
+      "routeIds": [
+        "liv019-delay-l-out-to-foh-input-11",
+        "liv019-delay-r-out-to-foh-input-12"
+      ],
+      "routes": [
+        {
+          "id": "liv019-delay-l-out-to-foh-input-11",
+          "side": "left",
+          "from": "liv019-delay-left-output",
+          "to": "foh-liv019-input-11"
+        },
+        {
+          "id": "liv019-delay-r-out-to-foh-input-12",
+          "side": "right",
+          "from": "liv019-delay-right-output",
+          "to": "foh-liv019-input-12"
+        }
+      ]
+    }
+  ]
+}

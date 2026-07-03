@@ -1,0 +1,123 @@
+{
+  "levelId": "LIV-019",
+  "title": "Drum Inputs, IEM Sends and FX Returns",
+  "evidenceOnly": true,
+  "notRuntimeManifest": true,
+  "sourceFiles": [
+    "src/live-sound-native-renderer.js",
+    "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html",
+    "launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html",
+    "audit/liv019-hitbox-export-v6r406.json",
+    "docs/live-sound-liv019-source-route-audit.md",
+    "docs/HANDOFF_2026-05-26_LIV019_NATIVE_CABLE_LOCK.md"
+  ],
+  "customScriptsDetected": [
+    "src/sf-liv019-scroll-shell.js?v=6r389",
+    "src/sf-liv019-overlay-lock.js?v=6r407",
+    "src/sf-liv019-foh-label-lock.js?v=6r399",
+    "src/sf-liv019-foh-label-final-lock.js?v=6r401",
+    "src/sf-liv019-hitbox-final-lock.js?v=6r408q2",
+    "src/sf-liv019-stagebox-8-lock.js?v=6r404",
+    "src/sf-liv019-clean-finalizer-v6r421.js?v=6r421q2",
+    "src/sf-live-cable-mode-kit.js?v=6r426"
+  ],
+  "routeExpectations": {
+    "requiredRouteCount": 21,
+    "routeFamilies": [
+      "8 drum mics to stagebox inputs 1-8",
+      "5 mono FOH Aux outputs to IEM inputs 1-5",
+      "Bus 1/2 to stereo reverb L/R inputs",
+      "Bus 3/4 to stereo delay L/R inputs",
+      "Reverb L/R and delay L/R outputs back to FOH inputs 9-12"
+    ],
+    "stereoGroupCount": 5,
+    "stereoGroups": [
+      "liv019-drum-overheads",
+      "liv019-bus-1-to-reverb",
+      "liv019-bus-2-to-delay",
+      "liv019-reverb-return",
+      "liv019-delay-return"
+    ]
+  },
+  "hitboxExpectations": {
+    "lockedHitboxCount": 70,
+    "missingCount": 0,
+    "hitboxLockReport": "expected: 70, applied: 70, missingCount: 0",
+    "source": "audit/liv019-hitbox-export-v6r406.json and src/sf-liv019-hitbox-final-lock.js"
+  },
+  "stageboxBehavior": {
+    "lockedAsEightInputBoard": true,
+    "validStageboxInputs": [
+      "stagebox-input-1",
+      "stagebox-input-2",
+      "stagebox-input-3",
+      "stagebox-input-4",
+      "stagebox-input-5",
+      "stagebox-input-6",
+      "stagebox-input-7",
+      "stagebox-input-8"
+    ],
+    "extraInputsRule": "stagebox-input-9 through stagebox-input-16 are removed/hidden by src/sf-liv019-stagebox-8-lock.js."
+  },
+  "cableLayerExpectations": {
+    "owner": "original native game cable renderer",
+    "nativeCableLayer": ".sf-native-cables",
+    "zIndex": 2147483600,
+    "pointerEvents": "none",
+    "modeSource": "native-game-cables-top-layer",
+    "forbiddenLayers": [
+      "#sf-liv019-cable-stub-layer",
+      "#sf-liv019-centered-cable-layer",
+      "#sf-liv019-viewport-cable-layer",
+      "old #cableLayer finalizer path"
+    ],
+    "anchorRule": "Cable endpoints resolve from locked DOM hitbox centers inside .sf-live-native-layer.sf-live-native-level-liv-019.",
+    "ignoredAnchorContainers": [
+      ".sf-native-liv019-source-panel",
+      ".sf-native-liv009-source-panel"
+    ]
+  },
+  "scrollBehaviorNotes": {
+    "owner": "src/sf-liv019-scroll-shell.js?v=6r389",
+    "canvasWidth": 1320,
+    "canvasHeight": 820,
+    "wrapOverflowX": "auto",
+    "wrapOverflowY": "auto",
+    "patchbayPosition": "relative",
+    "nativeLayerPosition": "absolute at top-left",
+    "regressionRisk": "Do not regress into vertical-wheel-to-horizontal drift or top-gap anchoring."
+  },
+  "labelAndFinalizerNotes": {
+    "fohLabelLocks": [
+      "src/sf-liv019-foh-label-lock.js?v=6r399",
+      "src/sf-liv019-foh-label-final-lock.js?v=6r401"
+    ],
+    "finalizerRole": "tool-cleanup-only-no-cables",
+    "hiddenDuplicateSourcePanels": [
+      ".sf-native-liv019-source-panel",
+      ".sf-native-liv009-source-panel"
+    ],
+    "removedDevTools": [
+      "#sf-liv019-gear-mover",
+      "#sf-liv019-overlay-mover",
+      "#sf-liv019-foh-label-mover",
+      "#sf-liv019-hitbox-mapper",
+      ".sf-liv019-hitbox-visual-layer"
+    ]
+  },
+  "falseTrapEvidence": {
+    "canonicalFalseHitboxSourceFound": false,
+    "canonicalTrapMetadataFound": false,
+    "note": "No LIV-019 canonical false/trap hitbox file or top-level puzzle trap metadata was found. Launch-level forbidden examples are captured in wrong-route-pairs.json."
+  },
+  "browserSmokeExpectations": [
+    "Kick Mic -> Stage Box Input 1 validates, completes checklist, scores, and draws a native full cable.",
+    "FOH Aux 1 Output -> IEM 1 Input validates, completes checklist, scores, and draws a native full cable.",
+    "FOH Bus 1 Output -> Stereo Reverb L Input validates, completes checklist, scores, and draws a native full cable.",
+    "Native cable SVG stays on the top layer with z-index 2147483600.",
+    "Cable endpoints land on locked hitbox centers.",
+    "Hitbox lock remains expected: 70, applied: 70, missingCount: 0.",
+    "Scroll still works and returning to LIV-019 does not fallback.",
+    "No custom stub layer appears and no old runtime finalizer logs appear."
+  ]
+}
