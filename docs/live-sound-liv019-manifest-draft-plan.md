@@ -1,8 +1,8 @@
-# LIV-019 Source Manifest Draft Plan
+# LIV-019 Source Manifest Readiness Plan
 
 ## Manifest Scope
 
-This is a planning document only. It does not create, normalize, or integrate a runtime source manifest for LIV-019.
+This is a planning document only. It does not create, normalize, or integrate a runtime source manifest for LIV-019. The purpose is to define a manifest-readiness gate: whether the captured preservation evidence is complete enough for a later controlled real source-manifest creation pass.
 
 Do not create either of these files during this planning stage:
 
@@ -10,6 +10,8 @@ Do not create either of these files during this planning stage:
 - `data/live-sound/boards/normalized/liv019.normalized.json`
 
 The source of truth for future work is the preservation snapshot in `audit/liv019-preservation-snapshot/`, plus the locked board behavior documented in `docs/live-sound-liv019-source-route-audit.md` and `docs/live-sound-locked-board-conversion-plan.md`. A future manifest must conform to the existing board, not the other way around.
+
+The next step is not a temporary draft manifest. The next step is a read-only readiness validation gate. If that gate passes, a later data-only task may create the real source manifest under `data/live-sound/boards/` with no renderer integration.
 
 ## Required Future Manifest Content
 
@@ -224,15 +226,16 @@ Suggested content:
 }
 ```
 
-If the existing board schema rejects this block, keep preservation references in the temporary audit draft instead of adding them to `data/live-sound/boards/liv019.json`.
+If the existing board schema rejects this block, keep preservation references in documentation and readiness output instead of adding them to `data/live-sound/boards/liv019.json`.
 
-## Parity Checks Before Future Manifest Commit
+## Readiness Gate
 
-Before any future LIV-019 manifest can be committed under `data/live-sound/boards/`, all of these checks must pass:
+Before any future LIV-019 manifest can be created under `data/live-sound/boards/`, the read-only readiness gate must pass:
 
 - Route count equals 21.
 - Stereo group count equals 5.
 - Good hitbox count equals 70.
+- Wrong-route example count equals 6.
 - Route IDs match `audit/liv019-preservation-snapshot/routes.json`.
 - Route endpoint IDs match `audit/liv019-preservation-snapshot/routes.json`.
 - Stereo group route IDs match `audit/liv019-preservation-snapshot/stereo-groups.json`.
@@ -252,12 +255,14 @@ Before any future LIV-019 manifest can be committed under `data/live-sound/board
 - Clean finalizer remains tool cleanup only and does not draw cables.
 - Patch acceptance tests pass.
 - Browser smoke confirms same route, score, checklist, hint, cable, scroll, label, and completion behavior before and after manifest drafting.
+- `data/live-sound/boards/liv019.json` does not already exist during readiness.
+- `data/live-sound/boards/normalized/liv019.normalized.json` does not already exist during readiness.
 
-Recommended commands for the future manifest commit gate:
+Recommended commands for the readiness gate:
 
 ```bash
+node tools/liv019_manifest_readiness_check.mjs
 node tools/liv019_preservation_snapshot.mjs
-node tools/live-sound-board-tool.js validate data/live-sound/boards/liv019.json
 node tools/signal-flow-puzzle-metadata-tool.js validate-map data/puzzle-metadata/live-sound.json
 node tools/signal-flow-puzzle-metadata-tool.js apply-map data/puzzle-metadata/live-sound.json --dry-run
 node tools/live_sound_puzzle_metadata_validation.test.mjs
@@ -280,6 +285,17 @@ Browser smoke must include:
 - Completion checklist behavior for stereo groups.
 - Score behavior for valid and invalid attempts.
 
+## Controlled Real Manifest Creation Gate
+
+If readiness passes, the next allowed implementation phase is a controlled data-only pass that creates the real source manifest directly:
+
+- `data/live-sound/boards/liv019.json`
+- `data/live-sound/boards/normalized/liv019.normalized.json`
+
+That future pass must still avoid renderer integration, gameplay changes, route changes, hitbox changes, scoring changes, hint changes, cable changes, scroll changes, label changes, trap changes, false-jack changes, and status promotion.
+
+The real manifest should be validated immediately against the preservation snapshot before any broader work continues.
+
 ## Stop Conditions
 
 Stop conversion immediately if any parity check fails.
@@ -300,39 +316,33 @@ Specific LIV-019 stop conditions:
 - Cable endpoints stop landing on locked hitbox centers.
 - Scroll, labels, stagebox lock, hitbox lock, finalizer, scoring, hints, checklist timing, or completion behavior changes.
 
-## Optional Future Comparison Script Plan
+## Optional Future Manifest Comparison Script Plan
 
-A future comparison script would be useful before creating a runtime manifest. Do not implement it yet.
+A future comparison script would be useful after the real manifest exists. Do not implement it until a later task explicitly allows real manifest creation.
 
 Proposed future command:
 
 ```bash
-node tools/liv019_manifest_compare.mjs audit/liv019-preservation-snapshot/liv019.draft.json
+node tools/liv019_manifest_compare.mjs data/live-sound/boards/liv019.json
 ```
 
 Expected read-only behavior:
 
-- Parse the temporary draft manifest.
+- Parse the real source manifest.
 - Parse `routes.json`, `stereo-groups.json`, `good-hitboxes.json`, `wrong-route-pairs.json`, and `locked-behavior.json`.
 - Compare route count, route IDs, endpoint IDs, labels, route families, stereo group membership, good hitbox count, and preservation references.
-- Fail if the draft creates false/trap behavior that the snapshot does not support.
-- Fail if the draft omits the locked behavior references needed for future review.
+- Fail if the manifest creates false/trap behavior that the snapshot does not support.
+- Fail if the manifest omits the locked behavior references needed for future review.
 - Print a stable JSON summary for review.
 
 This script should not read or write runtime board files unless a later task explicitly permits it.
 
 ## Recommended Next Step
 
-The next safe step is to create a temporary draft manifest under:
+The next safe step is to run the read-only readiness gate:
 
-```text
-audit/liv019-preservation-snapshot/
+```bash
+node tools/liv019_manifest_readiness_check.mjs
 ```
 
-Suggested filename:
-
-```text
-audit/liv019-preservation-snapshot/liv019.draft.json
-```
-
-That temporary draft should be compared against the snapshot before any file is created under `data/live-sound/boards/`. Runtime adoption should remain blocked until parity is reviewed and browser smoke confirms behavior before and after.
+If readiness passes, the following task may be a controlled real source-manifest creation pass under `data/live-sound/boards/`, still with no renderer integration and no gameplay behavior changes. Runtime adoption remains blocked until parity is reviewed and browser smoke confirms behavior before and after.
