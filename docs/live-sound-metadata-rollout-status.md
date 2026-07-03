@@ -57,6 +57,7 @@ These boards remain protected. Do not promote them, create source manifests for 
 Reference documents:
 
 - `docs/live-sound-locked-board-preservation-plan.md`
+- `docs/live-sound-locked-board-conversion-plan.md`
 - `docs/live-sound-liv019-source-route-audit.md`
 - `docs/live-sound-liv020-source-route-audit.md`
 - `docs/live-sound-liv023-source-route-audit.md`
@@ -97,7 +98,7 @@ No source manifest should be created until true/false hitbox baking, stack behav
 
 ## Next Recommended Phases
 
-1. Preservation-safe conversion planning for LIV-019, LIV-020, LIV-023, and LIV-026.
+1. Use `docs/live-sound-locked-board-conversion-plan.md` to plan preservation-safe conversion work for LIV-019, LIV-020, LIV-023, and LIV-026.
 2. Optional report/tool polish if the next planning pass needs more precise locked-board or environment-level status output.
 3. Future universal metadata batches for non-live-sound environments.
 4. Renderer integration only after metadata and normalization behavior remain stable.
