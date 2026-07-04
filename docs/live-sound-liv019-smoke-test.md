@@ -26,3 +26,49 @@ No route definitions, hitboxes, scoring, hints, cable behavior, scroll behavior,
 ## Remaining Manual Check
 
 Confirm in browser that the generic `IEM # INPUT` labels are gone while the intended IEM unit headings, channel labels, and input jack behavior remain intact.
+
+## Hint Recheck
+
+Follow-up smoke after the label cleanup found that LIV-019 hints were not functioning correctly.
+
+Cause: the native required-hint normalizer read older embedded route fields such as `from` and `to`, but the controlled source manifest uses canonical `fromId` and `toId` route endpoints. That could leave the required endpoint set empty for manifest-backed routes, so Show Hints could toggle without applying the expected required endpoint rings.
+
+Fix applied: the hint endpoint reader now accepts `fromId` and `toId` in addition to the existing route field names. The fix does not restore the removed `IEM # INPUT` overlays and does not change routes, hitboxes, scoring, cable behavior, scroll behavior, stagebox behavior, source manifests, or normalized manifests.
+
+Remaining manual check: confirm in browser that Show Hints highlights only valid LIV-019 endpoints while the duplicate `IEM # INPUT` labels remain absent.
+
+## Second Smoke Recheck
+
+Follow-up smoke found that the duplicate `IEM # INPUT` labels stayed removed, but `INPUT A` and `INPUT B` had migrated away from the prior locked antenna-label overlay positions. Hints were still not visibly reliable.
+
+Cause: the duplicate-label cleanup removed the extra visible `IEM # INPUT` overlays, but the base renderer still created `INPUT A` and `INPUT B` at the lower jack-label positions and depended on the LIV-019 overlay lock to move them afterward. That made the initial/rendered position fragile. Hint visibility also needed a LIV-019-specific bridge that applies required endpoint rings from route endpoint IDs instead of relying on label text or overlay nodes.
+
+Fix applied: the base LIV-019 renderer now creates `INPUT A`, `INPUT B`, and the IEM channel labels at the same locked overlay coordinates declared by `sf-liv019-overlay-lock.js`. The duplicate `IEM # INPUT` overlays remain removed. LIV-019 hint visibility is reinforced from required route endpoint IDs and does not depend on the removed duplicate labels.
+
+Remaining manual browser recheck:
+- Confirm duplicate `IEM # INPUT` labels stay absent.
+- Confirm `INPUT A` and `INPUT B` sit on the antenna-label overlay positions.
+- Confirm `IEM 1` through `IEM 6` remain visible and correctly placed.
+- Confirm Show Hints visibly highlights only valid LIV-019 endpoints.
+- Confirm routes, wrong-route red cables, score behavior, scroll shell, stagebox lock, and cable behavior remain unchanged.
+
+## Hint Visibility Follow-Up
+
+Date: 2026-07-04
+
+Current smoke confirmed that the duplicate `IEM # INPUT` labels are gone, `INPUT A` and `INPUT B` are back in the locked antenna-label positions, IEM labels/headings are correct, routes work, wrong routes turn red and penalize correctly, and cable/scroll/stagebox/label behavior appears intact. Hints still did not operate visually even though the console showed repeated state changes such as `Native jack hints visible: true` and `Native jack hints visible: false`.
+
+Failure mode: the Show Hints control and renderer state were firing, but the visual hint rings were not reliably visible/persistent on LIV-019.
+
+Cause: LIV-019 uses `sf-live-cable-mode-kit.js` to promote the native cable SVG to a top board layer with z-index `2147483600`. The generic hint path styled the jack hitbox elements themselves, which remained below that promoted cable layer and could be visually suppressed by the locked LIV-019 stacking model. The previous canonical endpoint fix was still needed, but was not enough to guarantee visible rings in this locked layout.
+
+Fix applied: LIV-019 now creates a dedicated pointerless `.sf-liv019-hint-ring-layer` above the promoted cable layer when hints are visible. The ring layer is rebuilt from required route endpoint IDs and skips ghost/invalid endpoints, so it does not depend on removed duplicate labels and does not reveal invalid jacks. Hiding hints removes the ring layer.
+
+Manual recheck checklist:
+- Show Hints creates visible rings on valid LIV-019 endpoints.
+- Hide Hints removes those rings.
+- Rings remain visible until toggled off.
+- Rings do not appear on invalid/ghost endpoints.
+- Duplicate `IEM # INPUT` labels stay absent.
+- `INPUT A` and `INPUT B` remain in the locked antenna-label positions.
+- Existing routes, wrong-route red cables, scoring, hitboxes, cable mode, scroll shell, and stagebox lock remain unchanged.

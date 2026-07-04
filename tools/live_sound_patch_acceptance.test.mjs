@@ -22,6 +22,14 @@ assert(/iemInputJack\(iem1, "a", "liv019-iem-1-input", "IEM 1 Input", false\)/.t
 assert(/iemInputJack\(iem3, "a", "liv019-iem-5-input", "IEM 5 Input", false\)/.test(renderer), "LIV-019 should keep the IEM 5 input jack label");
 assert(!/gearText\(unit\.wrap, aLabel \+ " INPUT"/.test(renderer), "LIV-019 should not render duplicate generic IEM input overlays");
 assert(!/gearText\(unit\.wrap, bLabel \+ " INPUT"/.test(renderer), "LIV-019 should not render duplicate generic IEM input overlays");
+assert(/gearText\(unit\.wrap, "INPUT A", inputAX, inputAY/.test(renderer), "LIV-019 INPUT A labels should use locked antenna-label overlay positions");
+assert(/gearText\(unit\.wrap, "INPUT B", inputBX, inputBY/.test(renderer), "LIV-019 INPUT B labels should use locked antenna-label overlay positions");
+assert(/addKey\(route\.fromId\);[\s\S]*addKey\(route\.toId\);/.test(renderer), "native hints should read canonical manifest route endpoint ids");
+assert(/setNativeHintsVisible\(visible\)[\s\S]*updateNativeHintHighlights\(\);[\s\S]*normalizeNativeRequiredHintRings\(\);/.test(renderer), "native hint toggling should apply required route endpoint rings");
+assert(/forceLiv019HintVisibility\(nativeHintsVisible\);/.test(renderer), "LIV-019 hint visibility should be reinforced independently of label overlays");
+assert(/sf-liv019-hint-ring-layer/.test(renderer), "LIV-019 hints should use a dedicated visible ring layer");
+assert(/z-index:2147483601/.test(renderer), "LIV-019 hint rings should sit above the promoted native cable layer");
+assert(/ringLayer\.appendChild\(ring\);/.test(renderer), "LIV-019 hint ring layer should target route-derived jack positions");
 
 assert(/kind: "stagebox", x: rect\.width \* 0\.045, y: layoutHeight \* 0\.330, width: rect\.width \* 0\.330/.test(renderer), "LIV-015 stagebox should use the spread layout");
 assert(/kind: "foh", x: rect\.width \* 0\.445, y: layoutHeight \* 0\.075, width: rect\.width \* 0\.500/.test(renderer), "LIV-015 FOH should use the spread layout");

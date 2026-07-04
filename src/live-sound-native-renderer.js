@@ -4862,6 +4862,8 @@ function handleNodeClick(layer, node) {
       }
 
       if (typeof route === "object") {
+        addKey(route.fromId);
+        addKey(route.toId);
         addKey(route.fromKey);
         addKey(route.toKey);
         addKey(route.from);
@@ -5025,7 +5027,107 @@ function handleNodeClick(layer, node) {
     console.log("[Signal Flow] Native jack hints visible:", nativeHintsVisible);
     updateNativeHintHighlights();
     normalizeNativeRequiredHintRings();
+    forceLiv019HintVisibility(nativeHintsVisible);
     raiseHintOverlays();
+  }
+
+  function forceLiv019HintVisibility(visible) {
+    if (LEVEL_ID !== "LIV-019") return;
+
+    const requiredKeys = new Set();
+    (LEVEL.validRoutes || []).forEach(route => {
+      [
+        route && route.fromId,
+        route && route.toId,
+        route && route.from,
+        route && route.to
+      ].forEach(value => {
+        const key = String(value || "").trim();
+        if (key) requiredKeys.add(key);
+      });
+    });
+
+    document.querySelectorAll(".sf-live-native-level-liv-019").forEach(layer => {
+      layer.classList.toggle("sf-native-hints-visible", !!visible);
+
+      let ringLayer = layer.querySelector(".sf-liv019-hint-ring-layer");
+      if (!visible) {
+        if (ringLayer) ringLayer.remove();
+      } else if (!ringLayer) {
+        ringLayer = document.createElement("div");
+        ringLayer.className = "sf-liv019-hint-ring-layer";
+        ringLayer.setAttribute("aria-hidden", "true");
+        ringLayer.style.cssText = [
+          "position:absolute",
+          "inset:0",
+          "z-index:2147483601",
+          "pointer-events:none",
+          "overflow:visible"
+        ].join(";");
+        layer.appendChild(ringLayer);
+      }
+
+      if (ringLayer) {
+        ringLayer.replaceChildren();
+      }
+
+      layer.querySelectorAll(".sf-native-jack").forEach(node => {
+        const key = String(node.dataset.nodeKey || node.dataset.sfNativeKey || node.getAttribute("data-node-key") || "");
+        const isRequired = requiredKeys.has(key);
+        const isGhost = node.dataset.sfNativeGhost === "1";
+        const isActive =
+          node.classList.contains("sf-native-node-selected") ||
+          node.classList.contains("sf-native-node-valid") ||
+          node.classList.contains("sf-native-node-invalid") ||
+          node.classList.contains("sf-native-route-valid") ||
+          node.classList.contains("sf-native-route-invalid") ||
+          node.dataset.sfNativeSelected === "true" ||
+          node.dataset.sfNativeRouteState === "valid" ||
+          node.dataset.sfNativeRouteState === "invalid";
+
+        node.classList.toggle("sf-native-required-hint", !!visible && isRequired && !isGhost);
+
+        if (visible && isRequired && !isGhost) {
+          node.style.setProperty("background", "rgba(255,210,95,.12)", "important");
+          node.style.setProperty("border-color", "rgba(255,210,95,.95)", "important");
+          node.style.setProperty("box-shadow", "0 0 0 3px rgba(255,210,95,.95), 0 0 18px rgba(255,210,95,.50)", "important");
+          node.style.setProperty("outline", "none", "important");
+          node.style.setProperty("z-index", "7600", "important");
+
+          if (ringLayer) {
+            const nodeRect = node.getBoundingClientRect();
+            const layerRect = layer.getBoundingClientRect();
+            if (nodeRect.width > 0 && nodeRect.height > 0) {
+              const ring = document.createElement("div");
+              ring.className = "sf-liv019-hint-ring";
+              ring.dataset.nodeKey = key;
+              ring.style.cssText = [
+                "position:absolute",
+                "left:" + (nodeRect.left - layerRect.left) + "px",
+                "top:" + (nodeRect.top - layerRect.top) + "px",
+                "width:" + nodeRect.width + "px",
+                "height:" + nodeRect.height + "px",
+                "box-sizing:border-box",
+                "border-radius:999px",
+                "border:3px solid rgba(255,210,95,.98)",
+                "background:rgba(255,210,95,.10)",
+                "box-shadow:0 0 0 2px rgba(255,210,95,.42),0 0 18px rgba(255,210,95,.58)",
+                "pointer-events:none"
+              ].join(";");
+              ringLayer.appendChild(ring);
+            }
+          }
+          return;
+        }
+
+        if (!visible && !isActive) {
+          node.style.setProperty("background", "rgba(255,255,255,0)", "important");
+          node.style.setProperty("border-color", "rgba(255,255,255,0)", "important");
+          node.style.setProperty("box-shadow", "none", "important");
+          node.style.setProperty("outline", "none", "important");
+        }
+      });
+    });
   }
 
   function createJackNode(layer, key, point, label, ghost) {
@@ -6343,15 +6445,15 @@ function renderLiv009DrumStageInputs(surface, adapter) {
     }
 
     [
-      [iem1, "IEM 1", "IEM 2"],
-      [iem2, "IEM 3", "IEM 4"],
-      [iem3, "IEM 5", "IEM 6"]
-    ].forEach(([unit, aLabel, bLabel], idx) => {
+      [iem1, "IEM 1", "IEM 2", 9.5, 37, 90.5, 38, 28.5, 37, 52.5, 36.5, 43, 7],
+      [iem2, "IEM 3", "IEM 4", 9.5, 39, 90.5, 37, 28, 38, 52, 38, 43, 7],
+      [iem3, "IEM 5", "IEM 6", 9, 37.5, 90, 37.5, 28, 36.5, 52, 37, 38, 6]
+    ].forEach(([unit, aLabel, bLabel, inputAX, inputAY, inputBX, inputBY, labelAX, labelAY, labelBX, labelBY, inputWidth, inputSize]) => {
       // The jack buttons carry the numbered IEM input names; avoid duplicate generic overlays.
-      gearText(unit.wrap, "INPUT A", 28, 74, { width: 58 });
-      gearText(unit.wrap, "INPUT B", 72, 74, { width: 58 });
-      gearText(unit.wrap, aLabel, 28, 88, { width: 52, size: 8, color: "#bdeaff" });
-      gearText(unit.wrap, bLabel, 72, 88, { width: 52, size: 8, color: "#bdeaff" });
+      gearText(unit.wrap, "INPUT A", inputAX, inputAY, { width: inputWidth, size: inputSize });
+      gearText(unit.wrap, "INPUT B", inputBX, inputBY, { width: 43, size: inputSize });
+      gearText(unit.wrap, aLabel, labelAX, labelAY, { width: 52, size: 9, color: "#bdeaff" });
+      gearText(unit.wrap, bLabel, labelBX, labelBY, { width: bLabel === "IEM 6" ? 42 : 52, size: 9, color: "#bdeaff" });
     });
 
     gearText(foh.wrap, "AUX SENDS", 52, 36, { width: 90, size: 8, background: "rgba(0,0,0,.88)" });
