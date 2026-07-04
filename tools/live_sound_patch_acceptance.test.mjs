@@ -30,6 +30,9 @@ assert(/forceLiv019HintVisibility\(nativeHintsVisible\);/.test(renderer), "LIV-0
 assert(/sf-liv019-hint-ring-layer/.test(renderer), "LIV-019 hints should use a dedicated visible ring layer");
 assert(/z-index:2147483601/.test(renderer), "LIV-019 hint rings should sit above the promoted native cable layer");
 assert(/ringLayer\.appendChild\(ring\);/.test(renderer), "LIV-019 hint ring layer should target route-derived jack positions");
+assert(/redrawCables\(layer\)[\s\S]*LEVEL_ID === "LIV-019" && nativeHintsVisible[\s\S]*forceLiv019HintVisibility\(true\);/.test(renderer), "LIV-019 active hints should rebuild after native cable redraws");
+assert(/ringLayer\.replaceChildren\(\);/.test(renderer), "LIV-019 hint rebuild should be idempotent and avoid duplicate rings");
+assert(/layer\.appendChild\(ringLayer\);/.test(renderer), "LIV-019 hint ring layer should be kept above route/cable redraw artifacts");
 
 assert(/kind: "stagebox", x: rect\.width \* 0\.045, y: layoutHeight \* 0\.330, width: rect\.width \* 0\.330/.test(renderer), "LIV-015 stagebox should use the spread layout");
 assert(/kind: "foh", x: rect\.width \* 0\.445, y: layoutHeight \* 0\.075, width: rect\.width \* 0\.500/.test(renderer), "LIV-015 FOH should use the spread layout");

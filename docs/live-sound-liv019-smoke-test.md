@@ -72,3 +72,24 @@ Manual recheck checklist:
 - Duplicate `IEM # INPUT` labels stay absent.
 - `INPUT A` and `INPUT B` remain in the locked antenna-label positions.
 - Existing routes, wrong-route red cables, scoring, hitboxes, cable mode, scroll shell, and stagebox lock remain unchanged.
+
+## Hint Persistence Follow-Up
+
+Date: 2026-07-04
+
+Video review corrected the hint diagnosis: Show Hints does create visible yellow rings initially. The rings disappear after a route is completed and native cables redraw, while the button still says Hide Hints and the hint state remains active.
+
+Failure mode: hint visibility is correct on initial toggle, then the visual hint layer is lost or stale after route completion / wrong-route attempts / cable redraw.
+
+Cause: `addRoute()` updates route state and calls `redrawCables(layer)`. `redrawCables()` removes and recreates the native cable SVG, promotes the cable layer, and appends route drag handles, but previously did not rebuild active LIV-019 hint visuals afterward. The hint state stayed true, but the route/cable redraw path did not refresh the LIV-019 hint ring layer.
+
+Fix applied: when LIV-019 hints are active, `redrawCables()` now reapplies `forceLiv019HintVisibility(true)` after recreating/promoting cables and handles. The rebuild is idempotent: it reuses a single `.sf-liv019-hint-ring-layer`, moves it back above redraw artifacts, clears existing rings, and recreates rings from valid route endpoint IDs. Hide Hints still removes the layer.
+
+Manual recheck checklist:
+- Click Show Hints and confirm rings appear.
+- Complete one correct route, such as Snare Mic to Stage Box Input 2, and confirm rings remain after the green cable appears.
+- Make one wrong route and confirm rings remain after the red cable appears.
+- Click Hide Hints and confirm rings disappear.
+- Confirm duplicate `IEM # INPUT` labels stay absent.
+- Confirm `INPUT A` and `INPUT B` remain correctly positioned.
+- Confirm routes, hitboxes, scoring, cable behavior, scroll shell, and stagebox lock remain unchanged.

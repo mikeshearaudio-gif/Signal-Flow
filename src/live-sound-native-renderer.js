@@ -3167,6 +3167,10 @@ if (activeNativeLevelId === nextLevelId) return;
     // Handles must stay above the cable SVG.
     layer.querySelectorAll(".sf-cable-drag-handle").forEach(handle => layer.appendChild(handle));
 
+    if (LEVEL_ID === "LIV-019" && nativeHintsVisible) {
+      forceLiv019HintVisibility(true);
+    }
+
     console.log("[Signal Flow] Native cables redrawn:", state.routes.length);
   }
 
@@ -5064,6 +5068,8 @@ function handleNodeClick(layer, node) {
           "pointer-events:none",
           "overflow:visible"
         ].join(";");
+        layer.appendChild(ringLayer);
+      } else if (ringLayer.parentNode === layer) {
         layer.appendChild(ringLayer);
       }
 
