@@ -3142,7 +3142,7 @@ if (activeNativeLevelId === nextLevelId) return;
     createCableDragHandle(layer, route);
   }
 
-  function redrawCables(layer) {
+  function redrawCables(layer, reason) {
     const old = layer.querySelector(".sf-native-cables");
     if (old) old.remove();
 
@@ -3168,7 +3168,8 @@ if (activeNativeLevelId === nextLevelId) return;
     layer.querySelectorAll(".sf-cable-drag-handle").forEach(handle => layer.appendChild(handle));
 
     if (LEVEL_ID === "LIV-019" && nativeHintsVisible) {
-      forceLiv019HintVisibility(true);
+      syncLiv019HintRings(reason || "redraw-cables", true);
+      scheduleLiv019HintRingsResync("deferred-resync-" + (reason || "redraw-cables"));
     }
 
     console.log("[Signal Flow] Native cables redrawn:", state.routes.length);
@@ -4372,7 +4373,7 @@ if (activeNativeLevelId === nextLevelId) return;
 
     updateNativeScore();
     checkNativeLevelComplete();
-    redrawCables(layer);
+    redrawCables(layer, route.valid ? "route-added" : "invalid-route");
   }
 
 
@@ -5031,12 +5032,76 @@ function handleNodeClick(layer, node) {
     console.log("[Signal Flow] Native jack hints visible:", nativeHintsVisible);
     updateNativeHintHighlights();
     normalizeNativeRequiredHintRings();
-    forceLiv019HintVisibility(nativeHintsVisible);
+    syncLiv019HintRings(nativeHintsVisible ? "toggle-on" : "toggle-off", nativeHintsVisible);
+    scheduleLiv019HintRingsResync(nativeHintsVisible ? "deferred-resync-toggle-on" : "deferred-resync-toggle-off");
     raiseHintOverlays();
   }
 
-  function forceLiv019HintVisibility(visible) {
+  function liv019HintDocuments() {
+    const docs = [];
+    const seen = new Set();
+
+    function addDoc(name, doc) {
+      if (!doc || seen.has(doc)) return;
+      seen.add(doc);
+      docs.push({ name, doc });
+    }
+
+    addDoc("current", document);
+
+    try {
+      if (window.parent && window.parent !== window && window.parent.document) {
+        addDoc("parent", window.parent.document);
+        Array.from(window.parent.document.querySelectorAll("iframe")).forEach((frame, index) => {
+          try { addDoc("parent-iframe-" + index, frame.contentDocument); } catch (err) {}
+        });
+      }
+    } catch (err) {}
+
+    Array.from(document.querySelectorAll("iframe")).forEach((frame, index) => {
+      try { addDoc("iframe-" + index, frame.contentDocument); } catch (err) {}
+    });
+
+    return docs;
+  }
+
+  let liv019HintResyncFrame = 0;
+  let liv019HintResyncTimer = 0;
+
+  function forceLiv019HintVisibility(visible, reason) {
+    syncLiv019HintRings(reason || (visible ? "legacy-sync-on" : "legacy-sync-off"), visible);
+  }
+
+  function scheduleLiv019HintRingsResync(reason) {
     if (LEVEL_ID !== "LIV-019") return;
+
+    const visible = !!nativeHintsVisible;
+
+    if (liv019HintResyncFrame && typeof window.cancelAnimationFrame === "function") {
+      window.cancelAnimationFrame(liv019HintResyncFrame);
+    }
+    if (liv019HintResyncTimer) {
+      clearTimeout(liv019HintResyncTimer);
+    }
+
+    const run = () => syncLiv019HintRings(reason, visible);
+
+    if (typeof window.requestAnimationFrame === "function") {
+      liv019HintResyncFrame = window.requestAnimationFrame(() => {
+        liv019HintResyncFrame = 0;
+        run();
+      });
+    }
+
+    liv019HintResyncTimer = setTimeout(() => {
+      liv019HintResyncTimer = 0;
+      run();
+    }, visible ? 80 : 0);
+  }
+
+  function syncLiv019HintRings(reason, visible) {
+    if (LEVEL_ID !== "LIV-019") return;
+    const hintsVisible = !!visible;
 
     const requiredKeys = new Set();
     (LEVEL.validRoutes || []).forEach(route => {
@@ -5051,14 +5116,37 @@ function handleNodeClick(layer, node) {
       });
     });
 
-    document.querySelectorAll(".sf-live-native-level-liv-019").forEach(layer => {
-      layer.classList.toggle("sf-native-hints-visible", !!visible);
+    const reports = [];
+    const targetKeys = Array.from(requiredKeys);
+
+    liv019HintDocuments().forEach(item => {
+      const layers = Array.from(item.doc.querySelectorAll(".sf-live-native-level-liv-019"));
+      if (!layers.length) {
+        reports.push({
+          document: item.name,
+          reason,
+          layerFound: false,
+          targetCount: targetKeys.length,
+          matchedCount: 0,
+          ringCount: 0,
+          ringLayerExists: false,
+          removedBecauseHidden: !hintsVisible
+        });
+      }
+
+      layers.forEach(layer => {
+      layer.classList.toggle("sf-native-hints-visible", hintsVisible);
 
       let ringLayer = layer.querySelector(".sf-liv019-hint-ring-layer");
-      if (!visible) {
-        if (ringLayer) ringLayer.remove();
+      const ringLayerExisted = !!ringLayer;
+      let removedBecauseHidden = false;
+      if (!hintsVisible) {
+        if (ringLayer) {
+          ringLayer.remove();
+          removedBecauseHidden = true;
+        }
       } else if (!ringLayer) {
-        ringLayer = document.createElement("div");
+        ringLayer = layer.ownerDocument.createElement("div");
         ringLayer.className = "sf-liv019-hint-ring-layer";
         ringLayer.setAttribute("aria-hidden", "true");
         ringLayer.style.cssText = [
@@ -5077,7 +5165,13 @@ function handleNodeClick(layer, node) {
         ringLayer.replaceChildren();
       }
 
-      layer.querySelectorAll(".sf-native-jack").forEach(node => {
+      const matched = [];
+      const rectZero = [];
+      let ringCount = 0;
+
+      layer.querySelectorAll(".sf-native-jack, .sf-native-source").forEach(node => {
+        if (node.closest(".sf-native-liv019-source-panel") || node.closest(".sf-native-liv009-source-panel")) return;
+
         const key = String(node.dataset.nodeKey || node.dataset.sfNativeKey || node.getAttribute("data-node-key") || "");
         const isRequired = requiredKeys.has(key);
         const isGhost = node.dataset.sfNativeGhost === "1";
@@ -5091,9 +5185,10 @@ function handleNodeClick(layer, node) {
           node.dataset.sfNativeRouteState === "valid" ||
           node.dataset.sfNativeRouteState === "invalid";
 
-        node.classList.toggle("sf-native-required-hint", !!visible && isRequired && !isGhost);
+        node.classList.toggle("sf-native-required-hint", hintsVisible && isRequired && !isGhost);
 
-        if (visible && isRequired && !isGhost) {
+        if (hintsVisible && isRequired && !isGhost) {
+          matched.push(key);
           node.style.setProperty("background", "rgba(255,210,95,.12)", "important");
           node.style.setProperty("border-color", "rgba(255,210,95,.95)", "important");
           node.style.setProperty("box-shadow", "0 0 0 3px rgba(255,210,95,.95), 0 0 18px rgba(255,210,95,.50)", "important");
@@ -5104,9 +5199,9 @@ function handleNodeClick(layer, node) {
             const nodeRect = node.getBoundingClientRect();
             const layerRect = layer.getBoundingClientRect();
             if (nodeRect.width > 0 && nodeRect.height > 0) {
-              const ring = document.createElement("div");
+              const ring = layer.ownerDocument.createElement("div");
               ring.className = "sf-liv019-hint-ring";
-              ring.dataset.nodeKey = key;
+              ring.dataset.sfLiv019HintKey = key;
               ring.style.cssText = [
                 "position:absolute",
                 "left:" + (nodeRect.left - layerRect.left) + "px",
@@ -5121,6 +5216,9 @@ function handleNodeClick(layer, node) {
                 "pointer-events:none"
               ].join(";");
               ringLayer.appendChild(ring);
+              ringCount += 1;
+            } else {
+              rectZero.push(key);
             }
           }
           return;
@@ -5133,7 +5231,50 @@ function handleNodeClick(layer, node) {
           node.style.setProperty("outline", "none", "important");
         }
       });
+
+      const matchedSet = new Set(matched);
+      const layerStyle = layer.ownerDocument.defaultView
+        ? layer.ownerDocument.defaultView.getComputedStyle(layer)
+        : null;
+      reports.push({
+        document: item.name,
+        reason,
+        layerFound: true,
+        ringLayerExists: !!ringLayer,
+        ringLayerExisted,
+        targetCount: targetKeys.length,
+        matchedCount: matched.length,
+        ringCount,
+        removedBecauseHidden,
+        parentClass: layer.className,
+        ringParentClass: ringLayer && ringLayer.parentElement ? ringLayer.parentElement.className : "",
+        ringLayerParent: ringLayer && ringLayer.parentElement ? "sf-live-native-level-liv-019" : "",
+        layerOverflow: layerStyle ? layerStyle.overflow : "",
+        layerZIndex: layerStyle ? layerStyle.zIndex : "",
+        ringLayerZIndex: ringLayer ? ringLayer.style.zIndex : "",
+        coordinateSystem: "layer-local-from-getBoundingClientRect",
+        rectZero,
+        skippedIds: targetKeys.filter(key => !matchedSet.has(key)).slice(0, 12)
+      });
+      });
     });
+
+    const summary = {
+      visible: hintsVisible,
+      nativeHintsVisible: hintsVisible,
+      reason,
+      documents: reports.length,
+      targetCount: targetKeys.length,
+      targetIds: targetKeys,
+      matchedCount: reports.reduce((sum, report) => sum + Number(report.matchedCount || 0), 0),
+      ringCount: reports.reduce((sum, report) => sum + Number(report.ringCount || 0), 0),
+      reports
+    };
+    const signature = JSON.stringify(summary);
+    if (forceLiv019HintVisibility._lastReportSignature !== signature) {
+      forceLiv019HintVisibility._lastReportSignature = signature;
+      console.log("[Signal Flow] LIV-019 hint ring summary", summary);
+    }
   }
 
   function createJackNode(layer, key, point, label, ghost) {
@@ -16707,6 +16848,10 @@ function mountNative(force) {
 
   function clearNative() {
     if (!isNativePatchBoardActive()) return;
+    if (LEVEL_ID === "LIV-019") {
+      nativeHintsVisible = false;
+      syncLiv019HintRings("level-clear", false);
+    }
     resetNativeLevelComplete();
     state.routes = [];
     state.completedValidKeys.clear();

@@ -93,3 +93,28 @@ Manual recheck checklist:
 - Confirm duplicate `IEM # INPUT` labels stay absent.
 - Confirm `INPUT A` and `INPUT B` remain correctly positioned.
 - Confirm routes, hitboxes, scoring, cable behavior, scroll shell, and stagebox lock remain unchanged.
+
+## Endpoint Ring Visibility Follow-Up
+
+Date: 2026-07-04
+
+ScreenFlow 6 corrected the hint diagnosis. The Show Hints control changes to Hide Hints, the console logs `Native jack hints visible: true`, and the checklist rows receive yellow hint styling.
+
+Corrected failure mode: Show Hints does create visible endpoint rings, but they behave like a temporary effect. Rings can disappear after a correct route, wrong-route attempt, cable redraw, or later LIV-019 cleanup/lock pass even though the button still says Hide Hints and the hint state remains active. Expected behavior is steady-state: valid endpoint rings should remain visible until Hide Hints, level change, or board clear/reset.
+
+Cause: the LIV-019 ring builder needed to behave as a persistent visual overlay, not as another set of endpoint nodes. The controlled LIV-019 routes include drum source endpoints rendered as `.sf-native-source`, so the ring builder must target both `.sf-native-jack` and `.sf-native-source`. The visual rings also previously used `data-node-key`, which let the LIV-019 hitbox final lock treat ring divs as locked hitbox nodes during later DOM/lock passes. That made the hint overlay vulnerable to cleanup/lock refreshes instead of keeping it as a visual-only steady state.
+
+Fix applied: LIV-019 now uses an idempotent `syncLiv019HintRings()` path keyed to the persistent `nativeHintsVisible` state. It scans current, parent, and same-origin iframe documents for `.sf-live-native-level-liv-019`, creates one ring layer in the board layer's owner document, targets both `.sf-native-jack` and `.sf-native-source` endpoint nodes, skips hidden source-panel duplicates, and uses visual-only `data-sf-liv019-hint-key` attributes instead of `data-node-key`. The sync runs after Show/Hide Hints, after cable redraws, after valid and invalid route attempts through the redraw path, and with a bounded deferred resync to survive immediate cleanup/lock passes. Static route evidence expects 42 unique valid endpoint ids from the 21 required routes.
+
+Diagnostics added: LIV-019 hint sync logs reason, `nativeHintsVisible`, target endpoint ids, matched count, ring count, document context, parent class, ring layer existence, z-index/overflow, nonzero-rect failures, and whether rings were removed because hints were hidden.
+
+Remaining manual browser recheck:
+- Click Show Hints and confirm board endpoint rings appear.
+- Complete one correct route and confirm rings remain visible.
+- Attempt one wrong route and confirm rings remain visible.
+- Wait for cleanup/lock passes and confirm rings remain visible.
+- Confirm the log reports matched/ring counts for the LIV-019 board document after toggle and route/cable redraw.
+- Click Hide Hints and confirm rings disappear.
+- Confirm hidden source-panel duplicates and invalid endpoints are not highlighted.
+- Confirm duplicate `IEM # INPUT` labels stay absent.
+- Confirm `INPUT A`, `INPUT B`, IEM labels, routes, hitboxes, scoring, cable behavior, scroll shell, and stagebox lock remain unchanged.
