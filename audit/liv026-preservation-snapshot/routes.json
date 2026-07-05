@@ -1,0 +1,248 @@
+{
+  "levelId": "LIV-026",
+  "source": "src/live-sound-native-renderer.js",
+  "routeCount": 15,
+  "routes": [
+    {
+      "id": "liv026-main-l-to-system-l",
+      "from": {
+        "id": "liv026-main-l-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv026-system-processor-l-input",
+        "label": "System Processor L Input"
+      },
+      "checklist": "Main L Output → System Processor L In",
+      "routeFamily": "main-to-system-processing",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-main-to-system",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-main-r-to-system-r",
+      "from": {
+        "id": "liv026-main-r-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv026-system-processor-r-input",
+        "label": "System Processor R Input"
+      },
+      "checklist": "Main R Output → System Processor R In",
+      "routeFamily": "main-to-system-processing",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-main-to-system",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-system-l-to-crossover-l",
+      "from": {
+        "id": "liv026-system-processor-l-output",
+        "label": "System Processor L Output"
+      },
+      "to": {
+        "id": "liv026-crossover-l-input",
+        "label": "Crossover L Input"
+      },
+      "checklist": "System Processor L Out → Crossover L In",
+      "routeFamily": "system-processor-to-crossover",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-system-to-crossover",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-system-r-to-crossover-r",
+      "from": {
+        "id": "liv026-system-processor-r-output",
+        "label": "System Processor R Output"
+      },
+      "to": {
+        "id": "liv026-crossover-r-input",
+        "label": "Crossover R Input"
+      },
+      "checklist": "System Processor R Out → Crossover R In",
+      "routeFamily": "system-processor-to-crossover",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-system-to-crossover",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-crossover-high-l-to-high-amp-l",
+      "from": {
+        "id": "liv026-crossover-high-l-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv026-high-amp-l-input",
+        "label": "High Amp L Input"
+      },
+      "checklist": "Crossover High Left Out → High Amp Left In",
+      "routeFamily": "high-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-high-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-crossover-high-r-to-high-amp-r",
+      "from": {
+        "id": "liv026-crossover-high-r-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv026-high-amp-r-input",
+        "label": "High Amp R Input"
+      },
+      "checklist": "Crossover High Right Out → High Amp Right In",
+      "routeFamily": "high-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-high-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-crossover-mid-l-to-mid-amp-l",
+      "from": {
+        "id": "liv026-crossover-mid-l-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv026-mid-amp-l-input",
+        "label": "Mid Amp L Input"
+      },
+      "checklist": "Crossover Mid Left Out → Mid Amp Left In",
+      "routeFamily": "mid-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-mid-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-crossover-mid-r-to-mid-amp-r",
+      "from": {
+        "id": "liv026-crossover-mid-r-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv026-mid-amp-r-input",
+        "label": "Mid Amp R Input"
+      },
+      "checklist": "Crossover Mid Right Out → Mid Amp Right In",
+      "routeFamily": "mid-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-mid-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-crossover-low-l-to-low-amp-l",
+      "from": {
+        "id": "liv026-crossover-low-l-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv026-low-amp-l-input",
+        "label": "Low Amp L Input"
+      },
+      "checklist": "Crossover Low Left Out → Low Amp Left In",
+      "routeFamily": "low-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-low-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-crossover-low-r-to-low-amp-r",
+      "from": {
+        "id": "liv026-crossover-low-r-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv026-low-amp-r-input",
+        "label": "Low Amp R Input"
+      },
+      "checklist": "Crossover Low Right Out → Low Amp Right In",
+      "routeFamily": "low-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-low-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-bus1-to-delay-processor",
+      "from": {
+        "id": "liv026-bus-1-output",
+        "label": "Bus 1 Output"
+      },
+      "to": {
+        "id": "liv026-delay-processor-input",
+        "label": "Delay Processor Input"
+      },
+      "checklist": "Front-of-House Bus 1 Out → Delay Tower Processor In",
+      "routeFamily": "delay-tower-mono-feed",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv026-delay-l-to-delay-amp-l",
+      "from": {
+        "id": "liv026-delay-processor-l-output",
+        "label": "Delay Processor L Output"
+      },
+      "to": {
+        "id": "liv026-delay-amp-l-input",
+        "label": "Delay Amp L Input"
+      },
+      "checklist": "Delay Tower Processor Left Out → Stereo Power Amp Left In",
+      "routeFamily": "delay-tower-stereo-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-delay-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-delay-r-to-delay-amp-r",
+      "from": {
+        "id": "liv026-delay-processor-r-output",
+        "label": "Delay Processor R Output"
+      },
+      "to": {
+        "id": "liv026-delay-amp-r-input",
+        "label": "Delay Amp R Input"
+      },
+      "checklist": "Delay Tower Processor Right Out → Stereo Power Amp Right In",
+      "routeFamily": "delay-tower-stereo-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv026-delay-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-bus2-to-front-fill-processor",
+      "from": {
+        "id": "liv026-bus-2-output",
+        "label": "Bus 2 Output"
+      },
+      "to": {
+        "id": "liv026-front-fill-processor-input",
+        "label": "Front Fill Processor Input"
+      },
+      "checklist": "Front-of-House Bus 2 Out → Front Fill Processor In",
+      "routeFamily": "front-fill-mono-feed",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv026-front-fill-processor-to-fill-amp",
+      "from": {
+        "id": "liv026-front-fill-processor-output",
+        "label": "Front Fill Processor Output"
+      },
+      "to": {
+        "id": "liv026-fill-amp-l-input",
+        "label": "Fill Amp L Input"
+      },
+      "checklist": "Front Fill Processor Out → Power Amp Left In",
+      "routeFamily": "front-fill-amp-feed",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ],
+  "note": "Current active renderer evidence supersedes older six-route delay-tower audit rows."
+}

@@ -1,0 +1,791 @@
+{
+  "levelId": "LIV-026",
+  "source": "src/live-sound-native-renderer.js",
+  "coordinateSystem": "liv026-board-pixels",
+  "expectedCount": 31,
+  "trueHitboxCount": 31,
+  "requiredEndpointHitboxCount": 30,
+  "unusedBakedTrueHitboxCount": 1,
+  "notes": [
+    "The renderer's baked true-hitbox array contains 31 entries.",
+    "Thirty entries are required route endpoints; liv026-delay-processor-input-unused is intentionally captured as unused baked true-hitbox evidence.",
+    "The applied geometry includes renderer offsets HITBOX_DX=15 and HITBOX_DY=18."
+  ],
+  "hitboxes": [
+    {
+      "key": "liv026-main-l-output",
+      "label": "Main L Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 946.7,
+      "rawTopPx": 125.22,
+      "appliedLeftPx": 961.7,
+      "appliedTopPx": 143.22,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 978.7,
+        "y": 160.22
+      },
+      "raw": {
+        "key": "liv026-main-l-output",
+        "leftPx": 946.7,
+        "topPx": 125.22,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-main-r-output",
+      "label": "Main R Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 1006.4,
+      "rawTopPx": 124.93,
+      "appliedLeftPx": 1021.4,
+      "appliedTopPx": 142.93,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 1038.4,
+        "y": 159.93
+      },
+      "raw": {
+        "key": "liv026-main-r-output",
+        "leftPx": 1006.4,
+        "topPx": 124.93,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-bus-1-output",
+      "label": "Bus 1 Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 726.93,
+      "rawTopPx": 121.1,
+      "appliedLeftPx": 741.93,
+      "appliedTopPx": 139.1,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 758.93,
+        "y": 156.1
+      },
+      "raw": {
+        "key": "liv026-bus-1-output",
+        "leftPx": 726.93,
+        "topPx": 121.1,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-bus-2-output",
+      "label": "Bus 2 Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 763.48,
+      "rawTopPx": 118.96,
+      "appliedLeftPx": 778.48,
+      "appliedTopPx": 136.95999999999998,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 795.48,
+        "y": 153.95999999999998
+      },
+      "raw": {
+        "key": "liv026-bus-2-output",
+        "leftPx": 763.48,
+        "topPx": 118.96,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-system-processor-l-input",
+      "label": "System Processor L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 87.73,
+      "rawTopPx": 332.63,
+      "appliedLeftPx": 102.73,
+      "appliedTopPx": 350.63,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 119.73,
+        "y": 367.63
+      },
+      "raw": {
+        "key": "liv026-system-processor-l-input",
+        "leftPx": 87.73,
+        "topPx": 332.63,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-system-processor-r-input",
+      "label": "System Processor R Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 164.4,
+      "rawTopPx": 332.82,
+      "appliedLeftPx": 179.4,
+      "appliedTopPx": 350.82,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 196.4,
+        "y": 367.82
+      },
+      "raw": {
+        "key": "liv026-system-processor-r-input",
+        "leftPx": 164.4,
+        "topPx": 332.82,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-system-processor-l-output",
+      "label": "System Processor L Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 87.75,
+      "rawTopPx": 372.89,
+      "appliedLeftPx": 102.75,
+      "appliedTopPx": 390.89,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 119.75,
+        "y": 407.89
+      },
+      "raw": {
+        "key": "liv026-system-processor-l-output",
+        "leftPx": 87.75,
+        "topPx": 372.89,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-system-processor-r-output",
+      "label": "System Processor R Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 168.75,
+      "rawTopPx": 373.92,
+      "appliedLeftPx": 183.75,
+      "appliedTopPx": 391.92,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 200.75,
+        "y": 408.92
+      },
+      "raw": {
+        "key": "liv026-system-processor-r-output",
+        "leftPx": 168.75,
+        "topPx": 373.92,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-front-fill-processor-input",
+      "label": "Front Fill Processor Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 555.64,
+      "rawTopPx": 331.32,
+      "appliedLeftPx": 570.64,
+      "appliedTopPx": 349.32,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 587.64,
+        "y": 366.32
+      },
+      "raw": {
+        "key": "liv026-front-fill-processor-input",
+        "leftPx": 555.64,
+        "topPx": 331.32,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-front-fill-processor-output",
+      "label": "Front Fill Processor Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 597.81,
+      "rawTopPx": 336.78,
+      "appliedLeftPx": 612.81,
+      "appliedTopPx": 354.78,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 629.81,
+        "y": 371.78
+      },
+      "raw": {
+        "key": "liv026-front-fill-processor-output",
+        "leftPx": 597.81,
+        "topPx": 336.78,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-delay-processor-input",
+      "label": "Delay Processor Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 334.66,
+      "rawTopPx": 334.11,
+      "appliedLeftPx": 349.66,
+      "appliedTopPx": 352.11,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 366.66,
+        "y": 369.11
+      },
+      "raw": {
+        "key": "liv026-delay-processor-input",
+        "leftPx": 334.66,
+        "topPx": 334.11,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-delay-processor-input-unused",
+      "label": "liv026-delay-processor-input-unused",
+      "kind": "unused-baked-true-hitbox",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 520.71,
+      "rawTopPx": 337.34,
+      "appliedLeftPx": 535.71,
+      "appliedTopPx": 355.34,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 552.71,
+        "y": 372.34
+      },
+      "raw": {
+        "key": "liv026-delay-processor-input-unused",
+        "leftPx": 520.71,
+        "topPx": 337.34,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-delay-processor-l-output",
+      "label": "Delay Processor L Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 270.75,
+      "rawTopPx": 374.8,
+      "appliedLeftPx": 285.75,
+      "appliedTopPx": 392.8,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 302.75,
+        "y": 409.8
+      },
+      "raw": {
+        "key": "liv026-delay-processor-l-output",
+        "leftPx": 270.75,
+        "topPx": 374.8,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-delay-processor-r-output",
+      "label": "Delay Processor R Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 399.53,
+      "rawTopPx": 374.51,
+      "appliedLeftPx": 414.53,
+      "appliedTopPx": 392.51,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 431.53,
+        "y": 409.51
+      },
+      "raw": {
+        "key": "liv026-delay-processor-r-output",
+        "leftPx": 399.53,
+        "topPx": 374.51,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-l-input",
+      "label": "Crossover L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 137.9,
+      "rawTopPx": 518.05,
+      "appliedLeftPx": 152.9,
+      "appliedTopPx": 536.05,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 169.9,
+        "y": 553.05
+      },
+      "raw": {
+        "key": "liv026-crossover-l-input",
+        "leftPx": 137.9,
+        "topPx": 518.05,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-r-input",
+      "label": "Crossover R Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 191.36,
+      "rawTopPx": 517.18,
+      "appliedLeftPx": 206.36,
+      "appliedTopPx": 535.18,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 223.36,
+        "y": 552.18
+      },
+      "raw": {
+        "key": "liv026-crossover-r-input",
+        "leftPx": 191.36,
+        "topPx": 517.18,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-high-l-output",
+      "label": "Crossover High L Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 355.63,
+      "rawTopPx": 477.77,
+      "appliedLeftPx": 370.63,
+      "appliedTopPx": 495.77,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 387.63,
+        "y": 512.77
+      },
+      "raw": {
+        "key": "liv026-crossover-high-l-output",
+        "leftPx": 355.63,
+        "topPx": 477.77,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-high-r-output",
+      "label": "Crossover High R Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 413.37,
+      "rawTopPx": 476.45,
+      "appliedLeftPx": 428.37,
+      "appliedTopPx": 494.45,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 445.37,
+        "y": 511.45
+      },
+      "raw": {
+        "key": "liv026-crossover-high-r-output",
+        "leftPx": 413.37,
+        "topPx": 476.45,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-mid-l-output",
+      "label": "Crossover Mid L Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 355.06,
+      "rawTopPx": 515.51,
+      "appliedLeftPx": 370.06,
+      "appliedTopPx": 533.51,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 387.06,
+        "y": 550.51
+      },
+      "raw": {
+        "key": "liv026-crossover-mid-l-output",
+        "leftPx": 355.06,
+        "topPx": 515.51,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-mid-r-output",
+      "label": "Crossover Mid R Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 412.19,
+      "rawTopPx": 515.04,
+      "appliedLeftPx": 427.19,
+      "appliedTopPx": 533.04,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 444.19,
+        "y": 550.04
+      },
+      "raw": {
+        "key": "liv026-crossover-mid-r-output",
+        "leftPx": 412.19,
+        "topPx": 515.04,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-low-l-output",
+      "label": "Crossover Low L Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 353.71,
+      "rawTopPx": 552.06,
+      "appliedLeftPx": 368.71,
+      "appliedTopPx": 570.06,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 385.71,
+        "y": 587.06
+      },
+      "raw": {
+        "key": "liv026-crossover-low-l-output",
+        "leftPx": 353.71,
+        "topPx": 552.06,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-crossover-low-r-output",
+      "label": "Crossover Low R Output",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 412.26,
+      "rawTopPx": 554.54,
+      "appliedLeftPx": 427.26,
+      "appliedTopPx": 572.54,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 444.26,
+        "y": 589.54
+      },
+      "raw": {
+        "key": "liv026-crossover-low-r-output",
+        "leftPx": 412.26,
+        "topPx": 554.54,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-high-amp-l-input",
+      "label": "High Amp L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 727.68,
+      "rawTopPx": 314.95,
+      "appliedLeftPx": 742.68,
+      "appliedTopPx": 332.95,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 759.68,
+        "y": 349.95
+      },
+      "raw": {
+        "key": "liv026-high-amp-l-input",
+        "leftPx": 727.68,
+        "topPx": 314.95,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-high-amp-r-input",
+      "label": "High Amp R Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 775.71,
+      "rawTopPx": 311.99,
+      "appliedLeftPx": 790.71,
+      "appliedTopPx": 329.99,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 807.71,
+        "y": 346.99
+      },
+      "raw": {
+        "key": "liv026-high-amp-r-input",
+        "leftPx": 775.71,
+        "topPx": 311.99,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-mid-amp-l-input",
+      "label": "Mid Amp L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 730.61,
+      "rawTopPx": 432.3,
+      "appliedLeftPx": 745.61,
+      "appliedTopPx": 450.3,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 762.61,
+        "y": 467.3
+      },
+      "raw": {
+        "key": "liv026-mid-amp-l-input",
+        "leftPx": 730.61,
+        "topPx": 432.3,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-mid-amp-r-input",
+      "label": "Mid Amp R Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 778.84,
+      "rawTopPx": 432.21,
+      "appliedLeftPx": 793.84,
+      "appliedTopPx": 450.21,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 810.84,
+        "y": 467.21
+      },
+      "raw": {
+        "key": "liv026-mid-amp-r-input",
+        "leftPx": 778.84,
+        "topPx": 432.21,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-low-amp-l-input",
+      "label": "Low Amp L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 729.94,
+      "rawTopPx": 552.65,
+      "appliedLeftPx": 744.94,
+      "appliedTopPx": 570.65,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 761.94,
+        "y": 587.65
+      },
+      "raw": {
+        "key": "liv026-low-amp-l-input",
+        "leftPx": 729.94,
+        "topPx": 552.65,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-low-amp-r-input",
+      "label": "Low Amp R Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 778.1,
+      "rawTopPx": 552.44,
+      "appliedLeftPx": 793.1,
+      "appliedTopPx": 570.44,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 810.1,
+        "y": 587.44
+      },
+      "raw": {
+        "key": "liv026-low-amp-r-input",
+        "leftPx": 778.1,
+        "topPx": 552.44,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-delay-amp-l-input",
+      "label": "Delay Amp L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 225.55,
+      "rawTopPx": 663.33,
+      "appliedLeftPx": 240.55,
+      "appliedTopPx": 681.33,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 257.55,
+        "y": 698.33
+      },
+      "raw": {
+        "key": "liv026-delay-amp-l-input",
+        "leftPx": 225.55,
+        "topPx": 663.33,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-delay-amp-r-input",
+      "label": "Delay Amp R Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 275.91,
+      "rawTopPx": 661.19,
+      "appliedLeftPx": 290.91,
+      "appliedTopPx": 679.19,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 307.91,
+        "y": 696.19
+      },
+      "raw": {
+        "key": "liv026-delay-amp-r-input",
+        "leftPx": 275.91,
+        "topPx": 661.19,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    },
+    {
+      "key": "liv026-fill-amp-l-input",
+      "label": "Fill Amp L Input",
+      "kind": "good",
+      "coordinateSystem": "liv026-board-pixels",
+      "rawLeftPx": 729.12,
+      "rawTopPx": 665.91,
+      "appliedLeftPx": 744.12,
+      "appliedTopPx": 683.91,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 761.12,
+        "y": 700.91
+      },
+      "raw": {
+        "key": "liv026-fill-amp-l-input",
+        "leftPx": 729.12,
+        "topPx": 665.91,
+        "widthPx": 34,
+        "heightPx": 34,
+        "hitboxDx": 15,
+        "hitboxDy": 18
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "levelId": "LIV-026",
+  "rendererEvidence": {
+    "source": "src/live-sound-native-renderer.js",
+    "routeDecisionFunction": "sfLiv020RouteDecision/addRoute LIV-026 fallback",
+    "rule": "When a pair is not a valid route, any two distinct node keys starting with liv026- are allowed to draw an invalid red route.",
+    "validRoutesRemainValid": true,
+    "invalidRoutesCountTowardCompletion": false,
+    "hintsExcludeFalseJacks": true,
+    "falseHintExclusionEvidence": [
+      "String(key).startsWith(\"liv026-false-\")",
+      "data-sf-native-hintable=\"0\"",
+      "data-sf-native-good-hint=\"0\""
+    ],
+    "invalidRouteKeyShape": "invalid:<sorted liv026 endpoint keys joined with -->"
+  },
+  "launcherForbiddenExamples": [],
+  "knownForbiddenExamples": [
+    {
+      "from": "liv026-main-l-output",
+      "to": "liv026-system-processor-r-input",
+      "concept": "stereo-pair-error",
+      "source": "source-route audit narrative"
+    },
+    {
+      "from": "liv026-bus-1-output",
+      "to": "liv026-front-fill-processor-input",
+      "concept": "wrong-bus",
+      "source": "source-route audit narrative"
+    },
+    {
+      "from": "liv026-crossover-high-l-output",
+      "to": "liv026-low-amp-l-input",
+      "concept": "wrong-destination",
+      "source": "source-route audit narrative"
+    }
+  ],
+  "notes": [
+    "The launch block contains no explicit forbidden pairs for LIV-026.",
+    "Wrong-route behavior is renderer-specific today and is not represented as canonical puzzle trapRoutes.",
+    "Future manifest conversion must preserve broad invalid-route red-cable behavior without counting false hitboxes or invalid routes toward completion."
+  ]
+}

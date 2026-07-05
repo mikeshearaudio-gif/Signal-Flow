@@ -1,0 +1,84 @@
+{
+  "levelId": "LIV-026",
+  "source": "src/live-sound-native-renderer.js",
+  "stereoGroupCount": 6,
+  "stereoGroups": [
+    {
+      "id": "liv026-main-to-system",
+      "routeIds": [
+        "liv026-main-l-to-system-l",
+        "liv026-main-r-to-system-r"
+      ],
+      "routeSides": {
+        "liv026-main-l-to-system-l": "left",
+        "liv026-main-r-to-system-r": "right"
+      },
+      "purpose": "Main L/R outputs feed the system processor inputs in left/right order."
+    },
+    {
+      "id": "liv026-system-to-crossover",
+      "routeIds": [
+        "liv026-system-l-to-crossover-l",
+        "liv026-system-r-to-crossover-r"
+      ],
+      "routeSides": {
+        "liv026-system-l-to-crossover-l": "left",
+        "liv026-system-r-to-crossover-r": "right"
+      },
+      "purpose": "System processor L/R outputs feed the 3-way crossover inputs."
+    },
+    {
+      "id": "liv026-high-to-amp",
+      "routeIds": [
+        "liv026-crossover-high-l-to-high-amp-l",
+        "liv026-crossover-high-r-to-high-amp-r"
+      ],
+      "routeSides": {
+        "liv026-crossover-high-l-to-high-amp-l": "left",
+        "liv026-crossover-high-r-to-high-amp-r": "right"
+      },
+      "purpose": "Crossover high-band L/R outputs feed the high amplifier inputs."
+    },
+    {
+      "id": "liv026-mid-to-amp",
+      "routeIds": [
+        "liv026-crossover-mid-l-to-mid-amp-l",
+        "liv026-crossover-mid-r-to-mid-amp-r"
+      ],
+      "routeSides": {
+        "liv026-crossover-mid-l-to-mid-amp-l": "left",
+        "liv026-crossover-mid-r-to-mid-amp-r": "right"
+      },
+      "purpose": "Crossover mid-band L/R outputs feed the mid amplifier inputs."
+    },
+    {
+      "id": "liv026-low-to-amp",
+      "routeIds": [
+        "liv026-crossover-low-l-to-low-amp-l",
+        "liv026-crossover-low-r-to-low-amp-r"
+      ],
+      "routeSides": {
+        "liv026-crossover-low-l-to-low-amp-l": "left",
+        "liv026-crossover-low-r-to-low-amp-r": "right"
+      },
+      "purpose": "Crossover low-band L/R outputs feed the low amplifier inputs."
+    },
+    {
+      "id": "liv026-delay-to-amp",
+      "routeIds": [
+        "liv026-delay-l-to-delay-amp-l",
+        "liv026-delay-r-to-delay-amp-r"
+      ],
+      "routeSides": {
+        "liv026-delay-l-to-delay-amp-l": "left",
+        "liv026-delay-r-to-delay-amp-r": "right"
+      },
+      "purpose": "Delay processor L/R outputs feed the stereo delay amplifier inputs."
+    }
+  ],
+  "monoRoutes": [
+    "liv026-bus1-to-delay-processor",
+    "liv026-bus2-to-front-fill-processor",
+    "liv026-front-fill-processor-to-fill-amp"
+  ]
+}

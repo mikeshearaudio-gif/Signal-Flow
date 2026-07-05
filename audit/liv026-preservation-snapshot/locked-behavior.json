@@ -1,0 +1,274 @@
+{
+  "levelId": "LIV-026",
+  "title": "Full Zone Processing",
+  "sourceFilesInspected": [
+    "src/live-sound-native-renderer.js",
+    "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html",
+    "docs/live-sound-liv026-source-route-audit.md",
+    "docs/live-sound-locked-board-preservation-plan.md",
+    "docs/live-sound-locked-board-conversion-plan.md",
+    "src/sf-liv026-stack-guard.js",
+    "src/sf-liv026-false-jacks-lock.js",
+    "src/sf-liv026-processor-deco-cleanup.js"
+  ],
+  "customScriptsAndData": {
+    "runtimeHelpers": [
+      "src/sf-liv026-stack-guard.js",
+      "src/sf-liv026-false-jacks-lock.js",
+      "src/sf-liv026-processor-deco-cleanup.js"
+    ],
+    "customRenderer": "renderLiv026ComplexZones(surface, adapter)",
+    "noRuntimeManifestExpected": true
+  },
+  "scrollBehavior": {
+    "customScrollHostClass": "sf-live-native-liv026-scroll-host",
+    "boardSizePx": {
+      "width": 1400,
+      "height": 1260
+    },
+    "note": "Custom scroll host and board dimensions are owned by the renderer."
+  },
+  "assets": [
+    {
+      "id": "foh",
+      "asset": "/assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "leftPx": 147,
+      "topPx": 31,
+      "widthPx": 940,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv026-system-delay-processor-asset",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+      "leftPx": 44,
+      "topPx": 255,
+      "widthPx": 610,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "crossover",
+      "asset": "/assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+      "leftPx": 47,
+      "topPx": 432,
+      "widthPx": 605,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "high-amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "leftPx": 657,
+      "topPx": 257,
+      "widthPx": 470,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "mid-amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "leftPx": 662,
+      "topPx": 377,
+      "widthPx": 465,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "low-amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "leftPx": 662,
+      "topPx": 497,
+      "widthPx": 465,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "delay-amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "leftPx": 147,
+      "topPx": 597,
+      "widthPx": 510,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "fill-amp",
+      "asset": "/assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "leftPx": 662,
+      "topPx": 612,
+      "widthPx": 465,
+      "source": "src/live-sound-native-renderer.js"
+    }
+  ],
+  "labels": [
+    {
+      "text": "System Processor",
+      "leftPx": 190,
+      "topPx": 270,
+      "widthPx": 150,
+      "heightPx": 34,
+      "rotationDeg": -1,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "text": "3-Way Crossover",
+      "leftPx": 82,
+      "topPx": 462,
+      "widthPx": 150,
+      "heightPx": 30,
+      "rotationDeg": -1,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "text": "High Amp",
+      "leftPx": 832,
+      "topPx": 305,
+      "widthPx": 145,
+      "heightPx": 38,
+      "rotationDeg": -1,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "text": "Mid Amp",
+      "leftPx": 832,
+      "topPx": 420,
+      "widthPx": 145,
+      "heightPx": 38,
+      "rotationDeg": 1,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "text": "Low Amp",
+      "leftPx": 832,
+      "topPx": 550,
+      "widthPx": 145,
+      "heightPx": 38,
+      "rotationDeg": -1,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "text": "Delay",
+      "leftPx": 176,
+      "topPx": 610,
+      "widthPx": 117,
+      "heightPx": 44,
+      "rotationDeg": -2,
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "text": "Fill Amp",
+      "leftPx": 704,
+      "topPx": 624,
+      "widthPx": 82,
+      "heightPx": 26,
+      "rotationDeg": 1,
+      "source": "src/live-sound-native-renderer.js"
+    }
+  ],
+  "visibleDecorations": {
+    "vuMeters": 8,
+    "xlrMaleDecorations": [
+      {
+        "id": "liv026-xlrm-main-out-l",
+        "label": "MAIN OUT L",
+        "leftPx": 70,
+        "topPx": 374,
+        "widthPx": 70,
+        "heightPx": 40,
+        "zIndex": 2700,
+        "source": "src/live-sound-native-renderer.js"
+      },
+      {
+        "id": "liv026-xlrm-main-out-r",
+        "label": "MAIN OUT R",
+        "leftPx": 154,
+        "topPx": 375,
+        "widthPx": 60,
+        "heightPx": 38,
+        "zIndex": 2700,
+        "source": "src/live-sound-native-renderer.js"
+      },
+      {
+        "id": "liv026-xlrm-delay-out-l",
+        "label": "DELAY OUT L",
+        "leftPx": 256,
+        "topPx": 375,
+        "widthPx": 65,
+        "heightPx": 43,
+        "zIndex": 2700,
+        "source": "src/live-sound-native-renderer.js"
+      },
+      {
+        "id": "liv026-xlrm-delay-out-r",
+        "label": "DELAY OUT R",
+        "leftPx": 383,
+        "topPx": 375,
+        "widthPx": 65,
+        "heightPx": 43,
+        "zIndex": 2700,
+        "source": "src/live-sound-native-renderer.js"
+      },
+      {
+        "id": "liv026-xlrm-fill-out",
+        "label": "FILL OUT",
+        "leftPx": 590,
+        "topPx": 339,
+        "widthPx": 49,
+        "heightPx": 42,
+        "zIndex": 2700,
+        "source": "src/live-sound-native-renderer.js"
+      },
+      {
+        "id": "liv026-xlrm-sub-out",
+        "label": "SUB OUT",
+        "leftPx": 517,
+        "topPx": 339,
+        "widthPx": 40,
+        "heightPx": 23,
+        "zIndex": 14,
+        "source": "src/live-sound-native-renderer.js"
+      }
+    ],
+    "processorDecoCleanup": {
+      "source": "src/sf-liv026-processor-deco-cleanup.js",
+      "hidesLabels": [
+        "SUB OUT",
+        "FILL OUT"
+      ],
+      "evidenceFound": true
+    }
+  },
+  "hitboxExpectations": {
+    "trueHitboxes": 31,
+    "requiredEndpointHitboxes": 30,
+    "falseHitboxes": 28,
+    "hintsExcludeFalseHitboxes": true,
+    "falseHitboxLockEvidenceFound": true
+  },
+  "stackGuard": {
+    "source": "src/sf-liv026-stack-guard.js",
+    "evidenceFound": true,
+    "falseJackZIndex": 2100,
+    "liv026NodeZIndex": 5200,
+    "cableLayerZIndex": 4800
+  },
+  "cableBehavior": {
+    "routeLayer": ".sf-native-cables",
+    "finalCableStackComment": "LIV-026 final stacking + invalid red cable persistence",
+    "finalCableZIndex": 9000,
+    "wrongRoutes": "Broad liv026-* invalid pairs draw invalid/red cables and do not complete routes."
+  },
+  "checklistCompletionExpectations": [
+    "Required route count remains 15.",
+    "Stereo groups complete in the same pairs captured in stereo-groups.json.",
+    "Bus 1 delay input, Bus 2 front-fill input, and front-fill amp feed are mono route rows.",
+    "False hitboxes and invalid routes remain non-completing."
+  ],
+  "browserSmokeExpectations": [
+    "LIV-026 loads with Full Zone Processing title.",
+    "Custom scroll host is present.",
+    "Main L/R to system processor routes complete.",
+    "System processor to crossover routes complete.",
+    "At least one high/mid/low amp stereo pair completes.",
+    "Bus 1 delay processor route and delay amp stereo pair complete.",
+    "Bus 2 front-fill route and fill amp route complete.",
+    "False jack attempt draws invalid red route and does not complete.",
+    "Show Hints excludes false hitboxes.",
+    "Stack guard keeps jacks and cables clickable/visible.",
+    "Processor-deco cleanup hides non-gameplay SUB/FILL decorations."
+  ]
+}

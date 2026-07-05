@@ -1,0 +1,615 @@
+{
+  "levelId": "LIV-026",
+  "source": "src/live-sound-native-renderer.js",
+  "lockScriptSource": "src/sf-liv026-false-jacks-lock.js",
+  "coordinateSystem": "liv026-board-pixels",
+  "expectedCount": 28,
+  "falseHitboxCount": 28,
+  "behavior": {
+    "neutralBeforeInteraction": true,
+    "hintable": false,
+    "completionCredit": false,
+    "pointerEvents": "auto",
+    "opacity": 0,
+    "invalidRouteRendering": "False hitboxes participate in broad LIV-026 invalid-route rendering but do not count toward completion."
+  },
+  "families": [
+    "alternate bus/matrix/aux outputs",
+    "unused processor/deco jacks",
+    "unused amplifier inputs"
+  ],
+  "hitboxes": [
+    {
+      "key": "liv026-false-bus-1",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 215,
+      "topPx": 120,
+      "widthPx": 44,
+      "heightPx": 19,
+      "centerPx": {
+        "x": 237,
+        "y": 129.5
+      },
+      "raw": {
+        "key": "liv026-false-bus-1",
+        "leftPx": 215,
+        "topPx": 120,
+        "widthPx": 44,
+        "heightPx": 19
+      }
+    },
+    {
+      "key": "liv026-false-bus-2",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 280,
+      "topPx": 120,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 302,
+        "y": 137
+      },
+      "raw": {
+        "key": "liv026-false-bus-2",
+        "leftPx": 280,
+        "topPx": 120,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-bus-3",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 340,
+      "topPx": 120,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 362,
+        "y": 137
+      },
+      "raw": {
+        "key": "liv026-false-bus-3",
+        "leftPx": 340,
+        "topPx": 120,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-aux-1",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 405,
+      "topPx": 120,
+      "widthPx": 44,
+      "heightPx": 24,
+      "centerPx": {
+        "x": 427,
+        "y": 132
+      },
+      "raw": {
+        "key": "liv026-false-aux-1",
+        "leftPx": 405,
+        "topPx": 120,
+        "widthPx": 44,
+        "heightPx": 24
+      }
+    },
+    {
+      "key": "liv026-false-aux-2",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 485,
+      "topPx": 125,
+      "widthPx": 24,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 497,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv026-false-aux-2",
+        "leftPx": 485,
+        "topPx": 125,
+        "widthPx": 24,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-bus-4",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 520,
+      "topPx": 125,
+      "widthPx": 24,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 532,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv026-false-bus-4",
+        "leftPx": 520,
+        "topPx": 125,
+        "widthPx": 24,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-bus-5",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 555,
+      "topPx": 125,
+      "widthPx": 24,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 567,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv026-false-bus-5",
+        "leftPx": 555,
+        "topPx": 125,
+        "widthPx": 24,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-bus-6",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 585,
+      "topPx": 125,
+      "widthPx": 24,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 597,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv026-false-bus-6",
+        "leftPx": 585,
+        "topPx": 125,
+        "widthPx": 24,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010639535",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 800,
+      "topPx": 115,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 817,
+        "y": 132
+      },
+      "raw": {
+        "key": "liv026-false-1781010639535",
+        "leftPx": 800,
+        "topPx": 115,
+        "widthPx": 34,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010639834",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 620,
+      "topPx": 125,
+      "widthPx": 24,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 632,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv026-false-1781010639834",
+        "leftPx": 620,
+        "topPx": 125,
+        "widthPx": 24,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010640240",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 650,
+      "topPx": 125,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 667,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv026-false-1781010640240",
+        "leftPx": 650,
+        "topPx": 125,
+        "widthPx": 34,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010710123",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 840,
+      "topPx": 115,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 857,
+        "y": 132
+      },
+      "raw": {
+        "key": "liv026-false-1781010710123",
+        "leftPx": 840,
+        "topPx": 115,
+        "widthPx": 34,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010728364",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 725,
+      "topPx": 170,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 742,
+        "y": 187
+      },
+      "raw": {
+        "key": "liv026-false-1781010728364",
+        "leftPx": 725,
+        "topPx": 170,
+        "widthPx": 34,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010742991",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 765,
+      "topPx": 170,
+      "widthPx": 34,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 782,
+        "y": 187
+      },
+      "raw": {
+        "key": "liv026-false-1781010742991",
+        "leftPx": 765,
+        "topPx": 170,
+        "widthPx": 34,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010756692",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 800,
+      "topPx": 170,
+      "widthPx": 39,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 819.5,
+        "y": 187
+      },
+      "raw": {
+        "key": "liv026-false-1781010756692",
+        "leftPx": 800,
+        "topPx": 170,
+        "widthPx": 39,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010772123",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 840,
+      "topPx": 170,
+      "widthPx": 39,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 859.5,
+        "y": 187
+      },
+      "raw": {
+        "key": "liv026-false-1781010772123",
+        "leftPx": 840,
+        "topPx": 170,
+        "widthPx": 39,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010794875",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 485,
+      "topPx": 330,
+      "widthPx": 29,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 499.5,
+        "y": 347
+      },
+      "raw": {
+        "key": "liv026-false-1781010794875",
+        "leftPx": 485,
+        "topPx": 330,
+        "widthPx": 29,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010807865",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 515,
+      "topPx": 335,
+      "widthPx": 39,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 534.5,
+        "y": 352
+      },
+      "raw": {
+        "key": "liv026-false-1781010807865",
+        "leftPx": 515,
+        "topPx": 335,
+        "widthPx": 39,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010828368",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 970,
+      "topPx": 310,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 992,
+        "y": 327
+      },
+      "raw": {
+        "key": "liv026-false-1781010828368",
+        "leftPx": 970,
+        "topPx": 310,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010841025",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 1020,
+      "topPx": 310,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 1042,
+        "y": 327
+      },
+      "raw": {
+        "key": "liv026-false-1781010841025",
+        "leftPx": 1020,
+        "topPx": 310,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010855266",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 975,
+      "topPx": 430,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 997,
+        "y": 447
+      },
+      "raw": {
+        "key": "liv026-false-1781010855266",
+        "leftPx": 975,
+        "topPx": 430,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010877125",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 1020,
+      "topPx": 430,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 1042,
+        "y": 447
+      },
+      "raw": {
+        "key": "liv026-false-1781010877125",
+        "leftPx": 1020,
+        "topPx": 430,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010899810",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 490,
+      "topPx": 655,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 512,
+        "y": 672
+      },
+      "raw": {
+        "key": "liv026-false-1781010899810",
+        "leftPx": 490,
+        "topPx": 655,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010911666",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 545,
+      "topPx": 655,
+      "widthPx": 44,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 567,
+        "y": 672
+      },
+      "raw": {
+        "key": "liv026-false-1781010911666",
+        "leftPx": 545,
+        "topPx": 655,
+        "widthPx": 44,
+        "heightPx": 34
+      }
+    },
+    {
+      "key": "liv026-false-1781010925247",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 965,
+      "topPx": 550,
+      "widthPx": 54,
+      "heightPx": 44,
+      "centerPx": {
+        "x": 992,
+        "y": 572
+      },
+      "raw": {
+        "key": "liv026-false-1781010925247",
+        "leftPx": 965,
+        "topPx": 550,
+        "widthPx": 54,
+        "heightPx": 44
+      }
+    },
+    {
+      "key": "liv026-false-1781010953316",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 1020,
+      "topPx": 545,
+      "widthPx": 49,
+      "heightPx": 44,
+      "centerPx": {
+        "x": 1044.5,
+        "y": 567
+      },
+      "raw": {
+        "key": "liv026-false-1781010953316",
+        "leftPx": 1020,
+        "topPx": 545,
+        "widthPx": 49,
+        "heightPx": 44
+      }
+    },
+    {
+      "key": "liv026-false-1781010990234",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 970,
+      "topPx": 660,
+      "widthPx": 44,
+      "heightPx": 39,
+      "centerPx": {
+        "x": 992,
+        "y": 679.5
+      },
+      "raw": {
+        "key": "liv026-false-1781010990234",
+        "leftPx": 970,
+        "topPx": 660,
+        "widthPx": 44,
+        "heightPx": 39
+      }
+    },
+    {
+      "key": "liv026-false-1781011135566",
+      "label": "False Jack",
+      "kind": "false",
+      "coordinateSystem": "liv026-board-pixels",
+      "leftPx": 1020,
+      "topPx": 660,
+      "widthPx": 44,
+      "heightPx": 29,
+      "centerPx": {
+        "x": 1042,
+        "y": 674.5
+      },
+      "raw": {
+        "key": "liv026-false-1781011135566",
+        "leftPx": 1020,
+        "topPx": 660,
+        "widthPx": 44,
+        "heightPx": 29
+      }
+    }
+  ],
+  "lockScriptNotes": [
+    "src/sf-liv026-false-jacks-lock.js preserves 28 false hitboxes.",
+    "Some early lock-script names use matrix labels where the active renderer now uses bus labels; active renderer keys are source of truth for future manifests."
+  ]
+}
