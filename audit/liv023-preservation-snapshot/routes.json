@@ -1,0 +1,247 @@
+{
+  "levelId": "LIV-023",
+  "source": "src/live-sound-native-renderer.js",
+  "routeCount": 15,
+  "routes": [
+    {
+      "id": "liv023-lead-vocal-mic-to-stagebox-input-1",
+      "from": {
+        "id": "liv023-lead-vocal-mic",
+        "label": "Lead Vocal Mic"
+      },
+      "to": {
+        "id": "liv023-stagebox-input-1",
+        "label": "Stage Box Input 1"
+      },
+      "checklist": "Lead Vocal Mic → Stage Box Input 1",
+      "routeFamily": "vocal-stagebox-source",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv023-keyboard-di-l-to-stagebox-input-2",
+      "from": {
+        "id": "liv023-keyboard-di-l",
+        "label": "Keyboard DI L"
+      },
+      "to": {
+        "id": "liv023-stagebox-input-2",
+        "label": "Stage Box Input 2"
+      },
+      "checklist": "Keyboard DI L → Stage Box Input 2",
+      "routeFamily": "keyboard-stagebox-stereo-source",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-keyboard-di-to-stagebox",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv023-keyboard-di-r-to-stagebox-input-3",
+      "from": {
+        "id": "liv023-keyboard-di-r",
+        "label": "Keyboard DI R"
+      },
+      "to": {
+        "id": "liv023-stagebox-input-3",
+        "label": "Stage Box Input 3"
+      },
+      "checklist": "Keyboard DI R → Stage Box Input 3",
+      "routeFamily": "keyboard-stagebox-stereo-source",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-keyboard-di-to-stagebox",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv023-ch1-insert-send-to-compressor-input",
+      "from": {
+        "id": "liv023-ch1-insert-send",
+        "label": "Channel 1 Insert Send"
+      },
+      "to": {
+        "id": "liv023-compressor-input",
+        "label": "Compressor Input"
+      },
+      "checklist": "Channel 1 Insert Send → Compressor Input",
+      "routeFamily": "vocal-insert-processing",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv023-compressor-output-to-ch1-insert-return",
+      "from": {
+        "id": "liv023-compressor-output",
+        "label": "Compressor Output"
+      },
+      "to": {
+        "id": "liv023-ch1-insert-return",
+        "label": "Channel 1 Insert Return"
+      },
+      "checklist": "Compressor Output → Channel 1 Insert Return",
+      "routeFamily": "vocal-insert-processing",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv023-aux1-l-to-iem-input-l",
+      "from": {
+        "id": "liv023-aux1-l",
+        "label": "Aux 1 Left Output"
+      },
+      "to": {
+        "id": "liv023-iem-input-l",
+        "label": "IEM A Left Input"
+      },
+      "checklist": "Aux 1 Left Output → IEM A Left Input",
+      "routeFamily": "stereo-iem-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-aux1-to-iem-a",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv023-aux1-r-to-iem-input-r",
+      "from": {
+        "id": "liv023-aux1-r",
+        "label": "Aux 1 Right Output"
+      },
+      "to": {
+        "id": "liv023-iem-input-r",
+        "label": "IEM A Right Input"
+      },
+      "checklist": "Aux 1 Right Output → IEM A Right Input",
+      "routeFamily": "stereo-iem-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-aux1-to-iem-a",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv023-main-l-to-crossover-l-input",
+      "from": {
+        "id": "liv023-main-l",
+        "label": "Main Left Output"
+      },
+      "to": {
+        "id": "liv023-crossover-l-input",
+        "label": "Crossover Left Input"
+      },
+      "checklist": "Main Left Output → Crossover Left Input",
+      "routeFamily": "main-to-crossover",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-main-to-crossover",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv023-main-r-to-crossover-r-input",
+      "from": {
+        "id": "liv023-main-r",
+        "label": "Main Right Output"
+      },
+      "to": {
+        "id": "liv023-crossover-r-input",
+        "label": "Crossover Right Input"
+      },
+      "checklist": "Main Right Output → Crossover Right Input",
+      "routeFamily": "main-to-crossover",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-main-to-crossover",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv023-crossover-high-l-to-high-amp-l",
+      "from": {
+        "id": "liv023-crossover-high-l",
+        "label": "Crossover High Left Output"
+      },
+      "to": {
+        "id": "liv023-high-amp-l",
+        "label": "High Amp Left Input"
+      },
+      "checklist": "Crossover High Left Output → High Amp Left Input",
+      "routeFamily": "high-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-crossover-high-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv023-crossover-high-r-to-high-amp-r",
+      "from": {
+        "id": "liv023-crossover-high-r",
+        "label": "Crossover High Right Output"
+      },
+      "to": {
+        "id": "liv023-high-amp-r",
+        "label": "High Amp Right Input"
+      },
+      "checklist": "Crossover High Right Output → High Amp Right Input",
+      "routeFamily": "high-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-crossover-high-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv023-crossover-mid-l-to-mid-amp-l",
+      "from": {
+        "id": "liv023-crossover-mid-l",
+        "label": "Crossover Mid Left Output"
+      },
+      "to": {
+        "id": "liv023-mid-amp-l",
+        "label": "Mid Amp Left Input"
+      },
+      "checklist": "Crossover Mid Left Output → Mid Amp Left Input",
+      "routeFamily": "mid-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-crossover-mid-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv023-crossover-mid-r-to-mid-amp-r",
+      "from": {
+        "id": "liv023-crossover-mid-r",
+        "label": "Crossover Mid Right Output"
+      },
+      "to": {
+        "id": "liv023-mid-amp-r",
+        "label": "Mid Amp Right Input"
+      },
+      "checklist": "Crossover Mid Right Output → Mid Amp Right Input",
+      "routeFamily": "mid-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-crossover-mid-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv023-crossover-low-l-to-low-amp-l",
+      "from": {
+        "id": "liv023-crossover-low-l",
+        "label": "Crossover Low Left Output"
+      },
+      "to": {
+        "id": "liv023-low-amp-l",
+        "label": "Low Amp Left Input"
+      },
+      "checklist": "Crossover Low Left Output → Low Amp Left Input",
+      "routeFamily": "low-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-crossover-low-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv023-crossover-low-r-to-low-amp-r",
+      "from": {
+        "id": "liv023-crossover-low-r",
+        "label": "Crossover Low Right Output"
+      },
+      "to": {
+        "id": "liv023-low-amp-r",
+        "label": "Low Amp Right Input"
+      },
+      "checklist": "Crossover Low Right Output → Low Amp Right Input",
+      "routeFamily": "low-band-amp-feed",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv023-crossover-low-to-amp",
+      "stereoSide": "right"
+    }
+  ]
+}

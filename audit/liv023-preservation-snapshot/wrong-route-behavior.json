@@ -1,0 +1,42 @@
+{
+  "levelId": "LIV-023",
+  "rendererEvidence": {
+    "source": "src/live-sound-native-renderer.js",
+    "routeDecisionFunction": "sfLiv020RouteDecision",
+    "rule": "For LIV-023, any two distinct keys starting with liv023- are allowed to draw an invalid route when they are not a valid required route.",
+    "validRoutesRemainValid": true,
+    "invalidRoutesCountTowardCompletion": false,
+    "hintsExcludeFalseJacks": true,
+    "falseHintExclusionEvidence": [
+      "String(key).startsWith(\"liv023-false-\")",
+      "btn.dataset.sfNativeFalseJack === \"1\"",
+      "btn.dataset.sfNativeHintable === \"0\""
+    ]
+  },
+  "launcherForbiddenExamples": [
+    {
+      "fromLabel": "Main Left Output",
+      "toLabel": "IEM A Left Input",
+      "source": "launch forbidden examples"
+    },
+    {
+      "fromLabel": "Main Right Output",
+      "toLabel": "IEM A Right Input",
+      "source": "launch forbidden examples"
+    },
+    {
+      "fromLabel": "Aux 1 Left Output",
+      "toLabel": "Crossover Left Input",
+      "source": "launch forbidden examples"
+    },
+    {
+      "fromLabel": "Aux 1 Right Output",
+      "toLabel": "Crossover Right Input",
+      "source": "launch forbidden examples"
+    }
+  ],
+  "notes": [
+    "False/trap behavior is renderer-specific today and is not represented as canonical puzzle trapRoutes.",
+    "Future manifest conversion must preserve broad invalid-route red-cable behavior without treating false hitboxes as valid completion endpoints."
+  ]
+}

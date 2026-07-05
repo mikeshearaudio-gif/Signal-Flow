@@ -1,0 +1,80 @@
+{
+  "levelId": "LIV-023",
+  "source": "src/live-sound-native-renderer.js",
+  "stereoGroupCount": 6,
+  "stereoGroups": [
+    {
+      "id": "liv023-keyboard-di-to-stagebox",
+      "routeIds": [
+        "liv023-keyboard-di-l-to-stagebox-input-2",
+        "liv023-keyboard-di-r-to-stagebox-input-3"
+      ],
+      "routeSides": {
+        "liv023-keyboard-di-l-to-stagebox-input-2": "left",
+        "liv023-keyboard-di-r-to-stagebox-input-3": "right"
+      },
+      "purpose": "Keyboard stereo DI lands on stagebox inputs 2 and 3."
+    },
+    {
+      "id": "liv023-aux1-to-iem-a",
+      "routeIds": [
+        "liv023-aux1-l-to-iem-input-l",
+        "liv023-aux1-r-to-iem-input-r"
+      ],
+      "routeSides": {
+        "liv023-aux1-l-to-iem-input-l": "left",
+        "liv023-aux1-r-to-iem-input-r": "right"
+      },
+      "purpose": "Aux 1 L/R feeds IEM Transmitter A as a stereo monitor mix."
+    },
+    {
+      "id": "liv023-main-to-crossover",
+      "routeIds": [
+        "liv023-main-l-to-crossover-l-input",
+        "liv023-main-r-to-crossover-r-input"
+      ],
+      "routeSides": {
+        "liv023-main-l-to-crossover-l-input": "left",
+        "liv023-main-r-to-crossover-r-input": "right"
+      },
+      "purpose": "Main L/R feeds the 3-way crossover inputs."
+    },
+    {
+      "id": "liv023-crossover-high-to-amp",
+      "routeIds": [
+        "liv023-crossover-high-l-to-high-amp-l",
+        "liv023-crossover-high-r-to-high-amp-r"
+      ],
+      "routeSides": {
+        "liv023-crossover-high-l-to-high-amp-l": "left",
+        "liv023-crossover-high-r-to-high-amp-r": "right"
+      },
+      "purpose": "Crossover high-band L/R feeds the high amplifier inputs."
+    },
+    {
+      "id": "liv023-crossover-mid-to-amp",
+      "routeIds": [
+        "liv023-crossover-mid-l-to-mid-amp-l",
+        "liv023-crossover-mid-r-to-mid-amp-r"
+      ],
+      "routeSides": {
+        "liv023-crossover-mid-l-to-mid-amp-l": "left",
+        "liv023-crossover-mid-r-to-mid-amp-r": "right"
+      },
+      "purpose": "Crossover mid-band L/R feeds the mid amplifier inputs."
+    },
+    {
+      "id": "liv023-crossover-low-to-amp",
+      "routeIds": [
+        "liv023-crossover-low-l-to-low-amp-l",
+        "liv023-crossover-low-r-to-low-amp-r"
+      ],
+      "routeSides": {
+        "liv023-crossover-low-l-to-low-amp-l": "left",
+        "liv023-crossover-low-r-to-low-amp-r": "right"
+      },
+      "purpose": "Crossover low-band L/R feeds the low amplifier inputs."
+    }
+  ],
+  "note": "The insert send/return pair is directional processing, not a stereo group."
+}

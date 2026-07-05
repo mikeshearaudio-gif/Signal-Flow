@@ -1,0 +1,2247 @@
+{
+  "levelId": "LIV-023",
+  "source": "audit/liv023-false-hitboxes-final.json",
+  "coordinateSystem": "liv023-board-pixels",
+  "expectedCount": 101,
+  "falseHitboxCount": 101,
+  "behavior": {
+    "neutralBeforeInteraction": true,
+    "hintable": false,
+    "completionCredit": false,
+    "invalidRouteRendering": "False hitboxes participate in broad LIV-023 invalid-route rendering but do not count toward completion."
+  },
+  "families": [
+    "unused stagebox mic/line jacks",
+    "stagebox link output",
+    "console mic/line inputs",
+    "insert sends",
+    "insert returns",
+    "aux outputs",
+    "bus outputs",
+    "alternate console bus/patch points"
+  ],
+  "hitboxes": [
+    {
+      "key": "liv023-false-stagebox-mic-line-4",
+      "label": "Stage Box Mic/Line 4",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 147,
+      "topPx": 256,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 158,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-false-stagebox-mic-line-4",
+        "label": "Stage Box Mic/Line 4",
+        "leftPx": 147,
+        "topPx": 256,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-stagebox-mic-line-5",
+      "label": "Stage Box Mic/Line 5",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 178,
+      "topPx": 256,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 189,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-false-stagebox-mic-line-5",
+        "label": "Stage Box Mic/Line 5",
+        "leftPx": 178,
+        "topPx": 256,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-stagebox-mic-line-6",
+      "label": "Stage Box Mic/Line 6",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 208,
+      "topPx": 256,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 219,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-false-stagebox-mic-line-6",
+        "label": "Stage Box Mic/Line 6",
+        "leftPx": 208,
+        "topPx": 256,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-stagebox-mic-line-7",
+      "label": "Stage Box Mic/Line 7",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 240,
+      "topPx": 256,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 251,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-false-stagebox-mic-line-7",
+        "label": "Stage Box Mic/Line 7",
+        "leftPx": 240,
+        "topPx": 256,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-stagebox-mic-line-8",
+      "label": "Stage Box Mic/Line 8",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 270,
+      "topPx": 256,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 281,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-false-stagebox-mic-line-8",
+        "label": "Stage Box Mic/Line 8",
+        "leftPx": 270,
+        "topPx": 256,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-stagebox-link-out-1",
+      "label": "Stage Box Link Out 1",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 329,
+      "topPx": 255,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 340,
+        "y": 266
+      },
+      "raw": {
+        "key": "liv023-false-stagebox-link-out-1",
+        "label": "Stage Box Link Out 1",
+        "leftPx": 329,
+        "topPx": 255,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-9",
+      "label": "Console Mic/Line In 9",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 48,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 59,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-9",
+        "label": "Console Mic/Line In 9",
+        "leftPx": 48,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-10",
+      "label": "Console Mic/Line In 10",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 71,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 82,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-10",
+        "label": "Console Mic/Line In 10",
+        "leftPx": 71,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-11",
+      "label": "Console Mic/Line In 11",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 95,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 106,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-11",
+        "label": "Console Mic/Line In 11",
+        "leftPx": 95,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-12",
+      "label": "Console Mic/Line In 12",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 119,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 130,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-12",
+        "label": "Console Mic/Line In 12",
+        "leftPx": 119,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-13",
+      "label": "Console Mic/Line In 13",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 143,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 154,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-13",
+        "label": "Console Mic/Line In 13",
+        "leftPx": 143,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-14",
+      "label": "Console Mic/Line In 14",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 166,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 177,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-14",
+        "label": "Console Mic/Line In 14",
+        "leftPx": 166,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-15",
+      "label": "Console Mic/Line In 15",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 189,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 200,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-15",
+        "label": "Console Mic/Line In 15",
+        "leftPx": 189,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-16",
+      "label": "Console Mic/Line In 16",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 212,
+      "topPx": 116,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 223,
+        "y": 127
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-16",
+        "label": "Console Mic/Line In 16",
+        "leftPx": 212,
+        "topPx": 116,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-17",
+      "label": "Console Mic/Line In 17",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 46,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 57,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-17",
+        "label": "Console Mic/Line In 17",
+        "leftPx": 46,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-18",
+      "label": "Console Mic/Line In 18",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 69,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 80,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-18",
+        "label": "Console Mic/Line In 18",
+        "leftPx": 69,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-19",
+      "label": "Console Mic/Line In 19",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 94,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 105,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-19",
+        "label": "Console Mic/Line In 19",
+        "leftPx": 94,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-20",
+      "label": "Console Mic/Line In 20",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 118,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 129,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-20",
+        "label": "Console Mic/Line In 20",
+        "leftPx": 118,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-21",
+      "label": "Console Mic/Line In 21",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 141,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 152,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-21",
+        "label": "Console Mic/Line In 21",
+        "leftPx": 141,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-22",
+      "label": "Console Mic/Line In 22",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 165,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 176,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-22",
+        "label": "Console Mic/Line In 22",
+        "leftPx": 165,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-23",
+      "label": "Console Mic/Line In 23",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 189,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 200,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-23",
+        "label": "Console Mic/Line In 23",
+        "leftPx": 189,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mic-line-in-24",
+      "label": "Console Mic/Line In 24",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 212,
+      "topPx": 166,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 223,
+        "y": 177
+      },
+      "raw": {
+        "key": "liv023-false-console-mic-line-in-24",
+        "label": "Console Mic/Line In 24",
+        "leftPx": 212,
+        "topPx": 166,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-2",
+      "label": "Console Insert Send 2",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 263,
+      "topPx": 71,
+      "widthPx": 15,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 271,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-2",
+        "label": "Console Insert Send 2",
+        "leftPx": 263,
+        "topPx": 71,
+        "widthPx": 15,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-3",
+      "label": "Console Insert Send 3",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 282,
+      "topPx": 71,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 290,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-3",
+        "label": "Console Insert Send 3",
+        "leftPx": 282,
+        "topPx": 71,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-4",
+      "label": "Console Insert Send 4",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 300,
+      "topPx": 71,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 308,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-4",
+        "label": "Console Insert Send 4",
+        "leftPx": 300,
+        "topPx": 71,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-5",
+      "label": "Console Insert Send 5",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 320,
+      "topPx": 71,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 328,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-5",
+        "label": "Console Insert Send 5",
+        "leftPx": 320,
+        "topPx": 71,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-6",
+      "label": "Console Insert Send 6",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 339,
+      "topPx": 71,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 347,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-6",
+        "label": "Console Insert Send 6",
+        "leftPx": 339,
+        "topPx": 71,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-7",
+      "label": "Console Insert Send 7",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 356,
+      "topPx": 71,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 364,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-7",
+        "label": "Console Insert Send 7",
+        "leftPx": 356,
+        "topPx": 71,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-8",
+      "label": "Console Insert Send 8",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 375,
+      "topPx": 71,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 383,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-8",
+        "label": "Console Insert Send 8",
+        "leftPx": 375,
+        "topPx": 71,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-9",
+      "label": "Console Insert Send 9",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 246,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 254,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-9",
+        "label": "Console Insert Send 9",
+        "leftPx": 246,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-10",
+      "label": "Console Insert Send 10",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 263,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 271,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-10",
+        "label": "Console Insert Send 10",
+        "leftPx": 263,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-11",
+      "label": "Console Insert Send 11",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 281,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 289,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-11",
+        "label": "Console Insert Send 11",
+        "leftPx": 281,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-12",
+      "label": "Console Insert Send 12",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 300,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 308,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-12",
+        "label": "Console Insert Send 12",
+        "leftPx": 300,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-13",
+      "label": "Console Insert Send 13",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 322,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 330,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-13",
+        "label": "Console Insert Send 13",
+        "leftPx": 322,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-14",
+      "label": "Console Insert Send 14",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 340,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 348,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-14",
+        "label": "Console Insert Send 14",
+        "leftPx": 340,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-15",
+      "label": "Console Insert Send 15",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 357,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 365,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-15",
+        "label": "Console Insert Send 15",
+        "leftPx": 357,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-send-16",
+      "label": "Console Insert Send 16",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 378,
+      "topPx": 117,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 386,
+        "y": 125
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-send-16",
+        "label": "Console Insert Send 16",
+        "leftPx": 378,
+        "topPx": 117,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-2",
+      "label": "Console Insert Return 2",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 264,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 272,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-2",
+        "label": "Console Insert Return 2",
+        "leftPx": 264,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-3",
+      "label": "Console Insert Return 3",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 282,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 290,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-3",
+        "label": "Console Insert Return 3",
+        "leftPx": 282,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-4",
+      "label": "Console Insert Return 4",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 300,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 308,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-4",
+        "label": "Console Insert Return 4",
+        "leftPx": 300,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-5",
+      "label": "Console Insert Return 5",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 321,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 329,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-5",
+        "label": "Console Insert Return 5",
+        "leftPx": 321,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-6",
+      "label": "Console Insert Return 6",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 339,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 347,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-6",
+        "label": "Console Insert Return 6",
+        "leftPx": 339,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-7",
+      "label": "Console Insert Return 7",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 356,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 364,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-7",
+        "label": "Console Insert Return 7",
+        "leftPx": 356,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-8",
+      "label": "Console Insert Return 8",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 376,
+      "topPx": 93,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 384,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-8",
+        "label": "Console Insert Return 8",
+        "leftPx": 376,
+        "topPx": 93,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-9",
+      "label": "Console Insert Return 9",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 245,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 253,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-9",
+        "label": "Console Insert Return 9",
+        "leftPx": 245,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-10",
+      "label": "Console Insert Return 10",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 263,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 271,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-10",
+        "label": "Console Insert Return 10",
+        "leftPx": 263,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-11",
+      "label": "Console Insert Return 11",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 281,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 289,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-11",
+        "label": "Console Insert Return 11",
+        "leftPx": 281,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-12",
+      "label": "Console Insert Return 12",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 299,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 307,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-12",
+        "label": "Console Insert Return 12",
+        "leftPx": 299,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-13",
+      "label": "Console Insert Return 13",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 321,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 329,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-13",
+        "label": "Console Insert Return 13",
+        "leftPx": 321,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-14",
+      "label": "Console Insert Return 14",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 339,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 347,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-14",
+        "label": "Console Insert Return 14",
+        "leftPx": 339,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-15",
+      "label": "Console Insert Return 15",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 356,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 364,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-15",
+        "label": "Console Insert Return 15",
+        "leftPx": 356,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-insert-return-16",
+      "label": "Console Insert Return 16",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 375,
+      "topPx": 143,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 383,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv023-false-console-insert-return-16",
+        "label": "Console Insert Return 16",
+        "leftPx": 375,
+        "topPx": 143,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-3",
+      "label": "Console Aux Out 3",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 458,
+      "topPx": 69,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 466,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-3",
+        "label": "Console Aux Out 3",
+        "leftPx": 458,
+        "topPx": 69,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-4",
+      "label": "Console Aux Out 4",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 476,
+      "topPx": 69,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 484,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-4",
+        "label": "Console Aux Out 4",
+        "leftPx": 476,
+        "topPx": 69,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-5",
+      "label": "Console Aux Out 5",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 498,
+      "topPx": 69,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 506,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-5",
+        "label": "Console Aux Out 5",
+        "leftPx": 498,
+        "topPx": 69,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-6",
+      "label": "Console Aux Out 6",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 517,
+      "topPx": 69,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 525,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-6",
+        "label": "Console Aux Out 6",
+        "leftPx": 517,
+        "topPx": 69,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-7",
+      "label": "Console Aux Out 7",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 532,
+      "topPx": 69,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 540,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-7",
+        "label": "Console Aux Out 7",
+        "leftPx": 532,
+        "topPx": 69,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-8",
+      "label": "Console Aux Out 8",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 552,
+      "topPx": 69,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 560,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-8",
+        "label": "Console Aux Out 8",
+        "leftPx": 552,
+        "topPx": 69,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-9",
+      "label": "Console Aux Out 9",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 421,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 429,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-9",
+        "label": "Console Aux Out 9",
+        "leftPx": 421,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-10",
+      "label": "Console Aux Out 10",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 439,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 447,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-10",
+        "label": "Console Aux Out 10",
+        "leftPx": 439,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-11",
+      "label": "Console Aux Out 11",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 457,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 465,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-11",
+        "label": "Console Aux Out 11",
+        "leftPx": 457,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-12",
+      "label": "Console Aux Out 12",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 476,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 484,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-12",
+        "label": "Console Aux Out 12",
+        "leftPx": 476,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-13",
+      "label": "Console Aux Out 13",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 498,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 506,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-13",
+        "label": "Console Aux Out 13",
+        "leftPx": 498,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-14",
+      "label": "Console Aux Out 14",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 515,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 523,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-14",
+        "label": "Console Aux Out 14",
+        "leftPx": 515,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-15",
+      "label": "Console Aux Out 15",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 532,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 540,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-15",
+        "label": "Console Aux Out 15",
+        "leftPx": 532,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-16",
+      "label": "Console Aux Out 16",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 551,
+      "topPx": 107,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 559,
+        "y": 115
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-16",
+        "label": "Console Aux Out 16",
+        "leftPx": 551,
+        "topPx": 107,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-17",
+      "label": "Console Aux Out 17",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 422,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 430,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-17",
+        "label": "Console Aux Out 17",
+        "leftPx": 422,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-18",
+      "label": "Console Aux Out 18",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 440,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 448,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-18",
+        "label": "Console Aux Out 18",
+        "leftPx": 440,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-19",
+      "label": "Console Aux Out 19",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 457,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 465,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-19",
+        "label": "Console Aux Out 19",
+        "leftPx": 457,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-20",
+      "label": "Console Aux Out 20",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 476,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 484,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-20",
+        "label": "Console Aux Out 20",
+        "leftPx": 476,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-21",
+      "label": "Console Aux Out 21",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 498,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 506,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-21",
+        "label": "Console Aux Out 21",
+        "leftPx": 498,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-22",
+      "label": "Console Aux Out 22",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 515,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 523,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-22",
+        "label": "Console Aux Out 22",
+        "leftPx": 515,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-23",
+      "label": "Console Aux Out 23",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 533,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 541,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-23",
+        "label": "Console Aux Out 23",
+        "leftPx": 533,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-aux-out-24",
+      "label": "Console Aux Out 24",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 551,
+      "topPx": 153,
+      "widthPx": 16,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 559,
+        "y": 161
+      },
+      "raw": {
+        "key": "liv023-false-console-aux-out-24",
+        "label": "Console Aux Out 24",
+        "leftPx": 551,
+        "topPx": 153,
+        "widthPx": 16,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-1",
+      "label": "Console Bus Out 1",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 604,
+      "topPx": 70,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 615,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-1",
+        "label": "Console Bus Out 1",
+        "leftPx": 604,
+        "topPx": 70,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-2",
+      "label": "Console Bus Out 2",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 627,
+      "topPx": 70,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 638,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-2",
+        "label": "Console Bus Out 2",
+        "leftPx": 627,
+        "topPx": 70,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-3",
+      "label": "Console Bus Out 3",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 650,
+      "topPx": 70,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 661,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-3",
+        "label": "Console Bus Out 3",
+        "leftPx": 650,
+        "topPx": 70,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-4",
+      "label": "Console Bus Out 4",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 674,
+      "topPx": 70,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 685,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-4",
+        "label": "Console Bus Out 4",
+        "leftPx": 674,
+        "topPx": 70,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-5",
+      "label": "Console Bus Out 5",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 604,
+      "topPx": 103,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 615,
+        "y": 114
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-5",
+        "label": "Console Bus Out 5",
+        "leftPx": 604,
+        "topPx": 103,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-6",
+      "label": "Console Bus Out 6",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 628,
+      "topPx": 103,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 639,
+        "y": 114
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-6",
+        "label": "Console Bus Out 6",
+        "leftPx": 628,
+        "topPx": 103,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-7",
+      "label": "Console Bus Out 7",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 652,
+      "topPx": 103,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 663,
+        "y": 114
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-7",
+        "label": "Console Bus Out 7",
+        "leftPx": 652,
+        "topPx": 103,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-8",
+      "label": "Console Bus Out 8",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 674,
+      "topPx": 103,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 685,
+        "y": 114
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-8",
+        "label": "Console Bus Out 8",
+        "leftPx": 674,
+        "topPx": 103,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-9",
+      "label": "Console Bus Out 9",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 604,
+      "topPx": 136,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 615,
+        "y": 147
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-9",
+        "label": "Console Bus Out 9",
+        "leftPx": 604,
+        "topPx": 136,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-10",
+      "label": "Console Bus Out 10",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 628,
+      "topPx": 136,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 639,
+        "y": 147
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-10",
+        "label": "Console Bus Out 10",
+        "leftPx": 628,
+        "topPx": 136,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-11",
+      "label": "Console Bus Out 11",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 653,
+      "topPx": 136,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 664,
+        "y": 147
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-11",
+        "label": "Console Bus Out 11",
+        "leftPx": 653,
+        "topPx": 136,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-12",
+      "label": "Console Bus Out 12",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 676,
+      "topPx": 136,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 687,
+        "y": 147
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-12",
+        "label": "Console Bus Out 12",
+        "leftPx": 676,
+        "topPx": 136,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-13",
+      "label": "Console Bus Out 13",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 605,
+      "topPx": 165,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 616,
+        "y": 176
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-13",
+        "label": "Console Bus Out 13",
+        "leftPx": 605,
+        "topPx": 165,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-14",
+      "label": "Console Bus Out 14",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 630,
+      "topPx": 165,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 641,
+        "y": 176
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-14",
+        "label": "Console Bus Out 14",
+        "leftPx": 630,
+        "topPx": 165,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-15",
+      "label": "Console Bus Out 15",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 653,
+      "topPx": 165,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 664,
+        "y": 176
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-15",
+        "label": "Console Bus Out 15",
+        "leftPx": 653,
+        "topPx": 165,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-bus-out-16",
+      "label": "Console Bus Out 16",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 676,
+      "topPx": 165,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 687,
+        "y": 176
+      },
+      "raw": {
+        "key": "liv023-false-console-bus-out-16",
+        "label": "Console Bus Out 16",
+        "leftPx": 676,
+        "topPx": 165,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-matrix-1",
+      "label": "Console Matrix 1",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 731,
+      "topPx": 129,
+      "widthPx": 12,
+      "heightPx": 12,
+      "centerPx": {
+        "x": 737,
+        "y": 135
+      },
+      "raw": {
+        "key": "liv023-false-console-matrix-1",
+        "label": "Console Matrix 1",
+        "leftPx": 731,
+        "topPx": 129,
+        "widthPx": 12,
+        "heightPx": 12
+      }
+    },
+    {
+      "key": "liv023-false-console-matrix-2",
+      "label": "Console Matrix 2",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 750,
+      "topPx": 129,
+      "widthPx": 12,
+      "heightPx": 12,
+      "centerPx": {
+        "x": 756,
+        "y": 135
+      },
+      "raw": {
+        "key": "liv023-false-console-matrix-2",
+        "label": "Console Matrix 2",
+        "leftPx": 750,
+        "topPx": 129,
+        "widthPx": 12,
+        "heightPx": 12
+      }
+    },
+    {
+      "key": "liv023-false-console-matrix-3",
+      "label": "Console Matrix 3",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 769,
+      "topPx": 129,
+      "widthPx": 12,
+      "heightPx": 12,
+      "centerPx": {
+        "x": 775,
+        "y": 135
+      },
+      "raw": {
+        "key": "liv023-false-console-matrix-3",
+        "label": "Console Matrix 3",
+        "leftPx": 769,
+        "topPx": 129,
+        "widthPx": 12,
+        "heightPx": 12
+      }
+    },
+    {
+      "key": "liv023-false-console-matrix-4",
+      "label": "Console Matrix 4",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 786,
+      "topPx": 129,
+      "widthPx": 12,
+      "heightPx": 12,
+      "centerPx": {
+        "x": 792,
+        "y": 135
+      },
+      "raw": {
+        "key": "liv023-false-console-matrix-4",
+        "label": "Console Matrix 4",
+        "leftPx": 786,
+        "topPx": 129,
+        "widthPx": 12,
+        "heightPx": 12
+      }
+    },
+    {
+      "key": "liv023-false-console-talkback",
+      "label": "Console TALKBACK",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 720,
+      "topPx": 158,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 731,
+        "y": 169
+      },
+      "raw": {
+        "key": "liv023-false-console-talkback",
+        "label": "Console TALKBACK",
+        "leftPx": 720,
+        "topPx": 158,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-aes",
+      "label": "Console AES",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 743,
+      "topPx": 158,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 754,
+        "y": 169
+      },
+      "raw": {
+        "key": "liv023-false-console-aes",
+        "label": "Console AES",
+        "leftPx": 743,
+        "topPx": 158,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-cue",
+      "label": "Console CUE",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 767,
+      "topPx": 158,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 778,
+        "y": 169
+      },
+      "raw": {
+        "key": "liv023-false-console-cue",
+        "label": "Console CUE",
+        "leftPx": 767,
+        "topPx": 158,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-console-mon",
+      "label": "Console MON",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 790,
+      "topPx": 158,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 801,
+        "y": 169
+      },
+      "raw": {
+        "key": "liv023-false-console-mon",
+        "label": "Console MON",
+        "leftPx": 790,
+        "topPx": 158,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-iem-b-l",
+      "label": "IEM Unit B L",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 643,
+      "topPx": 364,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 654,
+        "y": 375
+      },
+      "raw": {
+        "key": "liv023-false-iem-b-l",
+        "label": "IEM Unit B L",
+        "leftPx": 643,
+        "topPx": 364,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-iem-b-r",
+      "label": "IEM Unit B R",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 675,
+      "topPx": 364,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 686,
+        "y": 375
+      },
+      "raw": {
+        "key": "liv023-false-iem-b-r",
+        "label": "IEM Unit B R",
+        "leftPx": 675,
+        "topPx": 364,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-false-iem-phones",
+      "label": "IEM Phones",
+      "kind": "false",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 755,
+      "topPx": 364,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 766,
+        "y": 375
+      },
+      "raw": {
+        "key": "liv023-false-iem-phones",
+        "label": "IEM Phones",
+        "leftPx": 755,
+        "topPx": 364,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    }
+  ]
+}

@@ -1,0 +1,669 @@
+{
+  "levelId": "LIV-023",
+  "source": "audit/liv023-good-hitboxes-final.json",
+  "coordinateSystem": "liv023-board-pixels",
+  "expectedCount": 30,
+  "goodHitboxCount": 30,
+  "hitboxes": [
+    {
+      "key": "liv023-lead-vocal-mic",
+      "label": "Lead Vocal Mic",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 26,
+      "topPx": 342,
+      "widthPx": 123,
+      "heightPx": 180,
+      "centerPx": {
+        "x": 88,
+        "y": 432
+      },
+      "raw": {
+        "key": "liv023-lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "leftPx": 26,
+        "topPx": 342,
+        "widthPx": 123,
+        "heightPx": 180
+      }
+    },
+    {
+      "key": "liv023-keyboard-di-l",
+      "label": "Keyboard DI L",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 233,
+      "topPx": 346,
+      "widthPx": 85,
+      "heightPx": 72,
+      "centerPx": {
+        "x": 276,
+        "y": 382
+      },
+      "raw": {
+        "key": "liv023-keyboard-di-l",
+        "label": "Keyboard DI L",
+        "leftPx": 233,
+        "topPx": 346,
+        "widthPx": 85,
+        "heightPx": 72
+      }
+    },
+    {
+      "key": "liv023-keyboard-di-r",
+      "label": "Keyboard DI R",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 324,
+      "topPx": 346,
+      "widthPx": 85,
+      "heightPx": 74,
+      "centerPx": {
+        "x": 367,
+        "y": 383
+      },
+      "raw": {
+        "key": "liv023-keyboard-di-r",
+        "label": "Keyboard DI R",
+        "leftPx": 324,
+        "topPx": 346,
+        "widthPx": 85,
+        "heightPx": 74
+      }
+    },
+    {
+      "key": "liv023-stagebox-input-1",
+      "label": "Stage Box Input 1",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 58,
+      "topPx": 252,
+      "widthPx": 25,
+      "heightPx": 28,
+      "centerPx": {
+        "x": 71,
+        "y": 266
+      },
+      "raw": {
+        "key": "liv023-stagebox-input-1",
+        "label": "Stage Box Input 1",
+        "leftPx": 58,
+        "topPx": 252,
+        "widthPx": 25,
+        "heightPx": 28
+      }
+    },
+    {
+      "key": "liv023-stagebox-input-2",
+      "label": "Stage Box Input 2",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 89,
+      "topPx": 253,
+      "widthPx": 25,
+      "heightPx": 27,
+      "centerPx": {
+        "x": 102,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-stagebox-input-2",
+        "label": "Stage Box Input 2",
+        "leftPx": 89,
+        "topPx": 253,
+        "widthPx": 25,
+        "heightPx": 27
+      }
+    },
+    {
+      "key": "liv023-stagebox-input-3",
+      "label": "Stage Box Input 3",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 119,
+      "topPx": 254,
+      "widthPx": 25,
+      "heightPx": 26,
+      "centerPx": {
+        "x": 132,
+        "y": 267
+      },
+      "raw": {
+        "key": "liv023-stagebox-input-3",
+        "label": "Stage Box Input 3",
+        "leftPx": 119,
+        "topPx": 254,
+        "widthPx": 25,
+        "heightPx": 26
+      }
+    },
+    {
+      "key": "liv023-ch1-insert-send",
+      "label": "Channel 1 Insert Send",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 245,
+      "topPx": 70,
+      "widthPx": 17,
+      "heightPx": 17,
+      "centerPx": {
+        "x": 254,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv023-ch1-insert-send",
+        "label": "Channel 1 Insert Send",
+        "leftPx": 245,
+        "topPx": 70,
+        "widthPx": 17,
+        "heightPx": 17
+      }
+    },
+    {
+      "key": "liv023-ch1-insert-return",
+      "label": "Channel 1 Insert Return",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 246,
+      "topPx": 93,
+      "widthPx": 17,
+      "heightPx": 16,
+      "centerPx": {
+        "x": 255,
+        "y": 101
+      },
+      "raw": {
+        "key": "liv023-ch1-insert-return",
+        "label": "Channel 1 Insert Return",
+        "leftPx": 246,
+        "topPx": 93,
+        "widthPx": 17,
+        "heightPx": 16
+      }
+    },
+    {
+      "key": "liv023-aux1-l",
+      "label": "Aux 1 Left Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 422,
+      "topPx": 68,
+      "widthPx": 16,
+      "heightPx": 17,
+      "centerPx": {
+        "x": 430,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-aux1-l",
+        "label": "Aux 1 Left Output",
+        "leftPx": 422,
+        "topPx": 68,
+        "widthPx": 16,
+        "heightPx": 17
+      }
+    },
+    {
+      "key": "liv023-aux1-r",
+      "label": "Aux 1 Right Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 440,
+      "topPx": 68,
+      "widthPx": 16,
+      "heightPx": 18,
+      "centerPx": {
+        "x": 448,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv023-aux1-r",
+        "label": "Aux 1 Right Output",
+        "leftPx": 440,
+        "topPx": 68,
+        "widthPx": 16,
+        "heightPx": 18
+      }
+    },
+    {
+      "key": "liv023-main-l",
+      "label": "Main Left Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 732,
+      "topPx": 68,
+      "widthPx": 30,
+      "heightPx": 27,
+      "centerPx": {
+        "x": 747,
+        "y": 82
+      },
+      "raw": {
+        "key": "liv023-main-l",
+        "label": "Main Left Output",
+        "leftPx": 732,
+        "topPx": 68,
+        "widthPx": 30,
+        "heightPx": 27
+      }
+    },
+    {
+      "key": "liv023-main-r",
+      "label": "Main Right Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 771,
+      "topPx": 68,
+      "widthPx": 27,
+      "heightPx": 26,
+      "centerPx": {
+        "x": 785,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv023-main-r",
+        "label": "Main Right Output",
+        "leftPx": 771,
+        "topPx": 68,
+        "widthPx": 27,
+        "heightPx": 26
+      }
+    },
+    {
+      "key": "liv023-compressor-input",
+      "label": "Compressor Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 600,
+      "topPx": 275,
+      "widthPx": 23,
+      "heightPx": 24,
+      "centerPx": {
+        "x": 612,
+        "y": 287
+      },
+      "raw": {
+        "key": "liv023-compressor-input",
+        "label": "Compressor Input",
+        "leftPx": 600,
+        "topPx": 275,
+        "widthPx": 23,
+        "heightPx": 24
+      }
+    },
+    {
+      "key": "liv023-compressor-output",
+      "label": "Compressor Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 678,
+      "topPx": 276,
+      "widthPx": 22,
+      "heightPx": 23,
+      "centerPx": {
+        "x": 689,
+        "y": 288
+      },
+      "raw": {
+        "key": "liv023-compressor-output",
+        "label": "Compressor Output",
+        "leftPx": 678,
+        "topPx": 276,
+        "widthPx": 22,
+        "heightPx": 23
+      }
+    },
+    {
+      "key": "liv023-iem-input-l",
+      "label": "IEM A Left Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 552,
+      "topPx": 363,
+      "widthPx": 21,
+      "heightPx": 23,
+      "centerPx": {
+        "x": 563,
+        "y": 375
+      },
+      "raw": {
+        "key": "liv023-iem-input-l",
+        "label": "IEM A Left Input",
+        "leftPx": 552,
+        "topPx": 363,
+        "widthPx": 21,
+        "heightPx": 23
+      }
+    },
+    {
+      "key": "liv023-iem-input-r",
+      "label": "IEM A Right Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 583,
+      "topPx": 362,
+      "widthPx": 21,
+      "heightPx": 23,
+      "centerPx": {
+        "x": 594,
+        "y": 374
+      },
+      "raw": {
+        "key": "liv023-iem-input-r",
+        "label": "IEM A Right Input",
+        "leftPx": 583,
+        "topPx": 362,
+        "widthPx": 21,
+        "heightPx": 23
+      }
+    },
+    {
+      "key": "liv023-crossover-l-input",
+      "label": "Crossover Left Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 504,
+      "topPx": 474,
+      "widthPx": 21,
+      "heightPx": 23,
+      "centerPx": {
+        "x": 515,
+        "y": 486
+      },
+      "raw": {
+        "key": "liv023-crossover-l-input",
+        "label": "Crossover Left Input",
+        "leftPx": 504,
+        "topPx": 474,
+        "widthPx": 21,
+        "heightPx": 23
+      }
+    },
+    {
+      "key": "liv023-crossover-r-input",
+      "label": "Crossover Right Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 545,
+      "topPx": 476,
+      "widthPx": 21,
+      "heightPx": 21,
+      "centerPx": {
+        "x": 556,
+        "y": 487
+      },
+      "raw": {
+        "key": "liv023-crossover-r-input",
+        "label": "Crossover Right Input",
+        "leftPx": 545,
+        "topPx": 476,
+        "widthPx": 21,
+        "heightPx": 21
+      }
+    },
+    {
+      "key": "liv023-crossover-high-l",
+      "label": "Crossover High Left Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 657,
+      "topPx": 449,
+      "widthPx": 21,
+      "heightPx": 20,
+      "centerPx": {
+        "x": 668,
+        "y": 459
+      },
+      "raw": {
+        "key": "liv023-crossover-high-l",
+        "label": "Crossover High Left Output",
+        "leftPx": 657,
+        "topPx": 449,
+        "widthPx": 21,
+        "heightPx": 20
+      }
+    },
+    {
+      "key": "liv023-crossover-high-r",
+      "label": "Crossover High Right Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 700,
+      "topPx": 449,
+      "widthPx": 19,
+      "heightPx": 21,
+      "centerPx": {
+        "x": 710,
+        "y": 460
+      },
+      "raw": {
+        "key": "liv023-crossover-high-r",
+        "label": "Crossover High Right Output",
+        "leftPx": 700,
+        "topPx": 449,
+        "widthPx": 19,
+        "heightPx": 21
+      }
+    },
+    {
+      "key": "liv023-crossover-mid-l",
+      "label": "Crossover Mid Left Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 659,
+      "topPx": 476,
+      "widthPx": 18,
+      "heightPx": 21,
+      "centerPx": {
+        "x": 668,
+        "y": 487
+      },
+      "raw": {
+        "key": "liv023-crossover-mid-l",
+        "label": "Crossover Mid Left Output",
+        "leftPx": 659,
+        "topPx": 476,
+        "widthPx": 18,
+        "heightPx": 21
+      }
+    },
+    {
+      "key": "liv023-crossover-mid-r",
+      "label": "Crossover Mid Right Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 700,
+      "topPx": 478,
+      "widthPx": 18,
+      "heightPx": 18,
+      "centerPx": {
+        "x": 709,
+        "y": 487
+      },
+      "raw": {
+        "key": "liv023-crossover-mid-r",
+        "label": "Crossover Mid Right Output",
+        "leftPx": 700,
+        "topPx": 478,
+        "widthPx": 18,
+        "heightPx": 18
+      }
+    },
+    {
+      "key": "liv023-crossover-low-l",
+      "label": "Crossover Low Left Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 657,
+      "topPx": 505,
+      "widthPx": 20,
+      "heightPx": 18,
+      "centerPx": {
+        "x": 667,
+        "y": 514
+      },
+      "raw": {
+        "key": "liv023-crossover-low-l",
+        "label": "Crossover Low Left Output",
+        "leftPx": 657,
+        "topPx": 505,
+        "widthPx": 20,
+        "heightPx": 18
+      }
+    },
+    {
+      "key": "liv023-crossover-low-r",
+      "label": "Crossover Low Right Output",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 701,
+      "topPx": 504,
+      "widthPx": 17,
+      "heightPx": 19,
+      "centerPx": {
+        "x": 710,
+        "y": 514
+      },
+      "raw": {
+        "key": "liv023-crossover-low-r",
+        "label": "Crossover Low Right Output",
+        "leftPx": 701,
+        "topPx": 504,
+        "widthPx": 17,
+        "heightPx": 19
+      }
+    },
+    {
+      "key": "liv023-high-amp-l",
+      "label": "High Amp Left Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 518,
+      "topPx": 581,
+      "widthPx": 20,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 528,
+        "y": 592
+      },
+      "raw": {
+        "key": "liv023-high-amp-l",
+        "label": "High Amp Left Input",
+        "leftPx": 518,
+        "topPx": 581,
+        "widthPx": 20,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-high-amp-r",
+      "label": "High Amp Right Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 561,
+      "topPx": 581,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 572,
+        "y": 592
+      },
+      "raw": {
+        "key": "liv023-high-amp-r",
+        "label": "High Amp Right Input",
+        "leftPx": 561,
+        "topPx": 581,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-mid-amp-l",
+      "label": "Mid Amp Left Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 516,
+      "topPx": 678,
+      "widthPx": 24,
+      "heightPx": 24,
+      "centerPx": {
+        "x": 528,
+        "y": 690
+      },
+      "raw": {
+        "key": "liv023-mid-amp-l",
+        "label": "Mid Amp Left Input",
+        "leftPx": 516,
+        "topPx": 678,
+        "widthPx": 24,
+        "heightPx": 24
+      }
+    },
+    {
+      "key": "liv023-mid-amp-r",
+      "label": "Mid Amp Right Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 558,
+      "topPx": 679,
+      "widthPx": 24,
+      "heightPx": 23,
+      "centerPx": {
+        "x": 570,
+        "y": 691
+      },
+      "raw": {
+        "key": "liv023-mid-amp-r",
+        "label": "Mid Amp Right Input",
+        "leftPx": 558,
+        "topPx": 679,
+        "widthPx": 24,
+        "heightPx": 23
+      }
+    },
+    {
+      "key": "liv023-low-amp-l",
+      "label": "Low Amp Left Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 516,
+      "topPx": 779,
+      "widthPx": 22,
+      "heightPx": 22,
+      "centerPx": {
+        "x": 527,
+        "y": 790
+      },
+      "raw": {
+        "key": "liv023-low-amp-l",
+        "label": "Low Amp Left Input",
+        "leftPx": 516,
+        "topPx": 779,
+        "widthPx": 22,
+        "heightPx": 22
+      }
+    },
+    {
+      "key": "liv023-low-amp-r",
+      "label": "Low Amp Right Input",
+      "kind": "good",
+      "coordinateSystem": "liv023-board-pixels",
+      "leftPx": 558,
+      "topPx": 778,
+      "widthPx": 21,
+      "heightPx": 23,
+      "centerPx": {
+        "x": 569,
+        "y": 790
+      },
+      "raw": {
+        "key": "liv023-low-amp-r",
+        "label": "Low Amp Right Input",
+        "leftPx": 558,
+        "topPx": 778,
+        "widthPx": 21,
+        "heightPx": 23
+      }
+    }
+  ]
+}

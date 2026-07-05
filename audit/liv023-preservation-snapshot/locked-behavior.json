@@ -1,0 +1,473 @@
+{
+  "levelId": "LIV-023",
+  "title": "Monitor Console: Vocal Insert, Stereo IEM, and 3-Way PA",
+  "sourceFilesInspected": [
+    "src/live-sound-native-renderer.js",
+    "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html",
+    "docs/live-sound-liv023-source-route-audit.md",
+    "docs/live-sound-locked-board-preservation-plan.md",
+    "docs/live-sound-locked-board-conversion-plan.md",
+    "audit/liv023-good-hitboxes-final.json",
+    "audit/liv023-false-hitboxes-final.json",
+    "audit/liv023-gear-layout-final.json",
+    "audit/liv023-label-layout-final.json",
+    "audit/liv023-gear-layer-layout-final.json"
+  ],
+  "customScriptsAndData": {
+    "devTools": [
+      "src/sf-liv023-good-hitbox-mapper-dev.js",
+      "src/sf-liv023-gear-mover-dev.js",
+      "src/sf-liv023-label-mover-dev.js",
+      "src/sf-liv023-gear-layer-mover-dev.js",
+      "src/sf-liv023-static-gear-preview-dev.js"
+    ],
+    "layoutExports": [
+      "audit/liv023-good-hitboxes-final.json",
+      "audit/liv023-false-hitboxes-final.json",
+      "audit/liv023-gear-layout-final.json",
+      "audit/liv023-label-layout-final.json",
+      "audit/liv023-gear-layer-layout-final.json"
+    ]
+  },
+  "scrollBehavior": {
+    "customScrollHostClass": "sf-live-native-liv023-scroll-host",
+    "boardWidthPx": 900,
+    "boardHeightPx": 940,
+    "boardTopOffsetPx": 24,
+    "scrollHeightPx": 990,
+    "notes": "Renderer sets vertical native scroll host and hides legacy patchbay/cable artifacts around the native layer."
+  },
+  "legacyMasking": {
+    "className": "sf-liv023-native-legacy-mask",
+    "purpose": "Hide old patchbay/cable-layer artifacts behind the native LIV-023 board."
+  },
+  "layoutEvidence": {
+    "gearLayoutCount": 19,
+    "labelLayoutCount": 11,
+    "gearLayerLayoutCount": 19,
+    "gearLayout": [
+      {
+        "key": "liv023-monitor-console",
+        "label": "Monitor Console",
+        "leftPx": -10,
+        "topPx": -178,
+        "widthPx": 880
+      },
+      {
+        "key": "liv023-lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "leftPx": 13,
+        "topPx": 337,
+        "widthPx": 240
+      },
+      {
+        "key": "liv023-keyboard",
+        "label": "Keyboard",
+        "leftPx": 208,
+        "topPx": 330,
+        "widthPx": 300
+      },
+      {
+        "key": "liv023-stagebox-8",
+        "label": "8 Input Stage Box",
+        "leftPx": 16,
+        "topPx": 210,
+        "widthPx": 360
+      },
+      {
+        "key": "liv023-vocal-compressor",
+        "label": "Vocal Compressor",
+        "leftPx": 498,
+        "topPx": 214,
+        "widthPx": 300
+      },
+      {
+        "key": "liv023-iem-a",
+        "label": "IEM Transmitter A",
+        "leftPx": 470,
+        "topPx": 318,
+        "widthPx": 360
+      },
+      {
+        "key": "liv023-crossover",
+        "label": "Stereo 3-Way Crossover",
+        "leftPx": 440,
+        "topPx": 419,
+        "widthPx": 420
+      },
+      {
+        "key": "liv023-high-amp",
+        "label": "High Amp",
+        "leftPx": 455,
+        "topPx": 530,
+        "widthPx": 400
+      },
+      {
+        "key": "liv023-mid-amp",
+        "label": "Mid Amp",
+        "leftPx": 455,
+        "topPx": 627,
+        "widthPx": 400
+      },
+      {
+        "key": "liv023-low-amp",
+        "label": "Low Amp",
+        "leftPx": 454,
+        "topPx": 727,
+        "widthPx": 400
+      },
+      {
+        "key": "liv023-normal-cable-01",
+        "label": "Normalization Cable 1",
+        "leftPx": 702,
+        "topPx": 681,
+        "widthPx": 82
+      },
+      {
+        "key": "liv023-normal-cable-02",
+        "label": "Normalization Cable 2",
+        "leftPx": 695,
+        "topPx": 782,
+        "widthPx": 92
+      },
+      {
+        "key": "liv023-normal-cable-03",
+        "label": "Normalization Cable 3",
+        "leftPx": -102,
+        "topPx": 66,
+        "widthPx": 220
+      },
+      {
+        "key": "liv023-normal-cable-04",
+        "label": "Normalization Cable 4",
+        "leftPx": -9,
+        "topPx": 66,
+        "widthPx": 182
+      },
+      {
+        "key": "liv023-normal-cable-05",
+        "label": "Normalization Cable 5",
+        "leftPx": 3,
+        "topPx": 61,
+        "widthPx": 232
+      },
+      {
+        "key": "liv023-normal-cable-06",
+        "label": "Normalization Cable 6",
+        "leftPx": 660,
+        "topPx": 585,
+        "widthPx": 82
+      },
+      {
+        "key": "liv023-normal-cable-07",
+        "label": "Normalization Cable 7",
+        "leftPx": 706,
+        "topPx": 585,
+        "widthPx": 82
+      },
+      {
+        "key": "liv023-normal-cable-08",
+        "label": "Normalization Cable 8",
+        "leftPx": 663,
+        "topPx": 680,
+        "widthPx": 82
+      },
+      {
+        "key": "liv023-compressor-label",
+        "label": "Compressor Label",
+        "leftPx": 585,
+        "topPx": 222,
+        "widthPx": 140,
+        "layer": "label"
+      }
+    ],
+    "labelLayout": [
+      {
+        "key": "monitor-console",
+        "text": "MONITOR CONSOLE",
+        "leftPx": 10,
+        "topPx": 14,
+        "fontPx": 10,
+        "visible": false
+      },
+      {
+        "key": "stagebox",
+        "text": "STAGE BOX / SNAKE HEAD",
+        "leftPx": 19,
+        "topPx": 215,
+        "fontPx": 7,
+        "visible": true
+      },
+      {
+        "key": "lead-vocal-mic",
+        "text": "LEAD VOCAL MIC",
+        "leftPx": 78,
+        "topPx": 500,
+        "fontPx": 10,
+        "visible": true
+      },
+      {
+        "key": "keyboard",
+        "text": "KEYBOARD",
+        "leftPx": 330,
+        "topPx": 507,
+        "fontPx": 10,
+        "visible": true
+      },
+      {
+        "key": "processing-rack",
+        "text": "PROCESSING / AMP RACK",
+        "leftPx": 562,
+        "topPx": 200,
+        "fontPx": 10,
+        "visible": true
+      },
+      {
+        "key": "vocal-compressor",
+        "text": "VOCAL COMPRESSOR",
+        "leftPx": 587,
+        "topPx": 222,
+        "fontPx": 8,
+        "visible": true
+      },
+      {
+        "key": "iem-transmitter",
+        "text": "IEM TRANSMITTER",
+        "leftPx": 510,
+        "topPx": 350,
+        "fontPx": 9,
+        "visible": false
+      },
+      {
+        "key": "crossover",
+        "text": "3-WAY CROSSOVER",
+        "leftPx": 500,
+        "topPx": 455,
+        "fontPx": 9,
+        "visible": false
+      },
+      {
+        "key": "high-amp",
+        "text": "HIGH AMP",
+        "leftPx": 520,
+        "topPx": 560,
+        "fontPx": 9,
+        "visible": false
+      },
+      {
+        "key": "mid-amp",
+        "text": "MID AMP",
+        "leftPx": 520,
+        "topPx": 657,
+        "fontPx": 9,
+        "visible": false
+      },
+      {
+        "key": "low-amp",
+        "text": "LOW AMP",
+        "leftPx": 520,
+        "topPx": 757,
+        "fontPx": 9,
+        "visible": false
+      }
+    ],
+    "gearLayerLayout": [
+      {
+        "key": "liv023-monitor-console",
+        "label": "Monitor Console",
+        "leftPx": -10,
+        "topPx": -178,
+        "widthPx": 880,
+        "zIndex": 0,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/Monitor_Console.svg"
+      },
+      {
+        "key": "liv023-lead-vocal-mic",
+        "label": "Lead Vocal Mic",
+        "leftPx": -72,
+        "topPx": 331,
+        "widthPx": 295,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/mic%20nbg.svg"
+      },
+      {
+        "key": "liv023-keyboard",
+        "label": "Keyboard",
+        "leftPx": 157,
+        "topPx": 330,
+        "widthPx": 300,
+        "zIndex": 1,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/keys.svg"
+      },
+      {
+        "key": "liv023-stagebox-8",
+        "label": "8 Input Stage Box",
+        "leftPx": 16,
+        "topPx": 210,
+        "widthPx": 360,
+        "zIndex": 9,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/stagebox-snake-head.svg"
+      },
+      {
+        "key": "liv023-vocal-compressor",
+        "label": "Vocal Compressor",
+        "leftPx": 498,
+        "topPx": 214,
+        "widthPx": 305,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/power-amp-liv007-main-system.svg"
+      },
+      {
+        "key": "liv023-iem-a",
+        "label": "IEM Transmitter A",
+        "leftPx": 470,
+        "topPx": 318,
+        "widthPx": 360,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/iem-transmitter-liv003-game-style.svg"
+      },
+      {
+        "key": "liv023-crossover",
+        "label": "Stereo 3-Way Crossover",
+        "leftPx": 440,
+        "topPx": 416,
+        "widthPx": 425,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/crossover-liv010-3way.svg"
+      },
+      {
+        "key": "liv023-high-amp",
+        "label": "High Amp",
+        "leftPx": 455,
+        "topPx": 530,
+        "widthPx": 400,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/power-amp-liv010-high.svg"
+      },
+      {
+        "key": "liv023-mid-amp",
+        "label": "Mid Amp",
+        "leftPx": 455,
+        "topPx": 627,
+        "widthPx": 400,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/power-amp-liv010-mid.svg"
+      },
+      {
+        "key": "liv023-low-amp",
+        "label": "Low Amp",
+        "leftPx": 454,
+        "topPx": 727,
+        "widthPx": 400,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/power-amp-liv010-low.svg"
+      },
+      {
+        "key": "liv023-compressor-label",
+        "label": "Compressor Label",
+        "leftPx": 526,
+        "topPx": 225,
+        "widthPx": 250,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/hardware/Compressor%20label.svg"
+      },
+      {
+        "key": "liv023-normal-cable-01",
+        "label": "Normalization Cable 1",
+        "leftPx": 702,
+        "topPx": 681,
+        "widthPx": 82,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-02",
+        "label": "Normalization Cable 2",
+        "leftPx": 695,
+        "topPx": 782,
+        "widthPx": 92,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-03",
+        "label": "Normalization Cable 3",
+        "leftPx": -102,
+        "topPx": 66,
+        "widthPx": 220,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-04",
+        "label": "Normalization Cable 4",
+        "leftPx": -9,
+        "topPx": 66,
+        "widthPx": 182,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-05",
+        "label": "Normalization Cable 5",
+        "leftPx": 3,
+        "topPx": 61,
+        "widthPx": 232,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-06",
+        "label": "Normalization Cable 6",
+        "leftPx": 660,
+        "topPx": 585,
+        "widthPx": 82,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-07",
+        "label": "Normalization Cable 7",
+        "leftPx": 706,
+        "topPx": 585,
+        "widthPx": 82,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      },
+      {
+        "key": "liv023-normal-cable-08",
+        "label": "Normalization Cable 8",
+        "leftPx": 663,
+        "topPx": 680,
+        "widthPx": 82,
+        "zIndex": 10,
+        "src": "http://127.0.0.1:8125/assets/live-sound/svg/cables/single-one-end-raised.svg"
+      }
+    ]
+  },
+  "hitboxExpectations": {
+    "goodHitboxes": 30,
+    "falseHitboxes": 101,
+    "hintsExcludeFalseHitboxes": true,
+    "falseHitboxDataset": {
+      "sfNativeFalseJack": "1",
+      "sfNativeHintable": "0",
+      "sfNativeGhost": "1"
+    }
+  },
+  "cableBehavior": {
+    "routeLayer": ".sf-native-cables",
+    "wrongRoutes": "Broad invalid liv023-* route attempts render as invalid/red cables.",
+    "validRoutes": "Required routes render as valid/green cables and drive checklist/completion semantics."
+  },
+  "browserSmokeExpectations": [
+    "Board loads with title Monitor Console: Vocal Insert, Stereo IEM, and 3-Way PA.",
+    "15 required routes are playable.",
+    "Six stereo groups retain pair completion behavior.",
+    "30 good hitboxes are clickable and remain aligned to visible endpoints.",
+    "101 false hitboxes remain neutral before interaction and excluded from hints.",
+    "Wrong liv023-* pairs draw invalid/red routes without counting toward completion.",
+    "Legacy mask and custom scroll host remain active.",
+    "Checklist, score, hints, cable, label, and completion behavior do not regress."
+  ]
+}
