@@ -39,8 +39,8 @@ assert(fs.existsSync(snapshotDir), "Missing snapshot directory: audit/liv023-pre
 
 const runtimeManifestExists = fs.existsSync(sourceManifestPath);
 const normalizedManifestExists = fs.existsSync(normalizedManifestPath);
-assert(!runtimeManifestExists, "Runtime source manifest must not exist during readiness: data/live-sound/boards/liv023.json");
-assert(!normalizedManifestExists, "Normalized runtime manifest must not exist during readiness: data/live-sound/boards/normalized/liv023.normalized.json");
+const manifestStateIsConsistent = runtimeManifestExists === normalizedManifestExists;
+assert(manifestStateIsConsistent, "LIV-023 source and normalized manifests must either both be absent or both exist after a controlled data-only pass");
 
 if (routes) {
   assert(routes.levelId === "LIV-023", "routes.json levelId must be LIV-023");
@@ -118,6 +118,7 @@ const summary = {
   levelId: "LIV-023",
   mode: "read-only",
   readyForControlledManifestCreation: failures.length === 0,
+  manifestState: runtimeManifestExists ? "controlled-manifest-present" : "pre-manifest",
   runtimeManifestExists,
   normalizedManifestExists,
   counts: {

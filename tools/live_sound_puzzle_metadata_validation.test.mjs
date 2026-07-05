@@ -130,6 +130,14 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "drum-inputs", "source-to-input", "stagebox", "aux-send", "fx-return", "monitor-mix", "stereo-pair", "multi-route"]
   },
   {
+    levelId: "LIV-023",
+    file: "data/live-sound/boards/liv023.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv023.normalized.json",
+    puzzleMode: "capstone-system",
+    difficulty: 6,
+    conceptTags: ["signal-direction", "source-to-input", "stagebox", "insert-direction", "iem-stereo", "stereo-pair", "main-pa", "processor-chain", "amplifier", "speaker-level", "multi-route"]
+  },
+  {
     levelId: "LIV-021",
     file: "data/live-sound/boards/liv021.json",
     normalizedFile: "data/live-sound/boards/normalized/liv021.normalized.json",
@@ -292,6 +300,13 @@ for (const beginner of beginnerBoards) {
   const validation = runTool(["validate", beginner.file]);
   assert.equal(validation.status, 0, `${beginner.levelId} puzzle metadata should validate\nSTDOUT:\n${validation.stdout}\nSTDERR:\n${validation.stderr}`);
   assert.deepEqual(normalized.puzzle, board.puzzle, `${beginner.levelId} normalized manifest should preserve source puzzle metadata`);
+  if (beginner.levelId === "LIV-023") {
+    assert.equal(board.preservation?.status, "needs-review", "LIV-023 should remain needs-review in the source manifest");
+    assert.equal(normalized.preservation?.status, "needs-review", "LIV-023 should preserve needs-review status in normalized output");
+    assert.equal(board.hitboxes?.false?.length, 101, "LIV-023 should preserve 101 false hitboxes as preservation evidence");
+    assert.equal(normalized.hitboxes?.false?.length, 101, "LIV-023 normalized manifest should preserve 101 false hitboxes");
+    assert.equal(normalized.nodes?.falseTrapKeys?.length, 101, "LIV-023 normalized falseTrapKeys should preserve false hitbox IDs");
+  }
 }
 
 const legacyBoard = writeBoard("legacy", board => {

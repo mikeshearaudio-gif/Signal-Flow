@@ -552,6 +552,8 @@ function normalizedManifest(board) {
     hitboxes: board.hitboxes || { good: [], false: [] },
     educationalFeedback: board.educationalFeedback || {},
     ...(board.puzzle ? { puzzle: board.puzzle } : {}),
+    ...(board.invalidRouteEvidence ? { invalidRouteEvidence: board.invalidRouteEvidence } : {}),
+    ...(board.preservation ? { preservation: board.preservation } : {}),
     requiredAssets: assets,
     acceptance: board.acceptance || null
   };
