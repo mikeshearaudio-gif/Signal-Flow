@@ -48,6 +48,21 @@ assert(/ringLayerZIndex/.test(renderer), "LIV-019 hint diagnostics should report
 assert(/coordinateSystem: "layer-local-from-getBoundingClientRect"/.test(renderer), "LIV-019 hint diagnostics should declare the ring coordinate system");
 assert(/LIV-019 hint ring summary/.test(renderer), "LIV-019 hint builder should log target, match, and ring diagnostics");
 
+assert(/function syncLiv026HintRings/.test(renderer), "LIV-026 should use a dedicated steady-state hint ring sync");
+assert(/function scheduleLiv026HintRingsResync/.test(renderer), "LIV-026 hint toggles should schedule a bounded deferred resync");
+assert(/function liv026RequiredHintKeys/.test(renderer), "LIV-026 hints should derive visible endpoints from required route ids");
+assert(/requiredKeys\.delete\("liv026-delay-processor-input-unused"\);/.test(renderer), "LIV-026 hints should exclude the unused true hitbox");
+assert(/key\.startsWith\("liv026-false-"\)/.test(renderer), "LIV-026 hints should exclude false hitboxes");
+assert(/sf-liv026-hint-ring-layer/.test(renderer), "LIV-026 hints should use a dedicated visible ring layer");
+assert(/ring\.dataset\.sfLiv026HintKey = key;/.test(renderer), "LIV-026 visual hint rings should use a visual-only data key");
+assert(!/ring\.dataset\.nodeKey = key;/.test(renderer), "Visual hint rings must not masquerade as locked hitbox nodes");
+assert(/setNativeHintsVisible\(visible\)[\s\S]*syncLiv026HintRings\(nativeHintsVisible \? "toggle-on" : "toggle-off", nativeHintsVisible\);/.test(renderer), "LIV-026 hint visibility should sync from the persistent hint toggle state");
+assert(/scheduleLiv026HintRingsResync\(nativeHintsVisible \? "deferred-resync-toggle-on" : "deferred-resync-toggle-off"\);/.test(renderer), "LIV-026 hint toggles should schedule a bounded deferred resync");
+assert(/redrawCables\(layer, reason\)[\s\S]*LEVEL_ID === "LIV-026" && nativeHintsVisible[\s\S]*syncLiv026HintRings\(reason \|\| "redraw-cables", true\);/.test(renderer), "LIV-026 active hints should rebuild after native cable redraws");
+assert(/applyLiv026TrueHitboxes\(\)[\s\S]*scheduleLiv026HintRingsResync\("deferred-resync-liv026-true-hitboxes"\);/.test(renderer), "LIV-026 active hints should resync after locked hitbox geometry is reapplied");
+assert(/clearNative\(\)[\s\S]*LEVEL_ID === "LIV-026"[\s\S]*syncLiv026HintRings\("level-clear", false\);/.test(renderer), "LIV-026 Clear/reset should remove visual-only hint rings");
+assert(/LIV-026 hint ring summary/.test(renderer), "LIV-026 hint builder should log target, match, and ring diagnostics");
+
 assert(/kind: "stagebox", x: rect\.width \* 0\.045, y: layoutHeight \* 0\.330, width: rect\.width \* 0\.330/.test(renderer), "LIV-015 stagebox should use the spread layout");
 assert(/kind: "foh", x: rect\.width \* 0\.445, y: layoutHeight \* 0\.075, width: rect\.width \* 0\.500/.test(renderer), "LIV-015 FOH should use the spread layout");
 assert(/kind: "amp", x: rect\.width \* 0\.420, y: layoutHeight \* 0\.650, width: rect\.width \* 0\.500/.test(renderer), "LIV-015 processor should use the spread layout");

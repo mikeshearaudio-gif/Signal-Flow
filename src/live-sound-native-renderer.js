@@ -3172,6 +3172,11 @@ if (activeNativeLevelId === nextLevelId) return;
       scheduleLiv019HintRingsResync("deferred-resync-" + (reason || "redraw-cables"));
     }
 
+    if (LEVEL_ID === "LIV-026" && nativeHintsVisible) {
+      syncLiv026HintRings(reason || "redraw-cables", true);
+      scheduleLiv026HintRingsResync("deferred-resync-" + (reason || "redraw-cables"));
+    }
+
     console.log("[Signal Flow] Native cables redrawn:", state.routes.length);
   }
 
@@ -4939,6 +4944,7 @@ function handleNodeClick(layer, node) {
       if (LEVEL_ID === "LIV-021" && String(key).startsWith("liv021-false-")) return false;
       if (LEVEL_ID === "LIV-025" && String(key).startsWith("liv025-false-")) return false;
       if (LEVEL_ID === "LIV-026" && String(key).startsWith("liv026-false-")) return false;
+      if (LEVEL_ID === "LIV-026" && String(key) === "liv026-delay-processor-input-unused") return false;
       if (LEVEL_ID === "LIV-023" && String(key).startsWith("liv023-false-")) return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeFalseJack === "1") return false;
       if (LEVEL_ID === "LIV-023" && btn.dataset.sfNativeHintable === "0") return false;
@@ -5034,6 +5040,8 @@ function handleNodeClick(layer, node) {
     normalizeNativeRequiredHintRings();
     syncLiv019HintRings(nativeHintsVisible ? "toggle-on" : "toggle-off", nativeHintsVisible);
     scheduleLiv019HintRingsResync(nativeHintsVisible ? "deferred-resync-toggle-on" : "deferred-resync-toggle-off");
+    syncLiv026HintRings(nativeHintsVisible ? "toggle-on" : "toggle-off", nativeHintsVisible);
+    scheduleLiv026HintRingsResync(nativeHintsVisible ? "deferred-resync-toggle-on" : "deferred-resync-toggle-off");
     raiseHintOverlays();
   }
 
@@ -5065,8 +5073,14 @@ function handleNodeClick(layer, node) {
     return docs;
   }
 
+  function liv026HintDocuments() {
+    return liv019HintDocuments();
+  }
+
   let liv019HintResyncFrame = 0;
   let liv019HintResyncTimer = 0;
+  let liv026HintResyncFrame = 0;
+  let liv026HintResyncTimer = 0;
 
   function forceLiv019HintVisibility(visible, reason) {
     syncLiv019HintRings(reason || (visible ? "legacy-sync-on" : "legacy-sync-off"), visible);
@@ -5097,6 +5111,235 @@ function handleNodeClick(layer, node) {
       liv019HintResyncTimer = 0;
       run();
     }, visible ? 80 : 0);
+  }
+
+  function scheduleLiv026HintRingsResync(reason) {
+    if (LEVEL_ID !== "LIV-026") return;
+
+    const visible = !!nativeHintsVisible;
+
+    if (liv026HintResyncFrame && typeof window.cancelAnimationFrame === "function") {
+      window.cancelAnimationFrame(liv026HintResyncFrame);
+    }
+    if (liv026HintResyncTimer) {
+      clearTimeout(liv026HintResyncTimer);
+    }
+
+    const run = () => syncLiv026HintRings(reason, visible);
+
+    if (typeof window.requestAnimationFrame === "function") {
+      liv026HintResyncFrame = window.requestAnimationFrame(() => {
+        liv026HintResyncFrame = 0;
+        run();
+      });
+    }
+
+    liv026HintResyncTimer = setTimeout(() => {
+      liv026HintResyncTimer = 0;
+      run();
+    }, visible ? 80 : 0);
+  }
+
+  function liv026RequiredHintKeys() {
+    const requiredKeys = new Set();
+    (LEVEL.validRoutes || []).forEach(route => {
+      [
+        route && route.fromId,
+        route && route.toId,
+        route && route.from,
+        route && route.to
+      ].forEach(value => {
+        const key = String(value || "").trim();
+        if (key) requiredKeys.add(key);
+      });
+    });
+
+    Array.from(requiredKeys).forEach(key => {
+      if (key.startsWith("liv026-false-")) requiredKeys.delete(key);
+    });
+    requiredKeys.delete("liv026-delay-processor-input-unused");
+
+    return requiredKeys;
+  }
+
+  function syncLiv026HintRings(reason, visible) {
+    if (LEVEL_ID !== "LIV-026") return;
+    const hintsVisible = !!visible;
+    const requiredKeys = liv026RequiredHintKeys();
+    const targetKeys = Array.from(requiredKeys);
+    const reports = [];
+
+    liv026HintDocuments().forEach(item => {
+      const layers = Array.from(item.doc.querySelectorAll(".sf-live-native-level-liv-026"));
+      if (!layers.length) {
+        reports.push({
+          document: item.name,
+          reason,
+          layerFound: false,
+          targetCount: targetKeys.length,
+          matchedCount: 0,
+          ringCount: 0,
+          ringLayerExists: false,
+          removedBecauseHidden: !hintsVisible
+        });
+      }
+
+      layers.forEach(layer => {
+        layer.classList.toggle("sf-native-hints-visible", hintsVisible);
+
+        let ringLayer = layer.querySelector(".sf-liv026-hint-ring-layer");
+        const ringLayerExisted = !!ringLayer;
+        let removedBecauseHidden = false;
+        if (!hintsVisible) {
+          if (ringLayer) {
+            ringLayer.remove();
+            removedBecauseHidden = true;
+          }
+        } else if (!ringLayer) {
+          ringLayer = layer.ownerDocument.createElement("div");
+          ringLayer.className = "sf-liv026-hint-ring-layer";
+          ringLayer.setAttribute("aria-hidden", "true");
+          ringLayer.style.cssText = [
+            "position:absolute",
+            "inset:0",
+            "z-index:2147483601",
+            "pointer-events:none",
+            "overflow:visible"
+          ].join(";");
+          layer.appendChild(ringLayer);
+        } else if (ringLayer.parentNode === layer) {
+          layer.appendChild(ringLayer);
+        }
+
+        if (ringLayer) {
+          ringLayer.replaceChildren();
+        }
+
+        const matched = [];
+        const skippedExcluded = [];
+        const rectZero = [];
+        let ringCount = 0;
+
+        layer.querySelectorAll(".sf-native-jack, .sf-native-source").forEach(node => {
+          const key = String(node.dataset.nodeKey || node.dataset.sfNativeKey || node.getAttribute("data-node-key") || "");
+          const isExcluded =
+            key.startsWith("liv026-false-") ||
+            key === "liv026-delay-processor-input-unused" ||
+            node.dataset.sfFalseJack === "1" ||
+            node.dataset.sfNativeHintable === "0";
+          const isRequired = requiredKeys.has(key);
+          const isGhost = node.dataset.sfNativeGhost === "1";
+          const isActive =
+            node.classList.contains("sf-native-node-selected") ||
+            node.classList.contains("sf-native-node-valid") ||
+            node.classList.contains("sf-native-node-invalid") ||
+            node.classList.contains("sf-native-route-valid") ||
+            node.classList.contains("sf-native-route-invalid") ||
+            node.dataset.sfNativeSelected === "true" ||
+            node.dataset.sfNativeRouteState === "valid" ||
+            node.dataset.sfNativeRouteState === "invalid";
+
+          if (isExcluded) {
+            skippedExcluded.push(key);
+            node.classList.remove("sf-native-required-hint");
+            if (!isActive) {
+              node.style.setProperty("box-shadow", "none", "important");
+              node.style.setProperty("outline", "none", "important");
+            }
+            return;
+          }
+
+          node.classList.toggle("sf-native-required-hint", hintsVisible && isRequired && !isGhost);
+
+          if (hintsVisible && isRequired && !isGhost) {
+            matched.push(key);
+            node.style.setProperty("background", "rgba(255,210,95,.12)", "important");
+            node.style.setProperty("border-color", "rgba(255,210,95,.95)", "important");
+            node.style.setProperty("box-shadow", "0 0 0 3px rgba(255,210,95,.95), 0 0 18px rgba(255,210,95,.50)", "important");
+            node.style.setProperty("outline", "none", "important");
+            node.style.setProperty("z-index", "7600", "important");
+
+            if (ringLayer) {
+              const nodeRect = node.getBoundingClientRect();
+              const layerRect = layer.getBoundingClientRect();
+              if (nodeRect.width > 0 && nodeRect.height > 0) {
+                const ring = layer.ownerDocument.createElement("div");
+                ring.className = "sf-liv026-hint-ring";
+                ring.dataset.sfLiv026HintKey = key;
+                ring.style.cssText = [
+                  "position:absolute",
+                  "left:" + (nodeRect.left - layerRect.left) + "px",
+                  "top:" + (nodeRect.top - layerRect.top) + "px",
+                  "width:" + nodeRect.width + "px",
+                  "height:" + nodeRect.height + "px",
+                  "box-sizing:border-box",
+                  "border-radius:999px",
+                  "border:3px solid rgba(255,210,95,.98)",
+                  "background:rgba(255,210,95,.10)",
+                  "box-shadow:0 0 0 2px rgba(255,210,95,.42),0 0 18px rgba(255,210,95,.58)",
+                  "pointer-events:none"
+                ].join(";");
+                ringLayer.appendChild(ring);
+                ringCount += 1;
+              } else {
+                rectZero.push(key);
+              }
+            }
+            return;
+          }
+
+          if (!hintsVisible && !isActive) {
+            node.style.setProperty("background", "rgba(255,255,255,0)", "important");
+            node.style.setProperty("border-color", "rgba(255,255,255,0)", "important");
+            node.style.setProperty("box-shadow", "none", "important");
+            node.style.setProperty("outline", "none", "important");
+          }
+        });
+
+        const matchedSet = new Set(matched);
+        const layerStyle = layer.ownerDocument.defaultView
+          ? layer.ownerDocument.defaultView.getComputedStyle(layer)
+          : null;
+        reports.push({
+          document: item.name,
+          reason,
+          layerFound: true,
+          ringLayerExists: !!ringLayer,
+          ringLayerExisted,
+          targetCount: targetKeys.length,
+          matchedCount: matched.length,
+          ringCount,
+          removedBecauseHidden,
+          parentClass: layer.className,
+          ringParentClass: ringLayer && ringLayer.parentElement ? ringLayer.parentElement.className : "",
+          ringLayerParent: ringLayer && ringLayer.parentElement ? "sf-live-native-level-liv-026" : "",
+          layerOverflow: layerStyle ? layerStyle.overflow : "",
+          layerZIndex: layerStyle ? layerStyle.zIndex : "",
+          ringLayerZIndex: ringLayer ? ringLayer.style.zIndex : "",
+          coordinateSystem: "layer-local-from-getBoundingClientRect",
+          rectZero,
+          skippedExcluded: skippedExcluded.slice(0, 32),
+          skippedIds: targetKeys.filter(key => !matchedSet.has(key)).slice(0, 12)
+        });
+      });
+    });
+
+    const summary = {
+      visible: hintsVisible,
+      nativeHintsVisible: hintsVisible,
+      reason,
+      documents: reports.length,
+      targetCount: targetKeys.length,
+      targetIds: targetKeys,
+      matchedCount: reports.reduce((sum, report) => sum + Number(report.matchedCount || 0), 0),
+      ringCount: reports.reduce((sum, report) => sum + Number(report.ringCount || 0), 0),
+      reports
+    };
+    const signature = JSON.stringify(summary);
+    if (syncLiv026HintRings._lastReportSignature !== signature) {
+      syncLiv026HintRings._lastReportSignature = signature;
+      console.log("[Signal Flow] LIV-026 hint ring summary", summary);
+    }
   }
 
   function syncLiv019HintRings(reason, visible) {
@@ -12938,6 +13181,10 @@ function renderLiv020MainPaAndIem(surface, adapter) {
         el.style.setProperty("z-index", "3100", "important");
       });
       console.log("[Signal Flow] LIV-026 true hitboxes baked/applied", liv026TrueHitboxes.length);
+      if (nativeHintsVisible) {
+        syncLiv026HintRings("liv026-true-hitboxes", true);
+        scheduleLiv026HintRingsResync("deferred-resync-liv026-true-hitboxes");
+      }
     }
     applyLiv026TrueHitboxes();
     setTimeout(applyLiv026TrueHitboxes, 0);
@@ -16851,6 +17098,10 @@ function mountNative(force) {
     if (LEVEL_ID === "LIV-019") {
       nativeHintsVisible = false;
       syncLiv019HintRings("level-clear", false);
+    }
+    if (LEVEL_ID === "LIV-026") {
+      nativeHintsVisible = false;
+      syncLiv026HintRings("level-clear", false);
     }
     resetNativeLevelComplete();
     state.routes = [];
