@@ -138,6 +138,14 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "source-to-input", "stagebox", "insert-direction", "iem-stereo", "stereo-pair", "main-pa", "processor-chain", "amplifier", "speaker-level", "multi-route"]
   },
   {
+    levelId: "LIV-026",
+    file: "data/live-sound/boards/liv026.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv026.normalized.json",
+    puzzleMode: "capstone-system",
+    difficulty: 6,
+    conceptTags: ["signal-direction", "matrix-feed", "zone-feed", "delay-tower", "front-fill", "main-pa", "processor-chain", "amplifier", "speaker-level", "left-right", "multi-route"]
+  },
+  {
     levelId: "LIV-021",
     file: "data/live-sound/boards/liv021.json",
     normalizedFile: "data/live-sound/boards/normalized/liv021.normalized.json",
@@ -306,6 +314,17 @@ for (const beginner of beginnerBoards) {
     assert.equal(board.hitboxes?.false?.length, 101, "LIV-023 should preserve 101 false hitboxes as preservation evidence");
     assert.equal(normalized.hitboxes?.false?.length, 101, "LIV-023 normalized manifest should preserve 101 false hitboxes");
     assert.equal(normalized.nodes?.falseTrapKeys?.length, 101, "LIV-023 normalized falseTrapKeys should preserve false hitbox IDs");
+  }
+  if (beginner.levelId === "LIV-026") {
+    assert.equal(board.preservation?.status, "needs-review", "LIV-026 should remain needs-review in the source manifest");
+    assert.equal(normalized.preservation?.status, "needs-review", "LIV-026 should preserve needs-review status in normalized output");
+    assert.equal(board.hitboxes?.good?.length, 31, "LIV-026 should preserve 31 baked true hitboxes");
+    assert.equal(normalized.hitboxes?.good?.length, 31, "LIV-026 normalized manifest should preserve 31 baked true hitboxes");
+    assert.equal(normalized.nodes?.validEndpointKeys?.length, 30, "LIV-026 normalized valid endpoints should include only the 30 required endpoints");
+    assert(!normalized.nodes?.validEndpointKeys?.includes("liv026-delay-processor-input-unused"), "LIV-026 unused baked true hitbox should not be a valid endpoint");
+    assert.equal(board.hitboxes?.false?.length, 28, "LIV-026 should preserve 28 false hitboxes as preservation evidence");
+    assert.equal(normalized.hitboxes?.false?.length, 28, "LIV-026 normalized manifest should preserve 28 false hitboxes");
+    assert.equal(normalized.nodes?.falseTrapKeys?.length, 28, "LIV-026 normalized falseTrapKeys should preserve false hitbox IDs");
   }
 }
 

@@ -128,6 +128,8 @@ assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv019.json")), "LIV
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/normalized/liv019.normalized.json")), "LIV-019 normalized manifest should now exist as preservation-required source data");
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv023.json")), "LIV-023 source manifest should now exist as preservation-required source data");
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/normalized/liv023.normalized.json")), "LIV-023 normalized manifest should now exist as preservation-required source data");
+assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv026.json")), "LIV-026 source manifest should now exist as preservation-required source data");
+assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/normalized/liv026.normalized.json")), "LIV-026 normalized manifest should now exist as preservation-required source data");
 for (const levelId of ["LIV-030", "LIV-033", "LIV-037", "LIV-038", "LIV-039"]) {
   const action = dryRunJson.actions.find(item => item.levelId === levelId);
   assert.equal(action.status, "apply-ready", `${levelId} should be apply-ready after ordinary batch audit`);

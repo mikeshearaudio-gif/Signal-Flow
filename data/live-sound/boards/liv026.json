@@ -1,0 +1,1871 @@
+{
+  "levelId": "LIV-026",
+  "environment": "live",
+  "title": "Full Zone Processing",
+  "brief": "Build full main, processor, crossover, delay, and fill zone routing.",
+  "processorLabel": "FULL ZONE PROCESSING",
+  "requiredRoutes": [
+    {
+      "id": "liv026-main-l-to-system-l",
+      "fromId": "liv026-main-l-output",
+      "toId": "liv026-system-processor-l-input",
+      "fromLabel": "Main L Output",
+      "toLabel": "System Processor L Input",
+      "routeFamily": "main-to-system-processing",
+      "stereoGroup": "liv026-main-to-system",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-main-r-to-system-r",
+      "fromId": "liv026-main-r-output",
+      "toId": "liv026-system-processor-r-input",
+      "fromLabel": "Main R Output",
+      "toLabel": "System Processor R Input",
+      "routeFamily": "main-to-system-processing",
+      "stereoGroup": "liv026-main-to-system",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-system-l-to-crossover-l",
+      "fromId": "liv026-system-processor-l-output",
+      "toId": "liv026-crossover-l-input",
+      "fromLabel": "System Processor L Output",
+      "toLabel": "Crossover L Input",
+      "routeFamily": "system-processor-to-crossover",
+      "stereoGroup": "liv026-system-to-crossover",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-system-r-to-crossover-r",
+      "fromId": "liv026-system-processor-r-output",
+      "toId": "liv026-crossover-r-input",
+      "fromLabel": "System Processor R Output",
+      "toLabel": "Crossover R Input",
+      "routeFamily": "system-processor-to-crossover",
+      "stereoGroup": "liv026-system-to-crossover",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-crossover-high-l-to-high-amp-l",
+      "fromId": "liv026-crossover-high-l-output",
+      "toId": "liv026-high-amp-l-input",
+      "fromLabel": "Crossover High L Output",
+      "toLabel": "High Amp L Input",
+      "routeFamily": "high-band-amp-feed",
+      "stereoGroup": "liv026-high-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-crossover-high-r-to-high-amp-r",
+      "fromId": "liv026-crossover-high-r-output",
+      "toId": "liv026-high-amp-r-input",
+      "fromLabel": "Crossover High R Output",
+      "toLabel": "High Amp R Input",
+      "routeFamily": "high-band-amp-feed",
+      "stereoGroup": "liv026-high-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-crossover-mid-l-to-mid-amp-l",
+      "fromId": "liv026-crossover-mid-l-output",
+      "toId": "liv026-mid-amp-l-input",
+      "fromLabel": "Crossover Mid L Output",
+      "toLabel": "Mid Amp L Input",
+      "routeFamily": "mid-band-amp-feed",
+      "stereoGroup": "liv026-mid-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-crossover-mid-r-to-mid-amp-r",
+      "fromId": "liv026-crossover-mid-r-output",
+      "toId": "liv026-mid-amp-r-input",
+      "fromLabel": "Crossover Mid R Output",
+      "toLabel": "Mid Amp R Input",
+      "routeFamily": "mid-band-amp-feed",
+      "stereoGroup": "liv026-mid-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-crossover-low-l-to-low-amp-l",
+      "fromId": "liv026-crossover-low-l-output",
+      "toId": "liv026-low-amp-l-input",
+      "fromLabel": "Crossover Low L Output",
+      "toLabel": "Low Amp L Input",
+      "routeFamily": "low-band-amp-feed",
+      "stereoGroup": "liv026-low-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-crossover-low-r-to-low-amp-r",
+      "fromId": "liv026-crossover-low-r-output",
+      "toId": "liv026-low-amp-r-input",
+      "fromLabel": "Crossover Low R Output",
+      "toLabel": "Low Amp R Input",
+      "routeFamily": "low-band-amp-feed",
+      "stereoGroup": "liv026-low-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-bus1-to-delay-processor",
+      "fromId": "liv026-bus-1-output",
+      "toId": "liv026-delay-processor-input",
+      "fromLabel": "Bus 1 Output",
+      "toLabel": "Delay Processor Input",
+      "routeFamily": "delay-tower-mono-feed"
+    },
+    {
+      "id": "liv026-delay-l-to-delay-amp-l",
+      "fromId": "liv026-delay-processor-l-output",
+      "toId": "liv026-delay-amp-l-input",
+      "fromLabel": "Delay Processor L Output",
+      "toLabel": "Delay Amp L Input",
+      "routeFamily": "delay-tower-stereo-amp-feed",
+      "stereoGroup": "liv026-delay-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv026-delay-r-to-delay-amp-r",
+      "fromId": "liv026-delay-processor-r-output",
+      "toId": "liv026-delay-amp-r-input",
+      "fromLabel": "Delay Processor R Output",
+      "toLabel": "Delay Amp R Input",
+      "routeFamily": "delay-tower-stereo-amp-feed",
+      "stereoGroup": "liv026-delay-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv026-bus2-to-front-fill-processor",
+      "fromId": "liv026-bus-2-output",
+      "toId": "liv026-front-fill-processor-input",
+      "fromLabel": "Bus 2 Output",
+      "toLabel": "Front Fill Processor Input",
+      "routeFamily": "front-fill-mono-feed"
+    },
+    {
+      "id": "liv026-front-fill-processor-to-fill-amp",
+      "fromId": "liv026-front-fill-processor-output",
+      "toId": "liv026-fill-amp-l-input",
+      "fromLabel": "Front Fill Processor Output",
+      "toLabel": "Fill Amp L Input",
+      "routeFamily": "front-fill-amp-feed"
+    }
+  ],
+  "forbiddenRoutes": [],
+  "puzzle": {
+    "puzzleMode": "capstone-system",
+    "scenario": "You are routing a full-zone processing rig: Main L/R through system processing and crossover, Bus 1 to a delay tower chain, and Bus 2 to a front-fill chain.",
+    "objective": "Patch Main L/R through the system processor and crossover to the high, mid, and low amp inputs, route Bus 1 through the delay tower processor to the stereo delay amp, and route Bus 2 through the front-fill processor to the fill amp.",
+    "constraints": [
+      {
+        "id": "zone-specific-processing",
+        "text": "Main L/R, Bus 1, and Bus 2 serve different zone-processing paths and should not be collapsed into one generic PA output.",
+        "concept": "zone-feed"
+      }
+    ],
+    "routeListVisibility": "full",
+    "completionExplanation": "The completed patch sends Main L/R through system processing, crossover, and high/mid/low amplifier inputs; sends Bus 1 through delay processing to the stereo delay amp; and sends Bus 2 through front-fill processing to the fill amp.",
+    "difficulty": 6,
+    "conceptTags": [
+      "signal-direction",
+      "matrix-feed",
+      "zone-feed",
+      "delay-tower",
+      "front-fill",
+      "main-pa",
+      "processor-chain",
+      "amplifier",
+      "speaker-level",
+      "left-right",
+      "multi-route"
+    ],
+    "educationalFeedback": {
+      "defaultWrongRoute": "This locked board accepts wrong distinct liv026-* attempts as non-completing invalid red routes for feedback; only the required route list counts toward completion."
+    },
+    "trapRoutes": []
+  },
+  "stereoGroups": [
+    {
+      "id": "liv026-main-to-system",
+      "leftRouteId": "liv026-main-l-to-system-l",
+      "rightRouteId": "liv026-main-r-to-system-r",
+      "purpose": "Main L/R outputs feed the system processor inputs in left/right order."
+    },
+    {
+      "id": "liv026-system-to-crossover",
+      "leftRouteId": "liv026-system-l-to-crossover-l",
+      "rightRouteId": "liv026-system-r-to-crossover-r",
+      "purpose": "System processor L/R outputs feed the 3-way crossover inputs."
+    },
+    {
+      "id": "liv026-high-to-amp",
+      "leftRouteId": "liv026-crossover-high-l-to-high-amp-l",
+      "rightRouteId": "liv026-crossover-high-r-to-high-amp-r",
+      "purpose": "Crossover high-band L/R outputs feed the high amplifier inputs."
+    },
+    {
+      "id": "liv026-mid-to-amp",
+      "leftRouteId": "liv026-crossover-mid-l-to-mid-amp-l",
+      "rightRouteId": "liv026-crossover-mid-r-to-mid-amp-r",
+      "purpose": "Crossover mid-band L/R outputs feed the mid amplifier inputs."
+    },
+    {
+      "id": "liv026-low-to-amp",
+      "leftRouteId": "liv026-crossover-low-l-to-low-amp-l",
+      "rightRouteId": "liv026-crossover-low-r-to-low-amp-r",
+      "purpose": "Crossover low-band L/R outputs feed the low amplifier inputs."
+    },
+    {
+      "id": "liv026-delay-to-amp",
+      "leftRouteId": "liv026-delay-l-to-delay-amp-l",
+      "rightRouteId": "liv026-delay-r-to-delay-amp-r",
+      "purpose": "Delay processor L/R outputs feed the stereo delay amplifier inputs."
+    }
+  ],
+  "gear": [
+    {
+      "id": "liv026-foh",
+      "label": "Foh",
+      "asset": "../assets/live-sound/svg/hardware/foh-console-liv006-matrix-main-outs.svg",
+      "rect": {
+        "x": 147,
+        "y": 31,
+        "w": 940,
+        "h": 235
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-liv026-system-delay-processor-asset",
+      "label": "Liv026 System Delay Processor Asset",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv006-system-delay-processor.svg",
+      "rect": {
+        "x": 44,
+        "y": 255,
+        "w": 610,
+        "h": 153
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-crossover",
+      "label": "Crossover",
+      "asset": "../assets/live-sound/svg/hardware/crossover-liv010-3way.svg",
+      "rect": {
+        "x": 47,
+        "y": 432,
+        "w": 605,
+        "h": 151
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-high-amp",
+      "label": "High Amp",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "rect": {
+        "x": 657,
+        "y": 257,
+        "w": 470,
+        "h": 118
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-mid-amp",
+      "label": "Mid Amp",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "rect": {
+        "x": 662,
+        "y": 377,
+        "w": 465,
+        "h": 116
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-low-amp",
+      "label": "Low Amp",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "rect": {
+        "x": 662,
+        "y": 497,
+        "w": 465,
+        "h": 116
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-delay-amp",
+      "label": "Delay Amp",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-mid.svg",
+      "rect": {
+        "x": 147,
+        "y": 597,
+        "w": 510,
+        "h": 128
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    },
+    {
+      "id": "liv026-fill-amp",
+      "label": "Fill Amp",
+      "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-low.svg",
+      "rect": {
+        "x": 662,
+        "y": 612,
+        "w": 465,
+        "h": 116
+      },
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#assets"
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv026-label-system-processor-01",
+      "text": "System Processor",
+      "rect": {
+        "x": 190,
+        "y": 270,
+        "w": 150,
+        "h": 34
+      },
+      "rotation": -1,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    },
+    {
+      "id": "liv026-label-3-way-crossover-02",
+      "text": "3-Way Crossover",
+      "rect": {
+        "x": 82,
+        "y": 462,
+        "w": 150,
+        "h": 30
+      },
+      "rotation": -1,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    },
+    {
+      "id": "liv026-label-high-amp-03",
+      "text": "High Amp",
+      "rect": {
+        "x": 832,
+        "y": 305,
+        "w": 145,
+        "h": 38
+      },
+      "rotation": -1,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    },
+    {
+      "id": "liv026-label-mid-amp-04",
+      "text": "Mid Amp",
+      "rect": {
+        "x": 832,
+        "y": 420,
+        "w": 145,
+        "h": 38
+      },
+      "rotation": 1,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    },
+    {
+      "id": "liv026-label-low-amp-05",
+      "text": "Low Amp",
+      "rect": {
+        "x": 832,
+        "y": 550,
+        "w": 145,
+        "h": 38
+      },
+      "rotation": -1,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    },
+    {
+      "id": "liv026-label-delay-06",
+      "text": "Delay",
+      "rect": {
+        "x": 176,
+        "y": 610,
+        "w": 117,
+        "h": 44
+      },
+      "rotation": -2,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    },
+    {
+      "id": "liv026-label-fill-amp-07",
+      "text": "Fill Amp",
+      "rect": {
+        "x": 704,
+        "y": 624,
+        "w": 82,
+        "h": 26
+      },
+      "rotation": 1,
+      "preservationSource": "audit/liv026-preservation-snapshot/locked-behavior.json#labels"
+    }
+  ],
+  "prewiredCables": [],
+  "hitboxes": {
+    "good": [
+      {
+        "id": "liv026-main-l-output",
+        "label": "Main L Output",
+        "kind": "jack",
+        "rect": {
+          "x": 961.7,
+          "y": 143.22,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-main-l-output",
+          "leftPx": 946.7,
+          "topPx": 125.22,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-main-r-output",
+        "label": "Main R Output",
+        "kind": "jack",
+        "rect": {
+          "x": 1021.4,
+          "y": 142.93,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-main-r-output",
+          "leftPx": 1006.4,
+          "topPx": 124.93,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-bus-1-output",
+        "label": "Bus 1 Output",
+        "kind": "jack",
+        "rect": {
+          "x": 741.93,
+          "y": 139.1,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-bus-1-output",
+          "leftPx": 726.93,
+          "topPx": 121.1,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-bus-2-output",
+        "label": "Bus 2 Output",
+        "kind": "jack",
+        "rect": {
+          "x": 778.48,
+          "y": 136.95999999999998,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-bus-2-output",
+          "leftPx": 763.48,
+          "topPx": 118.96,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-system-processor-l-input",
+        "label": "System Processor L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 102.73,
+          "y": 350.63,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-system-processor-l-input",
+          "leftPx": 87.73,
+          "topPx": 332.63,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-system-processor-r-input",
+        "label": "System Processor R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 179.4,
+          "y": 350.82,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-system-processor-r-input",
+          "leftPx": 164.4,
+          "topPx": 332.82,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-system-processor-l-output",
+        "label": "System Processor L Output",
+        "kind": "jack",
+        "rect": {
+          "x": 102.75,
+          "y": 390.89,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-system-processor-l-output",
+          "leftPx": 87.75,
+          "topPx": 372.89,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-system-processor-r-output",
+        "label": "System Processor R Output",
+        "kind": "jack",
+        "rect": {
+          "x": 183.75,
+          "y": 391.92,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-system-processor-r-output",
+          "leftPx": 168.75,
+          "topPx": 373.92,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-front-fill-processor-input",
+        "label": "Front Fill Processor Input",
+        "kind": "jack",
+        "rect": {
+          "x": 570.64,
+          "y": 349.32,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-front-fill-processor-input",
+          "leftPx": 555.64,
+          "topPx": 331.32,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-front-fill-processor-output",
+        "label": "Front Fill Processor Output",
+        "kind": "jack",
+        "rect": {
+          "x": 612.81,
+          "y": 354.78,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-front-fill-processor-output",
+          "leftPx": 597.81,
+          "topPx": 336.78,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-delay-processor-input",
+        "label": "Delay Processor Input",
+        "kind": "jack",
+        "rect": {
+          "x": 349.66,
+          "y": 352.11,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-delay-processor-input",
+          "leftPx": 334.66,
+          "topPx": 334.11,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-delay-processor-input-unused",
+        "label": "liv026-delay-processor-input-unused",
+        "kind": "unused-baked-true-hitbox",
+        "rect": {
+          "x": 535.71,
+          "y": 355.34,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "preservationOnly": true,
+        "raw": {
+          "key": "liv026-delay-processor-input-unused",
+          "leftPx": 520.71,
+          "topPx": 337.34,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-delay-processor-l-output",
+        "label": "Delay Processor L Output",
+        "kind": "jack",
+        "rect": {
+          "x": 285.75,
+          "y": 392.8,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-delay-processor-l-output",
+          "leftPx": 270.75,
+          "topPx": 374.8,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-delay-processor-r-output",
+        "label": "Delay Processor R Output",
+        "kind": "jack",
+        "rect": {
+          "x": 414.53,
+          "y": 392.51,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-delay-processor-r-output",
+          "leftPx": 399.53,
+          "topPx": 374.51,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-l-input",
+        "label": "Crossover L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 152.9,
+          "y": 536.05,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-l-input",
+          "leftPx": 137.9,
+          "topPx": 518.05,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-r-input",
+        "label": "Crossover R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 206.36,
+          "y": 535.18,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-r-input",
+          "leftPx": 191.36,
+          "topPx": 517.18,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-high-l-output",
+        "label": "Crossover High L Output",
+        "kind": "jack",
+        "rect": {
+          "x": 370.63,
+          "y": 495.77,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-high-l-output",
+          "leftPx": 355.63,
+          "topPx": 477.77,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-high-r-output",
+        "label": "Crossover High R Output",
+        "kind": "jack",
+        "rect": {
+          "x": 428.37,
+          "y": 494.45,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-high-r-output",
+          "leftPx": 413.37,
+          "topPx": 476.45,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-mid-l-output",
+        "label": "Crossover Mid L Output",
+        "kind": "jack",
+        "rect": {
+          "x": 370.06,
+          "y": 533.51,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-mid-l-output",
+          "leftPx": 355.06,
+          "topPx": 515.51,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-mid-r-output",
+        "label": "Crossover Mid R Output",
+        "kind": "jack",
+        "rect": {
+          "x": 427.19,
+          "y": 533.04,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-mid-r-output",
+          "leftPx": 412.19,
+          "topPx": 515.04,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-low-l-output",
+        "label": "Crossover Low L Output",
+        "kind": "jack",
+        "rect": {
+          "x": 368.71,
+          "y": 570.06,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-low-l-output",
+          "leftPx": 353.71,
+          "topPx": 552.06,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-crossover-low-r-output",
+        "label": "Crossover Low R Output",
+        "kind": "jack",
+        "rect": {
+          "x": 427.26,
+          "y": 572.54,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-crossover-low-r-output",
+          "leftPx": 412.26,
+          "topPx": 554.54,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-high-amp-l-input",
+        "label": "High Amp L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 742.68,
+          "y": 332.95,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-high-amp-l-input",
+          "leftPx": 727.68,
+          "topPx": 314.95,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-high-amp-r-input",
+        "label": "High Amp R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 790.71,
+          "y": 329.99,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-high-amp-r-input",
+          "leftPx": 775.71,
+          "topPx": 311.99,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-mid-amp-l-input",
+        "label": "Mid Amp L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 745.61,
+          "y": 450.3,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-mid-amp-l-input",
+          "leftPx": 730.61,
+          "topPx": 432.3,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-mid-amp-r-input",
+        "label": "Mid Amp R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 793.84,
+          "y": 450.21,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-mid-amp-r-input",
+          "leftPx": 778.84,
+          "topPx": 432.21,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-low-amp-l-input",
+        "label": "Low Amp L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 744.94,
+          "y": 570.65,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-low-amp-l-input",
+          "leftPx": 729.94,
+          "topPx": 552.65,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-low-amp-r-input",
+        "label": "Low Amp R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 793.1,
+          "y": 570.44,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-low-amp-r-input",
+          "leftPx": 778.1,
+          "topPx": 552.44,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-delay-amp-l-input",
+        "label": "Delay Amp L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 240.55,
+          "y": 681.33,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-delay-amp-l-input",
+          "leftPx": 225.55,
+          "topPx": 663.33,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-delay-amp-r-input",
+        "label": "Delay Amp R Input",
+        "kind": "jack",
+        "rect": {
+          "x": 290.91,
+          "y": 679.19,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-delay-amp-r-input",
+          "leftPx": 275.91,
+          "topPx": 661.19,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      },
+      {
+        "id": "liv026-fill-amp-l-input",
+        "label": "Fill Amp L Input",
+        "kind": "jack",
+        "rect": {
+          "x": 744.12,
+          "y": 683.91,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": true,
+        "hintable": true,
+        "preservationOnly": false,
+        "raw": {
+          "key": "liv026-fill-amp-l-input",
+          "leftPx": 729.12,
+          "topPx": 665.91,
+          "widthPx": 34,
+          "heightPx": 34,
+          "hitboxDx": 15,
+          "hitboxDy": 18
+        }
+      }
+    ],
+    "false": [
+      {
+        "id": "liv026-false-bus-1",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 215,
+          "y": 120,
+          "w": 44,
+          "h": 19
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-bus-1",
+          "leftPx": 215,
+          "topPx": 120,
+          "widthPx": 44,
+          "heightPx": 19
+        }
+      },
+      {
+        "id": "liv026-false-bus-2",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 280,
+          "y": 120,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-bus-2",
+          "leftPx": 280,
+          "topPx": 120,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-bus-3",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 340,
+          "y": 120,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-bus-3",
+          "leftPx": 340,
+          "topPx": 120,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-aux-1",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 405,
+          "y": 120,
+          "w": 44,
+          "h": 24
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-aux-1",
+          "leftPx": 405,
+          "topPx": 120,
+          "widthPx": 44,
+          "heightPx": 24
+        }
+      },
+      {
+        "id": "liv026-false-aux-2",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 485,
+          "y": 125,
+          "w": 24,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-aux-2",
+          "leftPx": 485,
+          "topPx": 125,
+          "widthPx": 24,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-bus-4",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 520,
+          "y": 125,
+          "w": 24,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-bus-4",
+          "leftPx": 520,
+          "topPx": 125,
+          "widthPx": 24,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-bus-5",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 555,
+          "y": 125,
+          "w": 24,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-bus-5",
+          "leftPx": 555,
+          "topPx": 125,
+          "widthPx": 24,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-bus-6",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 585,
+          "y": 125,
+          "w": 24,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-bus-6",
+          "leftPx": 585,
+          "topPx": 125,
+          "widthPx": 24,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010639535",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 800,
+          "y": 115,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010639535",
+          "leftPx": 800,
+          "topPx": 115,
+          "widthPx": 34,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010639834",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 620,
+          "y": 125,
+          "w": 24,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010639834",
+          "leftPx": 620,
+          "topPx": 125,
+          "widthPx": 24,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010640240",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 650,
+          "y": 125,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010640240",
+          "leftPx": 650,
+          "topPx": 125,
+          "widthPx": 34,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010710123",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 840,
+          "y": 115,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010710123",
+          "leftPx": 840,
+          "topPx": 115,
+          "widthPx": 34,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010728364",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 725,
+          "y": 170,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010728364",
+          "leftPx": 725,
+          "topPx": 170,
+          "widthPx": 34,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010742991",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 765,
+          "y": 170,
+          "w": 34,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010742991",
+          "leftPx": 765,
+          "topPx": 170,
+          "widthPx": 34,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010756692",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 800,
+          "y": 170,
+          "w": 39,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010756692",
+          "leftPx": 800,
+          "topPx": 170,
+          "widthPx": 39,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010772123",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 840,
+          "y": 170,
+          "w": 39,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010772123",
+          "leftPx": 840,
+          "topPx": 170,
+          "widthPx": 39,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010794875",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 485,
+          "y": 330,
+          "w": 29,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010794875",
+          "leftPx": 485,
+          "topPx": 330,
+          "widthPx": 29,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010807865",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 515,
+          "y": 335,
+          "w": 39,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010807865",
+          "leftPx": 515,
+          "topPx": 335,
+          "widthPx": 39,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010828368",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 970,
+          "y": 310,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010828368",
+          "leftPx": 970,
+          "topPx": 310,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010841025",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 1020,
+          "y": 310,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010841025",
+          "leftPx": 1020,
+          "topPx": 310,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010855266",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 975,
+          "y": 430,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010855266",
+          "leftPx": 975,
+          "topPx": 430,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010877125",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 1020,
+          "y": 430,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010877125",
+          "leftPx": 1020,
+          "topPx": 430,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010899810",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 490,
+          "y": 655,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010899810",
+          "leftPx": 490,
+          "topPx": 655,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010911666",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 545,
+          "y": 655,
+          "w": 44,
+          "h": 34
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010911666",
+          "leftPx": 545,
+          "topPx": 655,
+          "widthPx": 44,
+          "heightPx": 34
+        }
+      },
+      {
+        "id": "liv026-false-1781010925247",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 965,
+          "y": 550,
+          "w": 54,
+          "h": 44
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010925247",
+          "leftPx": 965,
+          "topPx": 550,
+          "widthPx": 54,
+          "heightPx": 44
+        }
+      },
+      {
+        "id": "liv026-false-1781010953316",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 1020,
+          "y": 545,
+          "w": 49,
+          "h": 44
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010953316",
+          "leftPx": 1020,
+          "topPx": 545,
+          "widthPx": 49,
+          "heightPx": 44
+        }
+      },
+      {
+        "id": "liv026-false-1781010990234",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 970,
+          "y": 660,
+          "w": 44,
+          "h": 39
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781010990234",
+          "leftPx": 970,
+          "topPx": 660,
+          "widthPx": 44,
+          "heightPx": 39
+        }
+      },
+      {
+        "id": "liv026-false-1781011135566",
+        "label": "False Jack",
+        "kind": "false-jack",
+        "rect": {
+          "x": 1020,
+          "y": 660,
+          "w": 44,
+          "h": 29
+        },
+        "coordinateSystem": "liv026-board-pixels",
+        "completionCredit": false,
+        "hintable": false,
+        "neutralBeforeInteraction": true,
+        "raw": {
+          "key": "liv026-false-1781011135566",
+          "leftPx": 1020,
+          "topPx": 660,
+          "widthPx": 44,
+          "heightPx": 29
+        }
+      }
+    ]
+  },
+  "invalidRouteEvidence": {
+    "preservationOnly": true,
+    "notValidRoutes": true,
+    "notCompletionRoutes": true,
+    "broadInvalidRouteRule": {
+      "source": "src/live-sound-native-renderer.js",
+      "routeDecisionFunction": "sfLiv020RouteDecision/addRoute LIV-026 fallback",
+      "rule": "When a pair is not a valid route, any two distinct node keys starting with liv026- are allowed to draw an invalid red route.",
+      "validRoutesRemainValid": true,
+      "invalidRoutesCountTowardCompletion": false,
+      "hintsExcludeFalseJacks": true,
+      "falseHintExclusionEvidence": [
+        "String(key).startsWith(\"liv026-false-\")",
+        "data-sf-native-hintable=\"0\"",
+        "data-sf-native-good-hint=\"0\""
+      ],
+      "invalidRouteKeyShape": "invalid:<sorted liv026 endpoint keys joined with -->"
+    },
+    "launcherForbiddenExamples": [],
+    "knownForbiddenExamples": [
+      {
+        "from": "liv026-main-l-output",
+        "to": "liv026-system-processor-r-input",
+        "concept": "stereo-pair-error",
+        "source": "source-route audit narrative"
+      },
+      {
+        "from": "liv026-bus-1-output",
+        "to": "liv026-front-fill-processor-input",
+        "concept": "wrong-bus",
+        "source": "source-route audit narrative"
+      },
+      {
+        "from": "liv026-crossover-high-l-output",
+        "to": "liv026-low-amp-l-input",
+        "concept": "wrong-destination",
+        "source": "source-route audit narrative"
+      }
+    ],
+    "notes": [
+      "The launch block contains no explicit forbidden pairs for LIV-026.",
+      "Wrong-route behavior is renderer-specific today and is not represented as canonical puzzle trapRoutes.",
+      "Future manifest conversion must preserve broad invalid-route red-cable behavior without counting false hitboxes or invalid routes toward completion."
+    ],
+    "source": "audit/liv026-preservation-snapshot/wrong-route-behavior.json"
+  },
+  "preservation": {
+    "status": "needs-review",
+    "preservationRequired": true,
+    "evidenceSnapshot": "audit/liv026-preservation-snapshot/",
+    "sourceRouteAudit": "docs/live-sound-liv026-source-route-audit.md",
+    "readinessPlan": "docs/live-sound-liv026-manifest-readiness-plan.md",
+    "conversionPlan": "docs/live-sound-locked-board-conversion-plan.md",
+    "routeCount": 15,
+    "stereoGroupCount": 6,
+    "bakedTrueHitboxCount": 31,
+    "requiredEndpointHitboxCount": 30,
+    "unusedBakedTrueHitboxCount": 1,
+    "unusedBakedTrueHitbox": "liv026-delay-processor-input-unused",
+    "falseHitboxCount": 28,
+    "falseHitboxBehavior": {
+      "neutralBeforeInteraction": true,
+      "hintable": false,
+      "completionCredit": false,
+      "pointerEvents": "auto",
+      "invalidRouteRendering": "False hitboxes participate in broad LIV-026 invalid-route rendering but do not count toward completion."
+    },
+    "lockedBehavior": {
+      "customScrollHostClass": "sf-live-native-liv026-scroll-host",
+      "boardSizePx": {
+        "width": 1400,
+        "height": 1260
+      },
+      "routeLayer": ".sf-native-cables",
+      "falseHitboxLockEvidenceFound": true,
+      "stackGuardEvidenceFound": true,
+      "processorDecoCleanupEvidenceFound": true,
+      "cableLayerZIndex": 4800,
+      "finalCableZIndex": 9000,
+      "browserSmokeExpectationCount": 11
+    }
+  },
+  "acceptance": {
+    "gearCount": 8,
+    "routeCount": 15,
+    "visualCableCount": 0,
+    "bakedTrueHitboxCount": 31,
+    "requiredEndpointHitboxCount": 30,
+    "unusedBakedTrueHitboxCount": 1,
+    "falseHitboxCount": 28,
+    "stereoGroupCount": 6,
+    "requiredSelectors": [],
+    "forbiddenText": [
+      "Delay tower route"
+    ]
+  }
+}
