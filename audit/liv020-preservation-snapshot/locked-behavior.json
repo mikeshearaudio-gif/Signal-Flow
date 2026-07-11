@@ -1,0 +1,81 @@
+{
+  "levelId": "LIV-020",
+  "title": "Main PA + IEM Monitor Feed",
+  "sourceFilesInspected": [
+    "src/live-sound-native-renderer.js",
+    "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html",
+    "docs/live-sound-liv020-source-route-audit.md",
+    "docs/live-sound-locked-board-preservation-plan.md",
+    "docs/live-sound-locked-board-conversion-plan.md",
+    "docs/live-sound-metadata-rollout-status.md",
+    "data/live-sound/dev-locks/liv020-good-hitbox-lock-v6r406.json",
+    "src/sf-liv020-good-hitbox-mapper-dev.js",
+    "src/sf-liv020-bad-route-hitbox-dev.js",
+    "src/sf-liv020-bad-route-native-node-bridge-dev.js"
+  ],
+  "rendererEvidence": {
+    "title": "Main PA + IEM Monitor Feed",
+    "processorLabel": "3-WAY PA + MONITOR IEM FEEDS",
+    "renderFunction": "renderLiv020MainPaAndIem(surface, adapter)",
+    "routeDecisionFunction": "sfLiv020RouteDecision(fromNode, toNode, baseValid, baseKey)",
+    "falseJackInstaller": "installLiv020BadJacks(layer)",
+    "falseJackAvailabilityUpdater": "sfLiv020UpdateBadJackAvailability(layer, selectedKey)",
+    "hitboxLockFunction": "sfLiv020ApplyHitboxLayoutLock(layer, reason)",
+    "neutralJackNormalizer": "sfLiv020NormalizeNeutralJackRings(reason)"
+  },
+  "counts": {
+    "routes": 19,
+    "stereoGroups": 7,
+    "goodHitboxes": 38,
+    "falseHardwareHitboxRecords": 113,
+    "curatedBadRoutePairs": 113
+  },
+  "scrollBehaviorNotes": [
+    "renderLiv020MainPaAndIem adds sf-live-native-scroll-host-liv010 and sets vertical/horizontal overflow.",
+    "The board uses a vertical stack with boardHeight derived from IEM pack placement."
+  ],
+  "labelBehaviorNotes": [
+    "LIV020_LABEL_LAYOUT_LOCK and LIV020_LABEL_JSON_LOCK preserve label positions.",
+    "IEM INPUT A/B labels are overlays only; no extra IEM equipment is created."
+  ],
+  "hitboxLockNotes": [
+    "LIV020_HITBOX_LAYOUT_LOCK and data/live-sound/dev-locks/liv020-good-hitbox-lock-v6r406.json preserve real jack geometry.",
+    "Good hitboxes are 38 generated jack keys."
+  ],
+  "falseHitboxBehaviorNotes": [
+    "113 false hardware hitbox layout records are installed by installLiv020BadJacks.",
+    "False hardware jacks remain hit-testable but visually neutral/hidden before interaction.",
+    "False hardware layout data is not route-pair logic."
+  ],
+  "badRouteBehaviorNotes": [
+    "113 curated bad-route pairs are checked separately by sfLiv020IsCuratedBadPair.",
+    "False hardware jack interactions use sfLiv020FalseRoutePair.",
+    "Both paths are invalid/non-completing behavior."
+  ],
+  "hintExclusionNotes": [
+    "False hardware jacks are not valid required route endpoints.",
+    "Future manifest conversion must preserve Show Hints exclusion for false hardware jacks."
+  ],
+  "cableBehaviorNotes": [
+    "Native cable routes use .sf-native-cables.",
+    "Invalid/bad route attempts draw red invalid cables and remain non-completing."
+  ],
+  "checklistCompletionExpectations": [
+    "Only 19 valid routes can complete checklist rows.",
+    "Seven PA route families are stereo grouped.",
+    "Five Aux-to-IEM monitor sends are individual mono routes."
+  ],
+  "browserSmokeExpectations": [
+    "Board loads as Main PA + IEM Monitor Feed.",
+    "One main-to-crossover stereo pair completes as expected.",
+    "One crossover-to-amp stereo pair completes as expected.",
+    "One amp-to-line-array stereo pair completes as expected.",
+    "One Aux-to-IEM route completes as an individual mono route.",
+    "Curated bad PA route draws red and does not complete.",
+    "Curated wrong IEM route draws red and does not complete.",
+    "False hardware jack remains neutral before interaction.",
+    "Show Hints does not reveal false hardware jacks.",
+    "Score/checklist state does not reset unexpectedly after invalid attempts."
+  ],
+  "caution": "Do not create a source manifest until route, good-hitbox, false-hardware-hitbox, curated bad-route pair, hint, score, cable, scroll, label, and checklist parity are defined."
+}

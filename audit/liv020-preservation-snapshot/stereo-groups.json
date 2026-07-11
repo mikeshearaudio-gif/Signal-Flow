@@ -1,0 +1,99 @@
+{
+  "levelId": "LIV-020",
+  "source": "src/live-sound-native-renderer.js",
+  "stereoGroupCount": 7,
+  "stereoGroups": [
+    {
+      "id": "liv020-main-to-crossover",
+      "routeIds": [
+        "liv020-main-left-output-to-liv020-crossover-left-input",
+        "liv020-main-right-output-to-liv020-crossover-right-input"
+      ],
+      "routeSides": {
+        "liv020-main-left-output-to-liv020-crossover-left-input": "left",
+        "liv020-main-right-output-to-liv020-crossover-right-input": "right"
+      },
+      "purpose": "Main L/R outputs feed the crossover inputs in left/right order."
+    },
+    {
+      "id": "liv020-crossover-high-to-amp",
+      "routeIds": [
+        "liv020-crossover-high-left-output-to-liv020-high-amp-left-input",
+        "liv020-crossover-high-right-output-to-liv020-high-amp-right-input"
+      ],
+      "routeSides": {
+        "liv020-crossover-high-left-output-to-liv020-high-amp-left-input": "left",
+        "liv020-crossover-high-right-output-to-liv020-high-amp-right-input": "right"
+      },
+      "purpose": "Crossover high-band L/R outputs feed matching high amplifier inputs."
+    },
+    {
+      "id": "liv020-crossover-mid-to-amp",
+      "routeIds": [
+        "liv020-crossover-mid-left-output-to-liv020-mid-amp-left-input",
+        "liv020-crossover-mid-right-output-to-liv020-mid-amp-right-input"
+      ],
+      "routeSides": {
+        "liv020-crossover-mid-left-output-to-liv020-mid-amp-left-input": "left",
+        "liv020-crossover-mid-right-output-to-liv020-mid-amp-right-input": "right"
+      },
+      "purpose": "Crossover mid-band L/R outputs feed matching mid amplifier inputs."
+    },
+    {
+      "id": "liv020-crossover-low-to-amp",
+      "routeIds": [
+        "liv020-crossover-low-left-output-to-liv020-low-amp-left-input",
+        "liv020-crossover-low-right-output-to-liv020-low-amp-right-input"
+      ],
+      "routeSides": {
+        "liv020-crossover-low-left-output-to-liv020-low-amp-left-input": "left",
+        "liv020-crossover-low-right-output-to-liv020-low-amp-right-input": "right"
+      },
+      "purpose": "Crossover low-band L/R outputs feed matching low amplifier inputs."
+    },
+    {
+      "id": "liv020-high-amp-to-array",
+      "routeIds": [
+        "liv020-high-amp-left-output-to-liv020-left-line-array-high-input",
+        "liv020-high-amp-right-output-to-liv020-right-line-array-high-input"
+      ],
+      "routeSides": {
+        "liv020-high-amp-left-output-to-liv020-left-line-array-high-input": "left",
+        "liv020-high-amp-right-output-to-liv020-right-line-array-high-input": "right"
+      },
+      "purpose": "High amplifier L/R outputs feed matching high line-array inputs."
+    },
+    {
+      "id": "liv020-mid-amp-to-array",
+      "routeIds": [
+        "liv020-mid-amp-left-output-to-liv020-left-line-array-mid-input",
+        "liv020-mid-amp-right-output-to-liv020-right-line-array-mid-input"
+      ],
+      "routeSides": {
+        "liv020-mid-amp-left-output-to-liv020-left-line-array-mid-input": "left",
+        "liv020-mid-amp-right-output-to-liv020-right-line-array-mid-input": "right"
+      },
+      "purpose": "Mid amplifier L/R outputs feed matching mid line-array inputs."
+    },
+    {
+      "id": "liv020-low-amp-to-array",
+      "routeIds": [
+        "liv020-low-amp-left-output-to-liv020-left-line-array-low-input",
+        "liv020-low-amp-right-output-to-liv020-right-line-array-low-input"
+      ],
+      "routeSides": {
+        "liv020-low-amp-left-output-to-liv020-left-line-array-low-input": "left",
+        "liv020-low-amp-right-output-to-liv020-right-line-array-low-input": "right"
+      },
+      "purpose": "Low amplifier L/R outputs feed matching low line-array inputs."
+    }
+  ],
+  "monoRouteIds": [
+    "liv020-aux-1-output-to-liv020-iem-pack-1-input",
+    "liv020-aux-2-output-to-liv020-iem-pack-1-input-b",
+    "liv020-aux-3-output-to-liv020-iem-pack-2-input",
+    "liv020-aux-4-output-to-liv020-iem-pack-2-input-b",
+    "liv020-aux-5-output-to-liv020-iem-pack-3-input"
+  ],
+  "note": "The five Aux-to-IEM routes are individual mono aux monitor sends and are not stereo-gated in current route data."
+}

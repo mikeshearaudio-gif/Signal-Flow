@@ -1,0 +1,1939 @@
+{
+  "levelId": "LIV-020",
+  "source": "src/live-sound-native-renderer.js",
+  "sourceConstant": "LIV020_BAD_ROUTE_PAIRS",
+  "expectedCount": 113,
+  "badRoutePairCount": 113,
+  "behavior": {
+    "curated": true,
+    "generatedFromFalseHardwareHitboxLayout": false,
+    "allowedAsInvalidRoute": true,
+    "completionCredit": false,
+    "routeDecisionFunction": "sfLiv020RouteDecision(fromNode, toNode, baseValid, baseKey)",
+    "curatedPairCheck": "sfLiv020IsCuratedBadPair(aKey, bKey)"
+  },
+  "caution": "This is curated invalid route logic between endpoint IDs. It is separate from LIV020_BAD_HITBOX_LAYOUT false hardware jack coordinates.",
+  "pairs": [
+    {
+      "index": 0,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-crossover-right-input",
+        "label": "Crossover R Input"
+      },
+      "concept": "left-right-swap",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 1,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-crossover-left-input",
+        "label": "Crossover L Input"
+      },
+      "concept": "left-right-swap",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 2,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-left-input",
+        "label": "High Amp L Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 3,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-left-input",
+        "label": "Mid Amp L Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 4,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-left-input",
+        "label": "Low Amp L Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 5,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-right-input",
+        "label": "High Amp R Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 6,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-right-input",
+        "label": "Mid Amp R Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 7,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-right-input",
+        "label": "Low Amp R Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 8,
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-crossover-left-input",
+        "label": "Crossover L Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 9,
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-crossover-right-input",
+        "label": "Crossover R Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 10,
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-crossover-left-input",
+        "label": "Crossover L Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 11,
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-crossover-right-input",
+        "label": "Crossover R Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 12,
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-crossover-left-input",
+        "label": "Crossover L Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 13,
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 14,
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input",
+        "label": "IEM Pack 2 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 15,
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input-b",
+        "label": "IEM Pack 2 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 16,
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-3-input",
+        "label": "IEM Pack 3 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 17,
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input",
+        "label": "IEM Pack 1 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 18,
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input",
+        "label": "IEM Pack 2 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 19,
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input-b",
+        "label": "IEM Pack 2 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 20,
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-3-input",
+        "label": "IEM Pack 3 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 21,
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input",
+        "label": "IEM Pack 1 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 22,
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 23,
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input-b",
+        "label": "IEM Pack 2 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 24,
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-3-input",
+        "label": "IEM Pack 3 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 25,
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input",
+        "label": "IEM Pack 1 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 26,
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 27,
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input",
+        "label": "IEM Pack 2 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 28,
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-3-input",
+        "label": "IEM Pack 3 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 29,
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input",
+        "label": "IEM Pack 1 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 30,
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 31,
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input",
+        "label": "IEM Pack 2 Input A"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 32,
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input-b",
+        "label": "IEM Pack 2 Input B"
+      },
+      "concept": "wrong-iem-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 33,
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-right-input",
+        "label": "High Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 34,
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-left-input",
+        "label": "High Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 35,
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-right-input",
+        "label": "Mid Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 36,
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-left-input",
+        "label": "Mid Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 37,
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-right-input",
+        "label": "Low Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 38,
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-left-input",
+        "label": "Low Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 39,
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-left-input",
+        "label": "Mid Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 40,
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-left-input",
+        "label": "Low Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 41,
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-right-input",
+        "label": "Mid Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 42,
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-right-input",
+        "label": "Low Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 43,
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-left-input",
+        "label": "High Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 44,
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-left-input",
+        "label": "Low Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 45,
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-right-input",
+        "label": "High Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 46,
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-right-input",
+        "label": "Low Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 47,
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-left-input",
+        "label": "High Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 48,
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-left-input",
+        "label": "Mid Amp L Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 49,
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-right-input",
+        "label": "High Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 50,
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-right-input",
+        "label": "Mid Amp R Input"
+      },
+      "concept": "wrong-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 51,
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 52,
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 53,
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 54,
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 55,
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 56,
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 57,
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 58,
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 59,
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 60,
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 61,
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 62,
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 63,
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 64,
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 65,
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 66,
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 67,
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 68,
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "processor-output-bypasses-amplifier",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 69,
+      "from": {
+        "id": "liv020-high-amp-left-output",
+        "label": "High Amp L Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 70,
+      "from": {
+        "id": "liv020-high-amp-left-output",
+        "label": "High Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 71,
+      "from": {
+        "id": "liv020-high-amp-left-output",
+        "label": "High Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 72,
+      "from": {
+        "id": "liv020-high-amp-right-output",
+        "label": "High Amp R Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 73,
+      "from": {
+        "id": "liv020-high-amp-right-output",
+        "label": "High Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 74,
+      "from": {
+        "id": "liv020-high-amp-right-output",
+        "label": "High Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 75,
+      "from": {
+        "id": "liv020-mid-amp-left-output",
+        "label": "Mid Amp L Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 76,
+      "from": {
+        "id": "liv020-mid-amp-left-output",
+        "label": "Mid Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 77,
+      "from": {
+        "id": "liv020-mid-amp-left-output",
+        "label": "Mid Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 78,
+      "from": {
+        "id": "liv020-mid-amp-right-output",
+        "label": "Mid Amp R Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 79,
+      "from": {
+        "id": "liv020-mid-amp-right-output",
+        "label": "Mid Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 80,
+      "from": {
+        "id": "liv020-mid-amp-right-output",
+        "label": "Mid Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 81,
+      "from": {
+        "id": "liv020-low-amp-left-output",
+        "label": "Low Amp L Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 82,
+      "from": {
+        "id": "liv020-low-amp-left-output",
+        "label": "Low Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 83,
+      "from": {
+        "id": "liv020-low-amp-left-output",
+        "label": "Low Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 84,
+      "from": {
+        "id": "liv020-low-amp-right-output",
+        "label": "Low Amp R Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 85,
+      "from": {
+        "id": "liv020-low-amp-right-output",
+        "label": "Low Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 86,
+      "from": {
+        "id": "liv020-low-amp-right-output",
+        "label": "Low Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "wrong-speaker-band-or-side",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 87,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 88,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 89,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 90,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 91,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 92,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 93,
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 94,
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 95,
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 96,
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 97,
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "concept": "monitor-send-to-pa-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 98,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input",
+        "label": "IEM Pack 1 Input A"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 99,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 100,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input",
+        "label": "IEM Pack 2 Input A"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 101,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-right-input",
+        "label": "High Amp R Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 102,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-right-input",
+        "label": "Mid Amp R Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 103,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-right-input",
+        "label": "Low Amp R Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 104,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 105,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 106,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 107,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 108,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input-b",
+        "label": "IEM Pack 2 Input B"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 109,
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-3-input",
+        "label": "IEM Pack 3 Input A"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 110,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-left-input",
+        "label": "High Amp L Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 111,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-left-input",
+        "label": "Mid Amp L Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    },
+    {
+      "index": 112,
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-left-input",
+        "label": "Low Amp L Input"
+      },
+      "concept": "processor-bypass-or-wrong-destination",
+      "behavior": "allowed invalid route",
+      "effect": "draws red/invalid cable and does not count toward completion",
+      "scoringNote": "Uses existing wrong-route penalty behavior; no source-manifest change in this snapshot.",
+      "source": "src/live-sound-native-renderer.js",
+      "evidenceNotes": "Curated real-endpoint bad-route pair from LIV020_BAD_ROUTE_PAIRS. This is separate from false hardware jack layout records."
+    }
+  ]
+}

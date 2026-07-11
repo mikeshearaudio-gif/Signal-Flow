@@ -1,0 +1,353 @@
+{
+  "levelId": "LIV-020",
+  "title": "Main PA + IEM Monitor Feed",
+  "source": "src/live-sound-native-renderer.js",
+  "routeCount": 19,
+  "generatedJackKeyCount": 38,
+  "generatedJackKeys": [
+    "liv020-main-left-output",
+    "liv020-main-right-output",
+    "liv020-aux-1-output",
+    "liv020-aux-2-output",
+    "liv020-aux-3-output",
+    "liv020-aux-4-output",
+    "liv020-aux-5-output",
+    "liv020-crossover-left-input",
+    "liv020-crossover-right-input",
+    "liv020-crossover-high-left-output",
+    "liv020-crossover-high-right-output",
+    "liv020-crossover-mid-left-output",
+    "liv020-crossover-mid-right-output",
+    "liv020-crossover-low-left-output",
+    "liv020-crossover-low-right-output",
+    "liv020-high-amp-left-input",
+    "liv020-high-amp-right-input",
+    "liv020-mid-amp-left-input",
+    "liv020-mid-amp-right-input",
+    "liv020-low-amp-left-input",
+    "liv020-low-amp-right-input",
+    "liv020-high-amp-left-output",
+    "liv020-high-amp-right-output",
+    "liv020-mid-amp-left-output",
+    "liv020-mid-amp-right-output",
+    "liv020-low-amp-left-output",
+    "liv020-low-amp-right-output",
+    "liv020-left-line-array-high-input",
+    "liv020-right-line-array-high-input",
+    "liv020-left-line-array-mid-input",
+    "liv020-right-line-array-mid-input",
+    "liv020-left-line-array-low-input",
+    "liv020-right-line-array-low-input",
+    "liv020-iem-pack-1-input",
+    "liv020-iem-pack-1-input-b",
+    "liv020-iem-pack-2-input",
+    "liv020-iem-pack-2-input-b",
+    "liv020-iem-pack-3-input"
+  ],
+  "routes": [
+    {
+      "id": "liv020-main-left-output-to-liv020-crossover-left-input",
+      "from": {
+        "id": "liv020-main-left-output",
+        "label": "Main L Output"
+      },
+      "to": {
+        "id": "liv020-crossover-left-input",
+        "label": "Crossover L Input"
+      },
+      "checklist": "Main L Output → Crossover L Input",
+      "routeFamily": "main-to-crossover",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-main-to-crossover",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-main-right-output-to-liv020-crossover-right-input",
+      "from": {
+        "id": "liv020-main-right-output",
+        "label": "Main R Output"
+      },
+      "to": {
+        "id": "liv020-crossover-right-input",
+        "label": "Crossover R Input"
+      },
+      "checklist": "Main R Output → Crossover R Input",
+      "routeFamily": "main-to-crossover",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-main-to-crossover",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-crossover-high-left-output-to-liv020-high-amp-left-input",
+      "from": {
+        "id": "liv020-crossover-high-left-output",
+        "label": "Crossover High L Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-left-input",
+        "label": "High Amp L Input"
+      },
+      "checklist": "Crossover High L Output → High Amp L Input",
+      "routeFamily": "crossover-high-to-amp",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-crossover-high-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-crossover-high-right-output-to-liv020-high-amp-right-input",
+      "from": {
+        "id": "liv020-crossover-high-right-output",
+        "label": "Crossover High R Output"
+      },
+      "to": {
+        "id": "liv020-high-amp-right-input",
+        "label": "High Amp R Input"
+      },
+      "checklist": "Crossover High R Output → High Amp R Input",
+      "routeFamily": "crossover-high-to-amp",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-crossover-high-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-crossover-mid-left-output-to-liv020-mid-amp-left-input",
+      "from": {
+        "id": "liv020-crossover-mid-left-output",
+        "label": "Crossover Mid L Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-left-input",
+        "label": "Mid Amp L Input"
+      },
+      "checklist": "Crossover Mid L Output → Mid Amp L Input",
+      "routeFamily": "crossover-mid-to-amp",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-crossover-mid-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-crossover-mid-right-output-to-liv020-mid-amp-right-input",
+      "from": {
+        "id": "liv020-crossover-mid-right-output",
+        "label": "Crossover Mid R Output"
+      },
+      "to": {
+        "id": "liv020-mid-amp-right-input",
+        "label": "Mid Amp R Input"
+      },
+      "checklist": "Crossover Mid R Output → Mid Amp R Input",
+      "routeFamily": "crossover-mid-to-amp",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-crossover-mid-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-crossover-low-left-output-to-liv020-low-amp-left-input",
+      "from": {
+        "id": "liv020-crossover-low-left-output",
+        "label": "Crossover Low L Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-left-input",
+        "label": "Low Amp L Input"
+      },
+      "checklist": "Crossover Low L Output → Low Amp L Input",
+      "routeFamily": "crossover-low-to-amp",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-crossover-low-to-amp",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-crossover-low-right-output-to-liv020-low-amp-right-input",
+      "from": {
+        "id": "liv020-crossover-low-right-output",
+        "label": "Crossover Low R Output"
+      },
+      "to": {
+        "id": "liv020-low-amp-right-input",
+        "label": "Low Amp R Input"
+      },
+      "checklist": "Crossover Low R Output → Low Amp R Input",
+      "routeFamily": "crossover-low-to-amp",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-crossover-low-to-amp",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-high-amp-left-output-to-liv020-left-line-array-high-input",
+      "from": {
+        "id": "liv020-high-amp-left-output",
+        "label": "High Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-high-input",
+        "label": "Left Line Array High Input"
+      },
+      "checklist": "High Amp L Output → Left Line Array High Input",
+      "routeFamily": "high-amp-to-line-array",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-high-amp-to-array",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-high-amp-right-output-to-liv020-right-line-array-high-input",
+      "from": {
+        "id": "liv020-high-amp-right-output",
+        "label": "High Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-high-input",
+        "label": "Right Line Array High Input"
+      },
+      "checklist": "High Amp R Output → Right Line Array High Input",
+      "routeFamily": "high-amp-to-line-array",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-high-amp-to-array",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-mid-amp-left-output-to-liv020-left-line-array-mid-input",
+      "from": {
+        "id": "liv020-mid-amp-left-output",
+        "label": "Mid Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-mid-input",
+        "label": "Left Line Array Mid Input"
+      },
+      "checklist": "Mid Amp L Output → Left Line Array Mid Input",
+      "routeFamily": "mid-amp-to-line-array",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-mid-amp-to-array",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-mid-amp-right-output-to-liv020-right-line-array-mid-input",
+      "from": {
+        "id": "liv020-mid-amp-right-output",
+        "label": "Mid Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-mid-input",
+        "label": "Right Line Array Mid Input"
+      },
+      "checklist": "Mid Amp R Output → Right Line Array Mid Input",
+      "routeFamily": "mid-amp-to-line-array",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-mid-amp-to-array",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-low-amp-left-output-to-liv020-left-line-array-low-input",
+      "from": {
+        "id": "liv020-low-amp-left-output",
+        "label": "Low Amp L Output"
+      },
+      "to": {
+        "id": "liv020-left-line-array-low-input",
+        "label": "Left Line Array Low Input"
+      },
+      "checklist": "Low Amp L Output → Left Line Array Low Input",
+      "routeFamily": "low-amp-to-line-array",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-low-amp-to-array",
+      "stereoSide": "left"
+    },
+    {
+      "id": "liv020-low-amp-right-output-to-liv020-right-line-array-low-input",
+      "from": {
+        "id": "liv020-low-amp-right-output",
+        "label": "Low Amp R Output"
+      },
+      "to": {
+        "id": "liv020-right-line-array-low-input",
+        "label": "Right Line Array Low Input"
+      },
+      "checklist": "Low Amp R Output → Right Line Array Low Input",
+      "routeFamily": "low-amp-to-line-array",
+      "partOfStereoGroup": true,
+      "stereoGroup": "liv020-low-amp-to-array",
+      "stereoSide": "right"
+    },
+    {
+      "id": "liv020-aux-1-output-to-liv020-iem-pack-1-input",
+      "from": {
+        "id": "liv020-aux-1-output",
+        "label": "Aux 1 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input",
+        "label": "IEM Pack 1 Input A"
+      },
+      "checklist": "Aux 1 Output → IEM Pack 1 Input A",
+      "routeFamily": "aux-to-iem-monitor",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv020-aux-2-output-to-liv020-iem-pack-1-input-b",
+      "from": {
+        "id": "liv020-aux-2-output",
+        "label": "Aux 2 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-1-input-b",
+        "label": "IEM Pack 1 Input B"
+      },
+      "checklist": "Aux 2 Output → IEM Pack 1 Input B",
+      "routeFamily": "aux-to-iem-monitor",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv020-aux-3-output-to-liv020-iem-pack-2-input",
+      "from": {
+        "id": "liv020-aux-3-output",
+        "label": "Aux 3 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input",
+        "label": "IEM Pack 2 Input A"
+      },
+      "checklist": "Aux 3 Output → IEM Pack 2 Input A",
+      "routeFamily": "aux-to-iem-monitor",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv020-aux-4-output-to-liv020-iem-pack-2-input-b",
+      "from": {
+        "id": "liv020-aux-4-output",
+        "label": "Aux 4 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-2-input-b",
+        "label": "IEM Pack 2 Input B"
+      },
+      "checklist": "Aux 4 Output → IEM Pack 2 Input B",
+      "routeFamily": "aux-to-iem-monitor",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    },
+    {
+      "id": "liv020-aux-5-output-to-liv020-iem-pack-3-input",
+      "from": {
+        "id": "liv020-aux-5-output",
+        "label": "Aux 5 Output"
+      },
+      "to": {
+        "id": "liv020-iem-pack-3-input",
+        "label": "IEM Pack 3 Input A"
+      },
+      "checklist": "Aux 5 Output → IEM Pack 3 Input A",
+      "routeFamily": "aux-to-iem-monitor",
+      "partOfStereoGroup": false,
+      "stereoGroup": null,
+      "stereoSide": null
+    }
+  ]
+}

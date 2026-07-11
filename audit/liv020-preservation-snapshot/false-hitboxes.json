@@ -1,0 +1,2859 @@
+{
+  "levelId": "LIV-020",
+  "source": "src/live-sound-native-renderer.js",
+  "sourceConstant": "LIV020_BAD_HITBOX_LAYOUT",
+  "coordinateSystem": "liv020-board-pixels",
+  "expectedCount": 113,
+  "falseHardwareHitboxRecordCount": 113,
+  "uniqueKeyCount": 109,
+  "duplicateKeys": [
+    "liv020-bad-bus-out-01",
+    "liv020-bad-bus-out-02",
+    "liv020-bad-bus-out-03",
+    "liv020-bad-bus-out-04"
+  ],
+  "behavior": {
+    "neutralBeforeInteraction": true,
+    "hintable": false,
+    "completionCredit": false,
+    "installedBy": "installLiv020BadJacks(layer)",
+    "availabilityUpdater": "sfLiv020UpdateBadJackAvailability(layer, selectedKey)",
+    "falseRouteHandler": "sfLiv020FalseRoutePair(fromNode, toNode)"
+  },
+  "caution": "These records describe visible/clickable false hardware jack geometry. They are not curated bad-route pairs and must not be mapped to bad-route pair logic by array index.",
+  "families": [
+    "mic inputs",
+    "insert points",
+    "aux outputs",
+    "bus outputs",
+    "alternate main outputs",
+    "unused IEM points"
+  ],
+  "hitboxes": [
+    {
+      "index": 0,
+      "key": "liv020-bad-mic-in-01",
+      "label": "Mic In 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 14,
+      "topPx": 63,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 28,
+        "y": 80
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-01",
+        "label": "Mic In 1",
+        "leftPx": 14,
+        "topPx": 63,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 28,
+        "centerY": 80
+      }
+    },
+    {
+      "index": 1,
+      "key": "liv020-bad-mic-in-02",
+      "label": "Mic In 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 35,
+      "topPx": 63,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 49,
+        "y": 80
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-02",
+        "label": "Mic In 2",
+        "leftPx": 35,
+        "topPx": 63,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 49,
+        "centerY": 80
+      }
+    },
+    {
+      "index": 2,
+      "key": "liv020-bad-mic-in-03",
+      "label": "Mic In 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 58,
+      "topPx": 64,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 72,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-03",
+        "label": "Mic In 3",
+        "leftPx": 58,
+        "topPx": 64,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 72,
+        "centerY": 81
+      }
+    },
+    {
+      "index": 3,
+      "key": "liv020-bad-mic-in-04",
+      "label": "Mic In 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 76,
+      "topPx": 64,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 90,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-04",
+        "label": "Mic In 4",
+        "leftPx": 76,
+        "topPx": 64,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 90,
+        "centerY": 81
+      }
+    },
+    {
+      "index": 4,
+      "key": "liv020-bad-mic-in-05",
+      "label": "Mic In 5",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 99,
+      "topPx": 64,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 113,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-05",
+        "label": "Mic In 5",
+        "leftPx": 99,
+        "topPx": 64,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 113,
+        "centerY": 81
+      }
+    },
+    {
+      "index": 5,
+      "key": "liv020-bad-mic-in-06",
+      "label": "Mic In 6",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 120,
+      "topPx": 64,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 134,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-06",
+        "label": "Mic In 6",
+        "leftPx": 120,
+        "topPx": 64,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 134,
+        "centerY": 81
+      }
+    },
+    {
+      "index": 6,
+      "key": "liv020-bad-mic-in-07",
+      "label": "Mic In 7",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 141,
+      "topPx": 64,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 155,
+        "y": 81
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-07",
+        "label": "Mic In 7",
+        "leftPx": 141,
+        "topPx": 64,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 155,
+        "centerY": 81
+      }
+    },
+    {
+      "index": 7,
+      "key": "liv020-bad-mic-in-08",
+      "label": "Mic In 8",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 162,
+      "topPx": 63,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 176,
+        "y": 80
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-08",
+        "label": "Mic In 8",
+        "leftPx": 162,
+        "topPx": 63,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 176,
+        "centerY": 80
+      }
+    },
+    {
+      "index": 8,
+      "key": "liv020-bad-mic-in-09",
+      "label": "Mic In 9",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 16,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 30,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-09",
+        "label": "Mic In 9",
+        "leftPx": 16,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 30,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 9,
+      "key": "liv020-bad-mic-in-10",
+      "label": "Mic In 10",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 37,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 51,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-10",
+        "label": "Mic In 10",
+        "leftPx": 37,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 51,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 10,
+      "key": "liv020-bad-mic-in-11",
+      "label": "Mic In 11",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 58,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 72,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-11",
+        "label": "Mic In 11",
+        "leftPx": 58,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 72,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 11,
+      "key": "liv020-bad-mic-in-12",
+      "label": "Mic In 12",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 79,
+      "topPx": 106,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 93,
+        "y": 123
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-12",
+        "label": "Mic In 12",
+        "leftPx": 79,
+        "topPx": 106,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 93,
+        "centerY": 123
+      }
+    },
+    {
+      "index": 12,
+      "key": "liv020-bad-mic-in-13",
+      "label": "Mic In 13",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 100,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 114,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-13",
+        "label": "Mic In 13",
+        "leftPx": 100,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 114,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 13,
+      "key": "liv020-bad-mic-in-14",
+      "label": "Mic In 14",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 120,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 134,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-14",
+        "label": "Mic In 14",
+        "leftPx": 120,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 134,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 14,
+      "key": "liv020-bad-mic-in-15",
+      "label": "Mic In 15",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 141,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 155,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-15",
+        "label": "Mic In 15",
+        "leftPx": 141,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 155,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 15,
+      "key": "liv020-bad-mic-in-16",
+      "label": "Mic In 16",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 162,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 176,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-16",
+        "label": "Mic In 16",
+        "leftPx": 162,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 176,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 16,
+      "key": "liv020-bad-mic-in-17",
+      "label": "Mic In 17",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 16,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 30,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-17",
+        "label": "Mic In 17",
+        "leftPx": 16,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 30,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 17,
+      "key": "liv020-bad-mic-in-18",
+      "label": "Mic In 18",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 37,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 51,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-18",
+        "label": "Mic In 18",
+        "leftPx": 37,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 51,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 18,
+      "key": "liv020-bad-mic-in-19",
+      "label": "Mic In 19",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 59,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 73,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-19",
+        "label": "Mic In 19",
+        "leftPx": 59,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 73,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 19,
+      "key": "liv020-bad-mic-in-20",
+      "label": "Mic In 20",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 79,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 93,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-20",
+        "label": "Mic In 20",
+        "leftPx": 79,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 93,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 20,
+      "key": "liv020-bad-mic-in-21",
+      "label": "Mic In 21",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 99,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 113,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-21",
+        "label": "Mic In 21",
+        "leftPx": 99,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 113,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 21,
+      "key": "liv020-bad-mic-in-22",
+      "label": "Mic In 22",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 121,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 135,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-22",
+        "label": "Mic In 22",
+        "leftPx": 121,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 135,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 22,
+      "key": "liv020-bad-mic-in-23",
+      "label": "Mic In 23",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 143,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 157,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-23",
+        "label": "Mic In 23",
+        "leftPx": 143,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 157,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 23,
+      "key": "liv020-bad-mic-in-24",
+      "label": "Mic In 24",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 163,
+      "topPx": 146,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 177,
+        "y": 163
+      },
+      "raw": {
+        "key": "liv020-bad-mic-in-24",
+        "label": "Mic In 24",
+        "leftPx": 163,
+        "topPx": 146,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 177,
+        "centerY": 163
+      }
+    },
+    {
+      "index": 24,
+      "key": "liv020-bad-insert-01",
+      "label": "Insert 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 190,
+      "topPx": 62,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 204,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv020-bad-insert-01",
+        "label": "Insert 1",
+        "leftPx": 190,
+        "topPx": 62,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 204,
+        "centerY": 79
+      }
+    },
+    {
+      "index": 25,
+      "key": "liv020-bad-insert-02",
+      "label": "Insert 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 208,
+      "topPx": 62,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 222,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv020-bad-insert-02",
+        "label": "Insert 2",
+        "leftPx": 208,
+        "topPx": 62,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 222,
+        "centerY": 79
+      }
+    },
+    {
+      "index": 26,
+      "key": "liv020-bad-insert-03",
+      "label": "Insert 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 222,
+      "topPx": 61,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 236,
+        "y": 78
+      },
+      "raw": {
+        "key": "liv020-bad-insert-03",
+        "label": "Insert 3",
+        "leftPx": 222,
+        "topPx": 61,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 236,
+        "centerY": 78
+      }
+    },
+    {
+      "index": 27,
+      "key": "liv020-bad-insert-04",
+      "label": "Insert 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 240,
+      "topPx": 61,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 254,
+        "y": 78
+      },
+      "raw": {
+        "key": "liv020-bad-insert-04",
+        "label": "Insert 4",
+        "leftPx": 240,
+        "topPx": 61,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 254,
+        "centerY": 78
+      }
+    },
+    {
+      "index": 28,
+      "key": "liv020-bad-insert-05",
+      "label": "Insert 5",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 257,
+      "topPx": 61,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 271,
+        "y": 78
+      },
+      "raw": {
+        "key": "liv020-bad-insert-05",
+        "label": "Insert 5",
+        "leftPx": 257,
+        "topPx": 61,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 271,
+        "centerY": 78
+      }
+    },
+    {
+      "index": 29,
+      "key": "liv020-bad-insert-06",
+      "label": "Insert 6",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 272,
+      "topPx": 60,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 286,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv020-bad-insert-06",
+        "label": "Insert 6",
+        "leftPx": 272,
+        "topPx": 60,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 286,
+        "centerY": 77
+      }
+    },
+    {
+      "index": 30,
+      "key": "liv020-bad-insert-07",
+      "label": "Insert 7",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 290,
+      "topPx": 59,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 304,
+        "y": 76
+      },
+      "raw": {
+        "key": "liv020-bad-insert-07",
+        "label": "Insert 7",
+        "leftPx": 290,
+        "topPx": 59,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 304,
+        "centerY": 76
+      }
+    },
+    {
+      "index": 31,
+      "key": "liv020-bad-insert-08",
+      "label": "Insert 8",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 303,
+      "topPx": 61,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 317,
+        "y": 78
+      },
+      "raw": {
+        "key": "liv020-bad-insert-08",
+        "label": "Insert 8",
+        "leftPx": 303,
+        "topPx": 61,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 317,
+        "centerY": 78
+      }
+    },
+    {
+      "index": 32,
+      "key": "liv020-bad-insert-09",
+      "label": "Insert 9",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 190,
+      "topPx": 82,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 204,
+        "y": 99
+      },
+      "raw": {
+        "key": "liv020-bad-insert-09",
+        "label": "Insert 9",
+        "leftPx": 190,
+        "topPx": 82,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 204,
+        "centerY": 99
+      }
+    },
+    {
+      "index": 33,
+      "key": "liv020-bad-insert-10",
+      "label": "Insert 10",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 203,
+      "topPx": 82,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 217,
+        "y": 99
+      },
+      "raw": {
+        "key": "liv020-bad-insert-10",
+        "label": "Insert 10",
+        "leftPx": 203,
+        "topPx": 82,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 217,
+        "centerY": 99
+      }
+    },
+    {
+      "index": 34,
+      "key": "liv020-bad-insert-11",
+      "label": "Insert 11",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 220,
+      "topPx": 81,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 234,
+        "y": 98
+      },
+      "raw": {
+        "key": "liv020-bad-insert-11",
+        "label": "Insert 11",
+        "leftPx": 220,
+        "topPx": 81,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 234,
+        "centerY": 98
+      }
+    },
+    {
+      "index": 35,
+      "key": "liv020-bad-insert-12",
+      "label": "Insert 12",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 238,
+      "topPx": 81,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 252,
+        "y": 98
+      },
+      "raw": {
+        "key": "liv020-bad-insert-12",
+        "label": "Insert 12",
+        "leftPx": 238,
+        "topPx": 81,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 252,
+        "centerY": 98
+      }
+    },
+    {
+      "index": 36,
+      "key": "liv020-bad-insert-13",
+      "label": "Insert 13",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 256,
+      "topPx": 80,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 270,
+        "y": 97
+      },
+      "raw": {
+        "key": "liv020-bad-insert-13",
+        "label": "Insert 13",
+        "leftPx": 256,
+        "topPx": 80,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 270,
+        "centerY": 97
+      }
+    },
+    {
+      "index": 37,
+      "key": "liv020-bad-insert-14",
+      "label": "Insert 14",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 275,
+      "topPx": 83,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 289,
+        "y": 100
+      },
+      "raw": {
+        "key": "liv020-bad-insert-14",
+        "label": "Insert 14",
+        "leftPx": 275,
+        "topPx": 83,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 289,
+        "centerY": 100
+      }
+    },
+    {
+      "index": 38,
+      "key": "liv020-bad-insert-15",
+      "label": "Insert 15",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 292,
+      "topPx": 83,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 306,
+        "y": 100
+      },
+      "raw": {
+        "key": "liv020-bad-insert-15",
+        "label": "Insert 15",
+        "leftPx": 292,
+        "topPx": 83,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 306,
+        "centerY": 100
+      }
+    },
+    {
+      "index": 39,
+      "key": "liv020-bad-insert-16",
+      "label": "Insert 16",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 304,
+      "topPx": 82,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 318,
+        "y": 99
+      },
+      "raw": {
+        "key": "liv020-bad-insert-16",
+        "label": "Insert 16",
+        "leftPx": 304,
+        "topPx": 82,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 318,
+        "centerY": 99
+      }
+    },
+    {
+      "index": 40,
+      "key": "liv020-bad-insert-17",
+      "label": "Insert 17",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 191,
+      "topPx": 106,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 205,
+        "y": 123
+      },
+      "raw": {
+        "key": "liv020-bad-insert-17",
+        "label": "Insert 17",
+        "leftPx": 191,
+        "topPx": 106,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 205,
+        "centerY": 123
+      }
+    },
+    {
+      "index": 41,
+      "key": "liv020-bad-insert-18",
+      "label": "Insert 18",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 205,
+      "topPx": 105,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 219,
+        "y": 122
+      },
+      "raw": {
+        "key": "liv020-bad-insert-18",
+        "label": "Insert 18",
+        "leftPx": 205,
+        "topPx": 105,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 219,
+        "centerY": 122
+      }
+    },
+    {
+      "index": 42,
+      "key": "liv020-bad-insert-19",
+      "label": "Insert 19",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 221,
+      "topPx": 106,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 235,
+        "y": 123
+      },
+      "raw": {
+        "key": "liv020-bad-insert-19",
+        "label": "Insert 19",
+        "leftPx": 221,
+        "topPx": 106,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 235,
+        "centerY": 123
+      }
+    },
+    {
+      "index": 43,
+      "key": "liv020-bad-insert-20",
+      "label": "Insert 20",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 235,
+      "topPx": 106,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 249,
+        "y": 123
+      },
+      "raw": {
+        "key": "liv020-bad-insert-20",
+        "label": "Insert 20",
+        "leftPx": 235,
+        "topPx": 106,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 249,
+        "centerY": 123
+      }
+    },
+    {
+      "index": 44,
+      "key": "liv020-bad-insert-21",
+      "label": "Insert 21",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 254,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 268,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-insert-21",
+        "label": "Insert 21",
+        "leftPx": 254,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 268,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 45,
+      "key": "liv020-bad-insert-22",
+      "label": "Insert 22",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 272,
+      "topPx": 104,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 286,
+        "y": 121
+      },
+      "raw": {
+        "key": "liv020-bad-insert-22",
+        "label": "Insert 22",
+        "leftPx": 272,
+        "topPx": 104,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 286,
+        "centerY": 121
+      }
+    },
+    {
+      "index": 46,
+      "key": "liv020-bad-insert-23",
+      "label": "Insert 23",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 287,
+      "topPx": 105,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 301,
+        "y": 122
+      },
+      "raw": {
+        "key": "liv020-bad-insert-23",
+        "label": "Insert 23",
+        "leftPx": 287,
+        "topPx": 105,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 301,
+        "centerY": 122
+      }
+    },
+    {
+      "index": 47,
+      "key": "liv020-bad-insert-24",
+      "label": "Insert 24",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 304,
+      "topPx": 105,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 318,
+        "y": 122
+      },
+      "raw": {
+        "key": "liv020-bad-insert-24",
+        "label": "Insert 24",
+        "leftPx": 304,
+        "topPx": 105,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 318,
+        "centerY": 122
+      }
+    },
+    {
+      "index": 48,
+      "key": "liv020-bad-insert-25",
+      "label": "Insert 25",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 190,
+      "topPx": 126,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 204,
+        "y": 143
+      },
+      "raw": {
+        "key": "liv020-bad-insert-25",
+        "label": "Insert 25",
+        "leftPx": 190,
+        "topPx": 126,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 204,
+        "centerY": 143
+      }
+    },
+    {
+      "index": 49,
+      "key": "liv020-bad-insert-26",
+      "label": "Insert 26",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 208,
+      "topPx": 126,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 222,
+        "y": 143
+      },
+      "raw": {
+        "key": "liv020-bad-insert-26",
+        "label": "Insert 26",
+        "leftPx": 208,
+        "topPx": 126,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 222,
+        "centerY": 143
+      }
+    },
+    {
+      "index": 50,
+      "key": "liv020-bad-insert-27",
+      "label": "Insert 27",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 220,
+      "topPx": 125,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 234,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv020-bad-insert-27",
+        "label": "Insert 27",
+        "leftPx": 220,
+        "topPx": 125,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 234,
+        "centerY": 142
+      }
+    },
+    {
+      "index": 51,
+      "key": "liv020-bad-insert-28",
+      "label": "Insert 28",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 236,
+      "topPx": 127,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 250,
+        "y": 144
+      },
+      "raw": {
+        "key": "liv020-bad-insert-28",
+        "label": "Insert 28",
+        "leftPx": 236,
+        "topPx": 127,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 250,
+        "centerY": 144
+      }
+    },
+    {
+      "index": 52,
+      "key": "liv020-bad-insert-29",
+      "label": "Insert 29",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 259,
+      "topPx": 126,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 273,
+        "y": 143
+      },
+      "raw": {
+        "key": "liv020-bad-insert-29",
+        "label": "Insert 29",
+        "leftPx": 259,
+        "topPx": 126,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 273,
+        "centerY": 143
+      }
+    },
+    {
+      "index": 53,
+      "key": "liv020-bad-insert-30",
+      "label": "Insert 30",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 275,
+      "topPx": 126,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 289,
+        "y": 143
+      },
+      "raw": {
+        "key": "liv020-bad-insert-30",
+        "label": "Insert 30",
+        "leftPx": 275,
+        "topPx": 126,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 289,
+        "centerY": 143
+      }
+    },
+    {
+      "index": 54,
+      "key": "liv020-bad-insert-31",
+      "label": "Insert 31",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 287,
+      "topPx": 125,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 301,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv020-bad-insert-31",
+        "label": "Insert 31",
+        "leftPx": 287,
+        "topPx": 125,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 301,
+        "centerY": 142
+      }
+    },
+    {
+      "index": 55,
+      "key": "liv020-bad-insert-32",
+      "label": "Insert 32",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 310,
+      "topPx": 125,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 324,
+        "y": 142
+      },
+      "raw": {
+        "key": "liv020-bad-insert-32",
+        "label": "Insert 32",
+        "leftPx": 310,
+        "topPx": 125,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 324,
+        "centerY": 142
+      }
+    },
+    {
+      "index": 56,
+      "key": "liv020-bad-aux-out-01",
+      "label": "Aux Out 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 430,
+      "topPx": 60,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 444,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-01",
+        "label": "Aux Out 1",
+        "leftPx": 430,
+        "topPx": 60,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 444,
+        "centerY": 77
+      }
+    },
+    {
+      "index": 57,
+      "key": "liv020-bad-aux-out-02",
+      "label": "Aux Out 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 445,
+      "topPx": 60,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 459,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-02",
+        "label": "Aux Out 2",
+        "leftPx": 445,
+        "topPx": 60,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 459,
+        "centerY": 77
+      }
+    },
+    {
+      "index": 58,
+      "key": "liv020-bad-aux-out-03",
+      "label": "Aux Out 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 461,
+      "topPx": 60,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 475,
+        "y": 77
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-03",
+        "label": "Aux Out 3",
+        "leftPx": 461,
+        "topPx": 60,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 475,
+        "centerY": 77
+      }
+    },
+    {
+      "index": 59,
+      "key": "liv020-bad-aux-out-04",
+      "label": "Aux Out 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 345,
+      "topPx": 94,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 359,
+        "y": 111
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-04",
+        "label": "Aux Out 4",
+        "leftPx": 345,
+        "topPx": 94,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 359,
+        "centerY": 111
+      }
+    },
+    {
+      "index": 60,
+      "key": "liv020-bad-aux-out-05",
+      "label": "Aux Out 5",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 362,
+      "topPx": 94,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 376,
+        "y": 111
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-05",
+        "label": "Aux Out 5",
+        "leftPx": 362,
+        "topPx": 94,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 376,
+        "centerY": 111
+      }
+    },
+    {
+      "index": 61,
+      "key": "liv020-bad-aux-out-06",
+      "label": "Aux Out 6",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 379,
+      "topPx": 93,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 393,
+        "y": 110
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-06",
+        "label": "Aux Out 6",
+        "leftPx": 379,
+        "topPx": 93,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 393,
+        "centerY": 110
+      }
+    },
+    {
+      "index": 62,
+      "key": "liv020-bad-aux-out-07",
+      "label": "Aux Out 7",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 396,
+      "topPx": 93,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 410,
+        "y": 110
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-07",
+        "label": "Aux Out 7",
+        "leftPx": 396,
+        "topPx": 93,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 410,
+        "centerY": 110
+      }
+    },
+    {
+      "index": 63,
+      "key": "liv020-bad-aux-out-08",
+      "label": "Aux Out 8",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 413,
+      "topPx": 92,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 427,
+        "y": 109
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-08",
+        "label": "Aux Out 8",
+        "leftPx": 413,
+        "topPx": 92,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 427,
+        "centerY": 109
+      }
+    },
+    {
+      "index": 64,
+      "key": "liv020-bad-aux-out-09",
+      "label": "Aux Out 9",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 431,
+      "topPx": 93,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 445,
+        "y": 110
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-09",
+        "label": "Aux Out 9",
+        "leftPx": 431,
+        "topPx": 93,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 445,
+        "centerY": 110
+      }
+    },
+    {
+      "index": 65,
+      "key": "liv020-bad-aux-out-10",
+      "label": "Aux Out 10",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 446,
+      "topPx": 93,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 460,
+        "y": 110
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-10",
+        "label": "Aux Out 10",
+        "leftPx": 446,
+        "topPx": 93,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 460,
+        "centerY": 110
+      }
+    },
+    {
+      "index": 66,
+      "key": "liv020-bad-aux-out-11",
+      "label": "Aux Out 11",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 461,
+      "topPx": 93,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 475,
+        "y": 110
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-11",
+        "label": "Aux Out 11",
+        "leftPx": 461,
+        "topPx": 93,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 475,
+        "centerY": 110
+      }
+    },
+    {
+      "index": 67,
+      "key": "liv020-bad-aux-out-12",
+      "label": "Aux Out 12",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 346,
+      "topPx": 136,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 360,
+        "y": 153
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-12",
+        "label": "Aux Out 12",
+        "leftPx": 346,
+        "topPx": 136,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 360,
+        "centerY": 153
+      }
+    },
+    {
+      "index": 68,
+      "key": "liv020-bad-aux-out-13",
+      "label": "Aux Out 13",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 363,
+      "topPx": 135,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 377,
+        "y": 152
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-13",
+        "label": "Aux Out 13",
+        "leftPx": 363,
+        "topPx": 135,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 377,
+        "centerY": 152
+      }
+    },
+    {
+      "index": 69,
+      "key": "liv020-bad-aux-out-14",
+      "label": "Aux Out 14",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 379,
+      "topPx": 135,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 393,
+        "y": 152
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-14",
+        "label": "Aux Out 14",
+        "leftPx": 379,
+        "topPx": 135,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 393,
+        "centerY": 152
+      }
+    },
+    {
+      "index": 70,
+      "key": "liv020-bad-aux-out-15",
+      "label": "Aux Out 15",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 397,
+      "topPx": 135,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 411,
+        "y": 152
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-15",
+        "label": "Aux Out 15",
+        "leftPx": 397,
+        "topPx": 135,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 411,
+        "centerY": 152
+      }
+    },
+    {
+      "index": 71,
+      "key": "liv020-bad-aux-out-16",
+      "label": "Aux Out 16",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 414,
+      "topPx": 135,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 428,
+        "y": 152
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-16",
+        "label": "Aux Out 16",
+        "leftPx": 414,
+        "topPx": 135,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 428,
+        "centerY": 152
+      }
+    },
+    {
+      "index": 72,
+      "key": "liv020-bad-aux-out-17",
+      "label": "Aux Out 17",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 428,
+      "topPx": 134,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 442,
+        "y": 151
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-17",
+        "label": "Aux Out 17",
+        "leftPx": 428,
+        "topPx": 134,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 442,
+        "centerY": 151
+      }
+    },
+    {
+      "index": 73,
+      "key": "liv020-bad-aux-out-18",
+      "label": "Aux Out 18",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 444,
+      "topPx": 135,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 458,
+        "y": 152
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-18",
+        "label": "Aux Out 18",
+        "leftPx": 444,
+        "topPx": 135,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 458,
+        "centerY": 152
+      }
+    },
+    {
+      "index": 74,
+      "key": "liv020-bad-aux-out-19",
+      "label": "Aux Out 19",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 462,
+      "topPx": 135,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 476,
+        "y": 152
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-19",
+        "label": "Aux Out 19",
+        "leftPx": 462,
+        "topPx": 135,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 476,
+        "centerY": 152
+      }
+    },
+    {
+      "index": 75,
+      "key": "liv020-bad-aux-out-20",
+      "label": "Aux Out 20",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 510,
+      "topPx": 62,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 524,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv020-bad-aux-out-20",
+        "label": "Aux Out 20",
+        "leftPx": 510,
+        "topPx": 62,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 524,
+        "centerY": 79
+      }
+    },
+    {
+      "index": 76,
+      "key": "liv020-bad-bus-out-01",
+      "label": "Bus Out 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 531,
+      "topPx": 62,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 545,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-01",
+        "label": "Bus Out 1",
+        "leftPx": 531,
+        "topPx": 62,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 545,
+        "centerY": 79
+      }
+    },
+    {
+      "index": 77,
+      "key": "liv020-bad-bus-out-02",
+      "label": "Bus Out 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 552,
+      "topPx": 62,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 566,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-02",
+        "label": "Bus Out 2",
+        "leftPx": 552,
+        "topPx": 62,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 566,
+        "centerY": 79
+      }
+    },
+    {
+      "index": 78,
+      "key": "liv020-bad-bus-out-03",
+      "label": "Bus Out 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 572,
+      "topPx": 62,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 586,
+        "y": 79
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-03",
+        "label": "Bus Out 3",
+        "leftPx": 572,
+        "topPx": 62,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 586,
+        "centerY": 79
+      }
+    },
+    {
+      "index": 79,
+      "key": "liv020-bad-bus-out-04",
+      "label": "Bus Out 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 511,
+      "topPx": 92,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 525,
+        "y": 109
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-04",
+        "label": "Bus Out 4",
+        "leftPx": 511,
+        "topPx": 92,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 525,
+        "centerY": 109
+      }
+    },
+    {
+      "index": 80,
+      "key": "liv020-bad-bus-out-05",
+      "label": "Bus Out 5",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 532,
+      "topPx": 92,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 546,
+        "y": 109
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-05",
+        "label": "Bus Out 5",
+        "leftPx": 532,
+        "topPx": 92,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 546,
+        "centerY": 109
+      }
+    },
+    {
+      "index": 81,
+      "key": "liv020-bad-bus-out-06",
+      "label": "Bus Out 6",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 552,
+      "topPx": 92,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 566,
+        "y": 109
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-06",
+        "label": "Bus Out 6",
+        "leftPx": 552,
+        "topPx": 92,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 566,
+        "centerY": 109
+      }
+    },
+    {
+      "index": 82,
+      "key": "liv020-bad-bus-out-07",
+      "label": "Bus Out 7",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 573,
+      "topPx": 92,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 587,
+        "y": 109
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-07",
+        "label": "Bus Out 7",
+        "leftPx": 573,
+        "topPx": 92,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 587,
+        "centerY": 109
+      }
+    },
+    {
+      "index": 83,
+      "key": "liv020-bad-bus-out-08",
+      "label": "Bus Out 8",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 511,
+      "topPx": 121,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 525,
+        "y": 138
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-08",
+        "label": "Bus Out 8",
+        "leftPx": 511,
+        "topPx": 121,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 525,
+        "centerY": 138
+      }
+    },
+    {
+      "index": 84,
+      "key": "liv020-bad-bus-out-09",
+      "label": "Bus Out 9",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 533,
+      "topPx": 121,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 547,
+        "y": 138
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-09",
+        "label": "Bus Out 9",
+        "leftPx": 533,
+        "topPx": 121,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 547,
+        "centerY": 138
+      }
+    },
+    {
+      "index": 85,
+      "key": "liv020-bad-bus-out-10",
+      "label": "Bus Out 10",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 553,
+      "topPx": 121,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 567,
+        "y": 138
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-10",
+        "label": "Bus Out 10",
+        "leftPx": 553,
+        "topPx": 121,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 567,
+        "centerY": 138
+      }
+    },
+    {
+      "index": 86,
+      "key": "liv020-bad-bus-out-11",
+      "label": "Bus Out 11",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 574,
+      "topPx": 120,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 588,
+        "y": 137
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-11",
+        "label": "Bus Out 11",
+        "leftPx": 574,
+        "topPx": 120,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 588,
+        "centerY": 137
+      }
+    },
+    {
+      "index": 87,
+      "key": "liv020-bad-bus-out-12",
+      "label": "Bus Out 12",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 511,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 525,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-12",
+        "label": "Bus Out 12",
+        "leftPx": 511,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 525,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 88,
+      "key": "liv020-bad-bus-out-13",
+      "label": "Bus Out 13",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 532,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 546,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-13",
+        "label": "Bus Out 13",
+        "leftPx": 532,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 546,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 89,
+      "key": "liv020-bad-bus-out-14",
+      "label": "Bus Out 14",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 554,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 568,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-14",
+        "label": "Bus Out 14",
+        "leftPx": 554,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 568,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 90,
+      "key": "liv020-bad-bus-out-15",
+      "label": "Bus Out 15",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 575,
+      "topPx": 149,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 589,
+        "y": 166
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-15",
+        "label": "Bus Out 15",
+        "leftPx": 575,
+        "topPx": 149,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 589,
+        "centerY": 166
+      }
+    },
+    {
+      "index": 91,
+      "key": "liv020-bad-bus-out-16",
+      "label": "Bus Out 16",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 619,
+      "topPx": 112,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 633,
+        "y": 129
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-16",
+        "label": "Bus Out 16",
+        "leftPx": 619,
+        "topPx": 112,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 633,
+        "centerY": 129
+      }
+    },
+    {
+      "index": 92,
+      "key": "liv020-bad-bus-out-17",
+      "label": "Bus Out 17",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 636,
+      "topPx": 112,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 650,
+        "y": 129
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-17",
+        "label": "Bus Out 17",
+        "leftPx": 636,
+        "topPx": 112,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 650,
+        "centerY": 129
+      }
+    },
+    {
+      "index": 93,
+      "key": "liv020-bad-bus-out-18",
+      "label": "Bus Out 18",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 652,
+      "topPx": 112,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 666,
+        "y": 129
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-18",
+        "label": "Bus Out 18",
+        "leftPx": 652,
+        "topPx": 112,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 666,
+        "centerY": 129
+      }
+    },
+    {
+      "index": 94,
+      "key": "liv020-bad-bus-out-19",
+      "label": "Bus Out 19",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 667,
+      "topPx": 112,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 681,
+        "y": 129
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-19",
+        "label": "Bus Out 19",
+        "leftPx": 667,
+        "topPx": 112,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 681,
+        "centerY": 129
+      }
+    },
+    {
+      "index": 95,
+      "key": "liv020-bad-bus-out-20",
+      "label": "Bus Out 20",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 614,
+      "topPx": 142,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 628,
+        "y": 159
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-20",
+        "label": "Bus Out 20",
+        "leftPx": 614,
+        "topPx": 142,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 628,
+        "centerY": 159
+      }
+    },
+    {
+      "index": 96,
+      "key": "liv020-bad-bus-out-21",
+      "label": "Bus Out 21",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 635,
+      "topPx": 142,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 649,
+        "y": 159
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-21",
+        "label": "Bus Out 21",
+        "leftPx": 635,
+        "topPx": 142,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 649,
+        "centerY": 159
+      }
+    },
+    {
+      "index": 97,
+      "key": "liv020-bad-bus-out-22",
+      "label": "Bus Out 22",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 656,
+      "topPx": 141,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 670,
+        "y": 158
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-22",
+        "label": "Bus Out 22",
+        "leftPx": 656,
+        "topPx": 141,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 670,
+        "centerY": 158
+      }
+    },
+    {
+      "index": 98,
+      "key": "liv020-bad-bus-out-23",
+      "label": "Bus Out 23",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 675,
+      "topPx": 141,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 689,
+        "y": 158
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-23",
+        "label": "Bus Out 23",
+        "leftPx": 675,
+        "topPx": 141,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 689,
+        "centerY": 158
+      }
+    },
+    {
+      "index": 99,
+      "key": "liv020-bad-bus-out-24",
+      "label": "Bus Out 24",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 271,
+      "topPx": 616,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 285,
+        "y": 633
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-24",
+        "label": "Bus Out 24",
+        "leftPx": 271,
+        "topPx": 616,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 285,
+        "centerY": 633
+      }
+    },
+    {
+      "index": 100,
+      "key": "liv020-bad-bus-out-25",
+      "label": "Bus Out 25",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 376,
+      "topPx": 699,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 390,
+        "y": 716
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-25",
+        "label": "Bus Out 25",
+        "leftPx": 376,
+        "topPx": 699,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 390,
+        "centerY": 716
+      }
+    },
+    {
+      "index": 101,
+      "key": "liv020-bad-bus-out-01",
+      "label": "Bus Out 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 464,
+      "topPx": 787,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 478,
+        "y": 804
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-01",
+        "label": "Bus Out 1",
+        "leftPx": 464,
+        "topPx": 787,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 478,
+        "centerY": 804
+      }
+    },
+    {
+      "index": 102,
+      "key": "liv020-bad-bus-out-02",
+      "label": "Bus Out 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 541,
+      "topPx": 785,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 555,
+        "y": 802
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-02",
+        "label": "Bus Out 2",
+        "leftPx": 541,
+        "topPx": 785,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 555,
+        "centerY": 802
+      }
+    },
+    {
+      "index": 103,
+      "key": "liv020-bad-bus-out-03",
+      "label": "Bus Out 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 196,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 210,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-03",
+        "label": "Bus Out 3",
+        "leftPx": 196,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 210,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 104,
+      "key": "liv020-bad-bus-out-04",
+      "label": "Bus Out 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 211,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 225,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-bus-out-04",
+        "label": "Bus Out 4",
+        "leftPx": 211,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 225,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 105,
+      "key": "liv020-bad-main-alt-01",
+      "label": "Main Alt 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 227,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 241,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-main-alt-01",
+        "label": "Main Alt 1",
+        "leftPx": 227,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 241,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 106,
+      "key": "liv020-bad-main-alt-02",
+      "label": "Main Alt 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 230,
+      "topPx": 148,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 244,
+        "y": 165
+      },
+      "raw": {
+        "key": "liv020-bad-main-alt-02",
+        "label": "Main Alt 2",
+        "leftPx": 230,
+        "topPx": 148,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 244,
+        "centerY": 165
+      }
+    },
+    {
+      "index": 107,
+      "key": "liv020-bad-main-alt-03",
+      "label": "Main Alt 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 258,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 272,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-main-alt-03",
+        "label": "Main Alt 3",
+        "leftPx": 258,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 272,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 108,
+      "key": "liv020-bad-main-alt-04",
+      "label": "Main Alt 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 273,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 287,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-main-alt-04",
+        "label": "Main Alt 4",
+        "leftPx": 273,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 287,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 109,
+      "key": "liv020-bad-iem-unused-01",
+      "label": "IEM Unused 1",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 288,
+      "topPx": 147,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 302,
+        "y": 164
+      },
+      "raw": {
+        "key": "liv020-bad-iem-unused-01",
+        "label": "IEM Unused 1",
+        "leftPx": 288,
+        "topPx": 147,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 302,
+        "centerY": 164
+      }
+    },
+    {
+      "index": 110,
+      "key": "liv020-bad-iem-unused-02",
+      "label": "IEM Unused 2",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 299,
+      "topPx": 149,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 313,
+        "y": 166
+      },
+      "raw": {
+        "key": "liv020-bad-iem-unused-02",
+        "label": "IEM Unused 2",
+        "leftPx": 299,
+        "topPx": 149,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 313,
+        "centerY": 166
+      }
+    },
+    {
+      "index": 111,
+      "key": "liv020-bad-iem-unused-03",
+      "label": "IEM Unused 3",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 524,
+      "topPx": 423,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 538,
+        "y": 440
+      },
+      "raw": {
+        "key": "liv020-bad-iem-unused-03",
+        "label": "IEM Unused 3",
+        "leftPx": 524,
+        "topPx": 423,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 538,
+        "centerY": 440
+      }
+    },
+    {
+      "index": 112,
+      "key": "liv020-bad-iem-unused-04",
+      "label": "IEM Unused 4",
+      "kind": "false-hardware-hitbox",
+      "coordinateSystem": "liv020-board-pixels",
+      "leftPx": 522,
+      "topPx": 234,
+      "widthPx": 28,
+      "heightPx": 34,
+      "centerPx": {
+        "x": 536,
+        "y": 251
+      },
+      "raw": {
+        "key": "liv020-bad-iem-unused-04",
+        "label": "IEM Unused 4",
+        "leftPx": 522,
+        "topPx": 234,
+        "widthPx": 28,
+        "heightPx": 34,
+        "centerX": 536,
+        "centerY": 251
+      }
+    }
+  ]
+}
