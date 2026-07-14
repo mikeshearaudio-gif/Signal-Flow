@@ -126,6 +126,8 @@ for (const levelId of ["LIV-019", "LIV-020", "LIV-023", "LIV-026"]) {
 }
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv019.json")), "LIV-019 source manifest should now exist as preservation-required source data");
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/normalized/liv019.normalized.json")), "LIV-019 normalized manifest should now exist as preservation-required source data");
+assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv020.json")), "LIV-020 source manifest should now exist as preservation-required source data");
+assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/normalized/liv020.normalized.json")), "LIV-020 normalized manifest should now exist as preservation-required source data");
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv023.json")), "LIV-023 source manifest should now exist as preservation-required source data");
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/normalized/liv023.normalized.json")), "LIV-023 normalized manifest should now exist as preservation-required source data");
 assert(fs.existsSync(path.join(cwd, "data/live-sound/boards/liv026.json")), "LIV-026 source manifest should now exist as preservation-required source data");

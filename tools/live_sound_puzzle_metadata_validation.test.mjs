@@ -130,6 +130,14 @@ const beginnerBoards = [
     conceptTags: ["signal-direction", "drum-inputs", "source-to-input", "stagebox", "aux-send", "fx-return", "monitor-mix", "stereo-pair", "multi-route"]
   },
   {
+    levelId: "LIV-020",
+    file: "data/live-sound/boards/liv020.json",
+    normalizedFile: "data/live-sound/boards/normalized/liv020.normalized.json",
+    puzzleMode: "capstone-system",
+    difficulty: 5,
+    conceptTags: ["signal-direction", "main-pa", "processor-chain", "amplifier", "speaker-level", "aux-send", "monitor-aux", "monitor-mix", "left-right", "multi-route"]
+  },
+  {
     levelId: "LIV-023",
     file: "data/live-sound/boards/liv023.json",
     normalizedFile: "data/live-sound/boards/normalized/liv023.normalized.json",
@@ -325,6 +333,20 @@ for (const beginner of beginnerBoards) {
     assert.equal(board.hitboxes?.false?.length, 28, "LIV-026 should preserve 28 false hitboxes as preservation evidence");
     assert.equal(normalized.hitboxes?.false?.length, 28, "LIV-026 normalized manifest should preserve 28 false hitboxes");
     assert.equal(normalized.nodes?.falseTrapKeys?.length, 28, "LIV-026 normalized falseTrapKeys should preserve false hitbox IDs");
+  }
+  if (beginner.levelId === "LIV-020") {
+    assert.equal(board.preservation?.status, "needs-review", "LIV-020 should remain needs-review in the source manifest");
+    assert.equal(normalized.preservation?.status, "needs-review", "LIV-020 should preserve needs-review status in normalized output");
+    assert.equal(board.hitboxes?.good?.length, 38, "LIV-020 should preserve 38 good hitboxes");
+    assert.equal(normalized.hitboxes?.good?.length, 38, "LIV-020 normalized manifest should preserve 38 good hitboxes");
+    assert.equal(normalized.nodes?.validEndpointKeys?.length, 38, "LIV-020 normalized valid endpoints should include the 38 required endpoints");
+    assert.equal(board.hitboxes?.false?.length, 0, "LIV-020 should not store duplicate false hardware layout records in hitboxes.false");
+    assert.equal(normalized.hitboxes?.false?.length, 0, "LIV-020 normalized manifest should keep hitboxes.false empty");
+    assert.equal(normalized.nodes?.falseTrapKeys?.length, 0, "LIV-020 normalized falseTrapKeys should remain empty");
+    assert.equal(board.preservation?.falseHardwareLayout?.records?.length, 113, "LIV-020 should preserve 113 false hardware layout records under preservation");
+    assert.equal(normalized.preservation?.falseHardwareLayout?.records?.length, 113, "LIV-020 normalized manifest should preserve 113 false hardware layout records under preservation");
+    assert.equal(board.invalidRouteEvidence?.curatedBadRoutePairs?.pairs?.length, 113, "LIV-020 should preserve 113 curated bad-route pairs");
+    assert.equal(normalized.invalidRouteEvidence?.curatedBadRoutePairs?.pairs?.length, 113, "LIV-020 normalized manifest should preserve 113 curated bad-route pairs");
   }
 }
 

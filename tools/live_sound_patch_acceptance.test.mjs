@@ -5,6 +5,19 @@ const renderer = fs.readFileSync("src/live-sound-native-renderer.js", "utf8");
 const launch = fs.readFileSync("launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html", "utf8");
 const liv029Board = JSON.parse(fs.readFileSync("data/live-sound/boards/liv029.json", "utf8"));
 const liv029Normalized = JSON.parse(fs.readFileSync("data/live-sound/boards/normalized/liv029.normalized.json", "utf8"));
+const liv020Board = JSON.parse(fs.readFileSync("data/live-sound/boards/liv020.json", "utf8"));
+const liv020BadRoutePairs = liv020Board.invalidRouteEvidence.curatedBadRoutePairs.pairs;
+const liv020FalseHardwareRecords = liv020Board.preservation.falseHardwareLayout.records;
+
+function extractLaunchLevel(levelId, nextLevelId) {
+  const start = launch.indexOf(`"id": "${levelId}"`);
+  const end = launch.indexOf(`"id": "${nextLevelId}"`, start);
+  assert(start !== -1 && end !== -1, `${levelId} launcher block should exist`);
+  const beforeStart = launch.lastIndexOf("{", start);
+  const beforeEnd = launch.lastIndexOf("{", end);
+  const rawBlock = launch.slice(beforeStart, beforeEnd).trim().replace(/,\s*$/, "");
+  return JSON.parse(rawBlock);
+}
 
 const liv002Block = launch.match(/"id": "LIV-002"[\s\S]*?"brief":/);
 assert(liv002Block, "LIV-002 data block should exist");
@@ -100,5 +113,34 @@ assert(liv029LaunchBlock, "LIV-029 launcher block should exist");
 assert(/"title": "Debate Panel Signal Flow"/.test(liv029LaunchBlock[0]), "launcher LIV-029 title should match source board");
 assert(/Audience Q&A Handheld Audio Out/.test(liv029LaunchBlock[0]), "launcher LIV-029 should list the audience Q&A route");
 assert(!/Drum Kit Stage Inputs/.test(liv029LaunchBlock[0]), "launcher LIV-029 should not contain old drum placeholder copy");
+
+const liv020LaunchLevel = extractLaunchLevel("LIV-020", "LIV-021");
+const liv020LaunchPairs = liv020LaunchLevel.required.map(pair => pair.join(" → "));
+const liv020SourcePairs = liv020Board.requiredRoutes.map(route => `${route.fromLabel} → ${route.toLabel}`);
+assert.equal(liv020LaunchLevel.title, liv020Board.title, "launcher LIV-020 title should match locked source evidence");
+assert.equal(liv020LaunchLevel.required.length, 19, "launcher LIV-020 checklist should render all 19 required route rows");
+assert.deepEqual(liv020LaunchPairs, liv020SourcePairs, "launcher LIV-020 checklist rows should match source route labels and order exactly");
+assert.equal(new Set(liv020LaunchPairs).size, 19, "launcher LIV-020 checklist should not duplicate route rows");
+for (const route of liv020Board.requiredRoutes) {
+  assert(liv020LaunchPairs.includes(`${route.fromLabel} → ${route.toLabel}`), `LIV-020 checklist should include ${route.id}`);
+}
+for (const route of liv020Board.requiredRoutes.filter(route => route.fromId.startsWith("liv020-aux-"))) {
+  assert(!route.stereoGroup, `LIV-020 Aux-to-IEM route should remain mono: ${route.id}`);
+  assert(liv020LaunchPairs.includes(`${route.fromLabel} → ${route.toLabel}`), `LIV-020 mono Aux-to-IEM checklist row should remain individually represented: ${route.id}`);
+}
+assert.equal(liv020Board.stereoGroups.length, 7, "LIV-020 should preserve seven stereo route groups");
+for (const group of liv020Board.stereoGroups) {
+  const groupRows = liv020Board.requiredRoutes
+    .filter(route => route.stereoGroup === group.id)
+    .map(route => `${route.fromLabel} → ${route.toLabel}`);
+  assert.equal(groupRows.length, 2, `LIV-020 stereo group ${group.id} should be represented by two visible route rows`);
+  groupRows.forEach(row => assert(liv020LaunchPairs.includes(row), `LIV-020 checklist should include stereo group row: ${row}`));
+}
+for (const badPair of liv020BadRoutePairs) {
+  assert(!liv020LaunchPairs.includes(`${badPair.from.label} → ${badPair.to.label}`), `LIV-020 curated bad route should not appear as a checklist row: ${badPair.from.id}->${badPair.to.id}`);
+}
+for (const falseRecord of liv020FalseHardwareRecords) {
+  assert(!liv020LaunchPairs.some(row => row.includes(falseRecord.label)), `LIV-020 false hardware label should not appear as a checklist target: ${falseRecord.key}`);
+}
 
 console.log("live sound patch acceptance checks passed");
