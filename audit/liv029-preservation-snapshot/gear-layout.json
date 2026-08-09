@@ -1,0 +1,382 @@
+{
+  "levelId": "LIV-029",
+  "title": "Debate Panel Signal Flow",
+  "boardDimensions": {
+    "widthPx": 1000,
+    "heightPx": 610
+  },
+  "runtimeGeometrySource": "renderLiv029DebatePanelScaffold in src/live-sound-native-renderer.js",
+  "sourceManifestGeometryNote": "Source-manifest geometry is preserved for data/normalization, but current browser runtime uses the custom renderer geometry captured here.",
+  "geometrySummary": {
+    "gearCount": 7,
+    "runtimeSourceManifestMismatches": [
+      "liv029-wireless-rack",
+      "liv029-event-console",
+      "liv029-pa-processor-amp",
+      "liv029-left-speaker",
+      "liv029-right-speaker",
+      "liv029-press-recorder",
+      "liv029-moderator-wedge"
+    ],
+    "visualRisks": [
+      "Dense console port row; labels/cables may overlap in browser smoke.",
+      "Cable readability risk around PA processor/amp inputs and outputs.",
+      "Right-edge clipping risk; current runtime x/w is compact compared with source manifest.",
+      "Monitor wedge label/jack crowding risk."
+    ]
+  },
+  "gear": [
+    {
+      "id": "liv029-wireless-rack",
+      "label": "4-Channel Wireless Receiver Rack",
+      "asset": "assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "className": "sf-liv029-wireless-rack",
+      "runtimeGeometry": {
+        "x": 35,
+        "y": 125,
+        "w": 285,
+        "h": 190
+      },
+      "sourceManifestGeometry": {
+        "x": 40,
+        "y": 200,
+        "w": 430,
+        "h": 162
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": true,
+        "mode": null,
+        "objectPosition": null
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-wireless-rack",
+        "label": "4-Channel Wireless Receiver Rack",
+        "asset": "../assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+        "rect": {
+          "x": 40,
+          "y": 200,
+          "w": 430,
+          "h": 162
+        },
+        "className": "sf-liv029-wireless-rack"
+      }
+    },
+    {
+      "id": "liv029-event-console",
+      "label": "FOH Console",
+      "asset": "assets/live-sound/svg/hardware/16ch FOH console0.svg",
+      "className": "sf-liv029-event-console",
+      "runtimeGeometry": {
+        "x": 340,
+        "y": 55,
+        "w": 570,
+        "h": 250
+      },
+      "sourceManifestGeometry": {
+        "x": 500,
+        "y": 42,
+        "w": 900,
+        "h": 300
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": true,
+        "mode": "crop-fill",
+        "objectPosition": "50% 54%"
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-event-console",
+        "label": "FOH Console",
+        "asset": "../assets/live-sound/svg/hardware/16ch FOH console0.svg",
+        "rect": {
+          "x": 500,
+          "y": 42,
+          "w": 900,
+          "h": 300
+        },
+        "className": "sf-liv029-event-console",
+        "render": {
+          "mode": "crop-fill",
+          "objectPosition": "50% 54%"
+        }
+      }
+    },
+    {
+      "id": "liv029-pa-processor-amp",
+      "label": "PA Processor / Amp Rack",
+      "asset": "assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+      "className": "sf-liv029-pa-processor-amp",
+      "runtimeGeometry": {
+        "x": 360,
+        "y": 345,
+        "w": 280,
+        "h": 100
+      },
+      "sourceManifestGeometry": {
+        "x": 520,
+        "y": 430,
+        "w": 410,
+        "h": 132
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": false,
+        "mode": null,
+        "objectPosition": null
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-pa-processor-amp",
+        "label": "PA Processor / Amp Rack",
+        "asset": "../assets/live-sound/svg/hardware/power-amp-liv010-high.svg",
+        "rect": {
+          "x": 520,
+          "y": 430,
+          "w": 410,
+          "h": 132
+        },
+        "className": "sf-liv029-pa-processor-amp"
+      }
+    },
+    {
+      "id": "liv029-left-speaker",
+      "label": "Left Speaker",
+      "asset": "assets/live-sound/svg/hardware/line-array-liv010-left-image.svg",
+      "className": "sf-liv029-left-speaker",
+      "runtimeGeometry": {
+        "x": 725,
+        "y": 330,
+        "w": 95,
+        "h": 205
+      },
+      "sourceManifestGeometry": {
+        "x": 972,
+        "y": 390,
+        "w": 160,
+        "h": 320
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": true,
+        "mode": null,
+        "objectPosition": null
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-left-speaker",
+        "label": "Left Speaker",
+        "asset": "../assets/live-sound/svg/hardware/line-array-liv010-left-image.svg",
+        "rect": {
+          "x": 972,
+          "y": 390,
+          "w": 160,
+          "h": 320
+        },
+        "className": "sf-liv029-left-speaker"
+      }
+    },
+    {
+      "id": "liv029-right-speaker",
+      "label": "Right Speaker",
+      "asset": "assets/live-sound/svg/hardware/line-array-liv010-right-image.svg",
+      "className": "sf-liv029-right-speaker",
+      "runtimeGeometry": {
+        "x": 825,
+        "y": 330,
+        "w": 95,
+        "h": 205
+      },
+      "sourceManifestGeometry": {
+        "x": 1190,
+        "y": 390,
+        "w": 160,
+        "h": 320
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": true,
+        "mode": null,
+        "objectPosition": null
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-right-speaker",
+        "label": "Right Speaker",
+        "asset": "../assets/live-sound/svg/hardware/line-array-liv010-right-image.svg",
+        "rect": {
+          "x": 1190,
+          "y": 390,
+          "w": 160,
+          "h": 320
+        },
+        "className": "sf-liv029-right-speaker"
+      }
+    },
+    {
+      "id": "liv029-press-recorder",
+      "label": "Press / Recorder Feed Box",
+      "asset": "assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+      "className": "sf-liv029-press-recorder",
+      "runtimeGeometry": {
+        "x": 50,
+        "y": 395,
+        "w": 270,
+        "h": 80
+      },
+      "sourceManifestGeometry": {
+        "x": 46,
+        "y": 480,
+        "w": 390,
+        "h": 98
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": true,
+        "mode": null,
+        "objectPosition": null
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-press-recorder",
+        "label": "Press / Recorder Feed Box",
+        "asset": "../assets/live-sound/svg/hardware/iem-feed-liv007-station-a.svg",
+        "rect": {
+          "x": 46,
+          "y": 480,
+          "w": 390,
+          "h": 98
+        },
+        "className": "sf-liv029-press-recorder"
+      }
+    },
+    {
+      "id": "liv029-moderator-wedge",
+      "label": "Moderator Wedge",
+      "asset": "assets/build-room/svg/gear/stage monitor.svg",
+      "className": "sf-liv029-moderator-wedge",
+      "runtimeGeometry": {
+        "x": 620,
+        "y": 480,
+        "w": 190,
+        "h": 105
+      },
+      "sourceManifestGeometry": {
+        "x": 160,
+        "y": 650,
+        "w": 250,
+        "h": 150
+      },
+      "geometryMatchesSourceManifest": false,
+      "assetMatchesSourceManifest": true,
+      "renderOptions": {
+        "showLabel": false,
+        "mode": null,
+        "objectPosition": null
+      },
+      "geometrySource": "src/live-sound-native-renderer.js",
+      "sourceManifestGear": {
+        "id": "liv029-moderator-wedge",
+        "label": "Moderator Wedge",
+        "asset": "../assets/build-room/svg/gear/stage monitor.svg",
+        "rect": {
+          "x": 160,
+          "y": 650,
+          "w": 250,
+          "h": 150
+        },
+        "className": "sf-liv029-moderator-wedge"
+      }
+    }
+  ],
+  "labels": [
+    {
+      "id": "liv029-runtime-label-1",
+      "text": "Debate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.",
+      "runtimeGeometry": {
+        "x": 34,
+        "y": 26,
+        "w": 760
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-2",
+      "text": "RF antenna jacks are traps, not audio outputs.",
+      "runtimeGeometry": {
+        "x": 38,
+        "y": 334,
+        "w": 300
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-3",
+      "text": "CONSOLE INPUTS 1-4",
+      "runtimeGeometry": {
+        "x": 390,
+        "y": 174,
+        "w": 170
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-4",
+      "text": "AUX / RECORD / MAIN OUTS",
+      "runtimeGeometry": {
+        "x": 625,
+        "y": 174,
+        "w": 260
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-5",
+      "text": "PRESS / RECORD FEED",
+      "runtimeGeometry": {
+        "x": 72,
+        "y": 370,
+        "w": 230
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-6",
+      "text": "PA PROCESSOR / AMP PATH",
+      "runtimeGeometry": {
+        "x": 382,
+        "y": 322,
+        "w": 240
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-7",
+      "text": "LEFT / RIGHT PA SPEAKERS",
+      "runtimeGeometry": {
+        "x": 710,
+        "y": 304,
+        "w": 220
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "liv029-runtime-label-8",
+      "text": "MODERATOR MONITOR",
+      "runtimeGeometry": {
+        "x": 632,
+        "y": 456,
+        "w": 190
+      },
+      "source": "src/live-sound-native-renderer.js"
+    }
+  ]
+}

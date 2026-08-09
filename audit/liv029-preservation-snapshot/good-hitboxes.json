@@ -1,0 +1,798 @@
+{
+  "levelId": "LIV-029",
+  "goodHitboxCount": 22,
+  "hitboxes": [
+    {
+      "id": "wireless-receiver-ch1-audio-out",
+      "label": "CH1 Moderator Lav Audio Out",
+      "tag": "CH1 MOD OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 278,
+        "y": 166,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 292,
+        "y": 180
+      },
+      "routeAssociations": [
+        "liv029-rx-ch1-to-console-input-1"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 332,
+          "y": 222,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -54,
+          "y": -56,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "wireless-receiver-ch2-audio-out",
+      "label": "CH2 Panelist 1 Lav Audio Out",
+      "tag": "CH2 P1 OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 278,
+        "y": 205,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 292,
+        "y": 219
+      },
+      "routeAssociations": [
+        "liv029-rx-ch2-to-console-input-2"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 332,
+          "y": 255,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -54,
+          "y": -50,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "wireless-receiver-ch3-audio-out",
+      "label": "CH3 Panelist 2 Lav Audio Out",
+      "tag": "CH3 P2 OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 278,
+        "y": 244,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 292,
+        "y": 258
+      },
+      "routeAssociations": [
+        "liv029-rx-ch3-to-console-input-3"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 332,
+          "y": 288,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -54,
+          "y": -44,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "wireless-receiver-ch4-audio-out",
+      "label": "CH4 Audience Q&A Audio Out",
+      "tag": "CH4 Q&A OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 278,
+        "y": 283,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 292,
+        "y": 297
+      },
+      "routeAssociations": [
+        "liv029-rx-ch4-to-console-input-4"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 332,
+          "y": 321,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -54,
+          "y": -38,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-input-1",
+      "label": "Console Input 1",
+      "tag": "IN 1",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 395,
+        "y": 206,
+        "w": 24,
+        "h": 24
+      },
+      "centerPx": {
+        "x": 407,
+        "y": 218
+      },
+      "routeAssociations": [
+        "liv029-rx-ch1-to-console-input-1"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 612,
+          "y": 252,
+          "w": 24,
+          "h": 24
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -217,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-input-2",
+      "label": "Console Input 2",
+      "tag": "IN 2",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 435,
+        "y": 206,
+        "w": 24,
+        "h": 24
+      },
+      "centerPx": {
+        "x": 447,
+        "y": 218
+      },
+      "routeAssociations": [
+        "liv029-rx-ch2-to-console-input-2"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 648,
+          "y": 252,
+          "w": 24,
+          "h": 24
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -213,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-input-3",
+      "label": "Console Input 3",
+      "tag": "IN 3",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 475,
+        "y": 206,
+        "w": 24,
+        "h": 24
+      },
+      "centerPx": {
+        "x": 487,
+        "y": 218
+      },
+      "routeAssociations": [
+        "liv029-rx-ch3-to-console-input-3"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 684,
+          "y": 252,
+          "w": 24,
+          "h": 24
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -209,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-input-4",
+      "label": "Console Input 4",
+      "tag": "IN 4",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 515,
+        "y": 206,
+        "w": 24,
+        "h": 24
+      },
+      "centerPx": {
+        "x": 527,
+        "y": 218
+      },
+      "routeAssociations": [
+        "liv029-rx-ch4-to-console-input-4"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 720,
+          "y": 252,
+          "w": 24,
+          "h": 24
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -205,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-aux-1-output",
+      "label": "Console Aux 1 Out",
+      "tag": "AUX 1",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 635,
+        "y": 212,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 648,
+        "y": 225
+      },
+      "routeAssociations": [
+        "liv029-aux-1-to-moderator-wedge"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 914,
+          "y": 258,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -279,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-matrix-record-l-output",
+      "label": "Console Matrix/Record L Out",
+      "tag": "REC L",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 700,
+        "y": 212,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 713,
+        "y": 225
+      },
+      "routeAssociations": [
+        "liv029-record-l-to-press-l"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 990,
+          "y": 258,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -290,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-matrix-record-r-output",
+      "label": "Console Matrix/Record R Out",
+      "tag": "REC R",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 735,
+        "y": 212,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 748,
+        "y": 225
+      },
+      "routeAssociations": [
+        "liv029-record-r-to-press-r"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1028,
+          "y": 258,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -293,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-main-l-output",
+      "label": "Console Main L Out",
+      "tag": "MAIN L",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 785,
+        "y": 212,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 799,
+        "y": 226
+      },
+      "routeAssociations": [
+        "liv029-main-l-to-pa-l-input"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1088,
+          "y": 258,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -303,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "console-main-r-output",
+      "label": "Console Main R Out",
+      "tag": "MAIN R",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 825,
+        "y": 212,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 839,
+        "y": 226
+      },
+      "routeAssociations": [
+        "liv029-main-r-to-pa-r-input"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1130,
+          "y": 258,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -305,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "pa-processor-amp-l-input",
+      "label": "PA Processor/Amp L In",
+      "tag": "PA L IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 410,
+        "y": 385,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 424,
+        "y": 399
+      },
+      "routeAssociations": [
+        "liv029-main-l-to-pa-l-input"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 602,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -192,
+          "y": -115,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "pa-processor-amp-r-input",
+      "label": "PA Processor/Amp R In",
+      "tag": "PA R IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 455,
+        "y": 385,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 469,
+        "y": 399
+      },
+      "routeAssociations": [
+        "liv029-main-r-to-pa-r-input"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 654,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -199,
+          "y": -115,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "pa-processor-amp-l-output",
+      "label": "PA Processor/Amp L Out",
+      "tag": "AMP L OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 548,
+        "y": 385,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 562,
+        "y": 399
+      },
+      "routeAssociations": [
+        "liv029-pa-l-output-to-left-speaker"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 790,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -242,
+          "y": -115,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "pa-processor-amp-r-output",
+      "label": "PA Processor/Amp R Out",
+      "tag": "AMP R OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 593,
+        "y": 385,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 607,
+        "y": 399
+      },
+      "routeAssociations": [
+        "liv029-pa-r-output-to-right-speaker"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 842,
+          "y": 500,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -249,
+          "y": -115,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "left-speaker-input",
+      "label": "Left Speaker In",
+      "tag": "L SPK IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 770,
+        "y": 482,
+        "w": 30,
+        "h": 30
+      },
+      "centerPx": {
+        "x": 785,
+        "y": 497
+      },
+      "routeAssociations": [
+        "liv029-pa-l-output-to-left-speaker"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1008,
+          "y": 612,
+          "w": 30,
+          "h": 30
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -238,
+          "y": -130,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "right-speaker-input",
+      "label": "Right Speaker In",
+      "tag": "R SPK IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 870,
+        "y": 482,
+        "w": 30,
+        "h": 30
+      },
+      "centerPx": {
+        "x": 885,
+        "y": 497
+      },
+      "routeAssociations": [
+        "liv029-pa-r-output-to-right-speaker"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1230,
+          "y": 612,
+          "w": 30,
+          "h": 30
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -360,
+          "y": -130,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "press-recorder-l-input",
+      "label": "Press/Recorder L In",
+      "tag": "PRESS L IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 150,
+        "y": 430,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 163,
+        "y": 443
+      },
+      "routeAssociations": [
+        "liv029-record-l-to-press-l"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 190,
+          "y": 536,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -40,
+          "y": -106,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "press-recorder-r-input",
+      "label": "Press/Recorder R In",
+      "tag": "PRESS R IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 200,
+        "y": 430,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 213,
+        "y": 443
+      },
+      "routeAssociations": [
+        "liv029-record-r-to-press-r"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 252,
+          "y": 536,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -52,
+          "y": -106,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    },
+    {
+      "id": "moderator-wedge-input",
+      "label": "Moderator Wedge In",
+      "tag": "WEDGE IN",
+      "kind": "jack",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 708,
+        "y": 530,
+        "w": 30,
+        "h": 30
+      },
+      "centerPx": {
+        "x": 723,
+        "y": 545
+      },
+      "routeAssociations": [
+        "liv029-aux-1-to-moderator-wedge"
+      ],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 292,
+          "y": 730,
+          "w": 30,
+          "h": 30
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": 416,
+          "y": -200,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js"
+    }
+  ]
+}

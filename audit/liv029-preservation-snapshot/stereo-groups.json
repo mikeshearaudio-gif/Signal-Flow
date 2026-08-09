@@ -1,0 +1,78 @@
+{
+  "levelId": "LIV-029",
+  "stereoGroupCount": 3,
+  "stereoGroups": [
+    {
+      "id": "liv029-main-to-pa-inputs",
+      "purpose": "Console Main L/R must both feed matching PA processor/amp inputs before the stereo checklist pair completes.",
+      "memberRouteIds": [
+        "liv029-main-l-to-pa-l-input",
+        "liv029-main-r-to-pa-r-input"
+      ],
+      "routes": [
+        {
+          "id": "liv029-main-l-to-pa-l-input",
+          "side": "left",
+          "from": "console-main-l-output",
+          "to": "pa-processor-amp-l-input"
+        },
+        {
+          "id": "liv029-main-r-to-pa-r-input",
+          "side": "right",
+          "from": "console-main-r-output",
+          "to": "pa-processor-amp-r-input"
+        }
+      ],
+      "checklistCompletionSemantics": "Renderer groups LIV-029 stereo checklist rows with LIV-016-style behavior: paired checklist rows are marked after all routes in the stereo group are complete.",
+      "source": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-pa-outputs-to-speakers",
+      "purpose": "PA processor/amp L/R outputs must both feed matching speaker inputs before the stereo checklist pair completes.",
+      "memberRouteIds": [
+        "liv029-pa-l-output-to-left-speaker",
+        "liv029-pa-r-output-to-right-speaker"
+      ],
+      "routes": [
+        {
+          "id": "liv029-pa-l-output-to-left-speaker",
+          "side": "left",
+          "from": "pa-processor-amp-l-output",
+          "to": "left-speaker-input"
+        },
+        {
+          "id": "liv029-pa-r-output-to-right-speaker",
+          "side": "right",
+          "from": "pa-processor-amp-r-output",
+          "to": "right-speaker-input"
+        }
+      ],
+      "checklistCompletionSemantics": "Renderer groups LIV-029 stereo checklist rows with LIV-016-style behavior: paired checklist rows are marked after all routes in the stereo group are complete.",
+      "source": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-record-to-press-feed",
+      "purpose": "Matrix/record L/R outputs must both feed matching press recorder inputs before the stereo checklist pair completes.",
+      "memberRouteIds": [
+        "liv029-record-l-to-press-l",
+        "liv029-record-r-to-press-r"
+      ],
+      "routes": [
+        {
+          "id": "liv029-record-l-to-press-l",
+          "side": "left",
+          "from": "console-matrix-record-l-output",
+          "to": "press-recorder-l-input"
+        },
+        {
+          "id": "liv029-record-r-to-press-r",
+          "side": "right",
+          "from": "console-matrix-record-r-output",
+          "to": "press-recorder-r-input"
+        }
+      ],
+      "checklistCompletionSemantics": "Renderer groups LIV-029 stereo checklist rows with LIV-016-style behavior: paired checklist rows are marked after all routes in the stereo group are complete.",
+      "source": "data/live-sound/boards/liv029.json"
+    }
+  ]
+}

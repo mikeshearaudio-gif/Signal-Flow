@@ -1,0 +1,216 @@
+{
+  "levelId": "LIV-029",
+  "title": "Debate Panel Signal Flow",
+  "routeCount": 11,
+  "routes": [
+    {
+      "id": "liv029-rx-ch1-to-console-input-1",
+      "source": {
+        "id": "wireless-receiver-ch1-audio-out",
+        "label": "Moderator Lav Audio Out"
+      },
+      "destination": {
+        "id": "console-input-1",
+        "label": "Console Input 1"
+      },
+      "routeFamily": "wireless-receiver-audio-to-console-input",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Moderator Lav Audio Out -> Console Input 1",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-rx-ch2-to-console-input-2",
+      "source": {
+        "id": "wireless-receiver-ch2-audio-out",
+        "label": "Panelist 1 Lav Audio Out"
+      },
+      "destination": {
+        "id": "console-input-2",
+        "label": "Console Input 2"
+      },
+      "routeFamily": "wireless-receiver-audio-to-console-input",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Panelist 1 Lav Audio Out -> Console Input 2",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-rx-ch3-to-console-input-3",
+      "source": {
+        "id": "wireless-receiver-ch3-audio-out",
+        "label": "Panelist 2 Lav Audio Out"
+      },
+      "destination": {
+        "id": "console-input-3",
+        "label": "Console Input 3"
+      },
+      "routeFamily": "wireless-receiver-audio-to-console-input",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Panelist 2 Lav Audio Out -> Console Input 3",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-rx-ch4-to-console-input-4",
+      "source": {
+        "id": "wireless-receiver-ch4-audio-out",
+        "label": "Audience Q&A Handheld Audio Out"
+      },
+      "destination": {
+        "id": "console-input-4",
+        "label": "Console Input 4"
+      },
+      "routeFamily": "wireless-receiver-audio-to-console-input",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Audience Q&A Handheld Audio Out -> Console Input 4",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-main-l-to-pa-l-input",
+      "source": {
+        "id": "console-main-l-output",
+        "label": "Console Main L Out"
+      },
+      "destination": {
+        "id": "pa-processor-amp-l-input",
+        "label": "PA Processor/Amp L In"
+      },
+      "routeFamily": "console-main-to-pa-processor",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv029-main-to-pa-inputs",
+        "side": "left"
+      },
+      "checklist": "Console Main L Out -> PA Processor/Amp L In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-main-r-to-pa-r-input",
+      "source": {
+        "id": "console-main-r-output",
+        "label": "Console Main R Out"
+      },
+      "destination": {
+        "id": "pa-processor-amp-r-input",
+        "label": "PA Processor/Amp R In"
+      },
+      "routeFamily": "console-main-to-pa-processor",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv029-main-to-pa-inputs",
+        "side": "right"
+      },
+      "checklist": "Console Main R Out -> PA Processor/Amp R In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-pa-l-output-to-left-speaker",
+      "source": {
+        "id": "pa-processor-amp-l-output",
+        "label": "PA Processor/Amp L Out"
+      },
+      "destination": {
+        "id": "left-speaker-input",
+        "label": "Left Speaker In"
+      },
+      "routeFamily": "pa-processor-amp-to-speaker",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv029-pa-outputs-to-speakers",
+        "side": "left"
+      },
+      "checklist": "PA Processor/Amp L Out -> Left Speaker In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-pa-r-output-to-right-speaker",
+      "source": {
+        "id": "pa-processor-amp-r-output",
+        "label": "PA Processor/Amp R Out"
+      },
+      "destination": {
+        "id": "right-speaker-input",
+        "label": "Right Speaker In"
+      },
+      "routeFamily": "pa-processor-amp-to-speaker",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv029-pa-outputs-to-speakers",
+        "side": "right"
+      },
+      "checklist": "PA Processor/Amp R Out -> Right Speaker In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-record-l-to-press-l",
+      "source": {
+        "id": "console-matrix-record-l-output",
+        "label": "Console Matrix/Record L Out"
+      },
+      "destination": {
+        "id": "press-recorder-l-input",
+        "label": "Press/Recorder L In"
+      },
+      "routeFamily": "matrix-record-to-press-feed",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv029-record-to-press-feed",
+        "side": "left"
+      },
+      "checklist": "Console Matrix/Record L Out -> Press/Recorder L In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-record-r-to-press-r",
+      "source": {
+        "id": "console-matrix-record-r-output",
+        "label": "Console Matrix/Record R Out"
+      },
+      "destination": {
+        "id": "press-recorder-r-input",
+        "label": "Press/Recorder R In"
+      },
+      "routeFamily": "matrix-record-to-press-feed",
+      "stereo": {
+        "isStereoGrouped": true,
+        "groupId": "liv029-record-to-press-feed",
+        "side": "right"
+      },
+      "checklist": "Console Matrix/Record R Out -> Press/Recorder R In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    },
+    {
+      "id": "liv029-aux-1-to-moderator-wedge",
+      "source": {
+        "id": "console-aux-1-output",
+        "label": "Console Aux 1 Out"
+      },
+      "destination": {
+        "id": "moderator-wedge-input",
+        "label": "Moderator Wedge In"
+      },
+      "routeFamily": "monitor-aux-to-moderator-wedge",
+      "stereo": {
+        "isStereoGrouped": false,
+        "groupId": null,
+        "side": null
+      },
+      "checklist": "Console Aux 1 Out -> Moderator Wedge In",
+      "evidenceSource": "data/live-sound/boards/liv029.json"
+    }
+  ]
+}

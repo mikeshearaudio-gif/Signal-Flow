@@ -1,0 +1,602 @@
+{
+  "levelId": "LIV-029",
+  "url": "http://127.0.0.1:5174/launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html?level=LIV-029&fresh=liv029-preservation-smoke",
+  "timestamp": "2026-07-14T18:56:01.932Z",
+  "wrapperBehavior": "The v1.41.18 wrapper loads the selector screen first; the smoke selects #levelSelect=LIV-029 and clicks #loadBtn, which loads the raw build in #gameFrame at #/level/LIV-029.",
+  "mount": {
+    "passed": true,
+    "state": {
+      "scoreText": "0",
+      "doneCount": 0,
+      "completeCount": 0,
+      "todoCount": 11,
+      "completionVisible": false,
+      "gearCount": 7,
+      "hitboxCount": 30,
+      "goodHitboxCount": 22,
+      "falseHitboxCount": 8,
+      "validHintCount": 0,
+      "falseHintCount": 0,
+      "falseHintableCount": 0,
+      "buttonText": "Show Hints",
+      "toastText": [],
+      "cablePathCount": 0,
+      "invalidCableCount": 0,
+      "layerCount": 1,
+      "wirelessReceiverAsset": "http://127.0.0.1:5174/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "viewport": {
+        "surface": {
+          "left": 367,
+          "top": 241,
+          "width": 1048,
+          "height": 603.828125,
+          "scrollWidth": 1048,
+          "scrollHeight": 646,
+          "scrollLeft": 0,
+          "scrollTop": 0
+        },
+        "layer": {
+          "left": 367,
+          "top": 241,
+          "width": 1000,
+          "height": 610
+        }
+      },
+      "textSample": "SF\nLIV-029 - Debate Panel Signal Flow\nRecording Studio\nBroadcast / Podcast / Livestream\nFilm / TV Post Production\nVideo Game Audio\nSound Reinforcement / Live Sound\nLIV-002\nLIV-001 [QUIZ]\nLIV-003\nLIV-004 [BUILD]\nLIV-005\nLIV-006\nLIV-007\nLIV-008 [DIAG]\nLIV-009\nLIV-010\nLIV-011\nLIV-012\nLIV-013 [BUILD]\nLIV-014\nLIV-015\nLIV-016\nLIV-017 [DIAG]\nLIV-018\nLIV-019\nLIV-020\nLIV-021\nLIV-022 [QUIZ]\nLIV-023\nLIV-024\nLIV-025\nLIV-026\nLIV-027 [BUILD]\nLIV-028\nLIV-029\nLIV-030\nLIV-031 [DIAG]\nLIV-032\nLIV-033\nLIV-034\nLIV-035\nLIV-036 [QUIZ]\nLIV-037\nLIV-038\nLIV-039\nLIV-040\nLIV-041 [BUILD]\nLIV-042\nLIV-043\nLIV-044\nLIV-045 [QUIZ]\nLIV-046\nLIV-047\nLIV-048\nLIV-049\nLIV-050 [DIAG]\nLIV-113 [SHOW]\nSCORE\n0\nTIMER\n161\nSound\nPause\nSplash\n\nCURRENT LEVEL\n\nDebate Panel Signal Flow\n\nPress Start Level to read the brief, then patch the routes below.\n\nPATCH THESE EXTERNAL CONNECTIONS\n1.\nModerator Lav Audio Out → Console Input 1\nTO DO\n2.\nPanelist 1 Lav Audio Out → Console Input 2\nTO DO\n3.\nPanelist 2 Lav Audio Out → Console Input 3\nTO DO\n4.\nAudience Q&A Handheld Audio Out → Console Input 4\nTO DO\n5.\nConsole Main Left Out → PA Processor/Amp Left In\nTO DO\n6.\nConsole Main Right Out → PA Processor/Amp Right In\nTO DO\n7.\nPA Processor/Amp Left Out → Left Speaker In\nTO DO\n8.\nPA Processor/Amp Right Out → Right Speaker In\nTO DO\n9.\nConsole Matrix/Record Left Out → Press/Recorder Left In\nTO DO\n10.\nConsole Matrix/Record Right Out → Press/Recorder Right In\nTO DO\n11.\nConsole Auxiliary 1 Out → Moderator Wedge In\nTO DO\nREALITY CHECK\nThis board introduces a speech-first panel workflow instead of another music-stage patch.\nKeep RF, line-level, and speaker-level connections conceptually separate.\nFollow signal direction: microphones and receivers feed the console; console outputs distribute mixes.\nEDUCATIONAL TOOLS\nLive Console + Rack World\nShow Hints\nUndo\nClear\nDebate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.\n4-CHANNEL WIRELESS RECEIVER RACK\nFOH CONSOLE\nLEFT SPEAKER\nRIGHT SPEAKER\nPRESS / RECORDER FEED BOX\nRF antenna jacks are traps, not audio outputs.\nCONSOLE INPUTS 1-4\nAUX / RECORD / MAIN OUTS\nPRESS / RECORD FEED\nPA PROCESSOR / AMP PATH\nLEFT / RIGHT PA SPEAKERS\nMODERATOR MONITOR\nCH1 MOD OUT\nCH2 P1 OUT\nCH3 P2 OUT\nCH4 Q&A OUT\nIN 1\nIN 2\nIN 3\nIN 4\nAUX 1\nREC L\nREC R\nMAIN L\nMAIN R\nPA L IN\nPA R IN\nAMP L OUT\nAMP R OUT\nL SPK IN\nR SPK IN\nPRESS L IN\nPRESS R IN\nWE"
+    },
+    "errors": [],
+    "recentLogs": [
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-019 8-input stagebox lock loaded v6r404"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-019 clean finalizer loaded v6r421-clean-finalizer"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Live cable mode kit loaded v6r426"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Scroll affordance installed {version: v6r292, mode: passive-idle-state-machine}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Build-a-Room consolidated renderer installed 6r286buildroombalance"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Main ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native game shell routed level: LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native level changed, clearing state: null → LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 0"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Main ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native game shell routed level: LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Build multiple stage, console, processor, and monitor paths. Stage Box / Stage Box Inputs , rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r662requiredhintorder {gear: 7, hitboxes: 30, boardWidth: 1000, boardHeight: 610}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-029 native renderer v6 mounted."
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Scroll affordance target selected {version: v6r292, levelId: LIV-029, selector: .sf-live-native-scroll-host, clientWidth: 1048, clientHeight: 604}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      }
+    ]
+  },
+  "hints": {
+    "passed": false,
+    "state": {
+      "scoreText": "0",
+      "doneCount": 0,
+      "completeCount": 0,
+      "todoCount": 11,
+      "completionVisible": false,
+      "gearCount": 7,
+      "hitboxCount": 30,
+      "goodHitboxCount": 22,
+      "falseHitboxCount": 8,
+      "validHintCount": 11,
+      "falseHintCount": 0,
+      "falseHintableCount": 0,
+      "buttonText": "Hide Hints",
+      "toastText": [],
+      "cablePathCount": 0,
+      "invalidCableCount": 0,
+      "layerCount": 1,
+      "wirelessReceiverAsset": "http://127.0.0.1:5174/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "viewport": {
+        "surface": {
+          "left": 367,
+          "top": 241,
+          "width": 1048,
+          "height": 603.828125,
+          "scrollWidth": 1048,
+          "scrollHeight": 646,
+          "scrollLeft": 0,
+          "scrollTop": 0
+        },
+        "layer": {
+          "left": 367,
+          "top": 241,
+          "width": 1000,
+          "height": 610
+        }
+      },
+      "textSample": "SF\nLIV-029 - Debate Panel Signal Flow\nRecording Studio\nBroadcast / Podcast / Livestream\nFilm / TV Post Production\nVideo Game Audio\nSound Reinforcement / Live Sound\nLIV-002\nLIV-001 [QUIZ]\nLIV-003\nLIV-004 [BUILD]\nLIV-005\nLIV-006\nLIV-007\nLIV-008 [DIAG]\nLIV-009\nLIV-010\nLIV-011\nLIV-012\nLIV-013 [BUILD]\nLIV-014\nLIV-015\nLIV-016\nLIV-017 [DIAG]\nLIV-018\nLIV-019\nLIV-020\nLIV-021\nLIV-022 [QUIZ]\nLIV-023\nLIV-024\nLIV-025\nLIV-026\nLIV-027 [BUILD]\nLIV-028\nLIV-029\nLIV-030\nLIV-031 [DIAG]\nLIV-032\nLIV-033\nLIV-034\nLIV-035\nLIV-036 [QUIZ]\nLIV-037\nLIV-038\nLIV-039\nLIV-040\nLIV-041 [BUILD]\nLIV-042\nLIV-043\nLIV-044\nLIV-045 [QUIZ]\nLIV-046\nLIV-047\nLIV-048\nLIV-049\nLIV-050 [DIAG]\nLIV-113 [SHOW]\nSCORE\n0\nTIMER\n161\nSound\nPause\nSplash\n\nCURRENT LEVEL\n\nDebate Panel Signal Flow\n\nPress Start Level to read the brief, then patch the routes below.\n\nPATCH THESE EXTERNAL CONNECTIONS\n1.\nModerator Lav Audio Out → Console Input 1\nTO DO\n2.\nPanelist 1 Lav Audio Out → Console Input 2\nTO DO\n3.\nPanelist 2 Lav Audio Out → Console Input 3\nTO DO\n4.\nAudience Q&A Handheld Audio Out → Console Input 4\nTO DO\n5.\nConsole Main Left Out → PA Processor/Amp Left In\nTO DO\n6.\nConsole Main Right Out → PA Processor/Amp Right In\nTO DO\n7.\nPA Processor/Amp Left Out → Left Speaker In\nTO DO\n8.\nPA Processor/Amp Right Out → Right Speaker In\nTO DO\n9.\nConsole Matrix/Record Left Out → Press/Recorder Left In\nTO DO\n10.\nConsole Matrix/Record Right Out → Press/Recorder Right In\nTO DO\n11.\nConsole Auxiliary 1 Out → Moderator Wedge In\nTO DO\nREALITY CHECK\nThis board introduces a speech-first panel workflow instead of another music-stage patch.\nKeep RF, line-level, and speaker-level connections conceptually separate.\nFollow signal direction: microphones and receivers feed the console; console outputs distribute mixes.\nEDUCATIONAL TOOLS\nLive Console + Rack World\nHide Hints\nUndo\nClear\nDebate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.\n4-CHANNEL WIRELESS RECEIVER RACK\nFOH CONSOLE\nLEFT SPEAKER\nRIGHT SPEAKER\nPRESS / RECORDER FEED BOX\nRF antenna jacks are traps, not audio outputs.\nCONSOLE INPUTS 1-4\nAUX / RECORD / MAIN OUTS\nPRESS / RECORD FEED\nPA PROCESSOR / AMP PATH\nLEFT / RIGHT PA SPEAKERS\nMODERATOR MONITOR\nCH1 MOD OUT\nCH2 P1 OUT\nCH3 P2 OUT\nCH4 Q&A OUT\nIN 1\nIN 2\nIN 3\nIN 4\nAUX 1\nREC L\nREC R\nMAIN L\nMAIN R\nPA L IN\nPA R IN\nAMP L OUT\nAMP R OUT\nL SPK IN\nR SPK IN\nPRESS L IN\nPRESS R IN\nWE"
+    },
+    "errors": [],
+    "recentLogs": [
+      {
+        "type": "warning",
+        "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Economy + timeout rules active 6r224"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Build-a-Room consolidated renderer installed 6r286buildroombalance"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Main ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native game shell routed level: LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native level changed, clearing state: null → LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 0"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Main ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native game shell routed level: LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Build multiple stage, console, processor, and monitor paths. Stage Box / Stage Box Inputs , rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r662requiredhintorder {gear: 7, hitboxes: 30, boardWidth: 1000, boardHeight: 610}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-029 native renderer v6 mounted."
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Scroll affordance target selected {version: v6r292, levelId: LIV-029, selector: .sf-live-native-scroll-host, clientWidth: 1048, clientHeight: 604}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native jack hints visible: true"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native jack hints visible: true"
+      }
+    ]
+  },
+  "trap": {
+    "passed": true,
+    "state": {
+      "scoreText": "0",
+      "doneCount": 0,
+      "completeCount": 0,
+      "todoCount": 11,
+      "completionVisible": false,
+      "gearCount": 7,
+      "hitboxCount": 30,
+      "goodHitboxCount": 22,
+      "falseHitboxCount": 8,
+      "validHintCount": 0,
+      "falseHintCount": 0,
+      "falseHintableCount": 0,
+      "buttonText": "Show Hints",
+      "toastText": [
+        "This is RF, not audio. Use the receiver's audio output."
+      ],
+      "cablePathCount": 2,
+      "invalidCableCount": 1,
+      "layerCount": 1,
+      "wirelessReceiverAsset": "http://127.0.0.1:5174/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "viewport": {
+        "surface": {
+          "left": 367,
+          "top": 241,
+          "width": 1048,
+          "height": 603.828125,
+          "scrollWidth": 1048,
+          "scrollHeight": 646,
+          "scrollLeft": 0,
+          "scrollTop": 0
+        },
+        "layer": {
+          "left": 367,
+          "top": 241,
+          "width": 1000,
+          "height": 610
+        }
+      },
+      "textSample": "SF\nLIV-029 - Debate Panel Signal Flow\nRecording Studio\nBroadcast / Podcast / Livestream\nFilm / TV Post Production\nVideo Game Audio\nSound Reinforcement / Live Sound\nLIV-002\nLIV-001 [QUIZ]\nLIV-003\nLIV-004 [BUILD]\nLIV-005\nLIV-006\nLIV-007\nLIV-008 [DIAG]\nLIV-009\nLIV-010\nLIV-011\nLIV-012\nLIV-013 [BUILD]\nLIV-014\nLIV-015\nLIV-016\nLIV-017 [DIAG]\nLIV-018\nLIV-019\nLIV-020\nLIV-021\nLIV-022 [QUIZ]\nLIV-023\nLIV-024\nLIV-025\nLIV-026\nLIV-027 [BUILD]\nLIV-028\nLIV-029\nLIV-030\nLIV-031 [DIAG]\nLIV-032\nLIV-033\nLIV-034\nLIV-035\nLIV-036 [QUIZ]\nLIV-037\nLIV-038\nLIV-039\nLIV-040\nLIV-041 [BUILD]\nLIV-042\nLIV-043\nLIV-044\nLIV-045 [QUIZ]\nLIV-046\nLIV-047\nLIV-048\nLIV-049\nLIV-050 [DIAG]\nLIV-113 [SHOW]\nSCORE\n0\nTIMER\n161\nSound\nPause\nSplash\n\nCURRENT LEVEL\n\nDebate Panel Signal Flow\n\nPress Start Level to read the brief, then patch the routes below.\n\nPATCH THESE EXTERNAL CONNECTIONS\n1.\nModerator Lav Audio Out → Console Input 1\nTO DO\n2.\nPanelist 1 Lav Audio Out → Console Input 2\nTO DO\n3.\nPanelist 2 Lav Audio Out → Console Input 3\nTO DO\n4.\nAudience Q&A Handheld Audio Out → Console Input 4\nTO DO\n5.\nConsole Main Left Out → PA Processor/Amp Left In\nTO DO\n6.\nConsole Main Right Out → PA Processor/Amp Right In\nTO DO\n7.\nPA Processor/Amp Left Out → Left Speaker In\nTO DO\n8.\nPA Processor/Amp Right Out → Right Speaker In\nTO DO\n9.\nConsole Matrix/Record Left Out → Press/Recorder Left In\nTO DO\n10.\nConsole Matrix/Record Right Out → Press/Recorder Right In\nTO DO\n11.\nConsole Auxiliary 1 Out → Moderator Wedge In\nTO DO\nREALITY CHECK\nThis board introduces a speech-first panel workflow instead of another music-stage patch.\nKeep RF, line-level, and speaker-level connections conceptually separate.\nFollow signal direction: microphones and receivers feed the console; console outputs distribute mixes.\nEDUCATIONAL TOOLS\nLive Console + Rack World\nShow Hints\nUndo\nClear\nDebate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.\n4-CHANNEL WIRELESS RECEIVER RACK\nFOH CONSOLE\nLEFT SPEAKER\nRIGHT SPEAKER\nPRESS / RECORDER FEED BOX\nRF antenna jacks are traps, not audio outputs.\nCONSOLE INPUTS 1-4\nAUX / RECORD / MAIN OUTS\nPRESS / RECORD FEED\nPA PROCESSOR / AMP PATH\nLEFT / RIGHT PA SPEAKERS\nMODERATOR MONITOR\nCH1 MOD OUT\nCH2 P1 OUT\nCH3 P2 OUT\nCH4 Q&A OUT\nIN 1\nIN 2\nIN 3\nIN 4\nAUX 1\nREC L\nREC R\nMAIN L\nMAIN R\nPA L IN\nPA R IN\nAMP L OUT\nAMP R OUT\nL SPK IN\nR SPK IN\nPRESS L IN\nPRESS R IN\nWE"
+    },
+    "errors": [],
+    "recentLogs": [
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native level changed, clearing state: null → LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 0"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Main ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native game shell routed level: LIV-029"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Build multiple stage, console, processor, and monitor paths. Stage Box / Stage Box Inputs , rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-029 debate panel gear scaffold mounted v6r662requiredhintorder {gear: 7, hitboxes: 30, boardWidth: 1000, boardHeight: 610}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] LIV-029 native renderer v6 mounted."
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Scroll affordance target selected {version: v6r292, levelId: LIV-029, selector: .sf-live-native-scroll-host, clientWidth: 1048, clientHeight: 604}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: wireless-receiver-antenna-a selected was null"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native surface selected: {text: Debate Panel Signal Flow: route wireless audio through the console before distributing PA,, rect: DOMRect, selector: #patchbay}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: console-input-1 selected was wireless-receiver-antenna-a"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native route added: invalid:console-input-1--wireless-receiver-antenna-a valid? false"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 0, totalCredits: 0, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 0"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native cables redrawn: 1"
+      }
+    ]
+  },
+  "routeFamilies": {
+    "receiver": [
+      {
+        "from": "wireless-receiver-ch1-audio-out",
+        "to": "console-input-1",
+        "score": "100",
+        "completeCount": 1,
+        "todoCount": 10
+      },
+      {
+        "from": "wireless-receiver-ch2-audio-out",
+        "to": "console-input-2",
+        "score": "200",
+        "completeCount": 2,
+        "todoCount": 9
+      },
+      {
+        "from": "wireless-receiver-ch3-audio-out",
+        "to": "console-input-3",
+        "score": "300",
+        "completeCount": 3,
+        "todoCount": 8
+      },
+      {
+        "from": "wireless-receiver-ch4-audio-out",
+        "to": "console-input-4",
+        "score": "400",
+        "completeCount": 4,
+        "todoCount": 7
+      }
+    ],
+    "mainPa": [
+      {
+        "from": "console-main-l-output",
+        "to": "pa-processor-amp-l-input",
+        "score": "400",
+        "completeCount": 4,
+        "todoCount": 7
+      },
+      {
+        "from": "console-main-r-output",
+        "to": "pa-processor-amp-r-input",
+        "score": "500",
+        "completeCount": 6,
+        "todoCount": 5
+      }
+    ],
+    "speaker": [
+      {
+        "from": "pa-processor-amp-l-output",
+        "to": "left-speaker-input",
+        "score": "500",
+        "completeCount": 6,
+        "todoCount": 5
+      },
+      {
+        "from": "pa-processor-amp-r-output",
+        "to": "right-speaker-input",
+        "score": "600",
+        "completeCount": 8,
+        "todoCount": 3
+      }
+    ],
+    "pressFeed": [
+      {
+        "from": "console-matrix-record-l-output",
+        "to": "press-recorder-l-input",
+        "score": "600",
+        "completeCount": 8,
+        "todoCount": 3
+      },
+      {
+        "from": "console-matrix-record-r-output",
+        "to": "press-recorder-r-input",
+        "score": "700",
+        "completeCount": 10,
+        "todoCount": 1
+      }
+    ],
+    "monitor": [
+      {
+        "from": "console-aux-1-output",
+        "to": "moderator-wedge-input",
+        "score": "800",
+        "completeCount": 12,
+        "todoCount": 0
+      }
+    ]
+  },
+  "completion": {
+    "passed": true,
+    "finalState": {
+      "scoreText": "800",
+      "doneCount": 0,
+      "completeCount": 12,
+      "todoCount": 0,
+      "completionVisible": true,
+      "gearCount": 7,
+      "hitboxCount": 30,
+      "goodHitboxCount": 22,
+      "falseHitboxCount": 8,
+      "validHintCount": 0,
+      "falseHintCount": 0,
+      "falseHintableCount": 0,
+      "buttonText": "Show Hints",
+      "toastText": [],
+      "cablePathCount": 22,
+      "invalidCableCount": 0,
+      "layerCount": 1,
+      "wirelessReceiverAsset": "http://127.0.0.1:5174/assets/live-sound/svg/hardware/wireless-receiver-panel-animated-aligned.svg",
+      "viewport": {
+        "surface": {
+          "left": 367,
+          "top": 241,
+          "width": 1048,
+          "height": 603.828125,
+          "scrollWidth": 1048,
+          "scrollHeight": 646,
+          "scrollLeft": 0,
+          "scrollTop": 0
+        },
+        "layer": {
+          "left": 367,
+          "top": 241,
+          "width": 1000,
+          "height": 610
+        }
+      },
+      "textSample": "SF\nLIV-029 - Debate Panel Signal Flow\nRecording Studio\nBroadcast / Podcast / Livestream\nFilm / TV Post Production\nVideo Game Audio\nSound Reinforcement / Live Sound\nLIV-002\nLIV-001 [QUIZ]\nLIV-003\nLIV-004 [BUILD]\nLIV-005\nLIV-006\nLIV-007\nLIV-008 [DIAG]\nLIV-009\nLIV-010\nLIV-011\nLIV-012\nLIV-013 [BUILD]\nLIV-014\nLIV-015\nLIV-016\nLIV-017 [DIAG]\nLIV-018\nLIV-019\nLIV-020\nLIV-021\nLIV-022 [QUIZ]\nLIV-023\nLIV-024\nLIV-025\nLIV-026\nLIV-027 [BUILD]\nLIV-028\nLIV-029\nLIV-030\nLIV-031 [DIAG]\nLIV-032\nLIV-033\nLIV-034\nLIV-035\nLIV-036 [QUIZ]\nLIV-037\nLIV-038\nLIV-039\nLIV-040\nLIV-041 [BUILD]\nLIV-042\nLIV-043\nLIV-044\nLIV-045 [QUIZ]\nLIV-046\nLIV-047\nLIV-048\nLIV-049\nLIV-050 [DIAG]\nLIV-113 [SHOW]\nSCORE\n800\nTIMER\n156\nSound\nPause\nSplash\n\nCURRENT LEVEL\n\nDebate Panel Signal Flow\n\nPress Start Level to read the brief, then patch the routes below.\n\nPATCH THESE EXTERNAL CONNECTIONS\n1.\nModerator Lav Audio Out → Console Input 1\nCOMPLETE\n2.\nPanelist 1 Lav Audio Out → Console Input 2\nCOMPLETE\n3.\nPanelist 2 Lav Audio Out → Console Input 3\nCOMPLETE\n4.\nAudience Q&A Handheld Audio Out → Console Input 4\nCOMPLETE\n5.\nConsole Main Left Out → PA Processor/Amp Left In\nCOMPLETE\n6.\nConsole Main Right Out → PA Processor/Amp Right In\nCOMPLETE\n7.\nPA Processor/Amp Left Out → Left Speaker In\nCOMPLETE\n8.\nPA Processor/Amp Right Out → Right Speaker In\nCOMPLETE\n9.\nConsole Matrix/Record Left Out → Press/Recorder Left In\nCOMPLETE\n10.\nConsole Matrix/Record Right Out → Press/Recorder Right In\nCOMPLETE\n11.\nConsole Auxiliary 1 Out → Moderator Wedge In\nCOMPLETE\nREALITY CHECK\nThis board introduces a speech-first panel workflow instead of another music-stage patch.\nKeep RF, line-level, and speaker-level connections conceptually separate.\nFollow signal direction: microphones and receivers feed the console; console outputs distribute mixes.\nEDUCATIONAL TOOLS\nLive Console + Rack World\nShow Hints\nUndo\nClear\nDebate Panel Signal Flow: route wireless audio through the console before distributing PA, press, and moderator monitor feeds.\n4-CHANNEL WIRELESS RECEIVER RACK\nFOH CONSOLE\nLEFT SPEAKER\nRIGHT SPEAKER\nPRESS / RECORDER FEED BOX\nRF antenna jacks are traps, not audio outputs.\nCONSOLE INPUTS 1-4\nAUX / RECORD / MAIN OUTS\nPRESS / RECORD FEED\nPA PROCESSOR / AMP PATH\nLEFT / RIGHT PA SPEAKERS\nMODERATOR MONITOR\nCH1 MOD OUT\nCH2 P1 OUT\nCH3 P2 OUT\nCH4 Q&A OUT\nIN 1\nIN 2\nIN 3\nIN 4\nAUX 1\nREC L\nREC R\nMAIN L\nMAIN R\nPA L IN\nPA R IN\nAMP L OUT\nAMP R OUT\nL SPK I"
+    },
+    "errors": [],
+    "recentLogs": [
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: press-recorder-l-input selected was console-matrix-record-l-output"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native route added: liv029-record-l-to-press-l valid? true"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 600, totalCredits: 150, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 600"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native cables redrawn: 9"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: console-matrix-record-r-output selected was null"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: press-recorder-r-input selected was console-matrix-record-r-output"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native route added: liv029-record-r-to-press-r valid? true"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 700, totalCredits: 175, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native checklist target matched: liv029-record-l-to-press-l 9.Console Matrix/Record Left Out → Press/Recorder Left InTo do"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native checklist target matched: liv029-record-r-to-press-r 10.Console Matrix/Record Right Out → Press/Recorder Right InTo do"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 700"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native cables redrawn: 10"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: console-aux-1-output selected was null"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native node select/connect: moderator-wedge-input selected was console-aux-1-output"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native route added: liv029-aux-1-to-moderator-wedge valid? true"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native ledger updated: {environmentId: live-sound, currentLevelId: LIV-029, totalScore: 800, totalCredits: 200, spentCredits: 0}"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native checklist target matched: liv029-aux-1-to-moderator-wedge 11.Console Auxiliary 1 Out → Moderator Wedge InTo do"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native score updated: 800"
+      },
+      {
+        "type": "log",
+        "text": "[Signal Flow] Native cables redrawn: 11"
+      }
+    ]
+  },
+  "visualRuntimeNotes": [
+    "Automated smoke confirms mount counts and route-family clickability, but visual label/cable readability still needs human browser review.",
+    "Surface width was greater than the 1000px board in the 1440x900 smoke, so no horizontal clipping was detected in this viewport.",
+    "Surface height was slightly shorter than board plus spacer, so small vertical scroll is expected."
+  ]
+}

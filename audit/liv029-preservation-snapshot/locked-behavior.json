@@ -1,0 +1,84 @@
+{
+  "levelId": "LIV-029",
+  "title": "Debate Panel Signal Flow",
+  "evidenceOnly": true,
+  "sourceFiles": {
+    "renderer": "src/live-sound-native-renderer.js",
+    "sourceBoard": "data/live-sound/boards/liv029.json",
+    "normalizedBoard": "data/live-sound/boards/normalized/liv029.normalized.json",
+    "launcher": "launch/Signal_Flow_v1_41_18_NAV_WRAPPER.html",
+    "legacyLauncher": "launch/Signal_Flow_v1_41_16_IR_NORMAL_LEVEL_FLOW_FIX.html",
+    "acceptance": "tools/live_sound_patch_acceptance.test.mjs"
+  },
+  "rendererFunctionsAndConstants": {
+    "spec": "LIV-029 entry in LIVE_SOUND_LEVEL_SPECS",
+    "scaffold": "renderLiv029DebatePanelScaffold(surface, adapter)",
+    "hitboxes": "LIV029_HITBOXES",
+    "genericPuzzleSpecReader": "getLiveSoundPuzzleSpec(board, levelId)",
+    "genericFeedbackResolver": "resolveLiveSoundPuzzleFeedback(...)",
+    "hintFiltering": "isLiveSoundPuzzleHintExcluded(...) plus data-sf-native-hintable flags",
+    "stereoChecklistBehavior": "markChecklistForCompletedRoute handles LIV-029 stereo groups like LIV-016"
+  },
+  "cableLayerAndAnchors": {
+    "nativeLayerClass": "sf-live-native-layer sf-live-native-level-liv-029 sf-liv029-debate-panel-scaffold",
+    "hitboxClass": "sf-native-liv029-hitbox",
+    "cableAnchors": "data-sf-native-point-x/y set from runtime hitbox centers",
+    "routeBends": "defaultCableBend has LIV-029-specific bend values for all 11 required routes",
+    "cableReadability": "LIV-029 cables use slimmer native styling than default patch boards."
+  },
+  "hints": {
+    "validEndpointCount": 22,
+    "falseTrapExcludedCount": 8,
+    "validEndpointFlags": [
+      "data-sf-native-hintable=1",
+      "data-sf-native-good-hint=1"
+    ],
+    "falseEndpointFlags": [
+      "data-sf-native-false-jack=1",
+      "data-sf-native-hintable=0"
+    ],
+    "expectation": "Show Hints should reveal only the 22 valid endpoint hitboxes and never the 8 false/trap hitboxes."
+  },
+  "trapsAndFeedback": {
+    "topLevelPuzzleTrapRoutes": 15,
+    "falseTrapHitboxes": 8,
+    "rfTrapExpectation": "Wireless Receiver Antenna A/B should draw red invalid routes and show RF-not-audio feedback.",
+    "completionExpectation": "Trap routes are invalid and do not count toward completion."
+  },
+  "scoring": {
+    "expectedValidRouteScore": "+100 per newly completed required route",
+    "expectedWrongRoutePenalty": "-50, clamped at 0",
+    "repeatedWrongRoute": "Should not repeatedly penalize the same wrong route if existing ledger rules recognize the duplicate.",
+    "notes": "This snapshot records expected behavior; browser smoke must confirm current runtime behavior."
+  },
+  "completion": {
+    "requiredRouteCount": 11,
+    "stereoGroupCount": 3,
+    "finalCompletionExpectation": "Completion should trigger only after all 11 required route IDs are complete."
+  },
+  "remountAndViewport": {
+    "scrollHostClass": "sf-live-native-liv029-scroll-host",
+    "boardDimensions": {
+      "widthPx": 1000,
+      "heightPx": 610
+    },
+    "expectedViewportBehavior": "Core route families should be playable in a normal desktop viewport with no excessive panning.",
+    "knownRisk": "Runtime/source geometry mismatch means browser smoke is the authority for viewport fit."
+  },
+  "manifestParity": {
+    "sourceRouteCount": 11,
+    "normalizedRouteCount": 11,
+    "sourceGoodHitboxes": 22,
+    "sourceFalseHitboxes": 8,
+    "runtimeGoodHitboxes": 22,
+    "runtimeFalseHitboxes": 8,
+    "alignedWirelessAssetInSource": true,
+    "alignedWirelessAssetInRuntime": true
+  },
+  "knownVisualRisks": [
+    "Cable clutter may still be dense across the console and PA processor/amp area.",
+    "Right-side speaker/PA area should be re-smoked for clipping after the compact runtime layout.",
+    "Moderator monitor label and wedge jack should be checked for crowding.",
+    "Source-manifest geometry differs from runtime geometry; future edits must choose runtime/browser parity first."
+  ]
+}
