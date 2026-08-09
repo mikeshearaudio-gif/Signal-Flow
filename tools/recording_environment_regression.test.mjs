@@ -8,6 +8,13 @@ const launchSource = readFileSync(
   "utf8"
 );
 
+test("REC studio sidebar grid reserves max-content rows for the checklist and following siblings", () => {
+  assert.ok(
+    /\.game\.studio-sidebar-layout \.studio-side-panel \.panel-scroll\s*\{[^}]*grid-auto-rows\s*:\s*max-content\b[^}]*\}/.test(launchSource),
+    "The studio sidebar grid must size each implicit row from its content so #paths cannot collapse beneath its path cards"
+  );
+});
+
 function extractFunction(source, name) {
   const start = source.indexOf(`function ${name}(`);
   assert.notEqual(start, -1, `Expected ${name}() in the launch build`);
