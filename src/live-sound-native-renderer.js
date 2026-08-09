@@ -3285,10 +3285,10 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   // LIV-011 v6r241 native SFX latency fix: preload/decode and pool route feedback sounds.
-  const NATIVE_SFX_SOURCES = [
-    "/assets/audio/sfx/SFcoin(81).wav",
-    "/assets/audio/sfx/wrong_patch_blip(51).mp3"
-  ];
+  const NATIVE_SFX_SOURCES = {
+    correct: sfRepoUrl("assets/audio/sfx/SFcoin(81).wav"),
+    wrong: sfRepoUrl("assets/audio/sfx/wrong_patch_blip(51).mp3")
+  };
   const NATIVE_SFX_POOL_SIZE = 4;
   const nativeSfxBuffers = window.__sfLiveNativeSfxBuffers || (window.__sfLiveNativeSfxBuffers = Object.create(null));
   const nativeSfxPromises = window.__sfLiveNativeSfxPromises || (window.__sfLiveNativeSfxPromises = Object.create(null));
@@ -3338,7 +3338,7 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function primeNativeSfx() {
-    NATIVE_SFX_SOURCES.forEach(src => {
+    Object.values(NATIVE_SFX_SOURCES).forEach(src => {
       loadNativeSfxBuffer(src);
       getNativeSfxPool(src);
     });
@@ -3405,11 +3405,11 @@ if (activeNativeLevelId === nextLevelId) return;
   }
 
   function playGoodConnect() {
-    playNativeSfx("/assets/audio/sfx/SFcoin(81).wav", 0.75, 0);
+    playNativeSfx(NATIVE_SFX_SOURCES.correct, 0.75, 0);
   }
 
   function playBadConnect() {
-    playNativeSfx("/assets/audio/sfx/wrong_patch_blip(51).mp3", 0.78, 0);
+    playNativeSfx(NATIVE_SFX_SOURCES.wrong, 0.78, 0);
   }
 
   function checklistDocuments() {

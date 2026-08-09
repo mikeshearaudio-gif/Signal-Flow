@@ -8184,6 +8184,29 @@ body.paused .patchbay-wrap{filter:saturate(.75) brightness(.78)}
   min-height:0!important;
 }
 
+/* Recording checklist rows must grow with wrapped instructional copy. */
+.game.env-studio #paths{
+  display:grid;
+  grid-auto-rows:max-content;
+  align-content:start;
+  gap:8px;
+}
+.game.env-studio #paths > .path-card{
+  min-height:0!important;
+  height:auto!important;
+  margin-bottom:0;
+}
+.game.env-studio #paths .path-card-line{
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:start;
+}
+.game.env-studio #paths .path-card-line > span{
+  min-width:0;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
 </style>
 <style id="sf-live-native-liv025-prehide">
 /* LIV-025 native renderer: prevent the legacy front UI from flashing before native mount. */
@@ -24430,22 +24453,48 @@ function mistakeTeachingMessage(from,to,requiredEdge,forbiddenEdge,forbidden){
 function addConnection(from,to){
   if(state.gameOver || state.paused) return;
   if(connectionAlreadyExists(from,to)) return;
-  if(!isDigitalLevel() && (isNodeOccupied(from) || isNodeOccupied(to))){
-    const occupied = isNodeOccupied(from) ? from : to;
-    playSfx('wrong');
-    status('bad', `That physical patch point already has a plug: ${occupied}. Undo or clear before repatching.`);
-    return;
-  }
   const l = level();
   const requiredEdge = canonicalRequiredEdge(from, to, l);
   const forbiddenEdge = canonicalForbiddenEdge(from, to, l);
+  let retainedConnections = state.connections;
+  let replacedConnections = [];
+  if(!isDigitalLevel()){
+    const requiredSources = new Set(requiredPairs(l).map(([source]) => source));
+    const sourceNode = requiredEdge?.from || [from, to].find(node =>
+      roleForNode(node) === 'source' || requiredSources.has(node)
+    );
+    const targetNode = sourceNode === from ? to : from;
+    if(sourceNode){
+      replacedConnections = state.connections.filter(c => c.from === sourceNode || c.to === sourceNode);
+      const targetOccupiedByOtherRoute = state.connections.some(c =>
+        (c.from === targetNode || c.to === targetNode) && !replacedConnections.includes(c)
+      );
+      if(targetOccupiedByOtherRoute){
+        playSfx('wrong');
+        status('bad', `That physical patch point already has a plug: ${targetNode}. Undo or clear before repatching.`);
+        return;
+      }
+      if(replacedConnections.length){
+        retainedConnections = state.connections.filter(c => !replacedConnections.includes(c));
+      }
+    }
+    if(retainedConnections.some(c => c.from === from || c.to === from || c.from === to || c.to === to)){
+      const occupied = retainedConnections.some(c => c.from === from || c.to === from) ? from : to;
+      playSfx('wrong');
+      status('bad', `That physical patch point already has a plug: ${occupied}. Undo or clear before repatching.`);
+      return;
+    }
+  }
   const signalFrom = requiredEdge ? requiredEdge.from : from;
   const signalTo = requiredEdge ? requiredEdge.to : to;
   const key = requiredEdge ? requiredEdge.key : edgeKey(signalFrom, signalTo);
   const correct = Boolean(requiredEdge);
-  const forbidden = Boolean(forbiddenEdge) || createsCycle([...state.connections, {from, to, signalFrom, signalTo}]);
+  const forbidden = Boolean(forbiddenEdge) || createsCycle([...retainedConnections, {from, to, signalFrom, signalTo}]);
   const wrong = !correct;
-  state.connections.push({from,to,signalFrom,signalTo,key,correct,wrong,forbidden,reversed:Boolean(requiredEdge?.reversed)});
+  replacedConnections.forEach(c => {
+    if(c.correct) state.scoredEdges.delete(connectionScoreKey(c));
+  });
+  state.connections = [...retainedConnections, {from,to,signalFrom,signalTo,key,correct,wrong,forbidden,reversed:Boolean(requiredEdge?.reversed)}];
   if(correct && !state.scoredEdges.has(key)){
     state.scoredEdges.add(key);
     sfAwardLedgerScoreOnce(key, 100, 25);
