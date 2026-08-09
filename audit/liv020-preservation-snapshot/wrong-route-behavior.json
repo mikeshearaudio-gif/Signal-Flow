@@ -1,0 +1,35 @@
+{
+  "levelId": "LIV-020",
+  "source": "src/live-sound-native-renderer.js",
+  "redInvalidRouteBehavior": true,
+  "invalidRoutesNonCompleting": true,
+  "behaviorFamilies": [
+    {
+      "id": "curated-bad-route-pairs",
+      "count": 113,
+      "sourceConstant": "LIV020_BAD_ROUTE_PAIRS",
+      "description": "Curated invalid real-endpoint pairs are allowed to draw red/invalid cables without completion credit."
+    },
+    {
+      "id": "false-hardware-jack-interactions",
+      "count": 113,
+      "sourceConstant": "LIV020_BAD_HITBOX_LAYOUT",
+      "description": "False hardware jack interactions are handled by sfLiv020FalseRoutePair and are not the same as curated bad-route pairs."
+    }
+  ],
+  "broadInvalidRouteRules": [
+    "LIV-020 does not use LIV-023/LIV-026 broad any-node invalid behavior.",
+    "Real endpoint invalid behavior is curated through LIV020_BAD_ROUTE_PAIRS.",
+    "False hardware jack behavior is mediated by sfLiv020FalseRoutePair."
+  ],
+  "knownForbiddenExamples": [],
+  "scoringOrPenaltyNotes": [
+    "Invalid routes use the existing native wrong-route path.",
+    "Invalid routes remain non-completing and do not mark checklist rows complete.",
+    "This snapshot does not change scoring."
+  ],
+  "evidenceNotes": [
+    "addRoute() calls sfLiv020RouteDecision() before committing valid or invalid cable state.",
+    "Curated bad-route pairs and false hardware hitbox layout arrays are preserved separately."
+  ]
+}

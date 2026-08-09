@@ -1,0 +1,406 @@
+{
+  "levelId": "LIV-029",
+  "falseHitboxCount": 8,
+  "hitboxes": [
+    {
+      "id": "wireless-receiver-antenna-a",
+      "label": "Wireless Receiver Antenna A",
+      "tag": "ANT A RF",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 52,
+        "y": 160,
+        "w": 30,
+        "h": 30
+      },
+      "centerPx": {
+        "x": 67,
+        "y": 175
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 74,
+          "y": 220,
+          "w": 30,
+          "h": 30
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -22,
+          "y": -60,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "wireless-receiver-antenna-a",
+            "to": "console-input-1",
+            "concept": "rf-vs-audio",
+            "severity": "teach",
+            "message": "This is RF, not audio. Use the receiver's audio output."
+          }
+        ],
+        "message": "This is RF, not audio. Use the receiver's audio output."
+      }
+    },
+    {
+      "id": "wireless-receiver-antenna-b",
+      "label": "Wireless Receiver Antenna B",
+      "tag": "ANT B RF",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 52,
+        "y": 280,
+        "w": 30,
+        "h": 30
+      },
+      "centerPx": {
+        "x": 67,
+        "y": 295
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 74,
+          "y": 316,
+          "w": 30,
+          "h": 30
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -22,
+          "y": -36,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "wireless-receiver-antenna-b",
+            "to": "console-input-2",
+            "concept": "rf-vs-audio",
+            "severity": "teach",
+            "message": "This is RF, not audio. Use the receiver's audio output."
+          }
+        ],
+        "message": "This is RF, not audio. Use the receiver's audio output."
+      }
+    },
+    {
+      "id": "pa-speaker-output-trap",
+      "label": "PA Amp Speaker Output Trap",
+      "tag": "SPKR OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 635,
+        "y": 386,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 648,
+        "y": 399
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 894,
+          "y": 502,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -259,
+          "y": -116,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "pa-speaker-output-trap",
+            "to": "press-recorder-l-input",
+            "concept": "speaker-level-unsafe",
+            "severity": "unsafe",
+            "message": "This is speaker-level output and can overload or damage recording inputs."
+          }
+        ],
+        "message": "This is speaker-level output and can overload or damage recording inputs."
+      }
+    },
+    {
+      "id": "press-recorder-output",
+      "label": "Press Recorder Output",
+      "tag": "REC OUT",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 255,
+        "y": 430,
+        "w": 26,
+        "h": 26
+      },
+      "centerPx": {
+        "x": 268,
+        "y": 443
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 322,
+          "y": 536,
+          "w": 26,
+          "h": 26
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -67,
+          "y": -106,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "press-recorder-output",
+            "to": "console-input-4",
+            "concept": "wrong-direction",
+            "severity": "teach",
+            "message": "This reverses the signal direction. The recorder should receive a feed from the console."
+          }
+        ],
+        "message": "This reverses the signal direction. The recorder should receive a feed from the console."
+      }
+    },
+    {
+      "id": "left-speaker-thru",
+      "label": "Left Speaker Thru",
+      "tag": "L THRU",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 795,
+        "y": 510,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 809,
+        "y": 524
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1050,
+          "y": 640,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -255,
+          "y": -130,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "left-speaker-thru",
+            "to": "console-input-1",
+            "concept": "speaker-level-unsafe",
+            "severity": "unsafe",
+            "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+          }
+        ],
+        "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+      }
+    },
+    {
+      "id": "right-speaker-thru",
+      "label": "Right Speaker Thru",
+      "tag": "R THRU",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 895,
+        "y": 510,
+        "w": 28,
+        "h": 28
+      },
+      "centerPx": {
+        "x": 909,
+        "y": 524
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1272,
+          "y": 640,
+          "w": 28,
+          "h": 28
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -377,
+          "y": -130,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "right-speaker-thru",
+            "to": "console-input-2",
+            "concept": "speaker-level-unsafe",
+            "severity": "unsafe",
+            "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+          }
+        ],
+        "message": "Speaker outputs are not console inputs. Follow signal from source to mix to amplifier to speaker."
+      }
+    },
+    {
+      "id": "console-main-l-wedge-trap",
+      "label": "Main L Wedge Trap",
+      "tag": "MAIN?",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 865,
+        "y": 212,
+        "w": 24,
+        "h": 24
+      },
+      "centerPx": {
+        "x": 877,
+        "y": 224
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 1174,
+          "y": 258,
+          "w": 24,
+          "h": 24
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -309,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "console-main-l-wedge-trap",
+            "to": "moderator-wedge-input",
+            "concept": "wrong-bus",
+            "severity": "warning",
+            "message": "The wedge should receive a monitor/aux mix, not the main audience mix."
+          }
+        ],
+        "message": "The wedge should receive a monitor/aux mix, not the main audience mix."
+      }
+    },
+    {
+      "id": "console-aux-pa-trap",
+      "label": "Aux To PA Trap",
+      "tag": "AUX?",
+      "kind": "source",
+      "coordinateSystem": "LIV-029 runtime board pixels from renderLiv029DebatePanelScaffold",
+      "runtimeGeometry": {
+        "x": 665,
+        "y": 212,
+        "w": 24,
+        "h": 24
+      },
+      "centerPx": {
+        "x": 677,
+        "y": 224
+      },
+      "routeAssociations": [],
+      "sourceManifestComparison": {
+        "sourceManifestGeometry": {
+          "x": 950,
+          "y": 258,
+          "w": 24,
+          "h": 24
+        },
+        "geometryMatchesSourceManifest": false,
+        "delta": {
+          "x": -285,
+          "y": -46,
+          "w": 0,
+          "h": 0
+        }
+      },
+      "source": "src/live-sound-native-renderer.js",
+      "falseTrap": true,
+      "hintable": false,
+      "completing": false,
+      "neutralBeforeInteraction": true,
+      "trapPurpose": {
+        "purpose": [
+          {
+            "from": "console-aux-pa-trap",
+            "to": "pa-processor-amp-l-input",
+            "concept": "wrong-bus",
+            "severity": "warning",
+            "message": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix."
+          }
+        ],
+        "message": "Aux sends are monitor mixes here. The PA processor should receive the main L/R mix."
+      }
+    }
+  ]
+}

@@ -18337,50 +18337,115 @@ window.SIGNAL_FLOW_V12 = {
           "time": 420
     },
     {
-      "id": "LIV-020",
-      "environment": "live",
-      "title": "Main PA amp feed",
-      "brief": "Patch the console mains into the system processor, then patch the processor outputs into the main PA amplifier inputs.",
-      "difficulty": 2,
-      "required": [
-        [
-          "Main L Output",
-          "System Processor L In"
-        ],
-        [
-          "Main R Output",
-          "System Processor R In"
-        ],
-        [
-          "System Processor L Out",
-          "Main PA L Input"
-        ],
-        [
-          "System Processor R Out",
-          "Main PA R Input"
-        ]
-      ],
-      "forbidden": [
-        [
-          "Main L Output",
-          "Main PA R Input"
-        ],
-        [
-          "Main R Output",
-          "Main PA L Input"
-        ]
-      ],
-      "system": [
-        "Main L/R console outputs feed the system processor inputs first.",
-        "The processor outputs, not its inputs, feed the main PA amplifier inputs."
-      ],
-      "notes": [
-        "Do not patch processor input jacks into amplifier inputs. The back-panel path is console output → processor input → processor output → amp input."
-      ],
-      "learning": [
-        "System processing",
-        "PA feed"
-      ]
+          "id": "LIV-020",
+          "environment": "live",
+          "title": "Main PA + IEM Monitor Feed",
+          "brief": "Patch the locked three-way main PA processor/amplifier chain while keeping five aux monitor sends on their intended IEM pack inputs.",
+          "difficulty": 2,
+          "required": [
+                [
+                      "Main L Output",
+                      "Crossover L Input"
+                ],
+                [
+                      "Main R Output",
+                      "Crossover R Input"
+                ],
+                [
+                      "Crossover High L Output",
+                      "High Amp L Input"
+                ],
+                [
+                      "Crossover High R Output",
+                      "High Amp R Input"
+                ],
+                [
+                      "Crossover Mid L Output",
+                      "Mid Amp L Input"
+                ],
+                [
+                      "Crossover Mid R Output",
+                      "Mid Amp R Input"
+                ],
+                [
+                      "Crossover Low L Output",
+                      "Low Amp L Input"
+                ],
+                [
+                      "Crossover Low R Output",
+                      "Low Amp R Input"
+                ],
+                [
+                      "High Amp L Output",
+                      "Left Line Array High Input"
+                ],
+                [
+                      "High Amp R Output",
+                      "Right Line Array High Input"
+                ],
+                [
+                      "Mid Amp L Output",
+                      "Left Line Array Mid Input"
+                ],
+                [
+                      "Mid Amp R Output",
+                      "Right Line Array Mid Input"
+                ],
+                [
+                      "Low Amp L Output",
+                      "Left Line Array Low Input"
+                ],
+                [
+                      "Low Amp R Output",
+                      "Right Line Array Low Input"
+                ],
+                [
+                      "Aux 1 Output",
+                      "IEM Pack 1 Input A"
+                ],
+                [
+                      "Aux 2 Output",
+                      "IEM Pack 1 Input B"
+                ],
+                [
+                      "Aux 3 Output",
+                      "IEM Pack 2 Input A"
+                ],
+                [
+                      "Aux 4 Output",
+                      "IEM Pack 2 Input B"
+                ],
+                [
+                      "Aux 5 Output",
+                      "IEM Pack 3 Input A"
+                ]
+          ],
+          "forbidden": [
+                [
+                      "Main L Output",
+                      "Main PA R Input"
+                ],
+                [
+                      "Main R Output",
+                      "Main PA L Input"
+                ]
+          ],
+          "system": [
+                "Main L/R console outputs feed the crossover before any amplifier or speaker input.",
+                "High, mid, and low crossover outputs feed the matching amplifier inputs in left/right order.",
+                "Amplifier outputs feed the matching high, mid, and low line-array inputs.",
+                "Five Aux outputs feed the intended IEM pack inputs as individual mono monitor routes."
+          ],
+          "notes": [
+                "Keep the PA processor/amplifier chain and the Aux-to-IEM monitor feed paths separate. The valid checklist has 19 route rows: seven stereo PA groups represented as two visible rows each, plus five individual mono IEM routes."
+          ],
+          "learning": [
+                "Three-way PA processing",
+                "Amplifier-to-speaker feeds",
+                "Aux-to-IEM monitor feeds",
+                "Stereo L/R consistency",
+                "Multi-route capstone routing"
+          ]
     },
     {
       "id": "LIV-021",
